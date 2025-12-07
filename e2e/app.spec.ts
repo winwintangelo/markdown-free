@@ -307,8 +307,9 @@ test.describe("Markdown Free - Navigation", () => {
     const heading = page.getByRole("heading", { name: "About Markdown Free" });
     await expect(heading).toBeVisible();
 
-    const content = page.getByText(/Markdown Free is a fast, free/);
-    await expect(content).toBeVisible();
+    // Check for the lead paragraph content
+    const lead = page.getByText(/fast, free, web-based Markdown viewer/);
+    await expect(lead).toBeVisible();
   });
 
   test("Privacy page loads correctly", async ({ page }) => {
@@ -969,6 +970,93 @@ Safe paragraph.
     // Safe content should render
     await expect(article.locator("h1")).toContainText("Safe Title");
     await expect(article.locator("p").first()).toContainText("Safe paragraph");
+  });
+});
+
+test.describe("Markdown Free - Mobile Navigation", () => {
+  test.beforeEach(async ({ page }) => {
+    // Set mobile viewport
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto("/");
+  });
+
+  test("hamburger menu is visible on mobile", async ({ page }) => {
+    // Desktop nav should be hidden
+    const desktopNav = page.locator("nav.hidden.md\\:flex");
+    await expect(desktopNav).not.toBeVisible();
+
+    // Hamburger button should be visible
+    const hamburgerButton = page.locator('button[aria-label="Open menu"]');
+    await expect(hamburgerButton).toBeVisible();
+  });
+
+  test("clicking hamburger opens mobile menu", async ({ page }) => {
+    const hamburgerButton = page.locator('button[aria-label="Open menu"]');
+    await hamburgerButton.click();
+
+    // Menu should open
+    await expect(page.locator('button[aria-label="Close menu"]')).toBeVisible();
+    
+    // Navigation links should be visible
+    await expect(page.locator("header").getByRole("link", { name: "About" })).toBeVisible();
+    await expect(page.locator("header").getByRole("link", { name: "Privacy" })).toBeVisible();
+  });
+
+  test("clicking menu link closes menu and navigates", async ({ page }) => {
+    // Open menu
+    await page.locator('button[aria-label="Open menu"]').click();
+    
+    // Click About link
+    await page.locator("header").getByRole("link", { name: "About" }).click();
+    
+    // Should navigate to About page
+    await expect(page).toHaveURL("/about");
+    
+    // Menu should be closed (hamburger button shows "Open menu" again)
+    await expect(page.locator('button[aria-label="Open menu"]')).toBeVisible();
+  });
+
+  test("clicking X closes mobile menu", async ({ page }) => {
+    // Open menu
+    await page.locator('button[aria-label="Open menu"]').click();
+    await expect(page.locator('button[aria-label="Close menu"]')).toBeVisible();
+    
+    // Close menu
+    await page.locator('button[aria-label="Close menu"]').click();
+    
+    // Menu should be closed
+    await expect(page.locator('button[aria-label="Open menu"]')).toBeVisible();
+  });
+});
+
+test.describe("Markdown Free - SEO & Metadata", () => {
+  test("homepage has correct title and meta description", async ({ page }) => {
+    await page.goto("/");
+    
+    // Check title
+    await expect(page).toHaveTitle(/Markdown Free/);
+    
+    // Check meta description
+    const description = await page.locator('meta[name="description"]').getAttribute("content");
+    expect(description).toContain("Markdown");
+    expect(description).toContain("converter");
+  });
+
+  test("about page has correct title", async ({ page }) => {
+    await page.goto("/about");
+    await expect(page).toHaveTitle(/About.*Markdown Free/);
+  });
+
+  test("privacy page has correct title", async ({ page }) => {
+    await page.goto("/privacy");
+    await expect(page).toHaveTitle(/Privacy.*Markdown Free/);
+  });
+
+  test("favicon is present", async ({ page }) => {
+    await page.goto("/");
+    const favicon = page.locator('link[rel="icon"]');
+    const href = await favicon.getAttribute("href");
+    expect(href).toContain("favicon");
   });
 });
 

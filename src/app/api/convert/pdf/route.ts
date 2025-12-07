@@ -235,8 +235,8 @@ export async function POST(request: NextRequest) {
       ? filename.replace(/\.(md|markdown|txt)$/i, ".pdf")
       : "document.pdf";
 
-    // Return PDF
-    return new NextResponse(pdfBuffer, {
+    // Return PDF - Convert Uint8Array to Buffer for NextResponse
+    return new NextResponse(Buffer.from(pdfBuffer), {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
