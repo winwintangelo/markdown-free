@@ -354,8 +354,22 @@ test.describe("Markdown Free - Export Functionality", () => {
     await page.goto("/");
   });
 
-  test("PDF button shows coming soon toast", async ({ page }) => {
+  test("PDF button shows loading state when clicked", async ({ page }) => {
     const fileInput = page.locator('input[type="file"]');
+
+    // Mock the PDF API to delay response
+    await page.route("**/api/convert/pdf", async (route) => {
+      // Delay to show loading state
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      await route.fulfill({
+        status: 200,
+        contentType: "application/pdf",
+        body: Buffer.from("%PDF-1.4 mock content"),
+        headers: {
+          "Content-Disposition": 'attachment; filename="test.pdf"',
+        },
+      });
+    });
 
     await fileInput.setInputFiles({
       name: "test.md",
@@ -369,8 +383,141 @@ test.describe("Markdown Free - Export Functionality", () => {
     const pdfButton = page.getByRole("button", { name: "To PDF" });
     await pdfButton.click();
 
-    // Should show toast
-    await expect(page.getByText("PDF export coming soon!")).toBeVisible();
+    // Should show loading state
+    await expect(page.getByText("Generating...")).toBeVisible();
+    await expect(page.getByText("Generating PDF... This may take a few seconds.")).toBeVisible();
+  });
+
+  test("PDF export triggers download on success", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Mock the PDF API with success response
+    await page.route("**/api/convert/pdf", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/pdf",
+        body: Buffer.from("%PDF-1.4 mock content"),
+        headers: {
+          "Content-Disposition": 'attachment; filename="test.pdf"',
+        },
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test\n\nContent"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Set up download listener
+    const downloadPromise = page.waitForEvent("download");
+
+    // Click PDF button
+    const pdfButton = page.getByRole("button", { name: "To PDF" });
+    await pdfButton.click();
+
+    // Verify download was triggered
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("test.pdf");
+  });
+
+  test("PDF error shows retry button", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Mock the PDF API with error response
+    await page.route("**/api/convert/pdf", async (route) => {
+      await route.fulfill({
+        status: 500,
+        contentType: "application/json",
+        body: JSON.stringify({
+          error: "GENERATION_FAILED",
+          message: "PDF generation failed. Please try again.",
+        }),
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test\n\nContent"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Click PDF button
+    const pdfButton = page.getByRole("button", { name: "To PDF" });
+    await pdfButton.click();
+
+    // Should show error banner with retry button
+    await expect(page.getByText("PDF generation failed", { exact: true })).toBeVisible();
+    await expect(page.getByText("PDF generation failed. Please try again.", { exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Try Again" })).toBeVisible();
+  });
+
+  test("PDF timeout error shows appropriate message", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Mock the PDF API with timeout error
+    await page.route("**/api/convert/pdf", async (route) => {
+      await route.fulfill({
+        status: 504,
+        contentType: "application/json",
+        body: JSON.stringify({
+          error: "GENERATION_TIMEOUT",
+          message: "PDF generation timed out. Please try again with a smaller document.",
+        }),
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test\n\nContent"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Click PDF button
+    await page.getByRole("button", { name: "To PDF" }).click();
+
+    // Should show timeout error
+    await expect(page.getByText("PDF generation timed out")).toBeVisible();
+  });
+
+  test("error banner can be dismissed", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Mock the PDF API with error
+    await page.route("**/api/convert/pdf", async (route) => {
+      await route.fulfill({
+        status: 500,
+        contentType: "application/json",
+        body: JSON.stringify({
+          error: "GENERATION_FAILED",
+          message: "PDF generation failed. Please try again.",
+        }),
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Trigger error
+    await page.getByRole("button", { name: "To PDF" }).click();
+    await expect(page.getByText("PDF generation failed", { exact: true })).toBeVisible();
+
+    // Click dismiss button (X)
+    await page.locator('button:has(svg.lucide-x)').click();
+
+    // Error should be gone
+    await expect(page.getByText("PDF generation failed", { exact: true })).not.toBeVisible();
   });
 
   test("TXT export triggers download", async ({ page }) => {

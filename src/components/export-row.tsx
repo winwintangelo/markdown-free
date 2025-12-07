@@ -1,20 +1,29 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import { Loader2 } from "lucide-react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import { Loader2, AlertCircle, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useConverter } from "@/hooks/use-converter";
 import { exportTxt } from "@/lib/export-txt";
 import { exportHtml } from "@/lib/export-html";
+import { exportPdf, PdfExportResult } from "@/lib/export-pdf";
 import { markdownToHtml } from "@/lib/markdown";
 
 type ExportFormat = "pdf" | "txt" | "html";
 
+interface ExportError {
+  format: ExportFormat;
+  code: string;
+  message: string;
+  retryable: boolean;
+}
+
 export function ExportRow() {
   const { state } = useConverter();
   const [loadingFormat, setLoadingFormat] = useState<ExportFormat | null>(null);
-  const [toast, setToast] = useState<string | null>(null);
+  const [error, setError] = useState<ExportError | null>(null);
   const [renderedHtml, setRenderedHtml] = useState<string>("");
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const isDisabled = !state.content || state.status !== "ready";
 
@@ -27,112 +36,176 @@ export function ExportRow() {
     }
   }, [state.content]);
 
-  // Auto-hide toast after 3 seconds
+  // Cleanup abort controller on unmount
   useEffect(() => {
-    if (toast) {
-      const timer = setTimeout(() => setToast(null), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [toast]);
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
+
+  const clearError = useCallback(() => {
+    setError(null);
+  }, []);
 
   const handleExport = useCallback(
     async (format: ExportFormat) => {
       if (!state.content) return;
 
-      // PDF is not implemented yet
-      if (format === "pdf") {
-        setToast("PDF export coming soon!");
-        return;
-      }
-
+      // Clear any previous error
+      setError(null);
       setLoadingFormat(format);
 
       try {
         if (format === "txt") {
           exportTxt(state.content.content, state.content.filename);
         } else if (format === "html") {
-          // Use pre-rendered HTML or render now
           const html = renderedHtml || (await markdownToHtml(state.content.content));
           exportHtml(html, state.content.filename);
+        } else if (format === "pdf") {
+          // Create abort controller for PDF request
+          abortControllerRef.current = new AbortController();
+          
+          const result: PdfExportResult = await exportPdf(
+            state.content.content,
+            state.content.filename,
+            abortControllerRef.current.signal
+          );
+
+          if (!result.success && result.error) {
+            setError({
+              format: "pdf",
+              code: result.error.code,
+              message: result.error.message,
+              retryable: result.error.retryable,
+            });
+          }
         }
-      } catch (error) {
-        console.error(`Export error (${format}):`, error);
-        setToast(`Export failed. Please try again.`);
+      } catch (err) {
+        console.error(`Export error (${format}):`, err);
+        setError({
+          format,
+          code: "UNKNOWN_ERROR",
+          message: "Export failed. Please try again.",
+          retryable: true,
+        });
       } finally {
         setLoadingFormat(null);
+        abortControllerRef.current = null;
       }
     },
     [state.content, renderedHtml]
   );
 
+  const handleRetry = useCallback(() => {
+    if (error) {
+      const format = error.format;
+      clearError();
+      handleExport(format);
+    }
+  }, [error, clearError, handleExport]);
+
   return (
-    <div className="relative flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
-      <div className="flex flex-wrap gap-2">
-        {/* Primary: To PDF */}
-        <button
-          type="button"
-          disabled={isDisabled || loadingFormat === "pdf"}
-          onClick={() => handleExport("pdf")}
-          className={cn(
-            "inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold shadow-sm transition",
-            isDisabled
-              ? "cursor-not-allowed bg-slate-200 text-slate-400"
-              : "bg-emerald-600 text-white hover:bg-emerald-700"
-          )}
-        >
-          {loadingFormat === "pdf" && (
-            <Loader2 className="h-3 w-3 animate-spin" />
-          )}
-          To PDF
-        </button>
+    <div className="space-y-3">
+      {/* Error Banner */}
+      {error && (
+        <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3">
+          <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-red-500" />
+          <div className="flex-1">
+            <p className="text-sm font-medium text-red-800">
+              {error.format.toUpperCase()} generation failed
+            </p>
+            <p className="mt-1 text-xs text-red-600">{error.message}</p>
+            {error.retryable && (
+              <button
+                type="button"
+                onClick={handleRetry}
+                className="mt-2 inline-flex items-center gap-1 rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700 transition hover:bg-red-200"
+              >
+                Try Again
+              </button>
+            )}
+          </div>
+          <button
+            type="button"
+            onClick={clearError}
+            className="flex-shrink-0 rounded-full p-1 text-red-400 transition hover:bg-red-100 hover:text-red-600"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      )}
 
-        {/* Secondary: To TXT */}
-        <button
-          type="button"
-          disabled={isDisabled || loadingFormat === "txt"}
-          onClick={() => handleExport("txt")}
-          className={cn(
-            "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
-            isDisabled
-              ? "cursor-not-allowed border-slate-100 bg-slate-100 text-slate-400"
-              : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-white"
-          )}
-        >
-          {loadingFormat === "txt" && (
-            <Loader2 className="h-3 w-3 animate-spin" />
-          )}
-          To TXT
-        </button>
+      {/* Export Buttons Row */}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+        <div className="flex flex-wrap gap-2">
+          {/* Primary: To PDF */}
+          <button
+            type="button"
+            disabled={isDisabled || loadingFormat === "pdf"}
+            onClick={() => handleExport("pdf")}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold shadow-sm transition",
+              isDisabled
+                ? "cursor-not-allowed bg-slate-200 text-slate-400"
+                : loadingFormat === "pdf"
+                ? "cursor-wait bg-emerald-500 text-white"
+                : "bg-emerald-600 text-white hover:bg-emerald-700"
+            )}
+          >
+            {loadingFormat === "pdf" && (
+              <Loader2 className="h-3 w-3 animate-spin" />
+            )}
+            {loadingFormat === "pdf" ? "Generating..." : "To PDF"}
+          </button>
 
-        {/* Secondary: To HTML */}
-        <button
-          type="button"
-          disabled={isDisabled || loadingFormat === "html"}
-          onClick={() => handleExport("html")}
-          className={cn(
-            "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
-            isDisabled
-              ? "cursor-not-allowed border-slate-100 bg-slate-100 text-slate-400"
-              : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-white"
-          )}
-        >
-          {loadingFormat === "html" && (
-            <Loader2 className="h-3 w-3 animate-spin" />
-          )}
-          To HTML
-        </button>
+          {/* Secondary: To TXT */}
+          <button
+            type="button"
+            disabled={isDisabled || loadingFormat === "txt"}
+            onClick={() => handleExport("txt")}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
+              isDisabled
+                ? "cursor-not-allowed border-slate-100 bg-slate-100 text-slate-400"
+                : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-white"
+            )}
+          >
+            {loadingFormat === "txt" && (
+              <Loader2 className="h-3 w-3 animate-spin" />
+            )}
+            To TXT
+          </button>
+
+          {/* Secondary: To HTML */}
+          <button
+            type="button"
+            disabled={isDisabled || loadingFormat === "html"}
+            onClick={() => handleExport("html")}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
+              isDisabled
+                ? "cursor-not-allowed border-slate-100 bg-slate-100 text-slate-400"
+                : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-white"
+            )}
+          >
+            {loadingFormat === "html" && (
+              <Loader2 className="h-3 w-3 animate-spin" />
+            )}
+            To HTML
+          </button>
+        </div>
+
+        {/* Privacy notice */}
+        <p className="text-[11px] text-slate-500">
+          Files are processed temporarily for conversion and not stored.
+        </p>
       </div>
 
-      {/* Privacy notice */}
-      <p className="text-[11px] text-slate-500">
-        Files are processed temporarily for conversion and not stored.
-      </p>
-
-      {/* Toast notification */}
-      {toast && (
-        <div className="absolute -top-12 left-1/2 -translate-x-1/2 rounded-lg bg-slate-900 px-4 py-2 text-xs font-medium text-white shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-200">
-          {toast}
-        </div>
+      {/* Loading message for PDF */}
+      {loadingFormat === "pdf" && (
+        <p className="text-center text-xs text-slate-500">
+          Generating PDF... This may take a few seconds.
+        </p>
       )}
     </div>
   );
