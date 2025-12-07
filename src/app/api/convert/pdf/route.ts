@@ -154,28 +154,35 @@ function errorResponse(
   return NextResponse.json({ error: code, message }, { status });
 }
 
+// URL to hosted Chromium binary for Vercel deployment
+// Using official @sparticuz/chromium release from GitHub
+const CHROMIUM_PACK_URL =
+  "https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar";
+
 /**
  * Get browser instance based on environment
  * - Local development: uses full puppeteer with bundled Chromium
- * - Production (Vercel): uses puppeteer-core with @sparticuz/chromium
+ * - Production (Vercel): uses puppeteer-core with @sparticuz/chromium-min
+ * 
+ * See: https://vercel.com/kb/guide/deploying-puppeteer-with-nextjs-on-vercel
  */
 async function getBrowser() {
   if (IS_PRODUCTION) {
-    // Production: use puppeteer-core with @sparticuz/chromium for Vercel
+    // Production: use puppeteer-core with @sparticuz/chromium-min for Vercel
+    // chromium-min downloads the browser from a hosted URL at runtime
     const puppeteerCore = (await import("puppeteer-core")).default;
-    const chromium = (await import("@sparticuz/chromium")).default;
+    const chromium = (await import("@sparticuz/chromium-min")).default;
     
-    const executablePath = await chromium.executablePath();
+    // Get executable path - chromium-min will download from URL if needed
+    const executablePath = await chromium.executablePath(CHROMIUM_PACK_URL);
     
     console.log("Chromium executable path:", executablePath);
-    console.log("Chromium args:", chromium.args);
     
     return puppeteerCore.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath,
       headless: chromium.headless,
-      ignoreHTTPSErrors: true,
     });
   } else {
     // Local development: use full puppeteer with bundled Chromium
