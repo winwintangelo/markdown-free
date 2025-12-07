@@ -165,19 +165,17 @@ async function getBrowser() {
     const puppeteerCore = (await import("puppeteer-core")).default;
     const chromium = (await import("@sparticuz/chromium")).default;
     
-    // Configure chromium for serverless environment
-    chromium.setHeadlessMode = true;
-    chromium.setGraphicsMode = false;
-    
     const executablePath = await chromium.executablePath();
     
     console.log("Chromium executable path:", executablePath);
+    console.log("Chromium args:", chromium.args);
     
     return puppeteerCore.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath,
       headless: chromium.headless,
+      ignoreHTTPSErrors: true,
     });
   } else {
     // Local development: use full puppeteer with bundled Chromium
