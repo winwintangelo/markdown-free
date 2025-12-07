@@ -474,3 +474,228 @@ test.describe("Markdown Free - File Validation", () => {
   });
 });
 
+test.describe("Markdown Free - Markdown Rendering", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
+
+  test("uploading .md file renders formatted text in Preview card", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Upload markdown with various elements
+    await fileInput.setInputFiles({
+      name: "formatted.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from(`# Main Heading
+
+## Subheading
+
+This is a **bold** paragraph with *italic* text.
+
+- List item 1
+- List item 2
+
+\`inline code\` and a [link](https://example.com)
+
+\`\`\`javascript
+const code = "block";
+\`\`\`
+`),
+    });
+
+    // Wait for rendering
+    await page.waitForTimeout(500);
+
+    // Check that markdown is rendered as HTML elements
+    const article = page.locator("article");
+    
+    // Check heading is rendered as h1
+    await expect(article.locator("h1")).toContainText("Main Heading");
+    
+    // Check subheading is rendered as h2
+    await expect(article.locator("h2")).toContainText("Subheading");
+    
+    // Check bold text is rendered
+    await expect(article.locator("strong")).toContainText("bold");
+    
+    // Check italic text is rendered
+    await expect(article.locator("em")).toContainText("italic");
+    
+    // Check list is rendered
+    await expect(article.locator("ul li").first()).toContainText("List item 1");
+    
+    // Check inline code is rendered
+    await expect(article.locator("code").first()).toContainText("inline code");
+    
+    // Check code block is rendered
+    await expect(article.locator("pre code")).toContainText('const code = "block"');
+  });
+});
+
+test.describe("Markdown Free - Export Content Validation", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
+
+  test("TXT export downloads valid text file with original markdown", async ({ page }) => {
+    const markdownContent = "# Hello World\n\nThis is **test** content.";
+    const fileInput = page.locator('input[type="file"]');
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from(markdownContent),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Set up download listener
+    const downloadPromise = page.waitForEvent("download");
+
+    // Click TXT button
+    await page.getByRole("button", { name: "To TXT" }).click();
+
+    // Get download and read content
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("test.txt");
+
+    // Read the downloaded file content
+    const path = await download.path();
+    const fs = require("fs");
+    const downloadedContent = fs.readFileSync(path!, "utf-8");
+
+    // Verify content matches original markdown
+    expect(downloadedContent).toBe(markdownContent);
+  });
+
+  test("HTML export downloads valid HTML file with proper structure", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    await fileInput.setInputFiles({
+      name: "document.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test Document\n\nParagraph content here."),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Set up download listener
+    const downloadPromise = page.waitForEvent("download");
+
+    // Click HTML button
+    await page.getByRole("button", { name: "To HTML" }).click();
+
+    // Get download and read content
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("document.html");
+
+    // Read the downloaded file content
+    const path = await download.path();
+    const fs = require("fs");
+    const htmlContent = fs.readFileSync(path!, "utf-8");
+
+    // Verify HTML structure
+    expect(htmlContent).toContain("<!DOCTYPE html>");
+    expect(htmlContent).toContain("<html lang=\"en\">");
+    expect(htmlContent).toContain("<title>document</title>");
+    expect(htmlContent).toContain("<style>");
+    expect(htmlContent).toContain("<h1>Test Document</h1>");
+    expect(htmlContent).toContain("<p>Paragraph content here.</p>");
+    expect(htmlContent).toContain("</html>");
+  });
+});
+
+test.describe("Markdown Free - Security (XSS Prevention)", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
+
+  test("script tags in markdown are sanitized and do not execute", async ({ page }) => {
+    // Set up alert dialog listener - should NOT be triggered
+    let alertTriggered = false;
+    page.on("dialog", async (dialog) => {
+      alertTriggered = true;
+      await dialog.dismiss();
+    });
+
+    // Click paste toggle to reveal textarea
+    await page.getByRole("button", { name: "Or paste Markdown instead" }).click();
+    await page.waitForTimeout(100);
+
+    // Paste malicious content
+    const textarea = page.locator("textarea");
+    await textarea.fill(`# Normal Heading
+
+<script>alert('xss')</script>
+
+Some normal text.
+
+<img src="x" onerror="alert('xss2')">
+
+<a href="javascript:alert('xss3')">Click me</a>
+`);
+
+    // Wait for debounce and rendering
+    await page.waitForTimeout(600);
+
+    // Verify the script tag is NOT in the rendered output
+    const article = page.locator("article");
+    const articleHtml = await article.innerHTML();
+    
+    // Script tags should be stripped
+    expect(articleHtml).not.toContain("<script>");
+    expect(articleHtml).not.toContain("</script>");
+    
+    // onerror handlers should be stripped
+    expect(articleHtml).not.toContain("onerror=");
+    
+    // javascript: URLs should be stripped
+    expect(articleHtml).not.toContain("javascript:");
+
+    // Verify alert was never triggered
+    expect(alertTriggered).toBe(false);
+
+    // Normal content should still be rendered
+    await expect(article.locator("h1")).toContainText("Normal Heading");
+    await expect(article.locator("p").first()).toContainText("Some normal text");
+  });
+
+  test("XSS via uploaded file is also sanitized", async ({ page }) => {
+    let alertTriggered = false;
+    page.on("dialog", async (dialog) => {
+      alertTriggered = true;
+      await dialog.dismiss();
+    });
+
+    const fileInput = page.locator('input[type="file"]');
+
+    // Upload file with malicious content
+    await fileInput.setInputFiles({
+      name: "malicious.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from(`# Safe Title
+
+<script>alert('file-xss')</script>
+
+<iframe src="javascript:alert('iframe-xss')"></iframe>
+
+Safe paragraph.
+`),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Verify sanitization
+    const article = page.locator("article");
+    const articleHtml = await article.innerHTML();
+    
+    expect(articleHtml).not.toContain("<script>");
+    expect(articleHtml).not.toContain("<iframe>");
+    expect(alertTriggered).toBe(false);
+
+    // Safe content should render
+    await expect(article.locator("h1")).toContainText("Safe Title");
+    await expect(article.locator("p").first()).toContainText("Safe paragraph");
+  });
+});
+
