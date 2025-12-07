@@ -529,9 +529,9 @@ export async function GET() {
 
   // Try to get Chromium info if on Vercel
   if (process.env.VERCEL_ENV) {
+    const chromiumStart = Date.now();
     try {
       debugLog("Debug", "GET: Testing Chromium path resolution...");
-      const chromiumStart = Date.now();
       const executablePath = await getChromiumPath();
       debugInfo.chromium = {
         status: "ok",
@@ -544,7 +544,7 @@ export async function GET() {
         status: "error",
         error: error.message,
         stack: error.stack,
-        resolutionTimeMs: Date.now() - startTime,
+        resolutionTimeMs: Date.now() - chromiumStart,
       };
       debugLog("Debug", "GET: Chromium path resolution failed", debugInfo.chromium);
     }
