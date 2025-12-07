@@ -12,7 +12,7 @@
 | Phase 1: UI Shell & State | ✅ Complete | `6162c06` |
 | Testing: Playwright E2E | ✅ Complete | `55abe4f` |
 | Phase 2: Markdown & Export | ✅ Complete | `8261517` |
-| Phase 3: PDF Generation | ✅ Complete | — |
+| Phase 3: PDF Generation | ✅ Complete | `ca092a2` |
 | Phase 4: Launch Prep | 🔲 Pending | — |
 
 ---
@@ -95,7 +95,8 @@
 ---
 
 ### Phase 3: PDF Generation & Error Handling
-**Date:** December 7, 2024
+**Date:** December 7, 2024  
+**Commit:** `ca092a2`
 
 #### What Was Built
 
@@ -226,6 +227,7 @@ markdown-free/
 
 | Commit | Date | Description |
 |--------|------|-------------|
+| `ca092a2` | Dec 7, 2024 | Phase 3: PDF generation with Puppeteer and error handling |
 | `8261517` | Dec 7, 2024 | Phase 2: Markdown rendering engine and client-side exports |
 | `f08ad14` | Dec 7, 2024 | Move Playwright output to tmp folder |
 | `55abe4f` | Dec 7, 2024 | Add Playwright e2e test suite (20 tests) |
