@@ -11,7 +11,7 @@
 |-------|--------|--------|
 | Phase 1: UI Shell & State | ✅ Complete | `6162c06` |
 | Testing: Playwright E2E | ✅ Complete | `55abe4f` |
-| Phase 2: Markdown Parsing | 🔲 Pending | — |
+| Phase 2: Markdown & Export | ✅ Complete | — |
 | Phase 3: PDF Generation | 🔲 Pending | — |
 | Phase 4: Launch Prep | 🔲 Pending | — |
 
@@ -59,11 +59,45 @@
 
 ---
 
+### Phase 2: Markdown Rendering & Client-Side Export
+**Date:** December 7, 2024
+
+#### What Was Built
+
+**Markdown Pipeline:**
+- Installed `unified`, `remark-parse`, `remark-gfm`, `remark-rehype`, `rehype-sanitize`, `rehype-stringify`
+- Created `src/lib/markdown.ts` with XSS-safe markdown-to-HTML conversion
+- Pipeline: `remark-parse → remark-gfm → remark-rehype → rehype-sanitize → rehype-stringify`
+
+**Preview Component Updates:**
+- `PreviewCard` now renders parsed markdown as styled HTML
+- Uses `@tailwindcss/typography` prose classes for styling
+- Status badge shows rendering state and content source
+
+**Export Features:**
+
+| Export | File | Description |
+|--------|------|-------------|
+| TXT | `src/lib/export-txt.ts` | Downloads raw markdown as `.txt` |
+| HTML | `src/lib/export-html.ts` | Wraps rendered HTML in standalone template with embedded CSS |
+| Download util | `src/lib/download.ts` | Generic file download + filename generation |
+
+**Export Row Updates:**
+- `ExportRow` component now has working TXT and HTML export
+- PDF button shows "Coming Soon" toast
+- Loading states with spinner during export
+
+**File Validation:**
+- 5MB file size limit enforced in `UploadCard`
+- Error messages for oversized files
+
+---
+
 ### Playwright E2E Test Suite
 **Date:** December 7, 2024  
 **Commits:** `55abe4f`, `f08ad14`
 
-#### Test Coverage (20 tests, all passing)
+#### Test Coverage (26 tests, all passing)
 
 | Test Suite | Tests | Description |
 |------------|-------|-------------|
@@ -71,8 +105,10 @@
 | Upload Card | 3 | Content display, drag-over border, drag-leave revert |
 | Paste Area | 3 | Toggle visibility, hide on re-click, debounced state update |
 | File Upload | 3 | Valid .md file, .txt file, invalid file error |
-| Preview Card | 1 | Raw content display on upload |
+| Preview Card | 1 | Rendered markdown content on upload |
 | Navigation | 5 | About/Privacy pages, link navigation, logo home link |
+| Export Functionality | 5 | PDF toast, TXT download, HTML download, button states |
+| File Validation | 1 | 5MB file size limit |
 
 #### Test Commands
 
@@ -90,14 +126,6 @@ npm run test:headed # Run with browser visible
 ---
 
 ## Pending Work
-
-### Phase 2: Markdown Parsing & Export (Week 2)
-- [ ] Install `unified`, `remark-parse`, `remark-gfm`, `remark-rehype`, `rehype-sanitize`, `rehype-stringify`
-- [ ] Create `src/lib/markdown.ts` with parsing pipeline
-- [ ] Update `PreviewCard` to render parsed HTML
-- [ ] Implement HTML export (client-side)
-- [ ] Implement TXT export (client-side)
-- [ ] Add tests for markdown rendering
 
 ### Phase 3: PDF Generation (Week 3)
 - [ ] Set up `/api/convert/pdf` route
@@ -124,7 +152,7 @@ markdown-free/
 │   ├── spec.md              # Product specification
 │   └── progress.md          # This file
 ├── e2e/
-│   └── app.spec.ts          # Playwright tests
+│   └── app.spec.ts          # Playwright tests (26 tests)
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx
@@ -144,7 +172,11 @@ markdown-free/
 │   ├── hooks/
 │   │   └── use-converter.tsx
 │   ├── lib/
-│   │   └── utils.ts
+│   │   ├── utils.ts
+│   │   ├── markdown.ts      # NEW: Markdown parsing pipeline
+│   │   ├── download.ts      # NEW: File download utility
+│   │   ├── export-txt.ts    # NEW: TXT export
+│   │   └── export-html.ts   # NEW: HTML export with template
 │   └── types/
 │       └── index.ts
 ├── tmp/
@@ -176,4 +208,5 @@ markdown-free/
 - **Color Scheme:** Slate (grays) + Emerald (accent)
 - **State Management:** React Context (not Zustand, per spec decision)
 - **Drag & Drop:** Native HTML5 DnD (not React Dropzone, per spec decision)
-
+- **Security:** `rehype-sanitize` used to prevent XSS in markdown preview
+- **Export Styling:** HTML export uses embedded CSS that matches preview styling

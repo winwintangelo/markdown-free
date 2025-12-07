@@ -278,7 +278,7 @@ test.describe("Markdown Free - Preview Card", () => {
     await page.goto("/");
   });
 
-  test("preview shows raw content when file is uploaded", async ({ page }) => {
+  test("preview renders markdown content when file is uploaded", async ({ page }) => {
     const fileInput = page.locator('input[type="file"]');
 
     await fileInput.setInputFiles({
@@ -287,11 +287,16 @@ test.describe("Markdown Free - Preview Card", () => {
       buffer: Buffer.from("# Hello World\n\nTest content here."),
     });
 
-    await page.waitForTimeout(300);
+    // Wait for markdown to be parsed and rendered
+    await page.waitForTimeout(500);
 
-    // Check that the raw content is displayed in preview
-    const previewContent = page.locator("article").getByText("# Hello World");
-    await expect(previewContent).toBeVisible();
+    // Check that the markdown is rendered as HTML (h1 element)
+    const heading = page.locator("article h1").getByText("Hello World");
+    await expect(heading).toBeVisible();
+
+    // Check paragraph is also rendered
+    const paragraph = page.locator("article p").getByText("Test content here.");
+    await expect(paragraph).toBeVisible();
   });
 });
 
@@ -341,6 +346,131 @@ test.describe("Markdown Free - Navigation", () => {
     await logoLink.click();
 
     await expect(page).toHaveURL("/");
+  });
+});
+
+test.describe("Markdown Free - Export Functionality", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
+
+  test("PDF button shows coming soon toast", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test\n\nContent"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Click PDF button
+    const pdfButton = page.getByRole("button", { name: "To PDF" });
+    await pdfButton.click();
+
+    // Should show toast
+    await expect(page.getByText("PDF export coming soon!")).toBeVisible();
+  });
+
+  test("TXT export triggers download", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test\n\nContent"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Set up download listener
+    const downloadPromise = page.waitForEvent("download");
+
+    // Click TXT button
+    const txtButton = page.getByRole("button", { name: "To TXT" });
+    await txtButton.click();
+
+    // Verify download was triggered
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("test.txt");
+  });
+
+  test("HTML export triggers download", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test\n\nContent"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Set up download listener
+    const downloadPromise = page.waitForEvent("download");
+
+    // Click HTML button
+    const htmlButton = page.getByRole("button", { name: "To HTML" });
+    await htmlButton.click();
+
+    // Verify download was triggered
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("test.html");
+  });
+
+  test("export buttons are disabled when no content", async ({ page }) => {
+    const pdfButton = page.getByRole("button", { name: "To PDF" });
+    const txtButton = page.getByRole("button", { name: "To TXT" });
+    const htmlButton = page.getByRole("button", { name: "To HTML" });
+
+    await expect(pdfButton).toBeDisabled();
+    await expect(txtButton).toBeDisabled();
+    await expect(htmlButton).toBeDisabled();
+  });
+
+  test("export buttons are enabled after file upload", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test"),
+    });
+
+    await page.waitForTimeout(500);
+
+    const pdfButton = page.getByRole("button", { name: "To PDF" });
+    const txtButton = page.getByRole("button", { name: "To TXT" });
+    const htmlButton = page.getByRole("button", { name: "To HTML" });
+
+    await expect(pdfButton).toBeEnabled();
+    await expect(txtButton).toBeEnabled();
+    await expect(htmlButton).toBeEnabled();
+  });
+});
+
+test.describe("Markdown Free - File Validation", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
+
+  test("should reject file over 5MB", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Create a 6MB buffer
+    const largeBuffer = Buffer.alloc(6 * 1024 * 1024, "x");
+
+    await fileInput.setInputFiles({
+      name: "large.md",
+      mimeType: "text/markdown",
+      buffer: largeBuffer,
+    });
+
+    await page.waitForTimeout(300);
+
+    // Should show error
+    await expect(page.getByText("File too large. Maximum size is 5MB.")).toBeVisible();
   });
 });
 
