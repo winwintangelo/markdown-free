@@ -520,6 +520,89 @@ test.describe("Markdown Free - Export Functionality", () => {
     await expect(page.getByText("PDF generation failed", { exact: true })).not.toBeVisible();
   });
 
+  test("PDF download generates valid PDF file with correct headers", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Track the API request to verify it's called correctly
+    let apiRequestBody: { markdown: string; filename: string } | null = null;
+
+    // Mock the PDF API and capture request
+    await page.route("**/api/convert/pdf", async (route) => {
+      const request = route.request();
+      apiRequestBody = JSON.parse(request.postData() || "{}");
+
+      // Return a mock PDF (PDF magic bytes + minimal structure)
+      const mockPdf = Buffer.from(
+        "%PDF-1.4\n1 0 obj\n<<>>\nendobj\ntrailer\n<<>>\n%%EOF"
+      );
+
+      await route.fulfill({
+        status: 200,
+        contentType: "application/pdf",
+        body: mockPdf,
+        headers: {
+          "Content-Disposition": 'attachment; filename="document.pdf"',
+          "Content-Length": mockPdf.length.toString(),
+        },
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "document.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# My Document\n\nThis is the content."),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Set up download listener
+    const downloadPromise = page.waitForEvent("download");
+
+    // Click PDF button
+    await page.getByRole("button", { name: "To PDF" }).click();
+
+    // Verify download
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("document.pdf");
+
+    // Verify API was called with correct data
+    expect(apiRequestBody).not.toBeNull();
+    expect(apiRequestBody!.markdown).toBe("# My Document\n\nThis is the content.");
+    expect(apiRequestBody!.filename).toBe("document.md");
+
+    // Read downloaded file and verify it starts with PDF magic bytes
+    const path = await download.path();
+    const fs = require("fs");
+    const pdfContent = fs.readFileSync(path!);
+    expect(pdfContent.toString().startsWith("%PDF")).toBe(true);
+  });
+
+  test("network failure during PDF generation shows user-friendly error", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Mock network failure by aborting the request
+    await page.route("**/api/convert/pdf", async (route) => {
+      await route.abort("failed");
+    });
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test Content"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Click PDF button
+    await page.getByRole("button", { name: "To PDF" }).click();
+
+    // Should show network error message
+    await expect(page.getByText("PDF generation failed", { exact: true })).toBeVisible();
+    
+    // Should have retry button since network errors are retryable
+    await expect(page.getByRole("button", { name: "Try Again" })).toBeVisible();
+  });
+
   test("TXT export triggers download", async ({ page }) => {
     const fileInput = page.locator('input[type="file"]');
 
@@ -602,22 +685,65 @@ test.describe("Markdown Free - File Validation", () => {
     await page.goto("/");
   });
 
-  test("should reject file over 5MB", async ({ page }) => {
+  test("should reject file over 5MB immediately without server call", async ({ page }) => {
     const fileInput = page.locator('input[type="file"]');
 
-    // Create a 6MB buffer
+    // Track if any API calls are made
+    let apiCalled = false;
+    await page.route("**/api/**", async (route) => {
+      apiCalled = true;
+      await route.continue();
+    });
+
+    // Create a 6MB buffer (over the 5MB limit)
     const largeBuffer = Buffer.alloc(6 * 1024 * 1024, "x");
 
+    // Record start time to verify immediate rejection
+    const startTime = Date.now();
+
     await fileInput.setInputFiles({
-      name: "large.md",
+      name: "large-file.md",
       mimeType: "text/markdown",
       buffer: largeBuffer,
     });
 
+    // Should show error immediately (within 500ms, not waiting for server)
+    await expect(page.getByText("File too large. Maximum size is 5MB.")).toBeVisible();
+    
+    const elapsedTime = Date.now() - startTime;
+    expect(elapsedTime).toBeLessThan(1000); // Should be immediate, not waiting for server
+
+    // Verify no API calls were made (client-side validation)
+    expect(apiCalled).toBe(false);
+
+    // Export buttons should remain disabled
+    await expect(page.getByRole("button", { name: "To PDF" })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "To TXT" })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "To HTML" })).toBeDisabled();
+  });
+
+  test("file exactly at 5MB limit should be accepted", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Create exactly 5MB buffer (at the limit)
+    const exactLimitBuffer = Buffer.alloc(5 * 1024 * 1024, "x");
+
+    await fileInput.setInputFiles({
+      name: "exact-5mb.md",
+      mimeType: "text/markdown",
+      buffer: exactLimitBuffer,
+    });
+
     await page.waitForTimeout(300);
 
-    // Should show error
-    await expect(page.getByText("File too large. Maximum size is 5MB.")).toBeVisible();
+    // Should NOT show error - file at limit is acceptable
+    await expect(page.getByText("File too large")).not.toBeVisible();
+
+    // Should show file is loaded
+    await expect(page.getByText("exact-5mb.md")).toBeVisible();
+
+    // Export buttons should be enabled
+    await expect(page.getByRole("button", { name: "To PDF" })).toBeEnabled();
   });
 });
 

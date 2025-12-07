@@ -129,7 +129,7 @@
 **Date:** December 7, 2024  
 **Commits:** `55abe4f`, `f08ad14`
 
-#### Test Coverage (35 tests, all passing)
+#### Test Coverage (38 tests, all passing)
 
 | Test Suite | Tests | Description |
 |------------|-------|-------------|
@@ -139,8 +139,8 @@
 | File Upload | 3 | Valid .md file, .txt file, invalid file error |
 | Preview Card | 1 | Rendered markdown content on upload |
 | Navigation | 5 | About/Privacy pages, link navigation, logo home link |
-| Export Functionality | 9 | PDF loading/success/error, TXT download, HTML download, button states, retry, dismiss |
-| File Validation | 1 | 5MB file size limit |
+| Export Functionality | 11 | PDF loading/success/error/headers/network, TXT/HTML download, button states |
+| File Validation | 2 | 5MB limit (immediate rejection), exact 5MB accepted |
 | Markdown Rendering | 1 | Full markdown element rendering (h1, h2, bold, italic, lists, code) |
 | Export Content Validation | 2 | TXT file content, HTML file structure and styling |
 | Security (XSS Prevention) | 2 | Script tag sanitization via paste and file upload |
@@ -179,7 +179,7 @@ markdown-free/
 │   ├── spec.md              # Product specification
 │   └── progress.md          # This file
 ├── e2e/
-│   └── app.spec.ts          # Playwright tests (35 tests)
+│   └── app.spec.ts          # Playwright tests (38 tests)
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx
