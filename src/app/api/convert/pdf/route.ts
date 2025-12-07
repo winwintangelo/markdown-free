@@ -162,20 +162,28 @@ function errorResponse(
 async function getBrowser() {
   if (IS_PRODUCTION) {
     // Production: use puppeteer-core with @sparticuz/chromium for Vercel
-    const puppeteer = await import("puppeteer-core");
-    const chromium = await import("@sparticuz/chromium");
+    const puppeteerCore = (await import("puppeteer-core")).default;
+    const chromium = (await import("@sparticuz/chromium")).default;
     
-    return puppeteer.default.launch({
-      args: chromium.default.args,
-      defaultViewport: chromium.default.defaultViewport,
-      executablePath: await chromium.default.executablePath(),
-      headless: chromium.default.headless,
+    // Configure chromium for serverless environment
+    chromium.setHeadlessMode = true;
+    chromium.setGraphicsMode = false;
+    
+    const executablePath = await chromium.executablePath();
+    
+    console.log("Chromium executable path:", executablePath);
+    
+    return puppeteerCore.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath,
+      headless: chromium.headless,
     });
   } else {
     // Local development: use full puppeteer with bundled Chromium
-    const puppeteer = await import("puppeteer");
+    const puppeteer = (await import("puppeteer")).default;
     
-    return puppeteer.default.launch({
+    return puppeteer.launch({
       headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
