@@ -129,7 +129,7 @@
 **Date:** December 7, 2024  
 **Commits:** `55abe4f`, `f08ad14`
 
-#### Test Coverage (46 tests, all passing)
+#### Test Coverage (53 tests, all passing)
 
 | Test Suite | Tests | Description |
 |------------|-------|-------------|
@@ -146,6 +146,9 @@
 | Security (XSS Prevention) | 2 | Script tag sanitization via paste and file upload |
 | Mobile Navigation | 4 | Hamburger visibility, menu open/close, navigation |
 | SEO & Metadata | 4 | Page titles, meta descriptions, favicon |
+| Footer Navigation | 1 | Privacy link in footer works |
+| Mobile Phone Experience | 3 | iPhone SE, Android, no horizontal scroll |
+| Performance | 3 | Load time < 3s, FCP < 1.5s, accessibility |
 
 #### Test Commands
 
@@ -211,7 +214,7 @@ markdown-free/
 │   ├── spec.md              # Product specification
 │   └── progress.md          # This file
 ├── e2e/
-│   └── app.spec.ts          # Playwright tests (46 tests)
+│   └── app.spec.ts          # Playwright tests (53 tests)
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx

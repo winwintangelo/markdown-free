@@ -40,6 +40,7 @@ next-env.d.ts
 
 # Vercel
 .vercel
+vercel.json
 
 # Playwright
 tmp/playwright-report/

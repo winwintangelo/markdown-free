@@ -45,8 +45,12 @@ test.describe("Markdown Free - App Layout", () => {
     const copyright = page.getByText("© 2025 Markdown Free");
     await expect(copyright).toBeVisible();
 
-    const privacyNotice = page.getByText("No accounts • No tracking");
-    await expect(privacyNotice).toBeVisible();
+    // Footer should have Privacy link and privacy notices
+    const privacyLink = page.locator("footer").getByRole("link", { name: "Privacy" });
+    await expect(privacyLink).toBeVisible();
+
+    const httpsNotice = page.getByText("HTTPS only");
+    await expect(httpsNotice).toBeVisible();
   });
 
   test("should have disabled export buttons initially", async ({ page }) => {
@@ -1057,6 +1061,137 @@ test.describe("Markdown Free - SEO & Metadata", () => {
     const favicon = page.locator('link[rel="icon"]');
     const href = await favicon.getAttribute("href");
     expect(href).toContain("favicon");
+  });
+});
+
+test.describe("Markdown Free - Footer Navigation", () => {
+  test("privacy page is accessible from footer link", async ({ page }) => {
+    await page.goto("/");
+
+    // Find the privacy link in the footer
+    const footerPrivacyLink = page.locator("footer").getByRole("link", { name: "Privacy" });
+    await expect(footerPrivacyLink).toBeVisible();
+
+    // Click and verify navigation
+    await footerPrivacyLink.click();
+    await expect(page).toHaveURL("/privacy");
+
+    // Verify privacy page content loaded
+    await expect(page.getByRole("heading", { name: "Privacy Policy" })).toBeVisible();
+  });
+});
+
+test.describe("Markdown Free - Mobile Phone Experience", () => {
+  test("mobile menu works on iPhone SE screen size (375x667)", async ({ page }) => {
+    // iPhone SE screen size
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto("/");
+
+    // Hamburger should be visible, desktop nav hidden
+    const hamburgerButton = page.locator('button[aria-label="Open menu"]');
+    await expect(hamburgerButton).toBeVisible();
+
+    // Open menu
+    await hamburgerButton.click();
+
+    // Menu items should be visible and tappable
+    const aboutLink = page.locator("header").getByRole("link", { name: "About" });
+    await expect(aboutLink).toBeVisible();
+
+    // Navigate to About
+    await aboutLink.click();
+    await expect(page).toHaveURL("/about");
+
+    // Menu should close after navigation
+    await expect(page.locator('button[aria-label="Open menu"]')).toBeVisible();
+  });
+
+  test("mobile menu works on small Android screen (360x640)", async ({ page }) => {
+    // Small Android screen
+    await page.setViewportSize({ width: 360, height: 640 });
+    await page.goto("/");
+
+    // Hamburger should be visible
+    await expect(page.locator('button[aria-label="Open menu"]')).toBeVisible();
+
+    // Open menu and verify navigation works
+    await page.locator('button[aria-label="Open menu"]').click();
+    await page.locator("header").getByRole("link", { name: "Privacy" }).click();
+    await expect(page).toHaveURL("/privacy");
+  });
+
+  test("upload card is usable on mobile without horizontal scroll", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto("/");
+
+    // Check that the page doesn't have horizontal overflow
+    const hasHorizontalScroll = await page.evaluate(() => {
+      return document.documentElement.scrollWidth > document.documentElement.clientWidth;
+    });
+    expect(hasHorizontalScroll).toBe(false);
+
+    // Upload card should be visible and contained
+    const uploadCard = page.locator('[class*="border-dashed"]').first();
+    await expect(uploadCard).toBeVisible();
+
+    // The card should fit within viewport
+    const cardBox = await uploadCard.boundingBox();
+    expect(cardBox).not.toBeNull();
+    expect(cardBox!.width).toBeLessThanOrEqual(375);
+  });
+});
+
+test.describe("Markdown Free - Performance", () => {
+  test("page loads within acceptable time (< 3 seconds)", async ({ page }) => {
+    const startTime = Date.now();
+    await page.goto("/", { waitUntil: "networkidle" });
+    const loadTime = Date.now() - startTime;
+
+    // Page should load in under 3 seconds
+    expect(loadTime).toBeLessThan(3000);
+  });
+
+  test("first contentful paint is fast", async ({ page }) => {
+    await page.goto("/");
+
+    // Get performance metrics
+    const fcp = await page.evaluate(() => {
+      return new Promise<number>((resolve) => {
+        const observer = new PerformanceObserver((list) => {
+          const entries = list.getEntriesByName("first-contentful-paint");
+          if (entries.length > 0) {
+            resolve(entries[0].startTime);
+          }
+        });
+        observer.observe({ entryTypes: ["paint"] });
+
+        // Fallback if already painted
+        const existingEntries = performance.getEntriesByName("first-contentful-paint");
+        if (existingEntries.length > 0) {
+          resolve(existingEntries[0].startTime);
+        }
+      });
+    });
+
+    // FCP should be under 1.5 seconds (spec target)
+    expect(fcp).toBeLessThan(1500);
+  });
+
+  test("no major accessibility violations", async ({ page }) => {
+    await page.goto("/");
+
+    // Check for basic accessibility: all images have alt text, buttons are labeled
+    const imagesWithoutAlt = await page.locator("img:not([alt])").count();
+    expect(imagesWithoutAlt).toBe(0);
+
+    // All buttons should have accessible names
+    const buttons = page.locator("button");
+    const buttonCount = await buttons.count();
+    for (let i = 0; i < buttonCount; i++) {
+      const button = buttons.nth(i);
+      const name = await button.getAttribute("aria-label") || await button.textContent();
+      expect(name).toBeTruthy();
+    }
   });
 });
 
