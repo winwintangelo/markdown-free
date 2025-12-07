@@ -42,6 +42,9 @@ next-env.d.ts
 .vercel
 vercel.json
 
+# Chromium binary (generated during build)
+public/chromium-pack.tar
+
 # Playwright
 tmp/playwright-report/
 tmp/test-results/
