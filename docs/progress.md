@@ -13,7 +13,7 @@
 | Testing: Playwright E2E | ✅ Complete | `55abe4f` |
 | Phase 2: Markdown & Export | ✅ Complete | `8261517` |
 | Phase 3: PDF Generation | ✅ Complete | `ca092a2` |
-| Phase 4: Launch Prep | ✅ Complete | — |
+| Phase 4: Launch Prep | ✅ Complete | `b6ce16d` |
 
 ---
 
@@ -163,7 +163,8 @@ npm run test:headed # Run with browser visible
 ---
 
 ### Phase 4: Launch Prep
-**Date:** December 7, 2024
+**Date:** December 7, 2024  
+**Commit:** `b6ce16d`
 
 #### What Was Built
 
@@ -263,6 +264,7 @@ markdown-free/
 
 | Commit | Date | Description |
 |--------|------|-------------|
+| `b6ce16d` | Dec 7, 2024 | Phase 4: Launch prep - Mobile nav, SEO, Vercel config |
 | `ca092a2` | Dec 7, 2024 | Phase 3: PDF generation with Puppeteer and error handling |
 | `8261517` | Dec 7, 2024 | Phase 2: Markdown rendering engine and client-side exports |
 | `f08ad14` | Dec 7, 2024 | Move Playwright output to tmp folder |
