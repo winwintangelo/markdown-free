@@ -10,6 +10,8 @@
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
+    "test:production": "playwright test --config=playwright.production.config.ts",
+    "test:production:headed": "playwright test --config=playwright.production.config.ts --headed",
     "postinstall": "node scripts/postinstall.mjs"
   },
   "dependencies": {
