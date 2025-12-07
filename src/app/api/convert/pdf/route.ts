@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import puppeteer from "puppeteer-core";
-import chromium from "@sparticuz/chromium";
 import { markdownToHtml } from "@/lib/markdown";
 
 // Maximum content size (5MB)
@@ -8,6 +6,9 @@ const MAX_CONTENT_SIZE = 5 * 1024 * 1024;
 
 // PDF generation timeout (15 seconds)
 const PDF_TIMEOUT = 15000;
+
+// Check if we're in production (Vercel serverless)
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
 /**
  * CSS styles for PDF rendering - matches the preview/HTML export styling
@@ -153,6 +154,34 @@ function errorResponse(
   return NextResponse.json({ error: code, message }, { status });
 }
 
+/**
+ * Get browser instance based on environment
+ * - Local development: uses full puppeteer with bundled Chromium
+ * - Production (Vercel): uses puppeteer-core with @sparticuz/chromium
+ */
+async function getBrowser() {
+  if (IS_PRODUCTION) {
+    // Production: use puppeteer-core with @sparticuz/chromium for Vercel
+    const puppeteer = await import("puppeteer-core");
+    const chromium = await import("@sparticuz/chromium");
+    
+    return puppeteer.default.launch({
+      args: chromium.default.args,
+      defaultViewport: chromium.default.defaultViewport,
+      executablePath: await chromium.default.executablePath(),
+      headless: chromium.default.headless,
+    });
+  } else {
+    // Local development: use full puppeteer with bundled Chromium
+    const puppeteer = await import("puppeteer");
+    
+    return puppeteer.default.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+  }
+}
+
 export async function POST(request: NextRequest) {
   let browser = null;
 
@@ -184,12 +213,7 @@ export async function POST(request: NextRequest) {
     const fullHtml = generatePdfHtml(renderedHtml);
 
     // Launch browser with timeout
-    const launchPromise = puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
-    });
+    const launchPromise = getBrowser();
 
     // Set timeout for browser launch
     const timeoutPromise = new Promise<never>((_, reject) => {
@@ -287,4 +311,3 @@ export async function OPTIONS() {
     },
   });
 }
-
