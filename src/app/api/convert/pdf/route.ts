@@ -19,29 +19,76 @@ const CHROMIUM_PACK_URL = process.env.VERCEL_ENV
 let cachedExecutablePath: string | null = null;
 let downloadPromise: Promise<string> | null = null;
 
+// Module initialization log
+console.log("[PDF Module Init]", JSON.stringify({
+  timestamp: new Date().toISOString(),
+  NODE_ENV: process.env.NODE_ENV,
+  VERCEL_ENV: process.env.VERCEL_ENV,
+  VERCEL_REGION: process.env.VERCEL_REGION,
+  CHROMIUM_PACK_URL,
+}, null, 2));
+
+/**
+ * Debug logging helper
+ */
+function debugLog(stage: string, message: string, data?: any) {
+  const timestamp = new Date().toISOString();
+  const prefix = `[PDF Debug ${timestamp}] [${stage}]`;
+  if (data !== undefined) {
+    console.log(prefix, message, JSON.stringify(data, null, 2));
+  } else {
+    console.log(prefix, message);
+  }
+}
+
 /**
  * Downloads and caches the Chromium executable path.
  * Uses a download promise to prevent concurrent downloads.
  */
 async function getChromiumPath(): Promise<string> {
+  debugLog("ChromiumPath", "getChromiumPath called", {
+    cachedExecutablePath,
+    hasDownloadPromise: !!downloadPromise,
+    CHROMIUM_PACK_URL,
+  });
+
   // Return cached path if available
-  if (cachedExecutablePath) return cachedExecutablePath;
+  if (cachedExecutablePath) {
+    debugLog("ChromiumPath", "Returning cached path", cachedExecutablePath);
+    return cachedExecutablePath;
+  }
 
   // Prevent concurrent downloads by reusing the same promise
   if (!downloadPromise) {
+    debugLog("ChromiumPath", "Starting new download/extraction...");
+    const startTime = Date.now();
+    
     const chromium = (await import("@sparticuz/chromium-min")).default;
+    debugLog("ChromiumPath", "chromium-min module imported");
+    
     downloadPromise = chromium
       .executablePath(CHROMIUM_PACK_URL)
       .then((path: string) => {
+        const duration = Date.now() - startTime;
         cachedExecutablePath = path;
-        console.log("Chromium path resolved:", path);
+        debugLog("ChromiumPath", "Chromium path resolved successfully", {
+          path,
+          durationMs: duration,
+        });
         return path;
       })
       .catch((error: Error) => {
-        console.error("Failed to get Chromium path:", error);
+        const duration = Date.now() - startTime;
+        debugLog("ChromiumPath", "Failed to get Chromium path", {
+          error: error.message,
+          stack: error.stack,
+          durationMs: duration,
+        });
         downloadPromise = null; // Reset on error to allow retry
         throw error;
       });
+  } else {
+    debugLog("ChromiumPath", "Reusing existing download promise");
   }
 
   return downloadPromise;
@@ -200,13 +247,27 @@ function errorResponse(
  */
 async function getBrowser() {
   const isVercel = !!process.env.VERCEL_ENV;
+  
+  debugLog("Browser", "getBrowser called", {
+    isVercel,
+    VERCEL_ENV: process.env.VERCEL_ENV,
+    VERCEL_REGION: process.env.VERCEL_REGION,
+    NODE_ENV: process.env.NODE_ENV,
+  });
+  
   let puppeteer: any;
   let launchOptions: any = { headless: true };
 
   if (isVercel) {
+    debugLog("Browser", "Vercel environment detected, using puppeteer-core");
+    
     // Vercel: Use puppeteer-core with downloaded Chromium binary
     const chromium = (await import("@sparticuz/chromium-min")).default;
+    debugLog("Browser", "chromium-min imported, chromium.args:", chromium.args);
+    
     puppeteer = await import("puppeteer-core");
+    debugLog("Browser", "puppeteer-core imported");
+    
     const executablePath = await getChromiumPath();
     
     launchOptions = {
@@ -214,25 +275,68 @@ async function getBrowser() {
       args: chromium.args,
       executablePath,
     };
-    console.log("Launching browser with executable path:", executablePath);
+    debugLog("Browser", "Launch options configured", {
+      headless: launchOptions.headless,
+      executablePath: launchOptions.executablePath,
+      argsCount: launchOptions.args?.length,
+      args: launchOptions.args,
+    });
   } else {
+    debugLog("Browser", "Local environment, using full puppeteer");
     // Local: Use regular puppeteer with bundled Chromium
     puppeteer = await import("puppeteer");
+    debugLog("Browser", "puppeteer imported");
   }
 
-  return puppeteer.launch(launchOptions);
+  debugLog("Browser", "Launching browser...");
+  const launchStart = Date.now();
+  
+  try {
+    const browser = await puppeteer.launch(launchOptions);
+    const launchDuration = Date.now() - launchStart;
+    debugLog("Browser", "Browser launched successfully", {
+      durationMs: launchDuration,
+    });
+    return browser;
+  } catch (error: any) {
+    const launchDuration = Date.now() - launchStart;
+    debugLog("Browser", "Browser launch FAILED", {
+      durationMs: launchDuration,
+      error: error.message,
+      stack: error.stack,
+    });
+    throw error;
+  }
 }
 
 export async function POST(request: NextRequest) {
+  const requestId = Math.random().toString(36).substring(7);
+  const requestStart = Date.now();
   let browser = null;
+
+  debugLog("Request", `[${requestId}] PDF generation request started`, {
+    url: request.url,
+    method: request.method,
+    VERCEL_ENV: process.env.VERCEL_ENV,
+    VERCEL_REGION: process.env.VERCEL_REGION,
+    NODE_ENV: process.env.NODE_ENV,
+  });
 
   try {
     // Parse request body
+    debugLog("Request", `[${requestId}] Parsing request body...`);
     const body = await request.json();
     const { markdown, filename } = body;
 
+    debugLog("Request", `[${requestId}] Request body parsed`, {
+      filename,
+      markdownLength: markdown?.length,
+      markdownPreview: markdown?.substring(0, 100),
+    });
+
     // Validate content
     if (!markdown || typeof markdown !== "string") {
+      debugLog("Request", `[${requestId}] Invalid content`);
       return errorResponse(
         "INVALID_CONTENT",
         "Please provide valid markdown content.",
@@ -241,7 +345,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Check content size
-    if (Buffer.byteLength(markdown, "utf-8") > MAX_CONTENT_SIZE) {
+    const contentSize = Buffer.byteLength(markdown, "utf-8");
+    debugLog("Request", `[${requestId}] Content size: ${contentSize} bytes`);
+    
+    if (contentSize > MAX_CONTENT_SIZE) {
+      debugLog("Request", `[${requestId}] Content too large`);
       return errorResponse(
         "CONTENT_TOO_LARGE",
         "Content exceeds maximum size of 5MB.",
@@ -250,10 +358,18 @@ export async function POST(request: NextRequest) {
     }
 
     // Convert markdown to HTML
+    debugLog("Markdown", `[${requestId}] Converting markdown to HTML...`);
+    const markdownStart = Date.now();
     const renderedHtml = await markdownToHtml(markdown);
     const fullHtml = generatePdfHtml(renderedHtml);
+    debugLog("Markdown", `[${requestId}] Markdown converted`, {
+      durationMs: Date.now() - markdownStart,
+      htmlLength: fullHtml.length,
+    });
 
     // Launch browser with timeout
+    debugLog("Browser", `[${requestId}] Starting browser launch with ${PDF_TIMEOUT}ms timeout...`);
+    const browserStart = Date.now();
     const launchPromise = getBrowser();
 
     // Set timeout for browser launch
@@ -262,10 +378,20 @@ export async function POST(request: NextRequest) {
     });
 
     browser = await Promise.race([launchPromise, timeoutPromise]);
+    debugLog("Browser", `[${requestId}] Browser obtained`, {
+      durationMs: Date.now() - browserStart,
+    });
+
+    debugLog("Page", `[${requestId}] Creating new page...`);
+    const pageStart = Date.now();
     const page = await browser.newPage();
+    debugLog("Page", `[${requestId}] Page created`, {
+      durationMs: Date.now() - pageStart,
+    });
 
     // Set viewport to A4 dimensions (in pixels at 96 DPI)
     // A4: 210mm × 297mm = 794px × 1123px at 96 DPI
+    debugLog("Page", `[${requestId}] Setting viewport...`);
     await page.setViewport({
       width: 794,
       height: 1123,
@@ -273,12 +399,19 @@ export async function POST(request: NextRequest) {
     });
 
     // Set content with timeout
+    debugLog("Page", `[${requestId}] Setting page content (networkidle0, 5000ms timeout)...`);
+    const contentStart = Date.now();
     await page.setContent(fullHtml, {
       waitUntil: "networkidle0",
       timeout: 5000,
     });
+    debugLog("Page", `[${requestId}] Page content set`, {
+      durationMs: Date.now() - contentStart,
+    });
 
     // Generate PDF with A4 size and margins
+    debugLog("PDF", `[${requestId}] Generating PDF...`);
+    const pdfStart = Date.now();
     const pdfBuffer = await page.pdf({
       format: "A4",
       margin: {
@@ -290,15 +423,28 @@ export async function POST(request: NextRequest) {
       printBackground: true,
       timeout: PDF_TIMEOUT,
     });
+    debugLog("PDF", `[${requestId}] PDF generated`, {
+      durationMs: Date.now() - pdfStart,
+      pdfSize: pdfBuffer.length,
+    });
 
     // Close browser
+    debugLog("Browser", `[${requestId}] Closing browser...`);
     await browser.close();
     browser = null;
+    debugLog("Browser", `[${requestId}] Browser closed`);
 
     // Generate filename
     const outputFilename = filename
       ? filename.replace(/\.(md|markdown|txt)$/i, ".pdf")
       : "document.pdf";
+
+    const totalDuration = Date.now() - requestStart;
+    debugLog("Request", `[${requestId}] PDF generation completed successfully`, {
+      totalDurationMs: totalDuration,
+      outputFilename,
+      pdfSize: pdfBuffer.length,
+    });
 
     // Return PDF - Convert Uint8Array to Buffer for NextResponse
     return new NextResponse(Buffer.from(pdfBuffer), {
@@ -309,23 +455,36 @@ export async function POST(request: NextRequest) {
         "Content-Length": pdfBuffer.length.toString(),
       },
     });
-  } catch (error) {
+  } catch (error: any) {
+    const totalDuration = Date.now() - requestStart;
+    
     // Clean up browser if still open
     if (browser) {
       try {
+        debugLog("Cleanup", `[${requestId}] Closing browser after error...`);
         await browser.close();
-      } catch {
-        // Ignore cleanup errors
+        debugLog("Cleanup", `[${requestId}] Browser closed after error`);
+      } catch (cleanupError: any) {
+        debugLog("Cleanup", `[${requestId}] Failed to close browser`, {
+          error: cleanupError.message,
+        });
       }
     }
 
-    console.error("PDF generation error:", error);
+    debugLog("Error", `[${requestId}] PDF generation FAILED`, {
+      totalDurationMs: totalDuration,
+      errorName: error.name,
+      errorMessage: error.message,
+      errorStack: error.stack,
+      errorCode: error.code,
+    });
 
     // Check for timeout errors
     if (
       error instanceof Error &&
       (error.message.includes("timeout") || error.message.includes("Timeout"))
     ) {
+      debugLog("Error", `[${requestId}] Returning timeout error`);
       return errorResponse(
         "GENERATION_TIMEOUT",
         "PDF generation timed out. Please try again with a smaller document.",
@@ -334,6 +493,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generic error
+    debugLog("Error", `[${requestId}] Returning generic error`);
     return errorResponse(
       "GENERATION_FAILED",
       "PDF generation failed. Please try again.",
@@ -342,12 +502,75 @@ export async function POST(request: NextRequest) {
   }
 }
 
+/**
+ * GET handler for debugging - returns environment info and Chromium status
+ * Access via: /api/convert/pdf (GET request)
+ */
+export async function GET() {
+  const startTime = Date.now();
+  const debugInfo: Record<string, any> = {
+    timestamp: new Date().toISOString(),
+    environment: {
+      NODE_ENV: process.env.NODE_ENV,
+      VERCEL_ENV: process.env.VERCEL_ENV,
+      VERCEL_REGION: process.env.VERCEL_REGION,
+      VERCEL_URL: process.env.VERCEL_URL,
+    },
+    config: {
+      CHROMIUM_PACK_URL,
+      MAX_CONTENT_SIZE,
+      PDF_TIMEOUT,
+    },
+    cache: {
+      cachedExecutablePath,
+      hasDownloadPromise: !!downloadPromise,
+    },
+  };
+
+  // Try to get Chromium info if on Vercel
+  if (process.env.VERCEL_ENV) {
+    try {
+      debugLog("Debug", "GET: Testing Chromium path resolution...");
+      const chromiumStart = Date.now();
+      const executablePath = await getChromiumPath();
+      debugInfo.chromium = {
+        status: "ok",
+        executablePath,
+        resolutionTimeMs: Date.now() - chromiumStart,
+      };
+      debugLog("Debug", "GET: Chromium path resolved", debugInfo.chromium);
+    } catch (error: any) {
+      debugInfo.chromium = {
+        status: "error",
+        error: error.message,
+        stack: error.stack,
+        resolutionTimeMs: Date.now() - startTime,
+      };
+      debugLog("Debug", "GET: Chromium path resolution failed", debugInfo.chromium);
+    }
+  } else {
+    debugInfo.chromium = {
+      status: "skipped",
+      reason: "Local environment - using bundled Puppeteer",
+    };
+  }
+
+  debugInfo.totalTimeMs = Date.now() - startTime;
+
+  return NextResponse.json(debugInfo, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
+
 // Rate limiting info in response headers
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
     },
   });

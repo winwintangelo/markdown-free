@@ -14,6 +14,7 @@
 | Phase 2: Markdown & Export | ✅ Complete | `8261517` |
 | Phase 3: PDF Generation | ✅ Complete | `ca092a2` |
 | Phase 4: Launch Prep | ✅ Complete | `b6ce16d` |
+| PDF Debug Logging | ✅ Complete | — |
 
 ---
 
@@ -197,6 +198,46 @@ npm run test:headed # Run with browser visible
 
 **Bug Fixes:**
 - Fixed TypeScript error in PDF route (Uint8Array to Buffer conversion)
+
+---
+
+### PDF Debug Logging
+**Date:** December 7, 2024
+
+#### What Was Built
+
+Added comprehensive debug logging to troubleshoot PDF generation on Vercel. Following the [puppeteer-on-vercel](https://github.com/gabenunez/puppeteer-on-vercel) approach.
+
+**Debug Features Added:**
+
+| Feature | Description |
+|---------|-------------|
+| Module Init Log | Logs environment info when module loads |
+| `debugLog()` Helper | Timestamped logs with stage prefixes and JSON data |
+| Request Tracking | Unique request IDs for tracing each PDF generation |
+| Timing Metrics | Duration tracking for each step (Chromium download, browser launch, PDF generation) |
+| GET Debug Endpoint | `/api/convert/pdf` (GET) returns environment and Chromium status |
+
+**Logged Stages:**
+- `[ChromiumPath]` — Chromium binary download/extraction
+- `[Browser]` — Browser launch with full args logging
+- `[Request]` — Request parsing and validation
+- `[Markdown]` — Markdown to HTML conversion
+- `[Page]` — Page creation and content setting
+- `[PDF]` — PDF buffer generation
+- `[Error]` — Full error details with stack traces
+- `[Cleanup]` — Browser cleanup after errors
+
+**Debug Endpoint Response:**
+```json
+{
+  "timestamp": "...",
+  "environment": { "NODE_ENV", "VERCEL_ENV", "VERCEL_REGION", "VERCEL_URL" },
+  "config": { "CHROMIUM_PACK_URL", "MAX_CONTENT_SIZE", "PDF_TIMEOUT" },
+  "cache": { "cachedExecutablePath", "hasDownloadPromise" },
+  "chromium": { "status", "executablePath", "resolutionTimeMs" }
+}
+```
 
 ---
 
