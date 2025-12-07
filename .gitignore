@@ -42,8 +42,8 @@ next-env.d.ts
 .vercel
 
 # Playwright
-playwright-report/
-test-results/
+tmp/playwright-report/
+tmp/test-results/
 
 # Misc
 *.log
