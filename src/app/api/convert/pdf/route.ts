@@ -11,8 +11,8 @@ const PDF_TIMEOUT = 15000;
 // URL to the Chromium binary package hosted in /public
 // Built during postinstall from @sparticuz/chromium (devDep)
 // See: https://github.com/gabenunez/puppeteer-on-vercel
-const CHROMIUM_PACK_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
-  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}/chromium-pack.tar`
+const CHROMIUM_PACK_URL = process.env.VERCEL_ENV
+  ? "https://www.markdown.free/chromium-pack.tar"
   : "https://github.com/Sparticuz/chromium/releases/download/v141.0.0/chromium-v141.0.0-pack.tar";
 
 // Cache the Chromium executable path to avoid re-downloading on subsequent requests
