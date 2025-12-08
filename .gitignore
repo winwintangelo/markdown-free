@@ -49,6 +49,10 @@ public/chromium-pack.tar
 tmp/playwright-report/
 tmp/test-results/
 
+# Temporary/draft files
+tmp/*.md
+tmp/*.txt
+
 # Misc
 *.log
 
