@@ -376,3 +376,162 @@ test.describe("Production - Performance", () => {
     expect(cacheControl).toContain("max-age");
   });
 });
+
+test.describe("Production - Special Filename Handling (Real API)", () => {
+  test("PDF export handles filename with en-dash (–) correctly", async ({ page }) => {
+    // Tests RFC 5987 encoding for Unicode filenames in Content-Disposition
+    test.setTimeout(45000);
+
+    await page.goto("/");
+
+    // Upload file with Unicode en-dash in filename
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles({
+      name: "Report 2024–2025.md", // Contains en-dash (U+2013)
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Quarterly Report\n\n## Q1-Q4 Analysis\n\nRevenue increased by 15%."),
+    });
+    await page.waitForTimeout(300);
+
+    // Verify file is loaded
+    await expect(page.getByText("Ready to export (uploaded file)")).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download", { timeout: 40000 });
+    await page.getByRole("button", { name: "To PDF" }).click();
+
+    // Should show loading state
+    await expect(page.getByText("Generating...")).toBeVisible();
+
+    const download = await downloadPromise;
+
+    // Download should succeed - browser decodes RFC 5987 filename
+    // The exact filename depends on browser handling, but it should contain the base name
+    const filename = download.suggestedFilename();
+    expect(filename).toBeTruthy();
+    expect(filename).toMatch(/Report.*2024.*2025\.pdf/);
+
+    // Verify it's a valid PDF
+    const path = await download.path();
+    const fs = require("fs");
+    const buffer = fs.readFileSync(path!);
+    expect(buffer.toString("utf-8", 0, 4)).toBe("%PDF");
+  });
+
+  test("PDF export handles filename with Chinese characters", async ({ page }) => {
+    test.setTimeout(45000);
+
+    await page.goto("/");
+
+    // Upload file with Chinese characters in filename
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles({
+      name: "报告文档.md", // Chinese: "Report Document"
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# 季度报告\n\n## 摘要\n\n这是一份测试文档。"),
+    });
+    await page.waitForTimeout(300);
+
+    await expect(page.getByText("Ready to export (uploaded file)")).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download", { timeout: 40000 });
+    await page.getByRole("button", { name: "To PDF" }).click();
+
+    const download = await downloadPromise;
+
+    // Download should succeed
+    const filename = download.suggestedFilename();
+    expect(filename).toBeTruthy();
+    expect(filename).toMatch(/\.pdf$/);
+
+    // Verify valid PDF
+    const path = await download.path();
+    const fs = require("fs");
+    const buffer = fs.readFileSync(path!);
+    expect(buffer.toString("utf-8", 0, 4)).toBe("%PDF");
+  });
+
+  test("PDF export handles filename with accented characters", async ({ page }) => {
+    test.setTimeout(45000);
+
+    await page.goto("/");
+
+    // Upload file with French accented characters
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles({
+      name: "Résumé–Draft.md", // Contains é and en-dash
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Mon Résumé\n\n## Expérience\n\n- Développeur Senior"),
+    });
+    await page.waitForTimeout(300);
+
+    await expect(page.getByText("Ready to export (uploaded file)")).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download", { timeout: 40000 });
+    await page.getByRole("button", { name: "To PDF" }).click();
+
+    const download = await downloadPromise;
+
+    // Download should succeed
+    const filename = download.suggestedFilename();
+    expect(filename).toBeTruthy();
+    expect(filename).toMatch(/\.pdf$/);
+
+    // Verify valid PDF
+    const path = await download.path();
+    const fs = require("fs");
+    const buffer = fs.readFileSync(path!);
+    expect(buffer.toString("utf-8", 0, 4)).toBe("%PDF");
+    expect(buffer.length).toBeGreaterThan(1000);
+  });
+
+  test("TXT export preserves Unicode filename", async ({ page }) => {
+    await page.goto("/");
+
+    // Upload file with Unicode filename
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles({
+      name: "Summary 2024–2025.md", // Contains en-dash
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Summary\n\nYear in review."),
+    });
+    await page.waitForTimeout(300);
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: "To TXT" }).click();
+
+    const download = await downloadPromise;
+
+    // TXT export is client-side, should preserve Unicode filename
+    const filename = download.suggestedFilename();
+    expect(filename).toMatch(/Summary.*2024.*2025\.txt/);
+  });
+
+  test("HTML export preserves Unicode filename", async ({ page }) => {
+    await page.goto("/");
+
+    // Upload file with Unicode filename
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles({
+      name: "Café–Menu.md", // Contains é and en-dash
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Café Menu\n\n- Espresso\n- Café au lait"),
+    });
+    await page.waitForTimeout(300);
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: "To HTML" }).click();
+
+    const download = await downloadPromise;
+
+    // HTML export is client-side, should preserve Unicode filename
+    const filename = download.suggestedFilename();
+    expect(filename).toMatch(/Caf.*Menu\.html/);
+
+    // Verify HTML content
+    const path = await download.path();
+    const fs = require("fs");
+    const content = fs.readFileSync(path!, "utf-8");
+    expect(content).toContain("<!DOCTYPE html>");
+    expect(content).toContain("Café Menu");
+  });
+});
