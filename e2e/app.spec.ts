@@ -30,14 +30,14 @@ test.describe("Markdown Free - App Layout", () => {
     const badge = page.getByText("Free • No signup • Instant export");
     await expect(badge).toBeVisible();
 
-    // Check headline
+    // Check headline (SEO-optimized H1)
     const headline = page.getByRole("heading", {
-      name: "Preview & convert Markdown files in one click",
+      name: "Free Markdown to PDF, TXT & HTML Converter",
     });
     await expect(headline).toBeVisible();
 
     // Check subheadline contains key text
-    const subheadline = page.getByText(/Upload your .md file/);
+    const subheadline = page.getByText(/Upload or paste your/);
     await expect(subheadline).toBeVisible();
   });
 
@@ -1034,16 +1034,23 @@ test.describe("Markdown Free - Mobile Navigation", () => {
 });
 
 test.describe("Markdown Free - SEO & Metadata", () => {
-  test("homepage has correct title and meta description", async ({ page }) => {
+  test("homepage has correct SEO title", async ({ page }) => {
     await page.goto("/");
     
-    // Check title
-    await expect(page).toHaveTitle(/Markdown Free/);
+    // Check SEO-optimized title contains target keywords
+    await expect(page).toHaveTitle(/Markdown to PDF/i);
+    await expect(page).toHaveTitle(/Free/i);
+  });
+
+  test("homepage has correct meta description with keywords", async ({ page }) => {
+    await page.goto("/");
     
-    // Check meta description
+    // Check meta description contains key terms
     const description = await page.locator('meta[name="description"]').getAttribute("content");
     expect(description).toContain("Markdown");
-    expect(description).toContain("converter");
+    expect(description).toContain("PDF");
+    expect(description).toContain("free");
+    expect(description).not.toContain("tracking"); // Future-proof wording uses "ad trackers"
   });
 
   test("about page has correct title", async ({ page }) => {
@@ -1061,6 +1068,116 @@ test.describe("Markdown Free - SEO & Metadata", () => {
     const favicon = page.locator('link[rel="icon"]');
     const href = await favicon.getAttribute("href");
     expect(href).toContain("favicon");
+  });
+
+  test("canonical URL is set", async ({ page }) => {
+    await page.goto("/");
+    const canonical = page.locator('link[rel="canonical"]');
+    const href = await canonical.getAttribute("href");
+    expect(href).toBeTruthy();
+  });
+
+  test("Open Graph tags are present", async ({ page }) => {
+    await page.goto("/");
+    
+    // Check OG type
+    const ogType = await page.locator('meta[property="og:type"]').getAttribute("content");
+    expect(ogType).toBe("website");
+    
+    // Check OG title
+    const ogTitle = await page.locator('meta[property="og:title"]').getAttribute("content");
+    expect(ogTitle).toContain("Markdown");
+    
+    // Check OG description
+    const ogDesc = await page.locator('meta[property="og:description"]').getAttribute("content");
+    expect(ogDesc).toBeTruthy();
+    
+    // Check OG image
+    const ogImage = await page.locator('meta[property="og:image"]').getAttribute("content");
+    expect(ogImage).toContain("og-image");
+  });
+
+  test("Twitter card tags are present", async ({ page }) => {
+    await page.goto("/");
+    
+    // Check Twitter card type
+    const twitterCard = await page.locator('meta[name="twitter:card"]').getAttribute("content");
+    expect(twitterCard).toBe("summary_large_image");
+    
+    // Check Twitter title
+    const twitterTitle = await page.locator('meta[name="twitter:title"]').getAttribute("content");
+    expect(twitterTitle).toContain("Markdown");
+  });
+
+  test("JSON-LD schema is present on homepage", async ({ page }) => {
+    await page.goto("/");
+    
+    // Check for JSON-LD script tag
+    const jsonLd = page.locator('script[type="application/ld+json"]');
+    await expect(jsonLd).toBeAttached();
+    
+    // Parse and validate schema content
+    const schemaContent = await jsonLd.textContent();
+    expect(schemaContent).toBeTruthy();
+    
+    const schema = JSON.parse(schemaContent!);
+    expect(schema["@context"]).toBe("https://schema.org");
+    
+    // Check for WebApplication type in @graph
+    const webApp = schema["@graph"].find((item: { "@type": string }) => item["@type"] === "WebApplication");
+    expect(webApp).toBeTruthy();
+    expect(webApp.name).toBe("Markdown Free");
+    expect(webApp.offers.price).toBe("0");
+    
+    // Check for FAQPage type in @graph
+    const faqPage = schema["@graph"].find((item: { "@type": string }) => item["@type"] === "FAQPage");
+    expect(faqPage).toBeTruthy();
+    expect(faqPage.mainEntity.length).toBeGreaterThan(0);
+  });
+});
+
+test.describe("Markdown Free - SEO Technical", () => {
+  test("robots.txt is accessible and valid", async ({ request }) => {
+    const response = await request.get("/robots.txt");
+    expect(response.status()).toBe(200);
+    
+    const content = await response.text();
+    expect(content).toContain("User-agent:");
+    expect(content).toContain("Disallow: /api/");
+    expect(content).toContain("Sitemap:");
+  });
+
+  test("sitemap.xml is accessible and valid", async ({ request }) => {
+    const response = await request.get("/sitemap.xml");
+    expect(response.status()).toBe(200);
+    
+    const content = await response.text();
+    expect(content).toContain('<?xml version="1.0"');
+    expect(content).toContain("<urlset");
+    expect(content).toContain("<loc>");
+    // Check all main pages are included
+    expect(content).toContain("/about");
+    expect(content).toContain("/privacy");
+  });
+
+  test("HTML has lang attribute", async ({ page }) => {
+    await page.goto("/");
+    const htmlLang = await page.locator("html").getAttribute("lang");
+    expect(htmlLang).toBe("en");
+  });
+
+  test("page has single H1 element", async ({ page }) => {
+    await page.goto("/");
+    const h1Count = await page.locator("h1").count();
+    expect(h1Count).toBe(1);
+  });
+
+  test("H1 contains target keywords", async ({ page }) => {
+    await page.goto("/");
+    const h1Text = await page.locator("h1").textContent();
+    expect(h1Text?.toLowerCase()).toContain("markdown");
+    expect(h1Text?.toLowerCase()).toContain("pdf");
+    expect(h1Text?.toLowerCase()).toContain("free");
   });
 });
 

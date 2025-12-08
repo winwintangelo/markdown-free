@@ -7,19 +7,19 @@ export function Hero() {
         Free • No signup • Instant export
       </div>
 
-      {/* Headline */}
+      {/* Headline - SEO optimized H1 */}
       <h1 className="text-balance text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-        Preview &amp; convert Markdown files in one click
+        Free Markdown to PDF, TXT &amp; HTML Converter
       </h1>
 
-      {/* Subheadline */}
+      {/* Subheadline with privacy promise */}
       <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
-        Upload your <code className="text-slate-800">.md</code> file, see the
-        formatted preview, then export to{" "}
+        Upload or paste your <code className="text-slate-800">.md</code> file,
+        preview it instantly, then export to{" "}
         <span className="font-medium text-slate-800">PDF</span>,{" "}
         <span className="font-medium text-slate-800">TXT</span> or{" "}
-        <span className="font-medium text-slate-800">HTML</span> with clear,
-        simple buttons.
+        <span className="font-medium text-slate-800">HTML</span> in one click.
+        Free, private and secure — your files are never stored.
       </p>
     </section>
   );

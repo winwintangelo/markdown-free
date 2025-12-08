@@ -37,7 +37,7 @@ test.describe("Production - Page Load", () => {
     // Check critical elements
     await expect(page.locator("header").getByText("Markdown Free")).toBeVisible();
     await expect(page.getByText("Free • No signup • Instant export")).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Preview & convert Markdown/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Free Markdown to PDF/i })).toBeVisible();
     await expect(page.getByText("Drag & drop your Markdown file")).toBeVisible();
     await expect(page.getByText("© 2025 Markdown Free")).toBeVisible();
   });

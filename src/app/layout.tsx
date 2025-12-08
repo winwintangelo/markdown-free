@@ -3,26 +3,16 @@ import "./globals.css";
 import { Header } from "@/components/header";
 import { ConverterProvider } from "@/hooks/use-converter";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://markdown.free";
+const siteUrl = "https://www.markdown.free";
 
 export const metadata: Metadata = {
   title: {
-    default: "Markdown Free – Preview & Convert Markdown Files",
+    default: "Markdown to PDF Converter – Free, Private, No Signup",
     template: "%s | Markdown Free",
   },
   description:
-    "Free online Markdown viewer and converter. Upload your .md file, preview it instantly, then export to PDF, TXT, or HTML. No signup required, instant export.",
-  keywords: [
-    "markdown",
-    "markdown converter",
-    "markdown to pdf",
-    "markdown to html",
-    "markdown preview",
-    "md file viewer",
-    "markdown editor",
-    "free markdown converter",
-    "online markdown",
-  ],
+    "Convert Markdown to PDF, HTML or TXT instantly. 100% free, no signup, no ad trackers. Files processed in your browser and never stored.",
+  // Note: keywords meta tag omitted - not used by modern search engines
   authors: [{ name: "Markdown Free" }],
   creator: "Markdown Free",
   publisher: "Markdown Free",
@@ -35,23 +25,23 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "Markdown Free",
-    title: "Markdown Free – Preview & Convert Markdown Files",
+    title: "Markdown to PDF Converter – Free, Private, No Signup",
     description:
-      "Free online Markdown viewer and converter. Upload, preview, and export to PDF, TXT, or HTML instantly. No signup required.",
+      "Convert Markdown to PDF, HTML or TXT instantly. 100% free, no signup, no ad trackers.",
     images: [
       {
         url: "/og-image.svg",
         width: 1200,
         height: 630,
-        alt: "Markdown Free - Preview & Convert Markdown Files",
+        alt: "Markdown Free - Convert Markdown to PDF, HTML, TXT",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Markdown Free – Preview & Convert Markdown Files",
+    title: "Markdown to PDF Converter – Free, Private, No Signup",
     description:
-      "Free online Markdown viewer and converter. No signup required.",
+      "Convert Markdown to PDF, HTML or TXT instantly. 100% free, no signup, no ad trackers.",
     images: ["/og-image.svg"],
   },
   robots: {
@@ -66,9 +56,7 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     apple: [{ url: "/favicon.svg" }],
   },
   manifest: "/site.webmanifest",

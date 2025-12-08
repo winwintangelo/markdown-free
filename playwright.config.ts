@@ -2,6 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./e2e",
+  testMatch: "app.spec.ts", // Only run local tests, use production config for production.spec.ts
   outputDir: "./tmp/test-results",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
