@@ -439,19 +439,27 @@ export async function POST(request: NextRequest) {
       ? filename.replace(/\.(md|markdown|txt)$/i, ".pdf")
       : "document.pdf";
 
+    // Create ASCII-safe filename for Content-Disposition header
+    // Replace non-ASCII characters with hyphens to avoid ByteString errors
+    const safeFilename = outputFilename.replace(/[^\x00-\x7F]/g, "-");
+    // Also encode the full filename for RFC 5987 compliant clients
+    const encodedFilename = encodeURIComponent(outputFilename);
+
     const totalDuration = Date.now() - requestStart;
     debugLog("Request", `[${requestId}] PDF generation completed successfully`, {
       totalDurationMs: totalDuration,
       outputFilename,
+      safeFilename,
       pdfSize: pdfBuffer.length,
     });
 
     // Return PDF - Convert Uint8Array to Buffer for NextResponse
+    // Use both filename (ASCII fallback) and filename* (UTF-8 encoded) per RFC 5987
     return new NextResponse(Buffer.from(pdfBuffer), {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename="${outputFilename}"`,
+        "Content-Disposition": `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
         "Content-Length": pdfBuffer.length.toString(),
       },
     });

@@ -1,8 +1,8 @@
 # Markdown Free — Product Specification
 
 > **Version:** 1.0 MVP  
-> **Last Updated:** December 2024  
-> **Status:** Ready for Implementation  
+> **Last Updated:** December 7, 2024  
+> **Status:** Implemented & Deployed  
 > **Reference Mockup:** `tmp/c.html`
 
 ---
@@ -439,10 +439,10 @@ Export buttons are contained in a card row with the privacy notice:
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
 │  │            ● Free • No signup • Instant export                        │  │
 │  │                                                                       │  │
-│  │       Preview & convert Markdown files in one click                   │  │
+│  │       Free Markdown to PDF, TXT & HTML Converter                      │  │
 │  │                                                                       │  │
-│  │   Upload your .md file, see the formatted preview, then export to    │  │
-│  │   PDF, TXT or HTML with clear, simple buttons.                       │  │
+│  │   Upload or paste your .md file, preview it instantly, then export   │  │
+│  │   to PDF, TXT or HTML. Free, private, secure — never stored.         │  │
 │  └───────────────────────────────────────────────────────────────────────┘  │
 │                                                                             │
 │  UPLOAD CARD (max-w-4xl, centered)                                          │
@@ -491,7 +491,7 @@ Export buttons are contained in a card row with the privacy notice:
 │                                                                             │
 │  FOOTER                                                                     │
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
-│  │  © 2025 Markdown Free.             No accounts • No tracking • HTTPS │  │
+│  │  © 2025 Markdown Free.      No accounts • No tracking cookies • HTTPS │  │
 │  └───────────────────────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -750,17 +750,18 @@ Uses Tailwind CSS default font stack (system fonts). No custom fonts required.
     Free • No signup • Instant export
   </div>
   
-  <!-- Headline -->
+  <!-- Headline (SEO-optimized H1) -->
   <h1 class="text-balance text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-    Preview & convert Markdown files in one click
+    Free Markdown to PDF, TXT &amp; HTML Converter
   </h1>
   
-  <!-- Subheadline -->
+  <!-- Subheadline with privacy promise -->
   <p class="mx-auto mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
-    Upload your <code>.md</code> file, see the formatted preview, then export to
+    Upload or paste your <code>.md</code> file, preview it instantly, then export to
     <span class="font-medium text-slate-800">PDF</span>,
     <span class="font-medium text-slate-800">TXT</span> or
-    <span class="font-medium text-slate-800">HTML</span> with clear, simple buttons.
+    <span class="font-medium text-slate-800">HTML</span> in one click.
+    Free, private and secure — your files are never stored.
   </p>
 </section>
 ```
@@ -770,7 +771,7 @@ Uses Tailwind CSS default font stack (system fonts). No custom fonts required.
 ```html
 <footer class="mt-4 flex flex-col items-center justify-between gap-2 text-[11px] text-slate-400 sm:flex-row">
   <p>© 2025 Markdown Free. Built for simple, fast, free exports.</p>
-  <p>No accounts • No tracking of your content • HTTPS only.</p>
+  <p>Privacy • No tracking cookies • HTTPS only</p>
 </footer>
 ```
 
@@ -1134,7 +1135,7 @@ Add section:
 
 ---
 
-## 14. Implementation Phases
+## 15. Implementation Phases
 
 ### Phase 1: Foundation (Week 1)
 
@@ -1169,7 +1170,7 @@ Add section:
 
 ---
 
-## 14. Success Metrics
+## 16. Success Metrics
 
 ### Launch Criteria
 

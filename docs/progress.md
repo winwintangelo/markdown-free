@@ -16,7 +16,7 @@
 | Phase 4: Launch Prep | ✅ Complete | `b6ce16d` |
 | PDF Debug Logging | ✅ Complete | — |
 | SEO Optimizations | ✅ Complete | `1a7b51f` |
-| User Analytics (Umami) | ✅ Complete | — |
+| User Analytics (Umami) | ✅ Complete | `c797eea` |
 
 ---
 
@@ -132,7 +132,7 @@
 **Date:** December 7, 2024  
 **Commits:** `55abe4f`, `f08ad14`
 
-#### Test Coverage (53 tests, all passing)
+#### Test Coverage (69 tests, all passing)
 
 | Test Suite | Tests | Description |
 |------------|-------|-------------|
@@ -149,9 +149,11 @@
 | Security (XSS Prevention) | 2 | Script tag sanitization via paste and file upload |
 | Mobile Navigation | 4 | Hamburger visibility, menu open/close, navigation |
 | SEO & Metadata | 4 | Page titles, meta descriptions, favicon |
+| SEO & Metadata (Extended) | 10 | Canonical, OG tags, Twitter cards, JSON-LD schema, robots.txt, sitemap.xml, H1 keywords |
 | Footer Navigation | 1 | Privacy link in footer works |
 | Mobile Phone Experience | 3 | iPhone SE, Android, no horizontal scroll |
 | Performance | 3 | Load time < 3s, FCP < 1.5s, accessibility |
+| Analytics Integration | 6 | Footer copy, Umami mention on privacy page, script loading, trackEvent safety |
 
 #### Test Commands
 
@@ -243,8 +245,49 @@ Added comprehensive debug logging to troubleshoot PDF generation on Vercel. Foll
 
 ---
 
+### SEO Optimizations
+**Date:** December 7, 2024  
+**Commit:** `1a7b51f`
+
+#### What Was Built
+
+Comprehensive SEO implementation based on merged expert feedback.
+
+**Metadata Updates (`layout.tsx`):**
+- SEO-optimized title: "Markdown to PDF Converter – Free, Private, No Signup"
+- Improved meta description with target keywords
+- Open Graph and Twitter card tags updated
+- Canonical URL set to `https://www.markdown.free`
+
+**Content Updates:**
+- Hero H1 optimized: "Free Markdown to PDF, TXT & HTML Converter"
+- Privacy-focused subheadline added
+
+**Technical SEO:**
+- `public/robots.txt` — Disallows `/api/`, includes sitemap reference
+- `public/sitemap.xml` — Lists homepage, about, privacy pages
+
+**Structured Data (`page.tsx`):**
+- JSON-LD schema for `WebApplication`
+- JSON-LD schema for `FAQPage` with 5 common questions
+
+**E2E Tests Added (10 tests):**
+- Title and meta description keywords
+- Canonical URL
+- Open Graph tags
+- Twitter Card tags
+- JSON-LD schema validation
+- robots.txt accessibility
+- sitemap.xml validity
+- HTML lang attribute
+- Single H1 per page
+- H1 contains target keywords
+
+---
+
 ### User Analytics (Umami Cloud)
-**Date:** December 7, 2024
+**Date:** December 7, 2024  
+**Commit:** `c797eea`
 
 #### What Was Built
 
@@ -311,25 +354,26 @@ markdown-free/
 │   ├── spec.md              # Product specification
 │   └── progress.md          # This file
 ├── e2e/
-│   └── app.spec.ts          # Playwright tests (53 tests)
+│   ├── app.spec.ts          # Local Playwright tests (69 tests)
+│   └── production.spec.ts   # Production E2E tests
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx
-│   │   ├── page.tsx
+│   │   ├── layout.tsx       # Root layout with SEO metadata + Umami script
+│   │   ├── page.tsx         # Main page with JSON-LD schema
 │   │   ├── globals.css
 │   │   ├── about/page.tsx
 │   │   ├── privacy/page.tsx
 │   │   └── api/
 │   │       └── convert/
 │   │           └── pdf/
-│   │               └── route.ts  # NEW: PDF generation API
+│   │               └── route.ts  # PDF generation API with debug logging
 │   ├── components/
 │   │   ├── header.tsx
-│   │   ├── hero.tsx
-│   │   ├── footer.tsx
-│   │   ├── upload-card.tsx
-│   │   ├── paste-area.tsx
-│   │   ├── export-row.tsx
+│   │   ├── hero.tsx         # SEO-optimized H1
+│   │   ├── footer.tsx       # "No tracking cookies"
+│   │   ├── upload-card.tsx  # With analytics tracking
+│   │   ├── paste-area.tsx   # With analytics tracking
+│   │   ├── export-row.tsx   # With analytics tracking
 │   │   ├── preview-card.tsx
 │   │   └── index.ts
 │   ├── hooks/
@@ -340,19 +384,21 @@ markdown-free/
 │   │   ├── download.ts      # File download utility
 │   │   ├── export-txt.ts    # TXT export
 │   │   ├── export-html.ts   # HTML export with template
-│   │   └── export-pdf.ts    # NEW: PDF export via API
+│   │   ├── export-pdf.ts    # PDF export via API
+│   │   └── analytics.ts     # Umami event tracking utilities
 │   └── types/
 │       └── index.ts
 ├── public/
-│   ├── favicon.svg          # NEW: Emerald logo favicon
-│   ├── og-image.svg         # NEW: OpenGraph image
-│   └── site.webmanifest     # NEW: PWA manifest
-├── tmp/
-│   ├── c.html               # UI mockup reference
-│   ├── playwright-report/   # (gitignored)
-│   └── test-results/        # (gitignored)
-├── vercel.json              # NEW: Vercel deployment config
-├── playwright.config.ts
+│   ├── favicon.svg          # Emerald logo favicon
+│   ├── og-image.svg         # OpenGraph image
+│   ├── site.webmanifest     # PWA manifest
+│   ├── robots.txt           # SEO: crawler directives
+│   └── sitemap.xml          # SEO: sitemap
+├── tmp/                     # (gitignored)
+├── env.example              # Environment variables template
+├── vercel.json              # Vercel deployment config
+├── playwright.config.ts     # Local test config
+├── playwright.production.config.ts  # Production test config
 ├── tailwind.config.ts
 ├── tsconfig.json
 └── package.json
@@ -364,6 +410,13 @@ markdown-free/
 
 | Commit | Date | Description |
 |--------|------|-------------|
+| `1ab1428` | Dec 7, 2024 | Add env.example for Umami configuration |
+| `c797eea` | Dec 7, 2024 | Add privacy-friendly Umami Cloud analytics integration |
+| `a231df3` | Dec 7, 2024 | Fix production E2E test for SEO title |
+| `5ee6884` | Dec 7, 2024 | Add tmp to gitignore |
+| `1a7b51f` | Dec 7, 2024 | Implement SEO optimizations based on expert feedback |
+| `3c35d6a` | Dec 7, 2024 | Production E2E Test Suite Created |
+| `8bbb6fa` | Dec 7, 2024 | Add comprehensive debug logging to PDF route |
 | `b6ce16d` | Dec 7, 2024 | Phase 4: Launch prep - Mobile nav, SEO, Vercel config |
 | `ca092a2` | Dec 7, 2024 | Phase 3: PDF generation with Puppeteer and error handling |
 | `8261517` | Dec 7, 2024 | Phase 2: Markdown rendering engine and client-side exports |
