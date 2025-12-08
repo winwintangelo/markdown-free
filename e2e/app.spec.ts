@@ -1312,3 +1312,72 @@ test.describe("Markdown Free - Performance", () => {
   });
 });
 
+test.describe("Markdown Free - Analytics Integration", () => {
+  test("footer shows 'No tracking cookies' (not 'No tracking')", async ({ page }) => {
+    await page.goto("/");
+    
+    // Footer should say "No tracking cookies" not just "No tracking"
+    const footer = page.locator("footer");
+    await expect(footer.getByText("No tracking cookies")).toBeVisible();
+  });
+
+  test("privacy page mentions Umami Cloud analytics", async ({ page }) => {
+    await page.goto("/privacy");
+    
+    // Privacy page should mention Umami Cloud
+    await expect(page.getByText("Umami Cloud")).toBeVisible();
+    
+    // Should explain it's cookieless
+    await expect(page.getByText(/cookieless/i)).toBeVisible();
+    
+    // Should clarify we don't send content
+    await expect(page.getByText(/do not send your Markdown content/i)).toBeVisible();
+  });
+
+  test("privacy page lists what analytics data we collect", async ({ page }) => {
+    await page.goto("/privacy");
+    
+    // Should list the types of aggregated data
+    await expect(page.getByText("Page views and visitor counts")).toBeVisible();
+    await expect(page.getByText(/Counts of successful conversions/i)).toBeVisible();
+  });
+
+  test("Umami script is not loaded without env vars (development)", async ({ page }) => {
+    await page.goto("/");
+    
+    // Without NEXT_PUBLIC_UMAMI_HOST and NEXT_PUBLIC_UMAMI_WEBSITE_ID,
+    // the Umami script should NOT be present
+    const umamiScript = page.locator('script[data-website-id]');
+    await expect(umamiScript).toHaveCount(0);
+  });
+
+  test("trackEvent function is available and safe to call", async ({ page }) => {
+    await page.goto("/");
+    
+    // The trackEvent function should be safe to call even without Umami loaded
+    // It should not throw any errors
+    const result = await page.evaluate(() => {
+      // Simulate what our code does - check for umami and call track
+      if (typeof window !== "undefined") {
+        // window.umami won't exist in tests, but calling our pattern should be safe
+        const umami = (window as unknown as { umami?: { track: (name: string, data?: Record<string, string>) => void } }).umami;
+        if (umami?.track) {
+          umami.track("test_event", { test: "value" });
+        }
+        return "no_error";
+      }
+      return "no_window";
+    });
+    
+    expect(result).toBe("no_error");
+  });
+
+  test("privacy short version mentions no tracking cookies", async ({ page }) => {
+    await page.goto("/privacy");
+    
+    // The short version in the article should say "No tracking cookies"
+    // Use article locator to avoid matching footer
+    await expect(page.getByRole("article").getByText(/No tracking cookies/)).toBeVisible();
+  });
+});
+

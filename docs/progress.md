@@ -15,6 +15,8 @@
 | Phase 3: PDF Generation | ✅ Complete | `ca092a2` |
 | Phase 4: Launch Prep | ✅ Complete | `b6ce16d` |
 | PDF Debug Logging | ✅ Complete | — |
+| SEO Optimizations | ✅ Complete | `1a7b51f` |
+| User Analytics (Umami) | ✅ Complete | — |
 
 ---
 
@@ -238,6 +240,60 @@ Added comprehensive debug logging to troubleshoot PDF generation on Vercel. Foll
   "chromium": { "status", "executablePath", "resolutionTimeMs" }
 }
 ```
+
+---
+
+### User Analytics (Umami Cloud)
+**Date:** December 7, 2024
+
+#### What Was Built
+
+Privacy-friendly, cookieless analytics using Umami Cloud (Hobby plan - free tier).
+
+**Analytics Utility (`src/lib/analytics.ts`):**
+- Type-safe event tracking helpers
+- `trackEvent()` - Generic event tracking
+- `trackUploadStart()` - Upload initiation (file or paste)
+- `trackUploadError()` - Upload validation errors
+- `trackConvertSuccess()` - Successful conversions
+- `trackConvertError()` - Conversion failures
+
+**Tracked Events:**
+
+| Event | Trigger | Properties |
+|-------|---------|------------|
+| `upload_start` | File drop/select or paste content | `source`: `file` \| `paste` |
+| `upload_error` | Validation failure | `source`, `reason` |
+| `convert_success` | Export completed | `format`, `source` |
+| `convert_error` | Export failed | `format`, `error_code` |
+
+**Integration Points:**
+- `layout.tsx` - Conditional Umami script loading
+- `upload-card.tsx` - Upload start/error tracking
+- `paste-area.tsx` - Paste start tracking
+- `export-row.tsx` - Conversion success/error tracking
+
+**Privacy Updates:**
+- Footer: "No tracking" → "No tracking cookies"
+- Privacy page: Added detailed Umami Cloud section explaining:
+  - Cookieless, privacy-focused platform
+  - What data is collected (aggregated only)
+  - What is NOT collected (content, file names, PII)
+  - DNT (Do Not Track) respect
+
+**Environment Variables Required:**
+```
+NEXT_PUBLIC_UMAMI_HOST=https://cloud.umami.is
+NEXT_PUBLIC_UMAMI_WEBSITE_ID=<your-website-id>
+```
+
+**E2E Tests Added (6 tests):**
+- Footer shows "No tracking cookies"
+- Privacy page mentions Umami Cloud
+- Privacy page lists collected data types
+- Umami script not loaded without env vars
+- trackEvent function is safe to call
+- Privacy short version updated
 
 ---
 

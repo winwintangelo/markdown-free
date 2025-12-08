@@ -4,6 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { Upload } from "lucide-react";
 import { cn, formatFileSize, isValidFileType, isValidFileSize } from "@/lib/utils";
 import { useConverter } from "@/hooks/use-converter";
+import { trackUploadStart, trackUploadError } from "@/lib/analytics";
 
 export function UploadCard() {
   const { state, dispatch } = useConverter();
@@ -12,8 +13,12 @@ export function UploadCard() {
 
   const handleFile = useCallback(
     async (file: File) => {
+      // Track upload start
+      trackUploadStart("file");
+
       // Validate file type
       if (!isValidFileType(file.name)) {
+        trackUploadError("file", "invalid_type");
         dispatch({
           type: "SET_ERROR",
           error: {
@@ -26,6 +31,7 @@ export function UploadCard() {
 
       // Validate file size
       if (!isValidFileSize(file.size)) {
+        trackUploadError("file", "too_large");
         dispatch({
           type: "SET_ERROR",
           error: {
@@ -46,6 +52,7 @@ export function UploadCard() {
           size: file.size,
         });
       } catch {
+        trackUploadError("file", "parse_error");
         dispatch({
           type: "SET_ERROR",
           error: {

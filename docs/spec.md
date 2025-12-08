@@ -1021,15 +1021,120 @@ The `rehype-sanitize` plugin uses GitHub's schema by default, which strips dange
 
 ### Privacy Page Content
 
-- No accounts or tracking
+- No accounts or tracking cookies
 - Files processed in memory only
 - PDF generation uses temporary serverless compute
 - No document content in logs
-- Anonymous usage analytics only (page views, export counts)
+- Privacy-first analytics (cookieless, aggregated data only)
 
 ---
 
-## 13. Implementation Phases
+## 13. User Analytics
+
+### Overview
+
+Privacy-friendly, cookieless analytics using **Umami Cloud** (Hobby plan - free tier). Track basic usage for product decisions without collecting personal data or file contents.
+
+### Tool Selection: Umami Cloud
+
+| Feature | Details |
+|---------|---------|
+| Plan | Hobby (Free) |
+| Events | Up to 100,000/month |
+| Websites | Up to 3 |
+| Data Retention | 6 months |
+| Privacy | Cookieless, GDPR/CCPA compliant, no PII |
+
+### Privacy Principles
+
+**Never Send:**
+- File names or content
+- Email addresses, IPs, or user IDs
+- Any Markdown text or document data
+
+**Only Send:**
+- Event names (short strings)
+- Non-identifying properties: export format (`pdf`, `txt`, `html`), source (`file`, `paste`)
+
+**Respect DNT:**
+- Enable `data-do-not-track="true"` to honor browser Do Not Track setting
+
+### Event Schema
+
+| Event | Trigger | Properties |
+|-------|---------|------------|
+| `upload_start` | User drops/selects file or starts paste conversion | `source`: `file` \| `paste` |
+| `upload_error` | Upload rejected before conversion | `source`, `reason`: `invalid_type` \| `too_large` \| `parse_error` |
+| `convert_success` | Conversion completes, download initiated | `format`: `pdf` \| `txt` \| `html`, `source` |
+| `convert_error` | Conversion fails | `format`, `error_code`: `pdf_timeout` \| `pdf_server_error` \| `unknown` |
+
+### Integration Architecture
+
+**Environment Variables:**
+```
+NEXT_PUBLIC_UMAMI_HOST=https://cloud.umami.is
+NEXT_PUBLIC_UMAMI_WEBSITE_ID=<your-website-id>
+```
+
+**Script Integration (layout.tsx):**
+```tsx
+import Script from "next/script";
+
+// In body (not head) with afterInteractive strategy
+{host && websiteId && (
+  <Script
+    src={`${host}/script.js`}
+    data-website-id={websiteId}
+    data-domains="www.markdown.free"
+    data-do-not-track="true"
+    strategy="afterInteractive"
+  />
+)}
+```
+
+**Event Tracking Utility:**
+```typescript
+// src/lib/analytics.ts
+declare global {
+  interface Window {
+    umami?: {
+      track: (eventName: string, eventData?: Record<string, string>) => void;
+    };
+  }
+}
+
+export function trackEvent(eventName: string, data?: Record<string, string>) {
+  if (typeof window !== "undefined" && window.umami?.track) {
+    window.umami.track(eventName, data);
+  }
+}
+```
+
+### Messaging Updates
+
+**Footer:**
+- Change from: "No tracking"
+- Change to: "No tracking cookies"
+
+**Privacy Page:**
+Add section:
+> **Analytics**
+>
+> We use Umami Cloud, a privacy-focused, cookieless analytics platform. It helps us understand how many people use Markdown Free and which features are most useful.
+>
+> Umami does not use cookies and does not collect personal information. We only see aggregated data like page views and counts of successful conversions. We do not send your Markdown content, file names, or any text you paste to our analytics provider.
+
+### Key Metrics
+
+| Category | Metrics |
+|----------|---------|
+| Traffic | Daily/weekly pageviews, unique visitors, top referrers |
+| Conversion | Success count by format (PDF/TXT/HTML), error rate by format |
+| Behavior | File vs paste usage ratio |
+
+---
+
+## 14. Implementation Phases
 
 ### Phase 1: Foundation (Week 1)
 

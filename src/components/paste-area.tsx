@@ -2,12 +2,14 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useConverter } from "@/hooks/use-converter";
+import { trackUploadStart } from "@/lib/analytics";
 
 export function PasteArea() {
   const { state, dispatch } = useConverter();
   const [localValue, setLocalValue] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const hasTrackedPasteRef = useRef(false);
 
   // Auto-focus when paste area becomes visible
   useEffect(() => {
@@ -36,6 +38,15 @@ export function PasteArea() {
       }
 
       debounceRef.current = setTimeout(() => {
+        // Track paste start once when content becomes non-empty
+        if (value.trim() && !hasTrackedPasteRef.current) {
+          trackUploadStart("paste");
+          hasTrackedPasteRef.current = true;
+        }
+        // Reset tracking flag when content is cleared
+        if (!value.trim()) {
+          hasTrackedPasteRef.current = false;
+        }
         dispatch({ type: "LOAD_PASTE", content: value });
       }, 250);
     },

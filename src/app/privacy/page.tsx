@@ -24,8 +24,8 @@ export default function PrivacyPage() {
             information
           </li>
           <li>
-            <strong>No tracking</strong> — We don&apos;t track your content or
-            document data
+            <strong>No tracking cookies</strong> — We don&apos;t use cookies or
+            track your content
           </li>
           <li>
             <strong>No storage</strong> — Your files are never stored on our
@@ -68,16 +68,22 @@ export default function PrivacyPage() {
 
         <h2>Analytics</h2>
         <p>
-          We may use anonymous, privacy-respecting analytics to understand how
-          the tool is used (e.g., page views, button clicks, export format
-          preferences). This data:
+          We use <strong>Umami Cloud</strong>, a privacy-focused, cookieless
+          analytics platform. It helps us understand how many people use
+          Markdown Free and which features are most useful.
         </p>
+        <p>Umami does not use cookies and does not collect personal information such as names, email addresses, or IP addresses. We only see aggregated data like:</p>
         <ul>
-          <li>Contains no personal identifiers</li>
-          <li>Does not include any document content</li>
-          <li>Is aggregated and anonymized</li>
-          <li>Helps us improve the service</li>
+          <li>Page views and visitor counts</li>
+          <li>Referrer information (where visitors come from)</li>
+          <li>Counts of successful conversions (PDF, TXT, HTML)</li>
+          <li>General device/browser information</li>
         </ul>
+        <p>
+          <strong>We do not send your Markdown content, file names, or any text
+          you paste to our analytics provider.</strong> Analytics respects your
+          browser&apos;s Do Not Track setting.
+        </p>
 
         <h2>Third parties</h2>
         <p>

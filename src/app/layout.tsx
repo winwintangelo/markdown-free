@@ -1,7 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { ConverterProvider } from "@/hooks/use-converter";
+
+// Umami Analytics configuration
+const umamiHost = process.env.NEXT_PUBLIC_UMAMI_HOST;
+const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
 const siteUrl = "https://www.markdown.free";
 
@@ -84,6 +89,16 @@ export default function RootLayout({
           <Header />
           {children}
         </ConverterProvider>
+        {/* Umami Analytics - Privacy-friendly, cookieless */}
+        {umamiHost && umamiWebsiteId && (
+          <Script
+            src={`${umamiHost}/script.js`}
+            data-website-id={umamiWebsiteId}
+            data-domains="www.markdown.free"
+            data-do-not-track="true"
+            strategy="afterInteractive"
+          />
+        )}
       </body>
     </html>
   );

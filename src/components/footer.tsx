@@ -12,7 +12,7 @@ export function Footer() {
           Privacy
         </Link>
         <span>•</span>
-        <span>No tracking</span>
+        <span>No tracking cookies</span>
         <span>•</span>
         <span>HTTPS only</span>
       </div>

@@ -8,6 +8,12 @@ import { exportTxt } from "@/lib/export-txt";
 import { exportHtml } from "@/lib/export-html";
 import { exportPdf, PdfExportResult } from "@/lib/export-pdf";
 import { markdownToHtml } from "@/lib/markdown";
+import {
+  trackConvertSuccess,
+  trackConvertError,
+  type ExportFormat as AnalyticsExportFormat,
+  type UploadSource,
+} from "@/lib/analytics";
 
 type ExportFormat = "pdf" | "txt" | "html";
 
@@ -51,6 +57,9 @@ export function ExportRow() {
     async (format: ExportFormat) => {
       if (!state.content) return;
 
+      // Determine source for analytics
+      const source: UploadSource = state.content.source === "file" ? "file" : "paste";
+
       // Clear any previous error
       setError(null);
       setLoadingFormat(format);
@@ -58,9 +67,11 @@ export function ExportRow() {
       try {
         if (format === "txt") {
           exportTxt(state.content.content, state.content.filename);
+          trackConvertSuccess(format as AnalyticsExportFormat, source);
         } else if (format === "html") {
           const html = renderedHtml || (await markdownToHtml(state.content.content));
           exportHtml(html, state.content.filename);
+          trackConvertSuccess(format as AnalyticsExportFormat, source);
         } else if (format === "pdf") {
           // Create abort controller for PDF request
           abortControllerRef.current = new AbortController();
@@ -71,7 +82,16 @@ export function ExportRow() {
             abortControllerRef.current.signal
           );
 
-          if (!result.success && result.error) {
+          if (result.success) {
+            trackConvertSuccess(format as AnalyticsExportFormat, source);
+          } else if (result.error) {
+            // Map error codes to analytics error codes
+            const errorCode = result.error.code === "GENERATION_TIMEOUT" 
+              ? "pdf_timeout" 
+              : result.error.code === "GENERATION_FAILED" || result.error.code === "SERVER_ERROR"
+              ? "pdf_server_error"
+              : "unknown";
+            trackConvertError(format as AnalyticsExportFormat, errorCode);
             setError({
               format: "pdf",
               code: result.error.code,
@@ -82,6 +102,7 @@ export function ExportRow() {
         }
       } catch (err) {
         console.error(`Export error (${format}):`, err);
+        trackConvertError(format as AnalyticsExportFormat, "unknown");
         setError({
           format,
           code: "UNKNOWN_ERROR",
