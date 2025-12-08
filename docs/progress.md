@@ -132,7 +132,7 @@
 **Date:** December 7, 2024  
 **Commits:** `55abe4f`, `f08ad14`
 
-#### Test Coverage (69 tests, all passing)
+#### Test Coverage (74 tests, all passing)
 
 | Test Suite | Tests | Description |
 |------------|-------|-------------|
@@ -154,6 +154,7 @@
 | Mobile Phone Experience | 3 | iPhone SE, Android, no horizontal scroll |
 | Performance | 3 | Load time < 3s, FCP < 1.5s, accessibility |
 | Analytics Integration | 6 | Footer copy, Umami mention on privacy page, script loading, trackEvent safety |
+| Special Filename Handling | 5 | Unicode (en-dash), emoji, Chinese chars in PDF/TXT/HTML exports |
 
 #### Test Commands
 

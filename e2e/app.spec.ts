@@ -1381,3 +1381,203 @@ test.describe("Markdown Free - Analytics Integration", () => {
   });
 });
 
+test.describe("Markdown Free - Special Filename Handling", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
+
+  test("PDF export handles Unicode filename with en-dash (–)", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Track the API request to verify filename is passed correctly
+    let apiRequestBody: { markdown: string; filename: string } | null = null;
+
+    // Mock the PDF API with RFC 5987 encoded filename response
+    await page.route("**/api/convert/pdf", async (route) => {
+      const request = route.request();
+      apiRequestBody = JSON.parse(request.postData() || "{}");
+
+      // Return a mock PDF
+      const mockPdf = Buffer.from(
+        "%PDF-1.4\n1 0 obj\n<<>>\nendobj\ntrailer\n<<>>\n%%EOF"
+      );
+
+      // Simulate RFC 5987 encoding for Unicode filename
+      const safeFilename = "Report-2024-2025.pdf"; // ASCII fallback with hyphen
+      const encodedFilename = encodeURIComponent("Report 2024–2025.pdf");
+
+      await route.fulfill({
+        status: 200,
+        contentType: "application/pdf",
+        body: mockPdf,
+        headers: {
+          "Content-Disposition": `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
+          "Content-Length": mockPdf.length.toString(),
+        },
+      });
+    });
+
+    // Upload file with Unicode en-dash in filename
+    await fileInput.setInputFiles({
+      name: "Report 2024–2025.md", // Contains en-dash (U+2013)
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Quarterly Report\n\nQ1-Q4 Analysis"),
+    });
+
+    // Wait for content to load
+    await expect(page.getByText("Ready to export")).toBeVisible();
+
+    // Set up download listener
+    const downloadPromise = page.waitForEvent("download");
+
+    // Click PDF button
+    await page.getByRole("button", { name: /To PDF/i }).click();
+
+    // Wait for download
+    const download = await downloadPromise;
+
+    // Verify API was called with original Unicode filename
+    expect(apiRequestBody).not.toBeNull();
+    expect(apiRequestBody!.filename).toBe("Report 2024–2025.md");
+
+    // Verify download completed (browser handles RFC 5987 decoding)
+    expect(download.suggestedFilename()).toMatch(/Report.*2024.*2025\.pdf/);
+  });
+
+  test("PDF export handles filename with emoji", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    let apiRequestBody: { markdown: string; filename: string } | null = null;
+
+    await page.route("**/api/convert/pdf", async (route) => {
+      const request = route.request();
+      apiRequestBody = JSON.parse(request.postData() || "{}");
+
+      const mockPdf = Buffer.from(
+        "%PDF-1.4\n1 0 obj\n<<>>\nendobj\ntrailer\n<<>>\n%%EOF"
+      );
+
+      const safeFilename = "Notes--.pdf"; // Emoji replaced with hyphens
+      const encodedFilename = encodeURIComponent("Notes 📝.pdf");
+
+      await route.fulfill({
+        status: 200,
+        contentType: "application/pdf",
+        body: mockPdf,
+        headers: {
+          "Content-Disposition": `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
+          "Content-Length": mockPdf.length.toString(),
+        },
+      });
+    });
+
+    // Upload file with emoji in filename
+    await fileInput.setInputFiles({
+      name: "Notes 📝.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# My Notes\n\nImportant stuff"),
+    });
+
+    await expect(page.getByText("Ready to export")).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: /To PDF/i }).click();
+    const download = await downloadPromise;
+
+    // Verify API received original filename with emoji
+    expect(apiRequestBody).not.toBeNull();
+    expect(apiRequestBody!.filename).toBe("Notes 📝.md");
+
+    // Download should work
+    expect(download.suggestedFilename()).toMatch(/Notes.*\.pdf/);
+  });
+
+  test("PDF export handles filename with Chinese characters", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    let apiRequestBody: { markdown: string; filename: string } | null = null;
+
+    await page.route("**/api/convert/pdf", async (route) => {
+      const request = route.request();
+      apiRequestBody = JSON.parse(request.postData() || "{}");
+
+      const mockPdf = Buffer.from(
+        "%PDF-1.4\n1 0 obj\n<<>>\nendobj\ntrailer\n<<>>\n%%EOF"
+      );
+
+      const safeFilename = "----.pdf"; // Chinese chars replaced with hyphens
+      const encodedFilename = encodeURIComponent("报告文档.pdf");
+
+      await route.fulfill({
+        status: 200,
+        contentType: "application/pdf",
+        body: mockPdf,
+        headers: {
+          "Content-Disposition": `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
+          "Content-Length": mockPdf.length.toString(),
+        },
+      });
+    });
+
+    // Upload file with Chinese characters
+    await fileInput.setInputFiles({
+      name: "报告文档.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# 标题\n\n内容"),
+    });
+
+    await expect(page.getByText("Ready to export")).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: /To PDF/i }).click();
+    const download = await downloadPromise;
+
+    // Verify API received original filename
+    expect(apiRequestBody).not.toBeNull();
+    expect(apiRequestBody!.filename).toBe("报告文档.md");
+
+    // Download should work
+    expect(download.suggestedFilename()).toBeTruthy();
+  });
+
+  test("TXT export handles Unicode filename correctly", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Upload file with Unicode en-dash in filename
+    await fileInput.setInputFiles({
+      name: "Summary 2024–2025.md", // Contains en-dash (U+2013)
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Summary\n\nYear in review"),
+    });
+
+    await expect(page.getByText("Ready to export")).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: /To TXT/i }).click();
+    const download = await downloadPromise;
+
+    // TXT export is client-side, filename should be preserved
+    expect(download.suggestedFilename()).toMatch(/Summary.*2024.*2025\.txt/);
+  });
+
+  test("HTML export handles Unicode filename correctly", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Upload file with Unicode characters
+    await fileInput.setInputFiles({
+      name: "Résumé–Draft.md", // Contains accented char and en-dash
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# My Résumé\n\nExperience"),
+    });
+
+    await expect(page.getByText("Ready to export")).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: /To HTML/i }).click();
+    const download = await downloadPromise;
+
+    // HTML export is client-side, filename should be preserved
+    expect(download.suggestedFilename()).toMatch(/R.sum.*Draft\.html/);
+  });
+});
+
