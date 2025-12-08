@@ -57,7 +57,8 @@ test.describe("Production - SEO & Metadata", () => {
   test("homepage has correct meta tags", async ({ page }) => {
     await page.goto("/");
     
-    await expect(page).toHaveTitle(/Markdown Free/);
+    // SEO-optimized title contains target keywords
+    await expect(page).toHaveTitle(/Markdown to PDF/i);
     
     const description = await page.locator('meta[name="description"]').getAttribute("content");
     expect(description).toBeTruthy();
