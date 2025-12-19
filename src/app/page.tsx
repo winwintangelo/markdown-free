@@ -4,6 +4,7 @@ import { PasteArea } from "@/components/paste-area";
 import { ExportRow } from "@/components/export-row";
 import { PreviewCard } from "@/components/preview-card";
 import { Footer } from "@/components/footer";
+import { EngagementTracker } from "@/components/engagement-tracker";
 
 // JSON-LD Schema for SEO
 const jsonLd = {
@@ -95,6 +96,8 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {/* Engagement tracking (scroll depth, time on page, drag intent) */}
+      <EngagementTracker />
       <main className="mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-16 pt-10">
         {/* Hero Section */}
         <Hero />

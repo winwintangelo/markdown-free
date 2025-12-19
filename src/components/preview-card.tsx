@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { markdownToHtml } from "@/lib/markdown";
 import { useConverter } from "@/hooks/use-converter";
+import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 
 export function PreviewCard() {
   const { state } = useConverter();
   const [renderedHtml, setRenderedHtml] = useState<string>("");
   const [isRendering, setIsRendering] = useState(false);
+  const sectionRef = useSectionVisibility("preview");
 
   // Render markdown when content changes
   useEffect(() => {
@@ -79,7 +81,7 @@ export function PreviewCard() {
   );
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <div ref={sectionRef} className="rounded-2xl border border-slate-200 bg-white shadow-sm">
       {/* Header */}
       <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
         <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-500">

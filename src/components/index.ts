@@ -5,4 +5,5 @@ export { UploadCard } from "./upload-card";
 export { PasteArea } from "./paste-area";
 export { ExportRow } from "./export-row";
 export { PreviewCard } from "./preview-card";
+export { EngagementTracker } from "./engagement-tracker";
 

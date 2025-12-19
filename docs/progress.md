@@ -17,6 +17,7 @@
 | PDF Debug Logging | ✅ Complete | — |
 | SEO Optimizations | ✅ Complete | `1a7b51f` |
 | User Analytics (Umami) | ✅ Complete | `c797eea` |
+| Enhanced Analytics (Engagement) | ✅ Complete | — |
 
 ---
 
@@ -132,7 +133,7 @@
 **Date:** December 7, 2024  
 **Commits:** `55abe4f`, `f08ad14`
 
-#### Test Coverage (74 tests, all passing)
+#### Test Coverage (87 tests, all passing)
 
 | Test Suite | Tests | Description |
 |------------|-------|-------------|
@@ -154,6 +155,7 @@
 | Mobile Phone Experience | 3 | iPhone SE, Android, no horizontal scroll |
 | Performance | 3 | Load time < 3s, FCP < 1.5s, accessibility |
 | Analytics Integration | 6 | Footer copy, Umami mention on privacy page, script loading, trackEvent safety |
+| Enhanced Analytics (Engagement) | 13 | Scroll tracking, section visibility, hover tracking, nav click tracking, mobile nav tracking |
 | Special Filename Handling | 5 | Unicode (en-dash), emoji, Chinese chars in PDF/TXT/HTML exports |
 
 #### Test Commands
@@ -341,6 +343,83 @@ NEXT_PUBLIC_UMAMI_WEBSITE_ID=<your-website-id>
 
 ---
 
+### Enhanced Analytics (Engagement Tracking)
+**Date:** December 19, 2024
+
+#### What Was Built
+
+Added comprehensive engagement tracking to understand user behavior before conversion, particularly to diagnose why users visit the homepage and leave without interacting.
+
+**New Event Categories:**
+
+| Category | Events | Purpose |
+|----------|--------|---------|
+| Section Visibility | `section_visible` | Track which sections users scroll to see |
+| Scroll Depth | `scroll_depth` | Measure engagement depth (25%, 50%, 75%, 100%) |
+| Time on Page | `time_on_page` | Track engagement milestones (10s, 30s, 60s) |
+| Engagement Intent | `upload_hover`, `paste_toggle_click`, `export_hover`, `drag_enter` | Pre-conversion interest signals |
+| Navigation | `nav_click`, `feedback_click` | Track where users go instead of converting |
+
+**New Events:**
+
+| Event | Trigger | Properties |
+|-------|---------|------------|
+| `section_visible` | Section enters viewport (30% visible) | `section`: `hero` \| `upload` \| `paste` \| `export` \| `preview` \| `footer` |
+| `scroll_depth` | User scrolls to milestone | `depth`: `25` \| `50` \| `75` \| `100` |
+| `time_on_page` | User stays on page | `milestone`: `10s` \| `30s` \| `60s` |
+| `upload_hover` | Mouse enters upload area (once) | — |
+| `paste_toggle_click` | Clicks "Or paste Markdown instead" | — |
+| `export_hover` | Hovers disabled export button | `format`: `pdf` \| `txt` \| `html` |
+| `drag_enter` | Drags file over page (once) | — |
+| `nav_click` | Clicks navigation link | `destination`: `about` \| `privacy` \| `home` |
+| `feedback_click` | Clicks Feedback button | — |
+
+**New Files:**
+
+| File | Description |
+|------|-------------|
+| `src/hooks/use-engagement-tracking.tsx` | Hooks for scroll/time/visibility tracking |
+| `src/components/engagement-tracker.tsx` | Invisible component for page-level tracking |
+
+**Updated Components:**
+- `hero.tsx` — Section visibility tracking
+- `upload-card.tsx` — Section visibility + hover + paste toggle tracking
+- `paste-area.tsx` — Section visibility tracking
+- `export-row.tsx` — Section visibility + export button hover tracking
+- `preview-card.tsx` — Section visibility tracking
+- `footer.tsx` — Section visibility + nav click tracking
+- `header.tsx` — Navigation and feedback click tracking
+- `page.tsx` — EngagementTracker component for scroll/time/drag
+
+**Analytics Insights Enabled:**
+
+With these events, you can now answer:
+1. **How far do bouncing users scroll?** → `scroll_depth` events
+2. **What sections do users see before leaving?** → `section_visible` events
+3. **How long do users stay?** → `time_on_page` milestones
+4. **Do users show intent to upload?** → `upload_hover`, `drag_enter` events
+5. **Are users interested in export but have no content?** → `export_hover` events
+6. **Where do users navigate instead of converting?** → `nav_click`, `feedback_click` events
+
+**All events fire once per session** to avoid spam and keep analytics clean.
+
+**E2E Tests Added (13 tests):**
+- EngagementTracker component loads without errors
+- Scroll tracking works without JavaScript errors
+- Hover over upload card triggers tracking safely
+- Paste toggle click triggers tracking
+- Hovering disabled export buttons works safely
+- Navigation click tracking (About, Privacy, Home)
+- Logo click tracking when navigating home
+- Footer privacy link click tracking
+- Feedback button click tracking
+- File drag over page tracking
+- Time on page tracking doesn't interfere with functionality
+- All sections with visibility tracking render correctly
+- Mobile navigation tracking works without errors
+
+---
+
 ## Deployment Ready
 
 The application is now ready for deployment to Vercel.
@@ -376,9 +455,11 @@ markdown-free/
 │   │   ├── paste-area.tsx   # With analytics tracking
 │   │   ├── export-row.tsx   # With analytics tracking
 │   │   ├── preview-card.tsx
+│   │   ├── engagement-tracker.tsx  # Page-level engagement tracking
 │   │   └── index.ts
 │   ├── hooks/
-│   │   └── use-converter.tsx
+│   │   ├── use-converter.tsx
+│   │   └── use-engagement-tracking.tsx  # Scroll/time/visibility tracking
 │   ├── lib/
 │   │   ├── utils.ts
 │   │   ├── markdown.ts      # Markdown parsing pipeline

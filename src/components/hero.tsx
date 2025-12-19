@@ -1,6 +1,12 @@
+"use client";
+
+import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
+
 export function Hero() {
+  const sectionRef = useSectionVisibility("hero");
+  
   return (
-    <section className="text-center">
+    <section ref={sectionRef} className="text-center">
       {/* Badge */}
       <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
         <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />

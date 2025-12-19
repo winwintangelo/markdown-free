@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trackNavClick, trackFeedbackClick, type NavDestination } from "@/lib/analytics";
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -16,11 +17,20 @@ export function Header() {
     setIsMobileMenuOpen(false);
   };
 
+  const handleNavClick = (destination: NavDestination) => {
+    trackNavClick(destination);
+    closeMobileMenu();
+  };
+
+  const handleFeedbackClick = () => {
+    trackFeedbackClick();
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>
+        <Link href="/" className="flex items-center gap-2" onClick={() => handleNavClick("home")}>
           <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-500 text-white font-semibold text-sm">
             md
           </div>
@@ -31,13 +41,13 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-6 text-sm text-slate-600 md:flex">
-          <Link href="/about" className="hover:text-slate-900 transition-colors">
+          <Link href="/about" onClick={() => trackNavClick("about")} className="hover:text-slate-900 transition-colors">
             About
           </Link>
-          <Link href="/privacy" className="hover:text-slate-900 transition-colors">
+          <Link href="/privacy" onClick={() => trackNavClick("privacy")} className="hover:text-slate-900 transition-colors">
             Privacy
           </Link>
-          <button className="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-600 hover:border-slate-300 hover:bg-slate-100 transition-colors">
+          <button onClick={handleFeedbackClick} className="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-600 hover:border-slate-300 hover:bg-slate-100 transition-colors">
             Feedback
           </button>
         </nav>
@@ -68,19 +78,19 @@ export function Header() {
         <nav className="flex flex-col gap-1 bg-white px-4 py-3">
           <Link
             href="/about"
-            onClick={closeMobileMenu}
+            onClick={() => handleNavClick("about")}
             className="rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
           >
             About
           </Link>
           <Link
             href="/privacy"
-            onClick={closeMobileMenu}
+            onClick={() => handleNavClick("privacy")}
             className="rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
           >
             Privacy
           </Link>
-          <button className="mt-2 w-full rounded-full border border-slate-200 px-3 py-2 text-xs font-medium text-slate-600 hover:border-slate-300 hover:bg-slate-100 transition-colors">
+          <button onClick={handleFeedbackClick} className="mt-2 w-full rounded-full border border-slate-200 px-3 py-2 text-xs font-medium text-slate-600 hover:border-slate-300 hover:bg-slate-100 transition-colors">
             Feedback
           </button>
         </nav>

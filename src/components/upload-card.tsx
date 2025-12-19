@@ -4,12 +4,15 @@ import { useCallback, useRef, useState } from "react";
 import { Upload } from "lucide-react";
 import { cn, formatFileSize, isValidFileType, isValidFileSize } from "@/lib/utils";
 import { useConverter } from "@/hooks/use-converter";
-import { trackUploadStart, trackUploadError } from "@/lib/analytics";
+import { trackUploadStart, trackUploadError, trackUploadHover, trackPasteToggleClick } from "@/lib/analytics";
+import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 
 export function UploadCard() {
   const { state, dispatch } = useConverter();
   const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const hasTrackedHoverRef = useRef(false);
+  const sectionRef = useSectionVisibility("upload");
 
   const handleFile = useCallback(
     async (file: File) => {
@@ -108,8 +111,16 @@ export function UploadCard() {
   }, []);
 
   const handlePasteToggle = useCallback(() => {
+    trackPasteToggleClick();
     dispatch({ type: "TOGGLE_PASTE_AREA" });
   }, [dispatch]);
+
+  const handleMouseEnter = useCallback(() => {
+    if (!hasTrackedHoverRef.current) {
+      hasTrackedHoverRef.current = true;
+      trackUploadHover();
+    }
+  }, []);
 
   // Determine status display
   const getStatusDisplay = () => {
@@ -135,7 +146,9 @@ export function UploadCard() {
 
   return (
     <div
+      ref={sectionRef}
       onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}

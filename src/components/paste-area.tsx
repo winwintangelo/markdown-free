@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useConverter } from "@/hooks/use-converter";
 import { trackUploadStart } from "@/lib/analytics";
+import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 
 export function PasteArea() {
   const { state, dispatch } = useConverter();
@@ -10,6 +11,7 @@ export function PasteArea() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
   const hasTrackedPasteRef = useRef(false);
+  const sectionRef = useSectionVisibility("paste");
 
   // Auto-focus when paste area becomes visible
   useEffect(() => {
@@ -67,7 +69,7 @@ export function PasteArea() {
   }
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+    <div ref={sectionRef} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
       <label
         htmlFor="paste-input"
         className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate-500"

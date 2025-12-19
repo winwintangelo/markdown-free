@@ -3,6 +3,11 @@
  *
  * Events are only sent if Umami is loaded (production with env vars set).
  * All events are fire-and-forget - never blocks UI.
+ *
+ * Event Categories:
+ * - Conversion events: upload_start, upload_error, convert_success, convert_error
+ * - Engagement events: section_visible, scroll_depth, time_on_page, upload_hover, paste_toggle_click, export_hover
+ * - Navigation events: nav_click, feedback_click
  */
 
 declare global {
@@ -27,7 +32,9 @@ export function trackEvent(
   }
 }
 
-// Predefined event helpers for type safety
+// =============================================================================
+// CONVERSION EVENTS (existing)
+// =============================================================================
 
 export type UploadSource = "file" | "paste";
 export type ExportFormat = "pdf" | "txt" | "html";
@@ -69,4 +76,87 @@ export function trackConvertError(
   errorCode: ConvertErrorCode
 ): void {
   trackEvent("convert_error", { format, error_code: errorCode });
+}
+
+// =============================================================================
+// ENGAGEMENT EVENTS (new - understand user behavior before conversion)
+// =============================================================================
+
+export type SectionName = "hero" | "upload" | "paste" | "export" | "preview" | "footer";
+export type ScrollDepth = "25" | "50" | "75" | "100";
+export type TimeOnPageMilestone = "10s" | "30s" | "60s";
+export type NavDestination = "about" | "privacy" | "home";
+
+/**
+ * Track when a section becomes visible in viewport
+ * Helps understand how far users scroll before bouncing
+ */
+export function trackSectionVisible(section: SectionName): void {
+  trackEvent("section_visible", { section });
+}
+
+/**
+ * Track scroll depth milestones (25%, 50%, 75%, 100%)
+ * Helps understand engagement depth
+ */
+export function trackScrollDepth(depth: ScrollDepth): void {
+  trackEvent("scroll_depth", { depth });
+}
+
+/**
+ * Track time-on-page engagement milestones
+ * Users who stay longer are more engaged even without conversion
+ */
+export function trackTimeOnPage(milestone: TimeOnPageMilestone): void {
+  trackEvent("time_on_page", { milestone });
+}
+
+/**
+ * Track when user hovers over the upload area (shows intent)
+ * Only track once per session to avoid spam
+ */
+export function trackUploadHover(): void {
+  trackEvent("upload_hover");
+}
+
+/**
+ * Track when user clicks "Or paste Markdown instead"
+ * Shows consideration of alternative input method
+ */
+export function trackPasteToggleClick(): void {
+  trackEvent("paste_toggle_click");
+}
+
+/**
+ * Track when user hovers over disabled export buttons
+ * Shows interest in conversion but no content loaded yet
+ */
+export function trackExportHover(format: ExportFormat): void {
+  trackEvent("export_hover", { format });
+}
+
+/**
+ * Track when user starts dragging a file over the page
+ * Shows intent to upload even if they don't complete it
+ */
+export function trackDragEnter(): void {
+  trackEvent("drag_enter");
+}
+
+// =============================================================================
+// NAVIGATION EVENTS (new - understand where users go instead of converting)
+// =============================================================================
+
+/**
+ * Track navigation link clicks
+ */
+export function trackNavClick(destination: NavDestination): void {
+  trackEvent("nav_click", { destination });
+}
+
+/**
+ * Track feedback button clicks
+ */
+export function trackFeedbackClick(): void {
+  trackEvent("feedback_click");
 }

@@ -11,9 +11,11 @@ import { markdownToHtml } from "@/lib/markdown";
 import {
   trackConvertSuccess,
   trackConvertError,
+  trackExportHover,
   type ExportFormat as AnalyticsExportFormat,
   type UploadSource,
 } from "@/lib/analytics";
+import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 
 type ExportFormat = "pdf" | "txt" | "html";
 
@@ -30,8 +32,18 @@ export function ExportRow() {
   const [error, setError] = useState<ExportError | null>(null);
   const [renderedHtml, setRenderedHtml] = useState<string>("");
   const abortControllerRef = useRef<AbortController | null>(null);
+  const hoveredFormatsRef = useRef<Set<ExportFormat>>(new Set());
+  const sectionRef = useSectionVisibility("export");
 
   const isDisabled = !state.content || state.status !== "ready";
+
+  // Track hover on disabled buttons (shows interest before content is loaded)
+  const handleButtonHover = useCallback((format: ExportFormat) => {
+    if (isDisabled && !hoveredFormatsRef.current.has(format)) {
+      hoveredFormatsRef.current.add(format);
+      trackExportHover(format);
+    }
+  }, [isDisabled]);
 
   // Pre-render HTML when content changes (for HTML export)
   useEffect(() => {
@@ -157,13 +169,14 @@ export function ExportRow() {
       )}
 
       {/* Export Buttons Row */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+      <div ref={sectionRef} className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
         <div className="flex flex-wrap gap-2">
           {/* Primary: To PDF */}
           <button
             type="button"
             disabled={isDisabled || loadingFormat === "pdf"}
             onClick={() => handleExport("pdf")}
+            onMouseEnter={() => handleButtonHover("pdf")}
             className={cn(
               "inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold shadow-sm transition",
               isDisabled
@@ -184,6 +197,7 @@ export function ExportRow() {
             type="button"
             disabled={isDisabled || loadingFormat === "txt"}
             onClick={() => handleExport("txt")}
+            onMouseEnter={() => handleButtonHover("txt")}
             className={cn(
               "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
               isDisabled
@@ -202,6 +216,7 @@ export function ExportRow() {
             type="button"
             disabled={isDisabled || loadingFormat === "html"}
             onClick={() => handleExport("html")}
+            onMouseEnter={() => handleButtonHover("html")}
             className={cn(
               "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
               isDisabled

@@ -1381,6 +1381,282 @@ test.describe("Markdown Free - Analytics Integration", () => {
   });
 });
 
+test.describe("Markdown Free - Enhanced Analytics (Engagement Tracking)", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
+
+  test("page loads EngagementTracker component without errors", async ({ page }) => {
+    // The page should load without any JavaScript errors
+    const errors: string[] = [];
+    page.on("pageerror", (error) => {
+      errors.push(error.message);
+    });
+
+    // Wait for page to fully load
+    await page.waitForLoadState("networkidle");
+
+    // No errors should have occurred from engagement tracking
+    expect(errors).toHaveLength(0);
+  });
+
+  test("scroll tracking does not cause errors when scrolling", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => {
+      errors.push(error.message);
+    });
+
+    // Scroll down the page
+    await page.evaluate(() => {
+      window.scrollTo(0, document.documentElement.scrollHeight / 2);
+    });
+    await page.waitForTimeout(100);
+
+    // Scroll to bottom
+    await page.evaluate(() => {
+      window.scrollTo(0, document.documentElement.scrollHeight);
+    });
+    await page.waitForTimeout(100);
+
+    // No errors should have occurred
+    expect(errors).toHaveLength(0);
+  });
+
+  test("hover over upload card does not cause errors", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => {
+      errors.push(error.message);
+    });
+
+    // Hover over the upload card
+    const uploadCard = page.locator('[class*="border-dashed"]').first();
+    await uploadCard.hover();
+    await page.waitForTimeout(100);
+
+    // No errors should have occurred
+    expect(errors).toHaveLength(0);
+  });
+
+  test("clicking paste toggle triggers tracking without errors", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => {
+      errors.push(error.message);
+    });
+
+    // Click the paste toggle button
+    const pasteToggle = page.getByRole("button", {
+      name: "Or paste Markdown instead",
+    });
+    await pasteToggle.click();
+
+    // Wait a moment for any async tracking
+    await page.waitForTimeout(100);
+
+    // No errors should have occurred
+    expect(errors).toHaveLength(0);
+
+    // The paste area should now be visible
+    const pasteLabel = page.getByText("Pasted Markdown", { exact: false });
+    await expect(pasteLabel).toBeVisible();
+  });
+
+  test("hovering disabled export buttons does not cause errors", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => {
+      errors.push(error.message);
+    });
+
+    // Buttons should be disabled initially
+    const pdfButton = page.getByRole("button", { name: "To PDF" });
+    const txtButton = page.getByRole("button", { name: "To TXT" });
+    const htmlButton = page.getByRole("button", { name: "To HTML" });
+
+    await expect(pdfButton).toBeDisabled();
+
+    // Hover over each disabled button
+    await pdfButton.hover();
+    await page.waitForTimeout(50);
+    await txtButton.hover();
+    await page.waitForTimeout(50);
+    await htmlButton.hover();
+    await page.waitForTimeout(50);
+
+    // No errors should have occurred
+    expect(errors).toHaveLength(0);
+  });
+
+  test("navigation click tracking works without errors", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => {
+      errors.push(error.message);
+    });
+
+    // Click About link in header
+    const aboutLink = page.locator("header").getByRole("link", { name: "About" });
+    await aboutLink.click();
+
+    // Should navigate successfully
+    await expect(page).toHaveURL("/about");
+
+    // No errors should have occurred
+    expect(errors).toHaveLength(0);
+  });
+
+  test("logo click tracking works when navigating home", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => {
+      errors.push(error.message);
+    });
+
+    // Navigate to about page first
+    await page.goto("/about");
+
+    // Click logo to go home
+    const logoLink = page.locator("header").getByRole("link", { name: /Markdown Free/ });
+    await logoLink.click();
+
+    // Should navigate to home
+    await expect(page).toHaveURL("/");
+
+    // No errors should have occurred
+    expect(errors).toHaveLength(0);
+  });
+
+  test("footer privacy link click triggers tracking", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => {
+      errors.push(error.message);
+    });
+
+    // Click privacy link in footer
+    const footerPrivacyLink = page.locator("footer").getByRole("link", { name: "Privacy" });
+    await footerPrivacyLink.click();
+
+    // Should navigate successfully
+    await expect(page).toHaveURL("/privacy");
+
+    // No errors should have occurred
+    expect(errors).toHaveLength(0);
+  });
+
+  test("feedback button click tracking works", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => {
+      errors.push(error.message);
+    });
+
+    // Click feedback button in header
+    const feedbackButton = page.locator("header").getByRole("button", { name: "Feedback" });
+    await feedbackButton.click();
+
+    // Wait for any tracking to complete
+    await page.waitForTimeout(100);
+
+    // No errors should have occurred
+    expect(errors).toHaveLength(0);
+  });
+
+  test("file drag over page triggers drag tracking without errors", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => {
+      errors.push(error.message);
+    });
+
+    // Simulate a drag enter event on the page body
+    await page.evaluate(() => {
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(new File(["test"], "test.md", { type: "text/markdown" }));
+      
+      const dragEnterEvent = new DragEvent("dragenter", {
+        bubbles: true,
+        cancelable: true,
+        dataTransfer: dataTransfer,
+      });
+      document.body.dispatchEvent(dragEnterEvent);
+    });
+
+    await page.waitForTimeout(100);
+
+    // No errors should have occurred
+    expect(errors).toHaveLength(0);
+  });
+
+  test("time on page tracking does not interfere with page functionality", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => {
+      errors.push(error.message);
+    });
+
+    // Wait for some time-based tracking to potentially fire
+    await page.waitForTimeout(1000);
+
+    // Should still be able to interact with the page
+    const pasteToggle = page.getByRole("button", {
+      name: "Or paste Markdown instead",
+    });
+    await pasteToggle.click();
+
+    const textarea = page.getByPlaceholder("Paste your Markdown here…");
+    await textarea.fill("# Test\n\nContent after waiting");
+
+    // Wait for debounce
+    await page.waitForTimeout(400);
+
+    // Should work normally
+    await expect(page.getByText("Ready to export (pasted text)")).toBeVisible();
+
+    // No errors should have occurred
+    expect(errors).toHaveLength(0);
+  });
+
+  test("sections with visibility tracking render correctly", async ({ page }) => {
+    // Check that all sections with visibility tracking are present and visible
+    
+    // Hero section
+    const heroSection = page.locator("section.text-center").first();
+    await expect(heroSection).toBeVisible();
+
+    // Upload card (has visibility tracking)
+    const uploadCard = page.locator('[class*="border-dashed"]').first();
+    await expect(uploadCard).toBeVisible();
+
+    // Export buttons row (has visibility tracking)
+    const exportRow = page.getByRole("button", { name: "To PDF" }).locator("..");
+    await expect(exportRow).toBeVisible();
+
+    // Preview card (has visibility tracking)
+    const previewCard = page.getByText("Preview").locator("..").first();
+    await expect(previewCard).toBeVisible();
+
+    // Footer (has visibility tracking)
+    const footer = page.locator("footer");
+    await expect(footer).toBeVisible();
+  });
+
+  test("mobile navigation tracking works without errors", async ({ page }) => {
+    // Set mobile viewport
+    await page.setViewportSize({ width: 375, height: 667 });
+    
+    const errors: string[] = [];
+    page.on("pageerror", (error) => {
+      errors.push(error.message);
+    });
+
+    // Open mobile menu
+    const hamburgerButton = page.locator('button[aria-label="Open menu"]');
+    await hamburgerButton.click();
+
+    // Click About link in mobile menu
+    await page.locator("header").getByRole("link", { name: "About" }).click();
+
+    // Should navigate successfully
+    await expect(page).toHaveURL("/about");
+
+    // No errors should have occurred
+    expect(errors).toHaveLength(0);
+  });
+});
+
 test.describe("Markdown Free - Special Filename Handling", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
