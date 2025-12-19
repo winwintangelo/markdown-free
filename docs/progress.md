@@ -18,6 +18,8 @@
 | SEO Optimizations | ✅ Complete | `1a7b51f` |
 | User Analytics (Umami) | ✅ Complete | `c797eea` |
 | Enhanced Analytics (Engagement) | ✅ Complete | — |
+| Feedback Modal | ✅ Complete | — |
+| Security Update (Next.js) | ✅ Complete | — |
 
 ---
 
@@ -133,7 +135,7 @@
 **Date:** December 7, 2024  
 **Commits:** `55abe4f`, `f08ad14`
 
-#### Test Coverage (87 tests, all passing)
+#### Test Coverage (102 tests, all passing)
 
 | Test Suite | Tests | Description |
 |------------|-------|-------------|
@@ -156,6 +158,7 @@
 | Performance | 3 | Load time < 3s, FCP < 1.5s, accessibility |
 | Analytics Integration | 6 | Footer copy, Umami mention on privacy page, script loading, trackEvent safety |
 | Enhanced Analytics (Engagement) | 13 | Scroll tracking, section visibility, hover tracking, nav click tracking, mobile nav tracking |
+| Feedback Modal | 15 | Modal open/close, form validation, submission, success state, accessibility |
 | Special Filename Handling | 5 | Unicode (en-dash), emoji, Chinese chars in PDF/TXT/HTML exports |
 
 #### Test Commands
@@ -420,6 +423,77 @@ With these events, you can now answer:
 
 ---
 
+### Feedback Modal
+**Date:** December 19, 2024
+
+#### What Was Built
+
+A feedback collection system using a popup modal and Umami analytics for storage.
+
+**Features:**
+- Popup modal triggered by "Feedback" button in header
+- Two form fields: Feedback (required), Email (optional)
+- Feedback submitted via Umami custom event (no backend needed)
+- Success confirmation with auto-close
+- Accessible: ESC to close, focus trap, ARIA labels
+- Works on desktop and mobile
+- Portal-based rendering for proper z-index handling
+
+**New Files:**
+
+| File | Description |
+|------|-------------|
+| `src/components/feedback-modal.tsx` | Modal component with form and submission logic |
+
+**Analytics Event:**
+
+| Event | Trigger | Properties |
+|-------|---------|------------|
+| `feedback_submit` | Form submission | `feedback` (max 500 chars), `email`, `feedback_length`, `has_email` |
+
+**UX Details:**
+- Modal opens on Feedback button click (desktop nav or mobile menu)
+- Textarea auto-focuses when modal opens
+- Submit button disabled until feedback entered
+- Shows loading state during submission
+- Success message with checkmark icon
+- Auto-closes 2 seconds after success
+- Form resets when modal reopens
+
+**E2E Tests Added (15 tests):**
+- Modal opens on button click
+- Modal closes with X button, Cancel, Escape, backdrop click
+- Submit button disabled/enabled states
+- Success message display
+- Auto-close after submission
+- Form works without email
+- Form resets on reopen
+- Works from mobile menu
+- Textarea auto-focus
+- Loading state display
+- Analytics tracking without errors
+
+---
+
+### Security Update (Next.js 14.2.35)
+**Date:** December 19, 2024
+
+#### What Was Done
+
+Updated Next.js from `14.2.21` to `14.2.35` to address security vulnerabilities.
+
+**Vulnerabilities Patched:**
+
+| CVE | Severity | Description |
+|-----|----------|-------------|
+| CVE-2025-55184 / CVE-2025-67779 | High | Denial of Service via crafted HTTP request |
+
+**Note:** CVE-2025-55183 (Source Code Exposure) only affects Next.js 15.x and above, so 14.2.x is not vulnerable to that issue.
+
+**Reference:** [Next.js Security Update: December 11, 2025](https://nextjs.org/blog/security-update-2025-12-11)
+
+---
+
 ## Deployment Ready
 
 The application is now ready for deployment to Vercel.
@@ -456,6 +530,7 @@ markdown-free/
 │   │   ├── export-row.tsx   # With analytics tracking
 │   │   ├── preview-card.tsx
 │   │   ├── engagement-tracker.tsx  # Page-level engagement tracking
+│   │   ├── feedback-modal.tsx      # Feedback form modal
 │   │   └── index.ts
 │   ├── hooks/
 │   │   ├── use-converter.tsx

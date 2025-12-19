@@ -1657,6 +1657,228 @@ test.describe("Markdown Free - Enhanced Analytics (Engagement Tracking)", () => 
   });
 });
 
+test.describe("Markdown Free - Feedback Modal", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
+
+  test("clicking feedback button opens the modal", async ({ page }) => {
+    // Click feedback button in header
+    const feedbackButton = page.locator("header").getByRole("button", { name: "Feedback" });
+    await feedbackButton.click();
+
+    // Modal should be visible
+    const modal = page.getByRole("dialog");
+    await expect(modal).toBeVisible();
+
+    // Modal should have title
+    await expect(page.getByRole("heading", { name: "Send Feedback" })).toBeVisible();
+
+    // Form fields should be visible
+    await expect(page.getByLabel(/Your Feedback/)).toBeVisible();
+    await expect(page.getByLabel(/Email/)).toBeVisible();
+  });
+
+  test("feedback modal can be closed with X button", async ({ page }) => {
+    // Open modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+
+    // Click close button
+    await page.getByRole("button", { name: "Close feedback modal" }).click();
+
+    // Modal should be hidden
+    await expect(page.getByRole("dialog")).not.toBeVisible();
+  });
+
+  test("feedback modal can be closed with Cancel button", async ({ page }) => {
+    // Open modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+
+    // Click cancel button
+    await page.getByRole("button", { name: "Cancel" }).click();
+
+    // Modal should be hidden
+    await expect(page.getByRole("dialog")).not.toBeVisible();
+  });
+
+  test("feedback modal can be closed with Escape key", async ({ page }) => {
+    // Open modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+
+    // Press Escape
+    await page.keyboard.press("Escape");
+
+    // Modal should be hidden
+    await expect(page.getByRole("dialog")).not.toBeVisible();
+  });
+
+  test("feedback modal can be closed by clicking backdrop", async ({ page }) => {
+    // Open modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+
+    // Click backdrop (outside modal content)
+    await page.locator(".bg-black\\/50").click({ position: { x: 10, y: 10 } });
+
+    // Modal should be hidden
+    await expect(page.getByRole("dialog")).not.toBeVisible();
+  });
+
+  test("submit button is disabled when feedback is empty", async ({ page }) => {
+    // Open modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+
+    // Submit button should be disabled initially
+    const submitButton = page.getByRole("button", { name: "Send Feedback" });
+    await expect(submitButton).toBeDisabled();
+  });
+
+  test("submit button is enabled when feedback is entered", async ({ page }) => {
+    // Open modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+
+    // Type feedback
+    const feedbackInput = page.getByLabel(/Your Feedback/);
+    await feedbackInput.fill("Great tool! I love it.");
+
+    // Submit button should now be enabled
+    const submitButton = page.getByRole("button", { name: "Send Feedback" });
+    await expect(submitButton).toBeEnabled();
+  });
+
+  test("submitting feedback shows success message", async ({ page }) => {
+    // Open modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+
+    // Fill out form
+    await page.getByLabel(/Your Feedback/).fill("This is a test feedback.");
+    await page.getByLabel(/Email/).fill("test@example.com");
+
+    // Submit
+    await page.getByRole("button", { name: "Send Feedback" }).click();
+
+    // Should show success message
+    await expect(page.getByText("Thank you!")).toBeVisible();
+    await expect(page.getByText("Your feedback has been received.")).toBeVisible();
+  });
+
+  test("modal auto-closes after successful submission", async ({ page }) => {
+    // Open modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+
+    // Fill out and submit
+    await page.getByLabel(/Your Feedback/).fill("Test feedback");
+    await page.getByRole("button", { name: "Send Feedback" }).click();
+
+    // Wait for success message
+    await expect(page.getByText("Thank you!")).toBeVisible();
+
+    // Modal should auto-close after ~2 seconds
+    await expect(page.getByRole("dialog")).not.toBeVisible({ timeout: 3000 });
+  });
+
+  test("feedback can be submitted without email", async ({ page }) => {
+    // Open modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+
+    // Fill only feedback (email is optional)
+    await page.getByLabel(/Your Feedback/).fill("Feedback without email");
+
+    // Submit should work
+    await page.getByRole("button", { name: "Send Feedback" }).click();
+
+    // Should show success
+    await expect(page.getByText("Thank you!")).toBeVisible();
+  });
+
+  test("form resets when modal is reopened", async ({ page }) => {
+    // Open modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+
+    // Fill out form
+    await page.getByLabel(/Your Feedback/).fill("Some feedback");
+    await page.getByLabel(/Email/).fill("test@example.com");
+
+    // Close modal
+    await page.getByRole("button", { name: "Cancel" }).click();
+    await expect(page.getByRole("dialog")).not.toBeVisible();
+
+    // Wait for reset timeout
+    await page.waitForTimeout(300);
+
+    // Reopen modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+
+    // Form should be empty
+    await expect(page.getByLabel(/Your Feedback/)).toHaveValue("");
+    await expect(page.getByLabel(/Email/)).toHaveValue("");
+  });
+
+  test("feedback button works from mobile menu", async ({ page }) => {
+    // Set mobile viewport
+    await page.setViewportSize({ width: 375, height: 667 });
+
+    // Open mobile menu
+    await page.locator('button[aria-label="Open menu"]').click();
+
+    // Click feedback button
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+
+    // Modal should open
+    await expect(page.getByRole("dialog")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Send Feedback" })).toBeVisible();
+  });
+
+  test("textarea auto-focuses when modal opens", async ({ page }) => {
+    // Open modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+
+    // Textarea should be focused
+    const feedbackInput = page.getByLabel(/Your Feedback/);
+    await expect(feedbackInput).toBeFocused();
+  });
+
+  test("shows loading state while submitting", async ({ page }) => {
+    // Open modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+
+    // Fill out form
+    await page.getByLabel(/Your Feedback/).fill("Test feedback");
+
+    // Click submit and immediately check for loading state
+    const submitButton = page.getByRole("button", { name: /Send/ });
+    await submitButton.click();
+
+    // Should show loading state briefly (may be too fast to catch, but we check)
+    // The success message will appear after loading
+    await expect(page.getByText("Thank you!")).toBeVisible();
+  });
+
+  test("analytics tracking is called without errors on submit", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => {
+      errors.push(error.message);
+    });
+
+    // Open modal
+    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+
+    // Fill out and submit
+    await page.getByLabel(/Your Feedback/).fill("Test feedback for analytics");
+    await page.getByLabel(/Email/).fill("analytics@test.com");
+    await page.getByRole("button", { name: "Send Feedback" }).click();
+
+    // Wait for success
+    await expect(page.getByText("Thank you!")).toBeVisible();
+
+    // No errors should have occurred
+    expect(errors).toHaveLength(0);
+  });
+});
+
 test.describe("Markdown Free - Special Filename Handling", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");

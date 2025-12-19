@@ -160,3 +160,22 @@ export function trackNavClick(destination: NavDestination): void {
 export function trackFeedbackClick(): void {
   trackEvent("feedback_click");
 }
+
+/**
+ * Track feedback form submission with content
+ * Note: Umami stores event data, making this a simple way to collect feedback
+ * without needing a separate backend/database.
+ */
+export function trackFeedbackSubmit(data: {
+  feedback: string;
+  email?: string;
+  feedbackLength: string;
+  hasEmail: string;
+}): void {
+  trackEvent("feedback_submit", {
+    feedback: data.feedback,
+    email: data.email || "",
+    feedback_length: data.feedbackLength,
+    has_email: data.hasEmail,
+  });
+}

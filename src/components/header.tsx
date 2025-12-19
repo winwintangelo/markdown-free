@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackNavClick, trackFeedbackClick, type NavDestination } from "@/lib/analytics";
+import { FeedbackModal } from "./feedback-modal";
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -22,9 +24,15 @@ export function Header() {
     closeMobileMenu();
   };
 
-  const handleFeedbackClick = () => {
+  const handleFeedbackClick = useCallback(() => {
     trackFeedbackClick();
-  };
+    setIsFeedbackModalOpen(true);
+    closeMobileMenu();
+  }, []);
+
+  const handleFeedbackClose = useCallback(() => {
+    setIsFeedbackModalOpen(false);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur">
@@ -95,6 +103,9 @@ export function Header() {
           </button>
         </nav>
       </div>
+
+      {/* Feedback Modal */}
+      <FeedbackModal isOpen={isFeedbackModalOpen} onClose={handleFeedbackClose} />
     </header>
   );
 }
