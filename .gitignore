@@ -45,15 +45,8 @@ vercel.json
 # Chromium binary (generated during build)
 public/chromium-pack.tar
 
-# Playwright
-tmp/playwright-report/
-tmp/playwright-report-production/
-tmp/test-results/
-tmp/test-results-production/
-
-# Temporary/draft files
-tmp/*.md
-tmp/*.txt
+# Temporary files (test results, reports, drafts)
+tmp/
 
 # Misc
 *.log

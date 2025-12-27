@@ -1,594 +1,317 @@
-# Markdown Free — Implementation Progress
+# Markdown Free — Technical Reference
 
 > **Repository:** https://github.com/winwintangelo/markdown-free  
-> **Last Updated:** December 7, 2024
+> **Last Updated:** December 27, 2024  
+> **Status:** ✅ Production Ready
 
 ---
 
-## Summary
+## Quick Reference
 
-| Phase | Status | Commit |
-|-------|--------|--------|
-| Phase 1: UI Shell & State | ✅ Complete | `6162c06` |
-| Testing: Playwright E2E | ✅ Complete | `55abe4f` |
-| Phase 2: Markdown & Export | ✅ Complete | `8261517` |
-| Phase 3: PDF Generation | ✅ Complete | `ca092a2` |
-| Phase 4: Launch Prep | ✅ Complete | `b6ce16d` |
-| PDF Debug Logging | ✅ Complete | — |
-| SEO Optimizations | ✅ Complete | `1a7b51f` |
-| User Analytics (Umami) | ✅ Complete | `c797eea` |
-| Enhanced Analytics (Engagement) | ✅ Complete | — |
-| Feedback Modal | ✅ Complete | — |
-| Security Update (Next.js) | ✅ Complete | — |
+### Tech Stack
+- **Framework:** Next.js 14.2.35 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS + `@tailwindcss/typography`
+- **Icons:** lucide-react
+- **Testing:** Playwright (102 E2E tests)
+- **Analytics:** Umami Cloud (cookieless)
+- **PDF Generation:** Puppeteer + @sparticuz/chromium (serverless)
+- **Deployment:** Vercel
 
----
-
-## Completed Work
-
-### Phase 1: UI Shell & State Management
-**Date:** December 7, 2024  
-**Commit:** `6162c06`
-
-#### What Was Built
-
-**Project Setup:**
-- Next.js 14 with App Router
-- TypeScript + Tailwind CSS
-- `lucide-react` for icons
-- `clsx` + `tailwind-merge` for utility classes
-- `@tailwindcss/typography` for prose styling
-
-**Components Created:**
-
-| Component | File | Description |
-|-----------|------|-------------|
-| `Header` | `src/components/header.tsx` | Logo, nav links (About, Privacy), Feedback button |
-| `Hero` | `src/components/hero.tsx` | Badge, headline, subheadline |
-| `Footer` | `src/components/footer.tsx` | Copyright + privacy notice |
-| `UploadCard` | `src/components/upload-card.tsx` | Drag-and-drop with visual states |
-| `PasteArea` | `src/components/paste-area.tsx` | Collapsible textarea with debounced input |
-| `ExportRow` | `src/components/export-row.tsx` | PDF/TXT/HTML buttons with disabled states |
-| `PreviewCard` | `src/components/preview-card.tsx` | Preview area with status badge |
-
-**State Management:**
-- React Context with reducer pattern (`src/hooks/use-converter.tsx`)
-- Manages: `inputMode`, `content`, `status`, `error`, `isPasteAreaVisible`
-
-**Pages:**
-- `/` — Main converter page
-- `/about` — About page
-- `/privacy` — Privacy policy page
-
-**Utilities:**
-- `src/lib/utils.ts` — `cn()` helper, file validation functions
-- `src/types/index.ts` — TypeScript types for app state
-
----
-
-### Phase 2: Markdown Rendering & Client-Side Export
-**Date:** December 7, 2024  
-**Commit:** `8261517`
-
-#### What Was Built
-
-**Markdown Pipeline:**
-- Installed `unified`, `remark-parse`, `remark-gfm`, `remark-rehype`, `rehype-sanitize`, `rehype-stringify`
-- Created `src/lib/markdown.ts` with XSS-safe markdown-to-HTML conversion
-- Pipeline: `remark-parse → remark-gfm → remark-rehype → rehype-sanitize → rehype-stringify`
-
-**Preview Component Updates:**
-- `PreviewCard` now renders parsed markdown as styled HTML
-- Uses `@tailwindcss/typography` prose classes for styling
-- Status badge shows rendering state and content source
-
-**Export Features:**
-
-| Export | File | Description |
-|--------|------|-------------|
-| TXT | `src/lib/export-txt.ts` | Downloads raw markdown as `.txt` |
-| HTML | `src/lib/export-html.ts` | Wraps rendered HTML in standalone template with embedded CSS |
-| Download util | `src/lib/download.ts` | Generic file download + filename generation |
-
-**Export Row Updates:**
-- `ExportRow` component now has working TXT and HTML export
-- PDF button shows "Coming Soon" toast
-- Loading states with spinner during export
-
-**File Validation:**
-- 5MB file size limit enforced in `UploadCard`
-- Error messages for oversized files
-
----
-
-### Phase 3: PDF Generation & Error Handling
-**Date:** December 7, 2024  
-**Commit:** `ca092a2`
-
-#### What Was Built
-
-**API Route (`src/app/api/convert/pdf/route.ts`):**
-- Server-side PDF generation using Puppeteer + `@sparticuz/chromium`
-- A4 page format with 20mm margins
-- 15-second timeout to avoid Vercel limits
-- Content size validation (5MB limit)
-- Proper error responses with codes: `INVALID_CONTENT`, `CONTENT_TOO_LARGE`, `GENERATION_TIMEOUT`, `GENERATION_FAILED`
-
-**PDF Export Utility (`src/lib/export-pdf.ts`):**
-- Async function to call PDF API and handle response
-- Error handling for network failures, timeouts, and server errors
-- AbortController support for cancellation
-
-**Error Handling UI:**
-- Error banner with red styling (border-red-200, bg-red-50)
-- Shows error title and message
-- "Try Again" button for retryable errors
-- Dismiss (X) button to clear error
-- Spinner and "Generating..." text during PDF creation
-
-**Dependencies Added:**
-- `puppeteer-core@23.4.0`
-- `@sparticuz/chromium@129.0.0`
-
----
-
-### Playwright E2E Test Suite
-**Date:** December 7, 2024  
-**Commits:** `55abe4f`, `f08ad14`
-
-#### Test Coverage (102 tests, all passing)
-
-| Test Suite | Tests | Description |
-|------------|-------|-------------|
-| App Layout | 5 | Header, Hero, Footer, buttons disabled, default preview |
-| Upload Card | 3 | Content display, drag-over border, drag-leave revert |
-| Paste Area | 3 | Toggle visibility, hide on re-click, debounced state update |
-| File Upload | 3 | Valid .md file, .txt file, invalid file error |
-| Preview Card | 1 | Rendered markdown content on upload |
-| Navigation | 5 | About/Privacy pages, link navigation, logo home link |
-| Export Functionality | 11 | PDF loading/success/error/headers/network, TXT/HTML download, button states |
-| File Validation | 2 | 5MB limit (immediate rejection), exact 5MB accepted |
-| Markdown Rendering | 1 | Full markdown element rendering (h1, h2, bold, italic, lists, code) |
-| Export Content Validation | 2 | TXT file content, HTML file structure and styling |
-| Security (XSS Prevention) | 2 | Script tag sanitization via paste and file upload |
-| Mobile Navigation | 4 | Hamburger visibility, menu open/close, navigation |
-| SEO & Metadata | 4 | Page titles, meta descriptions, favicon |
-| SEO & Metadata (Extended) | 10 | Canonical, OG tags, Twitter cards, JSON-LD schema, robots.txt, sitemap.xml, H1 keywords |
-| Footer Navigation | 1 | Privacy link in footer works |
-| Mobile Phone Experience | 3 | iPhone SE, Android, no horizontal scroll |
-| Performance | 3 | Load time < 3s, FCP < 1.5s, accessibility |
-| Analytics Integration | 6 | Footer copy, Umami mention on privacy page, script loading, trackEvent safety |
-| Enhanced Analytics (Engagement) | 13 | Scroll tracking, section visibility, hover tracking, nav click tracking, mobile nav tracking |
-| Feedback Modal | 15 | Modal open/close, form validation, submission, success state, accessibility |
-| Special Filename Handling | 5 | Unicode (en-dash), emoji, Chinese chars in PDF/TXT/HTML exports |
-
-#### Test Commands
-
+### Key Commands
 ```bash
-npm test           # Run all tests (headless)
-npm run test:ui    # Run with Playwright UI
-npm run test:headed # Run with browser visible
+npm run dev             # Development server
+npm run build           # Production build
+npm test                # Run E2E tests (headless)
+npm run test:ui         # Playwright UI mode
+npm run report          # Pull Umami aggregate stats
+npm run report:sessions # Pull user session journeys
 ```
 
-#### Configuration
-- Output: `tmp/test-results/`, `tmp/playwright-report/`
-- Browser: Chromium
-- Web server auto-starts on `http://localhost:3000`
+### Environment Variables
+```bash
+# Analytics (client-side)
+NEXT_PUBLIC_UMAMI_HOST=https://cloud.umami.is
+NEXT_PUBLIC_UMAMI_WEBSITE_ID=<your-website-id>
+
+# Umami Report Scripts (local only)
+UMAMI_API_KEY=<your-api-key>
+UMAMI_WEBSITE_ID=<your-website-id>
+UMAMI_API_HOST=https://api.umami.is
+REPORT_DAYS=30
+```
 
 ---
 
-### Phase 4: Launch Prep
-**Date:** December 7, 2024  
-**Commit:** `b6ce16d`
+## Architecture Overview
 
-#### What Was Built
+### File Structure
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout, SEO metadata, Umami script
+│   ├── page.tsx            # Home page with JSON-LD schema
+│   ├── globals.css         # Global styles
+│   ├── about/page.tsx      # About page
+│   ├── privacy/page.tsx    # Privacy policy
+│   └── api/convert/pdf/route.ts  # PDF generation API
+├── components/
+│   ├── header.tsx          # Nav + Feedback modal trigger
+│   ├── hero.tsx            # Hero section with H1
+│   ├── footer.tsx          # Footer with privacy notice
+│   ├── upload-card.tsx     # File upload with drag-and-drop
+│   ├── paste-area.tsx      # Collapsible markdown textarea
+│   ├── export-row.tsx      # PDF/TXT/HTML export buttons
+│   ├── preview-card.tsx    # Live markdown preview
+│   ├── feedback-modal.tsx  # Feedback form (React Portal)
+│   ├── engagement-tracker.tsx  # Scroll/time tracking
+│   └── index.ts            # Barrel exports
+├── hooks/
+│   ├── use-converter.tsx   # App state (React Context + Reducer)
+│   └── use-engagement-tracking.tsx  # Visibility/scroll/time hooks
+├── lib/
+│   ├── utils.ts            # cn(), file validation helpers
+│   ├── markdown.ts         # Unified pipeline (remark → rehype)
+│   ├── download.ts         # File download utility
+│   ├── export-txt.ts       # TXT export (client-side)
+│   ├── export-html.ts      # HTML export with embedded CSS
+│   ├── export-pdf.ts       # PDF export via API call
+│   └── analytics.ts        # Umami event tracking
+└── types/index.ts          # TypeScript types
 
-**Static Pages:**
-- Enhanced `/about` with comprehensive content (principles, how it works, technical details)
-- Enhanced `/privacy` with detailed data handling, security, and policy sections
-- Both pages have proper SEO metadata
-
-**Mobile Navigation:**
-- Hamburger menu for mobile screens (< 768px)
-- Animated slide-down mobile menu with smooth transitions
-- Menu auto-closes on navigation
-
-**SEO & Metadata:**
-- Comprehensive `metadata` export in `layout.tsx`
-- OpenGraph and Twitter card images
-- Proper title templates for all pages
-- Keywords, description, canonical URLs
-- SVG favicon matching emerald logo
-- Web manifest for PWA support
-
-**Vercel Configuration:**
-- `vercel.json` with optimized settings
-- PDF route configured with 1024MB memory, 30s timeout
-- Security headers (X-Content-Type-Options, X-Frame-Options, etc.)
-- Cache headers for static assets
-
-**Bug Fixes:**
-- Fixed TypeScript error in PDF route (Uint8Array to Buffer conversion)
+scripts/
+├── umami-report.mjs        # Aggregate stats export (pageviews, events, etc.)
+└── umami-sessions.mjs      # User session journey report
+```
 
 ---
 
-### PDF Debug Logging
-**Date:** December 7, 2024
+## Core Features
 
-#### What Was Built
+### 1. Markdown Processing
+**File:** `src/lib/markdown.ts`
 
-Added comprehensive debug logging to troubleshoot PDF generation on Vercel. Following the [puppeteer-on-vercel](https://github.com/gabenunez/puppeteer-on-vercel) approach.
+Pipeline: `remark-parse → remark-gfm → remark-rehype → rehype-sanitize → rehype-stringify`
+- Supports GitHub Flavored Markdown (tables, strikethrough, etc.)
+- XSS sanitized output (scripts, event handlers stripped)
 
-**Debug Features Added:**
+### 2. Export Formats
 
-| Feature | Description |
-|---------|-------------|
-| Module Init Log | Logs environment info when module loads |
-| `debugLog()` Helper | Timestamped logs with stage prefixes and JSON data |
-| Request Tracking | Unique request IDs for tracing each PDF generation |
-| Timing Metrics | Duration tracking for each step (Chromium download, browser launch, PDF generation) |
-| GET Debug Endpoint | `/api/convert/pdf` (GET) returns environment and Chromium status |
+| Format | Implementation | Location |
+|--------|----------------|----------|
+| TXT | Client-side, raw markdown | `src/lib/export-txt.ts` |
+| HTML | Client-side, styled template | `src/lib/export-html.ts` |
+| PDF | Server-side, Puppeteer | `src/app/api/convert/pdf/route.ts` |
 
-**Logged Stages:**
-- `[ChromiumPath]` — Chromium binary download/extraction
-- `[Browser]` — Browser launch with full args logging
-- `[Request]` — Request parsing and validation
-- `[Markdown]` — Markdown to HTML conversion
-- `[Page]` — Page creation and content setting
-- `[PDF]` — PDF buffer generation
-- `[Error]` — Full error details with stack traces
-- `[Cleanup]` — Browser cleanup after errors
+**PDF Generation:**
+- Uses `@sparticuz/chromium-min` for serverless
+- A4 format, 20mm margins
+- 15s timeout, 5MB content limit
+- Vercel config: 1024MB memory, 30s max duration
 
-**Debug Endpoint Response:**
-```json
-{
-  "timestamp": "...",
-  "environment": { "NODE_ENV", "VERCEL_ENV", "VERCEL_REGION", "VERCEL_URL" },
-  "config": { "CHROMIUM_PACK_URL", "MAX_CONTENT_SIZE", "PDF_TIMEOUT" },
-  "cache": { "cachedExecutablePath", "hasDownloadPromise" },
-  "chromium": { "status", "executablePath", "resolutionTimeMs" }
+### 3. State Management
+**File:** `src/hooks/use-converter.tsx`
+
+React Context with useReducer pattern:
+```typescript
+interface ConverterState {
+  content: { source: 'file' | 'paste', content: string, filename: string, size: number } | null;
+  status: 'idle' | 'loading' | 'ready' | 'error';
+  error: { code: string, message: string } | null;
+  isPasteAreaVisible: boolean;
 }
 ```
 
----
+### 4. Analytics Events
+**File:** `src/lib/analytics.ts`
 
-### SEO Optimizations
-**Date:** December 7, 2024  
-**Commit:** `1a7b51f`
+All events are fire-and-forget, only sent if Umami is loaded.
 
-#### What Was Built
+| Category | Events |
+|----------|--------|
+| Conversion | `upload_start`, `upload_error`, `convert_success`, `convert_error` |
+| Engagement | `section_visible`, `scroll_depth`, `time_on_page`, `upload_hover`, `paste_toggle_click`, `export_hover`, `drag_enter` |
+| Navigation | `nav_click`, `feedback_click`, `feedback_submit` |
 
-Comprehensive SEO implementation based on merged expert feedback.
+**Engagement tracking fires once per session** to avoid spam.
 
-**Metadata Updates (`layout.tsx`):**
-- SEO-optimized title: "Markdown to PDF Converter – Free, Private, No Signup"
-- Improved meta description with target keywords
-- Open Graph and Twitter card tags updated
-- Canonical URL set to `https://www.markdown.free`
+### 5. Analytics Reports
+**Scripts:** `scripts/umami-report.mjs`, `scripts/umami-sessions.mjs`
 
-**Content Updates:**
-- Hero H1 optimized: "Free Markdown to PDF, TXT & HTML Converter"
-- Privacy-focused subheadline added
+Local scripts to pull analytics data from Umami API for analysis.
 
-**Technical SEO:**
-- `public/robots.txt` — Disallows `/api/`, includes sitemap reference
-- `public/sitemap.xml` — Lists homepage, about, privacy pages
+#### Aggregate Report (`npm run report`)
+Exports to `tmp/reports/`:
+- `stats_*.json` - Pageviews, visitors, bounces, visit duration
+- `pageviews_*.json` - Page-level traffic
+- `event_names_*.json/csv` - Event counts by name
+- `browsers_*.json/csv` - Browser breakdown
+- `countries_*.json/csv` - Geographic data
+- `referrers_*.json/csv` - Traffic sources
 
-**Structured Data (`page.tsx`):**
-- JSON-LD schema for `WebApplication`
-- JSON-LD schema for `FAQPage` with 5 common questions
-
-**E2E Tests Added (10 tests):**
-- Title and meta description keywords
-- Canonical URL
-- Open Graph tags
-- Twitter Card tags
-- JSON-LD schema validation
-- robots.txt accessibility
-- sitemap.xml validity
-- HTML lang attribute
-- Single H1 per page
-- H1 contains target keywords
-
----
-
-### User Analytics (Umami Cloud)
-**Date:** December 7, 2024  
-**Commit:** `c797eea`
-
-#### What Was Built
-
-Privacy-friendly, cookieless analytics using Umami Cloud (Hobby plan - free tier).
-
-**Analytics Utility (`src/lib/analytics.ts`):**
-- Type-safe event tracking helpers
-- `trackEvent()` - Generic event tracking
-- `trackUploadStart()` - Upload initiation (file or paste)
-- `trackUploadError()` - Upload validation errors
-- `trackConvertSuccess()` - Successful conversions
-- `trackConvertError()` - Conversion failures
-
-**Tracked Events:**
-
-| Event | Trigger | Properties |
-|-------|---------|------------|
-| `upload_start` | File drop/select or paste content | `source`: `file` \| `paste` |
-| `upload_error` | Validation failure | `source`, `reason` |
-| `convert_success` | Export completed | `format`, `source` |
-| `convert_error` | Export failed | `format`, `error_code` |
-
-**Integration Points:**
-- `layout.tsx` - Conditional Umami script loading
-- `upload-card.tsx` - Upload start/error tracking
-- `paste-area.tsx` - Paste start tracking
-- `export-row.tsx` - Conversion success/error tracking
-
-**Privacy Updates:**
-- Footer: "No tracking" → "No tracking cookies"
-- Privacy page: Added detailed Umami Cloud section explaining:
-  - Cookieless, privacy-focused platform
-  - What data is collected (aggregated only)
-  - What is NOT collected (content, file names, PII)
-  - DNT (Do Not Track) respect
-
-**Environment Variables Required:**
-```
-NEXT_PUBLIC_UMAMI_HOST=https://cloud.umami.is
-NEXT_PUBLIC_UMAMI_WEBSITE_ID=<your-website-id>
-```
-
-**E2E Tests Added (6 tests):**
-- Footer shows "No tracking cookies"
-- Privacy page mentions Umami Cloud
-- Privacy page lists collected data types
-- Umami script not loaded without env vars
-- trackEvent function is safe to call
-- Privacy short version updated
-
----
-
-### Enhanced Analytics (Engagement Tracking)
-**Date:** December 19, 2024
-
-#### What Was Built
-
-Added comprehensive engagement tracking to understand user behavior before conversion, particularly to diagnose why users visit the homepage and leave without interacting.
-
-**New Event Categories:**
-
-| Category | Events | Purpose |
-|----------|--------|---------|
-| Section Visibility | `section_visible` | Track which sections users scroll to see |
-| Scroll Depth | `scroll_depth` | Measure engagement depth (25%, 50%, 75%, 100%) |
-| Time on Page | `time_on_page` | Track engagement milestones (10s, 30s, 60s) |
-| Engagement Intent | `upload_hover`, `paste_toggle_click`, `export_hover`, `drag_enter` | Pre-conversion interest signals |
-| Navigation | `nav_click`, `feedback_click` | Track where users go instead of converting |
-
-**New Events:**
-
-| Event | Trigger | Properties |
-|-------|---------|------------|
-| `section_visible` | Section enters viewport (30% visible) | `section`: `hero` \| `upload` \| `paste` \| `export` \| `preview` \| `footer` |
-| `scroll_depth` | User scrolls to milestone | `depth`: `25` \| `50` \| `75` \| `100` |
-| `time_on_page` | User stays on page | `milestone`: `10s` \| `30s` \| `60s` |
-| `upload_hover` | Mouse enters upload area (once) | — |
-| `paste_toggle_click` | Clicks "Or paste Markdown instead" | — |
-| `export_hover` | Hovers disabled export button | `format`: `pdf` \| `txt` \| `html` |
-| `drag_enter` | Drags file over page (once) | — |
-| `nav_click` | Clicks navigation link | `destination`: `about` \| `privacy` \| `home` |
-| `feedback_click` | Clicks Feedback button | — |
-
-**New Files:**
-
-| File | Description |
-|------|-------------|
-| `src/hooks/use-engagement-tracking.tsx` | Hooks for scroll/time/visibility tracking |
-| `src/components/engagement-tracker.tsx` | Invisible component for page-level tracking |
-
-**Updated Components:**
-- `hero.tsx` — Section visibility tracking
-- `upload-card.tsx` — Section visibility + hover + paste toggle tracking
-- `paste-area.tsx` — Section visibility tracking
-- `export-row.tsx` — Section visibility + export button hover tracking
-- `preview-card.tsx` — Section visibility tracking
-- `footer.tsx` — Section visibility + nav click tracking
-- `header.tsx` — Navigation and feedback click tracking
-- `page.tsx` — EngagementTracker component for scroll/time/drag
-
-**Analytics Insights Enabled:**
-
-With these events, you can now answer:
-1. **How far do bouncing users scroll?** → `scroll_depth` events
-2. **What sections do users see before leaving?** → `section_visible` events
-3. **How long do users stay?** → `time_on_page` milestones
-4. **Do users show intent to upload?** → `upload_hover`, `drag_enter` events
-5. **Are users interested in export but have no content?** → `export_hover` events
-6. **Where do users navigate instead of converting?** → `nav_click`, `feedback_click` events
-
-**All events fire once per session** to avoid spam and keep analytics clean.
-
-**E2E Tests Added (13 tests):**
-- EngagementTracker component loads without errors
-- Scroll tracking works without JavaScript errors
-- Hover over upload card triggers tracking safely
-- Paste toggle click triggers tracking
-- Hovering disabled export buttons works safely
-- Navigation click tracking (About, Privacy, Home)
-- Logo click tracking when navigating home
-- Footer privacy link click tracking
-- Feedback button click tracking
-- File drag over page tracking
-- Time on page tracking doesn't interfere with functionality
-- All sections with visibility tracking render correctly
-- Mobile navigation tracking works without errors
-
----
-
-### Feedback Modal
-**Date:** December 19, 2024
-
-#### What Was Built
-
-A feedback collection system using a popup modal and Umami analytics for storage.
-
-**Features:**
-- Popup modal triggered by "Feedback" button in header
-- Two form fields: Feedback (required), Email (optional)
-- Feedback submitted via Umami custom event (no backend needed)
-- Success confirmation with auto-close
-- Accessible: ESC to close, focus trap, ARIA labels
-- Works on desktop and mobile
-- Portal-based rendering for proper z-index handling
-
-**New Files:**
-
-| File | Description |
-|------|-------------|
-| `src/components/feedback-modal.tsx` | Modal component with form and submission logic |
-
-**Analytics Event:**
-
-| Event | Trigger | Properties |
-|-------|---------|------------|
-| `feedback_submit` | Form submission | `feedback` (max 500 chars), `email`, `feedback_length`, `has_email` |
-
-**UX Details:**
-- Modal opens on Feedback button click (desktop nav or mobile menu)
-- Textarea auto-focuses when modal opens
-- Submit button disabled until feedback entered
-- Shows loading state during submission
-- Success message with checkmark icon
-- Auto-closes 2 seconds after success
-- Form resets when modal reopens
-
-**E2E Tests Added (15 tests):**
-- Modal opens on button click
-- Modal closes with X button, Cancel, Escape, backdrop click
-- Submit button disabled/enabled states
-- Success message display
-- Auto-close after submission
-- Form works without email
-- Form resets on reopen
-- Works from mobile menu
-- Textarea auto-focus
-- Loading state display
-- Analytics tracking without errors
-
----
-
-### Security Update (Next.js 14.2.35)
-**Date:** December 19, 2024
-
-#### What Was Done
-
-Updated Next.js from `14.2.21` to `14.2.35` to address security vulnerabilities.
-
-**Vulnerabilities Patched:**
-
-| CVE | Severity | Description |
-|-----|----------|-------------|
-| CVE-2025-55184 / CVE-2025-67779 | High | Denial of Service via crafted HTTP request |
-
-**Note:** CVE-2025-55183 (Source Code Exposure) only affects Next.js 15.x and above, so 14.2.x is not vulnerable to that issue.
-
-**Reference:** [Next.js Security Update: December 11, 2025](https://nextjs.org/blog/security-update-2025-12-11)
-
----
-
-## Deployment Ready
-
-The application is now ready for deployment to Vercel.
-
----
-
-## File Structure
+#### Session Journey Report (`npm run report:sessions`)
+Shows individual user journeys with event sequences:
 
 ```
-markdown-free/
-├── docs/
-│   ├── spec.md              # Product specification
-│   └── progress.md          # This file
-├── e2e/
-│   ├── app.spec.ts          # Local Playwright tests (69 tests)
-│   └── production.spec.ts   # Production E2E tests
-├── src/
-│   ├── app/
-│   │   ├── layout.tsx       # Root layout with SEO metadata + Umami script
-│   │   ├── page.tsx         # Main page with JSON-LD schema
-│   │   ├── globals.css
-│   │   ├── about/page.tsx
-│   │   ├── privacy/page.tsx
-│   │   └── api/
-│   │       └── convert/
-│   │           └── pdf/
-│   │               └── route.ts  # PDF generation API with debug logging
-│   ├── components/
-│   │   ├── header.tsx
-│   │   ├── hero.tsx         # SEO-optimized H1
-│   │   ├── footer.tsx       # "No tracking cookies"
-│   │   ├── upload-card.tsx  # With analytics tracking
-│   │   ├── paste-area.tsx   # With analytics tracking
-│   │   ├── export-row.tsx   # With analytics tracking
-│   │   ├── preview-card.tsx
-│   │   ├── engagement-tracker.tsx  # Page-level engagement tracking
-│   │   ├── feedback-modal.tsx      # Feedback form modal
-│   │   └── index.ts
-│   ├── hooks/
-│   │   ├── use-converter.tsx
-│   │   └── use-engagement-tracking.tsx  # Scroll/time/visibility tracking
-│   ├── lib/
-│   │   ├── utils.ts
-│   │   ├── markdown.ts      # Markdown parsing pipeline
-│   │   ├── download.ts      # File download utility
-│   │   ├── export-txt.ts    # TXT export
-│   │   ├── export-html.ts   # HTML export with template
-│   │   ├── export-pdf.ts    # PDF export via API
-│   │   └── analytics.ts     # Umami event tracking utilities
-│   └── types/
-│       └── index.ts
-├── public/
-│   ├── favicon.svg          # Emerald logo favicon
-│   ├── og-image.svg         # OpenGraph image
-│   ├── site.webmanifest     # PWA manifest
-│   ├── robots.txt           # SEO: crawler directives
-│   └── sitemap.xml          # SEO: sitemap
-├── tmp/                     # (gitignored)
-├── env.example              # Environment variables template
-├── vercel.json              # Vercel deployment config
-├── playwright.config.ts     # Local test config
-├── playwright.production.config.ts  # Production test config
-├── tailwind.config.ts
-├── tsconfig.json
-└── package.json
+👤 Session 1: 704f29d3...
+   📍 Riyadh, Saudi Arabia (SA)
+   💻 mobile | ios | iOS
+   📝 Journey (6 events):
+      11:28:46 AM │ 📄 Viewed page: /
+      11:28:46 AM │ 👁️  section_visible
+      11:28:54 AM │ ⏱️  time_on_page
+      11:29:14 AM │ ⏱️  time_on_page
+```
+
+**Filtering Options:**
+| Flag | Effect |
+|------|--------|
+| (default) | Excludes testers + crawlers |
+| `--include-testers` | Include test sessions (Plano, US) |
+| `--include-crawlers` | Include detected bots |
+
+**Crawler Detection:**
+- Data center cities: Ashburn (AWS), Falkenstein (Hetzner), Council Bluffs (Google)
+- Bot browsers: headless, phantomjs, selenium
+- Override: Users with engagement events are never flagged as crawlers
+
+**Session Categorization:**
+- ✅ Converted (completed export)
+- 📤 Tried upload
+- 🎯 Showed interest (hover/paste toggle)
+- 📜 Engaged (scrolled/stayed)
+- 👁️ Viewed sections
+- 🚪 Bounced (pageview only)
+
+### 6. Feedback System
+**File:** `src/components/feedback-modal.tsx`
+
+- Triggered by Feedback button in header
+- Fields: Feedback (required), Email (optional)
+- Stores via Umami `feedback_submit` event (no backend DB needed)
+- Uses React Portal for proper z-index
+- Auto-closes after successful submission
+
+---
+
+## Testing
+
+### E2E Test Coverage (102 tests)
+
+| Suite | Tests | Key Coverage |
+|-------|-------|--------------|
+| App Layout | 5 | Header, Hero, Footer, initial states |
+| Upload/Paste | 6 | File upload, drag-drop, paste area |
+| File Validation | 2 | 5MB limit enforcement |
+| Export | 11 | PDF/TXT/HTML download, error handling |
+| Preview | 2 | Markdown rendering, XSS prevention |
+| Navigation | 6 | Page routing, mobile menu |
+| SEO | 14 | Metadata, OG tags, JSON-LD, robots.txt |
+| Analytics | 19 | Event tracking, engagement hooks |
+| Feedback Modal | 15 | Form validation, submission, accessibility |
+| Mobile | 7 | Responsive UI, touch interactions |
+| Performance | 3 | Load time, FCP, accessibility |
+| Special Cases | 5 | Unicode filenames, emoji handling |
+
+### Running Tests
+```bash
+npm test                    # Headless
+npm run test:headed         # With browser visible
+npm run test:ui             # Playwright UI
+npm run test:production     # Against production URL
 ```
 
 ---
 
-## Git History
+## Deployment
 
-| Commit | Date | Description |
-|--------|------|-------------|
-| `1ab1428` | Dec 7, 2024 | Add env.example for Umami configuration |
-| `c797eea` | Dec 7, 2024 | Add privacy-friendly Umami Cloud analytics integration |
-| `a231df3` | Dec 7, 2024 | Fix production E2E test for SEO title |
-| `5ee6884` | Dec 7, 2024 | Add tmp to gitignore |
-| `1a7b51f` | Dec 7, 2024 | Implement SEO optimizations based on expert feedback |
-| `3c35d6a` | Dec 7, 2024 | Production E2E Test Suite Created |
-| `8bbb6fa` | Dec 7, 2024 | Add comprehensive debug logging to PDF route |
-| `b6ce16d` | Dec 7, 2024 | Phase 4: Launch prep - Mobile nav, SEO, Vercel config |
-| `ca092a2` | Dec 7, 2024 | Phase 3: PDF generation with Puppeteer and error handling |
-| `8261517` | Dec 7, 2024 | Phase 2: Markdown rendering engine and client-side exports |
-| `f08ad14` | Dec 7, 2024 | Move Playwright output to tmp folder |
-| `55abe4f` | Dec 7, 2024 | Add Playwright e2e test suite (20 tests) |
-| `6162c06` | Dec 7, 2024 | Phase 1: Initialize project with UI shell and state management |
+### Vercel Configuration
+**File:** `vercel.json`
+
+- PDF route: 1024MB memory, 30s timeout
+- Security headers: X-Content-Type-Options, X-Frame-Options, etc.
+- Cache: Static assets cached for 1 year
+
+### Static Files
+**Folder:** `public/`
+
+| File | Purpose |
+|------|---------|
+| `favicon.svg` | Emerald logo favicon |
+| `og-image.svg` | OpenGraph social image |
+| `robots.txt` | Crawler directives (disallows /api/) |
+| `sitemap.xml` | SEO sitemap |
 
 ---
 
-## Notes
+## Design Decisions
 
-- **UI Reference:** The approved mockup is at `tmp/c.html`
-- **Spec Reference:** Full product specification at `docs/spec.md`
-- **Color Scheme:** Slate (grays) + Emerald (accent)
-- **State Management:** React Context (not Zustand, per spec decision)
-- **Drag & Drop:** Native HTML5 DnD (not React Dropzone, per spec decision)
-- **Security:** `rehype-sanitize` used to prevent XSS in markdown preview
-- **Export Styling:** HTML export uses embedded CSS that matches preview styling
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| State Management | React Context | Simpler than Zustand for this scope |
+| Drag & Drop | Native HTML5 DnD | No extra dependency needed |
+| PDF Generation | Server-side Puppeteer | Better quality, handles complex markdown |
+| Analytics | Umami Cloud | Privacy-friendly, cookieless, free tier |
+| Feedback Storage | Umami events | No backend DB needed |
+| Styling | Tailwind + Typography | Fast development, good prose styling |
+
+---
+
+## Security
+
+- **XSS Prevention:** `rehype-sanitize` strips scripts, event handlers, javascript: URLs
+- **File Validation:** Client-side 5MB limit before upload
+- **PDF API:** Content size validation, timeout protection
+- **Next.js:** Updated to 14.2.35 (CVE-2025-55184 patched)
+- **Headers:** Security headers via Vercel config
+
+---
+
+## Color Scheme
+
+| Usage | Color | Tailwind Class |
+|-------|-------|----------------|
+| Primary accent | Emerald | `emerald-500`, `emerald-600` |
+| Text | Slate | `slate-900`, `slate-600`, `slate-400` |
+| Backgrounds | White/Slate | `white`, `slate-50`, `slate-100` |
+| Errors | Red | `red-500`, `red-50` |
+| Success | Emerald | `emerald-500`, `emerald-100` |
+
+---
+
+## API Reference
+
+### POST /api/convert/pdf
+
+**Request:**
+```json
+{
+  "markdown": "# Title\n\nContent...",
+  "filename": "document.md"
+}
+```
+
+**Response (Success):** PDF binary with `Content-Disposition: attachment`
+
+**Response (Error):**
+```json
+{
+  "error": "GENERATION_FAILED",
+  "message": "PDF generation failed. Please try again."
+}
+```
+
+**Error Codes:** `INVALID_CONTENT`, `CONTENT_TOO_LARGE`, `GENERATION_TIMEOUT`, `GENERATION_FAILED`
+
+---
+
+## Notes for Development
+
+1. **Adding new analytics events:** Add helper function in `src/lib/analytics.ts`, call from component
+2. **Adding new export format:** Create `src/lib/export-{format}.ts`, add button in `export-row.tsx`
+3. **Modifying preview styling:** Edit prose classes in `preview-card.tsx` and `export-html.ts`
+4. **PDF styling:** Edit HTML template in `src/app/api/convert/pdf/route.ts`
+5. **Testing:** Add tests to `e2e/app.spec.ts`, run with `npm test`
+6. **Analytics reports:** Configure `.env` with Umami API key, run `npm run report` or `npm run report:sessions`
+7. **Exclude tester locations:** Edit `EXCLUDED_LOCATIONS` in `scripts/umami-sessions.mjs`
+8. **Exclude crawler cities:** Edit `DATA_CENTER_CITIES` in `scripts/umami-sessions.mjs`
