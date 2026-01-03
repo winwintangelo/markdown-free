@@ -94,11 +94,11 @@ test.describe("Production - Core Functionality", () => {
     await expect(textarea).not.toBeVisible();
 
     // Click toggle to show
-    await page.getByRole("button", { name: "Or paste Markdown instead" }).click();
+    await page.getByRole("button", { name: "paste Markdown" }).click();
     await expect(textarea).toBeVisible();
 
     // Click toggle to hide
-    await page.getByRole("button", { name: "Or paste Markdown instead" }).click();
+    await page.getByRole("button", { name: "paste Markdown" }).click();
     await expect(textarea).not.toBeVisible();
   });
 
@@ -106,7 +106,7 @@ test.describe("Production - Core Functionality", () => {
     await page.goto("/");
 
     // Open paste area
-    await page.getByRole("button", { name: "Or paste Markdown instead" }).click();
+    await page.getByRole("button", { name: "paste Markdown" }).click();
     
     // Paste markdown
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
@@ -153,7 +153,7 @@ test.describe("Production - Export (Real API)", () => {
     await page.goto("/");
     
     // Set up content via paste
-    await page.getByRole("button", { name: "Or paste Markdown instead" }).click();
+    await page.getByRole("button", { name: "paste Markdown" }).click();
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill("# Production Test\n\n**Bold** and *italic* text.\n\n- List item 1\n- List item 2");
     await page.waitForTimeout(400);
@@ -307,7 +307,7 @@ test.describe("Production - Security", () => {
     });
 
     // Open paste area and inject malicious content
-    await page.getByRole("button", { name: "Or paste Markdown instead" }).click();
+    await page.getByRole("button", { name: "paste Markdown" }).click();
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill(`# Safe Title\n\n<script>alert('xss')</script>\n\nSafe content.`);
 

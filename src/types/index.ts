@@ -6,7 +6,7 @@ export type AppStatus = "idle" | "ready" | "error";
 
 // File state
 export interface LoadedContent {
-  source: "file" | "paste";
+  source: "file" | "paste" | "sample";
   filename: string | null;
   content: string;
   size: number;
@@ -32,6 +32,7 @@ export type AppAction =
   | { type: "SET_INPUT_MODE"; mode: InputMode }
   | { type: "LOAD_FILE"; filename: string; content: string; size: number }
   | { type: "LOAD_PASTE"; content: string }
+  | { type: "LOAD_SAMPLE"; content: string; size: number }
   | { type: "CLEAR_CONTENT" }
   | { type: "SET_ERROR"; error: AppError }
   | { type: "CLEAR_ERROR" }

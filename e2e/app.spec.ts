@@ -146,14 +146,14 @@ test.describe("Markdown Free - Paste Area", () => {
     await page.goto("/");
   });
 
-  test("clicking 'Or paste Markdown' reveals the text area", async ({ page }) => {
+  test("clicking 'paste Markdown' reveals the text area", async ({ page }) => {
     // Initially, paste area should not be visible
     const pasteLabel = page.getByText("Pasted Markdown", { exact: false });
     await expect(pasteLabel).not.toBeVisible();
 
     // Click the toggle
     const pasteToggle = page.getByRole("button", {
-      name: "Or paste Markdown instead",
+      name: "paste Markdown",
     });
     await pasteToggle.click();
 
@@ -168,7 +168,7 @@ test.describe("Markdown Free - Paste Area", () => {
 
   test("clicking toggle again hides the paste area", async ({ page }) => {
     const pasteToggle = page.getByRole("button", {
-      name: "Or paste Markdown instead",
+      name: "paste Markdown",
     });
 
     // Open paste area
@@ -184,7 +184,7 @@ test.describe("Markdown Free - Paste Area", () => {
   test("typing in paste area updates state after debounce", async ({ page }) => {
     // Open paste area
     const pasteToggle = page.getByRole("button", {
-      name: "Or paste Markdown instead",
+      name: "paste Markdown",
     });
     await pasteToggle.click();
 
@@ -897,7 +897,7 @@ test.describe("Markdown Free - Security (XSS Prevention)", () => {
     });
 
     // Click paste toggle to reveal textarea
-    await page.getByRole("button", { name: "Or paste Markdown instead" }).click();
+    await page.getByRole("button", { name: "paste Markdown" }).click();
     await page.waitForTimeout(100);
 
     // Paste malicious content
@@ -1455,7 +1455,7 @@ test.describe("Markdown Free - Enhanced Analytics (Engagement Tracking)", () => 
 
     // Click the paste toggle button
     const pasteToggle = page.getByRole("button", {
-      name: "Or paste Markdown instead",
+      name: "paste Markdown",
     });
     await pasteToggle.click();
 
@@ -1602,7 +1602,7 @@ test.describe("Markdown Free - Enhanced Analytics (Engagement Tracking)", () => 
 
     // Should still be able to interact with the page
     const pasteToggle = page.getByRole("button", {
-      name: "Or paste Markdown instead",
+      name: "paste Markdown",
     });
     await pasteToggle.click();
 

@@ -36,7 +36,7 @@ export function trackEvent(
 // CONVERSION EVENTS (existing)
 // =============================================================================
 
-export type UploadSource = "file" | "paste";
+export type UploadSource = "file" | "paste" | "sample";
 export type ExportFormat = "pdf" | "txt" | "html";
 export type UploadErrorReason = "invalid_type" | "too_large" | "parse_error";
 export type ConvertErrorCode = "pdf_timeout" | "pdf_server_error" | "unknown";
@@ -125,6 +125,14 @@ export function trackUploadHover(): void {
  */
 export function trackPasteToggleClick(): void {
   trackEvent("paste_toggle_click");
+}
+
+/**
+ * Track when user clicks "Try sample file"
+ * Shows interest in testing the tool without their own file
+ */
+export function trackSampleClick(): void {
+  trackEvent("sample_click");
 }
 
 /**

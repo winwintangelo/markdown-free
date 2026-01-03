@@ -52,6 +52,12 @@ export function PreviewCard() {
         text: "Ready to export (uploaded file)",
       };
     }
+    if (state.content.source === "sample") {
+      return {
+        dotColor: "bg-emerald-500",
+        text: "Ready to export (sample file)",
+      };
+    }
     return {
       dotColor: "bg-emerald-500",
       text: "Ready to export (pasted text)",

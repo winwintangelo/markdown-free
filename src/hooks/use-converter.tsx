@@ -62,6 +62,20 @@ function appReducer(state: AppState, action: AppAction): AppState {
         error: null,
       };
 
+    case "LOAD_SAMPLE":
+      return {
+        ...state,
+        inputMode: "upload",
+        content: {
+          source: "sample",
+          filename: "sample.md",
+          content: action.content,
+          size: action.size,
+        },
+        status: "ready",
+        error: null,
+      };
+
     case "CLEAR_CONTENT":
       return {
         ...state,

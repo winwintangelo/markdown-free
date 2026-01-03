@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { Upload } from "lucide-react";
 import { cn, formatFileSize, isValidFileType, isValidFileSize } from "@/lib/utils";
 import { useConverter } from "@/hooks/use-converter";
-import { trackUploadStart, trackUploadError, trackUploadHover, trackPasteToggleClick } from "@/lib/analytics";
+import { trackUploadStart, trackUploadError, trackUploadHover, trackPasteToggleClick, trackSampleClick } from "@/lib/analytics";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 
 export function UploadCard() {
@@ -115,6 +115,32 @@ export function UploadCard() {
     dispatch({ type: "TOGGLE_PASTE_AREA" });
   }, [dispatch]);
 
+  const handleSampleClick = useCallback(async () => {
+    trackSampleClick();
+    trackUploadStart("sample");
+    try {
+      const response = await fetch("/sample.md");
+      if (!response.ok) {
+        throw new Error("Failed to fetch sample file");
+      }
+      const content = await response.text();
+      const size = new Blob([content]).size;
+      dispatch({
+        type: "LOAD_SAMPLE",
+        content,
+        size,
+      });
+    } catch {
+      dispatch({
+        type: "SET_ERROR",
+        error: {
+          code: "SAMPLE_ERROR",
+          message: "Unable to load sample file. Please try again.",
+        },
+      });
+    }
+  }, [dispatch]);
+
   const handleMouseEnter = useCallback(() => {
     if (!hasTrackedHoverRef.current) {
       hasTrackedHoverRef.current = true;
@@ -134,6 +160,12 @@ export function UploadCard() {
       return {
         dotColor: "bg-emerald-500",
         text: `${state.content.filename} (${formatFileSize(state.content.size)})`,
+      };
+    }
+    if (state.content?.source === "sample") {
+      return {
+        dotColor: "bg-emerald-500",
+        text: `Sample file loaded (${formatFileSize(state.content.size)})`,
       };
     }
     return {
@@ -197,17 +229,30 @@ export function UploadCard() {
         <span>{status.text}</span>
       </div>
 
-      {/* Paste toggle */}
-      <button
-        type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          handlePasteToggle();
-        }}
-        className="mt-5 text-xs font-medium text-emerald-700 underline-offset-4 hover:underline"
-      >
-        Or paste Markdown instead
-      </button>
+      {/* Action links */}
+      <div className="mt-5 flex items-center gap-3 text-xs">
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            handleSampleClick();
+          }}
+          className="font-medium text-slate-600 underline-offset-4 hover:text-slate-800 hover:underline"
+        >
+          Try sample file
+        </button>
+        <span className="text-slate-300">or</span>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            handlePasteToggle();
+          }}
+          className="font-medium text-emerald-700 underline-offset-4 hover:underline"
+        >
+          paste Markdown
+        </button>
+      </div>
     </div>
   );
 }

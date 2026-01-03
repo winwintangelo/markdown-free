@@ -1,7 +1,7 @@
 # Markdown Free — Technical Reference
 
 > **Repository:** https://github.com/winwintangelo/markdown-free  
-> **Last Updated:** December 27, 2024  
+> **Last Updated:** January 3, 2026  
 > **Status:** ✅ Production Ready
 
 ---
@@ -115,7 +115,7 @@ Pipeline: `remark-parse → remark-gfm → remark-rehype → rehype-sanitize →
 React Context with useReducer pattern:
 ```typescript
 interface ConverterState {
-  content: { source: 'file' | 'paste', content: string, filename: string, size: number } | null;
+  content: { source: 'file' | 'paste' | 'sample', content: string, filename: string, size: number } | null;
   status: 'idle' | 'loading' | 'ready' | 'error';
   error: { code: string, message: string } | null;
   isPasteAreaVisible: boolean;
@@ -129,7 +129,7 @@ All events are fire-and-forget, only sent if Umami is loaded.
 
 | Category | Events |
 |----------|--------|
-| Conversion | `upload_start`, `upload_error`, `convert_success`, `convert_error` |
+| Conversion | `upload_start`, `upload_error`, `convert_success`, `convert_error`, `sample_click` |
 | Engagement | `section_visible`, `scroll_depth`, `time_on_page`, `upload_hover`, `paste_toggle_click`, `export_hover`, `drag_enter` |
 | Navigation | `nav_click`, `feedback_click`, `feedback_submit` |
 
@@ -183,7 +183,15 @@ Shows individual user journeys with event sequences:
 - 👁️ Viewed sections
 - 🚪 Bounced (pageview only)
 
-### 6. Feedback System
+### 6. Try Sample File
+**Feature:** Allows users to test the converter without having their own markdown file.
+
+- **Button location:** Upload card, alongside "paste Markdown" link
+- **Sample file:** `public/sample.md` (Shakespeare's Sonnets I-III)
+- **Analytics:** Tracks `sample_click` and `upload_start` with `source: "sample"`
+- **Purpose:** Reduce friction for first-time users and improve conversion rate
+
+### 7. Feedback System
 **File:** `src/components/feedback-modal.tsx`
 
 - Triggered by Feedback button in header
@@ -241,6 +249,7 @@ npm run test:production     # Against production URL
 | `og-image.svg` | OpenGraph social image |
 | `robots.txt` | Crawler directives (disallows /api/) |
 | `sitemap.xml` | SEO sitemap |
+| `sample.md` | Sample markdown file (Shakespeare's Sonnets) |
 
 ---
 
