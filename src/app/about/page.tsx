@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { LocaleTracker } from "@/components/locale-tracker";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { getDictionary } from "@/i18n";
 
@@ -15,6 +16,7 @@ export default function AboutPage() {
   
   return (
     <ConverterProvider>
+      <LocaleTracker locale="en" />
       <Header locale="en" dict={dict} />
       <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
         <article className="prose prose-slate max-w-none">

@@ -6,6 +6,7 @@ import { PreviewCard } from "@/components/preview-card";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { LanguageBanner } from "@/components/language-banner";
+import { LocaleTracker } from "@/components/locale-tracker";
 import { EngagementTracker } from "@/components/engagement-tracker";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { getDictionary } from "@/i18n";
@@ -97,6 +98,7 @@ export default function Home() {
   
   return (
     <ConverterProvider>
+      <LocaleTracker locale="en" />
       <Header locale="en" dict={dict} />
       {/* JSON-LD Schema */}
       <script

@@ -195,8 +195,26 @@ export function trackFeedbackSubmit(data: {
 export type SupportedLocale = "en" | "it" | "es";
 
 /**
+ * Track page view with locale information
+ * This supplements Umami's automatic pageview tracking with locale data
+ */
+export function trackLocalePageView(locale: SupportedLocale, page: string): void {
+  trackEvent("locale_pageview", { locale, page });
+}
+
+/**
  * Track language switcher usage
  */
 export function trackLanguageSwitch(from: SupportedLocale, to: SupportedLocale): void {
   trackEvent("language_switched", { from, to, via: "switcher" });
+}
+
+/**
+ * Track conversion (export) with locale context
+ */
+export function trackLocaleConversion(
+  locale: SupportedLocale,
+  format: "pdf" | "txt" | "html"
+): void {
+  trackEvent("locale_conversion", { locale, format });
 }

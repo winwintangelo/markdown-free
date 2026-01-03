@@ -9,4 +9,5 @@ export { EngagementTracker } from "./engagement-tracker";
 export { FeedbackModal } from "./feedback-modal";
 export { LanguageSwitcher } from "./language-switcher";
 export { LanguageBanner } from "./language-banner";
+export { LocaleTracker } from "./locale-tracker";
 

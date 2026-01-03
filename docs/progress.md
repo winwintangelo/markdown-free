@@ -148,7 +148,7 @@ All events are fire-and-forget, only sent if Umami is loaded.
 | Conversion | `upload_start`, `upload_error`, `convert_success`, `convert_error`, `sample_click` |
 | Engagement | `section_visible`, `scroll_depth`, `time_on_page`, `upload_hover`, `paste_toggle_click`, `export_hover`, `drag_enter` |
 | Navigation | `nav_click`, `feedback_click`, `feedback_submit` |
-| Localization | `language_suggestion_shown`, `language_switched`, `language_suggestion_dismissed` |
+| Localization | `language_suggestion_shown`, `language_switched`, `language_suggestion_dismissed`, `locale_pageview`, `locale_conversion` |
 
 **Engagement tracking fires once per session** to avoid spam.
 
@@ -414,6 +414,8 @@ npm run test:production     # Against production URL
 ### Analytics Events
 | Event | Data | Purpose |
 |-------|------|---------|
+| `locale_pageview` | `{locale, page}` | Track pageviews by language |
+| `locale_conversion` | `{locale, format}` | Track exports by language |
 | `language_suggestion_shown` | `{suggested, current}` | Banner was displayed |
 | `language_switched` | `{from, to, via}` | User changed language |
 | `language_suggestion_dismissed` | `{suggested, current}` | Banner was closed |

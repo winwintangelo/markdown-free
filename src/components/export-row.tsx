@@ -12,8 +12,10 @@ import {
   trackConvertSuccess,
   trackConvertError,
   trackExportHover,
+  trackLocaleConversion,
   type ExportFormat as AnalyticsExportFormat,
   type UploadSource,
+  type SupportedLocale,
 } from "@/lib/analytics";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 import type { Locale, Dictionary } from "@/i18n";
@@ -48,7 +50,7 @@ const defaultDict = {
   }
 };
 
-export function ExportRow({ locale: _locale, dict = defaultDict as unknown as Dictionary }: ExportRowProps) {
+export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dictionary }: ExportRowProps) {
   const { state } = useConverter();
   const [loadingFormat, setLoadingFormat] = useState<ExportFormat | null>(null);
   const [error, setError] = useState<ExportError | null>(null);
@@ -102,10 +104,12 @@ export function ExportRow({ locale: _locale, dict = defaultDict as unknown as Di
         if (format === "txt") {
           exportTxt(state.content.content, state.content.filename);
           trackConvertSuccess(format as AnalyticsExportFormat, source);
+          trackLocaleConversion(locale as SupportedLocale, format);
         } else if (format === "html") {
           const html = renderedHtml || (await markdownToHtml(state.content.content));
           exportHtml(html, state.content.filename);
           trackConvertSuccess(format as AnalyticsExportFormat, source);
+          trackLocaleConversion(locale as SupportedLocale, format);
         } else if (format === "pdf") {
           // Create abort controller for PDF request
           abortControllerRef.current = new AbortController();
@@ -118,6 +122,7 @@ export function ExportRow({ locale: _locale, dict = defaultDict as unknown as Di
 
           if (result.success) {
             trackConvertSuccess(format as AnalyticsExportFormat, source);
+            trackLocaleConversion(locale as SupportedLocale, format);
           } else if (result.error) {
             // Map error codes to analytics error codes
             const errorCode = result.error.code === "GENERATION_TIMEOUT" 
