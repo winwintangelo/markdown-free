@@ -59,6 +59,28 @@
     <priority>0.6</priority>
   </url>
   
+  <!-- Italian Intent Pages (SEO landing pages) -->
+  <url>
+    <loc>https://www.markdown.free/it/convertire-markdown-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/it/markdown-pdf-senza-registrazione</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/it/convertire-readme-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/it/confronto-convertitori-markdown</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
   <!-- Spanish -->
   <url>
     <loc>https://www.markdown.free/es</loc>
@@ -86,5 +108,27 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/privacy" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  
+  <!-- Spanish Intent Pages (SEO landing pages) -->
+  <url>
+    <loc>https://www.markdown.free/es/convertir-markdown-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/es/markdown-pdf-sin-registro</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/es/convertir-readme-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/es/comparacion-convertidores-markdown</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

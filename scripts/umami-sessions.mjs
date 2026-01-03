@@ -250,6 +250,12 @@ const EVENT_ICONS = {
   'nav_click': '🔗',
   'feedback_click': '💬',
   'feedback_submit': '📩',
+  'sample_click': '📝',
+  'locale_pageview': '🌐',
+  'locale_conversion': '🌍',
+  'language_suggestion_shown': '🗣️ ',
+  'language_switched': '🔄',
+  'language_suggestion_dismissed': '❎',
 };
 
 // Format event for display
@@ -574,7 +580,7 @@ function categorizeSession(events) {
   const eventNames = events.map(e => e.eventName).filter(Boolean);
   
   if (eventNames.includes('convert_success')) return 'converted';
-  if (eventNames.includes('upload_start')) return 'tried_upload';
+  if (eventNames.includes('upload_start') || eventNames.includes('sample_click')) return 'tried_upload';
   if (eventNames.includes('upload_hover') || eventNames.includes('paste_toggle_click')) return 'showed_interest';
   if (eventNames.includes('scroll_depth') || eventNames.includes('time_on_page')) return 'engaged';
   if (eventNames.includes('section_visible')) return 'viewed';
@@ -621,6 +627,84 @@ function summarizeSessions(journeys) {
   });
 }
 
+// Calculate locale-specific KPIs
+async function calculateLocaleKPIs() {
+  console.log('\n🌐 LOCALE-SPECIFIC KPIs');
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  
+  try {
+    const eventNames = await fetchUmami('/metrics', { 
+      type: 'event',
+      startAt,
+      endAt,
+    });
+    
+    // Get locale-specific events
+    const localePageviews = eventNames.find(e => e.x === 'locale_pageview')?.y || 0;
+    const localeConversions = eventNames.find(e => e.x === 'locale_conversion')?.y || 0;
+    const langSuggestionShown = eventNames.find(e => e.x === 'language_suggestion_shown')?.y || 0;
+    const langSwitched = eventNames.find(e => e.x === 'language_switched')?.y || 0;
+    const langDismissed = eventNames.find(e => e.x === 'language_suggestion_dismissed')?.y || 0;
+    
+    // Activation events
+    const sampleClicks = eventNames.find(e => e.x === 'sample_click')?.y || 0;
+    const uploadStarts = eventNames.find(e => e.x === 'upload_start')?.y || 0;
+    const pasteToggles = eventNames.find(e => e.x === 'paste_toggle_click')?.y || 0;
+    const totalActivations = sampleClicks + uploadStarts + pasteToggles;
+    
+    // Conversion events
+    const pdfExports = eventNames.find(e => e.x === 'convert_success')?.y || 0;
+    
+    console.log('\n📊 Language Banner Performance:');
+    console.log(`   • Suggestions Shown: ${langSuggestionShown}`);
+    console.log(`   • Language Switched: ${langSwitched}`);
+    console.log(`   • Dismissed: ${langDismissed}`);
+    if (langSuggestionShown > 0) {
+      const switchRate = Math.round(langSwitched / langSuggestionShown * 100);
+      const dismissRate = Math.round(langDismissed / langSuggestionShown * 100);
+      console.log(`   • Switch Rate: ${switchRate}% (${langSwitched}/${langSuggestionShown})`);
+      console.log(`   • Dismiss Rate: ${dismissRate}% (${langDismissed}/${langSuggestionShown})`);
+    }
+    
+    console.log('\n📊 Activation Rate:');
+    console.log(`   • Sample Clicks: ${sampleClicks}`);
+    console.log(`   • Upload Starts: ${uploadStarts}`);
+    console.log(`   • Paste Toggles: ${pasteToggles}`);
+    console.log(`   • Total Activations: ${totalActivations}`);
+    if (localePageviews > 0) {
+      const activationRate = Math.round(totalActivations / localePageviews * 100);
+      console.log(`   • Activation Rate: ${activationRate}% (${totalActivations}/${localePageviews} pageviews)`);
+    }
+    
+    console.log('\n📊 Conversion Rate:');
+    console.log(`   • PDF Exports: ${pdfExports}`);
+    if (totalActivations > 0) {
+      const conversionRate = Math.round(pdfExports / totalActivations * 100);
+      console.log(`   • Conversion Rate (from activated): ${conversionRate}% (${pdfExports}/${totalActivations})`);
+    }
+    
+    console.log('\n📊 Locale Pageviews:');
+    console.log(`   • Tracked: ${localePageviews}`);
+    console.log(`   • With Conversions: ${localeConversions}`);
+    
+    console.log('\n💡 Tip: Filter by event data properties in Umami dashboard');
+    console.log('   to see locale-specific metrics (e.g., locale=it, locale=es)');
+    
+    return {
+      langSuggestionShown,
+      langSwitched,
+      langDismissed,
+      totalActivations,
+      pdfExports,
+      localePageviews,
+      localeConversions,
+    };
+  } catch (error) {
+    console.error(`   ❌ Error: ${error.message}`);
+    return null;
+  }
+}
+
 // Main
 async function main() {
   try {
@@ -634,6 +718,9 @@ async function main() {
     
     // Build funnel from aggregate data
     await buildFunnel();
+    
+    // Calculate locale-specific KPIs
+    await calculateLocaleKPIs();
     
     console.log('\n================================');
     console.log('✅ Session analysis complete');

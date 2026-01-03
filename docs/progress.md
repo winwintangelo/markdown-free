@@ -194,11 +194,22 @@ Shows individual user journeys with event sequences:
 
 **Session Categorization:**
 - ✅ Converted (completed export)
-- 📤 Tried upload
+- 📤 Tried upload (or sample click)
 - 🎯 Showed interest (hover/paste toggle)
 - 📜 Engaged (scrolled/stayed)
 - 👁️ Viewed sections
 - 🚪 Bounced (pageview only)
+
+**Locale-Specific KPIs:**
+The session report now includes locale-specific KPIs:
+
+| KPI | Formula | Purpose |
+|-----|---------|---------|
+| Language Switch Rate | `language_switched / language_suggestion_shown` | Banner effectiveness |
+| Activation Rate | `(sample_click + upload_start + paste_toggle) / locale_pageview` | User engagement by locale |
+| Conversion Rate | `export_pdf / total_activations` | Export success by locale |
+
+Filter by `locale=it` or `locale=es` in Umami dashboard for per-language metrics.
 
 ### 6. Try Sample File
 **Feature:** Allows users to test the converter without having their own markdown file.
