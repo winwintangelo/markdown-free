@@ -42,7 +42,7 @@ test.describe("Markdown Free - App Layout", () => {
   });
 
   test("should load with correct Footer", async ({ page }) => {
-    const copyright = page.getByText("© 2025 Markdown Free");
+    const copyright = page.getByText("© 2026 Markdown Free");
     await expect(copyright).toBeVisible();
 
     // Footer should have Privacy link and privacy notices
@@ -388,9 +388,9 @@ test.describe("Markdown Free - Export Functionality", () => {
     const pdfButton = page.getByRole("button", { name: "To PDF" });
     await pdfButton.click();
 
-    // Should show loading state
-    await expect(page.getByText("Generating...")).toBeVisible();
-    await expect(page.getByText("Generating PDF... This may take a few seconds.")).toBeVisible();
+    // Should show loading state (button text and helper text)
+    await expect(page.getByRole("button", { name: "Generating PDF..." })).toBeVisible();
+    await expect(page.getByText("This may take a few seconds.")).toBeVisible();
   });
 
   test("PDF export triggers download on success", async ({ page }) => {
@@ -1771,8 +1771,7 @@ test.describe("Markdown Free - Feedback Modal", () => {
     await page.getByRole("button", { name: "Send Feedback" }).click();
 
     // Should show success message
-    await expect(page.getByText("Thank you!")).toBeVisible();
-    await expect(page.getByText("Your feedback has been received.")).toBeVisible();
+    await expect(page.getByText("Thank you! Your feedback has been sent.")).toBeVisible();
   });
 
   test("modal auto-closes after successful submission", async ({ page }) => {

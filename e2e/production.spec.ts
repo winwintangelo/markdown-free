@@ -39,7 +39,7 @@ test.describe("Production - Page Load", () => {
     await expect(page.getByText("Free • No signup • Instant export")).toBeVisible();
     await expect(page.getByRole("heading", { name: /Free Markdown to PDF/i })).toBeVisible();
     await expect(page.getByText("Drag & drop your Markdown file")).toBeVisible();
-    await expect(page.getByText("© 2025 Markdown Free")).toBeVisible();
+    await expect(page.getByText("© 2026 Markdown Free")).toBeVisible();
   });
 
   test("about page loads correctly", async ({ page }) => {

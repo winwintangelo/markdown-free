@@ -1,7 +1,7 @@
 # Markdown Free — Funnel Analysis
 
 > **Analysis Date:** January 3, 2026  
-> **Data Period:** December 12-30, 2025  
+> **Data Period:** December 12, 2025 – January 3, 2026  
 > **Source:** Umami Cloud session reports
 
 ---
@@ -156,6 +156,7 @@ Converted (0 sessions)
 |--------|--------|-----------------|
 | Submit to Google Search Console | ✅ Done | Enable organic discovery |
 | Add "Try sample file" button | ✅ Done | Reduce friction for first-time users |
+| Implement multi-language support (IT/ES) | ✅ Done | Expand SEO reach to Italian/Spanish markets |
 
 ### Short-term Actions (1-2 weeks)
 

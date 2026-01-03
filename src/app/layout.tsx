@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
-import { Header } from "@/components/header";
-import { ConverterProvider } from "@/hooks/use-converter";
 
 // Umami Analytics configuration
 const umamiHost = process.env.NEXT_PUBLIC_UMAMI_HOST;
@@ -17,13 +15,18 @@ export const metadata: Metadata = {
   },
   description:
     "Convert Markdown to PDF, HTML or TXT instantly. 100% free, no signup, no ad trackers. Files processed in your browser and never stored.",
-  // Note: keywords meta tag omitted - not used by modern search engines
   authors: [{ name: "Markdown Free" }],
   creator: "Markdown Free",
   publisher: "Markdown Free",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
+    languages: {
+      "en": "/",
+      "it": "/it",
+      "es": "/es",
+      "x-default": "/",
+    },
   },
   openGraph: {
     type: "website",
@@ -84,10 +87,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
-        <ConverterProvider>
-          <Header />
-          {children}
-        </ConverterProvider>
+        {children}
         {/* Umami Analytics - Privacy-friendly, cookieless */}
         {umamiHost && umamiWebsiteId && (
           <Script

@@ -5,8 +5,33 @@ import { cn } from "@/lib/utils";
 import { markdownToHtml } from "@/lib/markdown";
 import { useConverter } from "@/hooks/use-converter";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
+import type { Locale, Dictionary } from "@/i18n";
 
-export function PreviewCard() {
+interface PreviewCardProps {
+  locale?: Locale;
+  dict?: Dictionary;
+}
+
+// Default dictionary values for backward compatibility
+const defaultDict = {
+  preview: {
+    title: "Preview",
+    waiting: "Waiting for Markdown…",
+    ready: "Ready to export",
+    uploadedFile: "uploaded file",
+    pastedText: "pasted text",
+    sampleFile: "sample file",
+    howItWorks: {
+      title: "How it works",
+      step1: "Upload a .md file or paste Markdown text.",
+      step2: "See the formatted preview right here.",
+      step3: "Click To PDF, To TXT, or To HTML to download your converted file.",
+      note: "Once you add your own Markdown, this preview will update to match it."
+    }
+  }
+};
+
+export function PreviewCard({ locale: _locale, dict = defaultDict as unknown as Dictionary }: PreviewCardProps) {
   const { state } = useConverter();
   const [renderedHtml, setRenderedHtml] = useState<string>("");
   const [isRendering, setIsRendering] = useState(false);
@@ -43,24 +68,24 @@ export function PreviewCard() {
     if (!state.content) {
       return {
         dotColor: "bg-slate-300",
-        text: "Waiting for Markdown…",
+        text: dict.preview.waiting,
       };
     }
     if (state.content.source === "file") {
       return {
         dotColor: "bg-emerald-500",
-        text: "Ready to export (uploaded file)",
+        text: `${dict.preview.ready} (${dict.preview.uploadedFile})`,
       };
     }
     if (state.content.source === "sample") {
       return {
         dotColor: "bg-emerald-500",
-        text: "Ready to export (sample file)",
+        text: `${dict.preview.ready} (${dict.preview.sampleFile})`,
       };
     }
     return {
       dotColor: "bg-emerald-500",
-      text: "Ready to export (pasted text)",
+      text: `${dict.preview.ready} (${dict.preview.pastedText})`,
     };
   };
 
@@ -69,19 +94,14 @@ export function PreviewCard() {
   // Default content when no file is loaded
   const DefaultContent = () => (
     <>
-      <h2>How it works</h2>
+      <h2>{dict.preview.howItWorks.title}</h2>
       <ol>
-        <li>
-          Upload a <code>.md</code> file or paste Markdown text.
-        </li>
-        <li>See the formatted preview right here.</li>
-        <li>
-          Click <strong>To PDF</strong>, <strong>To TXT</strong>, or{" "}
-          <strong>To HTML</strong> to download your converted file.
-        </li>
+        <li>{dict.preview.howItWorks.step1}</li>
+        <li>{dict.preview.howItWorks.step2}</li>
+        <li>{dict.preview.howItWorks.step3}</li>
       </ol>
       <p className="text-slate-500">
-        Once you add your own Markdown, this preview will update to match it.
+        {dict.preview.howItWorks.note}
       </p>
     </>
   );
@@ -91,7 +111,7 @@ export function PreviewCard() {
       {/* Header */}
       <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
         <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-          Preview
+          {dict.preview.title}
         </h2>
         <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-1 text-[11px] font-medium text-slate-600">
           <span

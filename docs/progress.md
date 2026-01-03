@@ -13,10 +13,11 @@
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS + `@tailwindcss/typography`
 - **Icons:** lucide-react
-- **Testing:** Playwright (102 E2E tests)
+- **Testing:** Playwright (126 E2E tests)
 - **Analytics:** Umami Cloud (cookieless)
 - **PDF Generation:** Puppeteer + @sparticuz/chromium (serverless)
 - **Deployment:** Vercel
+- **Internationalization:** 3 locales (English, Italian, Spanish)
 
 ### Key Commands
 ```bash
@@ -50,11 +51,24 @@ REPORT_DAYS=30
 src/
 ├── app/
 │   ├── layout.tsx          # Root layout, SEO metadata, Umami script
-│   ├── page.tsx            # Home page with JSON-LD schema
+│   ├── page.tsx            # Home page (English default)
 │   ├── globals.css         # Global styles
-│   ├── about/page.tsx      # About page
-│   ├── privacy/page.tsx    # Privacy policy
+│   ├── about/page.tsx      # About page (English)
+│   ├── privacy/page.tsx    # Privacy policy (English)
+│   ├── [locale]/           # Localized routes (/it, /es)
+│   │   ├── layout.tsx      # Locale layout with hreflang
+│   │   ├── page.tsx        # Localized home page
+│   │   ├── about/page.tsx  # Localized about
+│   │   └── privacy/page.tsx # Localized privacy
 │   └── api/convert/pdf/route.ts  # PDF generation API
+├── i18n/
+│   ├── config.ts           # Locale settings, path helpers
+│   ├── dictionaries.ts     # Dictionary loader
+│   ├── index.ts            # Module exports
+│   └── dictionaries/       # JSON translation files
+│       ├── en.json
+│       ├── it.json
+│       └── es.json
 ├── components/
 │   ├── header.tsx          # Nav + Feedback modal trigger
 │   ├── hero.tsx            # Hero section with H1
@@ -65,6 +79,8 @@ src/
 │   ├── preview-card.tsx    # Live markdown preview
 │   ├── feedback-modal.tsx  # Feedback form (React Portal)
 │   ├── engagement-tracker.tsx  # Scroll/time tracking
+│   ├── language-switcher.tsx   # Language dropdown
+│   ├── language-banner.tsx     # Browser language suggestion
 │   └── index.ts            # Barrel exports
 ├── hooks/
 │   ├── use-converter.tsx   # App state (React Context + Reducer)
@@ -132,6 +148,7 @@ All events are fire-and-forget, only sent if Umami is loaded.
 | Conversion | `upload_start`, `upload_error`, `convert_success`, `convert_error`, `sample_click` |
 | Engagement | `section_visible`, `scroll_depth`, `time_on_page`, `upload_hover`, `paste_toggle_click`, `export_hover`, `drag_enter` |
 | Navigation | `nav_click`, `feedback_click`, `feedback_submit` |
+| Localization | `language_suggestion_shown`, `language_switched`, `language_suggestion_dismissed` |
 
 **Engagement tracking fires once per session** to avoid spam.
 
@@ -204,7 +221,7 @@ Shows individual user journeys with event sequences:
 
 ## Testing
 
-### E2E Test Coverage (102 tests)
+### E2E Test Coverage (126 tests)
 
 | Suite | Tests | Key Coverage |
 |-------|-------|--------------|
@@ -220,6 +237,7 @@ Shows individual user journeys with event sequences:
 | Mobile | 7 | Responsive UI, touch interactions |
 | Performance | 3 | Load time, FCP, accessibility |
 | Special Cases | 5 | Unicode filenames, emoji handling |
+| i18n | 24 | Locale routes, translations, SEO, language switcher |
 
 ### Running Tests
 ```bash
@@ -324,3 +342,78 @@ npm run test:production     # Against production URL
 6. **Analytics reports:** Configure `.env` with Umami API key, run `npm run report` or `npm run report:sessions`
 7. **Exclude tester locations:** Edit `EXCLUDED_LOCATIONS` in `scripts/umami-sessions.mjs`
 8. **Exclude crawler cities:** Edit `DATA_CENTER_CITIES` in `scripts/umami-sessions.mjs`
+
+---
+
+## Internationalization (i18n)
+
+### Supported Locales
+| Locale | URL Path | Language |
+|--------|----------|----------|
+| `en` | `/` (default) | English |
+| `it` | `/it` | Italian (Italiano) |
+| `es` | `/es` | Spanish (Español) |
+
+### How to Add a New Language
+
+1. **Add locale to config:** Edit `src/i18n/config.ts`:
+   ```typescript
+   export const locales = ["en", "it", "es", "fr"] as const; // Add new locale
+   
+   export const localeNames: Record<Locale, string> = {
+     en: "English",
+     it: "Italiano",
+     es: "Español",
+     fr: "Français", // Add display name
+   };
+   
+   export const localeMetadata: Record<Locale, {...}> = {
+     // Add metadata for new locale
+     fr: { hreflang: "fr", ogLocale: "fr_FR", htmlLang: "fr" },
+   };
+   ```
+
+2. **Create translation file:** Copy `src/i18n/dictionaries/en.json` to `src/i18n/dictionaries/fr.json` and translate all strings.
+
+3. **Import dictionary:** Edit `src/i18n/dictionaries.ts`:
+   ```typescript
+   import fr from "./dictionaries/fr.json";
+   
+   const dictionaries: Record<Locale, Dictionary> = {
+     en, it, es, fr, // Add new import
+   };
+   ```
+
+4. **Add localized content for About/Privacy pages:** Add translations to the `content` objects in:
+   - `src/app/[locale]/about/page.tsx`
+   - `src/app/[locale]/privacy/page.tsx`
+
+5. **Update sitemap:** Add new locale URLs to `public/sitemap.xml`
+
+6. **Add tests:** Add locale-specific tests to `e2e/i18n.spec.ts`
+
+### Translation Guidelines
+- Keep ~20% unique content per locale (not just direct translation)
+- Localize FAQs with culturally relevant examples
+- Adapt phrasing naturally for the target language
+- Verify all copy is **truthful** — don't claim features that don't exist
+
+### SEO Implementation
+- **hreflang tags:** Auto-generated via `generateMetadata` in locale layouts
+- **Canonical URLs:** Each locale is self-canonical (no cross-locale canonicalization)
+- **Sitemap:** All locale URLs included with proper hreflang annotations
+- **No forced redirects:** Users aren't auto-redirected based on browser language
+
+### Language Detection (UX)
+- Browser language detected on first visit
+- Non-blocking banner suggests locale switch if mismatch
+- User preference saved to `localStorage` (key: `preferred-locale`)
+- Language switcher in header for manual selection
+- Shared links always open in the URL's language
+
+### Analytics Events
+| Event | Data | Purpose |
+|-------|------|---------|
+| `language_suggestion_shown` | `{suggested, current}` | Banner was displayed |
+| `language_switched` | `{from, to, via}` | User changed language |
+| `language_suggestion_dismissed` | `{suggested, current}` | Banner was closed |

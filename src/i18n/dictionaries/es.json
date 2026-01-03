@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "title": "Convertidor de Markdown a PDF – Gratis, Privado, Sin Registro",
+    "description": "Convierte Markdown a PDF, HTML o TXT al instante. 100% gratis, sin registro, sin rastreadores. Los archivos se procesan temporalmente y nunca se almacenan."
+  },
+  "hero": {
+    "badge": "Gratis • Sin cuenta • Exporta al instante",
+    "title": "Convertidor Gratuito de Markdown a PDF, TXT y HTML",
+    "subtitle": "Sube o pega tu archivo .md, previsualízalo al instante, y expórtalo a PDF, TXT o HTML con un solo clic. Gratuito, privado y seguro — tus archivos nunca se guardan."
+  },
+  "upload": {
+    "dragDrop": "Arrastra y suelta tu archivo Markdown",
+    "or": "o",
+    "chooseFile": "elegir archivo",
+    "supports": "Soporta .md, .markdown, .txt • Máx 5 MB",
+    "noFile": "Ningún archivo seleccionado",
+    "trySample": "Probar archivo de ejemplo",
+    "pasteMarkdown": "pegar Markdown"
+  },
+  "paste": {
+    "label": "Markdown Pegado",
+    "placeholder": "Pega tu Markdown aquí…",
+    "helper": "Los cambios aquí también se usarán al exportar a PDF, TXT o HTML."
+  },
+  "export": {
+    "toPdf": "A PDF",
+    "toTxt": "A TXT",
+    "toHtml": "A HTML",
+    "privacy": "Los archivos se procesan temporalmente para la conversión y no se almacenan.",
+    "generating": "Generando PDF..."
+  },
+  "preview": {
+    "title": "Vista Previa",
+    "waiting": "Esperando Markdown…",
+    "ready": "Listo para exportar",
+    "uploadedFile": "archivo subido",
+    "pastedText": "texto pegado",
+    "sampleFile": "archivo de ejemplo",
+    "howItWorks": {
+      "title": "Cómo funciona",
+      "step1": "Sube un archivo .md o pega texto Markdown.",
+      "step2": "Ve la vista previa formateada aquí.",
+      "step3": "Haz clic en A PDF, A TXT o A HTML para descargar tu archivo convertido.",
+      "note": "Cuando agregues tu propio Markdown, esta vista previa se actualizará automáticamente."
+    }
+  },
+  "errors": {
+    "invalidType": "Tipo de archivo no soportado. Por favor sube un archivo .md, .markdown o .txt.",
+    "tooLarge": "Archivo demasiado grande. El tamaño máximo es 5MB.",
+    "readError": "No se pudo leer el archivo. Asegúrate de que sea un archivo de texto válido.",
+    "sampleError": "No se pudo cargar el archivo de ejemplo. Inténtalo de nuevo.",
+    "pdfTimeout": "La generación del PDF agotó el tiempo. Inténtalo de nuevo.",
+    "pdfError": "Algo salió mal. Inténtalo de nuevo.",
+    "networkError": "Conexión perdida. Revisa tu conexión a internet e inténtalo de nuevo.",
+    "tryAgain": "Reintentar",
+    "dismiss": "Cerrar"
+  },
+  "header": {
+    "about": "Acerca de",
+    "privacy": "Privacidad",
+    "feedback": "Comentarios"
+  },
+  "footer": {
+    "copyright": "© 2026 Markdown Free. Creado para exportaciones simples, rápidas y gratuitas.",
+    "privacyNote": "Sin cookies de rastreo • Solo HTTPS"
+  },
+  "feedback": {
+    "title": "Enviar Comentarios",
+    "placeholder": "¿Qué tienes en mente? Reportes de errores, solicitudes de funciones, ¡o simplemente saluda!",
+    "emailPlaceholder": "Email (opcional, para seguimiento)",
+    "submit": "Enviar Comentarios",
+    "submitting": "Enviando...",
+    "success": "¡Gracias! Tus comentarios han sido enviados.",
+    "cancel": "Cancelar"
+  },
+  "faq": [
+    {
+      "question": "¿Este convertidor de Markdown a PDF es realmente gratis?",
+      "answer": "Sí, Markdown Free es 100% gratuito sin costos ocultos, planes premium ni requisitos de registro. No se necesita tarjeta de crédito, nunca."
+    },
+    {
+      "question": "¿Almacenan o registran mis archivos Markdown?",
+      "answer": "No. Tus archivos se procesan temporalmente en memoria solo durante la conversión y se eliminan inmediatamente después. Nunca almacenamos tu contenido en disco ni en ninguna base de datos. Tu privacidad es nuestra prioridad."
+    },
+    {
+      "question": "¿Usan cookies de rastreo?",
+      "answer": "No utilizamos rastreadores publicitarios, no vendemos tus datos y no te rastreamos en otros sitios web. Usamos análisis respetuosos de la privacidad pero nunca registramos el contenido de archivos ni información personal."
+    },
+    {
+      "question": "¿Qué formatos soporta Markdown Free?",
+      "answer": "Entrada: archivos .md, .markdown, .txt (hasta 5MB). Salida: PDF, HTML, TXT. Soportamos Markdown estilo GitHub (GitHub Flavored Markdown) con tablas, resaltado de código y más."
+    },
+    {
+      "question": "¿La conversión es segura?",
+      "answer": "Absolutamente. Todas las conexiones usan HTTPS. La vista previa del Markdown se renderiza del lado del cliente en tu navegador. La generación de PDF es del lado del servidor pero el contenido nunca se guarda permanentemente. Todo el HTML está sanitizado contra ataques XSS."
+    },
+    {
+      "question": "¿Por qué elegir Markdown Free sobre otros convertidores?",
+      "answer": "Markdown Free fue diseñado pensando en la simplicidad y privacidad. Sin registro, sin cuenta, sin email requerido. Sube, convierte, descarga — todo en segundos. Ideal para desarrolladores, estudiantes y profesionales hispanohablantes que valoran la velocidad y la confidencialidad."
+    }
+  ],
+  "languageBanner": {
+    "prefer": "¿Prefieres",
+    "switch": "Cambiar",
+    "dismiss": "✕"
+  }
+}
+

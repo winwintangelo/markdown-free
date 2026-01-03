@@ -4,8 +4,23 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useConverter } from "@/hooks/use-converter";
 import { trackUploadStart } from "@/lib/analytics";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
+import type { Locale, Dictionary } from "@/i18n";
 
-export function PasteArea() {
+interface PasteAreaProps {
+  locale?: Locale;
+  dict?: Dictionary;
+}
+
+// Default dictionary values for backward compatibility
+const defaultDict = {
+  paste: {
+    label: "Pasted Markdown",
+    placeholder: "Paste your Markdown here…",
+    helper: "Changes here will also be used when exporting to PDF, TXT or HTML."
+  }
+};
+
+export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Dictionary }: PasteAreaProps) {
   const { state, dispatch } = useConverter();
   const [localValue, setLocalValue] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -74,20 +89,19 @@ export function PasteArea() {
         htmlFor="paste-input"
         className="mb-2 block text-xs font-medium uppercase tracking-wide text-slate-500"
       >
-        Pasted Markdown
+        {dict.paste.label}
       </label>
       <textarea
         ref={textareaRef}
         id="paste-input"
         value={localValue}
         onChange={handleChange}
-        placeholder="Paste your Markdown here…"
+        placeholder={dict.paste.placeholder}
         className="h-40 w-full resize-y rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-mono text-slate-800 outline-none ring-emerald-500/60 focus:bg-white focus:ring-1 transition-colors"
       />
       <p className="mt-2 text-[11px] text-slate-500">
-        Changes here will also be used when exporting to PDF, TXT or HTML.
+        {dict.paste.helper}
       </p>
     </div>
   );
 }
-

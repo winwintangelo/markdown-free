@@ -4,7 +4,11 @@ import { PasteArea } from "@/components/paste-area";
 import { ExportRow } from "@/components/export-row";
 import { PreviewCard } from "@/components/preview-card";
 import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { LanguageBanner } from "@/components/language-banner";
 import { EngagementTracker } from "@/components/engagement-tracker";
+import { ConverterProvider } from "@/hooks/use-converter";
+import { getDictionary } from "@/i18n";
 
 // JSON-LD Schema for SEO
 const jsonLd = {
@@ -89,8 +93,11 @@ const jsonLd = {
 };
 
 export default function Home() {
+  const dict = getDictionary("en");
+  
   return (
-    <>
+    <ConverterProvider>
+      <Header locale="en" dict={dict} />
       {/* JSON-LD Schema */}
       <script
         type="application/ld+json"
@@ -100,27 +107,27 @@ export default function Home() {
       <EngagementTracker />
       <main className="mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-16 pt-10">
         {/* Hero Section */}
-        <Hero />
+        <Hero locale="en" dict={dict} />
 
         {/* Main Content */}
         <section className="mx-auto flex w-full max-w-4xl flex-col gap-6">
           {/* Upload Card */}
-          <UploadCard />
+          <UploadCard locale="en" dict={dict} />
 
           {/* Paste Area (collapsible) */}
-          <PasteArea />
+          <PasteArea locale="en" dict={dict} />
 
           {/* Export Buttons Row */}
-          <ExportRow />
+          <ExportRow locale="en" dict={dict} />
 
           {/* Preview Card */}
-          <PreviewCard />
+          <PreviewCard locale="en" dict={dict} />
         </section>
 
         {/* Footer */}
-        <Footer />
+        <Footer locale="en" dict={dict} />
       </main>
-    </>
+      <LanguageBanner currentLocale="en" dict={dict} />
+    </ConverterProvider>
   );
 }
-

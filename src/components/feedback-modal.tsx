@@ -5,13 +5,28 @@ import { createPortal } from "react-dom";
 import { X, Send, Loader2, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackFeedbackSubmit } from "@/lib/analytics";
+import type { Dictionary } from "@/i18n";
 
 interface FeedbackModalProps {
   isOpen: boolean;
   onClose: () => void;
+  dict?: Dictionary;
 }
 
-export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
+// Default dictionary values for backward compatibility
+const defaultDict = {
+  feedback: {
+    title: "Send Feedback",
+    placeholder: "What's on your mind? Bug reports, feature requests, or just say hi!",
+    emailPlaceholder: "Email (optional, for follow-up)",
+    submit: "Send Feedback",
+    submitting: "Sending...",
+    success: "Thank you! Your feedback has been sent.",
+    cancel: "Cancel"
+  }
+};
+
+export function FeedbackModal({ isOpen, onClose, dict = defaultDict as unknown as Dictionary }: FeedbackModalProps) {
   const [feedback, setFeedback] = useState("");
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -123,7 +138,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
               id="feedback-modal-title"
               className="text-lg font-semibold text-slate-900"
             >
-              Send Feedback
+              {dict.feedback.title}
             </h2>
             <button
               type="button"
@@ -144,11 +159,8 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                   <CheckCircle className="h-6 w-6" />
                 </div>
                 <h3 className="text-lg font-medium text-slate-900">
-                  Thank you!
+                  {dict.feedback.success}
                 </h3>
-                <p className="mt-1 text-sm text-slate-600">
-                  Your feedback has been received.
-                </p>
               </div>
             ) : (
               /* Form */
@@ -167,7 +179,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                       id="feedback-input"
                       value={feedback}
                       onChange={(e) => setFeedback(e.target.value)}
-                      placeholder="Tell us what you think, report a bug, or suggest an improvement..."
+                      placeholder={dict.feedback.placeholder}
                       rows={4}
                       className={cn(
                         "w-full resize-none rounded-lg border bg-slate-50 px-3 py-2 text-sm text-slate-800 outline-none transition-colors",
@@ -198,7 +210,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                       id="email-input"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="your@email.com"
+                      placeholder={dict.feedback.emailPlaceholder}
                       className={cn(
                         "w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800 outline-none transition-colors",
                         "placeholder:text-slate-400",
@@ -227,7 +239,7 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                     className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50"
                     disabled={isSubmitting}
                   >
-                    Cancel
+                    {dict.feedback.cancel}
                   </button>
                   <button
                     type="submit"
@@ -242,12 +254,12 @@ export function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        Sending...
+                        {dict.feedback.submitting}
                       </>
                     ) : (
                       <>
                         <Send className="h-4 w-4" />
-                        Send Feedback
+                        {dict.feedback.submit}
                       </>
                     )}
                   </button>

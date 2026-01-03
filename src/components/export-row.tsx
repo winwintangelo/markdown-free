@@ -16,6 +16,7 @@ import {
   type UploadSource,
 } from "@/lib/analytics";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
+import type { Locale, Dictionary } from "@/i18n";
 
 type ExportFormat = "pdf" | "txt" | "html";
 
@@ -26,7 +27,28 @@ interface ExportError {
   retryable: boolean;
 }
 
-export function ExportRow() {
+interface ExportRowProps {
+  locale?: Locale;
+  dict?: Dictionary;
+}
+
+// Default dictionary values for backward compatibility
+const defaultDict = {
+  export: {
+    toPdf: "To PDF",
+    toTxt: "To TXT",
+    toHtml: "To HTML",
+    privacy: "Files are processed temporarily for conversion and not stored.",
+    generating: "Generating PDF..."
+  },
+  errors: {
+    pdfTimeout: "PDF generation timed out. Please try again.",
+    pdfError: "Something went wrong. Please try again.",
+    tryAgain: "Try Again"
+  }
+};
+
+export function ExportRow({ locale: _locale, dict = defaultDict as unknown as Dictionary }: ExportRowProps) {
   const { state } = useConverter();
   const [loadingFormat, setLoadingFormat] = useState<ExportFormat | null>(null);
   const [error, setError] = useState<ExportError | null>(null);
@@ -118,7 +140,7 @@ export function ExportRow() {
         setError({
           format,
           code: "UNKNOWN_ERROR",
-          message: "Export failed. Please try again.",
+          message: dict.errors.pdfError,
           retryable: true,
         });
       } finally {
@@ -126,7 +148,7 @@ export function ExportRow() {
         abortControllerRef.current = null;
       }
     },
-    [state.content, renderedHtml]
+    [state.content, renderedHtml, dict.errors.pdfError]
   );
 
   const handleRetry = useCallback(() => {
@@ -154,7 +176,7 @@ export function ExportRow() {
                 onClick={handleRetry}
                 className="mt-2 inline-flex items-center gap-1 rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700 transition hover:bg-red-200"
               >
-                Try Again
+                {dict.errors.tryAgain}
               </button>
             )}
           </div>
@@ -189,7 +211,7 @@ export function ExportRow() {
             {loadingFormat === "pdf" && (
               <Loader2 className="h-3 w-3 animate-spin" />
             )}
-            {loadingFormat === "pdf" ? "Generating..." : "To PDF"}
+            {loadingFormat === "pdf" ? dict.export.generating : dict.export.toPdf}
           </button>
 
           {/* Secondary: To TXT */}
@@ -208,7 +230,7 @@ export function ExportRow() {
             {loadingFormat === "txt" && (
               <Loader2 className="h-3 w-3 animate-spin" />
             )}
-            To TXT
+            {dict.export.toTxt}
           </button>
 
           {/* Secondary: To HTML */}
@@ -227,20 +249,20 @@ export function ExportRow() {
             {loadingFormat === "html" && (
               <Loader2 className="h-3 w-3 animate-spin" />
             )}
-            To HTML
+            {dict.export.toHtml}
           </button>
         </div>
 
         {/* Privacy notice */}
         <p className="text-[11px] text-slate-500">
-          Files are processed temporarily for conversion and not stored.
+          {dict.export.privacy}
         </p>
       </div>
 
       {/* Loading message for PDF */}
       {loadingFormat === "pdf" && (
         <p className="text-center text-xs text-slate-500">
-          Generating PDF... This may take a few seconds.
+          {dict.export.generating} This may take a few seconds.
         </p>
       )}
     </div>

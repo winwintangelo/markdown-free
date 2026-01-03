@@ -6,8 +6,33 @@ import { cn, formatFileSize, isValidFileType, isValidFileSize } from "@/lib/util
 import { useConverter } from "@/hooks/use-converter";
 import { trackUploadStart, trackUploadError, trackUploadHover, trackPasteToggleClick, trackSampleClick } from "@/lib/analytics";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
+import type { Locale, Dictionary } from "@/i18n";
 
-export function UploadCard() {
+interface UploadCardProps {
+  locale?: Locale;
+  dict?: Dictionary;
+}
+
+// Default dictionary values for backward compatibility
+const defaultDict = {
+  upload: {
+    dragDrop: "Drag & drop your Markdown file",
+    or: "or",
+    chooseFile: "choose file",
+    supports: "Supports .md, .markdown, .txt • Max 5 MB",
+    noFile: "No file selected yet",
+    trySample: "Try sample file",
+    pasteMarkdown: "paste Markdown"
+  },
+  errors: {
+    invalidType: "Unsupported file type. Please upload a .md, .markdown or .txt file.",
+    tooLarge: "File too large. Maximum size is 5MB.",
+    readError: "Unable to read file. Please ensure it's a valid text file.",
+    sampleError: "Unable to load sample file. Please try again."
+  }
+};
+
+export function UploadCard({ locale: _locale, dict = defaultDict as unknown as Dictionary }: UploadCardProps) {
   const { state, dispatch } = useConverter();
   const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -26,7 +51,7 @@ export function UploadCard() {
           type: "SET_ERROR",
           error: {
             code: "INVALID_TYPE",
-            message: "Unsupported file type. Please upload a .md, .markdown or .txt file.",
+            message: dict.errors.invalidType,
           },
         });
         return;
@@ -39,7 +64,7 @@ export function UploadCard() {
           type: "SET_ERROR",
           error: {
             code: "FILE_TOO_LARGE",
-            message: "File too large. Maximum size is 5MB.",
+            message: dict.errors.tooLarge,
           },
         });
         return;
@@ -60,12 +85,12 @@ export function UploadCard() {
           type: "SET_ERROR",
           error: {
             code: "READ_ERROR",
-            message: "Unable to read file. Please ensure it's a valid text file.",
+            message: dict.errors.readError,
           },
         });
       }
     },
-    [dispatch]
+    [dispatch, dict.errors]
   );
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -135,11 +160,11 @@ export function UploadCard() {
         type: "SET_ERROR",
         error: {
           code: "SAMPLE_ERROR",
-          message: "Unable to load sample file. Please try again.",
+          message: dict.errors.sampleError,
         },
       });
     }
-  }, [dispatch]);
+  }, [dispatch, dict.errors.sampleError]);
 
   const handleMouseEnter = useCallback(() => {
     if (!hasTrackedHoverRef.current) {
@@ -170,7 +195,7 @@ export function UploadCard() {
     }
     return {
       dotColor: "bg-slate-300",
-      text: "No file selected yet",
+      text: dict.upload.noFile,
     };
   };
 
@@ -200,17 +225,16 @@ export function UploadCard() {
 
       {/* Main text */}
       <p className="text-sm font-medium text-slate-900">
-        Drag &amp; drop your Markdown file{" "}
-        <span className="font-normal text-slate-500">or</span>{" "}
+        {dict.upload.dragDrop}{" "}
+        <span className="font-normal text-slate-500">{dict.upload.or}</span>{" "}
         <span className="font-semibold text-emerald-600 hover:text-emerald-700">
-          choose file
+          {dict.upload.chooseFile}
         </span>
       </p>
 
       {/* Supported formats */}
       <p className="mt-2 text-xs text-slate-500">
-        Supports <code>.md</code>, <code>.markdown</code>, <code>.txt</code> •
-        Max 5&nbsp;MB
+        {dict.upload.supports}
       </p>
 
       {/* Hidden file input */}
@@ -239,9 +263,9 @@ export function UploadCard() {
           }}
           className="font-medium text-slate-600 underline-offset-4 hover:text-slate-800 hover:underline"
         >
-          Try sample file
+          {dict.upload.trySample}
         </button>
-        <span className="text-slate-300">or</span>
+        <span className="text-slate-300">{dict.upload.or}</span>
         <button
           type="button"
           onClick={(e) => {
@@ -250,10 +274,9 @@ export function UploadCard() {
           }}
           className="font-medium text-emerald-700 underline-offset-4 hover:underline"
         >
-          paste Markdown
+          {dict.upload.pasteMarkdown}
         </button>
       </div>
     </div>
   );
 }
-

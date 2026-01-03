@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "title": "Markdown to PDF Converter – Free, Private, No Signup",
+    "description": "Convert Markdown to PDF, HTML or TXT instantly. 100% free, no signup, no ad trackers. Files processed temporarily and never stored."
+  },
+  "hero": {
+    "badge": "Free • No signup • Instant export",
+    "title": "Free Markdown to PDF, TXT & HTML Converter",
+    "subtitle": "Upload or paste your .md file, preview it instantly, then export to PDF, TXT or HTML in one click. Free, private and secure — your files are never stored."
+  },
+  "upload": {
+    "dragDrop": "Drag & drop your Markdown file",
+    "or": "or",
+    "chooseFile": "choose file",
+    "supports": "Supports .md, .markdown, .txt • Max 5 MB",
+    "noFile": "No file selected yet",
+    "trySample": "Try sample file",
+    "pasteMarkdown": "paste Markdown"
+  },
+  "paste": {
+    "label": "Pasted Markdown",
+    "placeholder": "Paste your Markdown here…",
+    "helper": "Changes here will also be used when exporting to PDF, TXT or HTML."
+  },
+  "export": {
+    "toPdf": "To PDF",
+    "toTxt": "To TXT",
+    "toHtml": "To HTML",
+    "privacy": "Files are processed temporarily for conversion and not stored.",
+    "generating": "Generating PDF..."
+  },
+  "preview": {
+    "title": "Preview",
+    "waiting": "Waiting for Markdown…",
+    "ready": "Ready to export",
+    "uploadedFile": "uploaded file",
+    "pastedText": "pasted text",
+    "sampleFile": "sample file",
+    "howItWorks": {
+      "title": "How it works",
+      "step1": "Upload a .md file or paste Markdown text.",
+      "step2": "See the formatted preview right here.",
+      "step3": "Click To PDF, To TXT, or To HTML to download your converted file.",
+      "note": "Once you add your own Markdown, this preview will update to match it."
+    }
+  },
+  "errors": {
+    "invalidType": "Unsupported file type. Please upload a .md, .markdown or .txt file.",
+    "tooLarge": "File too large. Maximum size is 5MB.",
+    "readError": "Unable to read file. Please ensure it's a valid text file.",
+    "sampleError": "Unable to load sample file. Please try again.",
+    "pdfTimeout": "PDF generation timed out. Please try again.",
+    "pdfError": "Something went wrong. Please try again.",
+    "networkError": "Connection lost. Please check your internet and try again.",
+    "tryAgain": "Try Again",
+    "dismiss": "Dismiss"
+  },
+  "header": {
+    "about": "About",
+    "privacy": "Privacy",
+    "feedback": "Feedback"
+  },
+  "footer": {
+    "copyright": "© 2026 Markdown Free. Built for simple, fast, free exports.",
+    "privacyNote": "No tracking cookies • HTTPS only"
+  },
+  "feedback": {
+    "title": "Send Feedback",
+    "placeholder": "What's on your mind? Bug reports, feature requests, or just say hi!",
+    "emailPlaceholder": "Email (optional, for follow-up)",
+    "submit": "Send Feedback",
+    "submitting": "Sending...",
+    "success": "Thank you! Your feedback has been sent.",
+    "cancel": "Cancel"
+  },
+  "faq": [
+    {
+      "question": "Is this Markdown to PDF converter really free?",
+      "answer": "Yes, Markdown Free is 100% free with no hidden costs, premium tiers, or signup requirements."
+    },
+    {
+      "question": "Do you store or log my Markdown files?",
+      "answer": "No. Your files are processed temporarily in memory during conversion and immediately discarded. We never store your content on disk or in any database."
+    },
+    {
+      "question": "Do you track me or use cookies?",
+      "answer": "We don't use advertising trackers, sell your data, or track you across websites. We use privacy-respecting analytics but never log file contents or personal information."
+    },
+    {
+      "question": "Which formats does Markdown Free support?",
+      "answer": "Input: .md, .markdown, .txt files (up to 5MB). Output: PDF, HTML, TXT. Supports GitHub Flavored Markdown."
+    },
+    {
+      "question": "Is the conversion secure?",
+      "answer": "Yes. All connections use HTTPS. Markdown preview renders client-side. PDF generation is server-side but content is never persisted. All HTML is XSS-sanitized."
+    }
+  ],
+  "languageBanner": {
+    "prefer": "Prefer",
+    "switch": "Switch",
+    "dismiss": "✕"
+  }
+}
+

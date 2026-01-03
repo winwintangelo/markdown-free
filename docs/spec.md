@@ -491,7 +491,7 @@ Export buttons are contained in a card row with the privacy notice:
 │                                                                             │
 │  FOOTER                                                                     │
 │  ┌───────────────────────────────────────────────────────────────────────┐  │
-│  │  © 2025 Markdown Free.      No accounts • No tracking cookies • HTTPS │  │
+│  │  © 2026 Markdown Free.      No accounts • No tracking cookies • HTTPS │  │
 │  └───────────────────────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -770,7 +770,7 @@ Uses Tailwind CSS default font stack (system fonts). No custom fonts required.
 
 ```html
 <footer class="mt-4 flex flex-col items-center justify-between gap-2 text-[11px] text-slate-400 sm:flex-row">
-  <p>© 2025 Markdown Free. Built for simple, fast, free exports.</p>
+  <p>© 2026 Markdown Free. Built for simple, fast, free exports.</p>
   <p>Privacy • No tracking cookies • HTTPS only</p>
 </footer>
 ```

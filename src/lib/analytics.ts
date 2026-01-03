@@ -187,3 +187,16 @@ export function trackFeedbackSubmit(data: {
     has_email: data.hasEmail,
   });
 }
+
+// =============================================================================
+// LOCALIZATION EVENTS (track language behavior)
+// =============================================================================
+
+export type SupportedLocale = "en" | "it" | "es";
+
+/**
+ * Track language switcher usage
+ */
+export function trackLanguageSwitch(from: SupportedLocale, to: SupportedLocale): void {
+  trackEvent("language_switched", { from, to, via: "switcher" });
+}
