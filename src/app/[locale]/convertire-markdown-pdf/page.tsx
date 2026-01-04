@@ -159,6 +159,28 @@ export default async function ConvertireMarkdownPdfPage({
             <span aria-hidden="true">→</span>
           </Link>
         </div>
+
+        {/* Related Pages */}
+        <div className="not-prose border-t border-slate-200 pt-8">
+          <h2 className="mb-4 text-lg font-semibold text-slate-700">Risorse Correlate</h2>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/it/markdown-pdf-senza-registrazione" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Markdown a PDF Senza Registrazione
+              </Link>
+            </li>
+            <li>
+              <Link href="/it/convertire-readme-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Convertire README.md in PDF
+              </Link>
+            </li>
+            <li>
+              <Link href="/it/confronto-convertitori-markdown" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Confronto Convertitori Markdown
+              </Link>
+            </li>
+          </ul>
+        </div>
       </article>
 
       <Footer locale={locale} dict={dict} />

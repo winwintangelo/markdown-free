@@ -157,6 +157,28 @@ export default async function KonversiMarkdownPdfPage({
             <span aria-hidden="true">→</span>
           </Link>
         </div>
+
+        {/* Related Pages */}
+        <div className="not-prose border-t border-slate-200 pt-8">
+          <h2 className="mb-4 text-lg font-semibold text-slate-700">Halaman Terkait</h2>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/id/markdown-pdf-tanpa-daftar" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Markdown ke PDF Tanpa Daftar
+              </Link>
+            </li>
+            <li>
+              <Link href="/id/konversi-readme-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Konversi README.md ke PDF
+              </Link>
+            </li>
+            <li>
+              <Link href="/id/perbandingan-konverter-markdown" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Perbandingan Konverter Markdown
+              </Link>
+            </li>
+          </ul>
+        </div>
       </article>
 
       <Footer locale={locale} dict={dict} />

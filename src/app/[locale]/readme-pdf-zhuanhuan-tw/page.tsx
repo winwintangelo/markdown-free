@@ -195,6 +195,28 @@ MIT`}</pre>
             <span aria-hidden="true">→</span>
           </Link>
         </div>
+
+        {/* Related Pages */}
+        <div className="not-prose border-t border-slate-200 pt-8">
+          <h2 className="mb-4 text-lg font-semibold text-slate-700">相關頁面</h2>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/zh-Hant/markdown-pdf-zhuanhuan-tw" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Markdown轉PDF - 免費線上工具
+              </Link>
+            </li>
+            <li>
+              <Link href="/zh-Hant/markdown-pdf-mianzhuce" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                免註冊Markdown轉PDF
+              </Link>
+            </li>
+            <li>
+              <Link href="/zh-Hant/markdown-zhuanhuanqi-bijiao-tw" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Markdown轉換器比較
+              </Link>
+            </li>
+          </ul>
+        </div>
       </article>
 
       <Footer locale={locale} dict={dict} />

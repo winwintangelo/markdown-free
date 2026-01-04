@@ -170,6 +170,28 @@ export default async function MarkdownPdfKhongDangKyPage({
             <span aria-hidden="true">→</span>
           </Link>
         </div>
+
+        {/* Related Pages */}
+        <div className="not-prose border-t border-slate-200 pt-8">
+          <h2 className="mb-4 text-lg font-semibold text-slate-700">Trang liên quan</h2>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/vi/chuyen-doi-markdown-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Chuyển đổi Markdown sang PDF Miễn phí
+              </Link>
+            </li>
+            <li>
+              <Link href="/vi/chuyen-doi-readme-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Chuyển đổi README.md sang PDF
+              </Link>
+            </li>
+            <li>
+              <Link href="/vi/so-sanh-cong-cu-markdown" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                So sánh công cụ chuyển đổi Markdown
+              </Link>
+            </li>
+          </ul>
+        </div>
       </article>
 
       <Footer locale={locale} dict={dict} />

@@ -201,6 +201,28 @@ export default async function ComparacionConvertidoresPage({
             <span aria-hidden="true">→</span>
           </Link>
         </div>
+
+        {/* Related Pages */}
+        <div className="not-prose border-t border-slate-200 pt-8">
+          <h2 className="mb-4 text-lg font-semibold text-slate-700">Recursos Relacionados</h2>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/es/convertir-markdown-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Convertir Markdown a PDF Gratis
+              </Link>
+            </li>
+            <li>
+              <Link href="/es/markdown-pdf-sin-registro" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Markdown a PDF Sin Registro
+              </Link>
+            </li>
+            <li>
+              <Link href="/es/convertir-readme-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Convertir README.md a PDF
+              </Link>
+            </li>
+          </ul>
+        </div>
       </article>
 
       <Footer locale={locale} dict={dict} />

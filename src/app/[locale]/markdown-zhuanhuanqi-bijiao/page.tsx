@@ -197,6 +197,28 @@ export default async function MarkdownZhuanhuanqiBijiaoPage({
             <span aria-hidden="true">→</span>
           </Link>
         </div>
+
+        {/* Related Pages */}
+        <div className="not-prose border-t border-slate-200 pt-8">
+          <h2 className="mb-4 text-lg font-semibold text-slate-700">相关页面</h2>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/zh-Hans/markdown-pdf-zhuanhuan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Markdown转PDF - 免费在线工具
+              </Link>
+            </li>
+            <li>
+              <Link href="/zh-Hans/markdown-pdf-wuxu-zhuce" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                无需注册的Markdown转PDF
+              </Link>
+            </li>
+            <li>
+              <Link href="/zh-Hans/readme-pdf-zhuanhuan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                README.md转PDF
+              </Link>
+            </li>
+          </ul>
+        </div>
       </article>
 
       <Footer locale={locale} dict={dict} />

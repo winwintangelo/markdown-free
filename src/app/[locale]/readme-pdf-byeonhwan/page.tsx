@@ -198,6 +198,28 @@ MIT`}</pre>
             <span aria-hidden="true">→</span>
           </Link>
         </div>
+
+        {/* Related Pages */}
+        <div className="not-prose border-t border-slate-200 pt-8">
+          <h2 className="mb-4 text-lg font-semibold text-slate-700">관련 페이지</h2>
+          <ul className="space-y-2">
+            <li>
+              <Link href="/ko/markdown-pdf-byeonhwan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Markdown PDF 변환 - 무료, 회원가입 불필요
+              </Link>
+            </li>
+            <li>
+              <Link href="/ko/markdown-pdf-hoewon-gaibeop-eobs-i" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                회원가입 없이 Markdown PDF 변환
+              </Link>
+            </li>
+            <li>
+              <Link href="/ko/markdown-byeonhwan-bigyo" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+                Markdown 변환기 비교
+              </Link>
+            </li>
+          </ul>
+        </div>
       </article>
 
       <Footer locale={locale} dict={dict} />
