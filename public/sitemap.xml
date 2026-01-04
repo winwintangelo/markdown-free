@@ -7,6 +7,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/" />
     <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it" />
     <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/" />
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -16,6 +22,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/about" />
     <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/about" />
     <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/about" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/about" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/about" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/about" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/about" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -25,17 +37,29 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/privacy" />
     <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/privacy" />
     <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/privacy" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/privacy" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/privacy" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/privacy" />
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  
+
   <!-- Italian -->
   <url>
     <loc>https://www.markdown.free/it</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/" />
     <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it" />
     <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/" />
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -45,6 +69,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/about" />
     <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/about" />
     <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/about" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/about" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/about" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/about" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/about" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -54,11 +84,17 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/privacy" />
     <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/privacy" />
     <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/privacy" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/privacy" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/privacy" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/privacy" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  
+
   <!-- Italian Intent Pages (SEO landing pages) -->
   <url>
     <loc>https://www.markdown.free/it/convertire-markdown-pdf</loc>
@@ -80,13 +116,19 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
   <!-- Spanish -->
   <url>
     <loc>https://www.markdown.free/es</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/" />
     <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it" />
     <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/" />
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -96,6 +138,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/about" />
     <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/about" />
     <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/about" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/about" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/about" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/about" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/about" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -105,11 +153,17 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/privacy" />
     <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/privacy" />
     <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/privacy" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/privacy" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/privacy" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/privacy" />
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  
+
   <!-- Spanish Intent Pages (SEO landing pages) -->
   <url>
     <loc>https://www.markdown.free/es/convertir-markdown-pdf</loc>
@@ -128,6 +182,420 @@
   </url>
   <url>
     <loc>https://www.markdown.free/es/comparacion-convertidores-markdown</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Japanese -->
+  <url>
+    <loc>https://www.markdown.free/ja</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ja/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/about" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/about" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/about" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/about" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/about" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/about" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ja/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/privacy" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/privacy" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/privacy" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Japanese Intent Pages (SEO landing pages) -->
+  <url>
+    <loc>https://www.markdown.free/ja/markdown-pdf-henkan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ja/markdown-pdf-touroku-fuyou</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ja/readme-pdf-henkan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ja/markdown-henkan-hikaku</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Korean -->
+  <url>
+    <loc>https://www.markdown.free/ko</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ko/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/about" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/about" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/about" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/about" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/about" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/about" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ko/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/privacy" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/privacy" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/privacy" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Korean Intent Pages (SEO landing pages) -->
+  <url>
+    <loc>https://www.markdown.free/ko/markdown-pdf-byeonhwan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ko/markdown-pdf-hoewon-gaibeop-eobs-i</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ko/readme-pdf-byeonhwan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ko/markdown-byeonhwan-bigyo</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Simplified Chinese -->
+  <url>
+    <loc>https://www.markdown.free/zh-Hans</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hans/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/about" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/about" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/about" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/about" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/about" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/about" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hans/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/privacy" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/privacy" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/privacy" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Simplified Chinese Intent Pages (SEO landing pages) -->
+  <url>
+    <loc>https://www.markdown.free/zh-Hans/markdown-pdf-zhuanhuan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hans/markdown-pdf-wuxu-zhuce</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hans/readme-pdf-zhuanhuan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hans/markdown-zhuanhuanqi-bijiao</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Traditional Chinese -->
+  <url>
+    <loc>https://www.markdown.free/zh-Hant</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hant/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/about" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/about" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/about" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/about" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/about" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/about" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hant/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/privacy" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/privacy" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/privacy" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Traditional Chinese Intent Pages (SEO landing pages) -->
+  <url>
+    <loc>https://www.markdown.free/zh-Hant/markdown-pdf-zhuanhuan-tw</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hant/markdown-pdf-mianzhuce</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hant/readme-pdf-zhuanhuan-tw</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hant/markdown-zhuanhuanqi-bijiao-tw</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Indonesian -->
+  <url>
+    <loc>https://www.markdown.free/id</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/id/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/about" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/about" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/about" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/about" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/about" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/about" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/id/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/privacy" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/privacy" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/privacy" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Indonesian Intent Pages (SEO landing pages) -->
+  <url>
+    <loc>https://www.markdown.free/id/konversi-markdown-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/id/markdown-pdf-tanpa-daftar</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/id/konversi-readme-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/id/perbandingan-konverter-markdown</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Vietnamese -->
+  <url>
+    <loc>https://www.markdown.free/vi</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/vi/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/about" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/about" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/about" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/about" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/about" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/about" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/about" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/vi/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/privacy" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/privacy" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/privacy" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/privacy" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Vietnamese Intent Pages (SEO landing pages) -->
+  <url>
+    <loc>https://www.markdown.free/vi/chuyen-doi-markdown-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/vi/markdown-pdf-khong-dang-ky</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/vi/chuyen-doi-readme-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/vi/so-sanh-cong-cu-markdown</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
