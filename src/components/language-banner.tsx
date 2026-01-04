@@ -22,16 +22,30 @@ interface LanguageBannerProps {
 // Map browser language codes to supported locales
 function getBrowserLocale(): Locale | null {
   if (typeof navigator === "undefined") return null;
-  
+
   const browserLang = navigator.language.toLowerCase();
-  
-  // Check exact match first (e.g., "it-IT" -> "it")
+
+  // Handle Chinese variants specially (browser uses zh-CN/zh-TW, we use zh-Hans/zh-Hant)
+  if (browserLang.startsWith("zh")) {
+    // Simplified Chinese regions: CN (China), SG (Singapore)
+    if (browserLang.includes("cn") || browserLang.includes("hans") || browserLang.includes("sg")) {
+      return "zh-Hans";
+    }
+    // Traditional Chinese regions: TW (Taiwan), HK (Hong Kong), MO (Macau)
+    if (browserLang.includes("tw") || browserLang.includes("hant") || browserLang.includes("hk") || browserLang.includes("mo")) {
+      return "zh-Hant";
+    }
+    // Default to Simplified for unspecified Chinese
+    return "zh-Hans";
+  }
+
+  // Check prefix match for other locales (e.g., "it-IT" -> "it", "ja-JP" -> "ja")
   for (const locale of locales) {
     if (browserLang.startsWith(locale)) {
       return locale;
     }
   }
-  
+
   return null;
 }
 
