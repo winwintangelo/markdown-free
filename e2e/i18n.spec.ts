@@ -398,9 +398,9 @@ test.describe("Markdown Free - Internationalization", () => {
       // Check comparison table exists
       await expect(page.locator("table")).toBeVisible();
       
-      // Check key comparison points
-      await expect(page.getByText("100% Gratuito")).toBeVisible();
-      await expect(page.getByText("Senza Registrazione")).toBeVisible();
+      // Check key comparison points in table
+      await expect(page.locator("table").getByText("100% Gratuito")).toBeVisible();
+      await expect(page.locator("table").getByText("Senza Registrazione")).toBeVisible();
       
       // Check CTA
       await expect(page.getByRole("link", { name: "Prova Markdown Free" })).toBeVisible();
@@ -418,9 +418,9 @@ test.describe("Markdown Free - Internationalization", () => {
       // Check comparison table exists
       await expect(page.locator("table")).toBeVisible();
       
-      // Check key comparison points
-      await expect(page.getByText("100% Gratis")).toBeVisible();
-      await expect(page.getByText("Sin Registro")).toBeVisible();
+      // Check key comparison points in table
+      await expect(page.locator("table").getByText("100% Gratis")).toBeVisible();
+      await expect(page.locator("table").getByText("Sin Registro")).toBeVisible();
       
       // Check CTA
       await expect(page.getByRole("link", { name: "Prueba Markdown Free" })).toBeVisible();
