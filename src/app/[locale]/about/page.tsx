@@ -191,6 +191,264 @@ const content: Partial<Record<Locale, {
       title: "¿Preguntas o comentarios?",
       text: "¡Nos encantaría saber de ti! Haz clic en el botón de Comentarios en el encabezado para compartir tus pensamientos, reportar problemas o sugerir mejoras."
     }
+  },
+  ja: {
+    title: "Markdown Free について",
+    lead: "高速・無料・ウェブベースのMarkdownビューア＆コンバーター。シンプルな操作で完結。",
+    whatIs: {
+      title: "Markdown Free とは？",
+      text: "Markdown Freeは、.mdファイルをアップロードし、美しいフォーマットで即座にプレビューし、ワンクリックでPDF、TXT、HTMLにエクスポートできます。登録不要、複雑なインターフェースなし—ドラッグ＆ドロップしてダウンロードするだけ。"
+    },
+    whyBuilt: {
+      title: "開発の背景",
+      text1: "多くの人がMarkdownファイルを受け取っても、簡単に閲覧・変換する方法がないことに気づきました。既存のツールは登録が必要だったり、複雑なインターフェースだったり、プライバシーの懸念がありました。",
+      text2: "Markdown Freeは、誰でも3秒で理解し、30秒以内にタスクを完了できる単一目的のツールでこれを解決します。"
+    },
+    principles: {
+      title: "私たちの方針",
+      items: [
+        { title: "永久無料", text: "アカウント不要、サブスクリプションなし、隠れたコストなし" },
+        { title: "プライバシー最優先", text: "ファイルは一時的に処理され、サーバーに保存されることはありません" },
+        { title: "シンプル設計", text: "1ページ、3つのボタン、完了" },
+        { title: "オープンで透明", text: "見たままの結果を得られます" }
+      ]
+    },
+    howItWorks: {
+      title: "使い方",
+      steps: [
+        { title: "アップロード", text: ".md、.markdown、または.txtファイルをドラッグ＆ドロップ" },
+        { title: "プレビュー", text: "フォーマットされたMarkdownを即座に確認" },
+        { title: "エクスポート", text: "PDF、TXT、またはHTMLをクリックしてダウンロード" }
+      ]
+    },
+    technical: {
+      title: "技術的な詳細",
+      items: [
+        { title: "プレビュー＆HTML/TXTエクスポート:", text: "最新のウェブ技術を使用してブラウザ内で完全に処理" },
+        { title: "PDFエクスポート:", text: "高品質のためサーバーサイドで生成し、即座に削除" },
+        { title: "ファイルサイズ制限:", text: "ファイルあたり最大5MB" },
+        { title: "対応フォーマット:", text: "GitHub Flavored Markdown（GFM）：テーブル、タスクリスト、取り消し線を含む" }
+      ]
+    },
+    contact: {
+      title: "ご質問・フィードバック",
+      text: "ご意見をお聞かせください！ヘッダーのフィードバックボタンをクリックして、ご感想、問題の報告、改善提案をお寄せください。"
+    }
+  },
+  ko: {
+    title: "Markdown Free 소개",
+    lead: "빠르고, 무료이며, 웹 기반의 Markdown 뷰어 및 변환기. 매우 간단한 흐름으로 작업 완료.",
+    whatIs: {
+      title: "Markdown Free란?",
+      text: "Markdown Free를 사용하면 .md 파일을 업로드하고, 아름다운 포맷으로 즉시 미리 보고, 클릭 한 번으로 PDF, TXT 또는 HTML로 내보낼 수 있습니다. 가입 불필요, 복잡한 인터페이스 없음—드래그, 드롭, 다운로드만 하면 됩니다."
+    },
+    whyBuilt: {
+      title: "개발 배경",
+      text1: "많은 사람들이 Markdown 파일을 받지만 쉽게 보거나 변환할 방법이 없다는 것을 알게 되었습니다. 기존 도구들은 가입이 필요하거나, 복잡한 인터페이스를 가지고 있거나, 개인정보 보호 우려가 있었습니다.",
+      text2: "Markdown Free는 누구나 3초 안에 이해하고 30초 안에 작업을 완료할 수 있는 단일 목적 도구로 이 문제를 해결합니다."
+    },
+    principles: {
+      title: "우리의 원칙",
+      items: [
+        { title: "영구 무료", text: "계정 없음, 구독 없음, 숨겨진 비용 없음" },
+        { title: "프라이버시 우선", text: "파일은 일시적으로 처리되며 서버에 저장되지 않습니다" },
+        { title: "심플한 설계", text: "한 페이지, 세 개의 버튼, 끝" },
+        { title: "개방적이고 투명함", text: "보이는 그대로 결과를 얻습니다" }
+      ]
+    },
+    howItWorks: {
+      title: "사용 방법",
+      steps: [
+        { title: "업로드", text: ".md, .markdown 또는 .txt 파일을 드래그 앤 드롭" },
+        { title: "미리보기", text: "포맷된 Markdown을 즉시 확인" },
+        { title: "내보내기", text: "PDF, TXT 또는 HTML을 클릭하여 다운로드" }
+      ]
+    },
+    technical: {
+      title: "기술 세부사항",
+      items: [
+        { title: "미리보기 및 HTML/TXT 내보내기:", text: "최신 웹 기술을 사용하여 브라우저에서 완전히 처리" },
+        { title: "PDF 내보내기:", text: "고품질을 위해 서버 측에서 생성 후 즉시 삭제" },
+        { title: "파일 크기 제한:", text: "파일당 최대 5MB" },
+        { title: "지원 형식:", text: "GitHub Flavored Markdown(GFM): 표, 작업 목록, 취소선 포함" }
+      ]
+    },
+    contact: {
+      title: "질문이나 피드백이 있으신가요?",
+      text: "의견을 듣고 싶습니다! 헤더의 피드백 버튼을 클릭하여 생각을 공유하고, 문제를 보고하거나, 개선 사항을 제안해 주세요."
+    }
+  },
+  "zh-Hans": {
+    title: "关于 Markdown Free",
+    lead: "快速、免费、基于网页的 Markdown 查看器和转换器。操作流程极其简单。",
+    whatIs: {
+      title: "什么是 Markdown Free？",
+      text: "Markdown Free 让您上传 .md 文件，即时预览美观的格式，然后一键导出为 PDF、TXT 或 HTML。无需注册，无复杂界面——只需拖放和下载。"
+    },
+    whyBuilt: {
+      title: "为什么开发这个工具",
+      text1: "我们注意到很多人收到 Markdown 文件，但没有简单的方法来查看或转换它们。现有工具往往需要注册、界面复杂，或存在隐私问题。",
+      text2: "Markdown Free 通过一个单一用途的工具解决了这个问题，任何人都能在3秒内理解，30秒内完成任务。"
+    },
+    principles: {
+      title: "我们的原则",
+      items: [
+        { title: "永久免费", text: "无需账户，无订阅，无隐藏费用" },
+        { title: "隐私优先", text: "文件仅临时处理，从不存储在服务器上" },
+        { title: "简约设计", text: "一个页面，三个按钮，搞定" },
+        { title: "开放透明", text: "所见即所得" }
+      ]
+    },
+    howItWorks: {
+      title: "如何使用",
+      steps: [
+        { title: "上传", text: "拖放您的 .md、.markdown 或 .txt 文件" },
+        { title: "预览", text: "即时查看格式化的 Markdown" },
+        { title: "导出", text: "点击 PDF、TXT 或 HTML 下载" }
+      ]
+    },
+    technical: {
+      title: "技术细节",
+      items: [
+        { title: "预览和 HTML/TXT 导出:", text: "使用现代网页技术完全在浏览器中处理" },
+        { title: "PDF 导出:", text: "在服务器端生成以保证高保真度，然后立即删除" },
+        { title: "文件大小限制:", text: "每个文件最大 5MB" },
+        { title: "支持格式:", text: "GitHub Flavored Markdown（GFM），包括表格、任务列表和删除线" }
+      ]
+    },
+    contact: {
+      title: "有问题或反馈？",
+      text: "我们期待您的意见！点击页眉的反馈按钮，分享您的想法、报告问题或提出改进建议。"
+    }
+  },
+  "zh-Hant": {
+    title: "關於 Markdown Free",
+    lead: "快速、免費、基於網頁的 Markdown 檢視器和轉換器。操作流程極其簡單。",
+    whatIs: {
+      title: "什麼是 Markdown Free？",
+      text: "Markdown Free 讓您上傳 .md 檔案，即時預覽美觀的格式，然後一鍵匯出為 PDF、TXT 或 HTML。無需註冊，無複雜介面——只需拖放和下載。"
+    },
+    whyBuilt: {
+      title: "為什麼開發這個工具",
+      text1: "我們注意到很多人收到 Markdown 檔案，但沒有簡單的方法來檢視或轉換它們。現有工具往往需要註冊、介面複雜，或存在隱私問題。",
+      text2: "Markdown Free 通過一個單一用途的工具解決了這個問題，任何人都能在3秒內理解，30秒內完成任務。"
+    },
+    principles: {
+      title: "我們的原則",
+      items: [
+        { title: "永久免費", text: "無需帳戶，無訂閱，無隱藏費用" },
+        { title: "隱私優先", text: "檔案僅臨時處理，從不儲存在伺服器上" },
+        { title: "簡約設計", text: "一個頁面，三個按鈕，搞定" },
+        { title: "開放透明", text: "所見即所得" }
+      ]
+    },
+    howItWorks: {
+      title: "如何使用",
+      steps: [
+        { title: "上傳", text: "拖放您的 .md、.markdown 或 .txt 檔案" },
+        { title: "預覽", text: "即時檢視格式化的 Markdown" },
+        { title: "匯出", text: "點擊 PDF、TXT 或 HTML 下載" }
+      ]
+    },
+    technical: {
+      title: "技術細節",
+      items: [
+        { title: "預覽和 HTML/TXT 匯出:", text: "使用現代網頁技術完全在瀏覽器中處理" },
+        { title: "PDF 匯出:", text: "在伺服器端生成以保證高保真度，然後立即刪除" },
+        { title: "檔案大小限制:", text: "每個檔案最大 5MB" },
+        { title: "支援格式:", text: "GitHub Flavored Markdown（GFM），包括表格、任務列表和刪除線" }
+      ]
+    },
+    contact: {
+      title: "有問題或回饋？",
+      text: "我們期待您的意見！點擊頁首的回饋按鈕，分享您的想法、報告問題或提出改進建議。"
+    }
+  },
+  id: {
+    title: "Tentang Markdown Free",
+    lead: "Penampil dan konverter Markdown berbasis web yang cepat, gratis, dengan alur yang sangat sederhana.",
+    whatIs: {
+      title: "Apa itu Markdown Free?",
+      text: "Markdown Free memungkinkan Anda mengunggah file .md, melihat pratinjau secara instan dengan format yang indah, lalu mengekspor ke PDF, TXT, atau HTML dengan satu klik. Tanpa perlu daftar, tanpa antarmuka yang rumit—cukup seret, lepas, dan unduh."
+    },
+    whyBuilt: {
+      title: "Mengapa kami membuat ini",
+      text1: "Kami menyadari bahwa banyak orang menerima file Markdown tetapi tidak memiliki cara mudah untuk melihat atau mengonversinya. Alat yang ada sering memerlukan pendaftaran, memiliki antarmuka yang rumit, atau menimbulkan masalah privasi.",
+      text2: "Markdown Free mengatasi ini dengan alat tujuan tunggal yang dapat dipahami siapa pun dalam waktu kurang dari 3 detik dan menyelesaikan tugas dalam waktu kurang dari 30 detik."
+    },
+    principles: {
+      title: "Prinsip kami",
+      items: [
+        { title: "Gratis selamanya", text: "Tanpa akun, tanpa langganan, tanpa biaya tersembunyi" },
+        { title: "Privasi utama", text: "File diproses sementara dan tidak pernah disimpan di server kami" },
+        { title: "Sederhana dari desain", text: "Satu halaman, tiga tombol, selesai" },
+        { title: "Terbuka dan transparan", text: "Apa yang Anda lihat adalah apa yang Anda dapatkan" }
+      ]
+    },
+    howItWorks: {
+      title: "Cara kerja",
+      steps: [
+        { title: "Unggah", text: "Seret dan lepas file .md, .markdown, atau .txt Anda" },
+        { title: "Pratinjau", text: "Lihat Markdown Anda yang diformat secara instan" },
+        { title: "Ekspor", text: "Klik Ke PDF, Ke TXT, atau Ke HTML untuk mengunduh" }
+      ]
+    },
+    technical: {
+      title: "Detail teknis",
+      items: [
+        { title: "Pratinjau & ekspor HTML/TXT:", text: "Diproses sepenuhnya di browser Anda menggunakan teknologi web modern" },
+        { title: "Ekspor PDF:", text: "Dibuat di sisi server untuk kualitas tinggi, lalu langsung dihapus" },
+        { title: "Batas ukuran file:", text: "Hingga 5 MB per file" },
+        { title: "Format yang didukung:", text: "GitHub Flavored Markdown (GFM) termasuk tabel, daftar tugas, dan coretan" }
+      ]
+    },
+    contact: {
+      title: "Pertanyaan atau masukan?",
+      text: "Kami senang mendengar dari Anda! Klik tombol Umpan Balik di header untuk berbagi pemikiran, melaporkan masalah, atau menyarankan perbaikan."
+    }
+  },
+  vi: {
+    title: "Giới thiệu Markdown Free",
+    lead: "Trình xem và chuyển đổi Markdown miễn phí, nhanh chóng, dựa trên web với quy trình cực kỳ đơn giản.",
+    whatIs: {
+      title: "Markdown Free là gì?",
+      text: "Markdown Free cho phép bạn tải lên file .md, xem trước ngay lập tức với định dạng đẹp, sau đó xuất sang PDF, TXT hoặc HTML chỉ với một cú nhấp chuột. Không cần đăng ký, không có giao diện phức tạp—chỉ cần kéo, thả và tải xuống."
+    },
+    whyBuilt: {
+      title: "Tại sao chúng tôi xây dựng công cụ này",
+      text1: "Chúng tôi nhận thấy nhiều người nhận được file Markdown nhưng không có cách dễ dàng để xem hoặc chuyển đổi chúng. Các công cụ hiện có thường yêu cầu đăng ký, có giao diện phức tạp, hoặc gây lo ngại về quyền riêng tư.",
+      text2: "Markdown Free giải quyết vấn đề này với một công cụ đơn mục đích mà bất kỳ ai cũng có thể hiểu trong dưới 3 giây và hoàn thành nhiệm vụ trong dưới 30 giây."
+    },
+    principles: {
+      title: "Nguyên tắc của chúng tôi",
+      items: [
+        { title: "Miễn phí mãi mãi", text: "Không cần tài khoản, không đăng ký, không chi phí ẩn" },
+        { title: "Quyền riêng tư là ưu tiên", text: "File được xử lý tạm thời và không bao giờ được lưu trữ trên máy chủ của chúng tôi" },
+        { title: "Đơn giản theo thiết kế", text: "Một trang, ba nút, xong" },
+        { title: "Mở và minh bạch", text: "Những gì bạn thấy là những gì bạn nhận được" }
+      ]
+    },
+    howItWorks: {
+      title: "Cách hoạt động",
+      steps: [
+        { title: "Tải lên", text: "Kéo và thả file .md, .markdown hoặc .txt của bạn" },
+        { title: "Xem trước", text: "Xem Markdown đã định dạng của bạn ngay lập tức" },
+        { title: "Xuất", text: "Nhấp Sang PDF, Sang TXT hoặc Sang HTML để tải xuống" }
+      ]
+    },
+    technical: {
+      title: "Chi tiết kỹ thuật",
+      items: [
+        { title: "Xem trước & xuất HTML/TXT:", text: "Được xử lý hoàn toàn trong trình duyệt của bạn bằng công nghệ web hiện đại" },
+        { title: "Xuất PDF:", text: "Được tạo phía máy chủ để đảm bảo chất lượng cao, sau đó xóa ngay lập tức" },
+        { title: "Giới hạn kích thước file:", text: "Tối đa 5 MB mỗi file" },
+        { title: "Định dạng được hỗ trợ:", text: "GitHub Flavored Markdown (GFM) bao gồm bảng, danh sách công việc và gạch ngang" }
+      ]
+    },
+    contact: {
+      title: "Câu hỏi hoặc phản hồi?",
+      text: "Chúng tôi rất muốn nghe từ bạn! Nhấp vào nút Phản hồi trong tiêu đề để chia sẻ suy nghĩ, báo cáo vấn đề hoặc đề xuất cải tiến."
+    }
   }
 };
 

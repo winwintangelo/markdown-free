@@ -28,14 +28,74 @@ test.describe("Markdown Free - Internationalization", () => {
 
     test("Spanish page (/es) loads with Spanish content", async ({ page }) => {
       await page.goto("/es");
-      
+
       // Check HTML lang attribute
       const htmlLang = await page.locator("html").getAttribute("lang");
       expect(htmlLang).toBe("es");
-      
+
       // Check Spanish content
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown a PDF");
       await expect(page.getByText("Gratis • Sin cuenta")).toBeVisible();
+    });
+
+    test("Japanese page (/ja) loads with Japanese content", async ({ page }) => {
+      await page.goto("/ja");
+
+      const htmlLang = await page.locator("html").getAttribute("lang");
+      expect(htmlLang).toBe("ja");
+
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown");
+      await expect(page.getByText("無料 • 登録不要")).toBeVisible();
+    });
+
+    test("Korean page (/ko) loads with Korean content", async ({ page }) => {
+      await page.goto("/ko");
+
+      const htmlLang = await page.locator("html").getAttribute("lang");
+      expect(htmlLang).toBe("ko");
+
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown");
+      await expect(page.getByText("무료 • 가입 불필요")).toBeVisible();
+    });
+
+    test("Simplified Chinese page (/zh-Hans) loads with Chinese content", async ({ page }) => {
+      await page.goto("/zh-Hans");
+
+      const htmlLang = await page.locator("html").getAttribute("lang");
+      expect(htmlLang).toBe("zh-Hans");
+
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown");
+      await expect(page.getByText("免费 • 无需注册")).toBeVisible();
+    });
+
+    test("Traditional Chinese page (/zh-Hant) loads with Chinese content", async ({ page }) => {
+      await page.goto("/zh-Hant");
+
+      const htmlLang = await page.locator("html").getAttribute("lang");
+      expect(htmlLang).toBe("zh-Hant");
+
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown");
+      await expect(page.getByText("免費 • 無需註冊")).toBeVisible();
+    });
+
+    test("Indonesian page (/id) loads with Indonesian content", async ({ page }) => {
+      await page.goto("/id");
+
+      const htmlLang = await page.locator("html").getAttribute("lang");
+      expect(htmlLang).toBe("id");
+
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown");
+      await expect(page.getByText("Gratis • Tanpa daftar")).toBeVisible();
+    });
+
+    test("Vietnamese page (/vi) loads with Vietnamese content", async ({ page }) => {
+      await page.goto("/vi");
+
+      const htmlLang = await page.locator("html").getAttribute("lang");
+      expect(htmlLang).toBe("vi");
+
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown");
+      await expect(page.getByText("Miễn phí • Không cần đăng ký")).toBeVisible();
     });
   });
 
@@ -54,6 +114,36 @@ test.describe("Markdown Free - Internationalization", () => {
       await page.goto("/es/about");
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Acerca de Markdown Free");
     });
+
+    test("Japanese About page loads correctly", async ({ page }) => {
+      await page.goto("/ja/about");
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown Free について");
+    });
+
+    test("Korean About page loads correctly", async ({ page }) => {
+      await page.goto("/ko/about");
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown Free 소개");
+    });
+
+    test("Simplified Chinese About page loads correctly", async ({ page }) => {
+      await page.goto("/zh-Hans/about");
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("关于 Markdown Free");
+    });
+
+    test("Traditional Chinese About page loads correctly", async ({ page }) => {
+      await page.goto("/zh-Hant/about");
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("關於 Markdown Free");
+    });
+
+    test("Indonesian About page loads correctly", async ({ page }) => {
+      await page.goto("/id/about");
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Tentang Markdown Free");
+    });
+
+    test("Vietnamese About page loads correctly", async ({ page }) => {
+      await page.goto("/vi/about");
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Giới thiệu Markdown Free");
+    });
   });
 
   test.describe("Localized Privacy Pages", () => {
@@ -70,6 +160,36 @@ test.describe("Markdown Free - Internationalization", () => {
     test("Spanish Privacy page loads correctly", async ({ page }) => {
       await page.goto("/es/privacy");
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Política de Privacidad");
+    });
+
+    test("Japanese Privacy page loads correctly", async ({ page }) => {
+      await page.goto("/ja/privacy");
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("プライバシーポリシー");
+    });
+
+    test("Korean Privacy page loads correctly", async ({ page }) => {
+      await page.goto("/ko/privacy");
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("개인정보 처리방침");
+    });
+
+    test("Simplified Chinese Privacy page loads correctly", async ({ page }) => {
+      await page.goto("/zh-Hans/privacy");
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("隐私政策");
+    });
+
+    test("Traditional Chinese Privacy page loads correctly", async ({ page }) => {
+      await page.goto("/zh-Hant/privacy");
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("隱私政策");
+    });
+
+    test("Indonesian Privacy page loads correctly", async ({ page }) => {
+      await page.goto("/id/privacy");
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Kebijakan Privasi");
+    });
+
+    test("Vietnamese Privacy page loads correctly", async ({ page }) => {
+      await page.goto("/vi/privacy");
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Chính sách Bảo mật");
     });
   });
 
