@@ -25,12 +25,24 @@ export async function generateMetadata({
     en: "About",
     it: "Chi Siamo",
     es: "Acerca de",
+    ja: "概要",
+    ko: "소개",
+    "zh-Hans": "关于",
+    "zh-Hant": "關於",
+    id: "Tentang",
+    vi: "Giới thiệu",
   };
-  
+
   const descriptions: Record<Locale, string> = {
     en: "Learn about Markdown Free - a fast, free, web-based Markdown viewer and converter. No signup required.",
     it: "Scopri Markdown Free - un visualizzatore e convertitore Markdown gratuito, veloce e basato sul web. Nessuna registrazione richiesta.",
     es: "Conoce Markdown Free - un visor y convertidor de Markdown gratuito, rápido y basado en web. Sin necesidad de registro.",
+    ja: "Markdown Free について - 高速で無料のWebベースのMarkdownビューアおよびコンバーター。登録不要。",
+    ko: "Markdown Free에 대해 알아보기 - 빠르고 무료인 웹 기반 Markdown 뷰어 및 변환기. 가입 불필요.",
+    "zh-Hans": "了解 Markdown Free - 快速、免费的网页版 Markdown 查看器和转换器。无需注册。",
+    "zh-Hant": "了解 Markdown Free - 快速、免費的網頁版 Markdown 檢視器和轉換器。無需註冊。",
+    id: "Pelajari tentang Markdown Free - penampil dan konverter Markdown berbasis web yang cepat dan gratis. Tanpa perlu daftar.",
+    vi: "Tìm hiểu về Markdown Free - trình xem và chuyển đổi Markdown miễn phí, nhanh chóng trên web. Không cần đăng ký.",
   };
   
   return {
@@ -39,8 +51,8 @@ export async function generateMetadata({
   };
 }
 
-// Localized content
-const content: Record<Locale, {
+// Localized content (new locales fall back to English)
+const content: Partial<Record<Locale, {
   title: string;
   lead: string;
   whatIs: { title: string; text: string };
@@ -49,7 +61,8 @@ const content: Record<Locale, {
   howItWorks: { title: string; steps: { title: string; text: string }[] };
   technical: { title: string; items: { title: string; text: string }[] };
   contact: { title: string; text: string };
-}> = {
+}>> = {
+  // English content - also used as fallback for new locales
   en: {
     title: "About Markdown Free",
     lead: "A fast, free, web-based Markdown viewer and converter with an ultra-simple flow.",
@@ -194,7 +207,8 @@ export default async function AboutPage({
   
   const locale = localeParam as Locale;
   const dict = getDictionary(locale);
-  const c = content[locale];
+  // Fall back to English content for locales without full page translation
+  const c = content[locale] ?? content.en!;
 
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">

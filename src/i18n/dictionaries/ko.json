@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "Markdown PDF 변환기 – 무료, 비공개, 가입 불필요",
+    "description": "Markdown을 PDF, HTML 또는 TXT로 즉시 변환하세요. 100% 무료, 가입 불필요, 광고 트래커 없음. 파일은 일시적으로 처리되며 저장되지 않습니다."
+  },
+  "hero": {
+    "badge": "무료 • 가입 불필요 • 즉시 내보내기",
+    "title": "무료 Markdown PDF, TXT & HTML 변환기",
+    "subtitle": ".md 파일을 업로드하거나 붙여넣기하고, 즉시 미리보기 후 한 번의 클릭으로 PDF, TXT 또는 HTML로 내보내세요. 무료, 비공개, 안전 — 파일은 저장되지 않습니다."
+  },
+  "upload": {
+    "dragDrop": "Markdown 파일을 드래그 앤 드롭하세요",
+    "or": "또는",
+    "chooseFile": "파일 선택",
+    "supports": ".md, .markdown, .txt 지원 • 최대 5 MB",
+    "noFile": "선택된 파일 없음",
+    "trySample": "샘플 파일 사용해보기",
+    "pasteMarkdown": "Markdown 붙여넣기"
+  },
+  "paste": {
+    "label": "붙여넣은 Markdown",
+    "placeholder": "여기에 Markdown을 붙여넣으세요…",
+    "helper": "여기서 변경한 내용은 PDF, TXT 또는 HTML로 내보낼 때도 사용됩니다."
+  },
+  "export": {
+    "toPdf": "PDF로",
+    "toTxt": "TXT로",
+    "toHtml": "HTML로",
+    "privacy": "파일은 변환을 위해 일시적으로 처리되며 저장되지 않습니다.",
+    "generating": "PDF 생성 중..."
+  },
+  "preview": {
+    "title": "미리보기",
+    "waiting": "Markdown 대기 중…",
+    "ready": "내보내기 준비 완료",
+    "uploadedFile": "업로드된 파일",
+    "pastedText": "붙여넣은 텍스트",
+    "sampleFile": "샘플 파일",
+    "howItWorks": {
+      "title": "사용 방법",
+      "step1": ".md 파일을 업로드하거나 Markdown 텍스트를 붙여넣으세요.",
+      "step2": "여기서 포맷된 미리보기를 확인하세요.",
+      "step3": "PDF로, TXT로 또는 HTML로를 클릭하여 변환된 파일을 다운로드하세요.",
+      "note": "Markdown을 추가하면 이 미리보기가 그에 맞게 업데이트됩니다."
+    }
+  },
+  "errors": {
+    "invalidType": "지원되지 않는 파일 형식입니다. .md, .markdown 또는 .txt 파일을 업로드해 주세요.",
+    "tooLarge": "파일이 너무 큽니다. 최대 크기는 5MB입니다.",
+    "readError": "파일을 읽을 수 없습니다. 유효한 텍스트 파일인지 확인해 주세요.",
+    "sampleError": "샘플 파일을 로드할 수 없습니다. 다시 시도해 주세요.",
+    "pdfTimeout": "PDF 생성 시간이 초과되었습니다. 다시 시도해 주세요.",
+    "pdfError": "오류가 발생했습니다. 다시 시도해 주세요.",
+    "networkError": "연결이 끊어졌습니다. 인터넷 연결을 확인하고 다시 시도해 주세요.",
+    "tryAgain": "다시 시도",
+    "dismiss": "닫기"
+  },
+  "header": {
+    "about": "소개",
+    "privacy": "개인정보",
+    "feedback": "피드백"
+  },
+  "footer": {
+    "copyright": "© 2026 Markdown Free. 간단하고, 빠르고, 무료 내보내기를 위해 제작되었습니다.",
+    "privacyNote": "추적 쿠키 없음 • HTTPS만 사용"
+  },
+  "feedback": {
+    "title": "피드백 보내기",
+    "placeholder": "무슨 생각이 있으신가요? 버그 신고, 기능 요청 또는 인사말도 좋습니다!",
+    "emailPlaceholder": "이메일 (선택사항, 후속 연락용)",
+    "submit": "피드백 보내기",
+    "submitting": "전송 중...",
+    "success": "감사합니다! 피드백이 전송되었습니다.",
+    "cancel": "취소"
+  },
+  "faq": [
+    {
+      "question": "이 Markdown PDF 변환기는 정말 무료인가요?",
+      "answer": "네, Markdown Free는 숨겨진 비용, 프리미엄 티어, 가입 요구 사항 없이 100% 무료입니다."
+    },
+    {
+      "question": "제 Markdown 파일을 저장하거나 로그로 기록하나요?",
+      "answer": "아니요. 파일은 변환 중 메모리에서 일시적으로 처리되고 즉시 삭제됩니다. 콘텐츠를 디스크나 데이터베이스에 저장하지 않습니다."
+    },
+    {
+      "question": "저를 추적하거나 쿠키를 사용하나요?",
+      "answer": "광고 트래커를 사용하거나, 데이터를 판매하거나, 웹사이트 간에 추적하지 않습니다. 개인정보를 존중하는 분석을 사용하지만 파일 내용이나 개인 정보를 로그로 기록하지 않습니다."
+    },
+    {
+      "question": "Markdown Free는 어떤 형식을 지원하나요?",
+      "answer": "입력: .md, .markdown, .txt 파일 (최대 5MB). 출력: PDF, HTML, TXT. GitHub Flavored Markdown을 지원합니다."
+    },
+    {
+      "question": "변환은 안전한가요?",
+      "answer": "네. 모든 연결은 HTTPS를 사용합니다. Markdown 미리보기는 클라이언트 측에서 렌더링됩니다. PDF 생성은 서버 측이지만 콘텐츠는 보존되지 않습니다. 모든 HTML은 XSS 살균 처리됩니다."
+    }
+  ],
+  "languageBanner": {
+    "prefer": "선호 언어",
+    "switch": "전환",
+    "dismiss": "✕"
+  }
+}

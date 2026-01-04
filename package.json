@@ -14,7 +14,10 @@
     "test:production:headed": "playwright test --config=playwright.production.config.ts --headed",
     "postinstall": "node scripts/postinstall.mjs",
     "report": "node scripts/umami-report.mjs",
-    "report:sessions": "node scripts/umami-sessions.mjs"
+    "report:sessions": "node scripts/umami-sessions.mjs",
+    "validate": "node scripts/validate-production.mjs",
+    "validate:verbose": "node scripts/validate-production.mjs --verbose",
+    "validate:traffic": "node scripts/validate-production.mjs --simulate-traffic --verbose"
   },
   "dependencies": {
     "@sparticuz/chromium-min": "^141.0.0",

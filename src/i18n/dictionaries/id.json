@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "Konverter Markdown ke PDF – Gratis, Privat, Tanpa Daftar",
+    "description": "Konversi Markdown ke PDF, HTML atau TXT secara instan. 100% gratis, tanpa daftar, tanpa pelacak iklan. File diproses sementara dan tidak pernah disimpan."
+  },
+  "hero": {
+    "badge": "Gratis • Tanpa daftar • Ekspor instan",
+    "title": "Konverter Markdown ke PDF, TXT & HTML Gratis",
+    "subtitle": "Unggah atau tempel file .md Anda, pratinjau secara instan, lalu ekspor ke PDF, TXT atau HTML dalam satu klik. Gratis, privat dan aman — file Anda tidak pernah disimpan."
+  },
+  "upload": {
+    "dragDrop": "Seret & lepas file Markdown Anda",
+    "or": "atau",
+    "chooseFile": "pilih file",
+    "supports": "Mendukung .md, .markdown, .txt • Maks 5 MB",
+    "noFile": "Belum ada file yang dipilih",
+    "trySample": "Coba file contoh",
+    "pasteMarkdown": "tempel Markdown"
+  },
+  "paste": {
+    "label": "Markdown yang Ditempel",
+    "placeholder": "Tempel Markdown Anda di sini…",
+    "helper": "Perubahan di sini juga akan digunakan saat mengekspor ke PDF, TXT atau HTML."
+  },
+  "export": {
+    "toPdf": "Ke PDF",
+    "toTxt": "Ke TXT",
+    "toHtml": "Ke HTML",
+    "privacy": "File diproses sementara untuk konversi dan tidak disimpan.",
+    "generating": "Membuat PDF..."
+  },
+  "preview": {
+    "title": "Pratinjau",
+    "waiting": "Menunggu Markdown…",
+    "ready": "Siap untuk ekspor",
+    "uploadedFile": "file yang diunggah",
+    "pastedText": "teks yang ditempel",
+    "sampleFile": "file contoh",
+    "howItWorks": {
+      "title": "Cara kerjanya",
+      "step1": "Unggah file .md atau tempel teks Markdown.",
+      "step2": "Lihat pratinjau yang diformat di sini.",
+      "step3": "Klik Ke PDF, Ke TXT, atau Ke HTML untuk mengunduh file yang dikonversi.",
+      "note": "Setelah Anda menambahkan Markdown Anda sendiri, pratinjau ini akan diperbarui sesuai."
+    }
+  },
+  "errors": {
+    "invalidType": "Jenis file tidak didukung. Silakan unggah file .md, .markdown atau .txt.",
+    "tooLarge": "File terlalu besar. Ukuran maksimum adalah 5MB.",
+    "readError": "Tidak dapat membaca file. Pastikan itu adalah file teks yang valid.",
+    "sampleError": "Tidak dapat memuat file contoh. Silakan coba lagi.",
+    "pdfTimeout": "Pembuatan PDF kehabisan waktu. Silakan coba lagi.",
+    "pdfError": "Terjadi kesalahan. Silakan coba lagi.",
+    "networkError": "Koneksi terputus. Silakan periksa internet Anda dan coba lagi.",
+    "tryAgain": "Coba Lagi",
+    "dismiss": "Tutup"
+  },
+  "header": {
+    "about": "Tentang",
+    "privacy": "Privasi",
+    "feedback": "Masukan"
+  },
+  "footer": {
+    "copyright": "© 2026 Markdown Free. Dibuat untuk ekspor yang sederhana, cepat, dan gratis.",
+    "privacyNote": "Tanpa cookie pelacakan • Hanya HTTPS"
+  },
+  "feedback": {
+    "title": "Kirim Masukan",
+    "placeholder": "Apa yang ada di pikiran Anda? Laporan bug, permintaan fitur, atau sekadar menyapa!",
+    "emailPlaceholder": "Email (opsional, untuk tindak lanjut)",
+    "submit": "Kirim Masukan",
+    "submitting": "Mengirim...",
+    "success": "Terima kasih! Masukan Anda telah dikirim.",
+    "cancel": "Batal"
+  },
+  "faq": [
+    {
+      "question": "Apakah konverter Markdown ke PDF ini benar-benar gratis?",
+      "answer": "Ya, Markdown Free 100% gratis tanpa biaya tersembunyi, tingkat premium, atau persyaratan pendaftaran."
+    },
+    {
+      "question": "Apakah Anda menyimpan atau mencatat file Markdown saya?",
+      "answer": "Tidak. File Anda diproses sementara di memori selama konversi dan segera dibuang. Kami tidak pernah menyimpan konten Anda di disk atau database apa pun."
+    },
+    {
+      "question": "Apakah Anda melacak saya atau menggunakan cookie?",
+      "answer": "Kami tidak menggunakan pelacak iklan, menjual data Anda, atau melacak Anda di seluruh situs web. Kami menggunakan analitik yang menghormati privasi tetapi tidak pernah mencatat konten file atau informasi pribadi."
+    },
+    {
+      "question": "Format apa yang didukung Markdown Free?",
+      "answer": "Input: file .md, .markdown, .txt (hingga 5MB). Output: PDF, HTML, TXT. Mendukung GitHub Flavored Markdown."
+    },
+    {
+      "question": "Apakah konversi aman?",
+      "answer": "Ya. Semua koneksi menggunakan HTTPS. Pratinjau Markdown dirender di sisi klien. Pembuatan PDF di sisi server tetapi konten tidak pernah disimpan. Semua HTML disanitasi dari XSS."
+    }
+  ],
+  "languageBanner": {
+    "prefer": "Lebih suka",
+    "switch": "Ganti",
+    "dismiss": "✕"
+  }
+}

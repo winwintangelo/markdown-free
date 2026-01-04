@@ -23,7 +23,7 @@ export function LocaleTracker({ locale }: LocaleTrackerProps) {
       hasTrackedRef.current = pathname;
       
       // Normalize the page path (remove locale prefix for consistency)
-      const page = pathname.replace(/^\/(it|es)/, "") || "/";
+      const page = pathname.replace(/^\/(it|es|ja|ko|zh-Hans|zh-Hant|id|vi)/, "") || "/";
       trackLocalePageView(locale, page);
     }
   }, [locale, pathname]);

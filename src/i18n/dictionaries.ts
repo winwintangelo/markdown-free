@@ -11,6 +11,12 @@ import type { Locale } from "./config";
 import en from "./dictionaries/en.json";
 import it from "./dictionaries/it.json";
 import es from "./dictionaries/es.json";
+import ja from "./dictionaries/ja.json";
+import ko from "./dictionaries/ko.json";
+import zhHans from "./dictionaries/zh-Hans.json";
+import zhHant from "./dictionaries/zh-Hant.json";
+import id from "./dictionaries/id.json";
+import vi from "./dictionaries/vi.json";
 
 export type Dictionary = typeof en;
 
@@ -18,6 +24,12 @@ const dictionaries: Record<Locale, Dictionary> = {
   en,
   it,
   es,
+  ja,
+  ko,
+  "zh-Hans": zhHans,
+  "zh-Hant": zhHant,
+  id,
+  vi,
 };
 
 /**

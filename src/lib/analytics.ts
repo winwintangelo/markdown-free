@@ -192,7 +192,7 @@ export function trackFeedbackSubmit(data: {
 // LOCALIZATION EVENTS (track language behavior)
 // =============================================================================
 
-export type SupportedLocale = "en" | "it" | "es";
+export type SupportedLocale = "en" | "it" | "es" | "ja" | "ko" | "zh-Hans" | "zh-Hant" | "id" | "vi";
 
 /**
  * Track page view with locale information

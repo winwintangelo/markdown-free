@@ -25,12 +25,24 @@ export async function generateMetadata({
     en: "Privacy Policy",
     it: "Informativa sulla Privacy",
     es: "Política de Privacidad",
+    ja: "プライバシーポリシー",
+    ko: "개인정보 처리방침",
+    "zh-Hans": "隐私政策",
+    "zh-Hant": "隱私政策",
+    id: "Kebijakan Privasi",
+    vi: "Chính sách Bảo mật",
   };
-  
+
   const descriptions: Record<Locale, string> = {
     en: "Privacy policy for Markdown Free. Learn how we handle your files and data. No accounts, no tracking, no stored content.",
     it: "Informativa sulla privacy di Markdown Free. Scopri come gestiamo i tuoi file e dati. Nessun account, nessun tracciamento, nessun contenuto salvato.",
     es: "Política de privacidad de Markdown Free. Conoce cómo manejamos tus archivos y datos. Sin cuentas, sin rastreo, sin contenido almacenado.",
+    ja: "Markdown Freeのプライバシーポリシー。ファイルとデータの取り扱いについて。アカウント不要、追跡なし、コンテンツ保存なし。",
+    ko: "Markdown Free 개인정보 처리방침. 파일과 데이터 처리 방법을 알아보세요. 계정 불필요, 추적 없음, 저장된 콘텐츠 없음.",
+    "zh-Hans": "Markdown Free 隐私政策。了解我们如何处理您的文件和数据。无需账户，无追踪，无存储内容。",
+    "zh-Hant": "Markdown Free 隱私政策。了解我們如何處理您的檔案和資料。無需帳戶，無追蹤，無儲存內容。",
+    id: "Kebijakan privasi Markdown Free. Pelajari cara kami menangani file dan data Anda. Tanpa akun, tanpa pelacakan, tanpa konten tersimpan.",
+    vi: "Chính sách bảo mật của Markdown Free. Tìm hiểu cách chúng tôi xử lý tệp và dữ liệu của bạn. Không cần tài khoản, không theo dõi, không lưu trữ nội dung.",
   };
   
   return {
@@ -39,8 +51,8 @@ export async function generateMetadata({
   };
 }
 
-// Localized content structure
-const content: Record<Locale, {
+// Localized content structure (new locales fall back to English)
+const content: Partial<Record<Locale, {
   title: string;
   lead: string;
   shortVersion: { title: string; items: { title: string; text: string }[] };
@@ -55,7 +67,7 @@ const content: Record<Locale, {
   security: { title: string; items: { title: string; text: string }[] };
   changes: { title: string; text: string; date: string };
   contact: { title: string; text: string };
-}> = {
+}>> = {
   en: {
     title: "Privacy Policy",
     lead: "Your privacy matters. Here's exactly how Markdown Free handles your data.",
@@ -290,7 +302,8 @@ export default async function PrivacyPage({
   
   const locale = localeParam as Locale;
   const dict = getDictionary(locale);
-  const c = content[locale];
+  // Fall back to English content for locales without full page translation
+  const c = content[locale] ?? content.en!;
 
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">

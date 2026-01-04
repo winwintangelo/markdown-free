@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "Markdown轉PDF轉換器 – 免費、私密、無需註冊",
+    "description": "即時將Markdown轉換為PDF、HTML或TXT。100%免費，無需註冊，無廣告追蹤。檔案臨時處理，絕不儲存。"
+  },
+  "hero": {
+    "badge": "免費 • 無需註冊 • 即時匯出",
+    "title": "免費 Markdown 轉 PDF、TXT 和 HTML 轉換器",
+    "subtitle": "上傳或貼上您的.md檔案，即時預覽，一鍵匯出為PDF、TXT或HTML。免費、私密、安全——您的檔案絕不會被儲存。"
+  },
+  "upload": {
+    "dragDrop": "拖放您的Markdown檔案",
+    "or": "或",
+    "chooseFile": "選擇檔案",
+    "supports": "支援 .md、.markdown、.txt • 最大 5 MB",
+    "noFile": "尚未選擇檔案",
+    "trySample": "試用範例檔案",
+    "pasteMarkdown": "貼上Markdown"
+  },
+  "paste": {
+    "label": "貼上的Markdown",
+    "placeholder": "在此貼上您的Markdown…",
+    "helper": "此處的變更也將用於匯出為PDF、TXT或HTML。"
+  },
+  "export": {
+    "toPdf": "轉PDF",
+    "toTxt": "轉TXT",
+    "toHtml": "轉HTML",
+    "privacy": "檔案僅為轉換臨時處理，不會被儲存。",
+    "generating": "正在產生PDF..."
+  },
+  "preview": {
+    "title": "預覽",
+    "waiting": "等待Markdown…",
+    "ready": "準備匯出",
+    "uploadedFile": "上傳的檔案",
+    "pastedText": "貼上的文字",
+    "sampleFile": "範例檔案",
+    "howItWorks": {
+      "title": "使用方法",
+      "step1": "上傳.md檔案或貼上Markdown文字。",
+      "step2": "在此查看格式化預覽。",
+      "step3": "點擊「轉PDF」、「轉TXT」或「轉HTML」下載轉換後的檔案。",
+      "note": "新增您自己的Markdown後，此預覽將相應更新。"
+    }
+  },
+  "errors": {
+    "invalidType": "不支援的檔案類型。請上傳.md、.markdown或.txt檔案。",
+    "tooLarge": "檔案過大。最大大小為5MB。",
+    "readError": "無法讀取檔案。請確保它是有效的文字檔案。",
+    "sampleError": "無法載入範例檔案。請重試。",
+    "pdfTimeout": "PDF產生逾時。請重試。",
+    "pdfError": "出現問題。請重試。",
+    "networkError": "連線中斷。請檢查您的網路連線並重試。",
+    "tryAgain": "重試",
+    "dismiss": "關閉"
+  },
+  "header": {
+    "about": "關於",
+    "privacy": "隱私",
+    "feedback": "回饋"
+  },
+  "footer": {
+    "copyright": "© 2026 Markdown Free。為簡單、快速、免費的匯出而建置。",
+    "privacyNote": "無追蹤Cookie • 僅HTTPS"
+  },
+  "feedback": {
+    "title": "傳送回饋",
+    "placeholder": "有什麼想法？錯誤報告、功能請求或打個招呼都可以！",
+    "emailPlaceholder": "電子郵件（選填，用於後續追蹤）",
+    "submit": "傳送回饋",
+    "submitting": "傳送中...",
+    "success": "謝謝！您的回饋已傳送。",
+    "cancel": "取消"
+  },
+  "faq": [
+    {
+      "question": "這個Markdown轉PDF轉換器真的免費嗎？",
+      "answer": "是的，Markdown Free 100%免費，沒有隱藏費用、進階版本或註冊要求。"
+    },
+    {
+      "question": "你們會儲存或記錄我的Markdown檔案嗎？",
+      "answer": "不會。檔案在轉換過程中僅在記憶體中臨時處理，並立即刪除。我們從不將內容儲存在磁碟或任何資料庫中。"
+    },
+    {
+      "question": "你們會追蹤我或使用Cookie嗎？",
+      "answer": "我們不使用廣告追蹤器，不出售您的資料，也不跨網站追蹤您。我們使用尊重隱私的分析，但從不記錄檔案內容或個人資訊。"
+    },
+    {
+      "question": "Markdown Free支援哪些格式？",
+      "answer": "輸入：.md、.markdown、.txt檔案（最大5MB）。輸出：PDF、HTML、TXT。支援GitHub風格Markdown。"
+    },
+    {
+      "question": "轉換安全嗎？",
+      "answer": "是的。所有連線使用HTTPS。Markdown預覽在用戶端轉譯。PDF產生在伺服器端但內容不會被持久化。所有HTML都經過XSS淨化處理。"
+    }
+  ],
+  "languageBanner": {
+    "prefer": "偏好語言",
+    "switch": "切換",
+    "dismiss": "✕"
+  }
+}

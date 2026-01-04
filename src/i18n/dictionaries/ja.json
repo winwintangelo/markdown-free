@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "Markdown PDF変換 – 無料・プライベート・登録不要",
+    "description": "MarkdownをPDF、HTML、TXTに即座に変換。完全無料、登録不要、広告トラッカーなし。ファイルは一時的に処理され、保存されません。"
+  },
+  "hero": {
+    "badge": "無料 • 登録不要 • 即時エクスポート",
+    "title": "無料 Markdown PDF・TXT・HTML 変換ツール",
+    "subtitle": ".mdファイルをアップロードまたは貼り付けて、すぐにプレビュー。ワンクリックでPDF、TXT、HTMLにエクスポート。無料・プライベート・安全 – ファイルは保存されません。"
+  },
+  "upload": {
+    "dragDrop": "Markdownファイルをドラッグ＆ドロップ",
+    "or": "または",
+    "chooseFile": "ファイルを選択",
+    "supports": ".md, .markdown, .txt対応 • 最大5MB",
+    "noFile": "ファイルが選択されていません",
+    "trySample": "サンプルファイルを試す",
+    "pasteMarkdown": "Markdownを貼り付け"
+  },
+  "paste": {
+    "label": "貼り付けられたMarkdown",
+    "placeholder": "ここにMarkdownを貼り付けてください…",
+    "helper": "ここでの変更はPDF、TXT、HTMLへのエクスポート時にも使用されます。"
+  },
+  "export": {
+    "toPdf": "PDFへ",
+    "toTxt": "TXTへ",
+    "toHtml": "HTMLへ",
+    "privacy": "ファイルは変換のために一時的に処理され、保存されません。",
+    "generating": "PDF生成中..."
+  },
+  "preview": {
+    "title": "プレビュー",
+    "waiting": "Markdownを待っています…",
+    "ready": "エクスポート準備完了",
+    "uploadedFile": "アップロードされたファイル",
+    "pastedText": "貼り付けられたテキスト",
+    "sampleFile": "サンプルファイル",
+    "howItWorks": {
+      "title": "使い方",
+      "step1": ".mdファイルをアップロードするか、Markdownテキストを貼り付けます。",
+      "step2": "ここでフォーマットされたプレビューを確認できます。",
+      "step3": "「PDFへ」「TXTへ」「HTMLへ」をクリックして変換ファイルをダウンロード。",
+      "note": "Markdownを追加すると、このプレビューがそれに合わせて更新されます。"
+    }
+  },
+  "errors": {
+    "invalidType": "サポートされていないファイル形式です。.md、.markdown、または.txtファイルをアップロードしてください。",
+    "tooLarge": "ファイルが大きすぎます。最大サイズは5MBです。",
+    "readError": "ファイルを読み取れません。有効なテキストファイルであることを確認してください。",
+    "sampleError": "サンプルファイルを読み込めません。もう一度お試しください。",
+    "pdfTimeout": "PDF生成がタイムアウトしました。もう一度お試しください。",
+    "pdfError": "エラーが発生しました。もう一度お試しください。",
+    "networkError": "接続が切断されました。インターネット接続を確認して、もう一度お試しください。",
+    "tryAgain": "再試行",
+    "dismiss": "閉じる"
+  },
+  "header": {
+    "about": "概要",
+    "privacy": "プライバシー",
+    "feedback": "フィードバック"
+  },
+  "footer": {
+    "copyright": "© 2026 Markdown Free. シンプル・高速・無料のエクスポートのために構築。",
+    "privacyNote": "トラッキングCookieなし • HTTPSのみ"
+  },
+  "feedback": {
+    "title": "フィードバックを送信",
+    "placeholder": "何かご意見がありますか？バグ報告、機能リクエスト、または挨拶でも構いません！",
+    "emailPlaceholder": "メールアドレス（任意、フォローアップ用）",
+    "submit": "フィードバックを送信",
+    "submitting": "送信中...",
+    "success": "ありがとうございます！フィードバックが送信されました。",
+    "cancel": "キャンセル"
+  },
+  "faq": [
+    {
+      "question": "このMarkdown PDF変換ツールは本当に無料ですか？",
+      "answer": "はい、Markdown Freeは隠れたコスト、プレミアムプラン、登録要件なしで100%無料です。"
+    },
+    {
+      "question": "私のMarkdownファイルを保存またはログに記録しますか？",
+      "answer": "いいえ。ファイルは変換中にメモリ内で一時的に処理され、すぐに削除されます。コンテンツをディスクやデータベースに保存することはありません。"
+    },
+    {
+      "question": "トラッキングやCookieを使用していますか？",
+      "answer": "広告トラッカーを使用したり、データを販売したり、ウェブサイト間で追跡したりしません。プライバシーを尊重した分析は使用しますが、ファイルの内容や個人情報をログに記録することはありません。"
+    },
+    {
+      "question": "Markdown Freeはどのフォーマットをサポートしていますか？",
+      "answer": "入力：.md、.markdown、.txtファイル（最大5MB）。出力：PDF、HTML、TXT。GitHub Flavored Markdownをサポート。"
+    },
+    {
+      "question": "変換は安全ですか？",
+      "answer": "はい。すべての接続はHTTPSを使用。Markdownプレビューはクライアント側でレンダリング。PDF生成はサーバー側ですが、コンテンツは保持されません。すべてのHTMLはXSSサニタイズされています。"
+    }
+  ],
+  "languageBanner": {
+    "prefer": "お好みの言語",
+    "switch": "切り替え",
+    "dismiss": "✕"
+  }
+}

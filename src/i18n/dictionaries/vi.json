@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "title": "Chuyển đổi Markdown sang PDF – Miễn phí, Riêng tư, Không cần đăng ký",
+    "description": "Chuyển đổi Markdown sang PDF, HTML hoặc TXT ngay lập tức. 100% miễn phí, không cần đăng ký, không có trình theo dõi quảng cáo. Tệp được xử lý tạm thời và không bao giờ được lưu trữ."
+  },
+  "hero": {
+    "badge": "Miễn phí • Không cần đăng ký • Xuất ngay",
+    "title": "Công cụ chuyển đổi Markdown sang PDF, TXT & HTML miễn phí",
+    "subtitle": "Tải lên hoặc dán tệp .md của bạn, xem trước ngay lập tức, sau đó xuất sang PDF, TXT hoặc HTML chỉ với một cú nhấp chuột. Miễn phí, riêng tư và an toàn — tệp của bạn không bao giờ được lưu trữ."
+  },
+  "upload": {
+    "dragDrop": "Kéo và thả tệp Markdown của bạn",
+    "or": "hoặc",
+    "chooseFile": "chọn tệp",
+    "supports": "Hỗ trợ .md, .markdown, .txt • Tối đa 5 MB",
+    "noFile": "Chưa chọn tệp nào",
+    "trySample": "Thử tệp mẫu",
+    "pasteMarkdown": "dán Markdown"
+  },
+  "paste": {
+    "label": "Markdown đã dán",
+    "placeholder": "Dán Markdown của bạn vào đây…",
+    "helper": "Các thay đổi ở đây cũng sẽ được sử dụng khi xuất sang PDF, TXT hoặc HTML."
+  },
+  "export": {
+    "toPdf": "Sang PDF",
+    "toTxt": "Sang TXT",
+    "toHtml": "Sang HTML",
+    "privacy": "Tệp được xử lý tạm thời để chuyển đổi và không được lưu trữ.",
+    "generating": "Đang tạo PDF..."
+  },
+  "preview": {
+    "title": "Xem trước",
+    "waiting": "Đang chờ Markdown…",
+    "ready": "Sẵn sàng xuất",
+    "uploadedFile": "tệp đã tải lên",
+    "pastedText": "văn bản đã dán",
+    "sampleFile": "tệp mẫu",
+    "howItWorks": {
+      "title": "Cách hoạt động",
+      "step1": "Tải lên tệp .md hoặc dán văn bản Markdown.",
+      "step2": "Xem bản xem trước đã định dạng ngay tại đây.",
+      "step3": "Nhấp Sang PDF, Sang TXT hoặc Sang HTML để tải xuống tệp đã chuyển đổi.",
+      "note": "Sau khi bạn thêm Markdown của riêng mình, bản xem trước này sẽ cập nhật theo."
+    }
+  },
+  "errors": {
+    "invalidType": "Loại tệp không được hỗ trợ. Vui lòng tải lên tệp .md, .markdown hoặc .txt.",
+    "tooLarge": "Tệp quá lớn. Kích thước tối đa là 5MB.",
+    "readError": "Không thể đọc tệp. Vui lòng đảm bảo đó là tệp văn bản hợp lệ.",
+    "sampleError": "Không thể tải tệp mẫu. Vui lòng thử lại.",
+    "pdfTimeout": "Tạo PDF đã hết thời gian. Vui lòng thử lại.",
+    "pdfError": "Đã xảy ra lỗi. Vui lòng thử lại.",
+    "networkError": "Mất kết nối. Vui lòng kiểm tra internet của bạn và thử lại.",
+    "tryAgain": "Thử lại",
+    "dismiss": "Đóng"
+  },
+  "header": {
+    "about": "Giới thiệu",
+    "privacy": "Quyền riêng tư",
+    "feedback": "Phản hồi"
+  },
+  "footer": {
+    "copyright": "© 2026 Markdown Free. Được xây dựng để xuất đơn giản, nhanh chóng và miễn phí.",
+    "privacyNote": "Không có cookie theo dõi • Chỉ HTTPS"
+  },
+  "feedback": {
+    "title": "Gửi phản hồi",
+    "placeholder": "Bạn đang nghĩ gì? Báo cáo lỗi, yêu cầu tính năng, hoặc chỉ là chào hỏi!",
+    "emailPlaceholder": "Email (tùy chọn, để theo dõi)",
+    "submit": "Gửi phản hồi",
+    "submitting": "Đang gửi...",
+    "success": "Cảm ơn bạn! Phản hồi của bạn đã được gửi.",
+    "cancel": "Hủy"
+  },
+  "faq": [
+    {
+      "question": "Công cụ chuyển đổi Markdown sang PDF này có thực sự miễn phí không?",
+      "answer": "Có, Markdown Free miễn phí 100% không có chi phí ẩn, gói cao cấp hoặc yêu cầu đăng ký."
+    },
+    {
+      "question": "Bạn có lưu trữ hoặc ghi lại các tệp Markdown của tôi không?",
+      "answer": "Không. Tệp của bạn được xử lý tạm thời trong bộ nhớ trong quá trình chuyển đổi và ngay lập tức bị loại bỏ. Chúng tôi không bao giờ lưu trữ nội dung của bạn trên đĩa hoặc trong bất kỳ cơ sở dữ liệu nào."
+    },
+    {
+      "question": "Bạn có theo dõi tôi hoặc sử dụng cookie không?",
+      "answer": "Chúng tôi không sử dụng trình theo dõi quảng cáo, bán dữ liệu của bạn hoặc theo dõi bạn trên các trang web. Chúng tôi sử dụng phân tích tôn trọng quyền riêng tư nhưng không bao giờ ghi lại nội dung tệp hoặc thông tin cá nhân."
+    },
+    {
+      "question": "Markdown Free hỗ trợ những định dạng nào?",
+      "answer": "Đầu vào: tệp .md, .markdown, .txt (tối đa 5MB). Đầu ra: PDF, HTML, TXT. Hỗ trợ GitHub Flavored Markdown."
+    },
+    {
+      "question": "Việc chuyển đổi có an toàn không?",
+      "answer": "Có. Tất cả các kết nối sử dụng HTTPS. Bản xem trước Markdown được hiển thị phía máy khách. Việc tạo PDF diễn ra phía máy chủ nhưng nội dung không bao giờ được lưu trữ vĩnh viễn. Tất cả HTML đều được làm sạch XSS."
+    }
+  ],
+  "languageBanner": {
+    "prefer": "Ưu tiên",
+    "switch": "Chuyển",
+    "dismiss": "✕"
+  }
+}
