@@ -48,6 +48,13 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- English Intent Pages (SEO landing pages) -->
+  <url>
+    <loc>https://www.markdown.free/readme-to-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Italian -->
   <url>
     <loc>https://www.markdown.free/it</loc>
@@ -458,6 +465,16 @@
   </url>
   <url>
     <loc>https://www.markdown.free/zh-Hant/markdown-zhuanhuanqi-bijiao-tw</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hant/github-wenjiian-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hant/jishu-biji-pdf</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
