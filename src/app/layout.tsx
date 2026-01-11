@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 // Umami Analytics configuration
@@ -94,6 +95,8 @@ export default function RootLayout({
     <html lang="en">
       <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
         {children}
+        {/* Vercel Web Analytics */}
+        <Analytics />
         {/* Umami Analytics - Privacy-friendly, cookieless */}
         {umamiHost && umamiWebsiteId && (
           <Script
