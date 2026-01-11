@@ -1,14 +1,17 @@
 /**
- * Umami Analytics - Privacy-friendly event tracking
+ * Analytics - Dual tracking with Umami and Vercel Web Analytics
  *
- * Events are only sent if Umami is loaded (production with env vars set).
- * All events are fire-and-forget - never blocks UI.
+ * Both are privacy-friendly and cookieless.
+ * - Umami: Primary analytics with detailed event tracking
+ * - Vercel: Secondary analytics with Web Vitals (can be disabled via env var)
  *
  * Event Categories:
  * - Conversion events: upload_start, upload_error, convert_success, convert_error
  * - Engagement events: section_visible, scroll_depth, time_on_page, upload_hover, paste_toggle_click, export_hover
  * - Navigation events: nav_click, feedback_click
  */
+
+import { track as vercelTrack } from "@vercel/analytics";
 
 declare global {
   interface Window {
@@ -19,7 +22,20 @@ declare global {
 }
 
 /**
+ * Feature switch for Vercel custom events
+ * Set NEXT_PUBLIC_VERCEL_EVENTS_ENABLED=false to disable
+ * Default: enabled (true)
+ */
+const isVercelEventsEnabled = (): boolean => {
+  if (typeof window === "undefined") return false;
+  const envValue = process.env.NEXT_PUBLIC_VERCEL_EVENTS_ENABLED;
+  // Default to true if not set
+  return envValue !== "false";
+};
+
+/**
  * Track a custom event with Umami Analytics
+ * Also sends to Vercel Analytics if enabled
  * @param eventName - Short event name (max 50 chars)
  * @param data - Optional key-value properties (strings only, no PII)
  */
@@ -27,8 +43,23 @@ export function trackEvent(
   eventName: string,
   data?: Record<string, string>
 ): void {
+  // Umami tracking (always enabled when available)
   if (typeof window !== "undefined" && window.umami?.track) {
     window.umami.track(eventName, data);
+  }
+
+  // Vercel tracking (controlled by feature switch)
+  if (isVercelEventsEnabled()) {
+    try {
+      // Vercel track() accepts up to 5 properties
+      // We limit data to avoid hitting Vercel's property limit
+      const vercelData = data ? Object.fromEntries(
+        Object.entries(data).slice(0, 5)
+      ) : undefined;
+      vercelTrack(eventName, vercelData);
+    } catch {
+      // Silently fail - don't break the app if Vercel tracking fails
+    }
   }
 }
 
