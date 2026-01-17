@@ -32,7 +32,7 @@ test.describe("Markdown Free - App Layout", () => {
 
     // Check headline (SEO-optimized H1)
     const headline = page.getByRole("heading", {
-      name: "Free Markdown to PDF, TXT & HTML Converter",
+      name: "Free Markdown to PDF, DOCX, TXT & HTML Converter",
     });
     await expect(headline).toBeVisible();
 
@@ -57,15 +57,27 @@ test.describe("Markdown Free - App Layout", () => {
     const pdfButton = page.getByRole("button", { name: "To PDF" });
     const txtButton = page.getByRole("button", { name: "To TXT" });
     const htmlButton = page.getByRole("button", { name: "To HTML" });
+    const docxButton = page.getByRole("button", { name: "To DOCX" });
 
     // Buttons should be enabled (active buttons UX)
     await expect(pdfButton).toBeEnabled();
     await expect(txtButton).toBeEnabled();
     await expect(htmlButton).toBeEnabled();
+    await expect(docxButton).toBeEnabled();
 
     // Clicking should show a hint message (file picker is triggered but we can't easily test that)
     await pdfButton.click();
     await expect(page.getByText("Select a Markdown file to export")).toBeVisible();
+  });
+
+  test("should show DOCX button with Word styling", async ({ page }) => {
+    const docxButton = page.getByRole("button", { name: "To DOCX" });
+    await expect(docxButton).toBeVisible();
+    await expect(docxButton).toBeEnabled();
+    
+    // DOCX button should have blue styling (different from other buttons)
+    const buttonClasses = await docxButton.getAttribute("class");
+    expect(buttonClasses).toContain("blue");
   });
 
   test("should show default preview content", async ({ page }) => {
@@ -664,15 +676,543 @@ test.describe("Markdown Free - Export Functionality", () => {
     expect(download.suggestedFilename()).toBe("test.html");
   });
 
+  test("DOCX export triggers download", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Mock the DOCX API
+    await page.route("**/api/convert/docx", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        headers: {
+          "Content-Disposition": 'attachment; filename="test.docx"',
+        },
+        // Minimal valid DOCX structure (just enough for test)
+        body: Buffer.from("PK...mock docx content"),
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test\n\nContent for DOCX export"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Set up download listener
+    const downloadPromise = page.waitForEvent("download");
+
+    // Click DOCX button
+    const docxButton = page.getByRole("button", { name: "To DOCX" });
+    await docxButton.click();
+
+    // Verify download was triggered
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("test.docx");
+  });
+
+  test("DOCX export shows loading state", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Mock slow DOCX API
+    await page.route("**/api/convert/docx", async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      await route.fulfill({
+        status: 200,
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        headers: {
+          "Content-Disposition": 'attachment; filename="test.docx"',
+        },
+        body: Buffer.from("PK...mock docx content"),
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test\n\nContent"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Click DOCX button
+    const docxButton = page.getByRole("button", { name: "To DOCX" });
+    await docxButton.click();
+
+    // Should show loading state
+    await expect(page.getByRole("button", { name: "Generating DOCX..." })).toBeVisible();
+    await expect(page.getByText("This may take a few seconds.")).toBeVisible();
+  });
+
+  test("DOCX error shows retry button", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Mock the DOCX API with error response
+    await page.route("**/api/convert/docx", async (route) => {
+      await route.fulfill({
+        status: 500,
+        contentType: "application/json",
+        body: JSON.stringify({
+          error: "GENERATION_FAILED",
+          message: "DOCX generation failed. Please try again.",
+        }),
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test\n\nContent"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Click DOCX button
+    const docxButton = page.getByRole("button", { name: "To DOCX" });
+    await docxButton.click();
+
+    // Should show error banner with retry button
+    await expect(page.getByText("DOCX generation failed", { exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Try Again" })).toBeVisible();
+  });
+
+  test("DOCX timeout error shows appropriate message", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Mock the DOCX API with timeout error
+    await page.route("**/api/convert/docx", async (route) => {
+      await route.fulfill({
+        status: 504,
+        contentType: "application/json",
+        body: JSON.stringify({
+          error: "GENERATION_TIMEOUT",
+          message: "DOCX generation timed out. Please try again with a smaller document.",
+        }),
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test\n\nContent"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Click DOCX button
+    await page.getByRole("button", { name: "To DOCX" }).click();
+
+    // Should show timeout error
+    await expect(page.getByText("DOCX generation timed out")).toBeVisible();
+  });
+
+  test("DOCX error banner can be dismissed", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Mock the DOCX API with error
+    await page.route("**/api/convert/docx", async (route) => {
+      await route.fulfill({
+        status: 500,
+        contentType: "application/json",
+        body: JSON.stringify({
+          error: "GENERATION_FAILED",
+          message: "DOCX generation failed. Please try again.",
+        }),
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Trigger error
+    await page.getByRole("button", { name: "To DOCX" }).click();
+    await expect(page.getByText("DOCX generation failed", { exact: true })).toBeVisible();
+
+    // Click dismiss button (X)
+    await page.locator('button:has(svg.lucide-x)').click();
+
+    // Error should be gone
+    await expect(page.getByText("DOCX generation failed", { exact: true })).not.toBeVisible();
+  });
+
+  test("DOCX download generates file with correct headers", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Track the API request to verify it's called correctly
+    let apiRequestBody: { markdown: string; filename: string } | null = null;
+
+    // Mock the DOCX API and capture request
+    await page.route("**/api/convert/docx", async (route) => {
+      const request = route.request();
+      apiRequestBody = JSON.parse(request.postData() || "{}");
+
+      // Return a mock DOCX (PK magic bytes for zip/docx format)
+      const mockDocx = Buffer.from("PK\x03\x04...mock docx content for testing");
+
+      await route.fulfill({
+        status: 200,
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        body: mockDocx,
+        headers: {
+          "Content-Disposition": 'attachment; filename="document.docx"',
+          "Content-Length": mockDocx.length.toString(),
+        },
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "document.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# My Document\n\nThis is the content."),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Set up download listener
+    const downloadPromise = page.waitForEvent("download");
+
+    // Click DOCX button
+    await page.getByRole("button", { name: "To DOCX" }).click();
+
+    // Verify download
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("document.docx");
+
+    // Verify API was called with correct data
+    expect(apiRequestBody).not.toBeNull();
+    expect(apiRequestBody!.markdown).toBe("# My Document\n\nThis is the content.");
+    expect(apiRequestBody!.filename).toBe("document.md");
+  });
+
+  test("network failure during DOCX generation shows user-friendly error", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Mock network failure by aborting the request
+    await page.route("**/api/convert/docx", async (route) => {
+      await route.abort("failed");
+    });
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test Content"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // Click DOCX button
+    await page.getByRole("button", { name: "To DOCX" }).click();
+
+    // Should show error message
+    await expect(page.getByText("DOCX generation failed", { exact: true })).toBeVisible();
+    
+    // Should have retry button since network errors are retryable
+    await expect(page.getByRole("button", { name: "Try Again" })).toBeVisible();
+  });
+
+  test("DOCX export from pasted content", async ({ page }) => {
+    // Mock the DOCX API
+    await page.route("**/api/convert/docx", async (route) => {
+      const mockDocx = Buffer.from("PK\x03\x04...mock docx");
+      await route.fulfill({
+        status: 200,
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        headers: {
+          "Content-Disposition": 'attachment; filename="document.docx"',
+        },
+        body: mockDocx,
+      });
+    });
+
+    // Click paste toggle to reveal paste area
+    await page.getByRole("button", { name: /paste Markdown/i }).click();
+
+    // Find and fill the textarea
+    const textarea = page.getByRole("textbox");
+    await textarea.fill("# Pasted Content\n\nThis was pasted, not uploaded.");
+
+    // Wait for content to be processed
+    await expect(page.getByText("Ready to export")).toBeVisible();
+
+    // Set up download listener
+    const downloadPromise = page.waitForEvent("download");
+
+    // Click DOCX button
+    await page.getByRole("button", { name: "To DOCX" }).click();
+
+    // Verify download was triggered
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("document.docx");
+  });
+
+  test("DOCX export handles Unicode filename with en-dash (–)", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    let apiRequestBody: { markdown: string; filename: string } | null = null;
+
+    await page.route("**/api/convert/docx", async (route) => {
+      const request = route.request();
+      apiRequestBody = JSON.parse(request.postData() || "{}");
+
+      const mockDocx = Buffer.from("PK\x03\x04...mock docx");
+
+      const safeFilename = "Report-2024-2025.docx";
+      const encodedFilename = encodeURIComponent("Report 2024–2025.docx");
+
+      await route.fulfill({
+        status: 200,
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        body: mockDocx,
+        headers: {
+          "Content-Disposition": `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
+          "Content-Length": mockDocx.length.toString(),
+        },
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "Report 2024–2025.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Quarterly Report\n\nQ1-Q4 Analysis"),
+    });
+
+    await expect(page.getByText("Ready to export")).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: "To DOCX" }).click();
+    const download = await downloadPromise;
+
+    expect(apiRequestBody).not.toBeNull();
+    expect(apiRequestBody!.filename).toBe("Report 2024–2025.md");
+    expect(download.suggestedFilename()).toMatch(/Report.*2024.*2025\.docx/);
+  });
+
+  test("DOCX export handles filename with Chinese characters", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    let apiRequestBody: { markdown: string; filename: string } | null = null;
+
+    await page.route("**/api/convert/docx", async (route) => {
+      const request = route.request();
+      apiRequestBody = JSON.parse(request.postData() || "{}");
+
+      const mockDocx = Buffer.from("PK\x03\x04...mock docx");
+
+      const safeFilename = "----.docx";
+      const encodedFilename = encodeURIComponent("报告文档.docx");
+
+      await route.fulfill({
+        status: 200,
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        body: mockDocx,
+        headers: {
+          "Content-Disposition": `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
+          "Content-Length": mockDocx.length.toString(),
+        },
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "报告文档.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# 标题\n\n内容"),
+    });
+
+    await expect(page.getByText("Ready to export")).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: "To DOCX" }).click();
+    const download = await downloadPromise;
+
+    expect(apiRequestBody).not.toBeNull();
+    expect(apiRequestBody!.filename).toBe("报告文档.md");
+    expect(download.suggestedFilename()).toMatch(/.*\.docx/);
+  });
+
+  test("DOCX export handles complex markdown content", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    let apiRequestBody: { markdown: string; filename: string } | null = null;
+
+    await page.route("**/api/convert/docx", async (route) => {
+      const request = route.request();
+      apiRequestBody = JSON.parse(request.postData() || "{}");
+
+      const mockDocx = Buffer.from("PK\x03\x04...mock docx");
+      await route.fulfill({
+        status: 200,
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        headers: {
+          "Content-Disposition": 'attachment; filename="complex.docx"',
+        },
+        body: mockDocx,
+      });
+    });
+
+    // Complex markdown with tables, code blocks, lists
+    const complexMarkdown = `# Complex Document
+
+## Table Example
+
+| Header 1 | Header 2 | Header 3 |
+|----------|----------|----------|
+| Cell 1   | Cell 2   | Cell 3   |
+| Cell 4   | Cell 5   | Cell 6   |
+
+## Code Block
+
+\`\`\`javascript
+function hello() {
+  console.log("Hello, World!");
+}
+\`\`\`
+
+## Lists
+
+1. First item
+2. Second item
+   - Nested bullet
+   - Another nested
+
+## Blockquote
+
+> This is a blockquote
+> with multiple lines
+
+**Bold text** and *italic text* and ~~strikethrough~~
+`;
+
+    await fileInput.setInputFiles({
+      name: "complex.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from(complexMarkdown),
+    });
+
+    await expect(page.getByText("Ready to export")).toBeVisible();
+
+    const downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: "To DOCX" }).click();
+    const download = await downloadPromise;
+
+    // Verify API received full content
+    expect(apiRequestBody).not.toBeNull();
+    expect(apiRequestBody!.markdown).toContain("| Header 1 |");
+    expect(apiRequestBody!.markdown).toContain("function hello()");
+    expect(apiRequestBody!.markdown).toContain("~~strikethrough~~");
+    expect(download.suggestedFilename()).toBe("complex.docx");
+  });
+
+  test("DOCX button is disabled during generation", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+
+    // Mock slow DOCX API
+    await page.route("**/api/convert/docx", async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await route.fulfill({
+        status: 200,
+        contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        headers: {
+          "Content-Disposition": 'attachment; filename="test.docx"',
+        },
+        body: Buffer.from("PK\x03\x04...mock docx"),
+      });
+    });
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test"),
+    });
+
+    await page.waitForTimeout(500);
+
+    const docxButton = page.getByRole("button", { name: "To DOCX" });
+    
+    // Start DOCX generation
+    await docxButton.click();
+
+    // Button should show loading state and be disabled
+    const loadingButton = page.getByRole("button", { name: "Generating DOCX..." });
+    await expect(loadingButton).toBeVisible();
+    await expect(loadingButton).toBeDisabled();
+
+    // Other export buttons should also be disabled during generation
+    await expect(page.getByRole("button", { name: "To PDF" })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "To TXT" })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "To HTML" })).toBeDisabled();
+  });
+
+  test("DOCX retry after error works correctly", async ({ page }) => {
+    const fileInput = page.locator('input[type="file"]');
+    let callCount = 0;
+
+    // First call fails, second call succeeds
+    await page.route("**/api/convert/docx", async (route) => {
+      callCount++;
+      if (callCount === 1) {
+        await route.fulfill({
+          status: 500,
+          contentType: "application/json",
+          body: JSON.stringify({
+            error: "GENERATION_FAILED",
+            message: "DOCX generation failed. Please try again.",
+          }),
+        });
+      } else {
+        await route.fulfill({
+          status: 200,
+          contentType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          headers: {
+            "Content-Disposition": 'attachment; filename="test.docx"',
+          },
+          body: Buffer.from("PK\x03\x04...mock docx"),
+        });
+      }
+    });
+
+    await fileInput.setInputFiles({
+      name: "test.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Test"),
+    });
+
+    await page.waitForTimeout(500);
+
+    // First attempt - should fail
+    await page.getByRole("button", { name: "To DOCX" }).click();
+    await expect(page.getByText("DOCX generation failed", { exact: true })).toBeVisible();
+
+    // Set up download listener for retry
+    const downloadPromise = page.waitForEvent("download");
+
+    // Click retry
+    await page.getByRole("button", { name: "Try Again" }).click();
+
+    // Should succeed on retry
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe("test.docx");
+
+    // Error should be gone
+    await expect(page.getByText("DOCX generation failed", { exact: true })).not.toBeVisible();
+  });
+
   test("export buttons are enabled when no content (active buttons UX)", async ({ page }) => {
     const pdfButton = page.getByRole("button", { name: "To PDF" });
     const txtButton = page.getByRole("button", { name: "To TXT" });
     const htmlButton = page.getByRole("button", { name: "To HTML" });
+    const docxButton = page.getByRole("button", { name: "To DOCX" });
 
     // Buttons should be enabled - clicking triggers file picker
     await expect(pdfButton).toBeEnabled();
     await expect(txtButton).toBeEnabled();
     await expect(htmlButton).toBeEnabled();
+    await expect(docxButton).toBeEnabled();
   });
 
   test("export buttons are enabled after file upload", async ({ page }) => {

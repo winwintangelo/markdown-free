@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Convertidor de Markdown a PDF – Gratis, Privado, Sin Registro",
-    "description": "Convierte Markdown a PDF, HTML o TXT al instante. 100% gratis, sin registro, sin rastreadores. Los archivos se procesan temporalmente y nunca se almacenan."
+    "title": "Convertidor de Markdown a PDF y DOCX – Gratis, Privado, Sin Registro",
+    "description": "Convierte Markdown a PDF, DOCX, HTML o TXT al instante. 100% gratis, sin registro, sin rastreadores. Los archivos se procesan temporalmente y nunca se almacenan."
   },
   "hero": {
     "badge": "Gratis • Sin cuenta • Exporta al instante",
-    "title": "Convertidor Gratuito de Markdown a PDF, TXT y HTML",
-    "subtitle": "Sube o pega tu archivo .md, previsualízalo al instante, y expórtalo a PDF, TXT o HTML con un solo clic. Gratuito, privado y seguro — tus archivos nunca se guardan."
+    "title": "Convertidor Gratuito de Markdown a PDF, DOCX, TXT y HTML",
+    "subtitle": "Sube o pega tu archivo .md, previsualízalo al instante, y expórtalo a PDF, DOCX, TXT o HTML con un solo clic. Gratuito, privado y seguro — tus archivos nunca se guardan."
   },
   "upload": {
     "dragDrop": "Arrastra y suelta tu archivo Markdown",
@@ -20,13 +20,15 @@
   "paste": {
     "label": "Markdown Pegado",
     "placeholder": "Pega tu Markdown aquí…",
-    "helper": "Los cambios aquí también se usarán al exportar a PDF, TXT o HTML."
+    "helper": "Los cambios aquí también se usarán al exportar a PDF, DOCX, TXT o HTML."
   },
   "export": {
     "toPdf": "A PDF",
     "toTxt": "A TXT",
     "toHtml": "A HTML",
+    "toDocx": "A DOCX",
     "privacy": "Los archivos se procesan temporalmente para la conversión y no se almacenan.",
+    "generatingDocx": "Generando DOCX...",
     "generating": "Generando PDF...",
     "selectFileHint": "Selecciona un archivo Markdown para exportar",
     "uploadOrPaste": "Sube o pega para continuar"
@@ -42,7 +44,7 @@
       "title": "Cómo funciona",
       "step1": "Sube un archivo .md o pega texto Markdown.",
       "step2": "Ve la vista previa formateada aquí.",
-      "step3": "Haz clic en A PDF, A TXT o A HTML para descargar tu archivo convertido.",
+      "step3": "Haz clic en A PDF, A DOCX, A TXT o A HTML para descargar tu archivo convertido.",
       "note": "Cuando agregues tu propio Markdown, esta vista previa se actualizará automáticamente."
     }
   },
@@ -90,7 +92,7 @@
     },
     {
       "question": "¿Qué formatos soporta Markdown Free?",
-      "answer": "Entrada: archivos .md, .markdown, .txt (hasta 5MB). Salida: PDF, HTML, TXT. Soportamos Markdown estilo GitHub (GitHub Flavored Markdown) con tablas, resaltado de código y más."
+      "answer": "Entrada: archivos .md, .markdown, .txt (hasta 5MB). Salida: PDF, DOCX (Word), HTML, TXT. Soportamos Markdown estilo GitHub (GitHub Flavored Markdown) con tablas, resaltado de código y más."
     },
     {
       "question": "¿La conversión es segura?",

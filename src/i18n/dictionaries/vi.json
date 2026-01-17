@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Chuyển đổi Markdown sang PDF – Miễn phí, Riêng tư, Không cần đăng ký",
-    "description": "Chuyển đổi Markdown sang PDF, HTML hoặc TXT ngay lập tức. 100% miễn phí, không cần đăng ký, không có trình theo dõi quảng cáo. Tệp được xử lý tạm thời và không bao giờ được lưu trữ."
+    "title": "Chuyển đổi Markdown sang PDF & DOCX – Miễn phí, Riêng tư, Không cần đăng ký",
+    "description": "Chuyển đổi Markdown sang PDF, DOCX, HTML hoặc TXT ngay lập tức. 100% miễn phí, không cần đăng ký, không có trình theo dõi quảng cáo. Tệp được xử lý tạm thời và không bao giờ được lưu trữ."
   },
   "hero": {
     "badge": "Miễn phí • Không cần đăng ký • Xuất ngay",
-    "title": "Công cụ chuyển đổi Markdown sang PDF, TXT & HTML miễn phí",
-    "subtitle": "Tải lên hoặc dán tệp .md của bạn, xem trước ngay lập tức, sau đó xuất sang PDF, TXT hoặc HTML chỉ với một cú nhấp chuột. Miễn phí, riêng tư và an toàn — tệp của bạn không bao giờ được lưu trữ."
+    "title": "Công cụ chuyển đổi Markdown sang PDF, DOCX, TXT & HTML miễn phí",
+    "subtitle": "Tải lên hoặc dán tệp .md của bạn, xem trước ngay lập tức, sau đó xuất sang PDF, DOCX, TXT hoặc HTML chỉ với một cú nhấp chuột. Miễn phí, riêng tư và an toàn — tệp của bạn không bao giờ được lưu trữ."
   },
   "upload": {
     "dragDrop": "Kéo và thả tệp Markdown của bạn",
@@ -20,13 +20,15 @@
   "paste": {
     "label": "Markdown đã dán",
     "placeholder": "Dán Markdown của bạn vào đây…",
-    "helper": "Các thay đổi ở đây cũng sẽ được sử dụng khi xuất sang PDF, TXT hoặc HTML."
+    "helper": "Các thay đổi ở đây cũng sẽ được sử dụng khi xuất sang PDF, DOCX, TXT hoặc HTML."
   },
   "export": {
     "toPdf": "Sang PDF",
     "toTxt": "Sang TXT",
     "toHtml": "Sang HTML",
+    "toDocx": "Sang DOCX",
     "privacy": "Tệp được xử lý tạm thời để chuyển đổi và không được lưu trữ.",
+    "generatingDocx": "Đang tạo DOCX...",
     "generating": "Đang tạo PDF...",
     "selectFileHint": "Chọn tệp Markdown để xuất",
     "uploadOrPaste": "Tải lên hoặc dán để tiếp tục"
@@ -42,7 +44,7 @@
       "title": "Cách hoạt động",
       "step1": "Tải lên tệp .md hoặc dán văn bản Markdown.",
       "step2": "Xem bản xem trước đã định dạng ngay tại đây.",
-      "step3": "Nhấp Sang PDF, Sang TXT hoặc Sang HTML để tải xuống tệp đã chuyển đổi.",
+      "step3": "Nhấp Sang PDF, Sang DOCX, Sang TXT hoặc Sang HTML để tải xuống tệp đã chuyển đổi.",
       "note": "Sau khi bạn thêm Markdown của riêng mình, bản xem trước này sẽ cập nhật theo."
     }
   },
@@ -90,7 +92,7 @@
     },
     {
       "question": "Markdown Free hỗ trợ những định dạng nào?",
-      "answer": "Đầu vào: tệp .md, .markdown, .txt (tối đa 5MB). Đầu ra: PDF, HTML, TXT. Hỗ trợ GitHub Flavored Markdown."
+      "answer": "Đầu vào: tệp .md, .markdown, .txt (tối đa 5MB). Đầu ra: PDF, DOCX (Word), HTML, TXT. Hỗ trợ GitHub Flavored Markdown."
     },
     {
       "question": "Việc chuyển đổi có an toàn không?",

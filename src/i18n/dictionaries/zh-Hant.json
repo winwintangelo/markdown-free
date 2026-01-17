@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Markdown轉PDF轉換器 – 免費、私密、無需註冊",
-    "description": "即時將Markdown轉換為PDF、HTML或TXT。100%免費，無需註冊，無廣告追蹤。檔案臨時處理，絕不儲存。"
+    "title": "Markdown轉PDF和DOCX轉換器 – 免費、私密、無需註冊",
+    "description": "即時將Markdown轉換為PDF、DOCX、HTML或TXT。100%免費，無需註冊，無廣告追蹤。檔案臨時處理，絕不儲存。"
   },
   "hero": {
     "badge": "免費 • 無需註冊 • 即時匯出",
-    "title": "免費 Markdown 轉 PDF、TXT 和 HTML 轉換器",
-    "subtitle": "上傳或貼上您的.md檔案，即時預覽，一鍵匯出為PDF、TXT或HTML。免費、私密、安全——您的檔案絕不會被儲存。"
+    "title": "免費 Markdown 轉 PDF、DOCX、TXT 和 HTML 轉換器",
+    "subtitle": "上傳或貼上您的.md檔案，即時預覽，一鍵匯出為PDF、DOCX、TXT或HTML。免費、私密、安全——您的檔案絕不會被儲存。"
   },
   "upload": {
     "dragDrop": "拖放您的Markdown檔案",
@@ -20,13 +20,15 @@
   "paste": {
     "label": "貼上的Markdown",
     "placeholder": "在此貼上您的Markdown…",
-    "helper": "此處的變更也將用於匯出為PDF、TXT或HTML。"
+    "helper": "此處的變更也將用於匯出為PDF、DOCX、TXT或HTML。"
   },
   "export": {
     "toPdf": "轉PDF",
     "toTxt": "轉TXT",
     "toHtml": "轉HTML",
+    "toDocx": "轉DOCX",
     "privacy": "檔案僅為轉換臨時處理，不會被儲存。",
+    "generatingDocx": "正在生成DOCX...",
     "generating": "正在產生PDF...",
     "selectFileHint": "選擇 Markdown 檔案以匯出",
     "uploadOrPaste": "上傳或貼上以繼續"
@@ -42,7 +44,7 @@
       "title": "使用方法",
       "step1": "上傳.md檔案或貼上Markdown文字。",
       "step2": "在此查看格式化預覽。",
-      "step3": "點擊「轉PDF」、「轉TXT」或「轉HTML」下載轉換後的檔案。",
+      "step3": "點擊「轉PDF」、「轉DOCX」、「轉TXT」或「轉HTML」下載轉換後的檔案。",
       "note": "新增您自己的Markdown後，此預覽將相應更新。"
     }
   },
@@ -90,7 +92,7 @@
     },
     {
       "question": "Markdown Free支援哪些格式？",
-      "answer": "輸入：.md、.markdown、.txt檔案（最大5MB）。輸出：PDF、HTML、TXT。支援GitHub風格Markdown。"
+      "answer": "輸入：.md、.markdown、.txt檔案（最大5MB）。輸出：PDF、DOCX（Word）、HTML、TXT。支援GitHub風格Markdown。"
     },
     {
       "question": "轉換安全嗎？",

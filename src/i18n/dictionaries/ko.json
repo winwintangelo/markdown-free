@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Markdown PDF 변환기 – 무료, 비공개, 가입 불필요",
-    "description": "Markdown을 PDF, HTML 또는 TXT로 즉시 변환하세요. 100% 무료, 가입 불필요, 광고 트래커 없음. 파일은 일시적으로 처리되며 저장되지 않습니다."
+    "title": "Markdown PDF & DOCX 변환기 – 무료, 비공개, 가입 불필요",
+    "description": "Markdown을 PDF, DOCX, HTML 또는 TXT로 즉시 변환하세요. 100% 무료, 가입 불필요, 광고 트래커 없음. 파일은 일시적으로 처리되며 저장되지 않습니다."
   },
   "hero": {
     "badge": "무료 • 가입 불필요 • 즉시 내보내기",
-    "title": "무료 Markdown PDF, TXT & HTML 변환기",
-    "subtitle": ".md 파일을 업로드하거나 붙여넣기하고, 즉시 미리보기 후 한 번의 클릭으로 PDF, TXT 또는 HTML로 내보내세요. 무료, 비공개, 안전 — 파일은 저장되지 않습니다."
+    "title": "무료 Markdown PDF, DOCX, TXT & HTML 변환기",
+    "subtitle": ".md 파일을 업로드하거나 붙여넣기하고, 즉시 미리보기 후 한 번의 클릭으로 PDF, DOCX, TXT 또는 HTML로 내보내세요. 무료, 비공개, 안전 — 파일은 저장되지 않습니다."
   },
   "upload": {
     "dragDrop": "Markdown 파일을 드래그 앤 드롭하세요",
@@ -20,13 +20,15 @@
   "paste": {
     "label": "붙여넣은 Markdown",
     "placeholder": "여기에 Markdown을 붙여넣으세요…",
-    "helper": "여기서 변경한 내용은 PDF, TXT 또는 HTML로 내보낼 때도 사용됩니다."
+    "helper": "여기서 변경한 내용은 PDF, DOCX, TXT 또는 HTML로 내보낼 때도 사용됩니다."
   },
   "export": {
     "toPdf": "PDF로",
     "toTxt": "TXT로",
     "toHtml": "HTML로",
+    "toDocx": "DOCX로",
     "privacy": "파일은 변환을 위해 일시적으로 처리되며 저장되지 않습니다.",
+    "generatingDocx": "DOCX 생성 중...",
     "generating": "PDF 생성 중...",
     "selectFileHint": "내보낼 Markdown 파일 선택",
     "uploadOrPaste": "업로드 또는 붙여넣기로 계속"
@@ -42,7 +44,7 @@
       "title": "사용 방법",
       "step1": ".md 파일을 업로드하거나 Markdown 텍스트를 붙여넣으세요.",
       "step2": "여기서 포맷된 미리보기를 확인하세요.",
-      "step3": "PDF로, TXT로 또는 HTML로를 클릭하여 변환된 파일을 다운로드하세요.",
+      "step3": "PDF로, DOCX로, TXT로 또는 HTML로를 클릭하여 변환된 파일을 다운로드하세요.",
       "note": "Markdown을 추가하면 이 미리보기가 그에 맞게 업데이트됩니다."
     }
   },
@@ -90,7 +92,7 @@
     },
     {
       "question": "Markdown Free는 어떤 형식을 지원하나요?",
-      "answer": "입력: .md, .markdown, .txt 파일 (최대 5MB). 출력: PDF, HTML, TXT. GitHub Flavored Markdown을 지원합니다."
+      "answer": "입력: .md, .markdown, .txt 파일 (최대 5MB). 출력: PDF, DOCX (Word), HTML, TXT. GitHub Flavored Markdown을 지원합니다."
     },
     {
       "question": "변환은 안전한가요?",

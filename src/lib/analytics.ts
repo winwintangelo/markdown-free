@@ -68,7 +68,7 @@ export function trackEvent(
 // =============================================================================
 
 export type UploadSource = "file" | "paste" | "sample";
-export type ExportFormat = "pdf" | "txt" | "html";
+export type ExportFormat = "pdf" | "txt" | "html" | "docx";
 
 // Error categories for "Failure Lens" tracking
 export type ErrorCategory = "user_error" | "system_error";
@@ -296,7 +296,7 @@ export function trackLanguageSwitch(from: SupportedLocale, to: SupportedLocale):
  */
 export function trackLocaleConversion(
   locale: SupportedLocale,
-  format: "pdf" | "txt" | "html"
+  format: "pdf" | "txt" | "html" | "docx"
 ): void {
   trackEvent("locale_conversion", { locale, format });
 }

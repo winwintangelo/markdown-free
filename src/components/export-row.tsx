@@ -7,6 +7,7 @@ import { useConverter } from "@/hooks/use-converter";
 import { exportTxt } from "@/lib/export-txt";
 import { exportHtml } from "@/lib/export-html";
 import { exportPdf, PdfExportResult } from "@/lib/export-pdf";
+import { exportDocx, DocxExportResult } from "@/lib/export-docx";
 import { markdownToHtml } from "@/lib/markdown";
 import {
   trackConvertSuccess,
@@ -23,7 +24,7 @@ import {
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 import type { Locale, Dictionary } from "@/i18n";
 
-type ExportFormat = "pdf" | "txt" | "html";
+type ExportFormat = "pdf" | "txt" | "html" | "docx";
 
 interface ExportError {
   format: ExportFormat;
@@ -43,8 +44,10 @@ const defaultDict = {
     toPdf: "To PDF",
     toTxt: "To TXT",
     toHtml: "To HTML",
+    toDocx: "To DOCX",
     privacy: "Files are processed temporarily for conversion and not stored.",
     generating: "Generating PDF...",
+    generatingDocx: "Generating DOCX...",
     selectFileHint: "Select a Markdown file to export",
     uploadOrPaste: "Upload or paste to continue"
   },
@@ -219,6 +222,47 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
               retryable: result.error.retryable,
             });
           }
+        } else if (format === "docx") {
+          // Create abort controller for DOCX request
+          abortControllerRef.current = new AbortController();
+          
+          const result: DocxExportResult = await exportDocx(
+            state.content.content,
+            state.content.filename,
+            abortControllerRef.current.signal
+          );
+
+          if (result.success) {
+            trackConvertSuccess(format as AnalyticsExportFormat, source);
+            trackLocaleConversion(locale as SupportedLocale, format);
+          } else if (result.error) {
+            // Map error codes to analytics error codes
+            let errorCode: ConvertErrorCode;
+            switch (result.error.code) {
+              case "GENERATION_TIMEOUT":
+                errorCode = "pdf_timeout"; // Reuse same timeout code
+                break;
+              case "GENERATION_FAILED":
+              case "SERVER_ERROR":
+                errorCode = "pdf_server_error";
+                break;
+              case "NETWORK_ERROR":
+                errorCode = "network_error";
+                break;
+              case "ABORTED":
+                errorCode = "aborted";
+                break;
+              default:
+                errorCode = "unknown";
+            }
+            trackConvertError(format as AnalyticsExportFormat, errorCode);
+            setError({
+              format: "docx",
+              code: result.error.code,
+              message: result.error.message,
+              retryable: result.error.retryable,
+            });
+          }
         }
       } catch (err) {
         console.error(`Export error (${format}):`, err);
@@ -305,7 +349,28 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
             {loadingFormat === "pdf" ? dict.export.generating : dict.export.toPdf}
           </button>
 
-          {/* Secondary: To TXT - Always active, triggers file picker if no content */}
+          {/* To DOCX - Right after PDF, blue styling */}
+          <button
+            type="button"
+            disabled={isLoading}
+            onClick={() => handleExport("docx")}
+            onMouseEnter={() => handleButtonHover("docx")}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
+              loadingFormat === "docx"
+                ? "cursor-wait border-blue-200 bg-blue-100 text-blue-600"
+                : "border-blue-200 bg-blue-50 text-blue-700 hover:border-blue-300 hover:bg-blue-100"
+            )}
+          >
+            {loadingFormat === "docx" && (
+              <Loader2 className="h-3 w-3 animate-spin" />
+            )}
+            {loadingFormat === "docx" 
+              ? (dict.export.generatingDocx || defaultDict.export.generatingDocx) 
+              : (dict.export.toDocx || defaultDict.export.toDocx)}
+          </button>
+
+          {/* Secondary: To TXT */}
           <button
             type="button"
             disabled={isLoading}
@@ -324,7 +389,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
             {dict.export.toTxt}
           </button>
 
-          {/* Secondary: To HTML - Always active, triggers file picker if no content */}
+          {/* Secondary: To HTML */}
           <button
             type="button"
             disabled={isLoading}
@@ -354,6 +419,13 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       {loadingFormat === "pdf" && (
         <p className="text-center text-xs text-slate-500">
           {dict.export.generating} This may take a few seconds.
+        </p>
+      )}
+
+      {/* Loading message for DOCX */}
+      {loadingFormat === "docx" && (
+        <p className="text-center text-xs text-slate-500">
+          {dict.export.generatingDocx || defaultDict.export.generatingDocx} This may take a few seconds.
         </p>
       )}
     </div>

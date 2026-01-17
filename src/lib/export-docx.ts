@@ -1,6 +1,6 @@
 import { downloadFile, generateFilename } from "./download";
 
-export interface PdfExportResult {
+export interface DocxExportResult {
   success: boolean;
   error?: {
     code: string;
@@ -10,15 +10,15 @@ export interface PdfExportResult {
 }
 
 /**
- * Export content as PDF via server-side generation
+ * Export content as DOCX via server-side generation
  */
-export async function exportPdf(
+export async function exportDocx(
   markdown: string,
   originalFilename: string | null,
   signal?: AbortSignal
-): Promise<PdfExportResult> {
+): Promise<DocxExportResult> {
   try {
-    const response = await fetch("/api/convert/pdf", {
+    const response = await fetch("/api/convert/docx", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,10 +33,10 @@ export async function exportPdf(
     // Handle error responses
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      
+
       const errorCode = errorData.error || "UNKNOWN_ERROR";
       const errorMessage = errorData.message || "Something went wrong. Please try again.";
-      
+
       // Determine if error is retryable
       const retryable = [
         "GENERATION_TIMEOUT",
@@ -53,13 +53,28 @@ export async function exportPdf(
       };
     }
 
-    // Get PDF blob
-    const pdfBlob = await response.blob();
+    // Get DOCX as ArrayBuffer to preserve binary data integrity
+    const docxArrayBuffer = await response.arrayBuffer();
     
+    // Debug: log buffer size
+    console.log("[DOCX Export] Received buffer size:", docxArrayBuffer.byteLength);
+    
+    // Verify it starts with PK (ZIP/DOCX magic bytes)
+    const header = new Uint8Array(docxArrayBuffer.slice(0, 4));
+    const isPK = header[0] === 0x50 && header[1] === 0x4B;
+    console.log("[DOCX Export] Starts with PK (valid ZIP):", isPK, "Header bytes:", Array.from(header));
+    
+    // Create blob with explicit MIME type for Word documents
+    const docxBlob = new Blob([docxArrayBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    });
+    
+    console.log("[DOCX Export] Blob size:", docxBlob.size, "type:", docxBlob.type);
+
     // Extract filename from Content-Disposition header or generate one
     const contentDisposition = response.headers.get("Content-Disposition");
-    let filename = generateFilename(originalFilename, "pdf");
-    
+    let filename = generateFilename(originalFilename, "docx");
+
     if (contentDisposition) {
       // Try to get UTF-8 encoded filename first (filename*=UTF-8''...)
       const utf8Match = contentDisposition.match(/filename\*=UTF-8''([^;\s]+)/i);
@@ -79,9 +94,11 @@ export async function exportPdf(
         }
       }
     }
+    
+    console.log("[DOCX Export] Downloading as:", filename);
 
     // Trigger download
-    const url = URL.createObjectURL(pdfBlob);
+    const url = URL.createObjectURL(docxBlob);
     const link = document.createElement("a");
     link.href = url;
     link.download = filename;
@@ -99,12 +116,12 @@ export async function exportPdf(
           success: false,
           error: {
             code: "ABORTED",
-            message: "PDF generation was cancelled.",
+            message: "DOCX generation was cancelled.",
             retryable: false,
           },
         };
       }
-      
+
       if (error.message.includes("fetch") || error.message.includes("network")) {
         return {
           success: false,
@@ -127,4 +144,3 @@ export async function exportPdf(
     };
   }
 }
-

@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Markdown PDF変換 – 無料・プライベート・登録不要",
-    "description": "MarkdownをPDF、HTML、TXTに即座に変換。完全無料、登録不要、広告トラッカーなし。ファイルは一時的に処理され、保存されません。"
+    "title": "Markdown PDF・DOCX変換 – 無料・プライベート・登録不要",
+    "description": "MarkdownをPDF、DOCX、HTML、TXTに即座に変換。完全無料、登録不要、広告トラッカーなし。ファイルは一時的に処理され、保存されません。"
   },
   "hero": {
     "badge": "無料 • 登録不要 • 即時エクスポート",
-    "title": "無料 Markdown PDF・TXT・HTML 変換ツール",
-    "subtitle": ".mdファイルをアップロードまたは貼り付けて、すぐにプレビュー。ワンクリックでPDF、TXT、HTMLにエクスポート。無料・プライベート・安全 – ファイルは保存されません。"
+    "title": "無料 Markdown PDF・DOCX・TXT・HTML 変換ツール",
+    "subtitle": ".mdファイルをアップロードまたは貼り付けて、すぐにプレビュー。ワンクリックでPDF、DOCX、TXT、HTMLにエクスポート。無料・プライベート・安全 – ファイルは保存されません。"
   },
   "upload": {
     "dragDrop": "Markdownファイルをドラッグ＆ドロップ",
@@ -20,13 +20,15 @@
   "paste": {
     "label": "貼り付けられたMarkdown",
     "placeholder": "ここにMarkdownを貼り付けてください…",
-    "helper": "ここでの変更はPDF、TXT、HTMLへのエクスポート時にも使用されます。"
+    "helper": "ここでの変更はPDF、DOCX、TXT、HTMLへのエクスポート時にも使用されます。"
   },
   "export": {
     "toPdf": "PDFへ",
     "toTxt": "TXTへ",
     "toHtml": "HTMLへ",
+    "toDocx": "DOCXへ",
     "privacy": "ファイルは変換のために一時的に処理され、保存されません。",
+    "generatingDocx": "DOCXを生成中...",
     "generating": "PDF生成中...",
     "selectFileHint": "エクスポートするMarkdownファイルを選択",
     "uploadOrPaste": "アップロードまたは貼り付けて続行"
@@ -42,7 +44,7 @@
       "title": "使い方",
       "step1": ".mdファイルをアップロードするか、Markdownテキストを貼り付けます。",
       "step2": "ここでフォーマットされたプレビューを確認できます。",
-      "step3": "「PDFへ」「TXTへ」「HTMLへ」をクリックして変換ファイルをダウンロード。",
+      "step3": "「PDFへ」「DOCXへ」「TXTへ」「HTMLへ」をクリックして変換ファイルをダウンロード。",
       "note": "Markdownを追加すると、このプレビューがそれに合わせて更新されます。"
     }
   },
@@ -90,7 +92,7 @@
     },
     {
       "question": "Markdown Freeはどのフォーマットをサポートしていますか？",
-      "answer": "入力：.md、.markdown、.txtファイル（最大5MB）。出力：PDF、HTML、TXT。GitHub Flavored Markdownをサポート。"
+      "answer": "入力：.md、.markdown、.txtファイル（最大5MB）。出力：PDF、DOCX（Word）、HTML、TXT。GitHub Flavored Markdownをサポート。"
     },
     {
       "question": "変換は安全ですか？",
