@@ -1,7 +1,7 @@
 # Marketing & Promotion Checklist
 
 > Backlink opportunities and promotion strategies for Markdown Free.  
-> Focus: Italian and Spanish language communities for quick SEO wins.
+> Focus: Asia-Pacific (TW, JP, KO) showing early traction + European markets (IT, ES).
 
 ---
 
@@ -121,6 +121,99 @@
 
 ---
 
+## 🇯🇵 Japan Promotion (ja)
+
+> **Priority: HIGH** — Japan user converted via zh-Hant page! Indicates demand.
+
+### Developer Communities
+- [ ] **Qiita** — Japan's largest dev platform, write articles about Markdown tools
+- [ ] **Zenn** — Growing dev platform, publish technical articles
+- [ ] **teratail** — Japanese Stack Overflow alternative
+- [ ] **はてなブックマーク (Hatena)** — Tech bookmarking, get featured
+
+### Tech Media
+- [ ] **GIGAZINE** — Popular tech news site
+- [ ] **Publickey** — Developer-focused tech media
+- [ ] **CodeZine** — Developer magazine
+
+### Social Media
+- [ ] **Twitter/X Japan Dev** — Very active, use #プログラミング #開発ツール
+- [ ] **note.com** — Blogging platform popular with devs
+
+### GitHub
+- [ ] **awesome-japan** — Add to Japanese developer resources
+
+### Key Messages (Japanese)
+> "無料のMarkdown→PDF変換ツール。登録不要、トラッキングなし、プライバシー重視。"
+
+---
+
+## 🇰🇷 Korea Promotion (ko)
+
+### Developer Communities
+- [ ] **velog** — Korea's popular dev blogging platform
+- [ ] **OKKY** — Korean developer community forum
+- [ ] **Disquiet** — Korean product/startup community
+- [ ] **클리앙 (Clien)** — Tech forum, programming section
+
+### Tech Media
+- [ ] **GeekNews** — Korean Hacker News equivalent
+- [ ] **44bits** — Korean dev blog/podcast
+
+### Social Media
+- [ ] **Twitter/X Korean Dev** — Use #개발자 #마크다운 hashtags
+- [ ] **LinkedIn Korea** — Growing professional network
+
+### GitHub
+- [ ] **awesome-korea** — Add to Korean developer resources
+
+### Key Messages (Korean)
+> "무료 Markdown PDF 변환기. 가입 불필요, 추적 없음, 개인정보 보호."
+
+---
+
+## 🇮🇩 Indonesia Promotion (id)
+
+### Developer Communities
+- [ ] **Dicoding** — Indonesia's dev learning platform, share in forum
+- [ ] **Kaskus** — Large forum, programming section
+- [ ] **Dev.to Indonesia** — Indonesian dev community
+- [ ] **Telegram Groups** — Very popular for Indonesian devs
+
+### Tech Media
+- [ ] **Tech in Asia Indonesia** — Regional tech news
+- [ ] **DailySocial** — Indonesian startup/tech news
+
+### Social Media
+- [ ] **Twitter/X Indonesian Dev** — Use #developer #programming
+- [ ] **LinkedIn Indonesia** — Professional network
+
+### Key Messages (Indonesian)
+> "Konverter Markdown ke PDF gratis. Tanpa daftar, tanpa pelacakan, privasi terjamin."
+
+---
+
+## 🇻🇳 Vietnam Promotion (vi)
+
+### Developer Communities
+- [ ] **Viblo** — Vietnam's largest dev community platform
+- [ ] **TopDev** — Vietnamese developer jobs + community
+- [ ] **Dạy Nhau Học** — Dev learning community
+- [ ] **Facebook Dev Groups** — Very active in Vietnam
+
+### Tech Media
+- [ ] **VnExpress Tech** — Vietnam's largest news site, tech section
+- [ ] **Tinh tế (tinhte.vn)** — Popular tech blog
+
+### Social Media
+- [ ] **Facebook Groups** — Primary platform for Vietnamese devs
+- [ ] **Zalo** — Vietnam's messaging app, dev groups
+
+### Key Messages (Vietnamese)
+> "Công cụ chuyển đổi Markdown sang PDF miễn phí. Không cần đăng ký, không theo dõi."
+
+---
+
 ## 🌐 General Promotion
 
 ### Reddit (All Languages)
@@ -194,32 +287,41 @@ Product Hunt: https://www.markdown.free/?utm_source=producthunt&utm_medium=listi
 
 ## 📊 Priority Actions (Quick Wins)
 
-### Week 1: Foundation + Taiwan (PRIORITY)
-1. [ ] Submit to awesome-markdown GitHub list
-2. [ ] Post on r/Markdown
-3. [ ] **Taiwan: Post on iT 邦幫忙 (iThome)** ⭐ First conversion came from TW!
-4. [ ] **Taiwan: Share in PTT Soft_Job board**
+### Immediate: GSC Indexing Requests
+1. [ ] **Request indexing for `/ja`** — Japan user already converted via zh-Hant!
+2. [ ] **Request indexing for `/ko`** — Korean market ready
+3. [ ] Request indexing for `/id` — Indonesian market
+4. [ ] Request indexing for `/it/convertire-readme-pdf` — still pending
 
-### Week 2: Asia-Pacific Focus
-1. [ ] Taiwan: Write article on iThome about Markdown tools
+### Week 1: Asia-Pacific (HIGHEST PRIORITY)
+1. [ ] **Japan: Post on Qiita** ⭐ User already converted, demand proven!
+2. [ ] **Taiwan: Post on iT 邦幫忙 (iThome)** ⭐ First conversion came from TW!
+3. [ ] Taiwan: Share in PTT Soft_Job board
+4. [ ] Korea: Post on velog or GeekNews
+
+### Week 2: Expand Asia-Pacific
+1. [ ] Japan: Write article on Zenn about Markdown tools
 2. [ ] Hong Kong: Post on LIHKG tech section
 3. [ ] Singapore: Share in Singapore Developers Facebook group
-4. [ ] Add to AlternativeTo (all languages)
+4. [ ] Vietnam: Post on Viblo
 
 ### Week 3: European Markets
 1. [ ] Post in Italian developer communities (2-3)
 2. [ ] Post in Spanish developer communities (2-3)
 3. [ ] Write and publish Italian blog post
+4. [ ] Add to AlternativeTo (all languages)
 
 ### Week 4: Global Launch
-1. [ ] Product Hunt launch
-2. [ ] Dev.to article
-3. [ ] Spanish blog post
+1. [ ] Submit to awesome-markdown GitHub list
+2. [ ] Post on r/Markdown
+3. [ ] Product Hunt launch
+4. [ ] Dev.to article
 
 ### Week 5: Monitor & Iterate
 1. [ ] Review Umami analytics for traffic sources
-2. [ ] Double down on successful channels (likely TW/HK/SG)
+2. [ ] Double down on successful channels (JP/TW/KO showing traction)
 3. [ ] Respond to community feedback
+4. [ ] Re-check GSC indexing status for all locales
 
 ---
 
@@ -238,15 +340,60 @@ Product Hunt: https://www.markdown.free/?utm_source=producthunt&utm_medium=listi
 
 ---
 
-## 🏆 Success Metrics (Updated Jan 10, 2026)
+## 📋 GSC Indexing Status (Updated Jan 17, 2026)
+
+Track which pages are indexed vs "Discovered - currently not indexed":
+
+### ✅ Indexed Pages
+| Locale | Pages Indexed |
+|--------|---------------|
+| 🇬🇧 EN | `/`, `/about`, `/privacy`, `/readme-to-pdf` |
+| 🇮🇹 IT | `/it`, `/it/about`, `/it/privacy`, `/it/convertire-markdown-pdf` |
+| 🇪🇸 ES | `/es`, `/es/about`, `/es/convertir-markdown-pdf`, `/es/markdown-pdf-sin-registro` |
+| 🇹🇼 zh-Hant | `/zh-Hant`, `/zh-Hant/readme-pdf-zhuanhuan-tw` |
+
+### ⏳ Discovered, Not Yet Indexed
+| URL | Priority | Action |
+|-----|----------|--------|
+| `/ja` | 🔴 HIGH | Request indexing – Japan user already converted |
+| `/ko` | 🔴 HIGH | Request indexing |
+| `/id` | 🟡 MED | Request indexing |
+| `/ja/privacy` | 🟢 LOW | Will follow after homepage |
+| `/ko/about` | 🟢 LOW | Will follow after homepage |
+| `/ko/markdown-byeonhwan-bigyo` | 🟡 MED | Intent page, request after `/ko` |
+| `/it/convertire-readme-pdf` | 🟡 MED | Add internal links from indexed IT pages |
+| `/es/privacy` | 🟢 LOW | Will follow |
+| `/vi/about`, `/vi/privacy` | 🟢 LOW | Request `/vi` homepage first |
+
+### 🔗 Internal Linking Strategy
+To speed up indexing, add internal links from indexed pages to non-indexed pages:
+- From `/zh-Hant` → link to `/ja`, `/ko` (CJK language cluster)
+- From `/it` homepage → link to `/it/convertire-readme-pdf`
+- From `/es` homepage → already links to intent pages ✓
+
+---
+
+## 🏆 Success Metrics (Updated Jan 17, 2026)
 
 | Market | Status | Notes |
 |--------|--------|-------|
-| 🇹🇼 Taiwan | ✅ **First conversion!** | User converted 2x from zh-Hant intent page |
-| 🇮🇹 Italy | ⏳ Indexed, awaiting traffic | 2 pages indexed |
-| 🇪🇸 Spain | ⏳ Indexed, awaiting traffic | 3 pages indexed |
+| 🇹🇼 Taiwan | ✅ **Converting!** | User converted 2x from zh-Hant intent page |
+| 🇯🇵 Japan | ✅ **Converted** | User came via zh-Hant, converted – demand signal! |
+| 🇨🇳 China | 👁️ Visited | Session from Xi'an, converted |
+| 🇮🇹 Italy | ⏳ Indexed | 4 pages indexed, awaiting organic traffic |
+| 🇪🇸 Spain | ⏳ Indexed | 4 pages indexed, awaiting organic traffic |
+| 🇰🇷 Korea | 🔄 Discovered | Not indexed yet, request indexing |
+| 🇯🇵 Japan | 🔄 Discovered | `/ja` not indexed yet, HIGH priority |
+| 🇮🇩 Indonesia | 🔄 Discovered | `/id` not indexed yet |
+| 🇻🇳 Vietnam | 🔄 Discovered | Not indexed yet |
 | 🇭🇰 Hong Kong | 🆕 Not started | Same zh-Hant content as Taiwan |
-| 🇸🇬 Singapore | 🆕 Not started | English + zh-Hans |
+| 🇸🇬 Singapore | 👁️ Visited | 1 session (filtered as data center) |
 
-*Last updated: January 10, 2026*
+### Key Insights from Umami (Jan 17, 2026)
+- **55% upload→conversion rate** — excellent
+- **31% of real sessions converted** — strong product-market fit
+- **Asia-Pacific showing traction** — TW, JP, CN all converted
+- **IT/ES awaiting organic** — pages indexed, need promotion
+
+*Last updated: January 17, 2026*
 
