@@ -11,11 +11,13 @@ import { markdownToHtml } from "@/lib/markdown";
 import {
   trackConvertSuccess,
   trackConvertError,
+  trackConvertAbandoned,
   trackExportHover,
   trackLocaleConversion,
   type ExportFormat as AnalyticsExportFormat,
   type UploadSource,
   type SupportedLocale,
+  type ConvertErrorCode,
 } from "@/lib/analytics";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 import type { Locale, Dictionary } from "@/i18n";
@@ -85,6 +87,23 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     };
   }, []);
 
+  // Track conversion abandonment (user closes tab during PDF generation)
+  useEffect(() => {
+    if (loadingFormat !== "pdf" || !state.content) return;
+
+    const source: UploadSource = state.content.source === "file" ? "file" : "paste";
+
+    const handleBeforeUnload = () => {
+      // User is leaving while PDF is generating - track abandonment
+      trackConvertAbandoned("pdf", source);
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [loadingFormat, state.content]);
+
   const clearError = useCallback(() => {
     setError(null);
   }, []);
@@ -124,12 +143,25 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
             trackConvertSuccess(format as AnalyticsExportFormat, source);
             trackLocaleConversion(locale as SupportedLocale, format);
           } else if (result.error) {
-            // Map error codes to analytics error codes
-            const errorCode = result.error.code === "GENERATION_TIMEOUT" 
-              ? "pdf_timeout" 
-              : result.error.code === "GENERATION_FAILED" || result.error.code === "SERVER_ERROR"
-              ? "pdf_server_error"
-              : "unknown";
+            // Map error codes to analytics error codes with User/System classification
+            let errorCode: ConvertErrorCode;
+            switch (result.error.code) {
+              case "GENERATION_TIMEOUT":
+                errorCode = "pdf_timeout";
+                break;
+              case "GENERATION_FAILED":
+              case "SERVER_ERROR":
+                errorCode = "pdf_server_error";
+                break;
+              case "NETWORK_ERROR":
+                errorCode = "network_error";
+                break;
+              case "ABORTED":
+                errorCode = "aborted";
+                break;
+              default:
+                errorCode = "unknown";
+            }
             trackConvertError(format as AnalyticsExportFormat, errorCode);
             setError({
               format: "pdf",

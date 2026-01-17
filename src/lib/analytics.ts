@@ -64,13 +64,39 @@ export function trackEvent(
 }
 
 // =============================================================================
-// CONVERSION EVENTS (existing)
+// CONVERSION EVENTS (existing + enhanced)
 // =============================================================================
 
 export type UploadSource = "file" | "paste" | "sample";
 export type ExportFormat = "pdf" | "txt" | "html";
-export type UploadErrorReason = "invalid_type" | "too_large" | "parse_error";
-export type ConvertErrorCode = "pdf_timeout" | "pdf_server_error" | "unknown";
+
+// Error categories for "Failure Lens" tracking
+export type ErrorCategory = "user_error" | "system_error";
+
+// Upload error reasons with category mapping
+export type UploadErrorReason = "invalid_type" | "too_large" | "parse_error" | "read_error";
+export const UPLOAD_ERROR_CATEGORY: Record<UploadErrorReason, ErrorCategory> = {
+  invalid_type: "user_error",    // User uploaded wrong file type
+  too_large: "user_error",       // User uploaded file that's too big
+  parse_error: "user_error",     // File couldn't be parsed (corrupted/binary)
+  read_error: "system_error",    // System couldn't read the file
+};
+
+// Convert error codes with category mapping
+export type ConvertErrorCode = 
+  | "pdf_timeout" 
+  | "pdf_server_error" 
+  | "network_error"
+  | "aborted"
+  | "unknown";
+
+export const CONVERT_ERROR_CATEGORY: Record<ConvertErrorCode, ErrorCategory> = {
+  pdf_timeout: "system_error",      // Server took too long
+  pdf_server_error: "system_error", // 500 error from server
+  network_error: "system_error",    // Network connectivity issue
+  aborted: "user_error",            // User cancelled the request
+  unknown: "system_error",          // Unknown error (assume system)
+};
 
 /**
  * Track when user starts an upload (file or paste)
@@ -80,13 +106,21 @@ export function trackUploadStart(source: UploadSource): void {
 }
 
 /**
- * Track upload errors (before conversion)
+ * Track upload errors with category (User Error vs System Error)
  */
 export function trackUploadError(
   source: UploadSource,
   reason: UploadErrorReason
 ): void {
-  trackEvent("upload_error", { source, reason });
+  const category = UPLOAD_ERROR_CATEGORY[reason];
+  trackEvent("upload_error", { source, reason, category });
+}
+
+/**
+ * Track when user abandons upload (closes tab during file read)
+ */
+export function trackUploadAbandoned(source: UploadSource): void {
+  trackEvent("upload_abandoned", { source });
 }
 
 /**
@@ -100,13 +134,22 @@ export function trackConvertSuccess(
 }
 
 /**
- * Track conversion errors
+ * Track conversion errors with category (User Error vs System Error)
  */
 export function trackConvertError(
   format: ExportFormat,
   errorCode: ConvertErrorCode
 ): void {
-  trackEvent("convert_error", { format, error_code: errorCode });
+  const category = CONVERT_ERROR_CATEGORY[errorCode];
+  trackEvent("convert_error", { format, error_code: errorCode, category });
+}
+
+/**
+ * Track when user abandons conversion (closes tab during PDF generation)
+ * This is tracked via beforeunload when a conversion is in progress
+ */
+export function trackConvertAbandoned(format: ExportFormat, source: UploadSource): void {
+  trackEvent("convert_abandoned", { format, source });
 }
 
 // =============================================================================

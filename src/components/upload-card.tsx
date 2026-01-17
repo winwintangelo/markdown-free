@@ -80,7 +80,8 @@ export function UploadCard({ locale: _locale, dict = defaultDict as unknown as D
           size: file.size,
         });
       } catch {
-        trackUploadError("file", "parse_error");
+        // System error: couldn't read the file (permissions, disk error, etc.)
+        trackUploadError("file", "read_error");
         dispatch({
           type: "SET_ERROR",
           error: {

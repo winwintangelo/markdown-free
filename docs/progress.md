@@ -141,16 +141,37 @@ interface ConverterState {
 ### 4. Analytics Events
 **File:** `src/lib/analytics.ts`
 
-All events are fire-and-forget, only sent if Umami is loaded.
+All events are fire-and-forget, sent to both Umami and Vercel Analytics (if enabled).
 
 | Category | Events |
 |----------|--------|
 | Conversion | `upload_start`, `upload_error`, `convert_success`, `convert_error`, `sample_click` |
+| Abandonment | `upload_abandoned`, `convert_abandoned` |
 | Engagement | `section_visible`, `scroll_depth`, `time_on_page`, `upload_hover`, `paste_toggle_click`, `export_hover`, `drag_enter` |
 | Navigation | `nav_click`, `feedback_click`, `feedback_submit` |
 | Localization | `language_suggestion_shown`, `language_switched`, `language_suggestion_dismissed`, `locale_pageview`, `locale_conversion` |
 
 **Engagement tracking fires once per session** to avoid spam.
+
+#### Failure Lens Tracking (Error Classification)
+
+Errors are classified as **User Error** vs **System Error** to help prioritize fixes:
+
+| Event | Error Code | Category | Description |
+|-------|------------|----------|-------------|
+| `upload_error` | `invalid_type` | user_error | Wrong file type uploaded |
+| `upload_error` | `too_large` | user_error | File exceeds 5MB limit |
+| `upload_error` | `parse_error` | user_error | Corrupted/binary file |
+| `upload_error` | `read_error` | system_error | System couldn't read file |
+| `convert_error` | `pdf_timeout` | system_error | Server took too long |
+| `convert_error` | `pdf_server_error` | system_error | 500 error from server |
+| `convert_error` | `network_error` | system_error | Network connectivity issue |
+| `convert_error` | `aborted` | user_error | User cancelled request |
+| `convert_error` | `unknown` | system_error | Unexpected error |
+
+**Abandonment Events:**
+- `upload_abandoned`: User closes tab during file upload (rare)
+- `convert_abandoned`: User closes tab during PDF generation (tracked via beforeunload)
 
 ### 5. Analytics Reports
 **Scripts:** `scripts/umami-report.mjs`, `scripts/umami-sessions.mjs`

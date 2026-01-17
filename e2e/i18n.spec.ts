@@ -552,5 +552,80 @@ test.describe("Markdown Free - Internationalization", () => {
       expect(response?.status()).toBe(404);
     });
   });
+
+  // ==========================================================================
+  // zh-Hant ADDITIONAL INTENT PAGES (Taiwan/Hong Kong market expansion)
+  // ==========================================================================
+  test.describe("zh-Hant Additional Intent Pages", () => {
+    test("xueshu-biji-pdf (academic notes) page loads correctly", async ({ page }) => {
+      await page.goto("/zh-Hant/xueshu-biji-pdf");
+      
+      // Check page loads
+      await expect(page).toHaveTitle(/學術筆記轉PDF/);
+      
+      // Check main heading
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("學術筆記轉PDF");
+      
+      // Check CTA links to zh-Hant homepage
+      await expect(page.getByRole("link", { name: "轉換學術筆記" })).toHaveAttribute("href", "/zh-Hant");
+      
+      // Check footer exists (page fully rendered)
+      await expect(page.getByText("© 2026 Markdown Free")).toBeVisible();
+    });
+
+    test("huiyi-jilu-pdf (meeting notes) page loads correctly", async ({ page }) => {
+      await page.goto("/zh-Hant/huiyi-jilu-pdf");
+      
+      // Check page loads
+      await expect(page).toHaveTitle(/會議記錄轉PDF/);
+      
+      // Check main heading
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("會議記錄轉PDF");
+      
+      // Check CTA links to zh-Hant homepage
+      await expect(page.getByRole("link", { name: "轉換會議記錄" })).toHaveAttribute("href", "/zh-Hant");
+      
+      // Check footer exists (page fully rendered)
+      await expect(page.getByText("© 2026 Markdown Free")).toBeVisible();
+    });
+
+    test("buluoge-wenzhang-pdf (blog) page loads correctly", async ({ page }) => {
+      await page.goto("/zh-Hant/buluoge-wenzhang-pdf");
+      
+      // Check page loads
+      await expect(page).toHaveTitle(/部落格文章轉PDF/);
+      
+      // Check main heading
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("部落格文章轉PDF");
+      
+      // Check CTA links to zh-Hant homepage
+      await expect(page.getByRole("link", { name: "轉換部落格文章" })).toHaveAttribute("href", "/zh-Hant");
+      
+      // Check footer exists (page fully rendered)
+      await expect(page.getByText("© 2026 Markdown Free")).toBeVisible();
+    });
+
+    test("api-wendang-pdf (API docs) page loads correctly", async ({ page }) => {
+      await page.goto("/zh-Hant/api-wendang-pdf");
+      
+      // Check page loads
+      await expect(page).toHaveTitle(/API文件轉PDF/);
+      
+      // Check main heading
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("API文件轉PDF");
+      
+      // Check CTA links to zh-Hant homepage
+      await expect(page.getByRole("link", { name: "轉換API文件" })).toHaveAttribute("href", "/zh-Hant");
+      
+      // Check footer exists (page fully rendered)
+      await expect(page.getByText("© 2026 Markdown Free")).toBeVisible();
+    });
+
+    test("zh-Hant intent pages are not accessible from other locales", async ({ page }) => {
+      // These pages should 404 on other locales
+      const response = await page.goto("/es/xueshu-biji-pdf");
+      expect(response?.status()).toBe(404);
+    });
+  });
 });
 
