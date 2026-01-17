@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { ConverterProvider } from "@/hooks/use-converter";
-import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary } from "@/i18n";
 import { notFound } from "next/navigation";
 
@@ -44,9 +41,7 @@ export default async function MarkdownDocxZhuanhuanPage({ params }: PageProps) {
   const dict = await getDictionary(locale);
 
   return (
-    <ConverterProvider>
-      <Header locale={locale} dict={dict} />
-      <LocaleTracker locale={locale} />
+    <>
       <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
         {/* Hero Section */}
         <section className="mb-12 text-center">
@@ -167,6 +162,6 @@ export default async function MarkdownDocxZhuanhuanPage({ params }: PageProps) {
         </section>
       </main>
       <Footer locale={locale} dict={dict} />
-    </ConverterProvider>
+    </>
   );
 }

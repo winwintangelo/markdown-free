@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { 
   isValidLocale, 
@@ -744,7 +745,9 @@ export default async function PrivacyPage({
   const c = content[locale] ?? content.en!;
 
   return (
-    <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
+    <>
+      <Header locale={locale} dict={dict} />
+      <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>{c.title}</h1>
         <p className="lead">{c.lead}</p>
@@ -810,6 +813,7 @@ export default async function PrivacyPage({
 
       <Footer locale={locale} dict={dict} />
     </main>
+    </>
   );
 }
 

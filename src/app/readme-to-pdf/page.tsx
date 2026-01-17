@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/footer";
+import { ConverterProvider } from "@/hooks/use-converter";
+import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary } from "@/i18n";
 
 export const metadata: Metadata = {
@@ -30,7 +32,9 @@ export default function ReadmeToPdfPage() {
   const dict = getDictionary("en");
 
   return (
-    <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
+    <ConverterProvider>
+      <LocaleTracker locale="en" />
+      <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>Convert README to PDF</h1>
 
@@ -222,5 +226,6 @@ MIT`}</pre>
 
       <Footer locale="en" dict={dict} />
     </main>
+    </ConverterProvider>
   );
 }

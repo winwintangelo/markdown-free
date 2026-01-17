@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
 import { UploadCard } from "@/components/upload-card";
 import { PasteArea } from "@/components/paste-area";
@@ -94,6 +95,8 @@ export default async function LocaleHomePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {/* Header */}
+      <Header locale={locale} dict={dict} />
       {/* Engagement tracking (scroll depth, time on page, drag intent) */}
       <EngagementTracker />
       <main className="mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-16 pt-10">

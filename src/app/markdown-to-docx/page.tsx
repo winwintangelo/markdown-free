@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
@@ -23,7 +22,6 @@ export const metadata: Metadata = {
 export default function MarkdownToDocxPage() {
   return (
     <ConverterProvider>
-      <Header locale="en" />
       <LocaleTracker locale="en" />
       <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
         {/* Hero Section */}
