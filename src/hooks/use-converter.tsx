@@ -4,8 +4,11 @@ import {
   createContext,
   useContext,
   useReducer,
+  useRef,
+  useCallback,
   type ReactNode,
   type Dispatch,
+  type MutableRefObject,
 } from "react";
 import type { AppState, AppAction } from "@/types";
 
@@ -113,6 +116,9 @@ function appReducer(state: AppState, action: AppAction): AppState {
 interface ConverterContextType {
   state: AppState;
   dispatch: Dispatch<AppAction>;
+  // File upload trigger for "active export buttons" UX
+  fileInputRef: MutableRefObject<HTMLInputElement | null>;
+  triggerFileUpload: () => void;
 }
 
 const ConverterContext = createContext<ConverterContextType | null>(null);
@@ -120,9 +126,17 @@ const ConverterContext = createContext<ConverterContextType | null>(null);
 // Provider
 export function ConverterProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(appReducer, initialState);
+  
+  // Ref for file input element (registered by UploadCard)
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  
+  // Trigger file upload from anywhere (used by ExportRow when no content)
+  const triggerFileUpload = useCallback(() => {
+    fileInputRef.current?.click();
+  }, []);
 
   return (
-    <ConverterContext.Provider value={{ state, dispatch }}>
+    <ConverterContext.Provider value={{ state, dispatch, fileInputRef, triggerFileUpload }}>
       {children}
     </ConverterContext.Provider>
   );

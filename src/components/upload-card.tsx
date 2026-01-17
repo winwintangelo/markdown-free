@@ -33,9 +33,8 @@ const defaultDict = {
 };
 
 export function UploadCard({ locale: _locale, dict = defaultDict as unknown as Dictionary }: UploadCardProps) {
-  const { state, dispatch } = useConverter();
+  const { state, dispatch, fileInputRef } = useConverter();
   const [isDragOver, setIsDragOver] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const hasTrackedHoverRef = useRef(false);
   const sectionRef = useSectionVisibility("upload");
 
@@ -212,11 +211,12 @@ export function UploadCard({ locale: _locale, dict = defaultDict as unknown as D
       onDrop={handleDrop}
       className={cn(
         "relative flex cursor-pointer flex-col items-center justify-center",
-        "rounded-2xl border-2 border-dashed bg-white px-6 py-10 text-center shadow-sm",
-        "transition hover:border-emerald-400 hover:bg-emerald-50/40",
+        "rounded-2xl border-2 px-6 py-10 text-center",
+        "bg-slate-50/80 shadow-[inset_0_1px_3px_rgba(0,0,0,0.04)]",
+        "transition-all duration-200",
         isDragOver
-          ? "border-emerald-400 bg-emerald-50/40"
-          : "border-slate-200"
+          ? "border-solid border-emerald-500 bg-emerald-50 shadow-[inset_0_2px_6px_rgba(16,185,129,0.1)]"
+          : "border-dashed border-slate-300 hover:border-solid hover:border-emerald-400 hover:bg-emerald-50/60 hover:shadow-[inset_0_2px_6px_rgba(16,185,129,0.08)]"
       )}
     >
       {/* Upload icon */}

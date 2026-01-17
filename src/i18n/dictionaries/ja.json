@@ -27,7 +27,9 @@
     "toTxt": "TXTへ",
     "toHtml": "HTMLへ",
     "privacy": "ファイルは変換のために一時的に処理され、保存されません。",
-    "generating": "PDF生成中..."
+    "generating": "PDF生成中...",
+    "selectFileHint": "エクスポートするMarkdownファイルを選択",
+    "uploadOrPaste": "アップロードまたは貼り付けて続行"
   },
   "preview": {
     "title": "プレビュー",

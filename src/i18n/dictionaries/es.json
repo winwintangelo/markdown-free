@@ -27,7 +27,9 @@
     "toTxt": "A TXT",
     "toHtml": "A HTML",
     "privacy": "Los archivos se procesan temporalmente para la conversión y no se almacenan.",
-    "generating": "Generando PDF..."
+    "generating": "Generando PDF...",
+    "selectFileHint": "Selecciona un archivo Markdown para exportar",
+    "uploadOrPaste": "Sube o pega para continuar"
   },
   "preview": {
     "title": "Vista Previa",

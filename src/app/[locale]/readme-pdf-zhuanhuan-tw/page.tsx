@@ -21,12 +21,14 @@ export async function generateMetadata({
   }
 
   return {
-    title: "README.md轉PDF | Markdown Free",
+    title: "Markdown 轉 PDF（README 也可）| 免費線上工具 | Markdown Free",
     description:
-      "將GitHub的README.md轉換為專業PDF。適合文件歸檔、作品集、簡報。免費，無需註冊。",
+      "如何把 .md 轉成 PDF？上傳 README.md 或任何 Markdown 檔案，一鍵轉換成專業 PDF。免費、免註冊、檔案不儲存。",
     keywords: [
-      "readme轉pdf",
+      "markdown 轉 pdf",
+      "readme 轉 pdf",
       "readme.md pdf",
+      ".md 轉 pdf",
       "github readme pdf",
       "markdown文件 pdf",
       "readme轉換 免費",
@@ -35,9 +37,9 @@ export async function generateMetadata({
       canonical: "/zh-Hant/readme-pdf-zhuanhuan-tw",
     },
     openGraph: {
-      title: "README.md轉PDF | Markdown Free",
+      title: "Markdown 轉 PDF（README 也可）| 免費線上工具",
       description:
-        "將GitHub的README.md轉換為專業PDF。免費，無需註冊。",
+        "如何把 .md 轉成 PDF？上傳 README.md，一鍵轉換。免費、免註冊。",
       locale: "zh_TW",
     },
   };
@@ -60,11 +62,11 @@ export default async function ReadmePdfZhuanhuanTwPage({
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
-        <h1>README.md轉PDF</h1>
+        <h1>Markdown 轉 PDF（README 也可）</h1>
 
         <p className="lead text-lg text-slate-600">
-          有GitHub專案的README.md？將它轉換成專業的PDF，
-          用於文件歸檔、作品集或簡報。
+          想把 <code>.md</code> 檔案轉成 PDF？不論是 GitHub 的 README.md 還是其他 Markdown 文件，
+          都能一鍵轉換成專業 PDF。免費、免註冊、檔案不儲存。
         </p>
 
         {/* CTA Button */}
@@ -163,24 +165,58 @@ MIT`}</pre>
 
         <h2>常見問題</h2>
 
-        <h3>README中的圖片會被包含嗎？</h3>
-        <p>
-          絕對URL（如 https://...）的圖片會被包含在PDF中。
-          相對路徑的圖片可能無法正確顯示。
-          建議使用完整URL。
-        </p>
+        {/* High-intent FAQ with exact search phrases */}
+        <details className="group" open>
+          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-600">
+            如何把 .md 轉成 PDF？
+          </summary>
+          <p className="mt-2">
+            很簡單！只要把 <code>.md</code> 檔案拖放到上傳區，
+            預覽確認後點擊「轉 PDF」即可下載。不需安裝軟體、不需註冊帳號。
+          </p>
+        </details>
 
-        <h3>可以轉換儲存庫中的其他Markdown檔案嗎？</h3>
-        <p>
-          當然可以！CHANGELOG.md、CONTRIBUTING.md、/docs資料夾中的
-          文件等任何<code>.md</code>檔案都支援。
-        </p>
+        <details className="group mt-4">
+          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-600">
+            README.md 可以轉 PDF 嗎？
+          </summary>
+          <p className="mt-2">
+            當然可以！GitHub 的 README.md、CHANGELOG.md、CONTRIBUTING.md，
+            或任何 <code>.md</code> / <code>.markdown</code> 檔案都支援。
+            表格、程式碼區塊、清單等格式都會完整保留。
+          </p>
+        </details>
 
-        <h3>可以自訂PDF格式嗎？</h3>
-        <p>
-          目前PDF使用針對可讀性最佳化的專業版面。
-          我們正在考慮在未來版本中新增自訂選項。
-        </p>
+        <details className="group mt-4">
+          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-600">
+            檔案會被上傳或儲存嗎？
+          </summary>
+          <p className="mt-2">
+            <strong>不會儲存。</strong>預覽完全在瀏覽器本地處理。
+            PDF 轉換時，檔案只在記憶體中暫存，轉換完成後立即刪除。
+            我們不會保留任何檔案副本。
+          </p>
+        </details>
+
+        <details className="group mt-4">
+          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-600">
+            README 中的圖片會被包含嗎？
+          </summary>
+          <p className="mt-2">
+            絕對 URL（如 https://...）的圖片會被包含在 PDF 中。
+            相對路徑的圖片可能無法正確顯示，建議使用完整 URL。
+          </p>
+        </details>
+
+        <details className="group mt-4">
+          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-600">
+            可以自訂 PDF 格式嗎？
+          </summary>
+          <p className="mt-2">
+            目前 PDF 使用針對可讀性最佳化的專業版面。
+            我們正在考慮在未來版本中新增自訂選項。
+          </p>
+        </details>
 
         {/* Second CTA */}
         <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">

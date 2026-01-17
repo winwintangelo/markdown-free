@@ -27,7 +27,9 @@
     "toTxt": "转TXT",
     "toHtml": "转HTML",
     "privacy": "文件仅为转换临时处理，不会被存储。",
-    "generating": "正在生成PDF..."
+    "generating": "正在生成PDF...",
+    "selectFileHint": "选择 Markdown 文件以导出",
+    "uploadOrPaste": "上传或粘贴以继续"
   },
   "preview": {
     "title": "预览",

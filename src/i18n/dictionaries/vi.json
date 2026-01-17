@@ -27,7 +27,9 @@
     "toTxt": "Sang TXT",
     "toHtml": "Sang HTML",
     "privacy": "Tệp được xử lý tạm thời để chuyển đổi và không được lưu trữ.",
-    "generating": "Đang tạo PDF..."
+    "generating": "Đang tạo PDF...",
+    "selectFileHint": "Chọn tệp Markdown để xuất",
+    "uploadOrPaste": "Tải lên hoặc dán để tiếp tục"
   },
   "preview": {
     "title": "Xem trước",

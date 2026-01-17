@@ -27,7 +27,9 @@
     "toTxt": "Ke TXT",
     "toHtml": "Ke HTML",
     "privacy": "File diproses sementara untuk konversi dan tidak disimpan.",
-    "generating": "Membuat PDF..."
+    "generating": "Membuat PDF...",
+    "selectFileHint": "Pilih file Markdown untuk diekspor",
+    "uploadOrPaste": "Unggah atau tempel untuk melanjutkan"
   },
   "preview": {
     "title": "Pratinjau",

@@ -21,13 +21,14 @@ export async function generateMetadata({
   }
 
   return {
-    title: "Markdown PDF 변환 무료 | Markdown Free",
+    title: "마크다운 PDF 변환 무료 | Markdown PDF 변환 | Markdown Free",
     description:
-      "마크다운 파일을 PDF로 무료 변환. 회원가입 불필요, 파일 저장 없음. 드래그 앤 드롭으로 간편하게. GitHub Flavored Markdown 지원.",
+      "마크다운 PDF 변환 무료 — .md 파일을 PDF로 변환. 회원가입 불필요, 파일 저장 없음. 드래그 앤 드롭으로 간편하게.",
     keywords: [
+      "마크다운 pdf 변환",
+      "마크다운 pdf",
       "markdown pdf 변환",
       "md pdf 변환 무료",
-      "마크다운 pdf",
       "markdown 변환 온라인",
       "readme pdf 변환",
     ],
@@ -35,9 +36,9 @@ export async function generateMetadata({
       canonical: "/ko/markdown-pdf-byeonhwan",
     },
     openGraph: {
-      title: "Markdown PDF 변환 무료 | Markdown Free",
+      title: "마크다운 PDF 변환 무료 | Markdown Free",
       description:
-        "마크다운 파일을 PDF로 무료 변환. 회원가입 불필요, 개인정보 보호.",
+        "마크다운 PDF 변환 — .md 파일을 PDF로 무료 변환. 회원가입 불필요.",
       locale: "ko_KR",
     },
   };
@@ -60,11 +61,12 @@ export default async function MarkdownPdfByeonhwanPage({
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
-        <h1>Markdown PDF 변환 - 무료, 회원가입 불필요</h1>
+        <h1>마크다운 PDF 변환 - 무료, 회원가입 불필요</h1>
 
         <p className="lead text-lg text-slate-600">
-          <code>.md</code> 파일을 전문적인 PDF로 변환하고 싶으신가요?
-          Markdown Free로 몇 초 만에 완료하세요. 회원가입도 설치도 필요 없습니다.
+          <strong>마크다운 PDF 변환</strong>을 찾고 계신가요?
+          <code>.md</code> 파일을 드래그 앤 드롭하면 몇 초 만에 전문적인 PDF로 변환됩니다.
+          회원가입도 설치도 필요 없습니다. 완전 무료!
         </p>
 
         {/* CTA Button */}

@@ -218,6 +218,14 @@ export function trackExportHover(format: ExportFormat): void {
 }
 
 /**
+ * Track when user clicks export button with no content loaded
+ * This triggers the file picker - measures "active buttons" UX effectiveness
+ */
+export function trackExportTriggerUpload(format: ExportFormat): void {
+  trackEvent("export_trigger_upload", { format });
+}
+
+/**
  * Track when user starts dragging a file over the page
  * Shows intent to upload even if they don't complete it
  */

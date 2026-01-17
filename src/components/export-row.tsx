@@ -13,6 +13,7 @@ import {
   trackConvertError,
   trackConvertAbandoned,
   trackExportHover,
+  trackExportTriggerUpload,
   trackLocaleConversion,
   type ExportFormat as AnalyticsExportFormat,
   type UploadSource,
@@ -43,7 +44,9 @@ const defaultDict = {
     toTxt: "To TXT",
     toHtml: "To HTML",
     privacy: "Files are processed temporarily for conversion and not stored.",
-    generating: "Generating PDF..."
+    generating: "Generating PDF...",
+    selectFileHint: "Select a Markdown file to export",
+    uploadOrPaste: "Upload or paste to continue"
   },
   errors: {
     pdfTimeout: "PDF generation timed out. Please try again.",
@@ -53,23 +56,44 @@ const defaultDict = {
 };
 
 export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dictionary }: ExportRowProps) {
-  const { state } = useConverter();
+  const { state, triggerFileUpload } = useConverter();
   const [loadingFormat, setLoadingFormat] = useState<ExportFormat | null>(null);
   const [error, setError] = useState<ExportError | null>(null);
   const [renderedHtml, setRenderedHtml] = useState<string>("");
+  const [uploadHint, setUploadHint] = useState<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
   const hoveredFormatsRef = useRef<Set<ExportFormat>>(new Set());
+  const hintTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const sectionRef = useSectionVisibility("export");
 
-  const isDisabled = !state.content || state.status !== "ready";
+  // Content is ready for export
+  const hasContent = state.content && state.status === "ready";
+  // Button is in loading state
+  const isLoading = loadingFormat !== null;
 
-  // Track hover on disabled buttons (shows interest before content is loaded)
+  // Track hover on buttons when no content (shows interest)
   const handleButtonHover = useCallback((format: ExportFormat) => {
-    if (isDisabled && !hoveredFormatsRef.current.has(format)) {
+    if (!hasContent && !hoveredFormatsRef.current.has(format)) {
       hoveredFormatsRef.current.add(format);
       trackExportHover(format);
     }
-  }, [isDisabled]);
+  }, [hasContent]);
+
+  // Clear hint after timeout
+  useEffect(() => {
+    return () => {
+      if (hintTimeoutRef.current) {
+        clearTimeout(hintTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Clear hint when content is loaded
+  useEffect(() => {
+    if (hasContent && uploadHint) {
+      setUploadHint(null);
+    }
+  }, [hasContent, uploadHint]);
 
   // Pre-render HTML when content changes (for HTML export)
   useEffect(() => {
@@ -110,13 +134,38 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
 
   const handleExport = useCallback(
     async (format: ExportFormat) => {
-      if (!state.content) return;
+      // If no content, trigger file upload instead of exporting
+      if (!state.content) {
+        // Track that export button triggered upload flow
+        trackExportTriggerUpload(format as AnalyticsExportFormat);
+        
+        // Trigger file picker
+        triggerFileUpload();
+        
+        // Show hint message
+        setUploadHint(dict.export.selectFileHint || defaultDict.export.selectFileHint);
+        
+        // Auto-dismiss hint after 5 seconds
+        if (hintTimeoutRef.current) {
+          clearTimeout(hintTimeoutRef.current);
+        }
+        hintTimeoutRef.current = setTimeout(() => {
+          setUploadHint(dict.export.uploadOrPaste || defaultDict.export.uploadOrPaste);
+          // Second hint stays for another 5 seconds then clears
+          hintTimeoutRef.current = setTimeout(() => {
+            setUploadHint(null);
+          }, 5000);
+        }, 5000);
+        
+        return;
+      }
 
       // Determine source for analytics
       const source: UploadSource = state.content.source === "file" ? "file" : "paste";
 
-      // Clear any previous error
+      // Clear any previous error and hint
       setError(null);
+      setUploadHint(null);
       setLoadingFormat(format);
 
       try {
@@ -227,20 +276,25 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         </div>
       )}
 
+      {/* Upload Hint (shown when export clicked with no content) */}
+      {uploadHint && (
+        <div className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm text-slate-600">
+          <span>{uploadHint}</span>
+        </div>
+      )}
+
       {/* Export Buttons Row */}
       <div ref={sectionRef} className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
         <div className="flex flex-wrap gap-2">
-          {/* Primary: To PDF */}
+          {/* Primary: To PDF - Always active, triggers file picker if no content */}
           <button
             type="button"
-            disabled={isDisabled || loadingFormat === "pdf"}
+            disabled={isLoading}
             onClick={() => handleExport("pdf")}
             onMouseEnter={() => handleButtonHover("pdf")}
             className={cn(
               "inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold shadow-sm transition",
-              isDisabled
-                ? "cursor-not-allowed bg-slate-200 text-slate-400"
-                : loadingFormat === "pdf"
+              loadingFormat === "pdf"
                 ? "cursor-wait bg-emerald-500 text-white"
                 : "bg-emerald-600 text-white hover:bg-emerald-700"
             )}
@@ -251,16 +305,16 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
             {loadingFormat === "pdf" ? dict.export.generating : dict.export.toPdf}
           </button>
 
-          {/* Secondary: To TXT */}
+          {/* Secondary: To TXT - Always active, triggers file picker if no content */}
           <button
             type="button"
-            disabled={isDisabled || loadingFormat === "txt"}
+            disabled={isLoading}
             onClick={() => handleExport("txt")}
             onMouseEnter={() => handleButtonHover("txt")}
             className={cn(
               "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
-              isDisabled
-                ? "cursor-not-allowed border-slate-100 bg-slate-100 text-slate-400"
+              loadingFormat === "txt"
+                ? "cursor-wait border-slate-200 bg-slate-100 text-slate-500"
                 : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-white"
             )}
           >
@@ -270,16 +324,16 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
             {dict.export.toTxt}
           </button>
 
-          {/* Secondary: To HTML */}
+          {/* Secondary: To HTML - Always active, triggers file picker if no content */}
           <button
             type="button"
-            disabled={isDisabled || loadingFormat === "html"}
+            disabled={isLoading}
             onClick={() => handleExport("html")}
             onMouseEnter={() => handleButtonHover("html")}
             className={cn(
               "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
-              isDisabled
-                ? "cursor-not-allowed border-slate-100 bg-slate-100 text-slate-400"
+              loadingFormat === "html"
+                ? "cursor-wait border-slate-200 bg-slate-100 text-slate-500"
                 : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-white"
             )}
           >

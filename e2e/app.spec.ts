@@ -53,14 +53,19 @@ test.describe("Markdown Free - App Layout", () => {
     await expect(httpsNotice).toBeVisible();
   });
 
-  test("should have disabled export buttons initially", async ({ page }) => {
+  test("should have enabled export buttons that trigger file picker when no content", async ({ page }) => {
     const pdfButton = page.getByRole("button", { name: "To PDF" });
     const txtButton = page.getByRole("button", { name: "To TXT" });
     const htmlButton = page.getByRole("button", { name: "To HTML" });
 
-    await expect(pdfButton).toBeDisabled();
-    await expect(txtButton).toBeDisabled();
-    await expect(htmlButton).toBeDisabled();
+    // Buttons should be enabled (active buttons UX)
+    await expect(pdfButton).toBeEnabled();
+    await expect(txtButton).toBeEnabled();
+    await expect(htmlButton).toBeEnabled();
+
+    // Clicking should show a hint message (file picker is triggered but we can't easily test that)
+    await pdfButton.click();
+    await expect(page.getByText("Select a Markdown file to export")).toBeVisible();
   });
 
   test("should show default preview content", async ({ page }) => {
@@ -89,11 +94,13 @@ test.describe("Markdown Free - Upload Card", () => {
   });
 
   test("should change border color on drag over", async ({ page }) => {
-    const uploadCard = page.locator('[class*="border-dashed"]').first();
+    // Find upload card by its content
+    const uploadCard = page.locator("div").filter({ hasText: /Drag & drop your Markdown file/ }).first();
 
-    // Get initial border class
+    // Get initial border class - should have dashed slate border
     const initialClasses = await uploadCard.getAttribute("class");
-    expect(initialClasses).toContain("border-slate-200");
+    expect(initialClasses).toContain("border-dashed");
+    expect(initialClasses).toContain("border-slate-300");
 
     // Simulate drag over using evaluate to trigger native events
     await uploadCard.evaluate((el) => {
@@ -107,13 +114,15 @@ test.describe("Markdown Free - Upload Card", () => {
     // Wait for state update
     await page.waitForTimeout(100);
 
-    // Check for emerald border
+    // Check for emerald border (solid, not dashed)
     const updatedClasses = await uploadCard.getAttribute("class");
-    expect(updatedClasses).toContain("border-emerald-400");
+    expect(updatedClasses).toContain("border-emerald-500");
+    expect(updatedClasses).toContain("border-solid");
   });
 
   test("should revert border color on drag leave", async ({ page }) => {
-    const uploadCard = page.locator('[class*="border-dashed"]').first();
+    // Find upload card by its content
+    const uploadCard = page.locator("div").filter({ hasText: /Drag & drop your Markdown file/ }).first();
 
     // Simulate drag over
     await uploadCard.evaluate((el) => {
@@ -135,9 +144,10 @@ test.describe("Markdown Free - Upload Card", () => {
     });
     await page.waitForTimeout(100);
 
-    // Check border reverted
+    // Check border reverted to dashed slate
     const classes = await uploadCard.getAttribute("class");
-    expect(classes).toContain("border-slate-200");
+    expect(classes).toContain("border-slate-300");
+    expect(classes).toContain("border-dashed");
   });
 });
 
@@ -654,14 +664,15 @@ test.describe("Markdown Free - Export Functionality", () => {
     expect(download.suggestedFilename()).toBe("test.html");
   });
 
-  test("export buttons are disabled when no content", async ({ page }) => {
+  test("export buttons are enabled when no content (active buttons UX)", async ({ page }) => {
     const pdfButton = page.getByRole("button", { name: "To PDF" });
     const txtButton = page.getByRole("button", { name: "To TXT" });
     const htmlButton = page.getByRole("button", { name: "To HTML" });
 
-    await expect(pdfButton).toBeDisabled();
-    await expect(txtButton).toBeDisabled();
-    await expect(htmlButton).toBeDisabled();
+    // Buttons should be enabled - clicking triggers file picker
+    await expect(pdfButton).toBeEnabled();
+    await expect(txtButton).toBeEnabled();
+    await expect(htmlButton).toBeEnabled();
   });
 
   test("export buttons are enabled after file upload", async ({ page }) => {
@@ -721,10 +732,10 @@ test.describe("Markdown Free - File Validation", () => {
     // Verify no API calls were made (client-side validation)
     expect(apiCalled).toBe(false);
 
-    // Export buttons should remain disabled
-    await expect(page.getByRole("button", { name: "To PDF" })).toBeDisabled();
-    await expect(page.getByRole("button", { name: "To TXT" })).toBeDisabled();
-    await expect(page.getByRole("button", { name: "To HTML" })).toBeDisabled();
+    // Export buttons should remain enabled (active buttons UX - clicking triggers file picker)
+    await expect(page.getByRole("button", { name: "To PDF" })).toBeEnabled();
+    await expect(page.getByRole("button", { name: "To TXT" })).toBeEnabled();
+    await expect(page.getByRole("button", { name: "To HTML" })).toBeEnabled();
   });
 
   test("file exactly at 5MB limit should be accepted", async ({ page }) => {
@@ -1470,20 +1481,20 @@ test.describe("Markdown Free - Enhanced Analytics (Engagement Tracking)", () => 
     await expect(pasteLabel).toBeVisible();
   });
 
-  test("hovering disabled export buttons does not cause errors", async ({ page }) => {
+  test("hovering export buttons does not cause errors", async ({ page }) => {
     const errors: string[] = [];
     page.on("pageerror", (error) => {
       errors.push(error.message);
     });
 
-    // Buttons should be disabled initially
+    // Buttons should be enabled (active buttons UX)
     const pdfButton = page.getByRole("button", { name: "To PDF" });
     const txtButton = page.getByRole("button", { name: "To TXT" });
     const htmlButton = page.getByRole("button", { name: "To HTML" });
 
-    await expect(pdfButton).toBeDisabled();
+    await expect(pdfButton).toBeEnabled();
 
-    // Hover over each disabled button
+    // Hover over each button
     await pdfButton.hover();
     await page.waitForTimeout(50);
     await txtButton.hover();

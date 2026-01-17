@@ -21,11 +21,13 @@ export async function generateMetadata({
   }
 
   return {
-    title: "Markdown PDF 変換 無料 | Markdown Free",
+    title: "md pdf 変換 | Markdown PDF 変換 無料 | Markdown Free",
     description:
-      "MarkdownファイルをPDFに無料で変換。登録不要、ファイルは保存されません。ドラッグ＆ドロップで簡単変換。GitHub Flavored Markdown対応。",
+      "md pdf 変換、markdown pdf 変換、pdf markdown 変換 — すべて無料。.mdファイルをPDFに変換。登録不要、ファイルは保存されません。",
     keywords: [
+      "md pdf 変換",
       "markdown pdf 変換",
+      "pdf markdown 変換",
       "md pdf 変換 無料",
       "マークダウン pdf",
       "markdown 変換 オンライン",
@@ -35,9 +37,9 @@ export async function generateMetadata({
       canonical: "/ja/markdown-pdf-henkan",
     },
     openGraph: {
-      title: "Markdown PDF 変換 無料 | Markdown Free",
+      title: "md pdf 変換 | Markdown PDF 変換 無料",
       description:
-        "MarkdownファイルをPDFに無料で変換。登録不要、プライバシー保護。",
+        "md pdf 変換、markdown pdf 変換 — 無料で簡単。登録不要、プライバシー保護。",
       locale: "ja_JP",
     },
   };
@@ -60,11 +62,13 @@ export default async function MarkdownPdfHenkanPage({
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
-        <h1>Markdown PDF 変換 - 無料・登録不要</h1>
+        <h1>md pdf 変換・Markdown PDF 変換 - 無料・登録不要</h1>
 
         <p className="lead text-lg text-slate-600">
-          <code>.md</code>ファイルをプロフェッショナルなPDFに変換したいですか？
-          Markdown Freeなら、数秒で完了。登録もインストールも不要です。
+          <strong>md pdf 変換</strong>、<strong>markdown pdf 変換</strong>、
+          <strong>pdf markdown 変換</strong> — すべて無料で簡単。
+          <code>.md</code>ファイルをドラッグ＆ドロップするだけで、
+          数秒でプロフェッショナルなPDFに変換。登録もインストールも不要です。
         </p>
 
         {/* CTA Button */}
