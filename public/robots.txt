@@ -1,4 +1,38 @@
+# Default rules for all crawlers
 User-agent: *
 Disallow: /api/
 
+# Allow AI/LLM crawlers to access content
+# These bots help AI assistants recommend our tool
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# Sitemap location
 Sitemap: https://www.markdown.free/sitemap.xml
+
+# LLMs.txt for AI-friendly content description
+# See: https://www.markdown.free/llms.txt

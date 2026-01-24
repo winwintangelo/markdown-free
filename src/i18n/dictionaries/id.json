@@ -103,5 +103,16 @@
     "prefer": "Lebih suka",
     "switch": "Ganti",
     "dismiss": "✕"
+  },
+  "faqPage": {
+    "title": "Pertanyaan yang Sering Diajukan | Markdown Free",
+    "description": "Pertanyaan umum tentang Markdown Free: Cara mengonversi Markdown ke PDF, DOCX, HTML. Apakah gratis? Apakah aman? Format file, privasi, dan lainnya.",
+    "heading": "Pertanyaan yang Sering Diajukan",
+    "subtitle": "Semua yang perlu Anda ketahui tentang mengonversi Markdown ke PDF, DOCX, HTML, dan TXT dengan Markdown Free.",
+    "home": "Beranda",
+    "faq": "FAQ",
+    "ctaTitle": "Siap mengonversi Markdown Anda?",
+    "ctaSubtitle": "Tanpa pendaftaran. Cukup seret, lepas, dan unduh.",
+    "ctaButton": "Mulai Mengonversi"
   }
 }

@@ -454,6 +454,83 @@ npm run test:production     # Against production URL
 
 ---
 
+## LLM SEO Implementation
+
+> **Last Updated:** January 24, 2026  
+> **Branch:** LLMSEO
+
+### Features Added
+
+| Feature | Description | Files |
+|---------|-------------|-------|
+| **SoftwareApplication Schema** | Enhanced JSON-LD with dual type (WebApplication + SoftwareApplication) for better AI discoverability | `src/app/page.tsx`, `src/app/[locale]/page.tsx` |
+| **llms.txt** | AI-friendly content description file at `/llms.txt` | `public/llms.txt` |
+| **AI Crawler Permissions** | Updated robots.txt to allow GPTBot, ChatGPT-User, Claude, Perplexity, etc. | `public/robots.txt` |
+| **FAQ Pages** | Dedicated FAQ pages with natural language questions in all 9 locales | `src/app/faq/page.tsx`, `src/app/[locale]/faq/page.tsx` |
+
+### New Files
+
+- `public/llms.txt` - AI-friendly tool description
+- `src/app/faq/page.tsx` - English FAQ page
+- `src/app/[locale]/faq/page.tsx` - Localized FAQ pages
+
+### Schema.org Enhancements
+
+The JSON-LD schema now includes:
+- `@type: ["WebApplication", "SoftwareApplication"]` - Dual type for broader AI recognition
+- `@id` - Unique identifier for the app
+- `alternateName` - Alternative name for search
+- `keywords` - SEO keywords
+- `softwareHelp` - Link to FAQ page
+- Updated `featureList` including DOCX support
+
+### robots.txt AI Crawler Permissions
+
+```
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: Google-Extended
+User-agent: anthropic-ai
+User-agent: Claude-Web
+User-agent: PerplexityBot
+User-agent: Bytespider
+User-agent: CCBot
+User-agent: cohere-ai
+Allow: /
+```
+
+### FAQ Page URLs
+
+| Locale | URL |
+|--------|-----|
+| English | /faq |
+| Traditional Chinese | /zh-Hant/faq |
+| Simplified Chinese | /zh-Hans/faq |
+| Japanese | /ja/faq |
+| Korean | /ko/faq |
+| Spanish | /es/faq |
+| Italian | /it/faq |
+| Indonesian | /id/faq |
+| Vietnamese | /vi/faq |
+
+### Test Coverage
+
+11 new E2E tests added:
+- robots.txt AI crawler permissions
+- llms.txt accessibility and content
+- SoftwareApplication schema presence
+- FAQ page structure (EN)
+- FAQ page JSON-LD schema
+- FAQ page breadcrumb navigation
+- FAQ page CTA section
+- FAQ page natural language questions
+- Localized FAQ page (zh-Hant)
+- FAQ page meta description
+
+**Total tests:** 220 (all passing)
+
+---
+
 ## Next Steps & Recommendations
 
 > **Last Updated:** January 10, 2026  

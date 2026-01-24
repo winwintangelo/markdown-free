@@ -103,6 +103,17 @@
     "prefer": "Prefer",
     "switch": "Switch",
     "dismiss": "✕"
+  },
+  "faqPage": {
+    "title": "FAQ - Frequently Asked Questions | Markdown Free",
+    "description": "Common questions about Markdown Free: How to convert Markdown to PDF, DOCX, HTML. Is it free? Is it secure? File formats, privacy, and more.",
+    "heading": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know about converting Markdown to PDF, DOCX, HTML, and TXT with Markdown Free.",
+    "home": "Home",
+    "faq": "FAQ",
+    "ctaTitle": "Ready to convert your Markdown?",
+    "ctaSubtitle": "No signup required. Just drag, drop, and download.",
+    "ctaButton": "Start Converting"
   }
 }
 

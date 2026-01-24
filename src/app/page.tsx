@@ -11,39 +11,51 @@ import { EngagementTracker } from "@/components/engagement-tracker";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { getDictionary } from "@/i18n";
 
-// JSON-LD Schema for SEO
+// JSON-LD Schema for SEO (WebApplication + SoftwareApplication for LLM discoverability)
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "WebApplication",
+      "@type": ["WebApplication", "SoftwareApplication"],
+      "@id": "https://www.markdown.free/#app",
       name: "Markdown Free",
+      alternateName: "Markdown to PDF Converter",
       url: "https://www.markdown.free",
       description:
-        "Free, privacy-friendly Markdown to PDF, HTML and TXT converter. No signup, no ad trackers, files never stored.",
-      applicationCategory: "UtilityApplication",
+        "Free online tool to convert Markdown files to PDF, DOCX, HTML, and TXT. No signup required, privacy-friendly, runs in browser.",
+      applicationCategory: ["DeveloperApplication", "UtilityApplication"],
       operatingSystem: "Any (Web Browser)",
       browserRequirements: "Requires JavaScript",
       offers: {
         "@type": "Offer",
         price: "0",
         priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
       },
       featureList: [
-        "Convert Markdown to PDF",
-        "Convert Markdown to HTML",
-        "Convert Markdown to TXT",
-        "100% free, no signup required",
-        "Privacy-friendly: files never stored",
-        "Client-side preview rendering",
-        "HTTPS-only, XSS-sanitized output",
+        "Markdown to PDF conversion",
+        "Markdown to DOCX conversion",
+        "Markdown to HTML conversion",
+        "Markdown to TXT conversion",
+        "No account required",
+        "Client-side processing (privacy-friendly)",
+        "Files never stored on servers",
         "GitHub Flavored Markdown support",
+        "Code syntax highlighting",
+        "Multiple languages: English, Chinese, Japanese, Korean, Spanish, Italian, Indonesian, Vietnamese",
       ],
       softwareVersion: "1.0",
       creator: {
         "@type": "Organization",
         name: "Markdown Free",
+        url: "https://www.markdown.free",
       },
+      screenshot: "https://www.markdown.free/og-image.svg",
+      softwareHelp: {
+        "@type": "WebPage",
+        url: "https://www.markdown.free/faq",
+      },
+      keywords: "markdown, pdf, docx, converter, free, online, no signup, privacy",
     },
     {
       "@type": "FAQPage",

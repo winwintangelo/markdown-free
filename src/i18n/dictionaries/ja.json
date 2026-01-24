@@ -103,5 +103,16 @@
     "prefer": "お好みの言語",
     "switch": "切り替え",
     "dismiss": "✕"
+  },
+  "faqPage": {
+    "title": "よくある質問 | Markdown Free",
+    "description": "Markdown Freeに関するよくある質問：MarkdownをPDF、DOCX、HTMLに変換する方法。無料ですか？安全ですか？ファイル形式、プライバシーなど。",
+    "heading": "よくある質問",
+    "subtitle": "Markdown FreeでMarkdownをPDF、DOCX、HTML、TXTに変換する方法について。",
+    "home": "ホーム",
+    "faq": "よくある質問",
+    "ctaTitle": "Markdownを変換する準備はできましたか？",
+    "ctaSubtitle": "登録不要。ドラッグ＆ドロップでダウンロード。",
+    "ctaButton": "変換を開始"
   }
 }

@@ -103,5 +103,16 @@
     "prefer": "偏好語言",
     "switch": "切換",
     "dismiss": "✕"
+  },
+  "faqPage": {
+    "title": "常見問題 | Markdown Free",
+    "description": "關於 Markdown Free 的常見問題：如何將 Markdown 轉換為 PDF、DOCX、HTML。是否免費？是否安全？檔案格式、隱私等。",
+    "heading": "常見問題",
+    "subtitle": "關於使用 Markdown Free 將 Markdown 轉換為 PDF、DOCX、HTML 和 TXT 的所有資訊。",
+    "home": "首頁",
+    "faq": "常見問題",
+    "ctaTitle": "準備好轉換您的 Markdown 了嗎？",
+    "ctaSubtitle": "無需註冊。只需拖放即可下載。",
+    "ctaButton": "開始轉換"
   }
 }

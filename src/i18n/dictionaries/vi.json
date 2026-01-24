@@ -103,5 +103,16 @@
     "prefer": "Ưu tiên",
     "switch": "Chuyển",
     "dismiss": "✕"
+  },
+  "faqPage": {
+    "title": "Câu Hỏi Thường Gặp | Markdown Free",
+    "description": "Các câu hỏi phổ biến về Markdown Free: Cách chuyển đổi Markdown sang PDF, DOCX, HTML. Có miễn phí không? Có an toàn không? Định dạng tệp, quyền riêng tư và hơn thế nữa.",
+    "heading": "Câu Hỏi Thường Gặp",
+    "subtitle": "Tất cả những gì bạn cần biết về việc chuyển đổi Markdown sang PDF, DOCX, HTML và TXT với Markdown Free.",
+    "home": "Trang chủ",
+    "faq": "FAQ",
+    "ctaTitle": "Sẵn sàng chuyển đổi Markdown của bạn?",
+    "ctaSubtitle": "Không cần đăng ký. Chỉ cần kéo, thả và tải xuống.",
+    "ctaButton": "Bắt Đầu Chuyển Đổi"
   }
 }

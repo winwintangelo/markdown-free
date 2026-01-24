@@ -653,4 +653,61 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- FAQ Pages (LLM SEO - Frequently Asked Questions) -->
+  <url>
+    <loc>https://www.markdown.free/faq</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/faq" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/faq" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/faq" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/faq" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/faq" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/faq" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/faq" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/faq" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/faq" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hant/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hans/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ja/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ko/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/es/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/it/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/id/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/vi/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

@@ -19,7 +19,7 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-// JSON-LD Schema for SEO (localized)
+// JSON-LD Schema for SEO (WebApplication + SoftwareApplication for LLM discoverability)
 function getJsonLd(locale: Locale, dict: ReturnType<typeof getDictionary>) {
   const siteUrl = "https://www.markdown.free";
   const url = locale === "en" ? siteUrl : `${siteUrl}/${locale}`;
@@ -28,11 +28,13 @@ function getJsonLd(locale: Locale, dict: ReturnType<typeof getDictionary>) {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "WebApplication",
+        "@type": ["WebApplication", "SoftwareApplication"],
+        "@id": `${url}/#app`,
         name: "Markdown Free",
+        alternateName: "Markdown to PDF Converter",
         url,
         description: dict.meta.description,
-        applicationCategory: "UtilityApplication",
+        applicationCategory: ["DeveloperApplication", "UtilityApplication"],
         operatingSystem: "Any (Web Browser)",
         browserRequirements: "Requires JavaScript",
         inLanguage: locale,
@@ -40,22 +42,32 @@ function getJsonLd(locale: Locale, dict: ReturnType<typeof getDictionary>) {
           "@type": "Offer",
           price: "0",
           priceCurrency: "USD",
+          availability: "https://schema.org/InStock",
         },
         featureList: [
-          "Convert Markdown to PDF",
-          "Convert Markdown to HTML",
-          "Convert Markdown to TXT",
-          "100% free, no signup required",
-          "Privacy-friendly: files never stored",
-          "Client-side preview rendering",
-          "HTTPS-only, XSS-sanitized output",
+          "Markdown to PDF conversion",
+          "Markdown to DOCX conversion",
+          "Markdown to HTML conversion",
+          "Markdown to TXT conversion",
+          "No account required",
+          "Client-side processing (privacy-friendly)",
+          "Files never stored on servers",
           "GitHub Flavored Markdown support",
+          "Code syntax highlighting",
+          "Multiple languages: English, Chinese, Japanese, Korean, Spanish, Italian, Indonesian, Vietnamese",
         ],
         softwareVersion: "1.0",
         creator: {
           "@type": "Organization",
           name: "Markdown Free",
+          url: siteUrl,
         },
+        screenshot: `${siteUrl}/og-image.svg`,
+        softwareHelp: {
+          "@type": "WebPage",
+          url: `${siteUrl}/faq`,
+        },
+        keywords: "markdown, pdf, docx, converter, free, online, no signup, privacy",
       },
       {
         "@type": "FAQPage",

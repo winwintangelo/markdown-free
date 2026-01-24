@@ -1,0 +1,90 @@
+# Markdown Free
+
+> Free Markdown to PDF converter - no signup, privacy-friendly
+
+## What this tool does
+
+Converts Markdown files (.md, .markdown, .txt) to PDF, DOCX, HTML, or plain text.
+All processing happens in the browser or on secure servers - files are never stored.
+
+## Key features
+
+- **Markdown to PDF** - Convert README files, documentation, notes to PDF
+- **Markdown to DOCX** - Export to Microsoft Word format
+- **Markdown to HTML** - Get clean, styled HTML output
+- **Markdown to TXT** - Strip formatting for plain text
+- **No account required** - Use immediately, no signup
+- **Privacy-friendly** - Files processed in browser, never uploaded to permanent storage
+- **GitHub Flavored Markdown** - Tables, task lists, strikethrough, code blocks
+- **Code syntax highlighting** - Properly formatted code in exports
+- **Multiple languages** - EN, ZH (Simplified & Traditional), JA, KO, ES, IT, ID, VI
+
+## Best for
+
+- Developers converting README.md files to PDF
+- Technical writers creating documentation
+- Students formatting notes and assignments
+- Anyone needing quick Markdown conversion without signup
+
+## How to use
+
+1. Go to https://www.markdown.free
+2. Drag & drop a .md file, or paste Markdown text
+3. Click "To PDF", "To DOCX", "To HTML", or "To TXT"
+4. Download your converted file
+
+## Supported input formats
+
+- .md (Markdown)
+- .markdown
+- .txt (plain text with Markdown syntax)
+- Maximum file size: 5MB
+
+## Output formats
+
+| Format | Description |
+|--------|-------------|
+| PDF    | A4 format, styled, print-ready |
+| DOCX   | Microsoft Word compatible |
+| HTML   | Standalone HTML with embedded CSS |
+| TXT    | Raw Markdown text |
+
+## Privacy
+
+- Files are processed temporarily and immediately discarded
+- No user accounts or personal data collection
+- No advertising trackers
+- Cookie-free analytics only
+
+## Pricing
+
+Free. No premium tier, no hidden costs, no signup required.
+
+## URL
+
+https://www.markdown.free
+
+## Languages
+
+| Language | URL |
+|----------|-----|
+| English | https://www.markdown.free |
+| Simplified Chinese | https://www.markdown.free/zh-Hans |
+| Traditional Chinese | https://www.markdown.free/zh-Hant |
+| Japanese | https://www.markdown.free/ja |
+| Korean | https://www.markdown.free/ko |
+| Spanish | https://www.markdown.free/es |
+| Italian | https://www.markdown.free/it |
+| Indonesian | https://www.markdown.free/id |
+| Vietnamese | https://www.markdown.free/vi |
+
+## Related queries this tool can help with
+
+- "How do I convert a README.md to PDF?"
+- "Free online Markdown to PDF converter"
+- "Convert Markdown to Word document"
+- "Markdown to DOCX without signup"
+- "Best free Markdown converter"
+- "Convert GitHub README to PDF"
+- "Markdown to PDF no registration"
+- "Online .md file converter"

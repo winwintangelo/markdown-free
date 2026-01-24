@@ -1674,8 +1674,12 @@ test.describe("Markdown Free - SEO & Metadata", () => {
     const schema = JSON.parse(schemaContent!);
     expect(schema["@context"]).toBe("https://schema.org");
     
-    // Check for WebApplication type in @graph
-    const webApp = schema["@graph"].find((item: { "@type": string }) => item["@type"] === "WebApplication");
+    // Check for WebApplication/SoftwareApplication type in @graph
+    const webApp = schema["@graph"].find((item: { "@type": string | string[] }) => 
+      Array.isArray(item["@type"]) 
+        ? item["@type"].includes("WebApplication") 
+        : item["@type"] === "WebApplication"
+    );
     expect(webApp).toBeTruthy();
     expect(webApp.name).toBe("Markdown Free");
     expect(webApp.offers.price).toBe("0");
@@ -1684,6 +1688,32 @@ test.describe("Markdown Free - SEO & Metadata", () => {
     const faqPage = schema["@graph"].find((item: { "@type": string }) => item["@type"] === "FAQPage");
     expect(faqPage).toBeTruthy();
     expect(faqPage.mainEntity.length).toBeGreaterThan(0);
+  });
+
+  test("JSON-LD schema includes SoftwareApplication type for LLM SEO", async ({ page }) => {
+    await page.goto("/");
+    
+    const jsonLd = page.locator('script[type="application/ld+json"]');
+    const schemaContent = await jsonLd.textContent();
+    const schema = JSON.parse(schemaContent!);
+    
+    // Find the app entry (could be array or single type)
+    const appEntry = schema["@graph"].find((item: { "@type": string | string[] }) => 
+      Array.isArray(item["@type"]) 
+        ? item["@type"].includes("SoftwareApplication") 
+        : item["@type"] === "SoftwareApplication"
+    );
+    
+    expect(appEntry).toBeTruthy();
+    // Check for LLM-friendly fields
+    expect(appEntry["@id"]).toContain("markdown.free");
+    expect(appEntry.alternateName).toBeTruthy();
+    expect(appEntry.applicationCategory).toBeTruthy();
+    expect(appEntry.featureList).toBeInstanceOf(Array);
+    expect(appEntry.featureList.length).toBeGreaterThan(5);
+    // Check DOCX is in feature list
+    expect(appEntry.featureList.some((f: string) => f.toLowerCase().includes("docx"))).toBe(true);
+    expect(appEntry.keywords).toBeTruthy();
   });
 });
 
@@ -1696,6 +1726,40 @@ test.describe("Markdown Free - SEO Technical", () => {
     expect(content).toContain("User-agent:");
     expect(content).toContain("Disallow: /api/");
     expect(content).toContain("Sitemap:");
+  });
+
+  test("robots.txt allows AI/LLM crawlers", async ({ request }) => {
+    const response = await request.get("/robots.txt");
+    expect(response.status()).toBe(200);
+    
+    const content = await response.text();
+    // Check for AI crawler permissions
+    expect(content).toContain("User-agent: GPTBot");
+    expect(content).toContain("User-agent: ChatGPT-User");
+    expect(content).toContain("User-agent: anthropic-ai");
+    expect(content).toContain("User-agent: PerplexityBot");
+    expect(content).toContain("User-agent: Google-Extended");
+    // Check that llms.txt is referenced
+    expect(content).toContain("llms.txt");
+  });
+
+  test("llms.txt is accessible and contains required content", async ({ request }) => {
+    const response = await request.get("/llms.txt");
+    expect(response.status()).toBe(200);
+    
+    const content = await response.text();
+    // Check for essential content
+    expect(content).toContain("# Markdown Free");
+    expect(content).toContain("Markdown to PDF");
+    expect(content).toContain("DOCX");
+    expect(content).toContain("No account required");
+    expect(content).toContain("Privacy");
+    expect(content).toContain("https://www.markdown.free");
+    // Check for feature list
+    expect(content).toContain("GitHub Flavored Markdown");
+    // Check for user intent queries
+    expect(content).toContain("README.md");
+    expect(content).toContain("free");
   });
 
   test("sitemap.xml is accessible and valid", async ({ request }) => {
@@ -2636,6 +2700,102 @@ test.describe("Markdown Free - Special Filename Handling", () => {
 
     // HTML export is client-side, filename should be preserved
     expect(download.suggestedFilename()).toMatch(/R.sum.*Draft\.html/);
+  });
+});
+
+// =============================================================================
+// LLM SEO - FAQ Page Tests
+// =============================================================================
+test.describe("Markdown Free - FAQ Page", () => {
+  test("FAQ page is accessible and has correct structure", async ({ page }) => {
+    await page.goto("/faq");
+    
+    // Check for main heading
+    const h1 = page.locator("h1");
+    await expect(h1).toBeVisible();
+    expect(await h1.textContent()).toContain("Frequently Asked Questions");
+    
+    // Check for FAQ items
+    const faqItems = page.locator("article");
+    expect(await faqItems.count()).toBeGreaterThan(5);
+  });
+
+  test("FAQ page has JSON-LD schema", async ({ page }) => {
+    await page.goto("/faq");
+    
+    const jsonLd = page.locator('script[type="application/ld+json"]');
+    await expect(jsonLd).toBeAttached();
+    
+    const schemaContent = await jsonLd.textContent();
+    const schema = JSON.parse(schemaContent!);
+    
+    expect(schema["@context"]).toBe("https://schema.org");
+    expect(schema["@type"]).toBe("FAQPage");
+    expect(schema.mainEntity).toBeInstanceOf(Array);
+    expect(schema.mainEntity.length).toBeGreaterThan(5);
+    
+    // Check first question structure
+    const firstQuestion = schema.mainEntity[0];
+    expect(firstQuestion["@type"]).toBe("Question");
+    expect(firstQuestion.name).toBeTruthy();
+    expect(firstQuestion.acceptedAnswer["@type"]).toBe("Answer");
+    expect(firstQuestion.acceptedAnswer.text).toBeTruthy();
+  });
+
+  test("FAQ page has breadcrumb navigation", async ({ page }) => {
+    await page.goto("/faq");
+    
+    // Check for breadcrumb (the nav with Home > FAQ text)
+    const breadcrumb = page.locator("nav", { hasText: "›" });
+    await expect(breadcrumb).toBeVisible();
+    await expect(breadcrumb.getByText("Home")).toBeVisible();
+    await expect(breadcrumb.getByText("FAQ")).toBeVisible();
+  });
+
+  test("FAQ page has CTA section with link to converter", async ({ page }) => {
+    await page.goto("/faq");
+    
+    // Check for CTA
+    const ctaButton = page.getByRole("link", { name: /Start Converting/i });
+    await expect(ctaButton).toBeVisible();
+    
+    // Click and verify navigation
+    await ctaButton.click();
+    await expect(page).toHaveURL("/");
+  });
+
+  test("FAQ page includes natural language questions for SEO", async ({ page }) => {
+    await page.goto("/faq");
+    
+    const pageContent = await page.textContent("main");
+    
+    // Check for natural language questions that users would search for
+    expect(pageContent).toContain("README");
+    expect(pageContent).toContain("free");
+    expect(pageContent?.toLowerCase()).toContain("docx");
+    expect(pageContent?.toLowerCase()).toContain("word");
+  });
+
+  test("localized FAQ page works correctly", async ({ page }) => {
+    await page.goto("/zh-Hant/faq");
+    
+    // Check for Chinese content
+    const h1 = page.locator("h1");
+    await expect(h1).toBeVisible();
+    expect(await h1.textContent()).toContain("常見問題");
+    
+    // Check for JSON-LD
+    const jsonLd = page.locator('script[type="application/ld+json"]');
+    await expect(jsonLd).toBeAttached();
+  });
+
+  test("FAQ page meta description is set correctly", async ({ page }) => {
+    await page.goto("/faq");
+    
+    const metaDescription = await page.locator('meta[name="description"]').getAttribute("content");
+    expect(metaDescription).toBeTruthy();
+    expect(metaDescription?.toLowerCase()).toContain("markdown");
+    expect(metaDescription?.toLowerCase()).toContain("pdf");
   });
 });
 
