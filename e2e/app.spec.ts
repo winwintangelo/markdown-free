@@ -1733,10 +1733,15 @@ test.describe("Markdown Free - SEO Technical", () => {
     expect(response.status()).toBe(200);
     
     const content = await response.text();
-    // Check for AI crawler permissions
+    // OpenAI crawlers
+    expect(content).toContain("User-agent: OAI-SearchBot");
     expect(content).toContain("User-agent: GPTBot");
     expect(content).toContain("User-agent: ChatGPT-User");
-    expect(content).toContain("User-agent: anthropic-ai");
+    // Anthropic (Claude) crawlers
+    expect(content).toContain("User-agent: ClaudeBot");
+    expect(content).toContain("User-agent: Claude-User");
+    expect(content).toContain("User-agent: Claude-SearchBot");
+    // Other AI crawlers
     expect(content).toContain("User-agent: PerplexityBot");
     expect(content).toContain("User-agent: Google-Extended");
     // Check that llms.txt is referenced
@@ -2796,6 +2801,113 @@ test.describe("Markdown Free - FAQ Page", () => {
     expect(metaDescription).toBeTruthy();
     expect(metaDescription?.toLowerCase()).toContain("markdown");
     expect(metaDescription?.toLowerCase()).toContain("pdf");
+  });
+});
+
+// =============================================================================
+// LLM SEO - High-Intent Landing Pages Tests
+// =============================================================================
+test.describe("Markdown Free - High-Intent Landing Pages", () => {
+  test("GitHub README to PDF page is accessible", async ({ page }) => {
+    await page.goto("/github-readme-to-pdf");
+    
+    const h1 = page.locator("h1");
+    await expect(h1).toBeVisible();
+    expect(await h1.textContent()).toContain("GitHub");
+    expect(await h1.textContent()).toContain("PDF");
+    
+    // Check for CTA button (the first one in the article)
+    await expect(page.getByRole("link", { name: /Convert GitHub README Now/i })).toBeVisible();
+  });
+
+  test("Obsidian Markdown to PDF page is accessible", async ({ page }) => {
+    await page.goto("/obsidian-markdown-to-pdf");
+    
+    const h1 = page.locator("h1");
+    await expect(h1).toBeVisible();
+    expect(await h1.textContent()).toContain("Obsidian");
+    
+    // Check for limitations section (important for honesty)
+    const content = await page.textContent("main");
+    expect(content).toContain("Limitations");
+  });
+
+  test("No Watermark page is accessible", async ({ page }) => {
+    await page.goto("/markdown-to-pdf-no-watermark");
+    
+    const h1 = page.locator("h1");
+    await expect(h1).toBeVisible();
+    expect((await h1.textContent())?.toLowerCase()).toContain("watermark");
+    
+    // Check for comparison table
+    await expect(page.locator("table")).toBeVisible();
+  });
+
+  test("Online Free page is accessible", async ({ page }) => {
+    await page.goto("/markdown-to-pdf-online-free");
+    
+    const h1 = page.locator("h1");
+    await expect(h1).toBeVisible();
+    expect((await h1.textContent())?.toLowerCase()).toContain("free");
+    expect((await h1.textContent())?.toLowerCase()).toContain("online");
+  });
+
+  test("IndexNow key file is accessible", async ({ request }) => {
+    const response = await request.get("/3074aa8265cdc58e5af0ded9f519972f.txt");
+    expect(response.status()).toBe(200);
+    
+    const content = await response.text();
+    expect(content.trim()).toBe("3074aa8265cdc58e5af0ded9f519972f");
+  });
+
+  test("ChatGPT to PDF page is accessible", async ({ page }) => {
+    await page.goto("/chatgpt-to-pdf");
+    
+    const h1 = page.locator("h1");
+    await expect(h1).toBeVisible();
+    expect((await h1.textContent())?.toLowerCase()).toContain("chatgpt");
+    expect((await h1.textContent())?.toLowerCase()).toContain("pdf");
+    
+    // Check for the hook/instruction
+    const content = await page.textContent("main");
+    expect(content?.toLowerCase()).toContain("copy");
+    expect(content?.toLowerCase()).toContain("paste");
+  });
+
+  test("Claude Artifacts to PDF page is accessible", async ({ page }) => {
+    await page.goto("/claude-artifacts-to-pdf");
+    
+    const h1 = page.locator("h1");
+    await expect(h1).toBeVisible();
+    expect((await h1.textContent())?.toLowerCase()).toContain("claude");
+    expect((await h1.textContent())?.toLowerCase()).toContain("pdf");
+    
+    // Check for artifacts mention
+    const content = await page.textContent("main");
+    expect(content?.toLowerCase()).toContain("artifact");
+  });
+
+  test("High-intent pages have proper meta tags", async ({ page }) => {
+    const pages = [
+      "/github-readme-to-pdf",
+      "/obsidian-markdown-to-pdf",
+      "/markdown-to-pdf-no-watermark",
+      "/markdown-to-pdf-online-free",
+      "/chatgpt-to-pdf",
+      "/claude-artifacts-to-pdf",
+    ];
+
+    for (const pagePath of pages) {
+      await page.goto(pagePath);
+      
+      const title = await page.title();
+      expect(title).toBeTruthy();
+      expect(title.toLowerCase()).toContain("pdf");
+      
+      const metaDescription = await page.locator('meta[name="description"]').getAttribute("content");
+      expect(metaDescription).toBeTruthy();
+      expect(metaDescription!.length).toBeGreaterThan(50);
+    }
   });
 });
 

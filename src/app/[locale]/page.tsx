@@ -7,6 +7,7 @@ import { ExportRow } from "@/components/export-row";
 import { PreviewCard } from "@/components/preview-card";
 import { Footer } from "@/components/footer";
 import { EngagementTracker } from "@/components/engagement-tracker";
+import { AIReferralTracker } from "@/components/ai-referral-tracker";
 import { 
   isValidLocale, 
   getDictionary,
@@ -111,6 +112,8 @@ export default async function LocaleHomePage({
       <Header locale={locale} dict={dict} />
       {/* Engagement tracking (scroll depth, time on page, drag intent) */}
       <EngagementTracker />
+      {/* AI referral tracking (ChatGPT, Claude, Perplexity, etc.) */}
+      <AIReferralTracker />
       <main className="mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-16 pt-10">
         {/* Hero Section */}
         <Hero locale={locale} dict={dict} />

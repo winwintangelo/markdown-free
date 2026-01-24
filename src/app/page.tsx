@@ -8,6 +8,7 @@ import { Header } from "@/components/header";
 import { LanguageBanner } from "@/components/language-banner";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { EngagementTracker } from "@/components/engagement-tracker";
+import { AIReferralTracker } from "@/components/ai-referral-tracker";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { getDictionary } from "@/i18n";
 
@@ -119,6 +120,8 @@ export default function Home() {
       />
       {/* Engagement tracking (scroll depth, time on page, drag intent) */}
       <EngagementTracker />
+      {/* AI referral tracking (ChatGPT, Claude, Perplexity, etc.) */}
+      <AIReferralTracker />
       <main className="mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-16 pt-10">
         {/* Hero Section */}
         <Hero locale="en" dict={dict} />

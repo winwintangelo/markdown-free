@@ -17,7 +17,10 @@
     "report:sessions": "node scripts/umami-sessions.mjs",
     "validate": "node scripts/validate-production.mjs",
     "validate:verbose": "node scripts/validate-production.mjs --verbose",
-    "validate:traffic": "node scripts/validate-production.mjs --simulate-traffic --verbose"
+    "validate:traffic": "node scripts/validate-production.mjs --simulate-traffic --verbose",
+    "indexnow": "node scripts/indexnow-submit.mjs",
+    "indexnow:new": "node scripts/indexnow-submit.mjs --new",
+    "indexnow:all": "node scripts/indexnow-submit.mjs --all"
   },
   "dependencies": {
     "@sparticuz/chromium-min": "^141.0.0",

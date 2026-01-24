@@ -300,3 +300,84 @@ export function trackLocaleConversion(
 ): void {
   trackEvent("locale_conversion", { locale, format });
 }
+
+// =============================================================================
+// AI REFERRAL TRACKING (track traffic from AI assistants)
+// =============================================================================
+
+/**
+ * Known AI referrer domains for segmentation
+ */
+const AI_REFERRERS: Record<string, string> = {
+  "chat.openai.com": "chatgpt",
+  "chatgpt.com": "chatgpt",
+  "copilot.microsoft.com": "copilot",
+  "bing.com/chat": "copilot",
+  "perplexity.ai": "perplexity",
+  "claude.ai": "claude",
+  "anthropic.com": "claude",
+  "gemini.google.com": "gemini",
+  "bard.google.com": "gemini",
+  "you.com": "you",
+  "poe.com": "poe",
+  "phind.com": "phind",
+  "kagi.com": "kagi",
+};
+
+/**
+ * Detect if the referrer is from an AI assistant
+ */
+export function detectAIReferrer(): { isAI: boolean; source: string } {
+  if (typeof window === "undefined" || !document.referrer) {
+    return { isAI: false, source: "direct" };
+  }
+
+  try {
+    const referrerUrl = new URL(document.referrer);
+    const hostname = referrerUrl.hostname.toLowerCase();
+
+    // Check exact matches and partial matches
+    for (const [domain, source] of Object.entries(AI_REFERRERS)) {
+      if (hostname === domain || hostname.endsWith(`.${domain}`)) {
+        return { isAI: true, source };
+      }
+      // Check if domain is part of hostname (e.g., chat.openai.com)
+      if (hostname.includes(domain.split(".")[0]) && domain.includes(".")) {
+        return { isAI: true, source };
+      }
+    }
+
+    // Return non-AI referrer
+    return { isAI: false, source: hostname || "direct" };
+  } catch {
+    return { isAI: false, source: "unknown" };
+  }
+}
+
+/**
+ * Track AI referral on page load
+ * Call this once when the page loads to track AI traffic sources
+ */
+export function trackAIReferral(): void {
+  const { isAI, source } = detectAIReferrer();
+  
+  if (isAI) {
+    trackEvent("ai_referral", { source });
+  }
+}
+
+/**
+ * Track conversion with AI referral context
+ * Use this to track which AI sources drive actual conversions
+ */
+export function trackConversionWithReferrer(
+  format: "pdf" | "txt" | "html" | "docx"
+): void {
+  const { isAI, source } = detectAIReferrer();
+  
+  trackEvent("conversion_referrer", {
+    format,
+    is_ai: isAI ? "true" : "false",
+    source,
+  });
+}

@@ -2,37 +2,92 @@
 User-agent: *
 Disallow: /api/
 
-# Allow AI/LLM crawlers to access content
-# These bots help AI assistants recommend our tool
+# =============================================================================
+# OpenAI Crawlers
+# Docs: https://platform.openai.com/docs/bots
+# =============================================================================
+
+# OAI-SearchBot - For ChatGPT search results
+# Allowing this enables our site to appear in ChatGPT search answers
+User-agent: OAI-SearchBot
+Allow: /
+
+# GPTBot - For training generative AI models
+# We allow this to help improve AI model utility and safety
 User-agent: GPTBot
 Allow: /
 
+# ChatGPT-User - User-initiated actions in ChatGPT
+# Used when users ask ChatGPT to visit a page
 User-agent: ChatGPT-User
 Allow: /
 
+# =============================================================================
+# Anthropic (Claude) Crawlers
+# Docs: https://docs.anthropic.com/en/docs/resources/web-crawling
+# =============================================================================
+
+# ClaudeBot - For training Claude AI models
+User-agent: ClaudeBot
+Allow: /
+
+# Claude-User - User-initiated web access in Claude
+# Allows Claude to retrieve content when users ask questions
+User-agent: Claude-User
+Allow: /
+
+# Claude-SearchBot - For Claude search indexing
+# Enables our site to appear in Claude search results
+User-agent: Claude-SearchBot
+Allow: /
+
+# =============================================================================
+# Google AI Crawlers
+# =============================================================================
+
+# Google-Extended - For Gemini/Bard training
 User-agent: Google-Extended
 Allow: /
 
-User-agent: anthropic-ai
-Allow: /
+# =============================================================================
+# Other AI Crawlers
+# =============================================================================
 
-User-agent: Claude-Web
-Allow: /
-
+# PerplexityBot - Perplexity AI search
 User-agent: PerplexityBot
 Allow: /
 
+# Bytespider - ByteDance AI (TikTok, Doubao)
 User-agent: Bytespider
 Allow: /
 
+# CCBot - Common Crawl (used by many AI projects)
 User-agent: CCBot
 Allow: /
 
+# Cohere AI
 User-agent: cohere-ai
 Allow: /
 
-# Sitemap location
+# Meta AI
+User-agent: FacebookBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+# Microsoft/Bing AI
+User-agent: Bingbot
+Allow: /
+
+# Apple AI (Applebot-Extended for AI training)
+User-agent: Applebot-Extended
+Allow: /
+
+# =============================================================================
+# Sitemap & LLMs.txt
+# =============================================================================
 Sitemap: https://www.markdown.free/sitemap.xml
 
-# LLMs.txt for AI-friendly content description
+# LLMs.txt - AI-friendly content description
 # See: https://www.markdown.free/llms.txt
