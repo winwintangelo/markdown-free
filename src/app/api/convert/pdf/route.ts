@@ -98,9 +98,9 @@ async function getChromiumPath(): Promise<string> {
  * CSS styles for PDF rendering - matches the preview/HTML export styling
  */
 const PDF_STYLES = `
-/* Base styles */
+/* Base styles with multilingual font support */
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans SC', 'Noto Sans TC', 'Noto Color Emoji', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.6;
   color: #1e293b;
   margin: 0;
@@ -141,9 +141,9 @@ li {
   margin-bottom: 0.25rem;
 }
 
-/* Code */
+/* Code - with CJK fallback for comments in code */
 code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans SC', 'Noto Sans TC', monospace;
   font-size: 0.875em;
   background-color: #f1f5f9;
   padding: 0.125rem 0.25rem;
@@ -151,7 +151,7 @@ code {
 }
 
 pre {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans SC', 'Noto Sans TC', monospace;
   font-size: 0.875em;
   background-color: #1e293b;
   color: #f8fafc;
@@ -209,12 +209,16 @@ img {
 
 /**
  * Generate HTML template for PDF
+ * Includes Google Noto fonts for multilingual support (CJK, Vietnamese, etc.)
  */
 function generatePdfHtml(content: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
   <style>
 ${PDF_STYLES}
   </style>
@@ -398,12 +402,12 @@ export async function POST(request: NextRequest) {
       deviceScaleFactor: 2, // Higher quality
     });
 
-    // Set content with timeout
-    debugLog("Page", `[${requestId}] Setting page content (networkidle0, 5000ms timeout)...`);
+    // Set content with timeout (increased for Google Fonts/CJK loading)
+    debugLog("Page", `[${requestId}] Setting page content (networkidle0, 10000ms timeout)...`);
     const contentStart = Date.now();
     await page.setContent(fullHtml, {
       waitUntil: "networkidle0",
-      timeout: 5000,
+      timeout: 10000,
     });
     debugLog("Page", `[${requestId}] Page content set`, {
       durationMs: Date.now() - contentStart,

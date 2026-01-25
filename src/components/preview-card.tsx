@@ -134,6 +134,8 @@ export function PreviewCard({ locale: _locale, dict = defaultDict as unknown as 
             "prose-code:before:content-none prose-code:after:content-none",
             // Code blocks
             "prose-pre:bg-slate-950/90 prose-pre:text-slate-50 prose-pre:shadow-inner",
+            // Code inside pre blocks (ensure proper contrast)
+            "[&_pre_code]:bg-transparent [&_pre_code]:text-slate-50 [&_pre_code]:p-0",
             // Links
             "prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline",
             // Tables
