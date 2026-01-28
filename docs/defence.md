@@ -172,7 +172,7 @@ const MAX_CONTENT_SIZE = 1 * 1024 * 1024; // 1MB
 
 ## 5. XSS Prevention
 
-### Existing Protection
+### Primary Protection: rehype-sanitize
 
 The Markdown processing pipeline uses `rehype-sanitize` with GitHub's schema:
 
@@ -186,6 +186,34 @@ This prevents:
 - Event handlers (`onclick`, `onerror`, etc.)
 - Dangerous protocols (`javascript:`, `vbscript:`, `file:`)
 - Data exfiltration via img/iframe src
+
+### Secondary Protection: URL Pattern Blocking
+
+PDF generation includes regex-based URL sanitization as a defense-in-depth measure:
+
+```typescript
+// src/app/api/convert/pdf/route.ts
+const DANGEROUS_URL_PATTERNS = [
+  /href\s*=\s*["']?\s*javascript:/gi,
+  /href\s*=\s*["']?\s*vbscript:/gi,
+  /href\s*=\s*["']?\s*file:/gi,
+  /href\s*=\s*["']?\s*ftp:/gi,
+  /href\s*=\s*["']?\s*data:/gi,
+  /src\s*=\s*["']?\s*javascript:/gi,
+  /src\s*=\s*["']?\s*vbscript:/gi,
+  /src\s*=\s*["']?\s*file:/gi,
+  /src\s*=\s*["']data:(?!image\/)/gi, // Allow only data:image/*
+];
+```
+
+### Design Decision: No DOMPurify
+
+We intentionally avoid `isomorphic-dompurify` due to:
+- **Dependency bloat**: Requires `jsdom` (~45 packages)
+- **ESM compatibility issues**: `jsdom@27` uses ESM-only dependencies that break on Vercel serverless
+- **Redundancy**: `rehype-sanitize` with GitHub's schema provides equivalent protection
+
+The combination of `rehype-sanitize` + regex URL blocking provides robust XSS protection without the operational complexity.
 
 ### Additional Measures
 - HTML export includes sanitized content only

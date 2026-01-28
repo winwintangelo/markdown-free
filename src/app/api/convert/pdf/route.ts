@@ -2,7 +2,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { markdownToHtml } from "@/lib/markdown";
 import { proxyImagesInHtml } from "@/lib/image-proxy";
-import DOMPurify from "isomorphic-dompurify";
 
 // Maximum content size (1MB - reduced from 5MB for security)
 // This prevents memory exhaustion attacks while still allowing reasonable documents
@@ -379,29 +378,7 @@ export async function POST(request: NextRequest) {
     const markdownStart = Date.now();
     let renderedHtml = await markdownToHtml(markdown);
 
-    // SECURITY: Additional HTML sanitization with DOMPurify
-    // This catches any edge cases that rehype-sanitize might miss
-    debugLog("Security", `[${requestId}] Sanitizing HTML with DOMPurify...`);
-    renderedHtml = DOMPurify.sanitize(renderedHtml, {
-      USE_PROFILES: { html: true },
-      FORBID_TAGS: ["iframe", "object", "embed", "form", "input", "button", "script", "style", "link", "meta", "base", "svg", "math"],
-      FORBID_ATTR: [
-        // Event handlers
-        "onerror", "onload", "onclick", "onmouseover", "onmouseout", "onfocus", "onblur", "onchange", "onsubmit",
-        "onmouseenter", "onmouseleave", "onkeydown", "onkeyup", "onkeypress", "ondblclick", "oncontextmenu",
-        // URL-bearing attributes that could bypass sanitization
-        "srcset", // Multiple URLs - harder to validate
-        "xlink:href", // SVG links
-        "formaction", // Form override
-        "poster", // Video poster
-        // Style attribute (can contain url() for external resources)
-        "style",
-      ],
-      // Only allow safe URL schemes (blocks javascript:, file:, ftp:, data: in links, vbscript:, etc.)
-      ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
-    });
-
-    // SECURITY: Additional URL sanitization pass for href and src attributes
+    // SECURITY: URL sanitization pass for href and src attributes
     // Remove any remaining dangerous URL schemes that might have slipped through
     const DANGEROUS_URL_PATTERNS = [
       /href\s*=\s*["']?\s*javascript:/gi,
