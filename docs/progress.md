@@ -13,7 +13,7 @@
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS + `@tailwindcss/typography`
 - **Icons:** lucide-react
-- **Testing:** Playwright (126 E2E tests)
+- **Testing:** Playwright (246 E2E tests)
 - **Analytics:** Umami Cloud (cookieless)
 - **PDF Generation:** Puppeteer + @sparticuz/chromium (serverless)
 - **Deployment:** Vercel
@@ -253,7 +253,7 @@ Filter by `locale=it` or `locale=es` in Umami dashboard for per-language metrics
 
 ## Testing
 
-### E2E Test Coverage (126 tests)
+### E2E Test Coverage (246 tests)
 
 | Suite | Tests | Key Coverage |
 |-------|-------|--------------|
@@ -270,6 +270,8 @@ Filter by `locale=it` or `locale=es` in Umami dashboard for per-language metrics
 | Performance | 3 | Load time, FCP, accessibility |
 | Special Cases | 5 | Unicode filenames, emoji handling |
 | i18n | 24 | Locale routes, translations, SEO, language switcher |
+| Multilingual PDF | 11 | CJK fonts, Vietnamese, currency symbols |
+| Security | 11 | Puppeteer sandbox, image proxy, rate limiting, headers |
 
 ### Running Tests
 ```bash
@@ -318,11 +320,100 @@ npm run test:production     # Against production URL
 
 ## Security
 
-- **XSS Prevention:** `rehype-sanitize` strips scripts, event handlers, javascript: URLs
+> **Last Updated:** January 26, 2026
+> **Security Audit:** Implemented based on security team recommendations
+
+### Defense Layers
+
+| Layer | Implementation | Risk Mitigated |
+|-------|----------------|----------------|
+| **Puppeteer Sandbox** | JavaScript disabled, network requests blocked | RCE, SSRF |
+| **Image Proxy** | Pre-fetch images in Node.js, validate URLs, convert to Base64 | SSRF via images |
+| **Edge Protection** | Rate limiting (15/min), origin validation | DoS, API theft |
+| **Input Sanitization** | rehype-sanitize + DOMPurify, 1MB PDF limit | XSS, resource exhaustion |
+| **Security Headers** | CSP, HSTS, X-Frame-Options, etc. | Clickjacking, MITM |
+| **Privacy Logging** | Metadata only, no user content logged | PII exposure |
+
+### Priority 1: Puppeteer Sandbox (Critical)
+
+**File:** `src/app/api/convert/pdf/route.ts`
+
+- JavaScript execution disabled: `page.setJavaScriptEnabled(false)`
+- Network request interception blocks all external requests except Google Fonts
+- Allowed domains: `fonts.googleapis.com`, `fonts.gstatic.com` (for CJK support)
+
+### Image Proxy (GitHub README Support)
+
+**File:** `src/lib/image-proxy.ts`
+
+External images in markdown (e.g., GitHub README images) are:
+1. Pre-fetched in Node.js (not by Puppeteer)
+2. URL validated to block localhost, internal IPs, file:// protocol
+3. Converted to Base64 data URIs
+4. Injected into HTML before Puppeteer renders
+
+Limits:
+- Max 2MB per image
+- Max 20 images per document
+- 5s timeout per image fetch
+
+### Priority 2: Edge Protection (High)
+
+**File:** `src/middleware.ts`
+
+- **Rate Limiting:** 15 requests/minute per IP for PDF API (100/min in dev)
+- **Origin Validation:** POST requests require valid `Origin` header
+- Allowed origins: `https://www.markdown.free`, `https://markdown.free`, `localhost:3000`
+- Returns 429 (Rate Limited) or 403 (Forbidden) for violations
+
+### Priority 3: Input Sanitization
+
+- **XSS Prevention:** `rehype-sanitize` (GitHub schema) + `isomorphic-dompurify` double sanitization
+- **Forbidden tags:** iframe, object, embed, form, input, button
+- **Forbidden attributes:** onerror, onload, onclick, onmouseover
 - **File Validation:** Client-side 5MB limit before upload
-- **PDF API:** Content size validation, timeout protection
+- **PDF API Limits:** 1MB content limit, 15s PDF timeout, 25s max duration
+
+### Priority 4: Security Headers
+
+**Files:** `vercel.json`, `next.config.js`
+
+| Header | Value | Purpose |
+|--------|-------|---------|
+| `Content-Security-Policy` | Restrictive policy | XSS prevention |
+| `Strict-Transport-Security` | `max-age=31536000; includeSubDomains` | HTTPS enforcement |
+| `X-Content-Type-Options` | `nosniff` | MIME sniffing prevention |
+| `X-Frame-Options` | `DENY` | Clickjacking prevention |
+| `X-XSS-Protection` | `1; mode=block` | Browser XSS filter |
+| `Referrer-Policy` | `strict-origin-when-cross-origin` | Referrer leakage prevention |
+
+### Zero-Content Logging
+
+- API logs only metadata: request ID, filename, content length, duration, status
+- User content (markdown, HTML) is never logged (PII protection)
+- Error logs include error type and stack trace, not user data
+
+### Security Test Coverage
+
+**File:** `e2e/security.spec.ts` (11 tests)
+
+| Test | Coverage |
+|------|----------|
+| Normal PDF generation | Baseline functionality |
+| External image URLs blocked | SSRF protection |
+| XSS sanitization | Script/event handler removal |
+| Code blocks preserved | Documentation safety |
+| Content size limit (1MB) | Resource exhaustion |
+| External image proxy | GitHub README images work |
+| Localhost image block | SSRF via image URLs |
+| Security headers | Header presence |
+| Rate limit headers | Rate limiting |
+| Origin validation (blocked) | CSRF/API theft |
+| Origin validation (allowed) | Legitimate requests |
+
+### Legacy Security
+
 - **Next.js:** Updated to 14.2.35 (CVE-2025-55184 patched)
-- **Headers:** Security headers via Vercel config
 
 ---
 
@@ -527,7 +618,7 @@ Allow: /
 - Localized FAQ page (zh-Hant)
 - FAQ page meta description
 
-**Total tests:** 220 (all passing)
+**Total tests:** 248 (all passing)
 
 ---
 

@@ -1241,7 +1241,7 @@ test.describe("Markdown Free - File Validation", () => {
     await page.goto("/");
   });
 
-  test("should reject file over 5MB immediately without server call", async ({ page }) => {
+  test("should reject file over 1MB immediately without server call", async ({ page }) => {
     const fileInput = page.locator('input[type="file"]');
 
     // Track if any API calls are made
@@ -1251,8 +1251,8 @@ test.describe("Markdown Free - File Validation", () => {
       await route.continue();
     });
 
-    // Create a 6MB buffer (over the 5MB limit)
-    const largeBuffer = Buffer.alloc(6 * 1024 * 1024, "x");
+    // Create a 2MB buffer (over the 1MB limit)
+    const largeBuffer = Buffer.alloc(2 * 1024 * 1024, "x");
 
     // Record start time to verify immediate rejection
     const startTime = Date.now();
@@ -1264,7 +1264,7 @@ test.describe("Markdown Free - File Validation", () => {
     });
 
     // Should show error immediately (within 500ms, not waiting for server)
-    await expect(page.getByText("File too large. Maximum size is 5MB.")).toBeVisible();
+    await expect(page.getByText("File too large. Maximum size is 1MB.")).toBeVisible();
     
     const elapsedTime = Date.now() - startTime;
     expect(elapsedTime).toBeLessThan(1000); // Should be immediate, not waiting for server
@@ -1278,11 +1278,11 @@ test.describe("Markdown Free - File Validation", () => {
     await expect(page.getByRole("button", { name: "To HTML" })).toBeEnabled();
   });
 
-  test("file exactly at 5MB limit should be accepted", async ({ page }) => {
+  test("file exactly at 1MB limit should be accepted", async ({ page }) => {
     const fileInput = page.locator('input[type="file"]');
 
-    // Create exactly 5MB buffer (at the limit)
-    const exactLimitBuffer = Buffer.alloc(5 * 1024 * 1024, "x");
+    // Create exactly 1MB buffer (at the limit)
+    const exactLimitBuffer = Buffer.alloc(1 * 1024 * 1024, "x");
 
     await fileInput.setInputFiles({
       name: "exact-5mb.md",

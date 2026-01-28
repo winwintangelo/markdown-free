@@ -12,7 +12,7 @@
     "dragDrop": "Drag & drop your Markdown file",
     "or": "or",
     "chooseFile": "choose file",
-    "supports": "Supports .md, .markdown, .txt • Max 5 MB",
+    "supports": "Supports .md, .markdown, .txt • Max 1 MB",
     "noFile": "No file selected yet",
     "trySample": "Try sample file",
     "pasteMarkdown": "paste Markdown"
@@ -20,7 +20,8 @@
   "paste": {
     "label": "Pasted Markdown",
     "placeholder": "Paste your Markdown here…",
-    "helper": "Changes here will also be used when exporting to PDF, DOCX, TXT or HTML."
+    "helper": "Changes here will also be used when exporting to PDF, DOCX, TXT or HTML.",
+    "tooLarge": "Content exceeds 1MB limit. It has been truncated."
   },
   "export": {
     "toPdf": "To PDF",
@@ -50,7 +51,7 @@
   },
   "errors": {
     "invalidType": "Unsupported file type. Please upload a .md, .markdown or .txt file.",
-    "tooLarge": "File too large. Maximum size is 5MB.",
+    "tooLarge": "File too large. Maximum size is 1MB.",
     "readError": "Unable to read file. Please ensure it's a valid text file.",
     "sampleError": "Unable to load sample file. Please try again.",
     "pdfTimeout": "PDF generation timed out. Please try again.",
@@ -92,7 +93,7 @@
     },
     {
       "question": "Which formats does Markdown Free support?",
-      "answer": "Input: .md, .markdown, .txt files (up to 5MB). Output: PDF, DOCX (Word), HTML, TXT. Supports GitHub Flavored Markdown."
+      "answer": "Input: .md, .markdown, .txt files (up to 1MB). Output: PDF, DOCX (Word), HTML, TXT. Supports GitHub Flavored Markdown."
     },
     {
       "question": "Is the conversion secure?",

@@ -27,9 +27,11 @@ export function isValidFileType(filename: string): boolean {
 }
 
 /**
- * Max file size in bytes (5MB)
+ * Max file size in bytes (1MB)
+ * Must match server-side MAX_CONTENT_SIZE in api/convert/pdf/route.ts
+ * Keeping client and server limits in sync ensures "fail fast" UX
  */
-export const MAX_FILE_SIZE = 5 * 1024 * 1024;
+export const MAX_FILE_SIZE = 1 * 1024 * 1024;
 
 /**
  * Check if file size is within limit

@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { markdownToHtml } from "@/lib/markdown";
+import { proxyImagesInHtml } from "@/lib/image-proxy";
 import HTMLtoDOCX from "html-to-docx";
 
-// Maximum content size (5MB)
-const MAX_CONTENT_SIZE = 5 * 1024 * 1024;
+// Polyfill for html-to-docx bug: library uses console.warning instead of console.warn
+// See: https://github.com/privateOmega/html-to-docx/issues
+if (typeof (console as any).warning !== "function") {
+  (console as any).warning = console.warn;
+}
+
+// Maximum content size (1MB)
+// Must match client-side MAX_FILE_SIZE for "fail fast" UX
+const MAX_CONTENT_SIZE = 1 * 1024 * 1024;
 
 // DOCX generation timeout (10 seconds)
 const DOCX_TIMEOUT = 10000;
@@ -30,6 +38,63 @@ function errorResponse(
   status: number
 ): NextResponse {
   return NextResponse.json({ error: code, message }, { status });
+}
+
+/**
+ * Replace ALL image tags except those with valid data:image/ URIs.
+ * This handles:
+ * - External URLs (http/https) that couldn't be proxied
+ * - Malformed img tags with no src (from sanitized file:/javascript: URLs)
+ * - Any other img tags that could crash html-to-docx
+ */
+function replaceNonEmbeddedImages(html: string): string {
+  // First, replace img tags WITH src attributes (but not data URIs)
+  let result = html.replace(/<img\s+[^>]*src=["']([^"']+)["'][^>]*\/?>/gi, (match, src) => {
+    // Keep data URIs (already embedded)
+    if (src.startsWith("data:image/")) {
+      return match;
+    }
+    // Replace with placeholder text
+    console.log(`[DOCX] Replacing external image: ${src.substring(0, 100)}`);
+    return "<em>[Image not available]</em>";
+  });
+
+  // Second, remove img tags WITHOUT src attributes (malformed tags from sanitization)
+  // These occur when rehype-sanitize strips disallowed protocols like file:
+  result = result.replace(/<img\s+(?![^>]*src=)[^>]*\/?>/gi, (match) => {
+    console.log(`[DOCX] Removing malformed img tag (no src): ${match.substring(0, 50)}`);
+    return "<em>[Image not available]</em>";
+  });
+
+  return result;
+}
+
+/**
+ * Sanitize HTML for html-to-docx compatibility.
+ * The library is buggy and crashes on various HTML structures.
+ */
+function sanitizeHtmlForDocx(html: string): string {
+  let result = html;
+
+  // Remove HTML comments
+  result = result.replace(/<!--[\s\S]*?-->/g, "");
+
+  // Remove empty paragraphs (can crash the library)
+  result = result.replace(/<p>\s*<\/p>/gi, "");
+
+  // Remove empty spans
+  result = result.replace(/<span>\s*<\/span>/gi, "");
+
+  // Remove empty divs
+  result = result.replace(/<div>\s*<\/div>/gi, "");
+
+  // Normalize multiple whitespace/newlines
+  result = result.replace(/\n\s*\n/g, "\n");
+
+  // Ensure no orphaned text outside of elements at body level
+  // (This is a safety measure for malformed HTML)
+
+  return result;
 }
 
 /**
@@ -64,15 +129,28 @@ em { font-style: italic; }
 
 /**
  * Convert markdown to DOCX buffer using html-to-docx
- * 
- * Pipeline: Markdown → HTML → DOCX
- * This produces more compatible Word documents
+ *
+ * Pipeline: Markdown → HTML → Image Proxy → Cleanup → DOCX
+ * This produces more compatible Word documents with secure image handling
  */
 async function markdownToDocx(markdown: string, title?: string): Promise<Buffer> {
   // Step 1: Convert markdown to HTML
-  const htmlContent = await markdownToHtml(markdown);
-  
-  // Step 2: Wrap in full HTML document with styles
+  let htmlContent = await markdownToHtml(markdown);
+
+  // Step 2: SECURITY - Proxy external images to prevent SSRF
+  // Converts safe external images to base64 data URIs
+  console.log("[DOCX] Proxying external images...");
+  htmlContent = await proxyImagesInHtml(htmlContent);
+
+  // Step 3: Replace any non-embedded images with placeholder text
+  // This prevents html-to-docx from attempting downloads or crashing on malformed tags
+  htmlContent = replaceNonEmbeddedImages(htmlContent);
+
+  // Step 4: Sanitize HTML for html-to-docx compatibility
+  // (removes comments, empty elements, etc. that can crash the library)
+  htmlContent = sanitizeHtmlForDocx(htmlContent);
+
+  // Step 5: Wrap in full HTML document with styles
   const fullHtml = `
 <!DOCTYPE html>
 <html>
@@ -87,7 +165,7 @@ async function markdownToDocx(markdown: string, title?: string): Promise<Buffer>
 </html>
 `;
 
-  // Step 3: Convert HTML to DOCX
+  // Step 6: Convert HTML to DOCX
   const docxBuffer = await HTMLtoDOCX(fullHtml, null, {
     table: { row: { cantSplit: true } },
     footer: false,
@@ -139,7 +217,7 @@ export async function POST(request: NextRequest) {
       debugLog("Request", `[${requestId}] Content too large`);
       return errorResponse(
         "CONTENT_TOO_LARGE",
-        "Content exceeds maximum size of 5MB.",
+        "Content exceeds maximum size of 1MB.",
         413
       );
     }

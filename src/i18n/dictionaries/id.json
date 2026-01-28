@@ -12,7 +12,7 @@
     "dragDrop": "Seret & lepas file Markdown Anda",
     "or": "atau",
     "chooseFile": "pilih file",
-    "supports": "Mendukung .md, .markdown, .txt • Maks 5 MB",
+    "supports": "Mendukung .md, .markdown, .txt • Maks 1 MB",
     "noFile": "Belum ada file yang dipilih",
     "trySample": "Coba file contoh",
     "pasteMarkdown": "tempel Markdown"
@@ -20,7 +20,8 @@
   "paste": {
     "label": "Markdown yang Ditempel",
     "placeholder": "Tempel Markdown Anda di sini…",
-    "helper": "Perubahan di sini juga akan digunakan saat mengekspor ke PDF, DOCX, TXT atau HTML."
+    "helper": "Perubahan di sini juga akan digunakan saat mengekspor ke PDF, DOCX, TXT atau HTML.",
+    "tooLarge": "Konten melebihi batas 1MB. Telah dipotong."
   },
   "export": {
     "toPdf": "Ke PDF",
@@ -50,7 +51,7 @@
   },
   "errors": {
     "invalidType": "Jenis file tidak didukung. Silakan unggah file .md, .markdown atau .txt.",
-    "tooLarge": "File terlalu besar. Ukuran maksimum adalah 5MB.",
+    "tooLarge": "File terlalu besar. Ukuran maksimum adalah 1MB.",
     "readError": "Tidak dapat membaca file. Pastikan itu adalah file teks yang valid.",
     "sampleError": "Tidak dapat memuat file contoh. Silakan coba lagi.",
     "pdfTimeout": "Pembuatan PDF kehabisan waktu. Silakan coba lagi.",
@@ -92,7 +93,7 @@
     },
     {
       "question": "Format apa yang didukung Markdown Free?",
-      "answer": "Input: file .md, .markdown, .txt (hingga 5MB). Output: PDF, DOCX (Word), HTML, TXT. Mendukung GitHub Flavored Markdown."
+      "answer": "Input: file .md, .markdown, .txt (hingga 1MB). Output: PDF, DOCX (Word), HTML, TXT. Mendukung GitHub Flavored Markdown."
     },
     {
       "question": "Apakah konversi aman?",

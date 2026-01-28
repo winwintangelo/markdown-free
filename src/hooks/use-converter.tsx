@@ -42,6 +42,7 @@ function appReducer(state: AppState, action: AppAction): AppState {
         },
         status: "ready",
         error: null,
+        isPasteAreaVisible: false, // Collapse paste area when file is uploaded
       };
 
     case "LOAD_PASTE":
@@ -77,6 +78,7 @@ function appReducer(state: AppState, action: AppAction): AppState {
         },
         status: "ready",
         error: null,
+        isPasteAreaVisible: false, // Collapse paste area when sample is loaded
       };
 
     case "CLEAR_CONTENT":

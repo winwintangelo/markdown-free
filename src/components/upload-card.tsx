@@ -19,14 +19,14 @@ const defaultDict = {
     dragDrop: "Drag & drop your Markdown file",
     or: "or",
     chooseFile: "choose file",
-    supports: "Supports .md, .markdown, .txt • Max 5 MB",
+    supports: "Supports .md, .markdown, .txt • Max 1 MB",
     noFile: "No file selected yet",
     trySample: "Try sample file",
     pasteMarkdown: "paste Markdown"
   },
   errors: {
     invalidType: "Unsupported file type. Please upload a .md, .markdown or .txt file.",
-    tooLarge: "File too large. Maximum size is 5MB.",
+    tooLarge: "File too large. Maximum size is 1MB.",
     readError: "Unable to read file. Please ensure it's a valid text file.",
     sampleError: "Unable to load sample file. Please try again."
   }

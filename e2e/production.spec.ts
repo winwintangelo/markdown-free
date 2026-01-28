@@ -345,15 +345,15 @@ test.describe("Production - Error Handling", () => {
 
     const fileInput = page.locator('input[type="file"]');
     
-    // 6MB file (over 5MB limit)
-    const largeBuffer = Buffer.alloc(6 * 1024 * 1024, "x");
+    // 2MB file (over 1MB limit)
+    const largeBuffer = Buffer.alloc(2 * 1024 * 1024, "x");
     await fileInput.setInputFiles({
       name: "large.md",
       mimeType: "text/markdown",
       buffer: largeBuffer,
     });
 
-    await expect(page.getByText("File too large. Maximum size is 5MB.")).toBeVisible();
+    await expect(page.getByText("File too large. Maximum size is 1MB.")).toBeVisible();
     await expect(page.getByRole("button", { name: "To PDF" })).toBeDisabled();
   });
 });

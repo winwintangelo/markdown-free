@@ -1,9 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
 import { markdownToHtml } from "@/lib/markdown";
+import { proxyImagesInHtml } from "@/lib/image-proxy";
+import DOMPurify from "isomorphic-dompurify";
 
-// Maximum content size (5MB)
-const MAX_CONTENT_SIZE = 5 * 1024 * 1024;
+// Maximum content size (1MB - reduced from 5MB for security)
+// This prevents memory exhaustion attacks while still allowing reasonable documents
+const MAX_CONTENT_SIZE = 1 * 1024 * 1024;
+
+// Maximum rendered HTML size (10MB - accounts for base64 images)
+// Base64 encoding increases size by ~33%, plus HTML tags add overhead
+const MAX_HTML_SIZE = 10 * 1024 * 1024;
+
+// Vercel serverless function config
+// This ensures the function times out before Vercel's hard limit
+export const maxDuration = 25; // seconds
 
 // PDF generation timeout (15 seconds)
 const PDF_TIMEOUT = 15000;
@@ -316,7 +327,8 @@ async function getBrowser() {
 export async function POST(request: NextRequest) {
   const requestId = Math.random().toString(36).substring(7);
   const requestStart = Date.now();
-  let browser = null;
+  let browser: any = null;
+  let page: any = null;
 
   debugLog("Request", `[${requestId}] PDF generation request started`, {
     url: request.url,
@@ -332,10 +344,11 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { markdown, filename } = body;
 
+    // SECURITY: Log metadata only, never log user content (PII risk)
     debugLog("Request", `[${requestId}] Request body parsed`, {
       filename,
       markdownLength: markdown?.length,
-      markdownPreview: markdown?.substring(0, 100),
+      // Note: We intentionally don't log content preview to protect user privacy
     });
 
     // Validate content
@@ -356,7 +369,7 @@ export async function POST(request: NextRequest) {
       debugLog("Request", `[${requestId}] Content too large`);
       return errorResponse(
         "CONTENT_TOO_LARGE",
-        "Content exceeds maximum size of 5MB.",
+        "Content exceeds maximum size of 1MB.",
         413
       );
     }
@@ -364,12 +377,76 @@ export async function POST(request: NextRequest) {
     // Convert markdown to HTML
     debugLog("Markdown", `[${requestId}] Converting markdown to HTML...`);
     const markdownStart = Date.now();
-    const renderedHtml = await markdownToHtml(markdown);
+    let renderedHtml = await markdownToHtml(markdown);
+
+    // SECURITY: Additional HTML sanitization with DOMPurify
+    // This catches any edge cases that rehype-sanitize might miss
+    debugLog("Security", `[${requestId}] Sanitizing HTML with DOMPurify...`);
+    renderedHtml = DOMPurify.sanitize(renderedHtml, {
+      USE_PROFILES: { html: true },
+      FORBID_TAGS: ["iframe", "object", "embed", "form", "input", "button", "script", "style", "link", "meta", "base", "svg", "math"],
+      FORBID_ATTR: [
+        // Event handlers
+        "onerror", "onload", "onclick", "onmouseover", "onmouseout", "onfocus", "onblur", "onchange", "onsubmit",
+        "onmouseenter", "onmouseleave", "onkeydown", "onkeyup", "onkeypress", "ondblclick", "oncontextmenu",
+        // URL-bearing attributes that could bypass sanitization
+        "srcset", // Multiple URLs - harder to validate
+        "xlink:href", // SVG links
+        "formaction", // Form override
+        "poster", // Video poster
+        // Style attribute (can contain url() for external resources)
+        "style",
+      ],
+      // Only allow safe URL schemes (blocks javascript:, file:, ftp:, data: in links, vbscript:, etc.)
+      ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto):|[^a-z]|[a-z+.-]+(?:[^a-z+.\-:]|$))/i,
+    });
+
+    // SECURITY: Additional URL sanitization pass for href and src attributes
+    // Remove any remaining dangerous URL schemes that might have slipped through
+    const DANGEROUS_URL_PATTERNS = [
+      /href\s*=\s*["']?\s*javascript:/gi,
+      /href\s*=\s*["']?\s*vbscript:/gi,
+      /href\s*=\s*["']?\s*file:/gi,
+      /href\s*=\s*["']?\s*ftp:/gi,
+      /href\s*=\s*["']?\s*data:/gi,
+      /src\s*=\s*["']?\s*javascript:/gi,
+      /src\s*=\s*["']?\s*vbscript:/gi,
+      /src\s*=\s*["']?\s*file:/gi,
+      // Block non-image data URIs in src (only our proxy should generate data:image/*)
+      /src\s*=\s*["']data:(?!image\/)/gi,
+    ];
+    for (const pattern of DANGEROUS_URL_PATTERNS) {
+      if (pattern.test(renderedHtml)) {
+        debugLog("Security", `[${requestId}] Blocked dangerous URL pattern: ${pattern.source}`);
+        renderedHtml = renderedHtml.replace(pattern, 'href="#blocked"');
+      }
+    }
+
+    // SECURITY: Proxy external images to prevent SSRF during PDF generation
+    // This fetches images via Node.js, validates URLs, and converts to Base64
+    debugLog("Security", `[${requestId}] Proxying external images...`);
+    const imageProxyStart = Date.now();
+    renderedHtml = await proxyImagesInHtml(renderedHtml);
+    debugLog("Security", `[${requestId}] Image proxy complete`, {
+      durationMs: Date.now() - imageProxyStart,
+    });
+
     const fullHtml = generatePdfHtml(renderedHtml);
     debugLog("Markdown", `[${requestId}] Markdown converted`, {
       durationMs: Date.now() - markdownStart,
       htmlLength: fullHtml.length,
     });
+
+    // SECURITY: Check rendered HTML size (prevents memory exhaustion from large base64 images)
+    const htmlSize = Buffer.byteLength(fullHtml, "utf-8");
+    if (htmlSize > MAX_HTML_SIZE) {
+      debugLog("Security", `[${requestId}] HTML too large: ${htmlSize} bytes`);
+      return errorResponse(
+        "CONTENT_TOO_LARGE",
+        "Rendered content exceeds maximum size. Try reducing the number or size of images.",
+        413
+      );
+    }
 
     // Launch browser with timeout
     debugLog("Browser", `[${requestId}] Starting browser launch with ${PDF_TIMEOUT}ms timeout...`);
@@ -388,9 +465,63 @@ export async function POST(request: NextRequest) {
 
     debugLog("Page", `[${requestId}] Creating new page...`);
     const pageStart = Date.now();
-    const page = await browser.newPage();
+    page = await browser.newPage();
     debugLog("Page", `[${requestId}] Page created`, {
       durationMs: Date.now() - pageStart,
+    });
+
+    // SECURITY: Disable JavaScript execution to prevent XSS
+    debugLog("Security", `[${requestId}] Disabling JavaScript...`);
+    await page.setJavaScriptEnabled(false);
+
+    // SECURITY: Block all network requests except Google Fonts (for CJK support)
+    // Uses hostname-based matching (not string/regex on URL) to prevent bypass attacks
+    const ALLOWED_FONT_HOSTNAMES = new Set([
+      "fonts.googleapis.com",
+      "fonts.gstatic.com",
+    ]);
+    const ALLOWED_FONT_RESOURCE_TYPES = new Set(["stylesheet", "font"]);
+
+    debugLog("Security", `[${requestId}] Setting up request interception...`);
+    await page.setRequestInterception(true);
+
+    page.on("request", (request: any) => {
+      const url = request.url();
+      const resourceType = request.resourceType();
+
+      // Allow data URIs (inline content - already validated by image proxy)
+      if (url.startsWith("data:")) {
+        // Only allow data:image/* URIs
+        if (url.startsWith("data:image/")) {
+          request.continue();
+        } else {
+          debugLog("Security", `[${requestId}] Blocking non-image data URI`);
+          request.abort("blockedbyclient");
+        }
+        return;
+      }
+
+      // Parse URL and check hostname (secure hostname-based matching)
+      let isAllowedDomain = false;
+      try {
+        const parsed = new URL(url);
+        // Must be HTTPS and exact hostname match
+        isAllowedDomain = parsed.protocol === "https:" && ALLOWED_FONT_HOSTNAMES.has(parsed.hostname);
+      } catch {
+        // Invalid URL - block it
+        isAllowedDomain = false;
+      }
+
+      const isAllowedResourceType = ALLOWED_FONT_RESOURCE_TYPES.has(resourceType);
+
+      if (isAllowedDomain && isAllowedResourceType) {
+        debugLog("Security", `[${requestId}] Allowing font request: ${resourceType} from ${url.substring(0, 100)}`);
+        request.continue();
+      } else {
+        // Block all other external requests (SSRF protection)
+        debugLog("Security", `[${requestId}] Blocking request: ${resourceType} to ${url.substring(0, 100)}`);
+        request.abort("blockedbyclient");
+      }
     });
 
     // Set viewport to A4 dimensions (in pixels at 96 DPI)
@@ -403,6 +534,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Set content with timeout (increased for Google Fonts/CJK loading)
+    // Note: JS is disabled at this point, which is fine for font loading via CSS
     debugLog("Page", `[${requestId}] Setting page content (networkidle0, 10000ms timeout)...`);
     const contentStart = Date.now();
     await page.setContent(fullHtml, {
@@ -412,6 +544,33 @@ export async function POST(request: NextRequest) {
     debugLog("Page", `[${requestId}] Page content set`, {
       durationMs: Date.now() - contentStart,
     });
+
+    // Wait for fonts to be loaded before enabling offline mode
+    // We need to temporarily enable JS to check document.fonts.ready
+    debugLog("Security", `[${requestId}] Waiting for fonts to load...`);
+    await page.setJavaScriptEnabled(true);
+    try {
+      // Set a tight timeout for fonts.ready to prevent hanging
+      const fontTimeout = 3000; // 3 seconds max for fonts
+      await Promise.race([
+        page.evaluate(() => document.fonts.ready),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Font load timeout")), fontTimeout)
+        ),
+      ]);
+      debugLog("Security", `[${requestId}] Fonts loaded successfully`);
+    } catch (fontError) {
+      // If fonts.ready fails or times out, continue anyway
+      // This ensures we don't hang indefinitely on cold starts
+      debugLog("Security", `[${requestId}] Font wait failed, continuing: ${fontError}`);
+    }
+    // Re-disable JavaScript immediately
+    await page.setJavaScriptEnabled(false);
+
+    // SECURITY: Enable offline mode after fonts are loaded
+    // Belt-and-suspenders control - prevents any late-loading resources
+    await page.setOfflineMode(true);
+    debugLog("Security", `[${requestId}] Offline mode enabled`);
 
     // Generate PDF with A4 size and margins
     debugLog("PDF", `[${requestId}] Generating PDF...`);
@@ -432,8 +591,12 @@ export async function POST(request: NextRequest) {
       pdfSize: pdfBuffer.length,
     });
 
-    // Close browser
-    debugLog("Browser", `[${requestId}] Closing browser...`);
+    // Close page and browser
+    debugLog("Browser", `[${requestId}] Closing page and browser...`);
+    if (page) {
+      await page.close();
+      page = null;
+    }
     await browser.close();
     browser = null;
     debugLog("Browser", `[${requestId}] Browser closed`);
@@ -469,8 +632,18 @@ export async function POST(request: NextRequest) {
     });
   } catch (error: any) {
     const totalDuration = Date.now() - requestStart;
-    
-    // Clean up browser if still open
+
+    // Clean up page and browser if still open (finally-like cleanup)
+    if (page) {
+      try {
+        debugLog("Cleanup", `[${requestId}] Closing page after error...`);
+        await page.close();
+      } catch (pageCleanupError: any) {
+        debugLog("Cleanup", `[${requestId}] Failed to close page`, {
+          error: pageCleanupError.message,
+        });
+      }
+    }
     if (browser) {
       try {
         debugLog("Cleanup", `[${requestId}] Closing browser after error...`);

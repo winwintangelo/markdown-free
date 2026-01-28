@@ -12,7 +12,7 @@
     "dragDrop": "Kéo và thả tệp Markdown của bạn",
     "or": "hoặc",
     "chooseFile": "chọn tệp",
-    "supports": "Hỗ trợ .md, .markdown, .txt • Tối đa 5 MB",
+    "supports": "Hỗ trợ .md, .markdown, .txt • Tối đa 1 MB",
     "noFile": "Chưa chọn tệp nào",
     "trySample": "Thử tệp mẫu",
     "pasteMarkdown": "dán Markdown"
@@ -20,7 +20,8 @@
   "paste": {
     "label": "Markdown đã dán",
     "placeholder": "Dán Markdown của bạn vào đây…",
-    "helper": "Các thay đổi ở đây cũng sẽ được sử dụng khi xuất sang PDF, DOCX, TXT hoặc HTML."
+    "helper": "Các thay đổi ở đây cũng sẽ được sử dụng khi xuất sang PDF, DOCX, TXT hoặc HTML.",
+    "tooLarge": "Nội dung vượt quá giới hạn 1MB. Đã được cắt bớt."
   },
   "export": {
     "toPdf": "Sang PDF",
@@ -50,7 +51,7 @@
   },
   "errors": {
     "invalidType": "Loại tệp không được hỗ trợ. Vui lòng tải lên tệp .md, .markdown hoặc .txt.",
-    "tooLarge": "Tệp quá lớn. Kích thước tối đa là 5MB.",
+    "tooLarge": "Tệp quá lớn. Kích thước tối đa là 1MB.",
     "readError": "Không thể đọc tệp. Vui lòng đảm bảo đó là tệp văn bản hợp lệ.",
     "sampleError": "Không thể tải tệp mẫu. Vui lòng thử lại.",
     "pdfTimeout": "Tạo PDF đã hết thời gian. Vui lòng thử lại.",
@@ -92,7 +93,7 @@
     },
     {
       "question": "Markdown Free hỗ trợ những định dạng nào?",
-      "answer": "Đầu vào: tệp .md, .markdown, .txt (tối đa 5MB). Đầu ra: PDF, DOCX (Word), HTML, TXT. Hỗ trợ GitHub Flavored Markdown."
+      "answer": "Đầu vào: tệp .md, .markdown, .txt (tối đa 1MB). Đầu ra: PDF, DOCX (Word), HTML, TXT. Hỗ trợ GitHub Flavored Markdown."
     },
     {
       "question": "Việc chuyển đổi có an toàn không?",

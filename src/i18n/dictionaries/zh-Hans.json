@@ -12,7 +12,7 @@
     "dragDrop": "拖放您的Markdown文件",
     "or": "或",
     "chooseFile": "选择文件",
-    "supports": "支持 .md、.markdown、.txt • 最大 5 MB",
+    "supports": "支持 .md、.markdown、.txt • 最大 1 MB",
     "noFile": "尚未选择文件",
     "trySample": "试用示例文件",
     "pasteMarkdown": "粘贴Markdown"
@@ -20,7 +20,8 @@
   "paste": {
     "label": "粘贴的Markdown",
     "placeholder": "在此粘贴您的Markdown…",
-    "helper": "此处的更改也将用于导出为PDF、DOCX、TXT或HTML。"
+    "helper": "此处的更改也将用于导出为PDF、DOCX、TXT或HTML。",
+    "tooLarge": "内容超过1MB限制，已被截断。"
   },
   "export": {
     "toPdf": "转PDF",
@@ -50,7 +51,7 @@
   },
   "errors": {
     "invalidType": "不支持的文件类型。请上传.md、.markdown或.txt文件。",
-    "tooLarge": "文件过大。最大大小为5MB。",
+    "tooLarge": "文件过大。最大大小为1MB。",
     "readError": "无法读取文件。请确保它是有效的文本文件。",
     "sampleError": "无法加载示例文件。请重试。",
     "pdfTimeout": "PDF生成超时。请重试。",
@@ -92,7 +93,7 @@
     },
     {
       "question": "Markdown Free支持哪些格式？",
-      "answer": "输入：.md、.markdown、.txt文件（最大5MB）。输出：PDF、DOCX（Word）、HTML、TXT。支持GitHub风格Markdown。"
+      "answer": "输入：.md、.markdown、.txt文件（最大1MB）。输出：PDF、DOCX（Word）、HTML、TXT。支持GitHub风格Markdown。"
     },
     {
       "question": "转换安全吗？",
