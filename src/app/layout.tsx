@@ -103,7 +103,6 @@ export default function RootLayout({
             src={`${umamiHost}/script.js`}
             data-website-id={umamiWebsiteId}
             data-domains="www.markdown.free"
-            data-do-not-track="true"
             strategy="afterInteractive"
           />
         )}
