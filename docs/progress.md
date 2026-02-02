@@ -671,3 +671,70 @@ This validates the multi-language SEO strategy.
 2. **Umami:** `locale_pageview` and `locale_conversion` by language
 3. **Conversion funnel:** Activation rate (17%) → Conversion rate (53%)
 4. **Intent pages:** Which landing pages drive most conversions
+
+---
+
+## 📦 DOCX Expansion Implementation
+
+> **Started:** February 1, 2026
+> **Strategy:** Power Page approach (one page per locale targeting both "Word" and "DOCX" keywords)
+
+### Milestone 1: Wave 1 - EN, ID, JA ✅ Complete
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Create `/markdown-to-word` (EN) | ✅ Done | Power page with FAQ, Privacy, Who Uses sections |
+| Create `/id/markdown-ke-word` (ID) | ✅ Done | Indonesian power page with localized content |
+| Create `/ja/markdown-word-henkan` (JA) | ✅ Done | Japanese power page with localized content |
+| Update existing DOCX page titles | ✅ Done | Added "(Word)" to titles |
+| E2E tests for Wave 1 | ✅ Done | 19 tests passing in `e2e/word-pages.spec.ts` |
+
+### Milestone 2: Wave 2 - ES, KO, VI ✅ Complete
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Create `/es/markdown-a-word` | ✅ Done | Spanish power page with localized content |
+| Create `/ko/markdown-word-byeonhwan` | ✅ Done | Korean power page with localized content |
+| Create `/vi/markdown-sang-word` | ✅ Done | Vietnamese power page with localized content |
+| Add hreflang cross-links | ✅ Done | All pages include full hreflang network |
+| E2E tests for Wave 2 | ✅ Done | 15 tests passing in `e2e/word-pages.spec.ts` |
+
+### Milestone 3: Wave 3 - ZH-Hans, ZH-Hant, IT ✅ Complete
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Create `/zh-Hans/markdown-zhuanhuan-word` | ✅ Done | Simplified Chinese power page |
+| Create `/zh-Hant/markdown-word-zhuanhuan` | ✅ Done | Traditional Chinese power page |
+| Create `/it/markdown-in-word` | ✅ Done | Italian power page |
+| Complete hreflang network | ✅ Done | All pages include full hreflang network |
+| E2E tests for Wave 3 | ✅ Done | 15 tests passing in `e2e/word-pages.spec.ts` |
+
+### Milestone 4: Sitemap & Final Verification ✅ Complete
+
+| Task | Status | Notes |
+|------|--------|-------|
+| Add Word pages to sitemap.xml | ✅ Done | All 9 pages with full hreflang network |
+| Update progress tracking | ✅ Done | docs/progress.md updated |
+
+### Test Coverage
+
+| Test Suite | Tests | Status |
+|------------|-------|--------|
+| Word power pages (Wave 1) | 19 | ✅ Passing |
+| Word power pages (Wave 2) | 15 | ✅ Passing |
+| Word power pages (Wave 3) | 15 | ✅ Passing |
+| **Total** | **49** | ✅ All passing |
+
+### New Word Power Pages Summary
+
+| Locale | URL | Title |
+|--------|-----|-------|
+| EN | `/markdown-to-word` | Markdown to Word (DOCX) Converter |
+| ID | `/id/markdown-ke-word` | Markdown ke Word (DOCX) Gratis |
+| JA | `/ja/markdown-word-henkan` | Markdown Word（DOCX）変換 |
+| ES | `/es/markdown-a-word` | Markdown a Word (DOCX) Gratis |
+| KO | `/ko/markdown-word-byeonhwan` | Markdown Word(DOCX) 변환 |
+| VI | `/vi/markdown-sang-word` | Markdown sang Word (DOCX) Miễn phí |
+| ZH-Hans | `/zh-Hans/markdown-zhuanhuan-word` | Markdown转换Word（DOCX）免费 |
+| ZH-Hant | `/zh-Hant/markdown-word-zhuanhuan` | Markdown轉換Word（DOCX）免費 |
+| IT | `/it/markdown-in-word` | Markdown in Word (DOCX) Gratis |

@@ -654,6 +654,143 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Word Power Pages (Markdown to Word conversion - targeting "Word" keyword) -->
+  <url>
+    <loc>https://www.markdown.free/markdown-to-word</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-word" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-word" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-word-henkan" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-word" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-word-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-word-zhuanhuan" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-word" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-word" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/id/markdown-ke-word</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-word" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-word" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-word-henkan" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-word" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-word-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-word-zhuanhuan" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-word" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-word" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ja/markdown-word-henkan</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-word" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-word" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-word-henkan" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-word" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-word-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-word-zhuanhuan" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-word" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-word" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/es/markdown-a-word</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-word" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-word" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-word-henkan" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-word" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-word-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-word-zhuanhuan" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-word" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-word" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ko/markdown-word-byeonhwan</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-word" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-word" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-word-henkan" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-word" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-word-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-word-zhuanhuan" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-word" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-word" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/vi/markdown-sang-word</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-word" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-word" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-word-henkan" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-word" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-word-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-word-zhuanhuan" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-word" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-word" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-word" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-word" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-word-henkan" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-word" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-word-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-word-zhuanhuan" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-word" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-word" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hant/markdown-word-zhuanhuan</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-word" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-word" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-word-henkan" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-word" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-word-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-word-zhuanhuan" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-word" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-word" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/it/markdown-in-word</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-word" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-word" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-word-henkan" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-word" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-word-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-word-zhuanhuan" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-word" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-word" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <!-- FAQ Pages (LLM SEO - Frequently Asked Questions) -->
   <url>
     <loc>https://www.markdown.free/faq</loc>

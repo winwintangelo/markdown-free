@@ -397,3 +397,254 @@ To speed up indexing, add internal links from indexed pages to non-indexed pages
 
 *Last updated: January 17, 2026*
 
+---
+
+## 📄 Intent Pages Reference
+
+All SEO landing pages targeting specific search intents by language.
+
+### English (Global) Intent Pages
+
+| Path | Target Intent | SEO Keywords |
+|------|---------------|--------------|
+| `/markdown-to-pdf-online-free` | Online/free converters | "markdown to pdf online", "free md to pdf" |
+| `/markdown-to-pdf-no-watermark` | Watermark-free output | "markdown pdf no watermark" |
+| `/markdown-to-docx` | Word document export | "markdown to docx", "md to word" |
+| `/obsidian-markdown-to-pdf` | Obsidian users | "obsidian markdown pdf" |
+
+### Conversion Pages (Primary keyword: "markdown to pdf")
+
+| Locale | Path | Title |
+|--------|------|-------|
+| 🇯🇵 ja | `/ja/markdown-pdf-henkan` | md pdf 変換 |
+| 🇰🇷 ko | `/ko/markdown-pdf-byeonhwan` | 마크다운 PDF 변환 무료 |
+| 🇨🇳 zh-Hans | `/zh-Hans/markdown-pdf-zhuanhuan` | Markdown转PDF免费在线工具 |
+| 🇹🇼 zh-Hant | `/zh-Hant/markdown-pdf-zhuanhuan-tw` | Markdown轉PDF免費線上工具 |
+| 🇪🇸 es | `/es/convertir-markdown-pdf` | Convertir Markdown a PDF Gratis |
+| 🇮🇹 it | `/it/convertire-markdown-pdf` | Convertire Markdown in PDF Gratis |
+| 🇮🇩 id | `/id/konversi-markdown-pdf` | Konversi Markdown ke PDF Gratis |
+| 🇻🇳 vi | `/vi/chuyen-doi-markdown-pdf` | Chuyển đổi Markdown sang PDF Miễn phí |
+
+### No-Signup Pages (Primary keyword: "no registration")
+
+| Locale | Path | Title |
+|--------|------|-------|
+| 🇯🇵 ja | `/ja/markdown-pdf-touroku-fuyou` | 登録不要のMarkdown PDF変換 |
+| 🇰🇷 ko | `/ko/markdown-pdf-hoewon-gaibeop-eobs-i` | 회원가입 없이 Markdown PDF 변환 |
+| 🇨🇳 zh-Hans | `/zh-Hans/markdown-pdf-wuxu-zhuce` | 无需注册的Markdown转PDF |
+| 🇹🇼 zh-Hant | `/zh-Hant/markdown-pdf-mianzhuce` | 免註冊Markdown轉PDF |
+| 🇪🇸 es | `/es/markdown-pdf-sin-registro` | Markdown a PDF Sin Registro |
+| 🇮🇹 it | `/it/markdown-pdf-senza-registrazione` | Markdown a PDF Senza Registrazione |
+| 🇮🇩 id | `/id/markdown-pdf-tanpa-daftar` | Markdown ke PDF Tanpa Daftar |
+| 🇻🇳 vi | `/vi/markdown-pdf-khong-dang-ky` | Markdown sang PDF không cần đăng ký |
+
+### Comparison Pages (Primary keyword: "converter comparison")
+
+| Locale | Path | Title |
+|--------|------|-------|
+| 🇯🇵 ja | `/ja/markdown-henkan-hikaku` | Markdownコンバーター比較 2026 |
+| 🇰🇷 ko | `/ko/markdown-byeonhwan-bigyo` | Markdown 변환기 비교 2026 |
+| 🇨🇳 zh-Hans | `/zh-Hans/markdown-zhuanhuanqi-bijiao` | Markdown转换器对比 2026 |
+| 🇹🇼 zh-Hant | `/zh-Hant/markdown-zhuanhuanqi-bijiao-tw` | Markdown轉換器比較 2026 |
+| 🇪🇸 es | `/es/comparacion-convertidores-markdown` | Markdown Free vs CloudConvert... |
+| 🇮🇹 it | `/it/confronto-convertitori-markdown` | Markdown Free vs CloudConvert... |
+| 🇮🇩 id | `/id/perbandingan-konverter-markdown` | Perbandingan Konverter Markdown 2026 |
+| 🇻🇳 vi | `/vi/so-sanh-cong-cu-markdown` | So sánh công cụ chuyển đổi Markdown 2026 |
+
+### DOCX Conversion Pages
+
+| Locale | Path | Title |
+|--------|------|-------|
+| 🇯🇵 ja | `/ja/markdown-docx-henkan` | Markdown DOCX 変換 |
+| 🇹🇼 zh-Hant | `/zh-Hant/markdown-docx-zhuanhuan` | Markdown 轉 DOCX（Word）|
+
+**Total: 30 intent pages** (4 English + 26 localized)
+
+*Updated: February 1, 2026*
+
+---
+
+## 📦 DOCX Expansion Plan
+
+> **Context**: Vercel Analytics (Jan 2026) shows ChatGPT referring 20 visitors, with 65% landing on `/markdown-to-docx`. Perplexity is driving Indonesian traffic to localized pages. DOCX conversion has proven demand.
+
+### Why Expand DOCX Pages
+
+1. **Validated signal**: ChatGPT is specifically recommending "markdown to docx" conversion
+2. **Localization works**: Perplexity sends Indonesian users to `/id/konversi-markdown-pdf` (not English)
+3. **Competition weaker outside English**: Easier to rank in ID/JA/VI/KO markets
+
+### Strategy: "Power Page" Approach
+
+> **Critical Decision**: Do NOT create separate pages for "DOCX" and "Word" in the same locale.
+
+**Why not?**
+- Google/AI understand "DOCX" and "Word" are synonyms for the same intent
+- Two pages with 90% similar content = **keyword cannibalization**
+- Split traffic means neither page ranks well
+
+**Solution**: One "Power Page" per locale targeting BOTH keywords:
+- **URL**: Use "word" (higher search volume, more human-friendly)
+- **Title**: Include both → "Markdown ke Word (DOCX) Gratis"
+- **H1**: Native phrase with both terms
+- **Content**: Use terms interchangeably throughout
+
+**Result**: One strong page with 100% of links/traffic > two weak pages with 50% each.
+
+### Execution Waves
+
+#### Wave 1: Validated Markets (Priority)
+
+| Locale | Power Page URL | Title Pattern | Status |
+|--------|----------------|---------------|--------|
+| 🇬🇧 en | `/markdown-to-word` | Markdown to Word (DOCX) - Free | To create |
+| 🇮🇩 id | `/id/markdown-ke-word` | Markdown ke Word (DOCX) Gratis | To create |
+| 🇯🇵 ja | `/ja/markdown-word-henkan` | Markdown Word（DOCX）変換 | To create |
+
+*Note: Existing `/markdown-to-docx`, `/ja/markdown-docx-henkan`, `/zh-Hant/markdown-docx-zhuanhuan` will be updated to include "Word" in titles, or redirected to new power pages.*
+
+#### Wave 2: High-Demand Markets
+
+| Locale | Power Page URL | Title Pattern |
+|--------|----------------|---------------|
+| 🇪🇸 es | `/es/markdown-a-word` | Markdown a Word (DOCX) Gratis |
+| 🇰🇷 ko | `/ko/markdown-word-byeonhwan` | 마크다운 워드(DOCX) 변환 무료 |
+| 🇻🇳 vi | `/vi/markdown-sang-word` | Markdown sang Word (DOCX) Miễn phí |
+
+#### Wave 3: Full Coverage
+
+| Locale | Power Page URL | Title Pattern |
+|--------|----------------|---------------|
+| 🇨🇳 zh-Hans | `/zh-Hans/markdown-zhuanhuan-word` | Markdown转Word（DOCX）免费工具 |
+| 🇹🇼 zh-Hant | `/zh-Hant/markdown-word-zhuanhuan` | Markdown轉Word（DOCX）免費工具 |
+| 🇮🇹 it | `/it/markdown-in-word` | Markdown in Word (DOCX) Gratis |
+
+### Page Structure (Non-Doorway)
+
+Each power page must have 5 distinct content blocks:
+
+```
+1. HERO
+   - H1: Native phrase with BOTH keywords
+     e.g., "Konversi Markdown ke Word (DOCX) Gratis"
+   - Subline: Free • No signup • Private
+   - CTA: Start Converting →
+
+2. HOW IT WORKS
+   - Step 1: Upload .md file
+   - Step 2: Preview instantly
+   - Step 3: Download as Word/DOCX
+
+3. WHO IT'S FOR
+   - Students (thesis, assignments)
+   - Developers (README → Word specs)
+   - Writers (draft → final doc)
+   - Teams (Markdown docs → Word share)
+
+4. PRIVACY & SECURITY
+   - Files processed temporarily
+   - Never stored on servers
+   - HTTPS encrypted
+   - No account required
+
+5. FAQ (3-5 questions)
+   - Is it really free?
+   - Do you store my files?
+   - What's the difference between Word and DOCX?
+   - Does it preserve formatting?
+   - Can I convert back from Word to Markdown?
+```
+
+### Native Keyword Research
+
+| Locale | Combined Title Pattern | Notes |
+|--------|------------------------|-------|
+| 🇮🇩 id | "Markdown ke Word (DOCX)" | "ke" = to |
+| 🇯🇵 ja | "Markdown Word（DOCX）変換" | Parentheses common in JP |
+| 🇪🇸 es | "Markdown a Word (DOCX)" | "a" = to |
+| 🇰🇷 ko | "마크다운 워드(DOCX) 변환" | 워드 = Word (Hangul) |
+| 🇻🇳 vi | "Markdown sang Word (DOCX)" | "sang" = to |
+| 🇨🇳 zh | "Markdown转Word（DOCX）" | Chinese parentheses |
+
+**Key insight**: "Word" has higher search volume in most markets. Use it in URL, include "DOCX" in title for coverage.
+
+### Hreflang Implementation
+
+Use consistent **page key** system for hreflang (not URL patterns):
+
+```
+Page Key: word-converter
+├── en → /markdown-to-word
+├── id → /id/markdown-ke-word
+├── ja → /ja/markdown-word-henkan
+├── es → /es/markdown-a-word
+├── ko → /ko/markdown-word-byeonhwan
+├── vi → /vi/markdown-sang-word
+├── zh-Hans → /zh-Hans/markdown-zhuanhuan-word
+├── zh-Hant → /zh-Hant/markdown-word-zhuanhuan
+├── it → /it/markdown-in-word
+└── x-default → /markdown-to-word
+```
+
+Each page gets all alternates based on page key, not string matching.
+
+### Handling Existing DOCX Pages
+
+| Existing Page | Action |
+|---------------|--------|
+| `/markdown-to-docx` | Keep as-is, add "Word" to title, or 301 → `/markdown-to-word` |
+| `/ja/markdown-docx-henkan` | Update title to include Word, or 301 → new page |
+| `/zh-Hant/markdown-docx-zhuanhuan` | Update title to include Word, or 301 → new page |
+
+**Recommended**: Update existing pages' titles to include both terms rather than creating redirects. Simpler, preserves any existing rankings.
+
+### Internal Linking Strategy
+
+```
+/markdown-to-word (EN power page)
+    ├── → /id/markdown-ke-word
+    ├── → /ja/markdown-word-henkan
+    ├── → /es/markdown-a-word
+    └── → (all other locales)
+
+Each localized page links to:
+    ├── → Locale homepage (/id, /ja, etc.)
+    ├── → EN power page (for authority flow)
+    └── → Main converter (/)
+```
+
+### Implementation Checklist
+
+#### Wave 1 (Week 1)
+- [ ] Create `/markdown-to-word` (EN power page)
+- [ ] Create `/id/markdown-ke-word` (ID power page)
+- [ ] Create `/ja/markdown-word-henkan` (JA power page)
+- [ ] Update existing DOCX page titles to include "Word"
+- [ ] Update sitemap.xml
+- [ ] Submit to GSC
+
+#### Wave 2 (Week 2)
+- [ ] Create `/es/markdown-a-word`
+- [ ] Create `/ko/markdown-word-byeonhwan`
+- [ ] Create `/vi/markdown-sang-word`
+- [ ] Add hreflang cross-links (page key based)
+
+#### Wave 3 (Week 3)
+- [ ] Create `/zh-Hans/markdown-zhuanhuan-word`
+- [ ] Create `/zh-Hant/markdown-word-zhuanhuan`
+- [ ] Create `/it/markdown-in-word`
+- [ ] Complete hreflang network
+- [ ] Monitor GSC impressions by locale
+
+### Expected Outcome
+
+| Metric | Current | After Expansion |
+|--------|---------|-----------------|
+| Word/DOCX power pages | 3 | 9 (one per locale) |
+| Locales covered | 2 (ja, zh-Hant) | 9 (all supported) |
+| Keyword cannibalization risk | N/A | None (power page strategy) |
+| Total new pages to create | - | 6 |
+
+*Plan created: February 1, 2026*
+*Revised: February 1, 2026 (Power Page strategy based on expert review)*
+

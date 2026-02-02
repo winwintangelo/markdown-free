@@ -11,13 +11,13 @@ export function generateStaticParams() {
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Markdown DOCX 変換 | 無料オンラインツール",
+    title: "Markdown DOCX（Word）変換 | 無料オンラインツール",
     description: "MarkdownファイルをWord DOCXドキュメントに即座に変換。100%無料、登録不要、広告なし。ファイルは安全に処理され、保存されません。",
     alternates: {
       canonical: "https://www.markdown.free/ja/markdown-docx-henkan",
     },
     openGraph: {
-      title: "Markdown DOCX 変換 無料ツール",
+      title: "Markdown DOCX（Word）変換 無料ツール",
       description: ".mdファイルをMicrosoft Word DOCX形式に変換。無料・プライベート・即時ダウンロード。",
       url: "https://www.markdown.free/ja/markdown-docx-henkan",
       type: "website",
