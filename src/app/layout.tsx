@@ -10,10 +10,7 @@ const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 const siteUrl = "https://www.markdown.free";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Markdown to PDF Converter – Free, Private, No Signup",
-    template: "%s | Markdown Free",
-  },
+  title: "Markdown to PDF Converter – Free, Private, No Signup | Markdown Free",
   description:
     "Convert Markdown to PDF, HTML or TXT instantly. 100% free, no signup, no ad trackers. Files processed in your browser and never stored.",
   authors: [{ name: "Markdown Free" }],

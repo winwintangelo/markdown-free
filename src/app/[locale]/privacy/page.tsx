@@ -47,7 +47,7 @@ export async function generateMetadata({
   };
   
   return {
-    title: titles[locale],
+    title: `${titles[locale]} | Markdown Free`,
     description: descriptions[locale],
   };
 }

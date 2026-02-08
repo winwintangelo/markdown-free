@@ -31,10 +31,7 @@ export async function generateMetadata({
   const meta = localeMetadata[locale];
 
   return {
-    title: {
-      default: dict.meta.title,
-      template: "%s | Markdown Free",
-    },
+    title: dict.meta.title,
     description: dict.meta.description,
     authors: [{ name: "Markdown Free" }],
     creator: "Markdown Free",

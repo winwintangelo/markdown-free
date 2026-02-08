@@ -6,7 +6,7 @@ import { ConverterProvider } from "@/hooks/use-converter";
 import { getDictionary } from "@/i18n";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy",
+  title: "Privacy Policy | Markdown Free",
   description:
     "Privacy policy for Markdown Free. Learn how we handle your files and data. No accounts, no tracking, no stored content.",
 };

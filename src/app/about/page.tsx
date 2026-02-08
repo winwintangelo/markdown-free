@@ -6,7 +6,7 @@ import { ConverterProvider } from "@/hooks/use-converter";
 import { getDictionary } from "@/i18n";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About | Markdown Free",
   description:
     "Learn about Markdown Free - a fast, free, web-based Markdown viewer and converter. No signup required.",
 };

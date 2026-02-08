@@ -629,3 +629,136 @@ test.describe("Markdown Free - Internationalization", () => {
   });
 });
 
+// ==========================================================================
+// TITLE & META DEDUPLICATION TESTS
+// Ensures no page has "Markdown Free" duplicated in <title> or <meta description>
+// ==========================================================================
+test.describe("Markdown Free - Title & Meta Deduplication", () => {
+  /**
+   * Helper: count non-overlapping occurrences of a substring.
+   */
+  function countOccurrences(str: string, sub: string): number {
+    let count = 0;
+    let pos = 0;
+    while ((pos = str.indexOf(sub, pos)) !== -1) {
+      count++;
+      pos += sub.length;
+    }
+    return count;
+  }
+
+  // -- Locale homepages --------------------------------------------------
+  const localeHomepages = [
+    { path: "/",        label: "English homepage" },
+    { path: "/it",      label: "Italian homepage" },
+    { path: "/es",      label: "Spanish homepage" },
+    { path: "/ja",      label: "Japanese homepage" },
+    { path: "/ko",      label: "Korean homepage" },
+    { path: "/zh-Hans", label: "Simplified Chinese homepage" },
+    { path: "/zh-Hant", label: "Traditional Chinese homepage" },
+    { path: "/id",      label: "Indonesian homepage" },
+    { path: "/vi",      label: "Vietnamese homepage" },
+  ];
+
+  for (const { path, label } of localeHomepages) {
+    test(`${label} (${path}) title contains "Markdown Free" exactly once`, async ({ page }) => {
+      await page.goto(path);
+      const title = await page.title();
+      const count = countOccurrences(title, "Markdown Free");
+      expect(count, `Title "${title}" should contain "Markdown Free" exactly once`).toBe(1);
+    });
+  }
+
+  // -- About & Privacy pages ---------------------------------------------
+  const utilityPages = [
+    { path: "/about",       label: "About page" },
+    { path: "/privacy",     label: "Privacy page" },
+    { path: "/ja/about",    label: "Japanese About page" },
+    { path: "/ja/privacy",  label: "Japanese Privacy page" },
+    { path: "/ko/about",    label: "Korean About page" },
+    { path: "/ko/privacy",  label: "Korean Privacy page" },
+    { path: "/it/about",    label: "Italian About page" },
+    { path: "/it/privacy",  label: "Italian Privacy page" },
+    { path: "/es/about",    label: "Spanish About page" },
+    { path: "/es/privacy",  label: "Spanish Privacy page" },
+  ];
+
+  for (const { path, label } of utilityPages) {
+    test(`${label} (${path}) title contains "Markdown Free" exactly once`, async ({ page }) => {
+      await page.goto(path);
+      const title = await page.title();
+      const count = countOccurrences(title, "Markdown Free");
+      expect(count, `Title "${title}" should contain "Markdown Free" exactly once`).toBe(1);
+    });
+  }
+
+  // -- FAQ pages ----------------------------------------------------------
+  const faqPages = [
+    { path: "/faq",      label: "English FAQ" },
+    { path: "/ja/faq",   label: "Japanese FAQ" },
+    { path: "/ko/faq",   label: "Korean FAQ" },
+    { path: "/it/faq",   label: "Italian FAQ" },
+    { path: "/es/faq",   label: "Spanish FAQ" },
+  ];
+
+  for (const { path, label } of faqPages) {
+    test(`${label} (${path}) title contains "Markdown Free" exactly once`, async ({ page }) => {
+      await page.goto(path);
+      const title = await page.title();
+      const count = countOccurrences(title, "Markdown Free");
+      expect(count, `Title "${title}" should contain "Markdown Free" exactly once`).toBe(1);
+    });
+  }
+
+  // -- Intent / landing pages (sample from each locale) -------------------
+  const intentPages = [
+    { path: "/chatgpt-to-pdf",                 label: "ChatGPT to PDF" },
+    { path: "/github-readme-to-pdf",           label: "GitHub README to PDF" },
+    { path: "/markdown-to-docx",               label: "Markdown to DOCX" },
+    { path: "/readme-to-pdf",                  label: "README to PDF" },
+    { path: "/obsidian-markdown-to-pdf",       label: "Obsidian Markdown to PDF" },
+    { path: "/markdown-to-pdf-online-free",    label: "Markdown to PDF online free" },
+    { path: "/markdown-to-pdf-no-watermark",   label: "Markdown to PDF no watermark" },
+    { path: "/it/convertire-markdown-pdf",     label: "Italian convert MD to PDF" },
+    { path: "/es/convertir-markdown-pdf",      label: "Spanish convert MD to PDF" },
+    { path: "/ja/markdown-pdf-henkan",         label: "Japanese MD PDF conversion" },
+    { path: "/ko/markdown-pdf-byeonhwan",      label: "Korean MD PDF conversion" },
+    { path: "/zh-Hant/markdown-pdf-zhuanhuan-tw", label: "zh-Hant MD PDF conversion" },
+    { path: "/zh-Hans/markdown-pdf-zhuanhuan", label: "zh-Hans MD PDF conversion" },
+    { path: "/id/konversi-markdown-pdf",       label: "Indonesian MD PDF conversion" },
+    { path: "/vi/chuyen-doi-markdown-pdf",     label: "Vietnamese MD PDF conversion" },
+  ];
+
+  for (const { path, label } of intentPages) {
+    test(`${label} (${path}) title contains "Markdown Free" exactly once`, async ({ page }) => {
+      await page.goto(path);
+      const title = await page.title();
+      const count = countOccurrences(title, "Markdown Free");
+      expect(count, `Title "${title}" should contain "Markdown Free" exactly once`).toBe(1);
+    });
+  }
+
+  // -- Meta description: no duplicate phrases -----------------------------
+  const descriptionPages = [
+    "/", "/ja", "/ko", "/it", "/es",
+    "/faq", "/ja/faq", "/ko/faq",
+    "/about", "/privacy",
+  ];
+
+  for (const path of descriptionPages) {
+    test(`${path} meta description has no duplicate sentences`, async ({ page }) => {
+      await page.goto(path);
+      const desc = await page.locator('meta[name="description"]').getAttribute("content");
+      expect(desc).toBeTruthy();
+
+      // Split description into sentences and check for duplicates
+      const sentences = desc!.split(/[.。!！?？]+/).map(s => s.trim()).filter(s => s.length > 10);
+      const unique = new Set(sentences);
+      expect(
+        unique.size,
+        `Description "${desc}" has duplicate sentences`
+      ).toBe(sentences.length);
+    });
+  }
+});
+
