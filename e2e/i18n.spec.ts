@@ -45,7 +45,7 @@ test.describe("Markdown Free - Internationalization", () => {
       expect(htmlLang).toBe("ja");
 
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown");
-      await expect(page.getByText("無料 • 登録不要")).toBeVisible();
+      await expect(page.getByText("無料 • ログイン不要")).toBeVisible();
     });
 
     test("Korean page (/ko) loads with Korean content", async ({ page }) => {
@@ -54,8 +54,8 @@ test.describe("Markdown Free - Internationalization", () => {
       const htmlLang = await page.locator("html").getAttribute("lang");
       expect(htmlLang).toBe("ko");
 
-      await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown");
-      await expect(page.getByText("무료 • 가입 불필요")).toBeVisible();
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("마크다운");
+      await expect(page.getByText("무료 • 무설치")).toBeVisible();
     });
 
     test("Simplified Chinese page (/zh-Hans) loads with Chinese content", async ({ page }) => {

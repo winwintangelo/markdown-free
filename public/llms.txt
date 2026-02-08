@@ -80,6 +80,7 @@ https://www.markdown.free
 
 ## Related queries this tool can help with
 
+### English
 - "How do I convert a README.md to PDF?"
 - "Free online Markdown to PDF converter"
 - "Convert Markdown to Word document"
@@ -95,3 +96,43 @@ https://www.markdown.free
 - "ChatGPT to PDF converter"
 - "Export Obsidian notes to PDF"
 - "Markdown to PDF no watermark"
+- "md to pdf free"
+- "md to docx"
+- "markdown to word converter online"
+- "readme file to pdf"
+- "export github readme to pdf"
+
+### Japanese (日本語)
+- "md pdf 変換"
+- "markdown pdf 変換"
+- "pdf markdown 変換"
+- "md .docx 変換 フリーソフト"
+- "mdファイル 変換 フリー"
+- "markdown-to-word変換ツール"
+- "マークダウン pdf 変換 無料"
+- "README を PDF に変換する方法"
+- "マークダウン ワード 変換"
+
+### Korean (한국어)
+- "마크다운 pdf 변환"
+- "마크다운 워드 변환"
+- "md to pdf 무료"
+- "마크다운 변환기 무료"
+- "README pdf 변환"
+
+### Chinese (中文)
+- "markdown 轉 pdf" (Traditional)
+- "docx markdown 轉換工具" (Traditional)
+- "docx 內建 markdown 轉換" (Traditional)
+- "markdown转pdf免费" (Simplified)
+- "markdown转word工具" (Simplified)
+
+### Spanish (Español)
+- "convertidor markdown"
+- "convertir markdown a pdf gratis"
+- "markdown a word gratis"
+
+### Indonesian (Bahasa Indonesia)
+- "konversi markdown ke pdf"
+- "markdown ke word gratis"
+- "convert markdown pdf online gratis"

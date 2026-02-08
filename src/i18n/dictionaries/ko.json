@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Markdown PDF & DOCX 변환기 – 무료, 비공개, 가입 불필요",
-    "description": "Markdown을 PDF, DOCX, HTML 또는 TXT로 즉시 변환하세요. 100% 무료, 가입 불필요, 광고 트래커 없음. 파일은 일시적으로 처리되며 저장되지 않습니다."
+    "title": "마크다운 PDF 변환 - 무설치 & 글자 깨짐 없음 | Markdown Free",
+    "description": "마크다운을 PDF, DOCX, HTML 또는 TXT로 즉시 변환하세요. 한글 완벽 지원 — 깨짐 없이 변환. 100% 무료, 설치 불필요, 가입 불필요. 브라우저에서 바로 변환."
   },
   "hero": {
-    "badge": "무료 • 가입 불필요 • 즉시 내보내기",
-    "title": "무료 Markdown PDF, DOCX, TXT & HTML 변환기",
-    "subtitle": ".md 파일을 업로드하거나 붙여넣기하고, 즉시 미리보기 후 한 번의 클릭으로 PDF, DOCX, TXT 또는 HTML로 내보내세요. 무료, 비공개, 안전 — 파일은 저장되지 않습니다."
+    "badge": "무료 • 무설치 • 즉시 내보내기",
+    "title": "마크다운 PDF 변환 – 무설치 & 글자 깨짐 없음",
+    "subtitle": ".md 파일을 업로드하거나 붙여넣기하고, 즉시 미리보기 후 한 번의 클릭으로 PDF, DOCX, TXT 또는 HTML로 내보내세요. 한글 완벽 지원 — 깨짐 없이 변환. 설치 없이 브라우저에서 바로."
   },
   "upload": {
     "dragDrop": "Markdown 파일을 드래그 앤 드롭하세요",
@@ -104,6 +104,26 @@
     "prefer": "선호 언어",
     "switch": "전환",
     "dismiss": "✕"
+  },
+  "characterSupport": {
+    "title": "한글 완벽 지원 — 깨짐 없는 변환",
+    "description": "많은 변환 도구에서 한글이 □□□로 깨지는 경우가 있습니다. Markdown Free는 한글을 완벽하게 지원합니다.",
+    "examples": [
+      { "label": "한글 자음·모음", "text": "ㄱㄴㄷㄹㅁㅂㅅㅇ ㅏㅓㅗㅜㅡㅣ" },
+      { "label": "일반 단어", "text": "변환 문서 기술 개발자 무료 안전" },
+      { "label": "완성형 문장", "text": "마크다운을 PDF로 변환 — 30초면 완료!" },
+      { "label": "혼합 텍스트", "text": "README.md를 한글 PDF로 내보내기" }
+    ]
+  },
+  "usageExample": {
+    "title": "사용 예시: GitHub README를 PDF로 변환하는 방법",
+    "steps": [
+      "GitHub 리포지토리의 README.md 파일을 열고 「Raw」 버튼을 클릭하여 다운로드",
+      "Markdown Free에 접속하여 다운로드한 .md 파일을 드래그 앤 드롭",
+      "미리보기를 확인하고 「PDF로」 버튼을 클릭",
+      "몇 초 후 PDF가 다운로드됩니다 — 설치 불필요!"
+    ],
+    "useCases": "README, 기술 문서, 회의록, 보고서 등 모든 마크다운 파일을 PDF·DOCX·HTML로 변환할 수 있습니다."
   },
   "faqPage": {
     "title": "자주 묻는 질문 | Markdown Free",

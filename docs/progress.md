@@ -624,53 +624,60 @@ Allow: /
 
 ## Next Steps & Recommendations
 
-> **Last Updated:** January 10, 2026  
-> **Based on:** Google Search Console + Umami Analytics
+> **Last Updated:** February 8, 2026
+> **Based on:** Google Search Console + Bing Webmaster + Umami Analytics
 
-### 📊 Current Performance (Jan 10, 2026)
+### 📊 Current Performance (Feb 8, 2026)
 
-| Metric | Value | Notes |
-|--------|-------|-------|
-| Total Impressions | 12 | Growing trend |
-| Total Clicks | 1 | First organic click! |
-| Average Position | 11.3 | Page 2 of Google |
-| CTR | 8.3% | Excellent for page 2 |
-| Conversion Rate (uploads) | 53% | Once users try, they convert |
+| Metric | Current | Previous (Jan 10) | Change |
+|--------|---------|-------------------|--------|
+| GSC Impressions (28d) | **299** | 12 | +2,392% |
+| GSC Clicks | **5** | 1 | +400% |
+| Average Position | 21.4 | 11.3 | Widened (more queries) |
+| CTR | 1.7% | 8.3% | Lower (more page 2-3 impressions) |
+| Upload → Conversion Rate | **83%** | 53% | +57% |
+| Session Conversion Rate | **61%** | ~31% | +97% |
+| Countries Reached | 20 | ~11 | +82% |
+| AI Referrals (30d) | **20** | - | New metric |
+| Bing Impressions | 14 | - | New |
 
-### 🌟 Key Win: Taiwan Conversion
+### 🌟 Key Wins
 
-First organic conversion came from a localized intent page:
-- **Entry:** `/zh-Hant/readme-pdf-zhuanhuan-tw`
-- **Search Query:** `markdown 轉 pdf` (Chinese)
-- **Result:** User converted twice in 90 seconds
-
-This validates the multi-language SEO strategy.
+1. **AI referrals = 6.3x Google organic** — ChatGPT (14), Perplexity (5), others (1)
+2. **Japan is #1 non-EN market** — 5 visitors, conversions, 11 GSC impressions, 3 Bing queries
+3. **India emerged organically** — 8 visitors with conversions, zero marketing effort
+4. **83% upload→conversion rate** — product-market fit is strong
+5. **GSC impressions grew 25x** — from 12 to 299 in one month
 
 ### 🎯 Recommended Actions
 
 | Priority | Action | Rationale |
 |----------|--------|-----------|
-| 🔥 High | Add 1-2 more zh-Hant intent pages | Taiwan traffic converting well |
-| 🔥 High | Create `/readme-to-pdf` English page | Query appeared in Search Console |
-| Medium | Force-crawl IT/ES pages via URL Inspection | No locale traffic yet |
-| Medium | Optimize mobile UX | Saudi Arabia users engaged but didn't convert |
-| Low | Add comparison pages in zh-Hant | Low competition in Chinese market |
+| 🔴 CRITICAL | Request GSC indexing for `/ja` | 11 impressions + 5 visitors + conversions, blocked by indexing |
+| 🔴 CRITICAL | Request GSC indexing for `/ko` | 5 impressions, 0 visitors (indexing gap) |
+| 🔥 High | Post on Qiita (Japan) | Proven demand, AI + search driving JP traffic |
+| 🔥 High | Enhance AI/LLM visibility | AI = primary channel, expand llms.txt + FAQ |
+| Medium | Add India to marketing plans | 8 visitors, conversions, unaddressed |
+| Medium | Request GSC indexing for `/id` | 8 AI-driven visitors |
+| Low | Evaluate French locale | 3 visitors, extreme engagement (52 events) |
+| Low | Deprioritize Italian promotion | Only 1 visitor despite 4 indexed pages |
 
 ### 📈 Expected Timeline
 
 | Timeframe | Expected Outcome |
 |-----------|-----------------|
-| Week 1-2 | More pages indexed, 5-10 additional clicks |
-| Month 1 | 50-100 new organic visitors |
-| Month 2-3 | IT/ES rankings improve, 200-400 visitors |
-| Month 3-6 | Compound growth if backlink strategy executed |
+| This week | `/ja` and `/ko` indexed → unlock search traffic |
+| Week 2 | Qiita article drives Japan developer traffic |
+| Month 1 | 100-200 visitors as JP/KO pages start ranking |
+| Month 2-3 | AI referrals compound as more content indexed |
 
 ### 🔑 KPIs to Monitor
 
-1. **Search Console:** Impressions + clicks by locale
-2. **Umami:** `locale_pageview` and `locale_conversion` by language
-3. **Conversion funnel:** Activation rate (17%) → Conversion rate (53%)
-4. **Intent pages:** Which landing pages drive most conversions
+1. **AI Referrals:** `ai_referral` events by source (ChatGPT, Perplexity, etc.)
+2. **Search Console:** Impressions + clicks by locale (especially JA, KO)
+3. **Umami:** `locale_pageview` and `locale_conversion` by language
+4. **Conversion funnel:** Upload start rate (18%) → Conversion rate (83%)
+5. **Bing Webmaster:** Position tracking for JP/KO/ES queries
 
 ---
 

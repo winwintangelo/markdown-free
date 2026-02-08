@@ -1,7 +1,109 @@
 # Marketing & Promotion Checklist
 
-> Backlink opportunities and promotion strategies for Markdown Free.  
-> Focus: Asia-Pacific (TW, JP, KO) showing early traction + European markets (IT, ES).
+> Backlink opportunities and promotion strategies for Markdown Free.
+> Focus: AI/LLM visibility (dominant channel) + Asia-Pacific (JP, ID, KO) proven markets.
+
+---
+
+## 🤖 AI/LLM Visibility Strategy (PRIMARY CHANNEL)
+
+> **Last Updated:** February 8, 2026
+> **Key Insight:** AI referrals drive 6.3x more traffic than Google organic search.
+
+### Why AI is #1
+
+| Source | Visits (30d) | Share | Notes |
+|--------|-------------|-------|-------|
+| chatgpt.com | 14 | 30% | Top external referrer |
+| perplexity.ai | 5 | 11% | Sends localized traffic (ID, JP) |
+| meli-gpt.adminml.com | 1 | 2% | Enterprise AI tool |
+| **AI Total** | **20** | **43%** | **6.3x Google organic** |
+| google.com | 3 | 6% | Traditional SEO still growing |
+| fresheye.com | 1 | 2% | Japanese search engine |
+| reddit | 1 | 2% | Community referral |
+
+27 `ai_referral` events tracked in Umami over the same period.
+
+### What's Working (Keep Doing)
+
+- [x] **llms.txt** — AI-friendly tool description at `/llms.txt`
+- [x] **FAQ pages** — Natural language Q&A in all 9 locales
+- [x] **AI crawler permissions** — robots.txt allows GPTBot, ChatGPT-User, Claude, Perplexity
+- [x] **SoftwareApplication schema** — Dual JSON-LD type for AI discoverability
+- [x] **"Related queries" in llms.txt** — Matches how users ask AI for tools
+
+### Actions to Amplify AI Channel
+
+- [ ] **Expand llms.txt** — Add Japanese/Korean/Chinese query examples to match GSC search queries
+- [ ] **Add multilingual natural language queries** — AI models serve in user's language
+- [ ] **Ensure FAQ pages cover exact GSC queries** — "md pdf 変換", "마크다운 pdf 변환", etc.
+- [ ] **Monitor AI referral patterns** — Track which AI tools send which locales
+- [ ] **Keep content factual and structured** — AI models prefer clear, verifiable claims
+
+### Why This Matters
+
+Traditional SEO (forum posts, backlinks, community promotion) has been 100% unexecuted — yet traffic is growing. AI referrals are compensating. The `llms.txt`, FAQ pages, and AI crawler permissions are doing the heavy lifting. **Invest more here before traditional promotion.**
+
+---
+
+## 📊 Analytics Review (February 8, 2026)
+
+### Headline Numbers (Last 30 Days)
+
+| Metric | Current | Previous (Jan 17) | Change |
+|--------|---------|-------------------|--------|
+| Real user sessions | 18 | ~13 | +38% |
+| Session conversion rate | **61%** | 31% | +97% |
+| Upload → conversion rate | **83%** | 55% | +51% |
+| GSC impressions (28d) | **299** | 12 | **+2,392%** |
+| GSC clicks | 5 | 1 | +400% |
+| Bing impressions | 14 | - | New |
+| Countries reached | 20 | ~11 | +82% |
+
+### GSC Search Query Analysis (28 days)
+
+| Language | Top Queries | Impressions | Notes |
+|----------|-------------|-------------|-------|
+| **Japanese** | "md pdf 変換" (5), "markdown pdf 変換" (3), "pdf markdown 変換" (3) | **11** | Strongest non-EN signal |
+| **Korean** | "마크다운 pdf 변환" (5) | **5** | Demand exists, `/ko` not indexed |
+| **EN DOCX/Word** | "md to docx" (4), "markdown to word" (4), "markdown to docx" (3) | **13** | Biggest EN keyword cluster |
+| **EN PDF** | "readme file to pdf" (2), "export github readme to pdf" (2) | **4** | Intent pages working |
+
+### Bing Search Query Analysis (30 days)
+
+| Query | Impressions | Clicks | Position | Language |
+|-------|-------------|--------|----------|----------|
+| "md to pdf free" | 2 | 1 | **7.0** | EN |
+| "convert markdown to pdf free" | 2 | 0 | **4.0** | EN |
+| "docx markdown 轉換工具" | 2 | 0 | 8.0 | zh-Hant |
+| "md .docx 変換 フリーソフト" | 1 | 0 | 6.0 | JA |
+| "mdファイル 変換 フリー" | 1 | 0 | 8.0 | JA |
+| "markdown-to-word変換ツール" | 1 | 0 | 8.0 | JA |
+| "convertidor marcdown" | 1 | 0 | **2.0** | ES |
+
+### Country Performance (Umami)
+
+| Country | Visitors | Conversions | AI Referral? | In Strategy? |
+|---------|----------|-------------|-------------|-------------|
+| US | 26 | Some | Yes | General |
+| **India** | 8 | Yes (Kolkata) | Yes | **NEW - not in any plan** |
+| **Indonesia** | 8 | Yes (Jambi) | Yes (Perplexity) | Active |
+| Spain | 5 | Yes (Barcelona) | - | Indexed |
+| Singapore | 5 | - | - | In plan |
+| **Japan** | 5 | Yes (Kobe 2x, Kagoshima) | Yes (2 sessions) | **Upgrade to ACTIVE** |
+| **Pakistan** | 4 | Yes (Karachi 2x) | Yes (1 session) | **NEW - not in any plan** |
+| France | 3 | Very engaged (52 events) | - | **No locale exists** |
+| Taiwan | 2 | - | - | Active |
+| Italy | 1 | - | - | 4 pages indexed, underperforming |
+
+### Key Takeaways
+
+1. **AI is the dominant acquisition channel** — 6.3x Google, zero effort on forum/community posts yet
+2. **Japan is hottest non-EN market** — Unanimous signal from Umami + GSC + Bing
+3. **India is surprise #2** — 8 visitors, mobile conversions, completely unaddressed
+4. **Japan & Korea in "Page 3 Purgatory"** — Both indexed since Jan 16, but stuck at avg position 21+ with low CTR. Problem is **relevance**, not indexing. Fixed with CTR-optimized titles (Feb 8)
+5. **83% upload→conversion rate** — Product is strong, distribution is the bottleneck
+6. **DOCX/Word queries = biggest EN keyword cluster** — 13 GSC impressions, expansion validated
 
 ---
 
@@ -123,10 +225,10 @@
 
 ## 🇯🇵 Japan Promotion (ja)
 
-> **Priority: HIGH** — Japan user converted via zh-Hant page! Indicates demand.
+> **Priority: CRITICAL** — #1 non-EN market. 5 visitors, multiple conversions, 11 GSC impressions, 3 Bing queries, 2 AI referral sessions. Unanimous signal from ALL data sources.
 
 ### Developer Communities
-- [ ] **Qiita** — Japan's largest dev platform, write articles about Markdown tools
+- [x] **Qiita** — Published Feb 8: https://qiita.com/acewhitmore/items/6b53ac1a84fced77b4e4
 - [ ] **Zenn** — Growing dev platform, publish technical articles
 - [ ] **teratail** — Japanese Stack Overflow alternative
 - [ ] **はてなブックマーク (Hatena)** — Tech bookmarking, get featured
@@ -144,7 +246,7 @@
 - [ ] **awesome-japan** — Add to Japanese developer resources
 
 ### Key Messages (Japanese)
-> "無料のMarkdown→PDF変換ツール。登録不要、トラッキングなし、プライバシー重視。"
+> "無料のMarkdown→PDF変換ツール。ログイン不要、インストール不要、プライバシー重視。"
 
 ---
 
@@ -168,7 +270,7 @@
 - [ ] **awesome-korea** — Add to Korean developer resources
 
 ### Key Messages (Korean)
-> "무료 Markdown PDF 변환기. 가입 불필요, 추적 없음, 개인정보 보호."
+> "마크다운 PDF 변환 — 무료 & 무설치. 브라우저에서 바로, 가입 불필요, 추적 없음."
 
 ---
 
@@ -285,43 +387,45 @@ Product Hunt: https://www.markdown.free/?utm_source=producthunt&utm_medium=listi
 
 ---
 
-## 📊 Priority Actions (Quick Wins)
+## 📊 Priority Actions (Updated Feb 8, 2026)
 
-### Immediate: GSC Indexing Requests
-1. [ ] **Request indexing for `/ja`** — Japan user already converted via zh-Hant!
-2. [ ] **Request indexing for `/ko`** — Korean market ready
-3. [ ] Request indexing for `/id` — Indonesian market
-4. [ ] Request indexing for `/it/convertire-readme-pdf` — still pending
+### Immediate: Done (This Week)
+1. [x] ~~Request GSC indexing for `/ja`~~ — Already indexed Jan 16
+2. [x] ~~Request GSC indexing for `/ko`~~ — Already indexed Jan 16
+3. [x] **Add crawlable locale links in footer** — Done Feb 8, all pages now link to all locales
+4. [x] **Enhance llms.txt** — Done Feb 8, added JP/KO/ZH/ES/ID queries matching GSC data
+5. [x] **Fix /ko title for CTR** — Changed to "마크다운 PDF 변환 - 무료 & 무설치" (No Install click-trigger)
+6. [x] **Fix /ja title for CTR** — Changed to "Markdown PDF 変換（無料）- ログイン不要" (No Login click-trigger)
+7. [x] **Add How-to section to /ja** — "GitHub READMEをPDFにする方法" with HowTo JSON-LD schema
 
-### Week 1: Asia-Pacific (HIGHEST PRIORITY)
-1. [ ] **Japan: Post on Qiita** ⭐ User already converted, demand proven!
-2. [ ] **Taiwan: Post on iT 邦幫忙 (iThome)** ⭐ First conversion came from TW!
-3. [ ] Taiwan: Share in PTT Soft_Job board
-4. [ ] Korea: Post on velog or GeekNews
+### Next: Deploy & Re-Index
+1. [ ] **Deploy all changes** — Push footer, llms.txt, title changes, How-to section to production
+2. [ ] **Re-request GSC indexing for `/ja`** — Force Google to re-read new title + How-to content
+3. [ ] **Re-request GSC indexing for `/ko`** — Force Google to re-read new title with "무설치"
+4. [ ] **Request GSC indexing for `/id`** — 8 visitors via AI, not yet indexed
 
-### Week 2: Expand Asia-Pacific
+### Week 1: Japan Push (HIGHEST PRIORITY)
+1. [x] **Post on Qiita** — Published Feb 8: https://qiita.com/acewhitmore/items/6b53ac1a84fced77b4e4
+2. [ ] Share on Twitter/X Japan Dev with #マークダウン #PDF変換 hashtags
+3. [ ] Monitor `/ja` position in GSC after title change (expect movement within 1-2 weeks)
+
+### Week 2: Expand Proven Markets
 1. [ ] Japan: Write article on Zenn about Markdown tools
-2. [ ] Hong Kong: Post on LIHKG tech section
-3. [ ] Singapore: Share in Singapore Developers Facebook group
-4. [ ] Vietnam: Post on Viblo
+2. [ ] Korea: Post on velog or GeekNews
+3. [ ] Indonesia: Post on Dicoding or Kaskus
+4. [ ] Taiwan: Post on iT 邦幫忙 (iThome)
 
-### Week 3: European Markets
-1. [ ] Post in Italian developer communities (2-3)
-2. [ ] Post in Spanish developer communities (2-3)
-3. [ ] Write and publish Italian blog post
-4. [ ] Add to AlternativeTo (all languages)
-
-### Week 4: Global Launch
+### Week 3: Community + Global
 1. [ ] Submit to awesome-markdown GitHub list
 2. [ ] Post on r/Markdown
-3. [ ] Product Hunt launch
-4. [ ] Dev.to article
+3. [ ] Spanish dev communities (Barcelona user converted)
+4. [ ] Product Hunt preparation
 
-### Week 5: Monitor & Iterate
-1. [ ] Review Umami analytics for traffic sources
-2. [ ] Double down on successful channels (JP/TW/KO showing traction)
-3. [ ] Respond to community feedback
-4. [ ] Re-check GSC indexing status for all locales
+### Week 4: Monitor & Iterate
+1. [ ] Review Umami + GSC analytics — check if `/ja` and `/ko` moved from page 3
+2. [ ] Double down on best-performing AI referral channels
+3. [ ] Evaluate French locale based on continued FR traffic
+4. [ ] If `/ja`/`/ko` still stuck, consider adding more locale-specific content
 
 ---
 
@@ -340,62 +444,80 @@ Product Hunt: https://www.markdown.free/?utm_source=producthunt&utm_medium=listi
 
 ---
 
-## 📋 GSC Indexing Status (Updated Jan 17, 2026)
+## 📋 GSC Indexing Status (Updated Feb 8, 2026)
 
 Track which pages are indexed vs "Discovered - currently not indexed":
 
 ### ✅ Indexed Pages
-| Locale | Pages Indexed |
-|--------|---------------|
-| 🇬🇧 EN | `/`, `/about`, `/privacy`, `/readme-to-pdf` |
-| 🇮🇹 IT | `/it`, `/it/about`, `/it/privacy`, `/it/convertire-markdown-pdf` |
-| 🇪🇸 ES | `/es`, `/es/about`, `/es/convertir-markdown-pdf`, `/es/markdown-pdf-sin-registro` |
-| 🇹🇼 zh-Hant | `/zh-Hant`, `/zh-Hant/readme-pdf-zhuanhuan-tw` |
+| Locale | Pages Indexed | Notes |
+|--------|---------------|-------|
+| 🇬🇧 EN | `/`, `/about`, `/privacy`, `/readme-to-pdf` | |
+| 🇮🇹 IT | `/it`, `/it/about`, `/it/privacy`, `/it/convertire-markdown-pdf` | |
+| 🇪🇸 ES | `/es`, `/es/about`, `/es/convertir-markdown-pdf`, `/es/markdown-pdf-sin-registro` | |
+| 🇹🇼 zh-Hant | `/zh-Hant`, `/zh-Hant/readme-pdf-zhuanhuan-tw` | |
+| 🇯🇵 JA | `/ja` | Indexed Jan 16 — 11 impressions, needs backlinks to climb |
+| 🇰🇷 KO | `/ko` | Indexed Jan 16 — 5 impressions, needs backlinks to climb |
 
 ### ⏳ Discovered, Not Yet Indexed
-| URL | Priority | Action |
-|-----|----------|--------|
-| `/ja` | 🔴 HIGH | Request indexing – Japan user already converted |
-| `/ko` | 🔴 HIGH | Request indexing |
-| `/id` | 🟡 MED | Request indexing |
-| `/ja/privacy` | 🟢 LOW | Will follow after homepage |
-| `/ko/about` | 🟢 LOW | Will follow after homepage |
-| `/ko/markdown-byeonhwan-bigyo` | 🟡 MED | Intent page, request after `/ko` |
-| `/it/convertire-readme-pdf` | 🟡 MED | Add internal links from indexed IT pages |
-| `/es/privacy` | 🟢 LOW | Will follow |
-| `/vi/about`, `/vi/privacy` | 🟢 LOW | Request `/vi` homepage first |
+| URL | Priority | Action | Data Signal |
+|-----|----------|--------|-------------|
+| `/id` | 🟡 MED | Request indexing | 8 Umami visitors (AI-driven), 10 localized pageviews |
+| `/ko/markdown-byeonhwan-bigyo` | 🟡 MED | Will benefit from `/ko` authority | |
+| `/it/convertire-readme-pdf` | 🟡 MED | Add internal links from indexed IT pages | |
+| `/vi` | 🟡 MED | Request indexing | |
+| `/ja/privacy`, `/ko/about` | 🟢 LOW | Will follow after homepages gain authority | |
 
-### 🔗 Internal Linking Strategy
-To speed up indexing, add internal links from indexed pages to non-indexed pages:
-- From `/zh-Hant` → link to `/ja`, `/ko` (CJK language cluster)
-- From `/it` homepage → link to `/it/convertire-readme-pdf`
-- From `/es` homepage → already links to intent pages ✓
+### 🔗 "Page 3 Purgatory" Escape Plan (Feb 8)
+
+Both `/ja` and `/ko` are indexed since Jan 16 but stuck at avg position 21+ with few impressions. This is a **relevance/CTR problem**, not a technical/indexing one. Google tested them, users didn't click, so they stayed on page 3.
+
+**Root cause:** Titles didn't match local search habits or contain locale-specific click-triggers.
+
+**Fix applied (Feb 8):**
+- [x] **Korea `/ko` title** → "마크다운 PDF 변환 - 무료 & 무설치" — "무설치" (No Install) is a massive click-trigger in Korea due to ActiveX/EXE plugin culture
+- [x] **Japan `/ja` title** → "Markdown PDF 変換（無料）- ログイン不要" — "ログイン不要" (No Login) resonates in JP market
+- [x] **Japan How-to section** — Added "GitHub READMEをPDFにする方法" with HowTo JSON-LD schema — Google Japan favors How-to content
+- [x] Add crawlable locale links in footer from every page → `/ja`, `/ko` (done Feb 8)
+- [ ] **Re-request GSC indexing** for `/ja` and `/ko` to force Google to re-read new titles
+- [x] **Qiita backlink for `/ja`** — Published Feb 8, velog article for `/ko` still pending
+- [ ] Add internal links from `/it` → `/it/convertire-readme-pdf`
 
 ---
 
-## 🏆 Success Metrics (Updated Jan 17, 2026)
+## 🏆 Success Metrics (Updated Feb 8, 2026)
 
-| Market | Status | Notes |
-|--------|--------|-------|
-| 🇹🇼 Taiwan | ✅ **Converting!** | User converted 2x from zh-Hant intent page |
-| 🇯🇵 Japan | ✅ **Converted** | User came via zh-Hant, converted – demand signal! |
-| 🇨🇳 China | 👁️ Visited | Session from Xi'an, converted |
-| 🇮🇹 Italy | ⏳ Indexed | 4 pages indexed, awaiting organic traffic |
-| 🇪🇸 Spain | ⏳ Indexed | 4 pages indexed, awaiting organic traffic |
-| 🇰🇷 Korea | 🔄 Discovered | Not indexed yet, request indexing |
-| 🇯🇵 Japan | 🔄 Discovered | `/ja` not indexed yet, HIGH priority |
-| 🇮🇩 Indonesia | 🔄 Discovered | `/id` not indexed yet |
-| 🇻🇳 Vietnam | 🔄 Discovered | Not indexed yet |
-| 🇭🇰 Hong Kong | 🆕 Not started | Same zh-Hant content as Taiwan |
-| 🇸🇬 Singapore | 👁️ Visited | 1 session (filtered as data center) |
+| Market | Status | Visitors (30d) | Conversions | Channel | Notes |
+|--------|--------|----------------|-------------|---------|-------|
+| 🇯🇵 Japan | ✅ **Active, Converting** | 5 | Yes (Kobe 2x) | AI + Search | 11 GSC impressions, indexed Jan 16, needs backlinks |
+| 🇮🇩 Indonesia | ✅ **Active, Converting** | 8 | Yes (Jambi) | AI (Perplexity) | `/id` pages getting 10 views |
+| 🇮🇳 India | ✅ **Converting** | 8 | Yes (Kolkata) | AI | **NEW** - not in any plan, mobile users |
+| 🇪🇸 Spain | ✅ **Converting** | 5 | Yes (Barcelona) | Search | Bing position #2 for "convertidor marcdown" |
+| 🇵🇰 Pakistan | ✅ **Converting** | 4 | Yes (Karachi 2x) | AI | **NEW** - via AI referral |
+| 🇹🇼 Taiwan | 👁️ Active | 2 | - | Search | zh-Hant DOCX queries on Bing |
+| 🇫🇷 France | 🔥 **High Engagement** | 3 | Likely (52 events) | Direct | **No FR locale** — consider adding |
+| 🇸🇬 Singapore | 👁️ Visited | 5 | - | Mixed | English + Chinese speakers |
+| 🇨🇳 China | 👁️ Visited | 2 | - | Direct | zh-Hans page views |
+| 🇰🇷 Korea | 🔄 **Search Demand** | 0 | - | Search | 5 GSC impressions, indexed Jan 16, needs backlinks |
+| 🇮🇹 Italy | ⏳ Indexed | 1 | - | - | 4 pages indexed, underperforming |
+| 🇻🇳 Vietnam | 🔄 Discovered | 0 | - | - | Not indexed yet |
 
-### Key Insights from Umami (Jan 17, 2026)
-- **55% upload→conversion rate** — excellent
-- **31% of real sessions converted** — strong product-market fit
-- **Asia-Pacific showing traction** — TW, JP, CN all converted
-- **IT/ES awaiting organic** — pages indexed, need promotion
+### Key Insights (Feb 8, 2026)
+- **83% upload→conversion rate** — up from 55%, product is strong
+- **61% of real sessions converted** — up from 31%
+- **AI referrals = 6.3x Google** — dominant acquisition channel
+- **Japan = #1 non-EN market** — signals from all 3 data sources (Umami, GSC, Bing)
+- **India/Pakistan emerging via AI** — completely organic, zero marketing effort
+- **Italy underperforming** — only 1 visitor despite 4 indexed pages
+- **France potential** — 3 visitors, 1 with 52 events, no locale exists
 
-*Last updated: January 17, 2026*
+### Emerging Markets to Add
+| Market | Signal | Recommended Action |
+|--------|--------|-------------------|
+| 🇮🇳 India | 8 visitors, mobile conversions | Add to market-promotion.md, English content works |
+| 🇵🇰 Pakistan | 4 visitors, AI-driven | Monitor, English content works |
+| 🇫🇷 France | 3 visitors, extreme engagement | Consider French locale (covers FR, BE, QC, Africa) |
+
+*Last updated: February 8, 2026*
 
 ---
 
@@ -458,9 +580,9 @@ All SEO landing pages targeting specific search intents by language.
 | 🇯🇵 ja | `/ja/markdown-docx-henkan` | Markdown DOCX 変換 |
 | 🇹🇼 zh-Hant | `/zh-Hant/markdown-docx-zhuanhuan` | Markdown 轉 DOCX（Word）|
 
-**Total: 30 intent pages** (4 English + 26 localized)
+**Total: 30 intent pages** (4 English + 26 localized) + **9 Word power pages** (all locales)
 
-*Updated: February 1, 2026*
+*Updated: February 8, 2026*
 
 ---
 
@@ -615,26 +737,26 @@ Each localized page links to:
 
 ### Implementation Checklist
 
-#### Wave 1 (Week 1)
-- [ ] Create `/markdown-to-word` (EN power page)
-- [ ] Create `/id/markdown-ke-word` (ID power page)
-- [ ] Create `/ja/markdown-word-henkan` (JA power page)
-- [ ] Update existing DOCX page titles to include "Word"
-- [ ] Update sitemap.xml
-- [ ] Submit to GSC
+#### Wave 1 ✅ Complete
+- [x] Create `/markdown-to-word` (EN power page)
+- [x] Create `/id/markdown-ke-word` (ID power page)
+- [x] Create `/ja/markdown-word-henkan` (JA power page)
+- [x] Update existing DOCX page titles to include "Word"
+- [x] Update sitemap.xml
+- [x] Submit to GSC
 
-#### Wave 2 (Week 2)
-- [ ] Create `/es/markdown-a-word`
-- [ ] Create `/ko/markdown-word-byeonhwan`
-- [ ] Create `/vi/markdown-sang-word`
-- [ ] Add hreflang cross-links (page key based)
+#### Wave 2 ✅ Complete
+- [x] Create `/es/markdown-a-word`
+- [x] Create `/ko/markdown-word-byeonhwan`
+- [x] Create `/vi/markdown-sang-word`
+- [x] Add hreflang cross-links (page key based)
 
-#### Wave 3 (Week 3)
-- [ ] Create `/zh-Hans/markdown-zhuanhuan-word`
-- [ ] Create `/zh-Hant/markdown-word-zhuanhuan`
-- [ ] Create `/it/markdown-in-word`
-- [ ] Complete hreflang network
-- [ ] Monitor GSC impressions by locale
+#### Wave 3 ✅ Complete
+- [x] Create `/zh-Hans/markdown-zhuanhuan-word`
+- [x] Create `/zh-Hant/markdown-word-zhuanhuan`
+- [x] Create `/it/markdown-in-word`
+- [x] Complete hreflang network
+- [x] Monitor GSC impressions by locale — **13 DOCX/Word impressions in GSC (validated)**
 
 ### Expected Outcome
 
