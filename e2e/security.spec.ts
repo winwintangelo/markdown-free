@@ -515,6 +515,59 @@ This is a normal markdown document.
   });
 });
 
+// ==========================================================================
+// UMAMI ANALYTICS PROXY TESTS
+// Verifies the /ingest rewrite proxy works and no direct Umami domain leakage
+// ==========================================================================
+test.describe("Analytics Proxy - Umami via /ingest", () => {
+  test("GET /ingest/script.js returns JavaScript (rewrite works)", async ({ request }) => {
+    const response = await request.get("/ingest/script.js");
+
+    // The rewrite should proxy to cloud.umami.is/script.js and return 200
+    expect(response.status()).toBe(200);
+
+    const contentType = response.headers()["content-type"] || "";
+    expect(contentType).toMatch(/javascript/);
+
+    // The body should be non-trivial JS (Umami tracker script)
+    const body = await response.text();
+    expect(body.length).toBeGreaterThan(500);
+  });
+
+  test("POST /ingest/api/send is proxied (not a Next.js 404)", async ({ request }) => {
+    // The Umami send endpoint expects POST with a JSON payload.
+    // Even an invalid payload should get a response from Umami (not a Next.js 404).
+    const response = await request.post("/ingest/api/send", {
+      headers: { "Content-Type": "application/json" },
+      data: { type: "event", payload: {} },
+    });
+
+    // Umami may return 200 or 400 for bad payloads, but NOT a Next.js 404
+    expect(response.status()).not.toBe(404);
+  });
+
+  test("homepage HTML does not reference cloud.umami.is directly", async ({ page }) => {
+    const response = await page.goto("/");
+    expect(response?.status()).toBe(200);
+
+    // Get the full page HTML source
+    const html = await page.content();
+
+    // The HTML should NOT contain any direct references to the Umami cloud domain.
+    // All Umami traffic should go through the /ingest proxy.
+    expect(html).not.toContain("cloud.umami.is");
+  });
+
+  test("locale pages do not reference cloud.umami.is directly", async ({ page }) => {
+    // Check a couple locale pages to ensure the proxy applies site-wide
+    for (const locale of ["/ja", "/ko", "/es"]) {
+      await page.goto(locale);
+      const html = await page.content();
+      expect(html, `${locale} should not reference cloud.umami.is`).not.toContain("cloud.umami.is");
+    }
+  });
+});
+
 test.describe("API Security - Origin Validation", () => {
   test("should block requests from unauthorized origins", async ({
     request,

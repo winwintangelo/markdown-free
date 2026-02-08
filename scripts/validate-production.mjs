@@ -38,7 +38,8 @@ loadEnv();
 
 const PRODUCTION_URL = process.env.PRODUCTION_URL || 'https://www.markdown.free';
 const UMAMI_API_HOST = process.env.UMAMI_API_HOST || 'https://api.umami.is';
-const UMAMI_CLOUD_HOST = process.env.NEXT_PUBLIC_UMAMI_HOST || 'https://cloud.umami.is';
+// Umami tracking is proxied through the site's own /ingest path
+const UMAMI_INGEST_URL = `${process.env.PRODUCTION_URL || 'https://www.markdown.free'}/ingest`;
 const UMAMI_API_KEY = process.env.UMAMI_API_KEY;
 const UMAMI_WEBSITE_ID = process.env.UMAMI_WEBSITE_ID;
 const VERBOSE = process.argv.includes('--verbose');
@@ -105,14 +106,20 @@ async function testUmamiScript() {
     const response = await fetch(PRODUCTION_URL);
     const html = await response.text();
     
-    // Check if Umami script tag exists
-    const hasUmamiScript = html.includes('cloud.umami.is/script.js') || 
-                           html.includes('umami') && html.includes('script.js');
-    
+    // Check if Umami script tag exists (proxied via /ingest)
+    const hasUmamiScript = html.includes('/ingest/script.js');
+    const hasDirectUmami = html.includes('cloud.umami.is');
+
     if (hasUmamiScript) {
-      pass('Umami script tag present in HTML');
+      pass('Umami script tag present (proxied via /ingest)');
     } else {
-      fail('Umami script tag present in HTML', 'Script tag not found - check NEXT_PUBLIC_UMAMI_* env vars in Vercel');
+      fail('Umami script tag present in HTML', 'Script tag not found - check NEXT_PUBLIC_UMAMI_WEBSITE_ID env var in Vercel');
+    }
+
+    if (hasDirectUmami) {
+      warn('Direct cloud.umami.is reference found in HTML', 'Should be proxied via /ingest to bypass adblockers');
+    } else {
+      pass('No direct cloud.umami.is reference (adblocker-safe)');
     }
     
     // Check for website ID (try multiple patterns)
@@ -370,7 +377,7 @@ async function simulateTraffic() {
         type: 'event',
       };
       
-      const trackingResponse = await fetch(`${UMAMI_CLOUD_HOST}/api/send`, {
+      const trackingResponse = await fetch(`${UMAMI_INGEST_URL}/api/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

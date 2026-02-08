@@ -1962,19 +1962,27 @@ test.describe("Markdown Free - Analytics Integration", () => {
     await expect(page.getByText(/Counts of successful conversions/i)).toBeVisible();
   });
 
-  test("Umami script loading depends on env vars", async ({ page }) => {
+  test("Umami script loading depends on env vars and uses proxy", async ({ page }) => {
     await page.goto("/");
-    
+
     // Check for Umami script presence
     const umamiScript = page.locator('script[data-website-id]');
     const scriptCount = await umamiScript.count();
-    
+
     // If env vars are set, script should be present; if not, it shouldn't
     // This test validates the conditional loading works correctly
     if (scriptCount > 0) {
       // Umami is configured - verify the script has required attributes
       await expect(umamiScript).toHaveAttribute('data-website-id');
       await expect(umamiScript).toHaveAttribute('src');
+
+      // Verify script uses proxy path (not direct cloud.umami.is)
+      const src = await umamiScript.getAttribute('src');
+      expect(src).toBe('/ingest/script.js');
+      expect(src).not.toContain('cloud.umami.is');
+
+      // Verify data-host-url points to proxy
+      await expect(umamiScript).toHaveAttribute('data-host-url', '/ingest');
     } else {
       // Umami is not configured - verify no script is present
       await expect(umamiScript).toHaveCount(0);

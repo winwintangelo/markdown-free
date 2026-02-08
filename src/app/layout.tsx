@@ -3,8 +3,7 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
-// Umami Analytics configuration
-const umamiHost = process.env.NEXT_PUBLIC_UMAMI_HOST;
+// Umami Analytics configuration (proxied via /ingest to bypass adblockers)
 const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
 const siteUrl = "https://www.markdown.free";
@@ -94,11 +93,12 @@ export default function RootLayout({
         {children}
         {/* Vercel Web Analytics */}
         <Analytics />
-        {/* Umami Analytics - Privacy-friendly, cookieless */}
-        {umamiHost && umamiWebsiteId && (
+        {/* Umami Analytics - Privacy-friendly, cookieless, proxied via /ingest */}
+        {umamiWebsiteId && (
           <Script
-            src={`${umamiHost}/script.js`}
+            src="/ingest/script.js"
             data-website-id={umamiWebsiteId}
+            data-host-url="/ingest"
             data-domains="www.markdown.free"
             strategy="afterInteractive"
           />

@@ -1,5 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/ingest/script.js",
+        destination: "https://cloud.umami.is/script.js",
+      },
+      {
+        source: "/ingest/api/send",
+        destination: "https://cloud.umami.is/api/send",
+      },
+    ];
+  },
   async headers() {
     // Security headers for all routes
     const securityHeaders = [
@@ -34,11 +46,11 @@ const nextConfig = {
           key: "Content-Security-Policy",
           value: [
             "default-src 'self'",
-            "script-src 'self' 'unsafe-inline' https://cloud.umami.is https://*.vercel-scripts.com",
+            "script-src 'self' 'unsafe-inline' https://*.vercel-scripts.com",
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src 'self' https://fonts.gstatic.com",
             "img-src 'self' data: blob:",
-            "connect-src 'self' https://cloud.umami.is https://*.umami.is https://*.umami.dev https://*.vercel-insights.com",
+            "connect-src 'self' https://*.vercel-insights.com",
             "frame-ancestors 'none'",
             "base-uri 'self'",
             "form-action 'self'",
