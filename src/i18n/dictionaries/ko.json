@@ -135,5 +135,23 @@
     "ctaTitle": "마크다운을 변환할 준비가 되셨나요?",
     "ctaSubtitle": "가입 불필요. 드래그 앤 드롭으로 다운로드.",
     "ctaButton": "변환 시작"
+  },
+  "postConvertFeedback": {
+    "question": "어떠셨나요?",
+    "yes": "좋아요",
+    "no": "별로예요",
+    "celebrating": "훌륭해요! 파일을 즐기세요 🎉",
+    "tellUsMore": "무엇이 잘못되었나요?",
+    "optionFormatting": "출력 형식이 잘못됨",
+    "optionMissingContent": "내용 누락 (일부가 표시되지 않음)",
+    "optionTablesCode": "표 / 코드 블록 / 이미지가 깨짐",
+    "optionLayout": "레이아웃 문제 (페이지 나눔, 간격, 여백, 폰트)",
+    "optionTooSlow": "너무 느림",
+    "optionHardToUse": "사용하기 어려움 / 헷갈림",
+    "optionMissingFeature": "필요한 기능 부재",
+    "placeholder": "다른 의견이 있으신가요? (선택사항)",
+    "submit": "보내기",
+    "skip": "건너뛰기",
+    "thankYou": "피드백 감사합니다"
   }
 }

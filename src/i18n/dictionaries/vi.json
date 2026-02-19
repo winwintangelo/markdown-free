@@ -115,5 +115,23 @@
     "ctaTitle": "Sẵn sàng chuyển đổi Markdown của bạn?",
     "ctaSubtitle": "Không cần đăng ký. Chỉ cần kéo, thả và tải xuống.",
     "ctaButton": "Bắt Đầu Chuyển Đổi"
+  },
+  "postConvertFeedback": {
+    "question": "Trải nghiệm của bạn thế nào?",
+    "yes": "Tốt",
+    "no": "Không tốt",
+    "celebrating": "Tuyệt vời! Tận hưởng tệp của bạn 🎉",
+    "tellUsMore": "Điều gì đã xảy ra?",
+    "optionFormatting": "Định dạng đầu ra bị lỗi",
+    "optionMissingContent": "Nội dung bị thiếu (một số phần không hiển thị)",
+    "optionTablesCode": "Bảng / khối mã / hình ảnh bị hỏng",
+    "optionLayout": "Vấn đề bố cục (ngắt trang, khoảng cách, lề, phông chữ)",
+    "optionTooSlow": "Quá chậm",
+    "optionHardToUse": "Khó sử dụng / gây nhầm lẫn",
+    "optionMissingFeature": "Thiếu tính năng tôi cần",
+    "placeholder": "Có gì khác không? (tùy chọn)",
+    "submit": "Gửi",
+    "skip": "Bỏ qua",
+    "thankYou": "Cảm ơn phản hồi của bạn"
   }
 }

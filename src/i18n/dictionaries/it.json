@@ -119,6 +119,24 @@
     "ctaTitle": "Pronto a convertire il tuo Markdown?",
     "ctaSubtitle": "Nessuna registrazione. Trascina, rilascia e scarica.",
     "ctaButton": "Inizia a Convertire"
+  },
+  "postConvertFeedback": {
+    "question": "Com'è stata la tua esperienza?",
+    "yes": "Buona",
+    "no": "Cattiva",
+    "celebrating": "Ottimo! Goditi il tuo file 🎉",
+    "tellUsMore": "Cosa è andato storto?",
+    "optionFormatting": "La formattazione dell'output è errata",
+    "optionMissingContent": "Contenuto mancante (alcune parti non appaiono)",
+    "optionTablesCode": "Tabelle / blocchi di codice / immagini non funzionano",
+    "optionLayout": "Problemi di layout (interruzioni di pagina, spaziatura, margini, caratteri)",
+    "optionTooSlow": "Troppo lento",
+    "optionHardToUse": "Difficile da usare / confuso",
+    "optionMissingFeature": "Manca una funzione di cui ho bisogno",
+    "placeholder": "Altro? (facoltativo)",
+    "submit": "Invia",
+    "skip": "Salta",
+    "thankYou": "Grazie per il feedback"
   }
 }
 

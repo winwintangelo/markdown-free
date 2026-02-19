@@ -23,3 +23,24 @@
   background-color: #94a3b8; /* slate-400 */
 }
 
+/* Post-convert feedback: confetti piece animation */
+@keyframes confetti-fall {
+  0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translateY(-80px) rotate(360deg) scale(0.5); opacity: 0; }
+}
+
+.confetti-piece {
+  animation: confetti-fall 1s ease-out forwards;
+}
+
+/* Pop-in entrance for feedback widget */
+@keyframes pop-in {
+  0%   { transform: scale(0.85); opacity: 0; }
+  70%  { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.pop-in {
+  animation: pop-in 0.25s ease-out forwards;
+}
+

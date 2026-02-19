@@ -374,10 +374,39 @@ export function trackConversionWithReferrer(
   format: "pdf" | "txt" | "html" | "docx"
 ): void {
   const { isAI, source } = detectAIReferrer();
-  
+
   trackEvent("conversion_referrer", {
     format,
     is_ai: isAI ? "true" : "false",
     source,
   });
+}
+
+// =============================================================================
+// POST-CONVERT FEEDBACK EVENTS
+// =============================================================================
+
+/**
+ * Track a thumbs-up (positive) post-conversion feedback
+ */
+export function trackFeedbackPositive(format: string): void {
+  trackEvent("feedback_positive", { format });
+}
+
+/**
+ * Track a thumbs-down (negative) post-conversion feedback, with selected categories and optional comment
+ */
+export function trackFeedbackNegative(format: string, categories: string[], comment?: string): void {
+  trackEvent("feedback_negative", {
+    format,
+    ...(categories.length > 0 ? { categories: categories.join(",") } : {}),
+    ...(comment ? { comment: comment.substring(0, 500) } : {}),
+  });
+}
+
+/**
+ * Track when a user skips the post-conversion feedback prompt
+ */
+export function trackFeedbackSkipped(format: string): void {
+  trackEvent("feedback_skipped", { format });
 }

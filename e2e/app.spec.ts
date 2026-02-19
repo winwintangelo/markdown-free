@@ -18,11 +18,9 @@ test.describe("Markdown Free - App Layout", () => {
     // Check nav links (visible on desktop)
     const aboutLink = page.locator("header").getByRole("link", { name: "About" });
     const privacyLink = page.locator("header").getByRole("link", { name: "Privacy" });
-    const feedbackButton = page.locator("header").getByRole("button", { name: "Feedback" });
 
     await expect(aboutLink).toBeVisible();
     await expect(privacyLink).toBeVisible();
-    await expect(feedbackButton).toBeVisible();
   });
 
   test("should load with correct Hero section", async ({ page }) => {
@@ -2177,23 +2175,6 @@ test.describe("Markdown Free - Enhanced Analytics (Engagement Tracking)", () => 
     expect(errors).toHaveLength(0);
   });
 
-  test("feedback button click tracking works", async ({ page }) => {
-    const errors: string[] = [];
-    page.on("pageerror", (error) => {
-      errors.push(error.message);
-    });
-
-    // Click feedback button in header
-    const feedbackButton = page.locator("header").getByRole("button", { name: "Feedback" });
-    await feedbackButton.click();
-
-    // Wait for any tracking to complete
-    await page.waitForTimeout(100);
-
-    // No errors should have occurred
-    expect(errors).toHaveLength(0);
-  });
-
   test("file drag over page triggers drag tracking without errors", async ({ page }) => {
     const errors: string[] = [];
     page.on("pageerror", (error) => {
@@ -2295,223 +2276,173 @@ test.describe("Markdown Free - Enhanced Analytics (Engagement Tracking)", () => 
   });
 });
 
-test.describe("Markdown Free - Feedback Modal", () => {
+
+// =============================================================================
+// Post-Convert Feedback Widget Tests
+// =============================================================================
+test.describe("Markdown Free - Post-Convert Feedback", () => {
+  // Helper: upload a sample file and do a TXT export (client-side, no mocking needed).
+  // Uses a generous timeout for the ready badge because on a cold dev-server Next.js
+  // compiles JS bundles before React hydrates and handles the file-input change event.
+  async function uploadAndExportTxt(page: import("@playwright/test").Page) {
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles({
+      name: "sample.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Hello\n\nThis is a test."),
+    });
+    // Use the full text and a longer timeout to handle cold dev-server compilation
+    await expect(page.getByText("Ready to export (uploaded file)")).toBeVisible({ timeout: 15000 });
+    const downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: /To TXT/i }).click();
+    await downloadPromise;
+  }
+
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
   });
 
-  test("clicking feedback button opens the modal", async ({ page }) => {
-    // Click feedback button in header
-    const feedbackButton = page.locator("header").getByRole("button", { name: "Feedback" });
-    await feedbackButton.click();
-
-    // Modal should be visible
-    const modal = page.getByRole("dialog");
-    await expect(modal).toBeVisible();
-
-    // Modal should have title
-    await expect(page.getByRole("heading", { name: "Send Feedback" })).toBeVisible();
-
-    // Form fields should be visible
-    await expect(page.getByLabel(/Your Feedback/)).toBeVisible();
-    await expect(page.getByLabel(/Email/)).toBeVisible();
+  test("feedback widget appears after successful TXT export", async ({ page }) => {
+    await uploadAndExportTxt(page);
+    // The feedback prompt should appear
+    await expect(page.getByText(/How's your experience/i)).toBeVisible();
   });
 
-  test("feedback modal can be closed with X button", async ({ page }) => {
-    // Open modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
-    await expect(page.getByRole("dialog")).toBeVisible();
+  test("Good button shows celebration message and auto-dismisses", async ({ page }) => {
+    await uploadAndExportTxt(page);
 
-    // Click close button
-    await page.getByRole("button", { name: "Close feedback modal" }).click();
+    // Click "Good"
+    await page.getByRole("button", { name: /Good/i }).click();
 
-    // Modal should be hidden
-    await expect(page.getByRole("dialog")).not.toBeVisible();
+    // Celebration message should appear
+    await expect(page.getByText(/Enjoy your file/i)).toBeVisible();
+
+    // Widget should auto-dismiss within 4 seconds
+    await expect(page.getByText(/How's your experience/i)).not.toBeVisible({ timeout: 4000 });
   });
 
-  test("feedback modal can be closed with Cancel button", async ({ page }) => {
-    // Open modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
-    await expect(page.getByRole("dialog")).toBeVisible();
+  test("Bad button shows form with issue chip options", async ({ page }) => {
+    await uploadAndExportTxt(page);
 
-    // Click cancel button
-    await page.getByRole("button", { name: "Cancel" }).click();
+    // Click "Bad"
+    await page.getByRole("button", { name: /Bad/i }).click();
 
-    // Modal should be hidden
-    await expect(page.getByRole("dialog")).not.toBeVisible();
+    // Form phase should appear with tellUsMore text
+    await expect(page.getByText(/What went wrong/i)).toBeVisible();
+
+    // Chip options should be visible (spot-check a few)
+    await expect(page.getByRole("button", { name: /Output formatting/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Too slow/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Missing a feature/i })).toBeVisible();
+
+    // Textarea should be visible
+    await expect(page.locator("textarea")).toBeVisible();
   });
 
-  test("feedback modal can be closed with Escape key", async ({ page }) => {
-    // Open modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
-    await expect(page.getByRole("dialog")).toBeVisible();
+  test("can select and deselect chip options", async ({ page }) => {
+    await uploadAndExportTxt(page);
+    await page.getByRole("button", { name: /Bad/i }).click();
 
-    // Press Escape
-    await page.keyboard.press("Escape");
+    const chip = page.getByRole("button", { name: /Too slow/i });
 
-    // Modal should be hidden
-    await expect(page.getByRole("dialog")).not.toBeVisible();
+    // Select chip
+    await chip.click();
+    await expect(chip).toHaveAttribute("aria-pressed", "true");
+
+    // Deselect chip
+    await chip.click();
+    await expect(chip).toHaveAttribute("aria-pressed", "false");
   });
 
-  test("feedback modal can be closed by clicking backdrop", async ({ page }) => {
-    // Open modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
-    await expect(page.getByRole("dialog")).toBeVisible();
+  test("can select multiple chips and submit feedback", async ({ page }) => {
+    await uploadAndExportTxt(page);
+    await page.getByRole("button", { name: /Bad/i }).click();
 
-    // Click backdrop (outside modal content)
-    await page.locator(".bg-black\\/50").click({ position: { x: 10, y: 10 } });
+    // Select two chips
+    await page.getByRole("button", { name: /Too slow/i }).click();
+    await page.getByRole("button", { name: /Output formatting/i }).click();
 
-    // Modal should be hidden
-    await expect(page.getByRole("dialog")).not.toBeVisible();
-  });
-
-  test("submit button is disabled when feedback is empty", async ({ page }) => {
-    // Open modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
-
-    // Submit button should be disabled initially
-    const submitButton = page.getByRole("button", { name: "Send Feedback" });
-    await expect(submitButton).toBeDisabled();
-  });
-
-  test("submit button is enabled when feedback is entered", async ({ page }) => {
-    // Open modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
-
-    // Type feedback
-    const feedbackInput = page.getByLabel(/Your Feedback/);
-    await feedbackInput.fill("Great tool! I love it.");
-
-    // Submit button should now be enabled
-    const submitButton = page.getByRole("button", { name: "Send Feedback" });
-    await expect(submitButton).toBeEnabled();
-  });
-
-  test("submitting feedback shows success message", async ({ page }) => {
-    // Open modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
-
-    // Fill out form
-    await page.getByLabel(/Your Feedback/).fill("This is a test feedback.");
-    await page.getByLabel(/Email/).fill("test@example.com");
+    // Add optional comment
+    await page.locator("textarea").fill("The layout looked off.");
 
     // Submit
-    await page.getByRole("button", { name: "Send Feedback" }).click();
+    await page.getByRole("button", { name: /Send/i }).click();
 
-    // Should show success message
-    await expect(page.getByText("Thank you! Your feedback has been sent.")).toBeVisible();
+    // Thank-you message should appear
+    await expect(page.getByText(/Thanks for your feedback/i)).toBeVisible();
   });
 
-  test("modal auto-closes after successful submission", async ({ page }) => {
-    // Open modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+  test("can submit bad feedback without selecting any chip", async ({ page }) => {
+    await uploadAndExportTxt(page);
+    await page.getByRole("button", { name: /Bad/i }).click();
 
-    // Fill out and submit
-    await page.getByLabel(/Your Feedback/).fill("Test feedback");
-    await page.getByRole("button", { name: "Send Feedback" }).click();
+    // Submit without selecting chips or typing anything
+    await page.getByRole("button", { name: /Send/i }).click();
 
-    // Wait for success message
-    await expect(page.getByText("Thank you!")).toBeVisible();
-
-    // Modal should auto-close after ~2 seconds
-    await expect(page.getByRole("dialog")).not.toBeVisible({ timeout: 3000 });
+    // Should still show thank-you
+    await expect(page.getByText(/Thanks for your feedback/i)).toBeVisible();
   });
 
-  test("feedback can be submitted without email", async ({ page }) => {
-    // Open modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+  test("skip button dismisses the widget", async ({ page }) => {
+    await uploadAndExportTxt(page);
 
-    // Fill only feedback (email is optional)
-    await page.getByLabel(/Your Feedback/).fill("Feedback without email");
+    // Click Skip (X button in prompt phase)
+    await page.getByRole("button", { name: /Skip/i }).click();
 
-    // Submit should work
-    await page.getByRole("button", { name: "Send Feedback" }).click();
-
-    // Should show success
-    await expect(page.getByText("Thank you!")).toBeVisible();
+    // Widget should be gone
+    await expect(page.getByText(/How's your experience/i)).not.toBeVisible();
   });
 
-  test("form resets when modal is reopened", async ({ page }) => {
-    // Open modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+  test("skip button on form phase dismisses the widget", async ({ page }) => {
+    await uploadAndExportTxt(page);
+    await page.getByRole("button", { name: /Bad/i }).click();
 
-    // Fill out form
-    await page.getByLabel(/Your Feedback/).fill("Some feedback");
-    await page.getByLabel(/Email/).fill("test@example.com");
+    // Click Skip text button inside form
+    const skipButtons = page.getByRole("button", { name: /Skip/i });
+    await skipButtons.last().click();
 
-    // Close modal
-    await page.getByRole("button", { name: "Cancel" }).click();
-    await expect(page.getByRole("dialog")).not.toBeVisible();
-
-    // Wait for reset timeout
-    await page.waitForTimeout(300);
-
-    // Reopen modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
-
-    // Form should be empty
-    await expect(page.getByLabel(/Your Feedback/)).toHaveValue("");
-    await expect(page.getByLabel(/Email/)).toHaveValue("");
+    // Widget should be gone
+    await expect(page.getByText(/What went wrong/i)).not.toBeVisible();
   });
 
-  test("feedback button works from mobile menu", async ({ page }) => {
-    // Set mobile viewport
-    await page.setViewportSize({ width: 375, height: 667 });
+  test("submitted phase auto-dismisses after a few seconds", async ({ page }) => {
+    await uploadAndExportTxt(page);
+    await page.getByRole("button", { name: /Bad/i }).click();
+    await page.getByRole("button", { name: /Send/i }).click();
 
-    // Open mobile menu
-    await page.locator('button[aria-label="Open menu"]').click();
+    await expect(page.getByText(/Thanks for your feedback/i)).toBeVisible();
 
-    // Click feedback button
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
-
-    // Modal should open
-    await expect(page.getByRole("dialog")).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Send Feedback" })).toBeVisible();
+    // Widget should auto-dismiss within 4 seconds
+    await expect(page.getByText(/Thanks for your feedback/i)).not.toBeVisible({ timeout: 4000 });
   });
 
-  test("textarea auto-focuses when modal opens", async ({ page }) => {
-    // Open modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+  test("new export resets the feedback widget", async ({ page }) => {
+    await uploadAndExportTxt(page);
 
-    // Textarea should be focused
-    const feedbackInput = page.getByLabel(/Your Feedback/);
-    await expect(feedbackInput).toBeFocused();
+    // First widget appears
+    await expect(page.getByText(/How's your experience/i)).toBeVisible();
+
+    // Do another export
+    const downloadPromise2 = page.waitForEvent("download");
+    await page.getByRole("button", { name: /To TXT/i }).click();
+    await downloadPromise2;
+
+    // Widget should still be visible (reset with new key)
+    await expect(page.getByText(/How's your experience/i)).toBeVisible();
   });
 
-  test("shows loading state while submitting", async ({ page }) => {
-    // Open modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
-
-    // Fill out form
-    await page.getByLabel(/Your Feedback/).fill("Test feedback");
-
-    // Click submit and immediately check for loading state
-    const submitButton = page.getByRole("button", { name: /Send/ });
-    await submitButton.click();
-
-    // Should show loading state briefly (may be too fast to catch, but we check)
-    // The success message will appear after loading
-    await expect(page.getByText("Thank you!")).toBeVisible();
-  });
-
-  test("analytics tracking is called without errors on submit", async ({ page }) => {
+  test("no JavaScript errors occur during feedback flow", async ({ page }) => {
     const errors: string[] = [];
-    page.on("pageerror", (error) => {
-      errors.push(error.message);
-    });
+    page.on("pageerror", (error) => errors.push(error.message));
 
-    // Open modal
-    await page.locator("header").getByRole("button", { name: "Feedback" }).click();
+    await uploadAndExportTxt(page);
 
-    // Fill out and submit
-    await page.getByLabel(/Your Feedback/).fill("Test feedback for analytics");
-    await page.getByLabel(/Email/).fill("analytics@test.com");
-    await page.getByRole("button", { name: "Send Feedback" }).click();
+    await page.getByRole("button", { name: /Bad/i }).click();
+    await page.getByRole("button", { name: /Too slow/i }).click();
+    await page.locator("textarea").fill("Test comment");
+    await page.getByRole("button", { name: /Send/i }).click();
 
-    // Wait for success
-    await expect(page.getByText("Thank you!")).toBeVisible();
-
-    // No errors should have occurred
+    await expect(page.getByText(/Thanks for your feedback/i)).toBeVisible();
     expect(errors).toHaveLength(0);
   });
 });

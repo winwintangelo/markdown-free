@@ -22,6 +22,7 @@ import {
   type ConvertErrorCode,
 } from "@/lib/analytics";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
+import { PostConvertFeedback } from "./post-convert-feedback";
 import type { Locale, Dictionary } from "@/i18n";
 
 type ExportFormat = "pdf" | "txt" | "html" | "docx";
@@ -64,6 +65,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   const [error, setError] = useState<ExportError | null>(null);
   const [renderedHtml, setRenderedHtml] = useState<string>("");
   const [uploadHint, setUploadHint] = useState<string | null>(null);
+  const [lastSuccessFormat, setLastSuccessFormat] = useState<ExportFormat | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
   const hoveredFormatsRef = useRef<Set<ExportFormat>>(new Set());
   const hintTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -141,13 +143,13 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       if (!state.content) {
         // Track that export button triggered upload flow
         trackExportTriggerUpload(format as AnalyticsExportFormat);
-        
+
         // Trigger file picker
         triggerFileUpload();
-        
+
         // Show hint message
         setUploadHint(dict.export.selectFileHint || defaultDict.export.selectFileHint);
-        
+
         // Auto-dismiss hint after 5 seconds
         if (hintTimeoutRef.current) {
           clearTimeout(hintTimeoutRef.current);
@@ -159,16 +161,17 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
             setUploadHint(null);
           }, 5000);
         }, 5000);
-        
+
         return;
       }
 
       // Determine source for analytics
       const source: UploadSource = state.content.source === "file" ? "file" : "paste";
 
-      // Clear any previous error and hint
+      // Clear any previous error, hint, and feedback widget
       setError(null);
       setUploadHint(null);
+      setLastSuccessFormat(null);
       setLoadingFormat(format);
 
       try {
@@ -176,15 +179,17 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           exportTxt(state.content.content, state.content.filename);
           trackConvertSuccess(format as AnalyticsExportFormat, source);
           trackLocaleConversion(locale as SupportedLocale, format);
+          setLastSuccessFormat(format);
         } else if (format === "html") {
           const html = renderedHtml || (await markdownToHtml(state.content.content));
           exportHtml(html, state.content.filename);
           trackConvertSuccess(format as AnalyticsExportFormat, source);
           trackLocaleConversion(locale as SupportedLocale, format);
+          setLastSuccessFormat(format);
         } else if (format === "pdf") {
           // Create abort controller for PDF request
           abortControllerRef.current = new AbortController();
-          
+
           const result: PdfExportResult = await exportPdf(
             state.content.content,
             state.content.filename,
@@ -194,6 +199,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           if (result.success) {
             trackConvertSuccess(format as AnalyticsExportFormat, source);
             trackLocaleConversion(locale as SupportedLocale, format);
+            setLastSuccessFormat(format);
           } else if (result.error) {
             // Map error codes to analytics error codes with User/System classification
             let errorCode: ConvertErrorCode;
@@ -225,7 +231,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         } else if (format === "docx") {
           // Create abort controller for DOCX request
           abortControllerRef.current = new AbortController();
-          
+
           const result: DocxExportResult = await exportDocx(
             state.content.content,
             state.content.filename,
@@ -235,6 +241,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           if (result.success) {
             trackConvertSuccess(format as AnalyticsExportFormat, source);
             trackLocaleConversion(locale as SupportedLocale, format);
+            setLastSuccessFormat(format);
           } else if (result.error) {
             // Map error codes to analytics error codes
             let errorCode: ConvertErrorCode;
@@ -365,8 +372,8 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
             {loadingFormat === "docx" && (
               <Loader2 className="h-3 w-3 animate-spin" />
             )}
-            {loadingFormat === "docx" 
-              ? (dict.export.generatingDocx || defaultDict.export.generatingDocx) 
+            {loadingFormat === "docx"
+              ? (dict.export.generatingDocx || defaultDict.export.generatingDocx)
               : (dict.export.toDocx || defaultDict.export.toDocx)}
           </button>
 
@@ -427,6 +434,16 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         <p className="text-center text-xs text-slate-500">
           {dict.export.generatingDocx || defaultDict.export.generatingDocx} This may take a few seconds.
         </p>
+      )}
+
+      {/* Post-conversion feedback prompt */}
+      {lastSuccessFormat && dict.postConvertFeedback && (
+        <PostConvertFeedback
+          key={lastSuccessFormat}
+          format={lastSuccessFormat}
+          dict={dict}
+          onDismiss={() => setLastSuccessFormat(null)}
+        />
       )}
     </div>
   );

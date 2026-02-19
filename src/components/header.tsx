@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { trackNavClick, trackFeedbackClick, type NavDestination } from "@/lib/analytics";
-import { FeedbackModal } from "./feedback-modal";
+import { trackNavClick, type NavDestination } from "@/lib/analytics";
 import { LanguageSwitcher } from "./language-switcher";
 import type { Locale, Dictionary } from "@/i18n";
 
@@ -19,22 +18,11 @@ const defaultDict = {
   header: {
     about: "About",
     privacy: "Privacy",
-    feedback: "Feedback"
   },
-  feedback: {
-    title: "Send Feedback",
-    placeholder: "What's on your mind?",
-    emailPlaceholder: "Email (optional)",
-    submit: "Send Feedback",
-    submitting: "Sending...",
-    success: "Thank you!",
-    cancel: "Cancel"
-  }
 };
 
 export function Header({ locale, dict = defaultDict as Dictionary }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
 
   // Get correct path prefix
   const pathPrefix = locale && locale !== "en" ? `/${locale}` : "";
@@ -51,16 +39,6 @@ export function Header({ locale, dict = defaultDict as Dictionary }: HeaderProps
     trackNavClick(destination);
     closeMobileMenu();
   };
-
-  const handleFeedbackClick = useCallback(() => {
-    trackFeedbackClick();
-    setIsFeedbackModalOpen(true);
-    closeMobileMenu();
-  }, []);
-
-  const handleFeedbackClose = useCallback(() => {
-    setIsFeedbackModalOpen(false);
-  }, []);
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur">
@@ -83,9 +61,6 @@ export function Header({ locale, dict = defaultDict as Dictionary }: HeaderProps
           <Link href={`${pathPrefix}/privacy`} onClick={() => trackNavClick("privacy")} className="hover:text-slate-900 transition-colors">
             {dict.header.privacy}
           </Link>
-          <button onClick={handleFeedbackClick} className="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-600 hover:border-slate-300 hover:bg-slate-100 transition-colors">
-            {dict.header.feedback}
-          </button>
           {locale && <LanguageSwitcher currentLocale={locale} />}
         </nav>
 
@@ -109,7 +84,7 @@ export function Header({ locale, dict = defaultDict as Dictionary }: HeaderProps
       <div
         className={cn(
           "overflow-hidden transition-all duration-200 ease-in-out md:hidden",
-          isMobileMenuOpen ? "max-h-48 border-t border-slate-100" : "max-h-0"
+          isMobileMenuOpen ? "max-h-32 border-t border-slate-100" : "max-h-0"
         )}
       >
         <nav className="flex flex-col gap-1 bg-white px-4 py-3">
@@ -127,14 +102,8 @@ export function Header({ locale, dict = defaultDict as Dictionary }: HeaderProps
           >
             {dict.header.privacy}
           </Link>
-          <button onClick={handleFeedbackClick} className="mt-2 w-full rounded-full border border-slate-200 px-3 py-2 text-xs font-medium text-slate-600 hover:border-slate-300 hover:bg-slate-100 transition-colors">
-            {dict.header.feedback}
-          </button>
         </nav>
       </div>
-
-      {/* Feedback Modal */}
-      <FeedbackModal isOpen={isFeedbackModalOpen} onClose={handleFeedbackClose} dict={dict} />
     </header>
   );
 }

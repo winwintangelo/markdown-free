@@ -135,5 +135,23 @@
     "ctaTitle": "Markdownを変換する準備はできましたか？",
     "ctaSubtitle": "登録不要。ドラッグ＆ドロップでダウンロード。",
     "ctaButton": "変換を開始"
+  },
+  "postConvertFeedback": {
+    "question": "ご利用はいかがでしたか？",
+    "yes": "良い",
+    "no": "悪い",
+    "celebrating": "よかった！ファイルをお楽しみください 🎉",
+    "tellUsMore": "何が問題でしたか？",
+    "optionFormatting": "出力の書式が正しくない",
+    "optionMissingContent": "コンテンツが欠けている（一部表示されない）",
+    "optionTablesCode": "表・コードブロック・画像が崩れている",
+    "optionLayout": "レイアウトの問題（改ページ・余白・フォントなど）",
+    "optionTooSlow": "処理が遅い",
+    "optionHardToUse": "使いにくい・わかりにくい",
+    "optionMissingFeature": "必要な機能がない",
+    "placeholder": "他にご意見は？（任意）",
+    "submit": "送信",
+    "skip": "スキップ",
+    "thankYou": "フィードバックありがとうございます"
   }
 }

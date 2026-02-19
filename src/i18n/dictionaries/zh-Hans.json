@@ -115,5 +115,23 @@
     "ctaTitle": "准备好转换您的 Markdown 了吗？",
     "ctaSubtitle": "无需注册。只需拖放即可下载。",
     "ctaButton": "开始转换"
+  },
+  "postConvertFeedback": {
+    "question": "您的体验如何？",
+    "yes": "很好",
+    "no": "不好",
+    "celebrating": "太好了！享受您的文件 🎉",
+    "tellUsMore": "出了什么问题？",
+    "optionFormatting": "输出格式有问题",
+    "optionMissingContent": "内容缺失（部分内容未显示）",
+    "optionTablesCode": "表格 / 代码块 / 图片显示异常",
+    "optionLayout": "版面问题（分页、间距、边距、字体）",
+    "optionTooSlow": "速度太慢",
+    "optionHardToUse": "难以使用 / 令人困惑",
+    "optionMissingFeature": "缺少我需要的功能",
+    "placeholder": "还有其他意见吗？（可选）",
+    "submit": "发送",
+    "skip": "跳过",
+    "thankYou": "感谢您的反馈"
   }
 }

@@ -115,5 +115,23 @@
     "ctaTitle": "Siap mengonversi Markdown Anda?",
     "ctaSubtitle": "Tanpa pendaftaran. Cukup seret, lepas, dan unduh.",
     "ctaButton": "Mulai Mengonversi"
+  },
+  "postConvertFeedback": {
+    "question": "Bagaimana pengalaman Anda?",
+    "yes": "Bagus",
+    "no": "Kurang baik",
+    "celebrating": "Bagus! Nikmati file Anda 🎉",
+    "tellUsMore": "Apa yang salah?",
+    "optionFormatting": "Format output terlihat salah",
+    "optionMissingContent": "Konten hilang (bagian tidak muncul)",
+    "optionTablesCode": "Tabel / blok kode / gambar rusak",
+    "optionLayout": "Masalah tata letak (pemisah halaman, spasi, margin, font)",
+    "optionTooSlow": "Terlalu lambat",
+    "optionHardToUse": "Sulit digunakan / membingungkan",
+    "optionMissingFeature": "Fitur yang saya butuhkan tidak ada",
+    "placeholder": "Ada yang lain? (opsional)",
+    "submit": "Kirim",
+    "skip": "Lewati",
+    "thankYou": "Terima kasih atas masukan Anda"
   }
 }

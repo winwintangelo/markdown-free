@@ -115,6 +115,24 @@
     "ctaTitle": "Ready to convert your Markdown?",
     "ctaSubtitle": "No signup required. Just drag, drop, and download.",
     "ctaButton": "Start Converting"
+  },
+  "postConvertFeedback": {
+    "question": "How's your experience?",
+    "yes": "Good",
+    "no": "Bad",
+    "celebrating": "Great! Enjoy your file 🎉",
+    "tellUsMore": "What went wrong?",
+    "optionFormatting": "Output formatting looks wrong",
+    "optionMissingContent": "Missing content (parts didn't show up)",
+    "optionTablesCode": "Tables / code blocks / images look broken",
+    "optionLayout": "Layout issues (page breaks, spacing, margins, fonts)",
+    "optionTooSlow": "Too slow",
+    "optionHardToUse": "Hard to use / confusing",
+    "optionMissingFeature": "Missing a feature I need",
+    "placeholder": "Anything else? (optional)",
+    "submit": "Send",
+    "skip": "Skip",
+    "thankYou": "Thanks for your feedback"
   }
 }
 
