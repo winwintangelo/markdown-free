@@ -21,7 +21,20 @@
     "label": "Pasted Markdown",
     "placeholder": "Paste your Markdown here…",
     "helper": "Changes here will also be used when exporting to PDF, DOCX, TXT or HTML.",
-    "tooLarge": "Content exceeds 1MB limit. It has been truncated."
+    "tooLarge": "Content exceeds 1MB limit. It has been truncated.",
+    "clipboardButton": "Paste from clipboard",
+    "clipboardHint": "One tap — from ChatGPT, Claude, Obsidian, etc.",
+    "orTypeManually": "or type manually",
+    "pasted": "Pasted",
+    "pages": "pages",
+    "page": "page",
+    "editText": "Edit text",
+    "pasteAgain": "Paste again",
+    "doneEditing": "Done editing",
+    "clearAll": "Clear all",
+    "permissionDenied": "Paste blocked by browser — use the text box below",
+    "emptyClipboard": "Nothing to paste — copy some markdown first",
+    "nonTextContent": "Only text/markdown is supported"
   },
   "export": {
     "toPdf": "To PDF",
@@ -32,7 +45,12 @@
     "generating": "Generating PDF...",
     "generatingDocx": "Generating DOCX...",
     "selectFileHint": "Select a Markdown file to export",
-    "uploadOrPaste": "Upload or paste to continue"
+    "uploadOrPaste": "Upload or paste to continue",
+    "sharePdf": "Share as PDF",
+    "shareDocx": "Share as DOCX",
+    "savePdf": "Save PDF",
+    "saveDocx": "Save DOCX",
+    "more": "More formats"
   },
   "preview": {
     "title": "Preview",
@@ -47,7 +65,9 @@
       "step2": "See the formatted preview right here.",
       "step3": "Click To PDF, To DOCX, To TXT, or To HTML to download your converted file.",
       "note": "Once you add your own Markdown, this preview will update to match it."
-    }
+    },
+    "showFullPreview": "Show full preview",
+    "collapsePreview": "Collapse preview"
   },
   "errors": {
     "invalidType": "Unsupported file type. Please upload a .md, .markdown or .txt file.",
@@ -135,4 +155,3 @@
     "thankYou": "Thanks for your feedback"
   }
 }
-

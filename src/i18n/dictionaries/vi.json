@@ -21,7 +21,20 @@
     "label": "Markdown đã dán",
     "placeholder": "Dán Markdown của bạn vào đây…",
     "helper": "Các thay đổi ở đây cũng sẽ được sử dụng khi xuất sang PDF, DOCX, TXT hoặc HTML.",
-    "tooLarge": "Nội dung vượt quá giới hạn 1MB. Đã được cắt bớt."
+    "tooLarge": "Nội dung vượt quá giới hạn 1MB. Đã được cắt bớt.",
+    "clipboardButton": "Dán từ clipboard",
+    "clipboardHint": "Một chạm — từ ChatGPT, Claude, Obsidian, v.v.",
+    "orTypeManually": "hoặc nhập thủ công",
+    "pasted": "Đã dán",
+    "pages": "trang",
+    "page": "trang",
+    "editText": "Sửa văn bản",
+    "pasteAgain": "Dán lại",
+    "doneEditing": "Xong",
+    "clearAll": "Xóa tất cả",
+    "permissionDenied": "Trình duyệt chặn dán — dùng ô văn bản bên dưới",
+    "emptyClipboard": "Không có gì để dán — hãy sao chép markdown trước",
+    "nonTextContent": "Chỉ hỗ trợ văn bản/markdown"
   },
   "export": {
     "toPdf": "Sang PDF",
@@ -32,7 +45,12 @@
     "generatingDocx": "Đang tạo DOCX...",
     "generating": "Đang tạo PDF...",
     "selectFileHint": "Chọn tệp Markdown để xuất",
-    "uploadOrPaste": "Tải lên hoặc dán để tiếp tục"
+    "uploadOrPaste": "Tải lên hoặc dán để tiếp tục",
+    "sharePdf": "Chia sẻ PDF",
+    "shareDocx": "Chia sẻ DOCX",
+    "savePdf": "Lưu PDF",
+    "saveDocx": "Lưu DOCX",
+    "more": "Định dạng khác"
   },
   "preview": {
     "title": "Xem trước",
@@ -47,7 +65,9 @@
       "step2": "Xem bản xem trước đã định dạng ngay tại đây.",
       "step3": "Nhấp Sang PDF, Sang DOCX, Sang TXT hoặc Sang HTML để tải xuống tệp đã chuyển đổi.",
       "note": "Sau khi bạn thêm Markdown của riêng mình, bản xem trước này sẽ cập nhật theo."
-    }
+    },
+    "showFullPreview": "Xem toàn bộ",
+    "collapsePreview": "Thu gọn"
   },
   "errors": {
     "invalidType": "Loại tệp không được hỗ trợ. Vui lòng tải lên tệp .md, .markdown hoặc .txt.",

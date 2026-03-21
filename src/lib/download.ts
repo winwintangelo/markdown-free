@@ -23,6 +23,20 @@ export function downloadFile(
 }
 
 /**
+ * Trigger a file download from a Blob
+ */
+export function downloadBlob(blob: Blob, filename: string): void {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
+/**
  * Generate a filename based on source
  * - For uploaded files: uses original filename with new extension
  * - For pasted content: generates timestamp-based filename

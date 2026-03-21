@@ -80,29 +80,16 @@ export function Header({ locale, dict = defaultDict as Dictionary }: HeaderProps
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Menu Dropdown — language selector (About/Privacy moved to footer on mobile) */}
       <div
         className={cn(
           "overflow-hidden transition-all duration-200 ease-in-out md:hidden",
-          isMobileMenuOpen ? "max-h-32 border-t border-slate-100" : "max-h-0"
+          isMobileMenuOpen ? "max-h-96 border-t border-slate-100" : "max-h-0"
         )}
       >
-        <nav className="flex flex-col gap-1 bg-white px-4 py-3">
-          <Link
-            href={`${pathPrefix}/about`}
-            onClick={() => handleNavClick("about")}
-            className="rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
-          >
-            {dict.header.about}
-          </Link>
-          <Link
-            href={`${pathPrefix}/privacy`}
-            onClick={() => handleNavClick("privacy")}
-            className="rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors"
-          >
-            {dict.header.privacy}
-          </Link>
-        </nav>
+        <div className="bg-white px-4 py-3">
+          {locale && <LanguageSwitcher currentLocale={locale} variant="mobile" onSelect={closeMobileMenu} />}
+        </div>
       </div>
     </header>
   );

@@ -9,14 +9,25 @@ export interface DocxExportResult {
   };
 }
 
+export interface DocxGenerateResult {
+  success: boolean;
+  blob?: Blob;
+  filename?: string;
+  error?: {
+    code: string;
+    message: string;
+    retryable: boolean;
+  };
+}
+
 /**
- * Export content as DOCX via server-side generation
+ * Generate DOCX blob without downloading
  */
-export async function exportDocx(
+export async function generateDocxBlob(
   markdown: string,
   originalFilename: string | null,
   signal?: AbortSignal
-): Promise<DocxExportResult> {
+): Promise<DocxGenerateResult> {
   try {
     const response = await fetch("/api/convert/docx", {
       method: "POST",
@@ -37,7 +48,6 @@ export async function exportDocx(
       const errorCode = errorData.error || "UNKNOWN_ERROR";
       const errorMessage = errorData.message || "Something went wrong. Please try again.";
 
-      // Determine if error is retryable
       const retryable = [
         "GENERATION_TIMEOUT",
         "GENERATION_FAILED",
@@ -55,20 +65,20 @@ export async function exportDocx(
 
     // Get DOCX as ArrayBuffer to preserve binary data integrity
     const docxArrayBuffer = await response.arrayBuffer();
-    
+
     // Debug: log buffer size
     console.log("[DOCX Export] Received buffer size:", docxArrayBuffer.byteLength);
-    
+
     // Verify it starts with PK (ZIP/DOCX magic bytes)
     const header = new Uint8Array(docxArrayBuffer.slice(0, 4));
     const isPK = header[0] === 0x50 && header[1] === 0x4B;
     console.log("[DOCX Export] Starts with PK (valid ZIP):", isPK, "Header bytes:", Array.from(header));
-    
+
     // Create blob with explicit MIME type for Word documents
     const docxBlob = new Blob([docxArrayBuffer], {
       type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     });
-    
+
     console.log("[DOCX Export] Blob size:", docxBlob.size, "type:", docxBlob.type);
 
     // Extract filename from Content-Disposition header or generate one
@@ -76,7 +86,6 @@ export async function exportDocx(
     let filename = generateFilename(originalFilename, "docx");
 
     if (contentDisposition) {
-      // Try to get UTF-8 encoded filename first (filename*=UTF-8''...)
       const utf8Match = contentDisposition.match(/filename\*=UTF-8''([^;\s]+)/i);
       if (utf8Match) {
         try {
@@ -85,8 +94,7 @@ export async function exportDocx(
           // Fall back to ASCII filename
         }
       }
-      
-      // If no UTF-8 filename, try regular filename
+
       if (!utf8Match) {
         const asciiMatch = contentDisposition.match(/filename="?([^";\n]+)"?/);
         if (asciiMatch) {
@@ -94,22 +102,11 @@ export async function exportDocx(
         }
       }
     }
-    
-    console.log("[DOCX Export] Downloading as:", filename);
 
-    // Trigger download
-    const url = URL.createObjectURL(docxBlob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    console.log("[DOCX Export] Filename:", filename);
 
-    return { success: true };
+    return { success: true, blob: docxBlob, filename };
   } catch (error) {
-    // Handle network errors
     if (error instanceof Error) {
       if (error.name === "AbortError") {
         return {
@@ -143,4 +140,28 @@ export async function exportDocx(
       },
     };
   }
+}
+
+/**
+ * Export content as DOCX via server-side generation (generate + download)
+ */
+export async function exportDocx(
+  markdown: string,
+  originalFilename: string | null,
+  signal?: AbortSignal
+): Promise<DocxExportResult> {
+  const result = await generateDocxBlob(markdown, originalFilename, signal);
+
+  if (result.success && result.blob && result.filename) {
+    const url = URL.createObjectURL(result.blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = result.filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+
+  return { success: result.success, error: result.error };
 }

@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { markdownToHtml } from "@/lib/markdown";
 import { useConverter } from "@/hooks/use-converter";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
+import { useIsMobile } from "@/hooks/use-mobile";
 import type { Locale, Dictionary } from "@/i18n";
 
 interface PreviewCardProps {
@@ -36,6 +38,8 @@ export function PreviewCard({ locale: _locale, dict = defaultDict as unknown as 
   const [renderedHtml, setRenderedHtml] = useState<string>("");
   const [isRendering, setIsRendering] = useState(false);
   const sectionRef = useSectionVisibility("preview");
+  const isMobile = useIsMobile();
+  const [isPreviewExpanded, setIsPreviewExpanded] = useState(false);
 
   // Render markdown when content changes
   useEffect(() => {
@@ -92,19 +96,29 @@ export function PreviewCard({ locale: _locale, dict = defaultDict as unknown as 
   const badge = getBadgeContent();
 
   // Default content when no file is loaded
-  const DefaultContent = () => (
-    <>
-      <h2>{dict.preview.howItWorks.title}</h2>
-      <ol>
-        <li>{dict.preview.howItWorks.step1}</li>
-        <li>{dict.preview.howItWorks.step2}</li>
-        <li>{dict.preview.howItWorks.step3}</li>
-      </ol>
-      <p className="text-slate-500">
-        {dict.preview.howItWorks.note}
-      </p>
-    </>
-  );
+  const DefaultContent = () => {
+    if (isMobile) {
+      // Compact placeholder on mobile to save vertical space
+      return (
+        <p className="text-center text-sm text-slate-400" data-testid="mobile-preview-placeholder">
+          {dict.preview.howItWorks.note}
+        </p>
+      );
+    }
+    return (
+      <>
+        <h2>{dict.preview.howItWorks.title}</h2>
+        <ol>
+          <li>{dict.preview.howItWorks.step1}</li>
+          <li>{dict.preview.howItWorks.step2}</li>
+          <li>{dict.preview.howItWorks.step3}</li>
+        </ol>
+        <p className="text-slate-500">
+          {dict.preview.howItWorks.note}
+        </p>
+      </>
+    );
+  };
 
   return (
     <div ref={sectionRef} className="rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -122,7 +136,19 @@ export function PreviewCard({ locale: _locale, dict = defaultDict as unknown as 
       </div>
 
       {/* Content */}
-      <div className="max-h-[420px] overflow-auto px-5 py-4 text-sm leading-relaxed preview-scroll">
+      <div
+        className={cn(
+          "relative px-5 py-4 text-sm leading-relaxed",
+          // Desktop: fixed max-height with inner scroll
+          !isMobile && "max-h-[420px] overflow-auto preview-scroll",
+          // Mobile with content: clamp to ~600px unless expanded
+          isMobile && state.content && renderedHtml && !isPreviewExpanded && "max-h-[600px] overflow-hidden",
+        )}
+      >
+        {/* Fade gradient on mobile when clamped */}
+        {isMobile && state.content && renderedHtml && !isPreviewExpanded && (
+          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-white" />
+        )}
         <article
           className={cn(
             "prose prose-sm max-w-none",
@@ -151,6 +177,21 @@ export function PreviewCard({ locale: _locale, dict = defaultDict as unknown as 
           )}
         </article>
       </div>
+
+      {/* Mobile: expand/collapse toggle (only when content is loaded) */}
+      {isMobile && state.content && renderedHtml && (
+        <button
+          type="button"
+          onClick={() => setIsPreviewExpanded(!isPreviewExpanded)}
+          data-testid="preview-expand-toggle"
+          className="flex w-full items-center justify-center gap-1.5 border-t border-slate-100 bg-slate-50/50 px-4 py-2 text-xs font-semibold text-emerald-600 transition hover:bg-emerald-50"
+        >
+          <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", isPreviewExpanded && "rotate-180")} />
+          {isPreviewExpanded
+            ? (dict.preview.collapsePreview || "Collapse preview")
+            : (dict.preview.showFullPreview || "Show full preview")}
+        </button>
+      )}
     </div>
   );
 }

@@ -210,7 +210,9 @@ export function UploadCard({ locale: _locale, dict = defaultDict as unknown as D
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={cn(
-        "relative flex cursor-pointer flex-col items-center justify-center",
+        // Hide on mobile — paste area is primary input there
+        "hidden md:flex",
+        "relative cursor-pointer flex-col items-center justify-center",
         "rounded-2xl border-2 px-6 py-10 text-center",
         "bg-slate-50/80 shadow-[inset_0_1px_3px_rgba(0,0,0,0.04)]",
         "transition-all duration-200",

@@ -152,6 +152,16 @@ export function trackConvertAbandoned(format: ExportFormat, source: UploadSource
   trackEvent("convert_abandoned", { format, source });
 }
 
+/**
+ * Track when user shares a file via native share sheet (mobile)
+ */
+export function trackShareFile(
+  format: ExportFormat,
+  source: UploadSource
+): void {
+  trackEvent("share_file", { format, source });
+}
+
 // =============================================================================
 // ENGAGEMENT EVENTS (new - understand user behavior before conversion)
 // =============================================================================

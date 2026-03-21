@@ -21,7 +21,20 @@
     "label": "粘贴的Markdown",
     "placeholder": "在此粘贴您的Markdown…",
     "helper": "此处的更改也将用于导出为PDF、DOCX、TXT或HTML。",
-    "tooLarge": "内容超过1MB限制，已被截断。"
+    "tooLarge": "内容超过1MB限制，已被截断。",
+    "clipboardButton": "从剪贴板粘贴",
+    "clipboardHint": "一键操作 — 来自ChatGPT、Claude、Obsidian等",
+    "orTypeManually": "或手动输入",
+    "pasted": "已粘贴",
+    "pages": "页",
+    "page": "页",
+    "editText": "编辑文本",
+    "pasteAgain": "重新粘贴",
+    "doneEditing": "完成编辑",
+    "clearAll": "清除全部",
+    "permissionDenied": "浏览器阻止了粘贴 — 请使用下方的文本框",
+    "emptyClipboard": "没有可粘贴的内容 — 请先复制一些Markdown",
+    "nonTextContent": "仅支持文本/Markdown"
   },
   "export": {
     "toPdf": "转PDF",
@@ -32,7 +45,12 @@
     "generatingDocx": "正在生成DOCX...",
     "generating": "正在生成PDF...",
     "selectFileHint": "选择 Markdown 文件以导出",
-    "uploadOrPaste": "上传或粘贴以继续"
+    "uploadOrPaste": "上传或粘贴以继续",
+    "sharePdf": "分享PDF",
+    "shareDocx": "分享DOCX",
+    "savePdf": "保存PDF",
+    "saveDocx": "保存DOCX",
+    "more": "更多格式"
   },
   "preview": {
     "title": "预览",
@@ -47,7 +65,9 @@
       "step2": "在此查看格式化预览。",
       "step3": "点击「转PDF」、「转DOCX」、「转TXT」或「转HTML」下载转换后的文件。",
       "note": "添加您自己的Markdown后，此预览将相应更新。"
-    }
+    },
+    "showFullPreview": "展开完整预览",
+    "collapsePreview": "收起预览"
   },
   "errors": {
     "invalidType": "不支持的文件类型。请上传.md、.markdown或.txt文件。",

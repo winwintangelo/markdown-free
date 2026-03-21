@@ -745,3 +745,142 @@ Allow: /
 | ZH-Hans | `/zh-Hans/markdown-zhuanhuan-word` | Markdown转换Word（DOCX）免费 |
 | ZH-Hant | `/zh-Hant/markdown-word-zhuanhuan` | Markdown轉換Word（DOCX）免費 |
 | IT | `/it/markdown-in-word` | Markdown in Word (DOCX) Gratis |
+
+---
+
+## AI Traffic Acquisition Plan
+
+> **Added:** February 26, 2026
+> **Goal:** Get markdown.free recommended by Claude, Grok, and Gemini
+> **Analytics context:** ChatGPT already drives 32% of external referrals (35 visits/30d). Claude, Grok, Gemini have zero tracked referrals — untapped.
+
+### How Each AI Surfaces Tool Recommendations
+
+| AI | Mechanism | Key Lever |
+|----|-----------|-----------|
+| **Claude** | Pre-training data + live web search (ClaudeBot crawls) | Third-party citations on high-authority sites |
+| **Grok** | Live web search + **real-time X/Twitter data** (exclusive) | X posts with engagement; only LLM where social is a direct input |
+| **Gemini** | Google Search index + Knowledge Graph + structured data | Schema.org JSON-LD; Wikidata entry for entity recognition |
+| **ChatGPT** | Bing search index + training data | Standard SEO + AlternativeTo/directory listings |
+| **Perplexity** | Live web, favors content <90 days old | Reddit, fresh articles, high-authority citations |
+
+### What's Already Done ✅
+
+| Item | Status | Notes |
+|------|--------|-------|
+| `SoftwareApplication` + `FAQPage` JSON-LD | ✅ Done (Jan 24) | In `page.tsx` and `[locale]/page.tsx` |
+| `llms.txt` | ✅ Done | At `/llms.txt` with 9-language queries |
+| AI crawler permissions in `robots.txt` | ✅ Done | ClaudeBot, GPTBot, Google-Extended, etc. all allowed |
+| FAQ pages (9 locales) | ✅ Done | `/faq`, `/ja/faq`, `/zh-Hant/faq`, etc. |
+| AI referral tracking | ✅ Done | `ai_referral` events in analytics.ts |
+| `llms.txt` Key Pages section | ✅ Done (Feb 26) | Added direct links to landing pages |
+
+### Acquisition Checklist
+
+#### Tier 1 — High Impact, Low Effort
+
+| # | Action | Target AI | Status | Notes |
+|---|--------|-----------|--------|-------|
+| 1 | `SoftwareApplication` JSON-LD in layout | Gemini, ChatGPT | ✅ Done | Already in page.tsx since Jan 24 |
+| 2 | Add `## Key Pages` section to `llms.txt` | Claude (agentic) | ✅ Done (Feb 26) | Links to all major landing pages |
+| 3 | List on **AlternativeTo** | All LLMs | ✅ Done (Feb 26) | Listed as alternative to Pandoc, Typora, markdowntopdf.com |
+| 4 | List on **There's An AI For That** + **Futurepedia** | All LLMs | ⛔ Skipped | Paid listings only — not worth cost at this stage |
+| 4b | List on **Toolify.ai** + **TopAI.tools** (free) | All LLMs | ⬜ Todo | Free alternatives: `toolify.ai/submit` + `topai.tools/submit` |
+| 5 | Post on Reddit (r/ObsidianMD, r/selfhosted) | All LLMs | ⬜ Todo | Reddit cited in ~40% of LLM responses; write a genuine "I built this" post |
+
+#### Tier 2 — Medium Effort, Strategic
+
+| # | Action | Target AI | Status | Notes |
+|---|--------|-----------|--------|-------|
+| 6 | Create **X/Twitter account** for markdown.free | **Grok** | ⬜ Todo | Grok reads live X posts directly — only LLM where this is a real-time signal |
+| 7 | **Hacker News Show HN** post | All LLMs | ⬜ Todo | High-authority domain; even 20-50 upvotes creates a permanent LLM citation |
+| 8 | Create **Wikidata entry** | **Gemini** | ⬜ Todo | Feeds Google Knowledge Graph → Gemini entity recognition; requires notability (AlternativeTo listing satisfies this) |
+| 9 | **Product Hunt** launch | All LLMs | ⬜ Todo | Permanent high-DA listing; time for Tue–Thu |
+| 10 | Write comparison landing page | All LLMs | ⬜ Todo | `/markdown-to-pdf-alternatives` comparing Pandoc, md2pdf, markdowntopdf.com |
+
+#### Tier 3 — Watch and Wait
+
+| # | Action | Target AI | Status | Notes |
+|---|--------|-----------|--------|-------|
+| 11 | **Claude MCP Plugin** | Claude | ⬜ Watch | Enterprise-only as of Feb 2026; monitor `github.com/anthropics/claude-plugins-official` for indie dev submissions |
+| 12 | Dev.to / Hashnode posts | All LLMs | ⬜ Todo | "How I convert Obsidian notes to PDF without Pandoc" — LLM-cited platforms |
+| 13 | Stack Overflow / Quora answers | All LLMs | ⬜ Todo | Answer "convert README.md to PDF" questions; link naturally |
+
+### Key Insight: Reddit is the Highest-ROI Single Action
+
+Reddit is cited in ~40% of all LLM responses and is Perplexity's top source. A single well-received post on r/ObsidianMD or r/selfhosted creates a permanent, crawlable citation that influences Claude, ChatGPT, Gemini, and Grok alike.
+
+### Analytics to Track Progress
+
+Monitor these in Umami dashboard after each action:
+- `ai_referral` events broken down by `source` property (claude, grok, gemini)
+- Referrer list for `claude.ai`, `grok.com`, `gemini.google.com`
+- `conversion_referrer` events with `source` property
+
+---
+
+## 📱 Mobile UX Redesign
+
+> **Started:** March 19, 2026
+> **Goal:** Optimize mobile experience for paste-first workflow (ChatGPT/Claude → markdown.free → PDF/DOCX share)
+> **Principle:** All changes mobile-only. Desktop experience completely unchanged.
+
+### Phase 1: Native File Sharing ✅ Complete (Mar 19)
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Web Share API integration | ✅ Done | "Share as PDF" / "Share as DOCX" buttons on mobile using `navigator.share()` |
+| Two-step share flow | ✅ Done | Generate blob → "Tap to share" button (browser requires fresh user activation) |
+| Graceful degradation | ✅ Done | Falls back to download-only on unsupported browsers (Firefox) |
+| Share analytics | ✅ Done | `share_file` event tracking |
+| All 9 locales | ✅ Done | Share strings translated |
+
+### Phase 2: Mobile Layout Optimization ✅ Complete (Mar 20)
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Hero compression | ✅ Done | H1 + subtitle hidden on mobile; badge only |
+| Upload card hidden | ✅ Done | Drag & drop hidden via `hidden md:flex` |
+| Paste-first input | ✅ Done | Textarea always visible on mobile with Choose file + Try sample |
+| Export placeholder | ✅ Done | "Upload or paste to continue" shown until content loaded |
+| Preview compact | ✅ Done | Single-line placeholder instead of "How it works" steps |
+| Preview clamp | ✅ Done | 600px max-height with gradient fade + expand/collapse toggle |
+| Mobile menu | ✅ Done | Language selector grid replaces About/Privacy links (moved to footer) |
+| Export consolidation | ✅ Done | Share PDF + Share DOCX primary; Save/TXT/HTML in "More formats" dropdown |
+| Vercel debug logs | ✅ Done | `<Analytics debug={false} />` suppresses dev console noise |
+
+### Phase 3: Clipboard Paste Button ✅ Complete (Mar 21)
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Clipboard paste button | ✅ Done | Large "Paste from clipboard" button as primary input using `navigator.clipboard.readText()` |
+| Confirmation bar | ✅ Done | "Pasted · ~N pages" compact bar after successful paste |
+| Edit mode | ✅ Done | "Edit text" link reveals textarea with pasted content; "Done editing" returns to bar |
+| Paste again | ✅ Done | "Paste again" resets to landing state |
+| Error: permission denied | ✅ Done | Falls back to textarea with warning message |
+| Error: empty clipboard | ✅ Done | "Nothing to paste" message with shake animation on button |
+| Error: non-text content | ✅ Done | "Only text/markdown is supported" inline message |
+| Clipboard API detection | ✅ Done | Feature detection; textarea shown directly if API unavailable |
+| All 9 locales | ✅ Done | 13 new paste strings translated |
+
+### Test Coverage
+
+| Test Suite | Tests | Coverage |
+|------------|-------|----------|
+| `e2e/share.spec.ts` | 15 | Native sharing, two-step flow, fallbacks |
+| `e2e/mobile.spec.ts` | 44 | Mobile layout, paste-first, preview, menu, i18n |
+| `e2e/clipboard.spec.ts` | 21 | Clipboard paste, confirmation, edit, errors, i18n |
+| **Total mobile tests** | **80** | |
+| **Total all tests** | **427** | All passing |
+
+### Mobile User Journey (Before → After)
+
+```
+BEFORE (8 taps, ~15s):
+  Tap textarea → Keyboard appears → Long-press → Tap "Paste" →
+  iOS "Allow" → Dismiss keyboard → Scroll to Share → Tap Share
+
+AFTER (3 taps, ~5s):
+  Tap "Paste from clipboard" → iOS "Allow Paste" → Tap "Share as PDF"
+```
+

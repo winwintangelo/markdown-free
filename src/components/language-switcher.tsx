@@ -15,9 +15,11 @@ import {
 
 interface LanguageSwitcherProps {
   currentLocale: Locale;
+  variant?: "desktop" | "mobile";
+  onSelect?: () => void;
 }
 
-export function LanguageSwitcher({ currentLocale }: LanguageSwitcherProps) {
+export function LanguageSwitcher({ currentLocale, variant = "desktop", onSelect }: LanguageSwitcherProps) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -59,8 +61,33 @@ export function LanguageSwitcher({ currentLocale }: LanguageSwitcherProps) {
     const newPath = getLocalizedPath(pathWithoutLocale, locale);
     router.push(newPath);
     setIsOpen(false);
+    onSelect?.();
   };
 
+  // Mobile variant: flat grid of language buttons
+  if (variant === "mobile") {
+    return (
+      <div className="grid grid-cols-3 gap-1" data-testid="mobile-language-grid">
+        {locales.map((locale) => (
+          <button
+            key={locale}
+            type="button"
+            onClick={() => handleLanguageChange(locale)}
+            className={cn(
+              "rounded-lg px-3 py-2 text-sm transition",
+              locale === currentLocale
+                ? "bg-emerald-50 font-medium text-emerald-700"
+                : "text-slate-600 hover:bg-slate-50"
+            )}
+          >
+            {localeNames[locale]}
+          </button>
+        ))}
+      </div>
+    );
+  }
+
+  // Desktop variant: dropdown
   return (
     <div ref={dropdownRef} className="relative">
       <button

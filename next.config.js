@@ -1,5 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  webpack: (config) => {
+    // Suppress "Module not found: Can't resolve 'encoding'" warning from html-to-docx
+    // The 'encoding' module is optional and not needed for DOCX generation
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      encoding: false,
+    };
+    return config;
+  },
   async rewrites() {
     return [
       {

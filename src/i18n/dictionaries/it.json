@@ -21,7 +21,20 @@
     "label": "Markdown Incollato",
     "placeholder": "Incolla qui il tuo Markdown…",
     "helper": "Le modifiche qui verranno utilizzate anche per l'esportazione in PDF, DOCX, TXT o HTML.",
-    "tooLarge": "Il contenuto supera il limite di 1MB. È stato troncato."
+    "tooLarge": "Il contenuto supera il limite di 1MB. È stato troncato.",
+    "clipboardButton": "Incolla dagli appunti",
+    "clipboardHint": "Un tocco — da ChatGPT, Claude, Obsidian, ecc.",
+    "orTypeManually": "o digita manualmente",
+    "pasted": "Incollato",
+    "pages": "pagine",
+    "page": "pagina",
+    "editText": "Modifica testo",
+    "pasteAgain": "Incolla di nuovo",
+    "doneEditing": "Fine modifica",
+    "clearAll": "Cancella tutto",
+    "permissionDenied": "Incolla bloccato dal browser — usa la casella di testo qui sotto",
+    "emptyClipboard": "Niente da incollare — copia prima del markdown",
+    "nonTextContent": "Supportato solo testo/markdown"
   },
   "export": {
     "toPdf": "In PDF",
@@ -32,7 +45,12 @@
     "generatingDocx": "Generazione DOCX...",
     "generating": "Generazione PDF in corso...",
     "selectFileHint": "Seleziona un file Markdown da esportare",
-    "uploadOrPaste": "Carica o incolla per continuare"
+    "uploadOrPaste": "Carica o incolla per continuare",
+    "sharePdf": "Condividi PDF",
+    "shareDocx": "Condividi DOCX",
+    "savePdf": "Salva PDF",
+    "saveDocx": "Salva DOCX",
+    "more": "Altri formati"
   },
   "preview": {
     "title": "Anteprima",
@@ -47,7 +65,9 @@
       "step2": "Visualizza l'anteprima formattata qui.",
       "step3": "Clicca su In PDF, In DOCX, In TXT o In HTML per scaricare il file convertito.",
       "note": "Quando aggiungi il tuo Markdown, questa anteprima si aggiornerà automaticamente."
-    }
+    },
+    "showFullPreview": "Mostra anteprima completa",
+    "collapsePreview": "Comprimi anteprima"
   },
   "errors": {
     "invalidType": "Tipo di file non supportato. Carica un file .md, .markdown o .txt.",
@@ -139,4 +159,3 @@
     "thankYou": "Grazie per il feedback"
   }
 }
-

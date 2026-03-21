@@ -21,7 +21,20 @@
     "label": "貼り付けられたMarkdown",
     "placeholder": "ここにMarkdownを貼り付けてください…",
     "helper": "ここでの変更はPDF、DOCX、TXT、HTMLへのエクスポート時にも使用されます。",
-    "tooLarge": "コンテンツが1MBの制限を超えています。切り詰められました。"
+    "tooLarge": "コンテンツが1MBの制限を超えています。切り詰められました。",
+    "clipboardButton": "クリップボードから貼り付け",
+    "clipboardHint": "ワンタップ — ChatGPT、Claude、Obsidianなどから",
+    "orTypeManually": "または手動で入力",
+    "pasted": "貼り付け済み",
+    "pages": "ページ",
+    "page": "ページ",
+    "editText": "テキストを編集",
+    "pasteAgain": "もう一度貼り付け",
+    "doneEditing": "編集完了",
+    "clearAll": "すべてクリア",
+    "permissionDenied": "ブラウザにより貼り付けがブロックされました — 下のテキストボックスをご利用ください",
+    "emptyClipboard": "貼り付けるものがありません — まずMarkdownをコピーしてください",
+    "nonTextContent": "テキスト/Markdownのみ対応"
   },
   "export": {
     "toPdf": "PDFへ",
@@ -32,7 +45,12 @@
     "generatingDocx": "DOCXを生成中...",
     "generating": "PDF生成中...",
     "selectFileHint": "エクスポートするMarkdownファイルを選択",
-    "uploadOrPaste": "アップロードまたは貼り付けて続行"
+    "uploadOrPaste": "アップロードまたは貼り付けて続行",
+    "sharePdf": "PDFを共有",
+    "shareDocx": "DOCXを共有",
+    "savePdf": "PDF保存",
+    "saveDocx": "DOCX保存",
+    "more": "他の形式"
   },
   "preview": {
     "title": "プレビュー",
@@ -47,7 +65,9 @@
       "step2": "ここでフォーマットされたプレビューを確認できます。",
       "step3": "「PDFへ」「DOCXへ」「TXTへ」「HTMLへ」をクリックして変換ファイルをダウンロード。",
       "note": "Markdownを追加すると、このプレビューがそれに合わせて更新されます。"
-    }
+    },
+    "showFullPreview": "全文を表示",
+    "collapsePreview": "プレビューを折りたたむ"
   },
   "errors": {
     "invalidType": "サポートされていないファイル形式です。.md、.markdown、または.txtファイルをアップロードしてください。",
@@ -109,10 +129,22 @@
     "title": "日本語フル対応 — 文字化けなし",
     "description": "多くの変換ツールでは日本語が□□□（豆腐）になることがあります。Markdown Freeは日本語を完全にサポートしています。",
     "examples": [
-      { "label": "ひらがな", "text": "あいうえお かきくけこ さしすせそ" },
-      { "label": "カタカナ", "text": "アイウエオ カキクケコ サシスセソ" },
-      { "label": "漢字", "text": "変換 文書 技術 開発者 無料 安全" },
-      { "label": "混在テキスト", "text": "README.mdをPDFに変換 — 30秒で完了！" }
+      {
+        "label": "ひらがな",
+        "text": "あいうえお かきくけこ さしすせそ"
+      },
+      {
+        "label": "カタカナ",
+        "text": "アイウエオ カキクケコ サシスセソ"
+      },
+      {
+        "label": "漢字",
+        "text": "変換 文書 技術 開発者 無料 安全"
+      },
+      {
+        "label": "混在テキスト",
+        "text": "README.mdをPDFに変換 — 30秒で完了！"
+      }
     ]
   },
   "usageExample": {

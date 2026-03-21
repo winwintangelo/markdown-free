@@ -21,7 +21,20 @@
     "label": "Markdown Pegado",
     "placeholder": "Pega tu Markdown aquí…",
     "helper": "Los cambios aquí también se usarán al exportar a PDF, DOCX, TXT o HTML.",
-    "tooLarge": "El contenido excede el límite de 1MB. Se ha truncado."
+    "tooLarge": "El contenido excede el límite de 1MB. Se ha truncado.",
+    "clipboardButton": "Pegar del portapapeles",
+    "clipboardHint": "Un toque — desde ChatGPT, Claude, Obsidian, etc.",
+    "orTypeManually": "o escribe manualmente",
+    "pasted": "Pegado",
+    "pages": "páginas",
+    "page": "página",
+    "editText": "Editar texto",
+    "pasteAgain": "Pegar de nuevo",
+    "doneEditing": "Listo",
+    "clearAll": "Borrar todo",
+    "permissionDenied": "Pegar bloqueado por el navegador — usa el cuadro de texto de abajo",
+    "emptyClipboard": "Nada que pegar — copia algo de markdown primero",
+    "nonTextContent": "Solo se admite texto/markdown"
   },
   "export": {
     "toPdf": "A PDF",
@@ -32,7 +45,12 @@
     "generatingDocx": "Generando DOCX...",
     "generating": "Generando PDF...",
     "selectFileHint": "Selecciona un archivo Markdown para exportar",
-    "uploadOrPaste": "Sube o pega para continuar"
+    "uploadOrPaste": "Sube o pega para continuar",
+    "sharePdf": "Compartir PDF",
+    "shareDocx": "Compartir DOCX",
+    "savePdf": "Guardar PDF",
+    "saveDocx": "Guardar DOCX",
+    "more": "Más formatos"
   },
   "preview": {
     "title": "Vista Previa",
@@ -47,7 +65,9 @@
       "step2": "Ve la vista previa formateada aquí.",
       "step3": "Haz clic en A PDF, A DOCX, A TXT o A HTML para descargar tu archivo convertido.",
       "note": "Cuando agregues tu propio Markdown, esta vista previa se actualizará automáticamente."
-    }
+    },
+    "showFullPreview": "Mostrar vista previa completa",
+    "collapsePreview": "Contraer vista previa"
   },
   "errors": {
     "invalidType": "Tipo de archivo no soportado. Por favor sube un archivo .md, .markdown o .txt.",
@@ -139,4 +159,3 @@
     "thankYou": "Gracias por tu opinión"
   }
 }
-

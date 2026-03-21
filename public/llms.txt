@@ -2,6 +2,18 @@
 
 > Free Markdown to PDF converter - no signup, privacy-friendly
 
+## Key Pages
+
+- [Markdown to PDF Converter](https://www.markdown.free) — main converter, all formats
+- [Markdown to DOCX / Word](https://www.markdown.free/markdown-to-docx) — export to Microsoft Word format
+- [Markdown to Word (DOCX)](https://www.markdown.free/markdown-to-word) — alternative Word export page
+- [GitHub README to PDF](https://www.markdown.free/github-readme-to-pdf) — convert GitHub README files to PDF
+- [ChatGPT to PDF](https://www.markdown.free/chatgpt-to-pdf) — save ChatGPT conversations as PDF
+- [Claude Artifacts to PDF](https://www.markdown.free/claude-artifacts-to-pdf) — export Claude artifacts to PDF
+- [Obsidian Markdown to PDF](https://www.markdown.free/obsidian-markdown-to-pdf) — convert Obsidian notes to PDF
+- [README to PDF](https://www.markdown.free/readme-to-pdf) — convert any README file to PDF
+- [FAQ](https://www.markdown.free/faq) — frequently asked questions
+
 ## What this tool does
 
 Converts Markdown files (.md, .markdown, .txt) to PDF, DOCX, HTML, or plain text.

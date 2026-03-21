@@ -21,7 +21,20 @@
     "label": "Markdown yang Ditempel",
     "placeholder": "Tempel Markdown Anda di sini…",
     "helper": "Perubahan di sini juga akan digunakan saat mengekspor ke PDF, DOCX, TXT atau HTML.",
-    "tooLarge": "Konten melebihi batas 1MB. Telah dipotong."
+    "tooLarge": "Konten melebihi batas 1MB. Telah dipotong.",
+    "clipboardButton": "Tempel dari clipboard",
+    "clipboardHint": "Satu ketukan — dari ChatGPT, Claude, Obsidian, dll.",
+    "orTypeManually": "atau ketik manual",
+    "pasted": "Ditempel",
+    "pages": "halaman",
+    "page": "halaman",
+    "editText": "Edit teks",
+    "pasteAgain": "Tempel lagi",
+    "doneEditing": "Selesai edit",
+    "clearAll": "Hapus semua",
+    "permissionDenied": "Tempel diblokir browser — gunakan kotak teks di bawah",
+    "emptyClipboard": "Tidak ada yang ditempel — salin markdown terlebih dahulu",
+    "nonTextContent": "Hanya teks/markdown yang didukung"
   },
   "export": {
     "toPdf": "Ke PDF",
@@ -32,7 +45,12 @@
     "generatingDocx": "Membuat DOCX...",
     "generating": "Membuat PDF...",
     "selectFileHint": "Pilih file Markdown untuk diekspor",
-    "uploadOrPaste": "Unggah atau tempel untuk melanjutkan"
+    "uploadOrPaste": "Unggah atau tempel untuk melanjutkan",
+    "sharePdf": "Bagikan PDF",
+    "shareDocx": "Bagikan DOCX",
+    "savePdf": "Simpan PDF",
+    "saveDocx": "Simpan DOCX",
+    "more": "Format lainnya"
   },
   "preview": {
     "title": "Pratinjau",
@@ -47,7 +65,9 @@
       "step2": "Lihat pratinjau yang diformat di sini.",
       "step3": "Klik Ke PDF, Ke DOCX, Ke TXT, atau Ke HTML untuk mengunduh file yang dikonversi.",
       "note": "Setelah Anda menambahkan Markdown Anda sendiri, pratinjau ini akan diperbarui sesuai."
-    }
+    },
+    "showFullPreview": "Tampilkan pratinjau lengkap",
+    "collapsePreview": "Sembunyikan pratinjau"
   },
   "errors": {
     "invalidType": "Jenis file tidak didukung. Silakan unggah file .md, .markdown atau .txt.",

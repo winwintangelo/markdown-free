@@ -1543,30 +1543,27 @@ test.describe("Markdown Free - Mobile Navigation", () => {
     await expect(hamburgerButton).toBeVisible();
   });
 
-  test("clicking hamburger opens mobile menu", async ({ page }) => {
+  test("clicking hamburger opens mobile menu with language selector", async ({ page }) => {
     const hamburgerButton = page.locator('button[aria-label="Open menu"]');
     await hamburgerButton.click();
 
     // Menu should open
     await expect(page.locator('button[aria-label="Close menu"]')).toBeVisible();
-    
-    // Navigation links should be visible
-    await expect(page.locator("header").getByRole("link", { name: "About" })).toBeVisible();
-    await expect(page.locator("header").getByRole("link", { name: "Privacy" })).toBeVisible();
+
+    // Language grid should be visible (About/Privacy moved to footer on mobile)
+    await expect(page.getByTestId("mobile-language-grid")).toBeVisible();
+    await expect(page.getByTestId("mobile-language-grid").getByText("English")).toBeVisible();
   });
 
-  test("clicking menu link closes menu and navigates", async ({ page }) => {
+  test("selecting language from mobile menu navigates", async ({ page }) => {
     // Open menu
     await page.locator('button[aria-label="Open menu"]').click();
-    
-    // Click About link
-    await page.locator("header").getByRole("link", { name: "About" }).click();
-    
-    // Should navigate to About page
-    await expect(page).toHaveURL("/about");
-    
-    // Menu should be closed (hamburger button shows "Open menu" again)
-    await expect(page.locator('button[aria-label="Open menu"]')).toBeVisible();
+
+    // Click Japanese
+    await page.getByTestId("mobile-language-grid").getByText("日本語").click();
+
+    // Should navigate to Japanese locale
+    await expect(page).toHaveURL("/ja");
   });
 
   test("clicking X closes mobile menu", async ({ page }) => {
@@ -1829,16 +1826,12 @@ test.describe("Markdown Free - Mobile Phone Experience", () => {
     // Open menu
     await hamburgerButton.click();
 
-    // Menu items should be visible and tappable
-    const aboutLink = page.locator("header").getByRole("link", { name: "About" });
-    await expect(aboutLink).toBeVisible();
+    // Language grid should be visible
+    await expect(page.getByTestId("mobile-language-grid")).toBeVisible();
 
-    // Navigate to About
-    await aboutLink.click();
-    await expect(page).toHaveURL("/about");
-
-    // Menu should close after navigation
-    await expect(page.locator('button[aria-label="Open menu"]')).toBeVisible();
+    // Select a language to navigate
+    await page.getByTestId("mobile-language-grid").getByText("Español").click();
+    await expect(page).toHaveURL("/es");
   });
 
   test("mobile menu works on small Android screen (360x640)", async ({ page }) => {
@@ -1849,13 +1842,12 @@ test.describe("Markdown Free - Mobile Phone Experience", () => {
     // Hamburger should be visible
     await expect(page.locator('button[aria-label="Open menu"]')).toBeVisible();
 
-    // Open menu and verify navigation works
+    // Open menu and verify language selector works
     await page.locator('button[aria-label="Open menu"]').click();
-    await page.locator("header").getByRole("link", { name: "Privacy" }).click();
-    await expect(page).toHaveURL("/privacy");
+    await expect(page.getByTestId("mobile-language-grid")).toBeVisible();
   });
 
-  test("upload card is usable on mobile without horizontal scroll", async ({ page }) => {
+  test("mobile layout has no horizontal scroll and input area is visible", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto("/");
 
@@ -1865,14 +1857,13 @@ test.describe("Markdown Free - Mobile Phone Experience", () => {
     });
     expect(hasHorizontalScroll).toBe(false);
 
-    // Upload card should be visible and contained
-    const uploadCard = page.locator('[class*="border-dashed"]').first();
-    await expect(uploadCard).toBeVisible();
-
-    // The card should fit within viewport
-    const cardBox = await uploadCard.boundingBox();
-    expect(cardBox).not.toBeNull();
-    expect(cardBox!.width).toBeLessThanOrEqual(375);
+    // Upload card is hidden on mobile — paste button or textarea shown instead
+    await page.waitForTimeout(500);
+    const pasteBtn = page.getByTestId("clipboard-paste-button");
+    const pasteInput = page.locator("#paste-input");
+    const btnVisible = await pasteBtn.isVisible().catch(() => false);
+    const inputVisible = await pasteInput.isVisible().catch(() => false);
+    expect(btnVisible || inputVisible).toBe(true);
   });
 });
 
@@ -2265,11 +2256,11 @@ test.describe("Markdown Free - Enhanced Analytics (Engagement Tracking)", () => 
     const hamburgerButton = page.locator('button[aria-label="Open menu"]');
     await hamburgerButton.click();
 
-    // Click About link in mobile menu
-    await page.locator("header").getByRole("link", { name: "About" }).click();
+    // Mobile menu now shows language selector — select a language
+    await page.getByTestId("mobile-language-grid").getByText("Español").click();
 
     // Should navigate successfully
-    await expect(page).toHaveURL("/about");
+    await expect(page).toHaveURL("/es");
 
     // No errors should have occurred
     expect(errors).toHaveLength(0);

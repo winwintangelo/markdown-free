@@ -52,6 +52,23 @@ export function Footer({ locale, dict = defaultDict as Dictionary }: FooterProps
           </Link>
         ))}
       </nav>
+      {/* About & Privacy links — visible on mobile (moved from header menu) */}
+      <div className="flex items-center gap-4 md:hidden">
+        <Link
+          href={`${pathPrefix}/about`}
+          onClick={() => trackNavClick("about")}
+          className="hover:text-slate-600 transition-colors"
+        >
+          {dict.header?.about || "About"}
+        </Link>
+        <Link
+          href={`${pathPrefix}/privacy`}
+          onClick={() => trackNavClick("privacy")}
+          className="hover:text-slate-600 transition-colors"
+        >
+          {dict.header?.privacy || "Privacy"}
+        </Link>
+      </div>
       <div className="flex flex-col items-center justify-between gap-2 w-full sm:flex-row">
         <p>{dict.footer.copyright}</p>
         <p>
