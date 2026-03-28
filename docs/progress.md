@@ -863,6 +863,17 @@ Monitor these in Umami dashboard after each action:
 | Clipboard API detection | ✅ Done | Feature detection; textarea shown directly if API unavailable |
 | All 9 locales | ✅ Done | 13 new paste strings translated |
 
+### Phase 4: DOCX Share Fix + Pre-generation ✅ Complete (Mar 28)
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Pre-generate blobs on content load | ✅ Done | PDF + DOCX blobs generated in background when content loads on mobile; cached for instant share |
+| Instant share from cache | ✅ Done | Tap "Share" → `navigator.share()` fires immediately within user activation (no async gap) |
+| DOCX share download fallback | ✅ Done | If `navigator.share()` rejects DOCX (e.g. Chrome macOS), auto-downloads file instead of showing error |
+| Two-step flow download fallback | ✅ Done | Same fallback for the "Tap to share" path |
+| `downloadBlob` helper | ✅ Done | Extracted shared helper in `export-row.tsx` for both fallback paths |
+| `share_file` analytics | ✅ Done | Tracks both native share and download-fallback as successful conversions |
+
 ### Test Coverage
 
 | Test Suite | Tests | Coverage |
