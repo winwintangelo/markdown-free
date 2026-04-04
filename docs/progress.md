@@ -882,7 +882,7 @@ Monitor these in Umami dashboard after each action:
 | `e2e/mobile.spec.ts` | 44 | Mobile layout, paste-first, preview, menu, i18n |
 | `e2e/clipboard.spec.ts` | 21 | Clipboard paste, confirmation, edit, errors, i18n |
 | **Total mobile tests** | **80** | |
-| **Total all tests** | **427** | All passing |
+| **Total all tests** | **428** | All passing |
 
 ### Mobile User Journey (Before → After)
 
@@ -894,4 +894,61 @@ BEFORE (8 taps, ~15s):
 AFTER (3 taps, ~5s):
   Tap "Paste from clipboard" → iOS "Allow Paste" → Tap "Share as PDF"
 ```
+
+---
+
+## Next.js 15 Upgrade + Security Patches
+
+> **Date:** March 28, 2026
+> **Branch:** `upgrade/nextjs-15`
+> **Previous:** Next.js 14.2.35 (EOL since October 2025)
+
+### Security Vulnerabilities Resolved
+
+| CVE | Severity | Issue | Status |
+|-----|----------|-------|--------|
+| GHSA-9g9p-9gw9-jx7f | High | DoS via Image Optimizer | ✅ Fixed |
+| GHSA-h25m-26qc-wcjf | High | HTTP request deserialization DoS | ✅ Fixed |
+| GHSA-ggv3-7p47-pfv8 | High | HTTP request smuggling in rewrites | ✅ Fixed |
+| GHSA-3x4c-7xq6-9pq8 | High | Unbounded next/image disk cache growth | ✅ Fixed |
+| 8 transitive vulns | Mixed | ajv, basic-ftp, flatted, lodash, etc. | ✅ Fixed via `npm audit fix` |
+
+### Package Upgrades
+
+| Package | Before | After | Type |
+|---------|--------|-------|------|
+| `next` | 14.2.35 | **15.5.14** | **Major** (14 → 15) |
+| `eslint-config-next` | 15.1.0 | **15.5.14** | Minor |
+| `@playwright/test` | 1.57.0 | 1.58.2 | Patch |
+| `postcss` | 8.4.49 | 8.5.8 | Minor |
+| `autoprefixer` | 10.4.20 | 10.4.27 | Patch |
+| `eslint` | 9.39.1 | 9.39.4 | Patch |
+| `tailwind-merge` | 2.6.0 | 2.6.1 | Patch |
+| `tailwindcss` | 3.4.17 | 3.4.19 | Patch |
+| `@types/node` | 22.19.1 | 22.19.15 | Patch |
+| `@types/react` | 18.3.27 | 18.3.28 | Patch |
+| `puppeteer` / `puppeteer-core` | 23.11.0 | 23.11.1 | Patch |
+
+### What Changed
+
+- **Zero code changes required** — all `[locale]` pages already used async `params` pattern
+- Playwright workers capped at 3 (from auto-5) to reduce dev server overload flakiness
+- `npm audit` now reports **0 vulnerabilities** (was 9)
+- React stays at 18.3.1 (React 19 upgrade is optional, separate effort)
+
+### Not Upgraded (deferred)
+
+| Package | Current | Latest | Reason |
+|---------|---------|--------|--------|
+| React / React DOM | 18.3.1 | 19.x | Major — separate migration effort |
+| Tailwind CSS | 3.4.19 | 4.x | Major — complete config rewrite |
+| TypeScript | 5.9.3 | 6.x | Major — potential breaking type changes |
+| @vercel/analytics | 1.6.1 | 2.x | Major — API changes |
+| lucide-react | 0.468.0 | 1.x | Major — icon API changes |
+
+### Test Results
+
+- Build: ✅ Clean (`next build` succeeded)
+- Tests: 428 total, all pass with ≤3 workers
+- Pre-existing flakiness: locale routing tests (8-9 out of 428) fail under 5-worker parallel load — unchanged from v14
 
