@@ -256,6 +256,7 @@ const EVENT_ICONS = {
   'language_suggestion_shown': '🗣️ ',
   'language_switched': '🔄',
   'language_suggestion_dismissed': '❎',
+  'internal_referral': '🔀',
 };
 
 // Format event for display
@@ -705,6 +706,54 @@ async function calculateLocaleKPIs() {
   }
 }
 
+// Show internal referral breakdown (which intent pages drive traffic to home)
+async function showInternalReferrals() {
+  console.log('\n🔀 INTERNAL REFERRALS (Intent Pages → Home)');
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
+  try {
+    // Get event data for internal_referral events
+    const eventData = await fetchUmami('/event-data/events', {
+      startAt,
+      endAt,
+      eventName: 'internal_referral',
+    });
+
+    if (!eventData || eventData.length === 0) {
+      console.log('   No internal referral data yet (tracking just added).');
+      console.log('   Data will appear after users navigate from intent pages to home.');
+      return null;
+    }
+
+    // Count by source
+    const sourceCount = {};
+    eventData.forEach(e => {
+      const props = e.eventData || e.data || {};
+      const source = props.source || 'unknown';
+      sourceCount[source] = (sourceCount[source] || 0) + 1;
+    });
+
+    // Sort by count descending
+    const sorted = Object.entries(sourceCount).sort((a, b) => b[1] - a[1]);
+    const total = sorted.reduce((sum, [, count]) => sum + count, 0);
+
+    console.log(`\n   Total internal referrals: ${total}`);
+    console.log('');
+    sorted.forEach(([source, count]) => {
+      const pct = Math.round(count / total * 100);
+      const bar = '█'.repeat(Math.round(pct / 3));
+      console.log(`   /${source.padEnd(40)} ${String(count).padStart(4)} (${pct}%) ${bar}`);
+    });
+
+    return sorted;
+  } catch (error) {
+    // API may not support event-data/events endpoint - try alternative
+    console.log('   ℹ️  Internal referral breakdown not yet available.');
+    console.log('   Check Umami dashboard → Events → internal_referral for details.');
+    return null;
+  }
+}
+
 // Main
 async function main() {
   try {
@@ -721,6 +770,9 @@ async function main() {
     
     // Calculate locale-specific KPIs
     await calculateLocaleKPIs();
+
+    // Show internal referral breakdown
+    await showInternalReferrals();
     
     console.log('\n================================');
     console.log('✅ Session analysis complete');

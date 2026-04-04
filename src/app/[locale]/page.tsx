@@ -8,6 +8,7 @@ import { PreviewCard } from "@/components/preview-card";
 import { Footer } from "@/components/footer";
 import { EngagementTracker } from "@/components/engagement-tracker";
 import { AIReferralTracker } from "@/components/ai-referral-tracker";
+import { InternalReferralTracker } from "@/components/internal-referral-tracker";
 import { 
   isValidLocale, 
   getDictionary,
@@ -164,6 +165,8 @@ export default async function LocaleHomePage({
       <EngagementTracker />
       {/* AI referral tracking (ChatGPT, Claude, Perplexity, etc.) */}
       <AIReferralTracker />
+      {/* Internal referral tracking (intent pages → home) */}
+      <InternalReferralTracker />
       <main className="mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-16 pt-10">
         {/* Hero Section */}
         <Hero locale={locale} dict={dict} />

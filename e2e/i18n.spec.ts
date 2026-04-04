@@ -16,86 +16,78 @@ test.describe("Markdown Free - Internationalization", () => {
 
     test("Italian page (/it) loads with Italian content", async ({ page }) => {
       await page.goto("/it");
-      
-      // Check HTML lang attribute
-      const htmlLang = await page.locator("html").getAttribute("lang");
-      expect(htmlLang).toBe("it");
-      
+
       // Check Italian content
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown a PDF");
       await expect(page.getByText("Gratis • Senza account")).toBeVisible();
+
+      // Check HTML lang attribute (set client-side by HtmlLangUpdater after hydration)
+      await expect(page.locator("html")).toHaveAttribute("lang", "it");
     });
 
     test("Spanish page (/es) loads with Spanish content", async ({ page }) => {
       await page.goto("/es");
 
-      // Check HTML lang attribute
-      const htmlLang = await page.locator("html").getAttribute("lang");
-      expect(htmlLang).toBe("es");
-
       // Check Spanish content
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown a PDF");
       await expect(page.getByText("Gratis • Sin cuenta")).toBeVisible();
+
+      // Check HTML lang attribute (set client-side after hydration)
+      await expect(page.locator("html")).toHaveAttribute("lang", "es");
     });
 
     test("Japanese page (/ja) loads with Japanese content", async ({ page }) => {
       await page.goto("/ja");
 
-      const htmlLang = await page.locator("html").getAttribute("lang");
-      expect(htmlLang).toBe("ja");
-
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown");
       await expect(page.getByText("無料 • ログイン不要")).toBeVisible();
+
+      await expect(page.locator("html")).toHaveAttribute("lang", "ja");
     });
 
     test("Korean page (/ko) loads with Korean content", async ({ page }) => {
       await page.goto("/ko");
 
-      const htmlLang = await page.locator("html").getAttribute("lang");
-      expect(htmlLang).toBe("ko");
-
       await expect(page.getByRole("heading", { level: 1 })).toContainText("마크다운");
       await expect(page.getByText("무료 • 무설치")).toBeVisible();
+
+      await expect(page.locator("html")).toHaveAttribute("lang", "ko");
     });
 
     test("Simplified Chinese page (/zh-Hans) loads with Chinese content", async ({ page }) => {
       await page.goto("/zh-Hans");
 
-      const htmlLang = await page.locator("html").getAttribute("lang");
-      expect(htmlLang).toBe("zh-Hans");
-
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown");
       await expect(page.getByText("免费 • 无需注册")).toBeVisible();
+
+      await expect(page.locator("html")).toHaveAttribute("lang", "zh-Hans");
     });
 
     test("Traditional Chinese page (/zh-Hant) loads with Chinese content", async ({ page }) => {
       await page.goto("/zh-Hant");
 
-      const htmlLang = await page.locator("html").getAttribute("lang");
-      expect(htmlLang).toBe("zh-Hant");
-
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown");
       await expect(page.getByText("免費 • 無需註冊")).toBeVisible();
+
+      await expect(page.locator("html")).toHaveAttribute("lang", "zh-Hant");
     });
 
     test("Indonesian page (/id) loads with Indonesian content", async ({ page }) => {
       await page.goto("/id");
 
-      const htmlLang = await page.locator("html").getAttribute("lang");
-      expect(htmlLang).toBe("id");
-
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown");
       await expect(page.getByText("Gratis • Tanpa daftar")).toBeVisible();
+
+      await expect(page.locator("html")).toHaveAttribute("lang", "id");
     });
 
     test("Vietnamese page (/vi) loads with Vietnamese content", async ({ page }) => {
       await page.goto("/vi");
 
-      const htmlLang = await page.locator("html").getAttribute("lang");
-      expect(htmlLang).toBe("vi");
-
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown");
       await expect(page.getByText("Miễn phí • Không cần đăng ký")).toBeVisible();
+
+      await expect(page.locator("html")).toHaveAttribute("lang", "vi");
     });
   });
 

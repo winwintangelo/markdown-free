@@ -393,6 +393,71 @@ export function trackConversionWithReferrer(
 }
 
 // =============================================================================
+// INTERNAL REFERRAL TRACKING (track which intent pages drive traffic to home)
+// =============================================================================
+
+/**
+ * Known home page paths (these are destinations, not sources)
+ */
+const HOME_PATHS = new Set(["/", "/it", "/es", "/ja", "/ko", "/zh-Hans", "/zh-Hant", "/id", "/vi"]);
+
+/**
+ * Non-intent paths to exclude from internal referral tracking
+ */
+const EXCLUDED_PATHS = new Set(["/about", "/privacy", "/faq"]);
+
+/**
+ * Detect if the referrer is an internal intent page on the same site.
+ * Returns the intent page slug (e.g., "readme-to-pdf", "it/convertire-markdown-pdf")
+ * or null if not an internal intent referral.
+ */
+export function detectInternalReferral(): string | null {
+  if (typeof window === "undefined" || !document.referrer) {
+    return null;
+  }
+
+  try {
+    const referrerUrl = new URL(document.referrer);
+    const currentHost = window.location.hostname;
+
+    // Only track same-site referrals
+    if (referrerUrl.hostname !== currentHost) {
+      return null;
+    }
+
+    const path = referrerUrl.pathname.replace(/\/$/, "") || "/";
+
+    // Skip if referrer is a home page (not an intent page)
+    if (HOME_PATHS.has(path)) {
+      return null;
+    }
+
+    // Skip non-intent pages
+    for (const excluded of EXCLUDED_PATHS) {
+      if (path === excluded || path.endsWith(excluded)) {
+        return null;
+      }
+    }
+
+    // Return the slug without leading slash
+    return path.replace(/^\//, "");
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Track internal referral from an intent page to the home/converter page.
+ * Fires once per page load when a user navigates from an intent page.
+ */
+export function trackInternalReferral(): void {
+  const slug = detectInternalReferral();
+  if (slug) {
+    trackEvent("internal_referral", { source: slug });
+  }
+}
+
+// =============================================================================
 // POST-CONVERT FEEDBACK EVENTS
 // =============================================================================
 
