@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Markdown to PDF & DOCX Converter – Free, Private, No Signup | Markdown Free",
-    "description": "Convert Markdown to PDF, DOCX, HTML or TXT instantly. 100% free, no signup, no ad trackers. Files processed temporarily and never stored."
+    "title": "Markdown to PDF, DOCX & EPUB Converter – Free, Private, No Signup | Markdown Free",
+    "description": "Convert Markdown to PDF, DOCX & EPUB instantly. 100% free, no signup, no ad trackers. Files processed temporarily and never stored."
   },
   "hero": {
     "badge": "Free • No signup • Instant export",
-    "title": "Free Markdown to PDF, DOCX, TXT & HTML Converter",
-    "subtitle": "Upload or paste your .md file, preview it instantly, then export to PDF, DOCX, TXT or HTML in one click. Free, private and secure — your files are never stored."
+    "title": "Free Markdown to PDF, DOCX & EPUB Converter",
+    "subtitle": "Upload or paste your .md file, preview it instantly, then export to PDF, DOCX, EPUB or HTML in one click. Free, private and secure — your files are never stored."
   },
   "upload": {
     "dragDrop": "Drag & drop your Markdown file",
@@ -20,7 +20,7 @@
   "paste": {
     "label": "Pasted Markdown",
     "placeholder": "Paste your Markdown here…",
-    "helper": "Changes here will also be used when exporting to PDF, DOCX, TXT or HTML.",
+    "helper": "Changes here will also be used when exporting to PDF, DOCX, EPUB or HTML.",
     "tooLarge": "Content exceeds 1MB limit. It has been truncated.",
     "clipboardButton": "Paste from clipboard",
     "clipboardHint": "One tap — from ChatGPT, Claude, Obsidian, etc.",
@@ -41,9 +41,11 @@
     "toTxt": "To TXT",
     "toHtml": "To HTML",
     "toDocx": "To DOCX",
+    "toEpub": "To EPUB",
     "privacy": "Files are processed temporarily for conversion and not stored.",
     "generating": "Generating PDF...",
     "generatingDocx": "Generating DOCX...",
+    "generatingEpub": "Generating EPUB...",
     "selectFileHint": "Select a Markdown file to export",
     "uploadOrPaste": "Upload or paste to continue",
     "sharePdf": "Share as PDF",
@@ -63,7 +65,7 @@
       "title": "How it works",
       "step1": "Upload a .md file or paste Markdown text.",
       "step2": "See the formatted preview right here.",
-      "step3": "Click To PDF, To DOCX, To TXT, or To HTML to download your converted file.",
+      "step3": "Click To PDF, To DOCX, To EPUB, or To HTML to download your converted file.",
       "note": "Once you add your own Markdown, this preview will update to match it."
     },
     "showFullPreview": "Show full preview",
@@ -113,7 +115,7 @@
     },
     {
       "question": "Which formats does Markdown Free support?",
-      "answer": "Input: .md, .markdown, .txt files (up to 1MB). Output: PDF, DOCX (Word), HTML, TXT. Supports GitHub Flavored Markdown."
+      "answer": "Input: .md, .markdown, .txt files (up to 1MB). Output: PDF, DOCX (Word), EPUB, HTML, TXT. Supports GitHub Flavored Markdown."
     },
     {
       "question": "Is the conversion secure?",
@@ -127,9 +129,9 @@
   },
   "faqPage": {
     "title": "FAQ - Frequently Asked Questions | Markdown Free",
-    "description": "Common questions about Markdown Free: How to convert Markdown to PDF, DOCX, HTML. Is it free? Is it secure? File formats, privacy, and more.",
+    "description": "Common questions about Markdown Free: How to convert Markdown to PDF, DOCX, EPUB. Is it free? Is it secure? File formats, privacy, and more.",
     "heading": "Frequently Asked Questions",
-    "subtitle": "Everything you need to know about converting Markdown to PDF, DOCX, HTML, and TXT with Markdown Free.",
+    "subtitle": "Everything you need to know about converting Markdown to PDF, DOCX, and EPUB with Markdown Free.",
     "home": "Home",
     "faq": "FAQ",
     "ctaTitle": "Ready to convert your Markdown?",

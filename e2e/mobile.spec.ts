@@ -15,7 +15,7 @@ test.describe("Mobile Redesign - Desktop unchanged", () => {
 
   test("should show H1 title on desktop", async ({ page }) => {
     const h1 = page.getByRole("heading", {
-      name: "Free Markdown to PDF, DOCX, TXT & HTML Converter",
+      name: "Free Markdown to PDF, DOCX & EPUB Converter",
     });
     await expect(h1).toBeVisible();
   });
@@ -62,7 +62,7 @@ test.describe("Mobile Redesign - Mobile layout", () => {
   // ---------- Hero ----------
   test("should hide H1 title on mobile", async ({ page }) => {
     const h1 = page.getByRole("heading", {
-      name: "Free Markdown to PDF, DOCX, TXT & HTML Converter",
+      name: "Free Markdown to PDF, DOCX & EPUB Converter",
     });
     await expect(h1).toBeHidden();
   });

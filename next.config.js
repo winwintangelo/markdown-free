@@ -1,5 +1,9 @@
+const path = require("path");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  outputFileTracingRoot: path.join(__dirname),
+  serverExternalPackages: ["epub-gen-memory"],
   webpack: (config) => {
     // Suppress "Module not found: Can't resolve 'encoding'" warning from html-to-docx
     // The 'encoding' module is optional and not needed for DOCX generation

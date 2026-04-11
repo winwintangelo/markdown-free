@@ -49,6 +49,7 @@ function getJsonLd(locale: Locale, dict: ReturnType<typeof getDictionary>) {
         featureList: [
           "Markdown to PDF conversion",
           "Markdown to DOCX conversion",
+          "Markdown to EPUB conversion",
           "Markdown to HTML conversion",
           "Markdown to TXT conversion",
           "No account required",
@@ -69,7 +70,7 @@ function getJsonLd(locale: Locale, dict: ReturnType<typeof getDictionary>) {
           "@type": "WebPage",
           url: `${siteUrl}/faq`,
         },
-        keywords: "markdown, pdf, docx, converter, free, online, no signup, privacy",
+        keywords: "markdown, pdf, docx, epub, converter, free, online, no signup, privacy",
       },
       {
         "@type": "FAQPage",

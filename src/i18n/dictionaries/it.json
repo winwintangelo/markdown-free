@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Convertitore Markdown in PDF e DOCX – Gratis, Privato, Senza Registrazione | Markdown Free",
-    "description": "Converti Markdown in PDF, DOCX, HTML o TXT in un istante. 100% gratis, senza registrazione, senza tracciamento. I tuoi file vengono elaborati temporaneamente e mai salvati."
+    "title": "Convertitore Markdown in PDF, DOCX e EPUB – Gratis, Privato, Senza Registrazione | Markdown Free",
+    "description": "Converti Markdown in PDF, DOCX e EPUB in un istante. 100% gratis, senza registrazione, senza tracciamento."
   },
   "hero": {
     "badge": "Gratis • Senza account • Esporta subito",
-    "title": "Convertitore Gratuito da Markdown a PDF, DOCX, TXT e HTML",
-    "subtitle": "Carica o incolla il tuo file .md, visualizzalo istantaneamente, poi esporta in PDF, DOCX, TXT o HTML con un solo clic. Gratuito, privato e sicuro — i tuoi file non vengono mai salvati."
+    "title": "Convertitore Gratuito da Markdown a PDF, DOCX e EPUB",
+    "subtitle": "Carica o incolla il tuo file .md, visualizzalo istantaneamente, poi esporta in PDF, DOCX, EPUB o HTML con un solo clic. Gratuito, privato e sicuro — i tuoi file non vengono mai salvati."
   },
   "upload": {
     "dragDrop": "Trascina e rilascia il tuo file Markdown",
@@ -20,7 +20,7 @@
   "paste": {
     "label": "Markdown Incollato",
     "placeholder": "Incolla qui il tuo Markdown…",
-    "helper": "Le modifiche qui verranno utilizzate anche per l'esportazione in PDF, DOCX, TXT o HTML.",
+    "helper": "Le modifiche qui verranno utilizzate anche per l'esportazione in PDF, DOCX, EPUB o HTML.",
     "tooLarge": "Il contenuto supera il limite di 1MB. È stato troncato.",
     "clipboardButton": "Incolla dagli appunti",
     "clipboardHint": "Un tocco — da ChatGPT, Claude, Obsidian, ecc.",
@@ -41,8 +41,10 @@
     "toTxt": "In TXT",
     "toHtml": "In HTML",
     "toDocx": "In DOCX",
+    "toEpub": "In EPUB",
     "privacy": "I file vengono elaborati temporaneamente per la conversione e non vengono salvati.",
     "generatingDocx": "Generazione DOCX...",
+    "generatingEpub": "Generazione EPUB...",
     "generating": "Generazione PDF in corso...",
     "selectFileHint": "Seleziona un file Markdown da esportare",
     "uploadOrPaste": "Carica o incolla per continuare",
@@ -63,7 +65,7 @@
       "title": "Come funziona",
       "step1": "Carica un file .md oppure incolla del testo Markdown.",
       "step2": "Visualizza l'anteprima formattata qui.",
-      "step3": "Clicca su In PDF, In DOCX, In TXT o In HTML per scaricare il file convertito.",
+      "step3": "Clicca su In PDF, In DOCX, In EPUB o In HTML per scaricare il file convertito.",
       "note": "Quando aggiungi il tuo Markdown, questa anteprima si aggiornerà automaticamente."
     },
     "showFullPreview": "Mostra anteprima completa",
@@ -113,7 +115,7 @@
     },
     {
       "question": "Quali formati supporta Markdown Free?",
-      "answer": "Input: file .md, .markdown, .txt (fino a 1MB). Output: PDF, DOCX (Word), HTML, TXT. Supportiamo il Markdown stile GitHub (GitHub Flavored Markdown) con tabelle, codice evidenziato e altro."
+      "answer": "Input: file .md, .markdown, .txt (fino a 1MB). Output: PDF, DOCX (Word), EPUB, HTML, TXT. Supportiamo il Markdown stile GitHub (GitHub Flavored Markdown) con tabelle, codice evidenziato e altro."
     },
     {
       "question": "La conversione è sicura?",
@@ -131,9 +133,9 @@
   },
   "faqPage": {
     "title": "Domande Frequenti | Markdown Free",
-    "description": "Domande comuni su Markdown Free: Come convertire Markdown in PDF, DOCX, HTML. È gratuito? È sicuro? Formati di file, privacy e altro.",
+    "description": "Domande comuni su Markdown Free: Come convertire Markdown in PDF, DOCX, EPUB. È gratuito? È sicuro? Formati di file, privacy e altro.",
     "heading": "Domande Frequenti",
-    "subtitle": "Tutto quello che devi sapere sulla conversione di Markdown in PDF, DOCX, HTML e TXT con Markdown Free.",
+    "subtitle": "Tutto quello che devi sapere sulla conversione di Markdown in PDF, DOCX e EPUB con Markdown Free.",
     "home": "Home",
     "faq": "FAQ",
     "ctaTitle": "Pronto a convertire il tuo Markdown?",

@@ -24,7 +24,7 @@ const jsonLd = {
       alternateName: "Markdown to PDF Converter",
       url: "https://www.markdown.free",
       description:
-        "Free online tool to convert Markdown files to PDF, DOCX, HTML, and TXT. No signup required, privacy-friendly, runs in browser.",
+        "Free online tool to convert Markdown files to PDF, DOCX, EPUB, HTML, and TXT. No signup required, privacy-friendly, runs in browser.",
       applicationCategory: ["DeveloperApplication", "UtilityApplication"],
       operatingSystem: "Any (Web Browser)",
       browserRequirements: "Requires JavaScript",
@@ -37,6 +37,7 @@ const jsonLd = {
       featureList: [
         "Markdown to PDF conversion",
         "Markdown to DOCX conversion",
+        "Markdown to EPUB conversion",
         "Markdown to HTML conversion",
         "Markdown to TXT conversion",
         "No account required",
@@ -57,7 +58,7 @@ const jsonLd = {
         "@type": "WebPage",
         url: "https://www.markdown.free/faq",
       },
-      keywords: "markdown, pdf, docx, converter, free, online, no signup, privacy",
+      keywords: "markdown, pdf, docx, epub, converter, free, online, no signup, privacy",
     },
     {
       "@type": "FAQPage",
@@ -91,7 +92,7 @@ const jsonLd = {
           name: "Which formats does Markdown Free support?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Input: .md, .markdown, .txt files (up to 5MB). Output: PDF, HTML, TXT. Supports GitHub Flavored Markdown.",
+            text: "Input: .md, .markdown, .txt files (up to 1MB). Output: PDF, DOCX (Word), EPUB, HTML, TXT. Supports GitHub Flavored Markdown.",
           },
         },
         {

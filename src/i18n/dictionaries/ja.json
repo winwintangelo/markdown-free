@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Markdown PDF 変換（無料）- 文字化けなし & ログイン不要 | Markdown Free",
-    "description": "MarkdownをPDF、DOCX、HTML、TXTに即座に変換。日本語完全対応（ひらがな・カタカナ・漢字）。完全無料、ログイン不要、インストール不要。ブラウザだけで完結。"
+    "title": "Markdown PDF・DOCX・EPUB 変換（無料）- 文字化けなし & ログイン不要 | Markdown Free",
+    "description": "MarkdownをPDF、DOCX、EPUBに即座に変換。日本語完全対応（ひらがな・カタカナ・漢字）。完全無料、ログイン不要、インストール不要。ブラウザだけで完結。"
   },
   "hero": {
     "badge": "無料 • ログイン不要 • 即時エクスポート",
-    "title": "Markdown PDF 変換（無料）– 文字化けなし & ログイン不要",
-    "subtitle": ".mdファイルをアップロードまたは貼り付けて、すぐにプレビュー。ワンクリックでPDF、DOCX、TXT、HTMLにエクスポート。日本語（ひらがな・カタカナ・漢字）完全対応。ログイン不要・無料・安全。"
+    "title": "無料 Markdown PDF・DOCX・EPUB 変換 – 文字化けなし & ログイン不要",
+    "subtitle": ".mdファイルをアップロードまたは貼り付けて、すぐにプレビュー。ワンクリックでPDF、DOCX、EPUB、HTMLにエクスポート。日本語（ひらがな・カタカナ・漢字）完全対応。ログイン不要・無料・安全。"
   },
   "upload": {
     "dragDrop": "Markdownファイルをドラッグ＆ドロップ",
@@ -20,7 +20,7 @@
   "paste": {
     "label": "貼り付けられたMarkdown",
     "placeholder": "ここにMarkdownを貼り付けてください…",
-    "helper": "ここでの変更はPDF、DOCX、TXT、HTMLへのエクスポート時にも使用されます。",
+    "helper": "ここでの変更はPDF、DOCX、EPUB、HTMLへのエクスポート時にも使用されます。",
     "tooLarge": "コンテンツが1MBの制限を超えています。切り詰められました。",
     "clipboardButton": "クリップボードから貼り付け",
     "clipboardHint": "ワンタップ — ChatGPT、Claude、Obsidianなどから",
@@ -41,8 +41,10 @@
     "toTxt": "TXTへ",
     "toHtml": "HTMLへ",
     "toDocx": "DOCXへ",
+    "toEpub": "EPUBへ",
     "privacy": "ファイルは変換のために一時的に処理され、保存されません。",
     "generatingDocx": "DOCXを生成中...",
+    "generatingEpub": "EPUBを生成中...",
     "generating": "PDF生成中...",
     "selectFileHint": "エクスポートするMarkdownファイルを選択",
     "uploadOrPaste": "アップロードまたは貼り付けて続行",
@@ -63,7 +65,7 @@
       "title": "使い方",
       "step1": ".mdファイルをアップロードするか、Markdownテキストを貼り付けます。",
       "step2": "ここでフォーマットされたプレビューを確認できます。",
-      "step3": "「PDFへ」「DOCXへ」「TXTへ」「HTMLへ」をクリックして変換ファイルをダウンロード。",
+      "step3": "「PDFへ」「DOCXへ」「EPUBへ」「HTMLへ」をクリックして変換ファイルをダウンロード。",
       "note": "Markdownを追加すると、このプレビューがそれに合わせて更新されます。"
     },
     "showFullPreview": "全文を表示",
@@ -113,7 +115,7 @@
     },
     {
       "question": "Markdown Freeはどのフォーマットをサポートしていますか？",
-      "answer": "入力：.md、.markdown、.txtファイル（最大1MB）。出力：PDF、DOCX（Word）、HTML、TXT。GitHub Flavored Markdownをサポート。"
+      "answer": "入力：.md、.markdown、.txtファイル（最大1MB）。出力：PDF、DOCX（Word）、EPUB、HTML、TXT。GitHub Flavored Markdownをサポート。"
     },
     {
       "question": "変換は安全ですか？",
@@ -159,9 +161,9 @@
   },
   "faqPage": {
     "title": "よくある質問 | Markdown Free",
-    "description": "Markdown Freeに関するよくある質問：MarkdownをPDF、DOCX、HTMLに変換する方法。無料ですか？安全ですか？ファイル形式、プライバシーなど。",
+    "description": "Markdown Freeに関するよくある質問：MarkdownをPDF、DOCX、EPUBに変換する方法。無料ですか？安全ですか？ファイル形式、プライバシーなど。",
     "heading": "よくある質問",
-    "subtitle": "Markdown FreeでMarkdownをPDF、DOCX、HTML、TXTに変換する方法について。",
+    "subtitle": "Markdown FreeでMarkdownをPDF、DOCX、EPUBに変換する方法について。",
     "home": "ホーム",
     "faq": "よくある質問",
     "ctaTitle": "Markdownを変換する準備はできましたか？",

@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Konverter Markdown ke PDF & DOCX – Gratis, Privat, Tanpa Daftar | Markdown Free",
-    "description": "Konversi Markdown ke PDF, DOCX, HTML atau TXT secara instan. 100% gratis, tanpa daftar, tanpa pelacak iklan. File diproses sementara dan tidak pernah disimpan."
+    "title": "Konverter Markdown ke PDF, DOCX & EPUB – Gratis, Privat, Tanpa Daftar | Markdown Free",
+    "description": "Konversi Markdown ke PDF, DOCX & EPUB secara instan. 100% gratis, tanpa daftar, tanpa pelacak iklan."
   },
   "hero": {
     "badge": "Gratis • Tanpa daftar • Ekspor instan",
-    "title": "Konverter Markdown ke PDF, DOCX, TXT & HTML Gratis",
-    "subtitle": "Unggah atau tempel file .md Anda, pratinjau secara instan, lalu ekspor ke PDF, DOCX, TXT atau HTML dalam satu klik. Gratis, privat dan aman — file Anda tidak pernah disimpan."
+    "title": "Konverter Markdown ke PDF, DOCX & EPUB Gratis",
+    "subtitle": "Unggah atau tempel file .md Anda, pratinjau secara instan, lalu ekspor ke PDF, DOCX, EPUB atau HTML dalam satu klik. Gratis, privat dan aman — file Anda tidak pernah disimpan."
   },
   "upload": {
     "dragDrop": "Seret & lepas file Markdown Anda",
@@ -20,7 +20,7 @@
   "paste": {
     "label": "Markdown yang Ditempel",
     "placeholder": "Tempel Markdown Anda di sini…",
-    "helper": "Perubahan di sini juga akan digunakan saat mengekspor ke PDF, DOCX, TXT atau HTML.",
+    "helper": "Perubahan di sini juga akan digunakan saat mengekspor ke PDF, DOCX, EPUB atau HTML.",
     "tooLarge": "Konten melebihi batas 1MB. Telah dipotong.",
     "clipboardButton": "Tempel dari clipboard",
     "clipboardHint": "Satu ketukan — dari ChatGPT, Claude, Obsidian, dll.",
@@ -41,8 +41,10 @@
     "toTxt": "Ke TXT",
     "toHtml": "Ke HTML",
     "toDocx": "Ke DOCX",
+    "toEpub": "Ke EPUB",
     "privacy": "File diproses sementara untuk konversi dan tidak disimpan.",
     "generatingDocx": "Membuat DOCX...",
+    "generatingEpub": "Membuat EPUB...",
     "generating": "Membuat PDF...",
     "selectFileHint": "Pilih file Markdown untuk diekspor",
     "uploadOrPaste": "Unggah atau tempel untuk melanjutkan",
@@ -63,7 +65,7 @@
       "title": "Cara kerjanya",
       "step1": "Unggah file .md atau tempel teks Markdown.",
       "step2": "Lihat pratinjau yang diformat di sini.",
-      "step3": "Klik Ke PDF, Ke DOCX, Ke TXT, atau Ke HTML untuk mengunduh file yang dikonversi.",
+      "step3": "Klik Ke PDF, Ke DOCX, Ke EPUB, atau Ke HTML untuk mengunduh file yang dikonversi.",
       "note": "Setelah Anda menambahkan Markdown Anda sendiri, pratinjau ini akan diperbarui sesuai."
     },
     "showFullPreview": "Tampilkan pratinjau lengkap",
@@ -113,7 +115,7 @@
     },
     {
       "question": "Format apa yang didukung Markdown Free?",
-      "answer": "Input: file .md, .markdown, .txt (hingga 1MB). Output: PDF, DOCX (Word), HTML, TXT. Mendukung GitHub Flavored Markdown."
+      "answer": "Input: file .md, .markdown, .txt (hingga 1MB). Output: PDF, DOCX (Word), EPUB, HTML, TXT. Mendukung GitHub Flavored Markdown."
     },
     {
       "question": "Apakah konversi aman?",
@@ -127,9 +129,9 @@
   },
   "faqPage": {
     "title": "Pertanyaan yang Sering Diajukan | Markdown Free",
-    "description": "Pertanyaan umum tentang Markdown Free: Cara mengonversi Markdown ke PDF, DOCX, HTML. Apakah gratis? Apakah aman? Format file, privasi, dan lainnya.",
+    "description": "Pertanyaan umum tentang Markdown Free: Cara mengonversi Markdown ke PDF, DOCX, EPUB. Apakah gratis? Apakah aman? Format file, privasi, dan lainnya.",
     "heading": "Pertanyaan yang Sering Diajukan",
-    "subtitle": "Semua yang perlu Anda ketahui tentang mengonversi Markdown ke PDF, DOCX, HTML, dan TXT dengan Markdown Free.",
+    "subtitle": "Semua yang perlu Anda ketahui tentang mengonversi Markdown ke PDF, DOCX, dan EPUB dengan Markdown Free.",
     "home": "Beranda",
     "faq": "FAQ",
     "ctaTitle": "Siap mengonversi Markdown Anda?",

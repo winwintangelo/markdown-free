@@ -119,7 +119,7 @@ export default function NoWatermarkPage() {
               <strong>Full GFM support</strong> — Tables, code blocks, checklists
             </li>
             <li>
-              <strong>Multiple exports</strong> — PDF, DOCX, HTML, TXT
+              <strong>Multiple exports</strong> — PDF, DOCX, EPUB, HTML, TXT
             </li>
             <li>
               <strong>Instant download</strong> — No waiting, no queue

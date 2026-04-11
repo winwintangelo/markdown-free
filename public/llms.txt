@@ -1,12 +1,13 @@
 # Markdown Free
 
-> Free Markdown to PDF converter - no signup, privacy-friendly
+> Free Markdown to PDF, DOCX & EPUB converter - no signup, privacy-friendly
 
 ## Key Pages
 
-- [Markdown to PDF Converter](https://www.markdown.free) — main converter, all formats
+- [Markdown to PDF Converter](https://www.markdown.free) — main converter, all formats (PDF, DOCX, EPUB, HTML, TXT)
 - [Markdown to DOCX / Word](https://www.markdown.free/markdown-to-docx) — export to Microsoft Word format
 - [Markdown to Word (DOCX)](https://www.markdown.free/markdown-to-word) — alternative Word export page
+- [Markdown to EPUB](https://www.markdown.free/markdown-to-epub) — export to EPUB ebook format for e-readers
 - [GitHub README to PDF](https://www.markdown.free/github-readme-to-pdf) — convert GitHub README files to PDF
 - [ChatGPT to PDF](https://www.markdown.free/chatgpt-to-pdf) — save ChatGPT conversations as PDF
 - [Claude Artifacts to PDF](https://www.markdown.free/claude-artifacts-to-pdf) — export Claude artifacts to PDF
@@ -16,13 +17,14 @@
 
 ## What this tool does
 
-Converts Markdown files (.md, .markdown, .txt) to PDF, DOCX, HTML, or plain text.
+Converts Markdown files (.md, .markdown, .txt) to PDF, DOCX, EPUB, HTML, or plain text.
 All processing happens in the browser or on secure servers - files are never stored.
 
 ## Key features
 
 - **Markdown to PDF** - Convert README files, documentation, notes to PDF
 - **Markdown to DOCX** - Export to Microsoft Word format
+- **Markdown to EPUB** - Export to EPUB ebook format for Kindle, Apple Books, Kobo
 - **Markdown to HTML** - Get clean, styled HTML output
 - **Markdown to TXT** - Strip formatting for plain text
 - **No account required** - Use immediately, no signup
@@ -42,7 +44,7 @@ All processing happens in the browser or on secure servers - files are never sto
 
 1. Go to https://www.markdown.free
 2. Drag & drop a .md file, or paste Markdown text
-3. Click "To PDF", "To DOCX", "To HTML", or "To TXT"
+3. Click "To PDF", "To DOCX", "To EPUB", "To HTML", or "To TXT"
 4. Download your converted file
 
 ## Supported input formats
@@ -50,7 +52,7 @@ All processing happens in the browser or on secure servers - files are never sto
 - .md (Markdown)
 - .markdown
 - .txt (plain text with Markdown syntax)
-- Maximum file size: 5MB
+- Maximum file size: 1MB
 
 ## Output formats
 
@@ -58,6 +60,7 @@ All processing happens in the browser or on secure servers - files are never sto
 |--------|-------------|
 | PDF    | A4 format, styled, print-ready |
 | DOCX   | Microsoft Word compatible |
+| EPUB   | Ebook format for Kindle, Apple Books, Kobo — auto-generates chapters from headings |
 | HTML   | Standalone HTML with embedded CSS |
 | TXT    | Raw Markdown text |
 
@@ -110,6 +113,10 @@ https://www.markdown.free
 - "Markdown to PDF no watermark"
 - "md to pdf free"
 - "md to docx"
+- "markdown to epub converter"
+- "convert markdown to ebook"
+- "md to epub free"
+- "markdown to kindle"
 - "markdown to word converter online"
 - "readme file to pdf"
 - "export github readme to pdf"

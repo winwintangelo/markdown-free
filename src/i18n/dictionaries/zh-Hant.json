@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Markdown轉PDF和DOCX轉換器 – 免費、私密、無需註冊 | Markdown Free",
-    "description": "即時將Markdown轉換為PDF、DOCX、HTML或TXT。100%免費，無需註冊，無廣告追蹤。檔案臨時處理，絕不儲存。"
+    "title": "Markdown轉PDF、DOCX和EPUB轉換器 – 免費、私密、無需註冊 | Markdown Free",
+    "description": "即時將Markdown轉換為PDF、DOCX和EPUB。100%免費，無需註冊，無廣告追蹤。"
   },
   "hero": {
     "badge": "免費 • 無需註冊 • 即時匯出",
-    "title": "免費 Markdown 轉 PDF、DOCX、TXT 和 HTML 轉換器",
-    "subtitle": "上傳或貼上您的.md檔案，即時預覽，一鍵匯出為PDF、DOCX、TXT或HTML。免費、私密、安全——您的檔案絕不會被儲存。"
+    "title": "免費 Markdown 轉 PDF、DOCX 和 EPUB 轉換器",
+    "subtitle": "上傳或貼上您的.md檔案，即時預覽，一鍵匯出為PDF、DOCX、EPUB或HTML。免費、私密、安全——您的檔案絕不會被儲存。"
   },
   "upload": {
     "dragDrop": "拖放您的Markdown檔案",
@@ -20,7 +20,7 @@
   "paste": {
     "label": "貼上的Markdown",
     "placeholder": "在此貼上您的Markdown…",
-    "helper": "此處的變更也將用於匯出為PDF、DOCX、TXT或HTML。",
+    "helper": "此處的變更也將用於匯出為PDF、DOCX、EPUB或HTML。",
     "tooLarge": "內容超過1MB限制，已被截斷。",
     "clipboardButton": "從剪貼簿貼上",
     "clipboardHint": "一鍵操作 — 來自ChatGPT、Claude、Obsidian等",
@@ -41,8 +41,10 @@
     "toTxt": "轉TXT",
     "toHtml": "轉HTML",
     "toDocx": "轉DOCX",
+    "toEpub": "轉EPUB",
     "privacy": "檔案僅為轉換臨時處理，不會被儲存。",
     "generatingDocx": "正在生成DOCX...",
+    "generatingEpub": "正在生成EPUB...",
     "generating": "正在產生PDF...",
     "selectFileHint": "選擇 Markdown 檔案以匯出",
     "uploadOrPaste": "上傳或貼上以繼續",
@@ -63,7 +65,7 @@
       "title": "使用方法",
       "step1": "上傳.md檔案或貼上Markdown文字。",
       "step2": "在此查看格式化預覽。",
-      "step3": "點擊「轉PDF」、「轉DOCX」、「轉TXT」或「轉HTML」下載轉換後的檔案。",
+      "step3": "點擊「轉PDF」、「轉DOCX」、「轉EPUB」或「轉HTML」下載轉換後的檔案。",
       "note": "新增您自己的Markdown後，此預覽將相應更新。"
     },
     "showFullPreview": "展開完整預覽",
@@ -113,7 +115,7 @@
     },
     {
       "question": "Markdown Free支援哪些格式？",
-      "answer": "輸入：.md、.markdown、.txt檔案（最大1MB）。輸出：PDF、DOCX（Word）、HTML、TXT。支援GitHub風格Markdown。"
+      "answer": "輸入：.md、.markdown、.txt檔案（最大1MB）。輸出：PDF、DOCX（Word）、EPUB、HTML、TXT。支援GitHub風格Markdown。"
     },
     {
       "question": "轉換安全嗎？",
@@ -127,9 +129,9 @@
   },
   "faqPage": {
     "title": "常見問題 | Markdown Free",
-    "description": "關於 Markdown Free 的常見問題：如何將 Markdown 轉換為 PDF、DOCX、HTML。是否免費？是否安全？檔案格式、隱私等。",
+    "description": "關於 Markdown Free 的常見問題：如何將 Markdown 轉換為 PDF、DOCX、EPUB。是否免費？是否安全？檔案格式、隱私等。",
     "heading": "常見問題",
-    "subtitle": "關於使用 Markdown Free 將 Markdown 轉換為 PDF、DOCX、HTML 和 TXT 的所有資訊。",
+    "subtitle": "關於使用 Markdown Free 將 Markdown 轉換為 PDF、DOCX 和 EPUB 的所有資訊。",
     "home": "首頁",
     "faq": "常見問題",
     "ctaTitle": "準備好轉換您的 Markdown 了嗎？",

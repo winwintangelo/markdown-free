@@ -158,8 +158,8 @@ export default function ClaudeArtifactsToPdfPage() {
 
           <h3>Can I also export to Word (DOCX)?</h3>
           <p>
-            Yes! After pasting your Claude content, you can export to PDF, DOCX, 
-            HTML, or plain text.
+            Yes! After pasting your Claude content, you can export to PDF, DOCX,
+            EPUB, HTML, or plain text.
           </p>
 
           {/* Second CTA */}

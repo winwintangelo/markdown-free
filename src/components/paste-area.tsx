@@ -20,7 +20,7 @@ const defaultDict = {
   paste: {
     label: "Pasted Markdown",
     placeholder: "Paste your Markdown here…",
-    helper: "Changes here will also be used when exporting to PDF, DOCX, TXT or HTML.",
+    helper: "Changes here will also be used when exporting to PDF, DOCX, EPUB or HTML.",
     tooLarge: "Content exceeds 1MB limit. It has been truncated.",
     clipboardButton: "Paste from clipboard",
     clipboardHint: "One tap — from ChatGPT, Claude, Obsidian, etc.",

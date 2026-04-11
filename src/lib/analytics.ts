@@ -68,7 +68,7 @@ export function trackEvent(
 // =============================================================================
 
 export type UploadSource = "file" | "paste" | "sample";
-export type ExportFormat = "pdf" | "txt" | "html" | "docx";
+export type ExportFormat = "pdf" | "txt" | "html" | "docx" | "epub";
 
 // Error categories for "Failure Lens" tracking
 export type ErrorCategory = "user_error" | "system_error";
@@ -306,7 +306,7 @@ export function trackLanguageSwitch(from: SupportedLocale, to: SupportedLocale):
  */
 export function trackLocaleConversion(
   locale: SupportedLocale,
-  format: "pdf" | "txt" | "html" | "docx"
+  format: "pdf" | "txt" | "html" | "docx" | "epub"
 ): void {
   trackEvent("locale_conversion", { locale, format });
 }
@@ -381,7 +381,7 @@ export function trackAIReferral(): void {
  * Use this to track which AI sources drive actual conversions
  */
 export function trackConversionWithReferrer(
-  format: "pdf" | "txt" | "html" | "docx"
+  format: "pdf" | "txt" | "html" | "docx" | "epub"
 ): void {
   const { isAI, source } = detectAIReferrer();
 

@@ -879,4 +879,85 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- EPUB Intent Pages (Markdown to EPUB ebook conversion) -->
+  <url>
+    <loc>https://www.markdown.free/markdown-to-epub</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-epub" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-epub-gratis" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/convertir-markdown-epub" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-epub-henkan" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-epub-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-epub-zhuanhuan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-epub-zhuanhuan-tw" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/konversi-markdown-epub" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/chuyen-doi-markdown-epub" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-epub" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/it/markdown-epub-gratis</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-epub" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-epub-gratis" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-epub" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/es/convertir-markdown-epub</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-epub" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/convertir-markdown-epub" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-epub" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ja/markdown-epub-henkan</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-epub" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-epub-henkan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-epub" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ko/markdown-epub-byeonhwan</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-epub" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-epub-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-epub" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hans/markdown-epub-zhuanhuan</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-epub" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-epub-zhuanhuan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-epub" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hant/markdown-epub-zhuanhuan-tw</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-epub" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-epub-zhuanhuan-tw" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-epub" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/id/konversi-markdown-epub</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-epub" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/konversi-markdown-epub" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-epub" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/vi/chuyen-doi-markdown-epub</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-epub" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/chuyen-doi-markdown-epub" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-epub" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

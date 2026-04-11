@@ -30,7 +30,7 @@ test.describe("Markdown Free - App Layout", () => {
 
     // Check headline (SEO-optimized H1)
     const headline = page.getByRole("heading", {
-      name: "Free Markdown to PDF, DOCX, TXT & HTML Converter",
+      name: "Free Markdown to PDF, DOCX & EPUB Converter",
     });
     await expect(headline).toBeVisible();
 

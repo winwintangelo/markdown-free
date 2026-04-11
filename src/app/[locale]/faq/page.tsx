@@ -146,7 +146,7 @@ export default async function LocaleFAQPage({
 
   // Localized text
   const pageTitle = dict.faqPage?.heading || "Frequently Asked Questions";
-  const pageSubtitle = dict.faqPage?.subtitle || "Everything you need to know about converting Markdown to PDF, DOCX, HTML, and TXT.";
+  const pageSubtitle = dict.faqPage?.subtitle || "Everything you need to know about converting Markdown to PDF, DOCX, and EPUB.";
   const homeText = dict.faqPage?.home || "Home";
   const faqText = dict.faqPage?.faq || "FAQ";
   const ctaTitle = dict.faqPage?.ctaTitle || "Ready to convert your Markdown?";

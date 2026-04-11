@@ -9,6 +9,7 @@ import { exportHtml } from "@/lib/export-html";
 import { exportPdf, PdfExportResult } from "@/lib/export-pdf";
 import { generatePdfBlob } from "@/lib/export-pdf";
 import { exportDocx, DocxExportResult } from "@/lib/export-docx";
+import { exportEpub, EpubExportResult } from "@/lib/export-epub";
 import { downloadBlob } from "@/lib/download";
 import { generateDocxBlob } from "@/lib/export-docx";
 import { markdownToHtml } from "@/lib/markdown";
@@ -32,7 +33,7 @@ import type { Locale, Dictionary } from "@/i18n";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useWebShare } from "@/hooks/use-web-share";
 
-type ExportFormat = "pdf" | "txt" | "html" | "docx";
+type ExportFormat = "pdf" | "txt" | "html" | "docx" | "epub";
 
 interface ExportError {
   format: ExportFormat;
@@ -53,9 +54,11 @@ const defaultDict = {
     toTxt: "To TXT",
     toHtml: "To HTML",
     toDocx: "To DOCX",
+    toEpub: "To EPUB",
     privacy: "Files are processed temporarily for conversion and not stored.",
     generating: "Generating PDF...",
     generatingDocx: "Generating DOCX...",
+    generatingEpub: "Generating EPUB...",
     selectFileHint: "Select a Markdown file to export",
     uploadOrPaste: "Upload or paste to continue",
     sharePdf: "Share as PDF",
@@ -329,6 +332,28 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
             trackConvertError(format as AnalyticsExportFormat, mapErrorCode(result.error.code));
             setError({
               format: "docx",
+              code: result.error.code,
+              message: result.error.message,
+              retryable: result.error.retryable,
+            });
+          }
+        } else if (format === "epub") {
+          abortControllerRef.current = new AbortController();
+
+          const result: EpubExportResult = await exportEpub(
+            state.content.content,
+            state.content.filename,
+            abortControllerRef.current.signal
+          );
+
+          if (result.success) {
+            trackConvertSuccess(format as AnalyticsExportFormat, source);
+            trackLocaleConversion(locale as SupportedLocale, format);
+            setLastSuccessFormat(format);
+          } else if (result.error) {
+            trackConvertError(format as AnalyticsExportFormat, mapErrorCode(result.error.code));
+            setError({
+              format: "epub",
               code: result.error.code,
               message: result.error.message,
               retryable: result.error.retryable,
@@ -662,6 +687,15 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                   >
                     {dict.export.saveDocx || defaultDict.export.saveDocx}
                   </button>
+                  <button
+                    type="button"
+                    disabled={isLoading}
+                    onClick={() => { handleExport("epub"); setMoreMenuOpen(false); }}
+                    data-testid="save-epub-button"
+                    className="flex w-full items-center px-4 py-2 text-xs text-slate-600 transition hover:bg-slate-50"
+                  >
+                    {dict.export.toEpub || defaultDict.export.toEpub}
+                  </button>
                   <div className="my-1 border-t border-slate-100" />
                   <button
                     type="button"
@@ -727,6 +761,27 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                   : (dict.export.toDocx || defaultDict.export.toDocx)}
               </button>
 
+              {/* To EPUB - After DOCX, purple styling */}
+              <button
+                type="button"
+                disabled={isLoading}
+                onClick={() => handleExport("epub")}
+                onMouseEnter={() => handleButtonHover("epub")}
+                className={cn(
+                  "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
+                  loadingFormat === "epub"
+                    ? "cursor-wait border-purple-200 bg-purple-100 text-purple-600"
+                    : "border-purple-200 bg-purple-50 text-purple-700 hover:border-purple-300 hover:bg-purple-100"
+                )}
+              >
+                {loadingFormat === "epub" && (
+                  <Loader2 className="h-3 w-3 animate-spin" />
+                )}
+                {loadingFormat === "epub"
+                  ? (dict.export.generatingEpub || defaultDict.export.generatingEpub)
+                  : (dict.export.toEpub || defaultDict.export.toEpub)}
+              </button>
+
               {/* Secondary: To TXT */}
               <button
                 type="button"
@@ -786,6 +841,13 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       {(loadingFormat === "docx" || loadingShareFormat === "docx") && (
         <p className="text-center text-xs text-slate-500">
           {dict.export.generatingDocx || defaultDict.export.generatingDocx} This may take a few seconds.
+        </p>
+      )}
+
+      {/* Loading message for EPUB */}
+      {loadingFormat === "epub" && (
+        <p className="text-center text-xs text-slate-500">
+          {dict.export.generatingEpub || defaultDict.export.generatingEpub} This may take a few seconds.
         </p>
       )}
 

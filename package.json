@@ -26,6 +26,7 @@
     "@sparticuz/chromium-min": "^141.0.0",
     "@vercel/analytics": "^1.6.1",
     "clsx": "^2.1.1",
+    "epub-gen-memory": "^1.1.2",
     "html-to-docx": "^1.8.0",
     "lucide-react": "^0.468.0",
     "next": "^15.5.14",

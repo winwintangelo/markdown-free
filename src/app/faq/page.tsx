@@ -10,14 +10,14 @@ const siteUrl = "https://www.markdown.free";
 export const metadata: Metadata = {
   title: "FAQ - Frequently Asked Questions | Markdown Free",
   description:
-    "Common questions about Markdown Free: How to convert Markdown to PDF, DOCX, HTML. Is it free? Is it secure? File formats, privacy, and more.",
+    "Common questions about Markdown Free: How to convert Markdown to PDF, DOCX, EPUB. Is it free? Is it secure? File formats, privacy, and more.",
   alternates: {
     canonical: "/faq",
   },
   openGraph: {
     title: "FAQ - Frequently Asked Questions | Markdown Free",
     description:
-      "Common questions about Markdown Free: How to convert Markdown to PDF, DOCX, HTML. Is it free? Is it secure?",
+      "Common questions about Markdown Free: How to convert Markdown to PDF, DOCX, EPUB. Is it free? Is it secure?",
     url: `${siteUrl}/faq`,
     type: "website",
   },
@@ -48,7 +48,7 @@ const extendedFaq = [
   {
     question: "What file formats does Markdown Free support?",
     answer:
-      "Input formats: .md, .markdown, .txt files (up to 5MB). Output formats: PDF, DOCX (Microsoft Word), HTML, and plain TXT. We support GitHub Flavored Markdown including tables, task lists, and code blocks.",
+      "Input formats: .md, .markdown, .txt files (up to 1MB). Output formats: PDF, DOCX (Microsoft Word), EPUB, HTML, and plain TXT. We support GitHub Flavored Markdown including tables, task lists, and code blocks.",
   },
   {
     question: "Is the conversion secure?",
@@ -93,7 +93,7 @@ const extendedFaq = [
   {
     question: "Why use Markdown Free instead of other converters?",
     answer:
-      "Markdown Free is completely free with no signup, respects your privacy by not storing files, supports multiple output formats (PDF, DOCX, HTML, TXT), and works in multiple languages. Many alternatives require accounts, have conversion limits, or store your data.",
+      "Markdown Free is completely free with no signup, respects your privacy by not storing files, supports multiple output formats (PDF, DOCX, EPUB, HTML, TXT), and works in multiple languages. Many alternatives require accounts, have conversion limits, or store your data.",
   },
 ];
 

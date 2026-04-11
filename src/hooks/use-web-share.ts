@@ -6,6 +6,7 @@ export function useWebShare() {
   const [canShareFiles, setCanShareFiles] = useState(false);
   const [canSharePdf, setCanSharePdf] = useState(false);
   const [canShareDocx, setCanShareDocx] = useState(false);
+  const [canShareEpub, setCanShareEpub] = useState(false);
 
   useEffect(() => {
     if (
@@ -38,10 +39,23 @@ export function useWebShare() {
           navigator.canShare({ files: [docxFile] }) ||
           navigator.canShare({ files: [docxGeneric] })
         );
+
+        // Check EPUB sharing
+        const epubFile = new File(["test"], "test.epub", {
+          type: "application/epub+zip",
+        });
+        const epubGeneric = new File(["test"], "test.epub", {
+          type: "application/octet-stream",
+        });
+        setCanShareEpub(
+          navigator.canShare({ files: [epubFile] }) ||
+          navigator.canShare({ files: [epubGeneric] })
+        );
       } catch {
         setCanShareFiles(false);
         setCanSharePdf(false);
         setCanShareDocx(false);
+        setCanShareEpub(false);
       }
     }
   }, []);
@@ -65,5 +79,5 @@ export function useWebShare() {
     [canShareFiles]
   );
 
-  return { canShareFiles, canSharePdf, canShareDocx, shareFile };
+  return { canShareFiles, canSharePdf, canShareDocx, canShareEpub, shareFile };
 }

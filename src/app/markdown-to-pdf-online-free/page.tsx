@@ -93,7 +93,7 @@ export default function OnlineFreePage() {
             <div className="rounded-lg border border-slate-200 bg-white p-4">
               <h3 className="font-semibold text-slate-900">Multiple Formats</h3>
               <p className="mt-1 text-sm text-slate-600">
-                Export to PDF, DOCX (Word), HTML, or plain text
+                Export to PDF, DOCX (Word), EPUB, HTML, or plain text
               </p>
             </div>
             <div className="rounded-lg border border-slate-200 bg-white p-4">

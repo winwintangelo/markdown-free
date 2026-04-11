@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "마크다운 PDF 변환 - 무설치 & 글자 깨짐 없음 | Markdown Free",
-    "description": "마크다운을 PDF, DOCX, HTML 또는 TXT로 즉시 변환하세요. 한글 완벽 지원 — 깨짐 없이 변환. 100% 무료, 설치 불필요, 가입 불필요. 브라우저에서 바로 변환."
+    "title": "마크다운 PDF, DOCX & EPUB 변환 - 무설치 & 글자 깨짐 없음 | Markdown Free",
+    "description": "마크다운을 PDF, DOCX, EPUB로 즉시 변환하세요. 한글 완벽 지원 — 깨짐 없이 변환. 100% 무료, 설치 불필요, 가입 불필요. 브라우저에서 바로 변환."
   },
   "hero": {
     "badge": "무료 • 무설치 • 즉시 내보내기",
-    "title": "마크다운 PDF 변환 – 무설치 & 글자 깨짐 없음",
-    "subtitle": ".md 파일을 업로드하거나 붙여넣기하고, 즉시 미리보기 후 한 번의 클릭으로 PDF, DOCX, TXT 또는 HTML로 내보내세요. 한글 완벽 지원 — 깨짐 없이 변환. 설치 없이 브라우저에서 바로."
+    "title": "무료 마크다운 PDF, DOCX & EPUB 변환 – 무설치 & 글자 깨짐 없음",
+    "subtitle": ".md 파일을 업로드하거나 붙여넣기하고, 즉시 미리보기 후 한 번의 클릭으로 PDF, DOCX, EPUB 또는 HTML로 내보내세요. 한글 완벽 지원 — 깨짐 없이 변환. 설치 없이 브라우저에서 바로."
   },
   "upload": {
     "dragDrop": "Markdown 파일을 드래그 앤 드롭하세요",
@@ -20,7 +20,7 @@
   "paste": {
     "label": "붙여넣은 Markdown",
     "placeholder": "여기에 Markdown을 붙여넣으세요…",
-    "helper": "여기서 변경한 내용은 PDF, DOCX, TXT 또는 HTML로 내보낼 때도 사용됩니다.",
+    "helper": "여기서 변경한 내용은 PDF, DOCX, EPUB 또는 HTML로 내보낼 때도 사용됩니다.",
     "tooLarge": "콘텐츠가 1MB 제한을 초과합니다. 잘렸습니다.",
     "clipboardButton": "클립보드에서 붙여넣기",
     "clipboardHint": "한 번 탭 — ChatGPT, Claude, Obsidian 등에서",
@@ -41,8 +41,10 @@
     "toTxt": "TXT로",
     "toHtml": "HTML로",
     "toDocx": "DOCX로",
+    "toEpub": "EPUB로",
     "privacy": "파일은 변환을 위해 일시적으로 처리되며 저장되지 않습니다.",
     "generatingDocx": "DOCX 생성 중...",
+    "generatingEpub": "EPUB 생성 중...",
     "generating": "PDF 생성 중...",
     "selectFileHint": "내보낼 Markdown 파일 선택",
     "uploadOrPaste": "업로드 또는 붙여넣기로 계속",
@@ -63,7 +65,7 @@
       "title": "사용 방법",
       "step1": ".md 파일을 업로드하거나 Markdown 텍스트를 붙여넣으세요.",
       "step2": "여기서 포맷된 미리보기를 확인하세요.",
-      "step3": "PDF로, DOCX로, TXT로 또는 HTML로를 클릭하여 변환된 파일을 다운로드하세요.",
+      "step3": "PDF로, DOCX로, EPUB로 또는 HTML로를 클릭하여 변환된 파일을 다운로드하세요.",
       "note": "Markdown을 추가하면 이 미리보기가 그에 맞게 업데이트됩니다."
     },
     "showFullPreview": "전체 미리보기",
@@ -113,7 +115,7 @@
     },
     {
       "question": "Markdown Free는 어떤 형식을 지원하나요?",
-      "answer": "입력: .md, .markdown, .txt 파일 (최대 1MB). 출력: PDF, DOCX (Word), HTML, TXT. GitHub Flavored Markdown을 지원합니다."
+      "answer": "입력: .md, .markdown, .txt 파일 (최대 1MB). 출력: PDF, DOCX (Word), EPUB, HTML, TXT. GitHub Flavored Markdown을 지원합니다."
     },
     {
       "question": "변환은 안전한가요?",
@@ -159,9 +161,9 @@
   },
   "faqPage": {
     "title": "자주 묻는 질문 | Markdown Free",
-    "description": "Markdown Free에 대한 일반적인 질문: Markdown을 PDF, DOCX, HTML로 변환하는 방법. 무료인가요? 안전한가요? 파일 형식, 개인정보 보호 등.",
+    "description": "Markdown Free에 대한 일반적인 질문: Markdown을 PDF, DOCX, EPUB로 변환하는 방법. 무료인가요? 안전한가요? 파일 형식, 개인정보 보호 등.",
     "heading": "자주 묻는 질문",
-    "subtitle": "Markdown Free로 Markdown을 PDF, DOCX, HTML, TXT로 변환하는 방법에 대한 모든 정보.",
+    "subtitle": "Markdown Free로 Markdown을 PDF, DOCX, EPUB로 변환하는 방법에 대한 모든 정보.",
     "home": "홈",
     "faq": "FAQ",
     "ctaTitle": "마크다운을 변환할 준비가 되셨나요?",
