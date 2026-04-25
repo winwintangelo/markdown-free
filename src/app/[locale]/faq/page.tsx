@@ -166,7 +166,7 @@ export default async function LocaleFAQPage({
         <nav className="mb-6 text-sm text-slate-500">
           <Link
             href={getLocalizedPath("/", locale)}
-            className="hover:text-emerald-600"
+            className="hover:text-emerald-700"
           >
             {homeText}
           </Link>
@@ -205,7 +205,7 @@ export default async function LocaleFAQPage({
           <p className="mt-2 text-slate-600">{ctaSubtitle}</p>
           <Link
             href={getLocalizedPath("/", locale)}
-            className="mt-4 inline-block rounded-lg bg-emerald-600 px-6 py-3 font-medium text-white hover:bg-emerald-700 transition-colors"
+            className="mt-4 inline-block rounded-lg bg-emerald-700 px-6 py-3 font-medium text-white hover:bg-emerald-800 transition-colors"
           >
             {ctaButton}
           </Link>

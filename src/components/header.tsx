@@ -45,7 +45,7 @@ export function Header({ locale, dict = defaultDict as Dictionary }: HeaderProps
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         {/* Logo */}
         <Link href={pathPrefix || "/"} className="flex items-center gap-2" onClick={() => handleNavClick("home")}>
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-500 text-white font-semibold text-sm">
+          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-700 text-white font-semibold text-sm">
             md
           </div>
           <span className="text-base font-semibold tracking-tight">

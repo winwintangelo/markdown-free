@@ -170,13 +170,13 @@ export default function MarkdownToEpubPage() {
         <section className="mb-12 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="mb-3 text-lg font-semibold text-slate-900">Related Tools</h2>
           <div className="flex flex-wrap gap-3">
-            <Link href="/" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+            <Link href="/" className="text-emerald-700 hover:text-emerald-800 hover:underline">
               Markdown to PDF
             </Link>
-            <Link href="/markdown-to-docx" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+            <Link href="/markdown-to-docx" className="text-emerald-700 hover:text-emerald-800 hover:underline">
               Markdown to DOCX
             </Link>
-            <Link href="/readme-to-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+            <Link href="/readme-to-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
               README to PDF
             </Link>
           </div>

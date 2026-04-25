@@ -82,50 +82,50 @@ export default async function MarkdownZhuanhuanqiBijiaoPage({
             <tbody>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">完全免费</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">每日限制</td>
                 <td className="px-4 py-3 text-center text-slate-500">每日限制</td>
                 <td className="px-4 py-3 text-center text-slate-500">仅桌面版</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">无需注册</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">隐私保护（不存储文件）</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">临时存储</td>
                 <td className="px-4 py-3 text-center text-slate-500">云端存储</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓（本地）</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓（本地）</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">实时预览</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">GitHub Flavored Markdown</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">部分支持</td>
                 <td className="px-4 py-3 text-center text-slate-500">部分支持</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">HTML/TXT导出</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-slate-500">仅PDF</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">中文界面</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
@@ -191,7 +191,7 @@ export default async function MarkdownZhuanhuanqiBijiaoPage({
           </p>
           <Link
             href="/zh-Hans"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             试用Markdown Free
             <span aria-hidden="true">→</span>
@@ -203,17 +203,17 @@ export default async function MarkdownZhuanhuanqiBijiaoPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">相关页面</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/zh-Hans/markdown-pdf-zhuanhuan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hans/markdown-pdf-zhuanhuan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown转PDF - 免费在线工具
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hans/markdown-pdf-wuxu-zhuce" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hans/markdown-pdf-wuxu-zhuce" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 无需注册的Markdown转PDF
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hans/readme-pdf-zhuanhuan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hans/readme-pdf-zhuanhuan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 README.md转PDF
               </Link>
             </li>

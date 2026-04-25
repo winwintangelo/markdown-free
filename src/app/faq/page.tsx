@@ -125,7 +125,7 @@ export default function FAQPage() {
       <main className="mx-auto max-w-4xl px-4 pb-16 pt-10">
         {/* Breadcrumb */}
         <nav className="mb-6 text-sm text-slate-500">
-          <Link href="/" className="hover:text-emerald-600">
+          <Link href="/" className="hover:text-emerald-700">
             Home
           </Link>
           <span className="mx-2">›</span>
@@ -170,7 +170,7 @@ export default function FAQPage() {
           </p>
           <Link
             href="/"
-            className="mt-4 inline-block rounded-lg bg-emerald-600 px-6 py-3 font-medium text-white hover:bg-emerald-700 transition-colors"
+            className="mt-4 inline-block rounded-lg bg-emerald-700 px-6 py-3 font-medium text-white hover:bg-emerald-800 transition-colors"
           >
             Start Converting
           </Link>

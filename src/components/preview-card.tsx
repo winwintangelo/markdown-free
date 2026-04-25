@@ -163,7 +163,7 @@ export function PreviewCard({ locale: _locale, dict = defaultDict as unknown as 
             // Code inside pre blocks (ensure proper contrast)
             "[&_pre_code]:bg-transparent [&_pre_code]:text-slate-50 [&_pre_code]:p-0",
             // Links
-            "prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline",
+            "prose-a:text-emerald-700 prose-a:no-underline hover:prose-a:underline",
             // Tables
             "prose-table:border prose-table:border-slate-200",
             "prose-th:bg-slate-50 prose-th:border prose-th:border-slate-200 prose-th:px-3 prose-th:py-2",
@@ -184,7 +184,7 @@ export function PreviewCard({ locale: _locale, dict = defaultDict as unknown as 
           type="button"
           onClick={() => setIsPreviewExpanded(!isPreviewExpanded)}
           data-testid="preview-expand-toggle"
-          className="flex w-full items-center justify-center gap-1.5 border-t border-slate-100 bg-slate-50/50 px-4 py-2 text-xs font-semibold text-emerald-600 transition hover:bg-emerald-50"
+          className="flex w-full items-center justify-center gap-1.5 border-t border-slate-100 bg-slate-50/50 px-4 py-2 text-xs font-semibold text-emerald-700 transition hover:bg-emerald-50"
         >
           <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", isPreviewExpanded && "rotate-180")} />
           {isPreviewExpanded

@@ -47,7 +47,7 @@ export default function NoWatermarkPage() {
           <div className="not-prose my-8">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
             >
               Convert Without Watermark
               <span aria-hidden="true">→</span>
@@ -76,34 +76,34 @@ export default function NoWatermarkPage() {
               <thead className="bg-slate-50">
                 <tr>
                   <th className="px-4 py-3 text-left font-semibold text-slate-700">Feature</th>
-                  <th className="px-4 py-3 text-center font-semibold text-emerald-600">Markdown Free</th>
+                  <th className="px-4 py-3 text-center font-semibold text-emerald-700">Markdown Free</th>
                   <th className="px-4 py-3 text-center font-semibold text-slate-500">Others (Free Tier)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 bg-white">
                 <tr>
                   <td className="px-4 py-3">No watermark</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                  <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                   <td className="px-4 py-3 text-center text-red-500">✗</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3">No page limits</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                  <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                   <td className="px-4 py-3 text-center text-red-500">3-5/day</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3">No account required</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                  <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                   <td className="px-4 py-3 text-center text-red-500">Email required</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3">No upsell prompts</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                  <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                   <td className="px-4 py-3 text-center text-red-500">✗</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3">DOCX export</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                  <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                   <td className="px-4 py-3 text-center text-red-500">Premium</td>
                 </tr>
               </tbody>
@@ -170,7 +170,7 @@ export default function NoWatermarkPage() {
             </p>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
             >
               Try It Free — Forever
               <span aria-hidden="true">→</span>
@@ -199,7 +199,7 @@ export default function NoWatermarkPage() {
               <li>
                 <Link
                   href="/"
-                  className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   Markdown to PDF — Free Converter
                 </Link>
@@ -207,7 +207,7 @@ export default function NoWatermarkPage() {
               <li>
                 <Link
                   href="/markdown-to-docx"
-                  className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   Markdown to Word (DOCX)
                 </Link>
@@ -215,7 +215,7 @@ export default function NoWatermarkPage() {
               <li>
                 <Link
                   href="/github-readme-to-pdf"
-                  className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   GitHub README to PDF
                 </Link>

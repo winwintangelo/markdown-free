@@ -83,50 +83,50 @@ export default async function ComparacionConvertidoresPage({
             <tbody>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">100% Gratis</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">Límites diarios</td>
                 <td className="px-4 py-3 text-center text-slate-500">Límites diarios</td>
                 <td className="px-4 py-3 text-center text-slate-500">Solo escritorio</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">Sin Registro</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">Privacidad (sin archivos guardados)</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">Archivos guardados temp.</td>
                 <td className="px-4 py-3 text-center text-slate-500">Cloud storage</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓ (local)</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓ (local)</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">Vista Previa en Vivo</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">GitHub Flavored Markdown</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">Parcial</td>
                 <td className="px-4 py-3 text-center text-slate-500">Parcial</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">Export HTML/TXT</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-slate-500">Solo PDF</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">Interfaz en Español</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
@@ -195,7 +195,7 @@ export default async function ComparacionConvertidoresPage({
           </p>
           <Link
             href="/es"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Prueba Markdown Free
             <span aria-hidden="true">→</span>
@@ -207,17 +207,17 @@ export default async function ComparacionConvertidoresPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">Recursos Relacionados</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/es/convertir-markdown-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/es/convertir-markdown-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Convertir Markdown a PDF Gratis
               </Link>
             </li>
             <li>
-              <Link href="/es/markdown-pdf-sin-registro" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/es/markdown-pdf-sin-registro" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown a PDF Sin Registro
               </Link>
             </li>
             <li>
-              <Link href="/es/convertir-readme-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/es/convertir-readme-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Convertir README.md a PDF
               </Link>
             </li>

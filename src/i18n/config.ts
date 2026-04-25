@@ -4,7 +4,7 @@
  * Supported locales and default settings for multi-language support.
  */
 
-export const locales = ["en", "it", "es", "ja", "ko", "zh-Hans", "zh-Hant", "id", "vi"] as const;
+export const locales = ["en", "it", "es", "ja", "ko", "zh-Hans", "zh-Hant", "id", "vi", "hi"] as const;
 export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = "en";
@@ -19,6 +19,7 @@ export const localeNames: Record<Locale, string> = {
   "zh-Hant": "繁體中文",
   id: "Bahasa Indonesia",
   vi: "Tiếng Việt",
+  hi: "हिन्दी",
 };
 
 // Locale metadata for SEO
@@ -36,6 +37,7 @@ export const localeMetadata: Record<Locale, {
   "zh-Hant": { hreflang: "zh-Hant", ogLocale: "zh_TW", htmlLang: "zh-Hant" },
   id: { hreflang: "id", ogLocale: "id_ID", htmlLang: "id" },
   vi: { hreflang: "vi", ogLocale: "vi_VN", htmlLang: "vi" },
+  hi: { hreflang: "hi", ogLocale: "hi_IN", htmlLang: "hi" },
 };
 
 /**

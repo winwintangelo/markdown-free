@@ -71,7 +71,7 @@ export default async function MarkdownPdfZhuanhuanTwPage({
         <div className="not-prose my-8">
           <Link
             href="/zh-Hant"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             立即免費轉換
             <span aria-hidden="true">→</span>
@@ -152,7 +152,7 @@ export default async function MarkdownPdfZhuanhuanTwPage({
           </p>
           <Link
             href="/zh-Hant"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             免費試用
             <span aria-hidden="true">→</span>
@@ -164,17 +164,17 @@ export default async function MarkdownPdfZhuanhuanTwPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">相關頁面</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/zh-Hant/markdown-pdf-mianzhuce" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/markdown-pdf-mianzhuce" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 免註冊Markdown轉PDF
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hant/readme-pdf-zhuanhuan-tw" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/readme-pdf-zhuanhuan-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 README.md轉PDF
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hant/markdown-zhuanhuanqi-bijiao-tw" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/markdown-zhuanhuanqi-bijiao-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown轉換器比較
               </Link>
             </li>

@@ -47,7 +47,7 @@ export default function ReadmeToPdfPage() {
         <div className="not-prose my-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Convert Your README
             <span aria-hidden="true">→</span>
@@ -178,7 +178,7 @@ MIT`}</pre>
           </p>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Try It Free — No Sign-up
             <span aria-hidden="true">→</span>
@@ -207,7 +207,7 @@ MIT`}</pre>
             <li>
               <Link
                 href="/"
-                className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                className="text-emerald-700 hover:text-emerald-800 hover:underline"
               >
                 Markdown to PDF — Free Online Converter
               </Link>
@@ -215,7 +215,7 @@ MIT`}</pre>
             <li>
               <Link
                 href="/about"
-                className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                className="text-emerald-700 hover:text-emerald-800 hover:underline"
               >
                 About Markdown Free
               </Link>

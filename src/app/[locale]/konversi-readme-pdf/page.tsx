@@ -71,7 +71,7 @@ export default async function KonversiReadmePdfPage({
         <div className="not-prose my-8">
           <Link
             href="/id"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Konversi README
             <span aria-hidden="true">→</span>
@@ -189,7 +189,7 @@ MIT`}</pre>
           </p>
           <Link
             href="/id"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Coba Gratis Sekarang
             <span aria-hidden="true">→</span>
@@ -201,17 +201,17 @@ MIT`}</pre>
           <h2 className="mb-4 text-lg font-semibold text-slate-700">Halaman Terkait</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/id/konversi-markdown-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/id/konversi-markdown-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Konversi Markdown ke PDF - Gratis
               </Link>
             </li>
             <li>
-              <Link href="/id/markdown-pdf-tanpa-daftar" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/id/markdown-pdf-tanpa-daftar" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown ke PDF Tanpa Daftar
               </Link>
             </li>
             <li>
-              <Link href="/id/perbandingan-konverter-markdown" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/id/perbandingan-konverter-markdown" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Perbandingan Konverter Markdown
               </Link>
             </li>

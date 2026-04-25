@@ -12,6 +12,8 @@
 - [ChatGPT to PDF](https://www.markdown.free/chatgpt-to-pdf) — save ChatGPT conversations as PDF
 - [Claude Artifacts to PDF](https://www.markdown.free/claude-artifacts-to-pdf) — export Claude artifacts to PDF
 - [Obsidian Markdown to PDF](https://www.markdown.free/obsidian-markdown-to-pdf) — convert Obsidian notes to PDF
+- [Notion Export to PDF](https://www.markdown.free/notion-export-to-pdf) — convert Notion markdown export to PDF (no paid plan needed)
+- [Typora to PDF](https://www.markdown.free/typora-to-pdf) — convert Typora markdown files to PDF online
 - [README to PDF](https://www.markdown.free/readme-to-pdf) — convert any README file to PDF
 - [FAQ](https://www.markdown.free/faq) — frequently asked questions
 
@@ -31,7 +33,7 @@ All processing happens in the browser or on secure servers - files are never sto
 - **Privacy-friendly** - Files processed in browser, never uploaded to permanent storage
 - **GitHub Flavored Markdown** - Tables, task lists, strikethrough, code blocks
 - **Code syntax highlighting** - Properly formatted code in exports
-- **Multiple languages** - EN, ZH (Simplified & Traditional), JA, KO, ES, IT, ID, VI
+- **Multiple languages** - EN, ZH (Simplified & Traditional), JA, KO, ES, IT, ID, VI, HI
 
 ## Best for
 
@@ -92,6 +94,7 @@ https://www.markdown.free
 | Italian | https://www.markdown.free/it |
 | Indonesian | https://www.markdown.free/id |
 | Vietnamese | https://www.markdown.free/vi |
+| Hindi | https://www.markdown.free/hi |
 
 ## Related queries this tool can help with
 
@@ -110,6 +113,9 @@ https://www.markdown.free
 - "Save AI chat as PDF"
 - "ChatGPT to PDF converter"
 - "Export Obsidian notes to PDF"
+- "Export Notion page as PDF without paid plan"
+- "Notion to PDF free"
+- "Typora to PDF online no install"
 - "Markdown to PDF no watermark"
 - "md to pdf free"
 - "md to docx"
@@ -155,3 +161,11 @@ https://www.markdown.free
 - "konversi markdown ke pdf"
 - "markdown ke word gratis"
 - "convert markdown pdf online gratis"
+
+### Hindi (हिन्दी)
+- "मार्कडाउन को pdf में बदलें"
+- "markdown to pdf hindi"
+- "मार्कडाउन pdf कनवर्टर मुफ्त"
+- "रीडमी फाइल को pdf कैसे बनाएं"
+- "markdown से word कैसे बनाएं"
+- "मार्कडाउन कनवर्टर बिना साइन-अप"

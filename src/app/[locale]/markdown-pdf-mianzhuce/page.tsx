@@ -71,7 +71,7 @@ export default async function MarkdownPdfMianzhucePage({
         <div className="not-prose my-8">
           <Link
             href="/zh-Hant"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             立即轉換 — 無需登入
             <span aria-hidden="true">→</span>
@@ -108,23 +108,23 @@ export default async function MarkdownPdfMianzhucePage({
         <div className="not-prose my-6 rounded-xl border border-slate-200 bg-slate-50 p-6">
           <ul className="space-y-2 text-slate-700">
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>無需註冊帳戶</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>沒有追蹤Cookie</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>檔案不會被儲存</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>HTTPS加密連線</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>注重隱私的分析工具（Umami）</span>
             </li>
           </ul>
@@ -163,7 +163,7 @@ export default async function MarkdownPdfMianzhucePage({
           </p>
           <Link
             href="/zh-Hant"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             立即開始
             <span aria-hidden="true">→</span>
@@ -175,17 +175,17 @@ export default async function MarkdownPdfMianzhucePage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">相關頁面</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/zh-Hant/markdown-pdf-zhuanhuan-tw" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/markdown-pdf-zhuanhuan-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown轉PDF - 免費線上工具
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hant/readme-pdf-zhuanhuan-tw" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/readme-pdf-zhuanhuan-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 README.md轉PDF
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hant/markdown-zhuanhuanqi-bijiao-tw" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/markdown-zhuanhuanqi-bijiao-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown轉換器比較
               </Link>
             </li>

@@ -71,7 +71,7 @@ export default async function MarkdownPdfKhongDangKyPage({
         <div className="not-prose my-8">
           <Link
             href="/vi"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Chuyển đổi ngay — Không cần đăng nhập
             <span aria-hidden="true">→</span>
@@ -109,23 +109,23 @@ export default async function MarkdownPdfKhongDangKyPage({
         <div className="not-prose my-6 rounded-xl border border-slate-200 bg-slate-50 p-6">
           <ul className="space-y-2 text-slate-700">
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>Không cần đăng ký tài khoản</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>Không có cookie theo dõi</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>File không được lưu trữ</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>Kết nối HTTPS được mã hóa</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>Phân tích tôn trọng quyền riêng tư (Umami)</span>
             </li>
           </ul>
@@ -164,7 +164,7 @@ export default async function MarkdownPdfKhongDangKyPage({
           </p>
           <Link
             href="/vi"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Bắt đầu ngay
             <span aria-hidden="true">→</span>
@@ -176,17 +176,17 @@ export default async function MarkdownPdfKhongDangKyPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">Trang liên quan</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/vi/chuyen-doi-markdown-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/vi/chuyen-doi-markdown-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Chuyển đổi Markdown sang PDF Miễn phí
               </Link>
             </li>
             <li>
-              <Link href="/vi/chuyen-doi-readme-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/vi/chuyen-doi-readme-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Chuyển đổi README.md sang PDF
               </Link>
             </li>
             <li>
-              <Link href="/vi/so-sanh-cong-cu-markdown" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/vi/so-sanh-cong-cu-markdown" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 So sánh công cụ chuyển đổi Markdown
               </Link>
             </li>

@@ -71,7 +71,7 @@ export default async function ChuyenDoiMarkdownPdfPage({
         <div className="not-prose my-8">
           <Link
             href="/vi"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Chuyển đổi ngay - Miễn phí
             <span aria-hidden="true">→</span>
@@ -151,7 +151,7 @@ export default async function ChuyenDoiMarkdownPdfPage({
           </p>
           <Link
             href="/vi"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Dùng thử miễn phí
             <span aria-hidden="true">→</span>
@@ -163,17 +163,17 @@ export default async function ChuyenDoiMarkdownPdfPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">Trang liên quan</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/vi/markdown-pdf-khong-dang-ky" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/vi/markdown-pdf-khong-dang-ky" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown sang PDF không cần đăng ký
               </Link>
             </li>
             <li>
-              <Link href="/vi/chuyen-doi-readme-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/vi/chuyen-doi-readme-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Chuyển đổi README.md sang PDF
               </Link>
             </li>
             <li>
-              <Link href="/vi/so-sanh-cong-cu-markdown" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/vi/so-sanh-cong-cu-markdown" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 So sánh công cụ chuyển đổi Markdown
               </Link>
             </li>

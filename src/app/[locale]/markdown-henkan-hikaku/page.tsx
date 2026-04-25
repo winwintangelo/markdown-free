@@ -82,50 +82,50 @@ export default async function MarkdownHenkanHikakuPage({
             <tbody>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">完全無料</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">日数制限あり</td>
                 <td className="px-4 py-3 text-center text-slate-500">日数制限あり</td>
                 <td className="px-4 py-3 text-center text-slate-500">デスクトップのみ</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">登録不要</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">プライバシー（ファイル非保存）</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">一時保存</td>
                 <td className="px-4 py-3 text-center text-slate-500">クラウド保存</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓（ローカル）</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓（ローカル）</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">リアルタイムプレビュー</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">GitHub Flavored Markdown</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">一部対応</td>
                 <td className="px-4 py-3 text-center text-slate-500">一部対応</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">HTML/TXT出力</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-slate-500">PDFのみ</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">日本語インターフェース</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
@@ -194,7 +194,7 @@ export default async function MarkdownHenkanHikakuPage({
           </p>
           <Link
             href="/ja"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Markdown Freeを試す
             <span aria-hidden="true">→</span>
@@ -206,17 +206,17 @@ export default async function MarkdownHenkanHikakuPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">関連ページ</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/ja/markdown-pdf-henkan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ja/markdown-pdf-henkan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown PDF 変換 - 無料・登録不要
               </Link>
             </li>
             <li>
-              <Link href="/ja/markdown-pdf-touroku-fuyou" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ja/markdown-pdf-touroku-fuyou" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 登録不要のMarkdown PDF変換
               </Link>
             </li>
             <li>
-              <Link href="/ja/readme-pdf-henkan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ja/readme-pdf-henkan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 README.md PDF 変換
               </Link>
             </li>

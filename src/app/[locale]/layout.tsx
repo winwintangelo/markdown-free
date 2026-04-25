@@ -49,6 +49,7 @@ export async function generateMetadata({
         "zh-Hant": "/zh-Hant",
         "id": "/id",
         "vi": "/vi",
+        "hi": "/hi",
         "x-default": "/",
       },
     },

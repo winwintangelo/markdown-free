@@ -73,7 +73,7 @@ export default async function JishuBijiPdfPage({
         <div className="not-prose my-8">
           <Link
             href="/zh-Hant"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             轉換技術筆記
             <span aria-hidden="true">→</span>
@@ -195,7 +195,7 @@ def binary_search(arr, target):
           </p>
           <Link
             href="/zh-Hant"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             立即免費試用
             <span aria-hidden="true">→</span>
@@ -220,17 +220,17 @@ def binary_search(arr, target):
           <h2 className="mb-4 text-lg font-semibold text-slate-700">相關頁面</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/zh-Hant/github-wenjiian-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/github-wenjiian-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 GitHub文件轉PDF
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hant/readme-pdf-zhuanhuan-tw" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/readme-pdf-zhuanhuan-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 README.md轉PDF
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hant/markdown-pdf-zhuanhuan-tw" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/markdown-pdf-zhuanhuan-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown轉PDF - 免費線上工具
               </Link>
             </li>

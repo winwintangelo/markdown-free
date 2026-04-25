@@ -17,6 +17,7 @@ import zhHans from "./dictionaries/zh-Hans.json";
 import zhHant from "./dictionaries/zh-Hant.json";
 import id from "./dictionaries/id.json";
 import vi from "./dictionaries/vi.json";
+import hi from "./dictionaries/hi.json";
 
 export type Dictionary = typeof en;
 
@@ -30,6 +31,7 @@ const dictionaries: Record<Locale, Dictionary> = {
   "zh-Hant": zhHant,
   id,
   vi,
+  hi,
 };
 
 /**

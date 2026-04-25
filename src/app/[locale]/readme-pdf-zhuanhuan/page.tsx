@@ -71,7 +71,7 @@ export default async function ReadmePdfZhuanhuanPage({
         <div className="not-prose my-8">
           <Link
             href="/zh-Hans"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             转换README
             <span aria-hidden="true">→</span>
@@ -189,7 +189,7 @@ MIT`}</pre>
           </p>
           <Link
             href="/zh-Hans"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             立即免费试用
             <span aria-hidden="true">→</span>
@@ -201,17 +201,17 @@ MIT`}</pre>
           <h2 className="mb-4 text-lg font-semibold text-slate-700">相关页面</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/zh-Hans/markdown-pdf-zhuanhuan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hans/markdown-pdf-zhuanhuan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown转PDF - 免费在线工具
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hans/markdown-pdf-wuxu-zhuce" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hans/markdown-pdf-wuxu-zhuce" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 无需注册的Markdown转PDF
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hans/markdown-zhuanhuanqi-bijiao" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hans/markdown-zhuanhuanqi-bijiao" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown转换器对比
               </Link>
             </li>

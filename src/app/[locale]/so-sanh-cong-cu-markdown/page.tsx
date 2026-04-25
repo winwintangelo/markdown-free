@@ -82,49 +82,49 @@ export default async function SoSanhCongCuMarkdownPage({
             <tbody>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">Miễn phí hoàn toàn</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">Giới hạn hàng ngày</td>
                 <td className="px-4 py-3 text-center text-slate-500">Giới hạn hàng ngày</td>
                 <td className="px-4 py-3 text-center text-slate-500">Chỉ desktop</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">Không cần đăng ký</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">Riêng tư (Không lưu file)</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">Lưu tạm thời</td>
                 <td className="px-4 py-3 text-center text-slate-500">Cloud storage</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓ (local)</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓ (local)</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">Xem trước thời gian thực</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">GitHub Flavored Markdown</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">Một phần</td>
                 <td className="px-4 py-3 text-center text-slate-500">Một phần</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">Xuất HTML/TXT</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-slate-500">Chỉ PDF</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">Giao diện tiếng Việt</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
@@ -194,7 +194,7 @@ export default async function SoSanhCongCuMarkdownPage({
           </p>
           <Link
             href="/vi"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Thử Markdown Free
             <span aria-hidden="true">→</span>
@@ -206,17 +206,17 @@ export default async function SoSanhCongCuMarkdownPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">Trang liên quan</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/vi/chuyen-doi-markdown-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/vi/chuyen-doi-markdown-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Chuyển đổi Markdown sang PDF Miễn phí
               </Link>
             </li>
             <li>
-              <Link href="/vi/markdown-pdf-khong-dang-ky" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/vi/markdown-pdf-khong-dang-ky" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown sang PDF không cần đăng ký
               </Link>
             </li>
             <li>
-              <Link href="/vi/chuyen-doi-readme-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/vi/chuyen-doi-readme-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Chuyển đổi README.md sang PDF
               </Link>
             </li>

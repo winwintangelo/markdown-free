@@ -50,10 +50,19 @@ const nextConfig = {
 
     // Add HSTS and CSP only in production (avoid issues with HMR in dev)
     if (process.env.NODE_ENV === "production") {
+      // HSTS preload is opt-in. Only enable after submitting the domain at
+      // https://hstspreload.org and confirming inclusion. Once enabled, browsers
+      // will refuse HTTP for ~1 year regardless of header changes — there's no
+      // quick rollback. Set HSTS_PRELOAD_ENABLED=true to opt in.
+      const hstsValue =
+        process.env.HSTS_PRELOAD_ENABLED === "true"
+          ? "max-age=31536000; includeSubDomains; preload"
+          : "max-age=31536000; includeSubDomains";
+
       securityHeaders.push(
         {
           key: "Strict-Transport-Security",
-          value: "max-age=31536000; includeSubDomains",
+          value: hstsValue,
         },
         {
           key: "Content-Security-Policy",

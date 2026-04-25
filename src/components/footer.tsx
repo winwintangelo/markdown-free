@@ -29,6 +29,7 @@ const localeLinks = [
   { code: "it", label: "Italiano", href: "/it" },
   { code: "id", label: "Bahasa", href: "/id" },
   { code: "vi", label: "Tiếng Việt", href: "/vi" },
+  { code: "hi", label: "हिन्दी", href: "/hi" },
 ] as const;
 
 export function Footer({ locale, dict = defaultDict as Dictionary }: FooterProps) {
@@ -38,14 +39,14 @@ export function Footer({ locale, dict = defaultDict as Dictionary }: FooterProps
   const pathPrefix = locale && locale !== "en" ? `/${locale}` : "";
 
   return (
-    <footer ref={sectionRef} className="mt-4 flex flex-col items-center gap-2 text-[11px] text-slate-400">
+    <footer ref={sectionRef} className="mt-4 flex flex-col items-center gap-2 text-[11px] text-slate-500">
       {/* Language links for SEO crawlability */}
       <nav aria-label="Language" className="flex flex-wrap justify-center gap-x-2 gap-y-1">
         {localeLinks.map((l) => (
           <Link
             key={l.code}
             href={l.href}
-            className={`transition-colors ${l.code === (locale || "en") ? "text-slate-500" : "hover:text-slate-600"}`}
+            className={`transition-colors ${l.code === (locale || "en") ? "text-slate-700 font-medium" : "hover:text-slate-700"}`}
             hrefLang={l.code}
           >
             {l.label}

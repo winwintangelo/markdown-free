@@ -71,7 +71,7 @@ export default async function KonversiMarkdownPdfPage({
         <div className="not-prose my-8">
           <Link
             href="/id"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Konversi Sekarang - Gratis
             <span aria-hidden="true">→</span>
@@ -151,7 +151,7 @@ export default async function KonversiMarkdownPdfPage({
           </p>
           <Link
             href="/id"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Coba Gratis
             <span aria-hidden="true">→</span>
@@ -163,17 +163,17 @@ export default async function KonversiMarkdownPdfPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">Halaman Terkait</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/id/markdown-pdf-tanpa-daftar" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/id/markdown-pdf-tanpa-daftar" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown ke PDF Tanpa Daftar
               </Link>
             </li>
             <li>
-              <Link href="/id/konversi-readme-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/id/konversi-readme-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Konversi README.md ke PDF
               </Link>
             </li>
             <li>
-              <Link href="/id/perbandingan-konverter-markdown" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/id/perbandingan-konverter-markdown" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Perbandingan Konverter Markdown
               </Link>
             </li>

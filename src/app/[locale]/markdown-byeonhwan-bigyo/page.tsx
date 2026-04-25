@@ -82,50 +82,50 @@ export default async function MarkdownByeonhwanBigyoPage({
             <tbody>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">완전 무료</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">일일 제한</td>
                 <td className="px-4 py-3 text-center text-slate-500">일일 제한</td>
                 <td className="px-4 py-3 text-center text-slate-500">데스크톱만</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">회원가입 불필요</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">개인정보 보호 (파일 미저장)</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">임시 저장</td>
                 <td className="px-4 py-3 text-center text-slate-500">클라우드 저장</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓ (로컬)</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓ (로컬)</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">실시간 미리보기</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">GitHub Flavored Markdown</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">일부 지원</td>
                 <td className="px-4 py-3 text-center text-slate-500">일부 지원</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">HTML/TXT 출력</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-slate-500">PDF만</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">한국어 인터페이스</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
@@ -194,7 +194,7 @@ export default async function MarkdownByeonhwanBigyoPage({
           </p>
           <Link
             href="/ko"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Markdown Free 사용해 보기
             <span aria-hidden="true">→</span>
@@ -206,17 +206,17 @@ export default async function MarkdownByeonhwanBigyoPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">관련 페이지</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/ko/markdown-pdf-byeonhwan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ko/markdown-pdf-byeonhwan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown PDF 변환 - 무료, 회원가입 불필요
               </Link>
             </li>
             <li>
-              <Link href="/ko/markdown-pdf-hoewon-gaibeop-eobs-i" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ko/markdown-pdf-hoewon-gaibeop-eobs-i" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 회원가입 없이 Markdown PDF 변환
               </Link>
             </li>
             <li>
-              <Link href="/ko/readme-pdf-byeonhwan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ko/readme-pdf-byeonhwan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 README.md PDF 변환
               </Link>
             </li>

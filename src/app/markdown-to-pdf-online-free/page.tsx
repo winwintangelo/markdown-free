@@ -48,7 +48,7 @@ export default function OnlineFreePage() {
           <div className="not-prose my-8">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
             >
               Start Converting Now
               <span aria-hidden="true">→</span>
@@ -122,34 +122,34 @@ export default function OnlineFreePage() {
               <thead className="bg-slate-50">
                 <tr>
                   <th className="px-4 py-3 text-left font-semibold text-slate-700">Aspect</th>
-                  <th className="px-4 py-3 text-center font-semibold text-emerald-600">Online (Markdown Free)</th>
+                  <th className="px-4 py-3 text-center font-semibold text-emerald-700">Online (Markdown Free)</th>
                   <th className="px-4 py-3 text-center font-semibold text-slate-500">Desktop (Pandoc, etc.)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 bg-white">
                 <tr>
                   <td className="px-4 py-3">Setup time</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">0 seconds</td>
+                  <td className="px-4 py-3 text-center text-emerald-700">0 seconds</td>
                   <td className="px-4 py-3 text-center text-slate-500">10-30 min</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3">Works on Chromebook</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                  <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                   <td className="px-4 py-3 text-center text-red-500">✗</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3">Requires command line</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">No</td>
+                  <td className="px-4 py-3 text-center text-emerald-700">No</td>
                   <td className="px-4 py-3 text-center text-slate-500">Usually</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3">Live preview</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                  <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                   <td className="px-4 py-3 text-center text-slate-500">Varies</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-3">Best for</td>
-                  <td className="px-4 py-3 text-center text-emerald-600">Quick conversions</td>
+                  <td className="px-4 py-3 text-center text-emerald-700">Quick conversions</td>
                   <td className="px-4 py-3 text-center text-slate-500">Batch/automation</td>
                 </tr>
               </tbody>
@@ -194,7 +194,7 @@ export default function OnlineFreePage() {
             </p>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
             >
               Convert Markdown to PDF Now
               <span aria-hidden="true">→</span>
@@ -223,7 +223,7 @@ export default function OnlineFreePage() {
               <li>
                 <Link
                   href="/"
-                  className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   Markdown to PDF — Converter Home
                 </Link>
@@ -231,7 +231,7 @@ export default function OnlineFreePage() {
               <li>
                 <Link
                   href="/markdown-to-docx"
-                  className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   Markdown to Word (DOCX)
                 </Link>
@@ -239,7 +239,7 @@ export default function OnlineFreePage() {
               <li>
                 <Link
                   href="/github-readme-to-pdf"
-                  className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   GitHub README to PDF
                 </Link>
@@ -247,7 +247,7 @@ export default function OnlineFreePage() {
               <li>
                 <Link
                   href="/faq"
-                  className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   Frequently Asked Questions
                 </Link>

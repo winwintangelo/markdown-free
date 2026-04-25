@@ -71,7 +71,7 @@ export default async function MarkdownPdfTourokufuyouPage({
         <div className="not-prose my-8">
           <Link
             href="/ja"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             今すぐ変換 — ログイン不要
             <span aria-hidden="true">→</span>
@@ -108,23 +108,23 @@ export default async function MarkdownPdfTourokufuyouPage({
         <div className="not-prose my-6 rounded-xl border border-slate-200 bg-slate-50 p-6">
           <ul className="space-y-2 text-slate-700">
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>アカウント登録不要</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>トラッキングCookieなし</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>ファイルは保存されません</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>HTTPS暗号化通信</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>プライバシー重視のアナリティクス（Umami）</span>
             </li>
           </ul>
@@ -163,7 +163,7 @@ export default async function MarkdownPdfTourokufuyouPage({
           </p>
           <Link
             href="/ja"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             今すぐ始める
             <span aria-hidden="true">→</span>
@@ -175,17 +175,17 @@ export default async function MarkdownPdfTourokufuyouPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">関連ページ</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/ja/markdown-pdf-henkan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ja/markdown-pdf-henkan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown PDF 変換 - 無料・登録不要
               </Link>
             </li>
             <li>
-              <Link href="/ja/readme-pdf-henkan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ja/readme-pdf-henkan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 README.md PDF 変換
               </Link>
             </li>
             <li>
-              <Link href="/ja/markdown-henkan-hikaku" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ja/markdown-henkan-hikaku" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdownコンバーター比較
               </Link>
             </li>

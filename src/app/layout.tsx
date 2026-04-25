@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import { RouteHistoryTracker } from "@/components/route-history-tracker";
 import "./globals.css";
 
 // Umami Analytics configuration (proxied via /ingest to bypass adblockers)
@@ -28,6 +29,7 @@ export const metadata: Metadata = {
       "zh-Hant": "/zh-Hant",
       "id": "/id",
       "vi": "/vi",
+      "hi": "/hi",
       "x-default": "/",
     },
   },
@@ -90,9 +92,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
+        <RouteHistoryTracker />
         {children}
-        {/* Vercel Web Analytics — debug disabled to suppress console logs in dev */}
-        <Analytics debug={false} />
+        {/* Vercel Web Analytics: only render on Vercel deploys.
+            Locally (`next start` outside Vercel) the /_vercel/insights/script.js
+            endpoint is not served, so the package logs a 404. */}
+        {process.env.NEXT_PUBLIC_VERCEL_ENV && <Analytics debug={false} />}
         {/* Umami Analytics - Privacy-friendly, cookieless, proxied via /ingest */}
         {umamiWebsiteId && (
           <Script

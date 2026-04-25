@@ -155,7 +155,7 @@ export function FeedbackModal({ isOpen, onClose, dict = defaultDict as unknown a
             {isSubmitted ? (
               /* Success State */
               <div className="flex flex-col items-center py-6 text-center">
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
                   <CheckCircle className="h-6 w-6" />
                 </div>
                 <h3 className="text-lg font-medium text-slate-900">
@@ -248,7 +248,7 @@ export function FeedbackModal({ isOpen, onClose, dict = defaultDict as unknown a
                       "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold shadow-sm transition",
                       isSubmitting || !feedback.trim()
                         ? "cursor-not-allowed bg-slate-200 text-slate-400"
-                        : "bg-emerald-600 text-white hover:bg-emerald-700"
+                        : "bg-emerald-700 text-white hover:bg-emerald-800"
                     )}
                   >
                     {isSubmitting ? (

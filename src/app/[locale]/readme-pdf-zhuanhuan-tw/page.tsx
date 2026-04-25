@@ -73,7 +73,7 @@ export default async function ReadmePdfZhuanhuanTwPage({
         <div className="not-prose my-8">
           <Link
             href="/zh-Hant"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             轉換README
             <span aria-hidden="true">→</span>
@@ -167,7 +167,7 @@ MIT`}</pre>
 
         {/* High-intent FAQ with exact search phrases */}
         <details className="group" open>
-          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-600">
+          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-700">
             如何把 .md 轉成 PDF？
           </summary>
           <p className="mt-2">
@@ -177,7 +177,7 @@ MIT`}</pre>
         </details>
 
         <details className="group mt-4">
-          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-600">
+          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-700">
             README.md 可以轉 PDF 嗎？
           </summary>
           <p className="mt-2">
@@ -188,7 +188,7 @@ MIT`}</pre>
         </details>
 
         <details className="group mt-4">
-          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-600">
+          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-700">
             檔案會被上傳或儲存嗎？
           </summary>
           <p className="mt-2">
@@ -199,7 +199,7 @@ MIT`}</pre>
         </details>
 
         <details className="group mt-4">
-          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-600">
+          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-700">
             README 中的圖片會被包含嗎？
           </summary>
           <p className="mt-2">
@@ -209,7 +209,7 @@ MIT`}</pre>
         </details>
 
         <details className="group mt-4">
-          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-600">
+          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-700">
             可以自訂 PDF 格式嗎？
           </summary>
           <p className="mt-2">
@@ -225,7 +225,7 @@ MIT`}</pre>
           </p>
           <Link
             href="/zh-Hant"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             立即免費試用
             <span aria-hidden="true">→</span>
@@ -237,17 +237,17 @@ MIT`}</pre>
           <h2 className="mb-4 text-lg font-semibold text-slate-700">相關頁面</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/zh-Hant/markdown-pdf-zhuanhuan-tw" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/markdown-pdf-zhuanhuan-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown轉PDF - 免費線上工具
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hant/markdown-pdf-mianzhuce" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/markdown-pdf-mianzhuce" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 免註冊Markdown轉PDF
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hant/markdown-zhuanhuanqi-bijiao-tw" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/markdown-zhuanhuanqi-bijiao-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown轉換器比較
               </Link>
             </li>

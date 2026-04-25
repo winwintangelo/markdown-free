@@ -300,9 +300,9 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
                 style={shakeButton ? {} : undefined}
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
-                  <Clipboard className="h-5 w-5 text-emerald-600" />
+                  <Clipboard className="h-5 w-5 text-emerald-700" />
                 </div>
-                <span className="text-[15px] font-semibold text-emerald-600">{t.clipboardButton}</span>
+                <span className="text-[15px] font-semibold text-emerald-700">{t.clipboardButton}</span>
                 <span className="text-[11px] text-slate-400">{t.clipboardHint}</span>
               </button>
               <div className="mt-2 flex items-center justify-center gap-3 text-[11px]">
@@ -328,7 +328,7 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
                   type="button"
                   onClick={handleSampleClick}
                   data-testid="mobile-try-sample"
-                  className="font-medium text-emerald-600 hover:underline"
+                  className="font-medium text-emerald-700 hover:underline"
                 >
                   {t.trySample}
                 </button>
@@ -352,7 +352,7 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
                 </button>
                 <span className="text-slate-200">or</span>
                 <button type="button" onClick={handleSampleClick} data-testid="mobile-try-sample"
-                  className="text-xs font-medium text-emerald-600 hover:underline">{t.trySample}</button>
+                  className="text-xs font-medium text-emerald-700 hover:underline">{t.trySample}</button>
               </div>
             </>
           )}
@@ -365,12 +365,12 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
           {/* Confirmation bar */}
           <div className="flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2.5">
             <div className="flex items-center gap-2">
-              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500">
+              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-700">
                 <Check className="h-3 w-3 text-white" strokeWidth={3} />
               </div>
               <span className="text-sm font-semibold text-emerald-800">{t.pasted}</span>
             </div>
-            <span className="text-xs font-medium text-emerald-600">
+            <span className="text-xs font-medium text-emerald-700">
               ~{pageCount} {pageCount === 1 ? t.page : t.pages}
             </span>
           </div>
@@ -380,7 +380,7 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
               type="button"
               onClick={() => setMobileState("editing")}
               data-testid="edit-text-link"
-              className="font-medium text-emerald-600 hover:underline"
+              className="font-medium text-emerald-700 hover:underline"
             >
               {t.editText}
             </button>
@@ -389,7 +389,7 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
               type="button"
               onClick={handlePasteAgain}
               data-testid="paste-again-link"
-              className="font-medium text-emerald-600 hover:underline"
+              className="font-medium text-emerald-700 hover:underline"
             >
               {t.pasteAgain}
             </button>
@@ -431,7 +431,7 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
                   type="button"
                   onClick={() => setMobileState("pasted")}
                   data-testid="done-editing-link"
-                  className="font-medium text-emerald-600 hover:underline"
+                  className="font-medium text-emerald-700 hover:underline"
                 >
                   {t.doneEditing}
                 </button>

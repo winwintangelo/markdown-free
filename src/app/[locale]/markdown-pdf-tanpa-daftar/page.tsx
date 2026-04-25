@@ -71,7 +71,7 @@ export default async function MarkdownPdfTanpaDaftarPage({
         <div className="not-prose my-8">
           <Link
             href="/id"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Konversi Sekarang — Tanpa Login
             <span aria-hidden="true">→</span>
@@ -109,23 +109,23 @@ export default async function MarkdownPdfTanpaDaftarPage({
         <div className="not-prose my-6 rounded-xl border border-slate-200 bg-slate-50 p-6">
           <ul className="space-y-2 text-slate-700">
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>Tidak perlu daftar akun</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>Tidak ada cookie pelacakan</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>File tidak disimpan</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>Koneksi HTTPS terenkripsi</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>Analytics yang menghormati privasi (Umami)</span>
             </li>
           </ul>
@@ -164,7 +164,7 @@ export default async function MarkdownPdfTanpaDaftarPage({
           </p>
           <Link
             href="/id"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Mulai Sekarang
             <span aria-hidden="true">→</span>
@@ -176,17 +176,17 @@ export default async function MarkdownPdfTanpaDaftarPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">Halaman Terkait</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/id/konversi-markdown-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/id/konversi-markdown-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Konversi Markdown ke PDF - Gratis
               </Link>
             </li>
             <li>
-              <Link href="/id/konversi-readme-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/id/konversi-readme-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Konversi README.md ke PDF
               </Link>
             </li>
             <li>
-              <Link href="/id/perbandingan-konverter-markdown" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/id/perbandingan-konverter-markdown" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Perbandingan Konverter Markdown
               </Link>
             </li>

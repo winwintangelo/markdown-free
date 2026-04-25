@@ -71,7 +71,7 @@ export default async function ReadmePdfByeonhwanPage({
         <div className="not-prose my-8">
           <Link
             href="/ko"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             README 변환하기
             <span aria-hidden="true">→</span>
@@ -192,7 +192,7 @@ MIT`}</pre>
           </p>
           <Link
             href="/ko"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             지금 무료로 시작
             <span aria-hidden="true">→</span>
@@ -204,17 +204,17 @@ MIT`}</pre>
           <h2 className="mb-4 text-lg font-semibold text-slate-700">관련 페이지</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/ko/markdown-pdf-byeonhwan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ko/markdown-pdf-byeonhwan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown PDF 변환 - 무료, 회원가입 불필요
               </Link>
             </li>
             <li>
-              <Link href="/ko/markdown-pdf-hoewon-gaibeop-eobs-i" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ko/markdown-pdf-hoewon-gaibeop-eobs-i" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 회원가입 없이 Markdown PDF 변환
               </Link>
             </li>
             <li>
-              <Link href="/ko/markdown-byeonhwan-bigyo" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ko/markdown-byeonhwan-bigyo" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown 변환기 비교
               </Link>
             </li>

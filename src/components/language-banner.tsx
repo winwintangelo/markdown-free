@@ -135,7 +135,7 @@ export function LanguageBanner({ currentLocale, dict }: LanguageBannerProps) {
         <button
           type="button"
           onClick={handleSwitch}
-          className="rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white transition hover:bg-emerald-700"
+          className="rounded-full bg-emerald-700 px-3 py-1 text-xs font-semibold text-white transition hover:bg-emerald-800"
         >
           {dict.languageBanner.switch}
         </button>

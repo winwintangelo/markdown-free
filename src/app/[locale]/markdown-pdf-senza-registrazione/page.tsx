@@ -73,7 +73,7 @@ export default async function MarkdownPdfSenzaRegistrazionePage({
         <div className="not-prose my-8">
           <Link
             href="/it"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Converti Ora — Nessun Login
             <span aria-hidden="true">→</span>
@@ -111,23 +111,23 @@ export default async function MarkdownPdfSenzaRegistrazionePage({
         <div className="not-prose my-6 rounded-xl border border-slate-200 bg-slate-50 p-6">
           <ul className="space-y-2 text-slate-700">
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>Nessun account richiesto</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>Nessun cookie di tracciamento</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>I file non vengono mai salvati</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>Connessione HTTPS crittografata</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>Analytics rispettoso della privacy (Umami)</span>
             </li>
           </ul>
@@ -166,7 +166,7 @@ export default async function MarkdownPdfSenzaRegistrazionePage({
           </p>
           <Link
             href="/it"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Inizia Subito
             <span aria-hidden="true">→</span>
@@ -178,17 +178,17 @@ export default async function MarkdownPdfSenzaRegistrazionePage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">Risorse Correlate</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/it/convertire-markdown-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/it/convertire-markdown-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Convertire Markdown in PDF Gratis
               </Link>
             </li>
             <li>
-              <Link href="/it/convertire-readme-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/it/convertire-readme-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Convertire README.md in PDF
               </Link>
             </li>
             <li>
-              <Link href="/it/confronto-convertitori-markdown" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/it/confronto-convertitori-markdown" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Confronto Convertitori Markdown
               </Link>
             </li>

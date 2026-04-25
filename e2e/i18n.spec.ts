@@ -650,6 +650,7 @@ test.describe("Markdown Free - Title & Meta Deduplication", () => {
     { path: "/zh-Hant", label: "Traditional Chinese homepage" },
     { path: "/id",      label: "Indonesian homepage" },
     { path: "/vi",      label: "Vietnamese homepage" },
+    { path: "/hi",      label: "Hindi homepage" },
   ];
 
   for (const { path, label } of localeHomepages) {
@@ -709,6 +710,8 @@ test.describe("Markdown Free - Title & Meta Deduplication", () => {
     { path: "/markdown-to-docx",               label: "Markdown to DOCX" },
     { path: "/readme-to-pdf",                  label: "README to PDF" },
     { path: "/obsidian-markdown-to-pdf",       label: "Obsidian Markdown to PDF" },
+    { path: "/notion-export-to-pdf",           label: "Notion Export to PDF" },
+    { path: "/typora-to-pdf",                  label: "Typora to PDF" },
     { path: "/markdown-to-pdf-online-free",    label: "Markdown to PDF online free" },
     { path: "/markdown-to-pdf-no-watermark",   label: "Markdown to PDF no watermark" },
     { path: "/it/convertire-markdown-pdf",     label: "Italian convert MD to PDF" },

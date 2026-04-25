@@ -152,15 +152,38 @@ function saveReport(name, data) {
 }
 
 // Main report functions
+// Read a stat value, supporting both flat numbers and {value, prev} shape.
+function readStat(field) {
+  if (field === undefined || field === null) return null;
+  if (typeof field === 'number') return field;
+  if (typeof field === 'object' && 'value' in field) return field.value;
+  return null;
+}
+
+// Format pageviews/visitors with comparison vs previous period when available.
+function formatWithDelta(current, prev) {
+  if (current === null || current === undefined) return 'N/A';
+  if (prev === null || prev === undefined || prev === 0) return String(current);
+  const delta = current - prev;
+  const pct = Math.round((delta / prev) * 100);
+  const sign = delta >= 0 ? '+' : '';
+  return `${current} (${sign}${pct}% vs prev ${prev})`;
+}
+
 async function getStats() {
   console.log('📈 Fetching stats...');
   try {
     const stats = await fetchUmami('/stats');
     saveReport('stats', stats);
-    console.log(`   ✅ Pageviews: ${stats.pageviews?.value || 'N/A'}`);
-    console.log(`   ✅ Visitors: ${stats.visitors?.value || 'N/A'}`);
-    console.log(`   ✅ Bounces: ${stats.bounces?.value || 'N/A'}`);
-    console.log(`   ✅ Total time: ${stats.totaltime?.value || 'N/A'}s`);
+    const prev = stats.comparison || {};
+    const pageviews = readStat(stats.pageviews);
+    const visitors = readStat(stats.visitors);
+    const bounces = readStat(stats.bounces);
+    const totaltime = readStat(stats.totaltime);
+    console.log(`   ✅ Pageviews: ${formatWithDelta(pageviews, readStat(prev.pageviews))}`);
+    console.log(`   ✅ Visitors: ${formatWithDelta(visitors, readStat(prev.visitors))}`);
+    console.log(`   ✅ Bounces: ${formatWithDelta(bounces, readStat(prev.bounces))}`);
+    console.log(`   ✅ Total time: ${totaltime !== null ? totaltime + 's' : 'N/A'}`);
     return stats;
   } catch (error) {
     console.error(`   ❌ Error: ${error.message}`);

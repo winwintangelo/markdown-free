@@ -71,7 +71,7 @@ export default async function MarkdownPdfNoSignupPage({
         <div className="not-prose my-8">
           <Link
             href="/ko"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             지금 바로 변환 — 로그인 불필요
             <span aria-hidden="true">→</span>
@@ -108,23 +108,23 @@ export default async function MarkdownPdfNoSignupPage({
         <div className="not-prose my-6 rounded-xl border border-slate-200 bg-slate-50 p-6">
           <ul className="space-y-2 text-slate-700">
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>회원가입 불필요</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>추적 쿠키 없음</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>파일 저장 안 함</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>HTTPS 암호화 연결</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-emerald-600">✓</span>
+              <span className="text-emerald-700">✓</span>
               <span>프라이버시 중심 분석 도구 (Umami)</span>
             </li>
           </ul>
@@ -163,7 +163,7 @@ export default async function MarkdownPdfNoSignupPage({
           </p>
           <Link
             href="/ko"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             지금 시작하기
             <span aria-hidden="true">→</span>
@@ -175,17 +175,17 @@ export default async function MarkdownPdfNoSignupPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">관련 페이지</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/ko/markdown-pdf-byeonhwan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ko/markdown-pdf-byeonhwan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown PDF 변환 - 무료, 회원가입 불필요
               </Link>
             </li>
             <li>
-              <Link href="/ko/readme-pdf-byeonhwan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ko/readme-pdf-byeonhwan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 README.md PDF 변환
               </Link>
             </li>
             <li>
-              <Link href="/ko/markdown-byeonhwan-bigyo" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ko/markdown-byeonhwan-bigyo" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown 변환기 비교
               </Link>
             </li>

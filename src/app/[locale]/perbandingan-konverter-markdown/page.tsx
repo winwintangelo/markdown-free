@@ -82,49 +82,49 @@ export default async function PerbandinganKonverterMarkdownPage({
             <tbody>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">Gratis Sepenuhnya</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">Batas harian</td>
                 <td className="px-4 py-3 text-center text-slate-500">Batas harian</td>
                 <td className="px-4 py-3 text-center text-slate-500">Desktop saja</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">Tanpa Daftar</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">Privasi (File Tidak Disimpan)</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">Disimpan sementara</td>
                 <td className="px-4 py-3 text-center text-slate-500">Cloud storage</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓ (lokal)</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓ (lokal)</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">Preview Real-time</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">GitHub Flavored Markdown</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-slate-500">Sebagian</td>
                 <td className="px-4 py-3 text-center text-slate-500">Sebagian</td>
               </tr>
               <tr className="border-b border-slate-100 bg-slate-50/50">
                 <td className="px-4 py-3 font-medium">Ekspor HTML/TXT</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-slate-500">PDF saja</td>
               </tr>
               <tr className="border-b border-slate-100">
                 <td className="px-4 py-3 font-medium">Antarmuka Bahasa Indonesia</td>
-                <td className="px-4 py-3 text-center text-emerald-600">✓</td>
+                <td className="px-4 py-3 text-center text-emerald-700">✓</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
                 <td className="px-4 py-3 text-center text-red-500">✗</td>
@@ -194,7 +194,7 @@ export default async function PerbandinganKonverterMarkdownPage({
           </p>
           <Link
             href="/id"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Coba Markdown Free
             <span aria-hidden="true">→</span>
@@ -206,17 +206,17 @@ export default async function PerbandinganKonverterMarkdownPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">Halaman Terkait</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/id/konversi-markdown-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/id/konversi-markdown-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Konversi Markdown ke PDF - Gratis
               </Link>
             </li>
             <li>
-              <Link href="/id/markdown-pdf-tanpa-daftar" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/id/markdown-pdf-tanpa-daftar" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown ke PDF Tanpa Daftar
               </Link>
             </li>
             <li>
-              <Link href="/id/konversi-readme-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/id/konversi-readme-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Konversi README.md ke PDF
               </Link>
             </li>

@@ -73,7 +73,7 @@ export default async function HuiyiJiluPdfPage({
         <div className="not-prose my-8">
           <Link
             href="/zh-Hant"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             轉換會議記錄
             <span aria-hidden="true">→</span>
@@ -212,7 +212,7 @@ export default async function HuiyiJiluPdfPage({
           </p>
           <Link
             href="/zh-Hant"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             立即免費試用
             <span aria-hidden="true">→</span>
@@ -237,17 +237,17 @@ export default async function HuiyiJiluPdfPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">相關頁面</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/zh-Hant/xueshu-biji-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/xueshu-biji-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 學術筆記轉PDF
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hant/jishu-biji-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/jishu-biji-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 技術筆記轉PDF
               </Link>
             </li>
             <li>
-              <Link href="/zh-Hant/markdown-pdf-mianzhuce" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/zh-Hant/markdown-pdf-mianzhuce" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 免註冊Markdown轉PDF
               </Link>
             </li>

@@ -72,7 +72,7 @@ export default async function ConvertirMarkdownPdfPage({
         <div className="not-prose my-8">
           <Link
             href="/es"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Comenzar Ahora — Es Gratis
             <span aria-hidden="true">→</span>
@@ -153,7 +153,7 @@ export default async function ConvertirMarkdownPdfPage({
           </p>
           <Link
             href="/es"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             Prueba Gratis Ahora
             <span aria-hidden="true">→</span>
@@ -165,17 +165,17 @@ export default async function ConvertirMarkdownPdfPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">Recursos Relacionados</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/es/markdown-pdf-sin-registro" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/es/markdown-pdf-sin-registro" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdown a PDF Sin Registro
               </Link>
             </li>
             <li>
-              <Link href="/es/convertir-readme-pdf" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/es/convertir-readme-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Convertir README.md a PDF
               </Link>
             </li>
             <li>
-              <Link href="/es/comparacion-convertidores-markdown" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/es/comparacion-convertidores-markdown" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Comparación de Convertidores Markdown
               </Link>
             </li>

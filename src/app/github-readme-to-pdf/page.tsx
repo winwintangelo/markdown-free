@@ -47,7 +47,7 @@ export default function GitHubReadmeToPdfPage() {
           <div className="not-prose my-8">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
             >
               Convert GitHub README Now
               <span aria-hidden="true">→</span>
@@ -148,7 +148,7 @@ export default function GitHubReadmeToPdfPage() {
             </p>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
             >
               Try It Free — No Sign-up
               <span aria-hidden="true">→</span>
@@ -177,7 +177,7 @@ export default function GitHubReadmeToPdfPage() {
               <li>
                 <Link
                   href="/readme-to-pdf"
-                  className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   README to PDF — General Guide
                 </Link>
@@ -185,7 +185,7 @@ export default function GitHubReadmeToPdfPage() {
               <li>
                 <Link
                   href="/markdown-to-docx"
-                  className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   Markdown to Word (DOCX)
                 </Link>
@@ -193,7 +193,7 @@ export default function GitHubReadmeToPdfPage() {
               <li>
                 <Link
                   href="/"
-                  className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   Markdown to PDF — Free Converter
                 </Link>

@@ -32,6 +32,7 @@ export async function generateMetadata({
     "zh-Hant": "關於",
     id: "Tentang",
     vi: "Giới thiệu",
+    hi: "हमारे बारे में",
   };
 
   const descriptions: Record<Locale, string> = {
@@ -44,6 +45,7 @@ export async function generateMetadata({
     "zh-Hant": "了解 Markdown Free - 快速、免費的網頁版 Markdown 檢視器和轉換器。無需註冊。",
     id: "Pelajari tentang Markdown Free - penampil dan konverter Markdown berbasis web yang cepat dan gratis. Tanpa perlu daftar.",
     vi: "Tìm hiểu về Markdown Free - trình xem và chuyển đổi Markdown miễn phí, nhanh chóng trên web. Không cần đăng ký.",
+    hi: "Markdown Free के बारे में जानें - तेज़, मुफ्त, वेब-आधारित Markdown व्यूअर और कनवर्टर। साइन-अप की आवश्यकता नहीं।",
   };
   
   return {

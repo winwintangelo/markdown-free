@@ -47,7 +47,7 @@ export default function ObsidianToPdfPage() {
           <div className="not-prose my-8">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
             >
               Convert Obsidian Notes
               <span aria-hidden="true">→</span>
@@ -161,7 +161,7 @@ export default function ObsidianToPdfPage() {
             </p>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
             >
               Try It Free — No Sign-up
               <span aria-hidden="true">→</span>
@@ -189,8 +189,24 @@ export default function ObsidianToPdfPage() {
             <ul className="space-y-2">
               <li>
                 <Link
+                  href="/notion-export-to-pdf"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
+                >
+                  Notion Export to PDF
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/typora-to-pdf"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
+                >
+                  Typora to PDF
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/markdown-to-docx"
-                  className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   Markdown to Word (DOCX)
                 </Link>
@@ -198,7 +214,7 @@ export default function ObsidianToPdfPage() {
               <li>
                 <Link
                   href="/"
-                  className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   Markdown to PDF — Free Converter
                 </Link>
@@ -206,7 +222,7 @@ export default function ObsidianToPdfPage() {
               <li>
                 <Link
                   href="/faq"
-                  className="text-emerald-600 hover:text-emerald-700 hover:underline"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   Frequently Asked Questions
                 </Link>

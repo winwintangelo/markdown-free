@@ -575,7 +575,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                 className={cn(
                   "inline-flex w-full items-center justify-center gap-1.5 rounded-full px-4 py-2.5 text-xs font-semibold shadow-sm transition animate-pulse",
                   pendingShare.format === "pdf"
-                    ? "bg-emerald-600 text-white hover:bg-emerald-700"
+                    ? "bg-emerald-700 text-white hover:bg-emerald-800"
                     : "bg-blue-600 text-white hover:bg-blue-700"
                 )}
               >
@@ -593,7 +593,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                     "inline-flex flex-1 items-center justify-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold shadow-sm transition",
                     loadingShareFormat === "pdf"
                       ? "cursor-wait bg-emerald-500 text-white"
-                      : "bg-emerald-600 text-white hover:bg-emerald-700"
+                      : "bg-emerald-700 text-white hover:bg-emerald-800"
                   )}
                 >
                   {loadingShareFormat === "pdf" ? (
@@ -731,7 +731,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                   "inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold shadow-sm transition",
                   loadingFormat === "pdf"
                     ? "cursor-wait bg-emerald-500 text-white"
-                    : "bg-emerald-600 text-white hover:bg-emerald-700"
+                    : "bg-emerald-700 text-white hover:bg-emerald-800"
                 )}
               >
                 {loadingFormat === "pdf" && (

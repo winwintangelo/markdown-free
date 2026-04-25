@@ -32,6 +32,7 @@ export async function generateMetadata({
     "zh-Hant": "隱私政策",
     id: "Kebijakan Privasi",
     vi: "Chính sách Bảo mật",
+    hi: "गोपनीयता नीति",
   };
 
   const descriptions: Record<Locale, string> = {
@@ -44,6 +45,7 @@ export async function generateMetadata({
     "zh-Hant": "Markdown Free 隱私政策。了解我們如何處理您的檔案和資料。無需帳戶，無追蹤，無儲存內容。",
     id: "Kebijakan privasi Markdown Free. Pelajari cara kami menangani file dan data Anda. Tanpa akun, tanpa pelacakan, tanpa konten tersimpan.",
     vi: "Chính sách bảo mật của Markdown Free. Tìm hiểu cách chúng tôi xử lý tệp và dữ liệu của bạn. Không cần tài khoản, không theo dõi, không lưu trữ nội dung.",
+    hi: "Markdown Free की गोपनीयता नीति। जानें हम आपकी फाइलें और डेटा कैसे संभालते हैं। कोई अकाउंट नहीं, कोई ट्रैकिंग नहीं, कोई संग्रहित सामग्री नहीं।",
   };
   
   return {

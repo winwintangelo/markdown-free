@@ -222,7 +222,7 @@ export function UploadCard({ locale: _locale, dict = defaultDict as unknown as D
       )}
     >
       {/* Upload icon */}
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
         <Upload className="h-6 w-6" strokeWidth={1.6} />
       </div>
 
@@ -230,7 +230,7 @@ export function UploadCard({ locale: _locale, dict = defaultDict as unknown as D
       <p className="text-sm font-medium text-slate-900">
         {dict.upload.dragDrop}{" "}
         <span className="font-normal text-slate-500">{dict.upload.or}</span>{" "}
-        <span className="font-semibold text-emerald-600 hover:text-emerald-700">
+        <span className="font-semibold text-emerald-700 hover:text-emerald-800">
           {dict.upload.chooseFile}
         </span>
       </p>
@@ -268,7 +268,7 @@ export function UploadCard({ locale: _locale, dict = defaultDict as unknown as D
         >
           {dict.upload.trySample}
         </button>
-        <span className="text-slate-300">{dict.upload.or}</span>
+        <span className="text-slate-500">{dict.upload.or}</span>
         <button
           type="button"
           onClick={(e) => {

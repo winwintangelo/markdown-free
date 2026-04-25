@@ -75,7 +75,7 @@ export default async function MarkdownPdfHenkanPage({
         <div className="not-prose my-8">
           <Link
             href="/ja"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             今すぐ無料で変換
             <span aria-hidden="true">→</span>
@@ -157,7 +157,7 @@ export default async function MarkdownPdfHenkanPage({
           </p>
           <Link
             href="/ja"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-700"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800"
           >
             無料で試す
             <span aria-hidden="true">→</span>
@@ -169,17 +169,17 @@ export default async function MarkdownPdfHenkanPage({
           <h2 className="mb-4 text-lg font-semibold text-slate-700">関連ページ</h2>
           <ul className="space-y-2">
             <li>
-              <Link href="/ja/markdown-pdf-touroku-fuyou" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ja/markdown-pdf-touroku-fuyou" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 登録不要のMarkdown PDF変換
               </Link>
             </li>
             <li>
-              <Link href="/ja/readme-pdf-henkan" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ja/readme-pdf-henkan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 README.md PDF 変換
               </Link>
             </li>
             <li>
-              <Link href="/ja/markdown-henkan-hikaku" className="text-emerald-600 hover:text-emerald-700 hover:underline">
+              <Link href="/ja/markdown-henkan-hikaku" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                 Markdownコンバーター比較
               </Link>
             </li>

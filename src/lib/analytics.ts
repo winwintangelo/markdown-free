@@ -284,7 +284,7 @@ export function trackFeedbackSubmit(data: {
 // LOCALIZATION EVENTS (track language behavior)
 // =============================================================================
 
-export type SupportedLocale = "en" | "it" | "es" | "ja" | "ko" | "zh-Hans" | "zh-Hant" | "id" | "vi";
+export type SupportedLocale = "en" | "it" | "es" | "ja" | "ko" | "zh-Hans" | "zh-Hant" | "id" | "vi" | "hi";
 
 /**
  * Track page view with locale information
@@ -399,51 +399,64 @@ export function trackConversionWithReferrer(
 /**
  * Known home page paths (these are destinations, not sources)
  */
-const HOME_PATHS = new Set(["/", "/it", "/es", "/ja", "/ko", "/zh-Hans", "/zh-Hant", "/id", "/vi"]);
+const HOME_PATHS = new Set(["/", "/it", "/es", "/ja", "/ko", "/zh-Hans", "/zh-Hant", "/id", "/vi", "/hi"]);
 
 /**
  * Non-intent paths to exclude from internal referral tracking
  */
 const EXCLUDED_PATHS = new Set(["/about", "/privacy", "/faq"]);
 
+const PREV_PATH_KEY = "mdf:prev-path";
+
 /**
- * Detect if the referrer is an internal intent page on the same site.
+ * Detect if the user arrived from an internal intent page.
+ * Reads from sessionStorage first (client-side navigation, set by RouteHistoryTracker),
+ * falls back to document.referrer (hard navigation / fresh tab).
  * Returns the intent page slug (e.g., "readme-to-pdf", "it/convertire-markdown-pdf")
- * or null if not an internal intent referral.
+ * or null if not an internal intent referral. Consuming the value clears it.
  */
 export function detectInternalReferral(): string | null {
-  if (typeof window === "undefined" || !document.referrer) {
-    return null;
+  if (typeof window === "undefined") return null;
+
+  let path: string | null = null;
+
+  // 1. Client-side nav: RouteHistoryTracker stored the previous pathname.
+  try {
+    const stored = sessionStorage.getItem(PREV_PATH_KEY);
+    if (stored) {
+      path = stored.replace(/\/$/, "") || "/";
+      sessionStorage.removeItem(PREV_PATH_KEY);
+    }
+  } catch {
+    // sessionStorage unavailable — fall through to document.referrer
   }
 
-  try {
-    const referrerUrl = new URL(document.referrer);
-    const currentHost = window.location.hostname;
-
-    // Only track same-site referrals
-    if (referrerUrl.hostname !== currentHost) {
-      return null;
-    }
-
-    const path = referrerUrl.pathname.replace(/\/$/, "") || "/";
-
-    // Skip if referrer is a home page (not an intent page)
-    if (HOME_PATHS.has(path)) {
-      return null;
-    }
-
-    // Skip non-intent pages
-    for (const excluded of EXCLUDED_PATHS) {
-      if (path === excluded || path.endsWith(excluded)) {
+  // 2. Hard nav fallback: document.referrer must be same-origin.
+  if (!path && document.referrer) {
+    try {
+      const referrerUrl = new URL(document.referrer);
+      if (referrerUrl.hostname !== window.location.hostname) {
         return null;
       }
+      path = referrerUrl.pathname.replace(/\/$/, "") || "/";
+    } catch {
+      return null;
     }
-
-    // Return the slug without leading slash
-    return path.replace(/^\//, "");
-  } catch {
-    return null;
   }
+
+  if (!path) return null;
+
+  // Skip if source is a home page (not an intent page)
+  if (HOME_PATHS.has(path)) return null;
+
+  // Skip non-intent pages
+  for (const excluded of EXCLUDED_PATHS) {
+    if (path === excluded || path.endsWith(excluded)) {
+      return null;
+    }
+  }
+
+  return path.replace(/^\//, "");
 }
 
 /**

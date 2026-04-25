@@ -719,21 +719,30 @@ async function showInternalReferrals() {
       eventName: 'internal_referral',
     });
 
-    if (!eventData || eventData.length === 0) {
-      console.log('   No internal referral data yet (tracking just added).');
-      console.log('   Data will appear after users navigate from intent pages to home.');
+    // Umami returns one row per event property: {eventName, fieldName, fieldValue, ...}
+    // Filter to source-property rows for internal_referral events.
+    const rows = Array.isArray(eventData) ? eventData : (eventData?.data || []);
+    const sourceRows = rows.filter(e =>
+      e.eventName === 'internal_referral' &&
+      (e.fieldName === 'source' || e.propertyName === 'source')
+    );
+
+    if (sourceRows.length === 0) {
+      console.log('   No internal referral data yet.');
+      console.log('   Hint: requires the RouteHistoryTracker fix to populate sessionStorage');
+      console.log('   on client-side navigations. Verify trackInternalReferral fires on /.');
       return null;
     }
 
-    // Count by source
+    // Count by source value. Each row may carry an explicit count (`total`)
+    // or represent a single occurrence.
     const sourceCount = {};
-    eventData.forEach(e => {
-      const props = e.eventData || e.data || {};
-      const source = props.source || 'unknown';
-      sourceCount[source] = (sourceCount[source] || 0) + 1;
+    sourceRows.forEach(e => {
+      const source = e.fieldValue || e.propertyValue || 'unknown';
+      const count = typeof e.total === 'number' ? e.total : 1;
+      sourceCount[source] = (sourceCount[source] || 0) + count;
     });
 
-    // Sort by count descending
     const sorted = Object.entries(sourceCount).sort((a, b) => b[1] - a[1]);
     const total = sorted.reduce((sum, [, count]) => sum + count, 0);
 
@@ -746,9 +755,8 @@ async function showInternalReferrals() {
     });
 
     return sorted;
-  } catch (error) {
-    // API may not support event-data/events endpoint - try alternative
-    console.log('   ℹ️  Internal referral breakdown not yet available.');
+  } catch {
+    console.log('   ℹ️  Internal referral breakdown not available.');
     console.log('   Check Umami dashboard → Events → internal_referral for details.');
     return null;
   }
