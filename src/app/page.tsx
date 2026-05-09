@@ -12,6 +12,7 @@ import { AIReferralTracker } from "@/components/ai-referral-tracker";
 import { InternalReferralTracker } from "@/components/internal-referral-tracker";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { getDictionary } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // JSON-LD Schema for SEO (WebApplication + SoftwareApplication for LLM discoverability)
 const jsonLd = {
@@ -118,7 +119,7 @@ export default function Home() {
       {/* JSON-LD Schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
       {/* Engagement tracking (scroll depth, time on page, drag intent) */}
       <EngagementTracker />

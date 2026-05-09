@@ -4,6 +4,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { getDictionary } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 const siteUrl = "https://www.markdown.free";
 
@@ -120,7 +121,7 @@ export default function FAQPage() {
       {/* JSON-LD Schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
       <main className="mx-auto max-w-4xl px-4 pb-16 pt-10">
         {/* Breadcrumb */}

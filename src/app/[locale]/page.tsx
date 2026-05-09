@@ -9,12 +9,13 @@ import { Footer } from "@/components/footer";
 import { EngagementTracker } from "@/components/engagement-tracker";
 import { AIReferralTracker } from "@/components/ai-referral-tracker";
 import { InternalReferralTracker } from "@/components/internal-referral-tracker";
-import { 
-  isValidLocale, 
+import {
+  isValidLocale,
   getDictionary,
   locales,
-  type Locale 
+  type Locale
 } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -158,7 +159,7 @@ export default async function LocaleHomePage({
       {/* JSON-LD Schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
       {/* Header */}
       <Header locale={locale} dict={dict} />
