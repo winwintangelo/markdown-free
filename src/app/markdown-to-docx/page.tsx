@@ -174,6 +174,13 @@ export default function MarkdownToDocxPage() {
           <p className="mt-3 text-sm text-slate-500">
             Free • No signup • Instant download
           </p>
+          <p className="mt-4 text-sm text-slate-500">
+            Comparing options? See our{" "}
+            <Link href="/best-markdown-to-pdf-converter-2026" className="text-emerald-700 hover:text-emerald-800 hover:underline">
+              2026 Markdown→PDF/DOCX converter comparison
+            </Link>
+            .
+          </p>
         </section>
       </main>
       <Footer locale="en" />

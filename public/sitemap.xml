@@ -126,6 +126,7 @@
   </url>
   <url>
     <loc>https://www.markdown.free/it/confronto-convertitori-markdown</loc>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -198,6 +199,7 @@
   </url>
   <url>
     <loc>https://www.markdown.free/es/comparacion-convertidores-markdown</loc>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -270,6 +272,7 @@
   </url>
   <url>
     <loc>https://www.markdown.free/ja/markdown-henkan-hikaku</loc>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -342,6 +345,7 @@
   </url>
   <url>
     <loc>https://www.markdown.free/ko/markdown-byeonhwan-bigyo</loc>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -414,6 +418,7 @@
   </url>
   <url>
     <loc>https://www.markdown.free/zh-Hans/markdown-zhuanhuanqi-bijiao</loc>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -486,6 +491,7 @@
   </url>
   <url>
     <loc>https://www.markdown.free/zh-Hant/markdown-zhuanhuanqi-bijiao-tw</loc>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -588,6 +594,7 @@
   </url>
   <url>
     <loc>https://www.markdown.free/id/perbandingan-konverter-markdown</loc>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -660,6 +667,7 @@
   </url>
   <url>
     <loc>https://www.markdown.free/vi/so-sanh-cong-cu-markdown</loc>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1051,6 +1059,31 @@
   </url>
   <url>
     <loc>https://www.markdown.free/typora-to-pdf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Comparison / Buyer's Guide Articles (cross-linked via hreflang) -->
+  <url>
+    <loc>https://www.markdown.free/best-markdown-to-pdf-converter-2026</loc>
+    <lastmod>2026-05-09</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/best-markdown-to-pdf-converter-2026" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/confronto-convertitori-markdown" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/comparacion-convertidores-markdown" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-henkan-hikaku" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-byeonhwan-bigyo" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuanhuanqi-bijiao" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-zhuanhuanqi-bijiao-tw" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/perbandingan-konverter-markdown" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/so-sanh-cong-cu-markdown" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.markdown.free/hi/markdown-pdf-tulna-2026" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/best-markdown-to-pdf-converter-2026" />
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/hi/markdown-pdf-tulna-2026</loc>
+    <lastmod>2026-05-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

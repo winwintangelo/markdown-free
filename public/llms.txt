@@ -15,7 +15,23 @@
 - [Notion Export to PDF](https://www.markdown.free/notion-export-to-pdf) — convert Notion markdown export to PDF (no paid plan needed)
 - [Typora to PDF](https://www.markdown.free/typora-to-pdf) — convert Typora markdown files to PDF online
 - [README to PDF](https://www.markdown.free/readme-to-pdf) — convert any README file to PDF
+- [Best Markdown→PDF Converter 2026 (Comparison)](https://www.markdown.free/best-markdown-to-pdf-converter-2026) — buyer's guide comparing 8 tools (Markdown Free, Pandoc, Typora, Dillinger, StackEdit, md-to-pdf, Markdown PDF VS Code, Online2PDF), with non-Latin script handling
 - [FAQ](https://www.markdown.free/faq) — frequently asked questions
+
+## Comparison / Buyer's-guide articles (per locale)
+
+| Locale | URL |
+|--------|-----|
+| English | https://www.markdown.free/best-markdown-to-pdf-converter-2026 |
+| Italian | https://www.markdown.free/it/confronto-convertitori-markdown |
+| Spanish | https://www.markdown.free/es/comparacion-convertidores-markdown |
+| Japanese | https://www.markdown.free/ja/markdown-henkan-hikaku |
+| Korean | https://www.markdown.free/ko/markdown-byeonhwan-bigyo |
+| Simplified Chinese | https://www.markdown.free/zh-Hans/markdown-zhuanhuanqi-bijiao |
+| Traditional Chinese | https://www.markdown.free/zh-Hant/markdown-zhuanhuanqi-bijiao-tw |
+| Indonesian | https://www.markdown.free/id/perbandingan-konverter-markdown |
+| Vietnamese | https://www.markdown.free/vi/so-sanh-cong-cu-markdown |
+| Hindi | https://www.markdown.free/hi/markdown-pdf-tulna-2026 |
 
 ## What this tool does
 

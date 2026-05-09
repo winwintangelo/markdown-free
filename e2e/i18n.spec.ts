@@ -500,42 +500,42 @@ test.describe("Markdown Free - Internationalization", () => {
   test.describe("Comparison Pages", () => {
     test("Italian comparison page loads correctly", async ({ page }) => {
       await page.goto("/it/confronto-convertitori-markdown");
-      
-      // Check page title
-      await expect(page).toHaveTitle(/Markdown Free vs CloudConvert/);
-      
+
+      // Check page title (rewritten to 8-tool buyer's guide format)
+      await expect(page).toHaveTitle(/Migliori convertitori Markdown PDF 2026/);
+
       // Check main heading
-      await expect(page.getByRole("heading", { level: 1 })).toContainText("vs Altri Convertitori");
-      
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Migliori convertitori Markdown PDF 2026");
+
       // Check comparison table exists
       await expect(page.locator("table")).toBeVisible();
-      
-      // Check key comparison points in table
-      await expect(page.locator("table").getByText("100% Gratuito")).toBeVisible();
-      await expect(page.locator("table").getByText("Senza Registrazione")).toBeVisible();
-      
+
+      // Check that competing tools appear in the comparison
+      await expect(page.locator("table").getByText("Markdown Free", { exact: true }).first()).toBeVisible();
+      await expect(page.locator("table").getByText("Pandoc", { exact: true }).first()).toBeVisible();
+
       // Check CTA
-      await expect(page.getByRole("link", { name: "Prova Markdown Free" })).toBeVisible();
+      await expect(page.getByRole("link", { name: /Apri Markdown Free/ })).toBeVisible();
     });
 
     test("Spanish comparison page loads correctly", async ({ page }) => {
       await page.goto("/es/comparacion-convertidores-markdown");
-      
-      // Check page title
-      await expect(page).toHaveTitle(/Markdown Free vs CloudConvert/);
-      
+
+      // Check page title (rewritten to 8-tool buyer's guide format)
+      await expect(page).toHaveTitle(/Mejores convertidores Markdown a PDF 2026/);
+
       // Check main heading
-      await expect(page.getByRole("heading", { level: 1 })).toContainText("vs Otros Convertidores");
-      
+      await expect(page.getByRole("heading", { level: 1 })).toContainText("Mejores convertidores Markdown a PDF 2026");
+
       // Check comparison table exists
       await expect(page.locator("table")).toBeVisible();
-      
-      // Check key comparison points in table
-      await expect(page.locator("table").getByText("100% Gratis")).toBeVisible();
-      await expect(page.locator("table").getByText("Sin Registro")).toBeVisible();
-      
+
+      // Check that competing tools appear in the comparison
+      await expect(page.locator("table").getByText("Markdown Free", { exact: true }).first()).toBeVisible();
+      await expect(page.locator("table").getByText("Pandoc", { exact: true }).first()).toBeVisible();
+
       // Check CTA
-      await expect(page.getByRole("link", { name: "Prueba Markdown Free" })).toBeVisible();
+      await expect(page.getByRole("link", { name: /Abrir Markdown Free/ })).toBeVisible();
     });
 
     test("comparison pages are locale-specific", async ({ page }) => {

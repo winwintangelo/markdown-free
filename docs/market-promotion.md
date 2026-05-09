@@ -58,3 +58,119 @@ Search the following queries on **X (Twitter)** and **GitHub Issues**:
 **The Playbook Reply (Keep it helpful, not salesy):**
 * **JP:** "Pandocのフォント設定、面倒ですよね…。もしブラウザだけでサクッと変換したい場合は、日本語（文字化けなし）に完全対応した無料ツールを作ったので試してみてください！ログイン不要です👉 [https://www.markdown.free/ja](https://www.markdown.free/ja)"
 * **EN:** "I feel the pain of copy-pasting Markdown into Word. I actually built a free, no-login tool specifically to preserve formatting (tables, code blocks) when exporting to DOCX/PDF. Might save you some time: [https://www.markdown.free](https://www.markdown.free)"
+
+---
+
+## 🏆 Priority 4: Comparison / Buyer's-Guide Article Matrix
+
+**Goal:** Win two channels simultaneously with one article, in 10 languages:
+1. **Google rank** for "best markdown to pdf converter 2026" and locale-equivalents.
+2. **LLM citation** when ChatGPT / Perplexity / Claude / Gemini are asked the same question. Comparison content with named tools, declarative claims, comparison tables, and FAQ schema is what these crawlers snippet.
+
+**Approach:** Honest editorial. Position markdown.free as best for *specific* cases (CJK-without-setup, browser-only no-signup, DOCX export). Other tools win for other cases — say so. Articles that read as sales pitches don't get cited.
+
+### Decisions (agreed 2026-05-09)
+
+| Decision | Choice |
+|---|---|
+| Existing locale comparison pages | **Replace** in place (Option A). 8 pages: it/es/ja/ko/zh-Hans/zh-Hant/id/vi already have comparison-themed slugs — keep URLs, rewrite content to the 8-tool buyer's-guide format. No redirects, ranking signals preserved. |
+| EN slug | `best-markdown-to-pdf-converter-2026` (covers "best markdown to pdf" + "converter" long-tails) |
+| HI slug | `markdown-pdf-tulna-2026` (transliterated; Devanagari URLs render as `%E0%A4...` in some browsers) |
+| Byline | "Markdown Free team" with 1-line bio |
+| Schema.org | `Article` + `FAQPage` JSON-LD. **No `Review` schema** (commits to defending numerical ratings; FAQ schema gives most of the citation benefit without the risk). |
+| Competitor links | `rel="nofollow"` on every external tool URL |
+| Internal links | Locale-specific only — each article links to same-locale intent pages |
+
+### Article matrix
+
+| Locale | URL | Status | Notes |
+|---|---|---|---|
+| en | `/best-markdown-to-pdf-converter-2026` | new | No EN comparison page exists today |
+| it | `/it/confronto-convertitori-markdown` | rewrite | |
+| es | `/es/comparacion-convertidores-markdown` | rewrite | |
+| ja | `/ja/markdown-henkan-hikaku` | rewrite | CJK angle: 文字化け |
+| ko | `/ko/markdown-byeonhwan-bigyo` | rewrite | CJK angle: 한글 깨짐 |
+| zh-Hans | `/zh-Hans/markdown-zhuanhuanqi-bijiao` | rewrite | CJK angle: 字体豆腐 |
+| zh-Hant | `/zh-Hant/markdown-zhuanhuanqi-bijiao-tw` | rewrite | CJK angle: 字型豆腐 |
+| id | `/id/perbandingan-konverter-markdown` | rewrite | |
+| vi | `/vi/so-sanh-cong-cu-markdown` | rewrite | |
+| hi | `/hi/markdown-pdf-tulna-2026` | new | Internal-link pool limited (only home/about/privacy/faq exist under /hi/) |
+
+### The 8 tools to compare
+
+The same 8 tools across all 10 articles. Locale-native descriptions, identical fact set:
+
+1. **Markdown Free** — `https://www.markdown.free` — browser-based, no signup, CJK-correct via embedded fonts, exports PDF/DOCX/EPUB/HTML. **Weaknesses:** 5MB file cap, no offline mode, no LaTeX/math rendering.
+2. **Pandoc** — `https://pandoc.org` — CLI universal converter. **Weakness:** PDF requires LaTeX install + `--pdf-engine=xelatex -V mainfont="Noto Sans CJK JP"` (or equivalent) for CJK.
+3. **Dillinger** — `https://dillinger.io` — browser editor with PDF export.
+4. **StackEdit** — `https://stackedit.io` — browser editor, Google Drive sync, MathJax.
+5. **Markdown PDF (VS Code extension)** — `https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf` — local, depends on Chromium.
+6. **md-to-pdf (npm)** — `https://github.com/simonhaenisch/md-to-pdf` — Node CLI, Puppeteer-based.
+7. **Typora** — `https://typora.io` — paid desktop app, polished export.
+8. **Online2PDF** — `https://online2pdf.com` — generic web converter, not markdown-native.
+
+Any claim about price, version, or specific behaviour the author can't verify gets the literal text "unverified at time of writing" in the article.
+
+### Per-locale framing (use-case angle in the intro)
+
+| Locale | Native phrase for "broken text" |
+|---|---|
+| en | "tofu blocks", "□□□" |
+| ja | 文字化け |
+| ko | 한글 깨짐 |
+| zh-Hans | 字体豆腐 / 中文乱码 |
+| zh-Hant | 字型豆腐 / 中文亂碼 |
+| hi | देवनागरी टूटना / □□□ |
+| es | acentos rotos |
+| pt-BR | acentos quebrados *(not currently supported, listed for future)* |
+| it | caratteri accentati corrotti |
+| id | karakter rusak |
+| vi | dấu tiếng Việt bị hỏng |
+
+### Required structure per article
+
+```
+H1 (with TARGET_QUERY + 2026)
+Intro (80–120 words; one-sentence "which tool wins for which case" answer)
+H2 Quick comparison (markdown table; 8 rows; columns: Tool · Best for · Price · CJK · Outputs · Install · Privacy)
+H2 per tool × 8 (~150 words each: What · How it handles use-case · Strengths · Weaknesses · Best for)
+H2 How to choose (decision tree, 4–6 branches; named tools)
+H2 FAQ (5–7 native-search-style questions; each answer 2–4 sentences, declarative)
+H2 Disclosure (1 paragraph; "we made this; we tried to be honest")
+JSON-LD: Article + FAQPage (via safeJsonLd helper)
+```
+
+### Frontmatter output (per article)
+
+```ts
+{
+  title,                  // contains TARGET_QUERY + 2026
+  meta_description,       // 150–160 chars; includes TARGET_QUERY
+  slug,                   // locale-native
+  primary_keyword,
+  secondary_keywords,     // 5–8
+  language,               // BCP-47
+  publish_date,           // 2026-05-09
+  next_review_date,       // 2026-11-09
+  author_name: "Markdown Free team",
+  author_bio,             // 1 sentence
+  disclosure_line,        // links to /about
+}
+```
+
+### Editor's checklist (verify before each publish)
+
+- [ ] All prices/license terms current as of `publish_date`
+- [ ] All competitor URLs return 200
+- [ ] Pandoc CJK flag (`--pdf-engine=xelatex -V mainfont`) verified with current Pandoc version
+- [ ] Typora pricing claim ($14.99 one-time, last verified late 2024) — re-verify
+- [ ] Markdown PDF (VS Code) — verify CJK font handling in current version
+- [ ] StackEdit, Dillinger, Online2PDF are still live and not paywalled
+- [ ] markdown.free 5MB limit and supported formats match current production
+- [ ] Internal links all 200 OK in target locale
+- [ ] hreflang alternates in sitemap.xml include all 10 versions
+- [ ] FAQ Q&As phrased the way a native speaker would actually search
+
+### Maintenance
+
+Each article gets a `next_review_date` (~6 months out). When that hits, a single editor pass: refresh the year in the title, re-verify the editor's checklist above, bump publish_date.

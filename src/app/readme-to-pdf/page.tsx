@@ -214,6 +214,14 @@ MIT`}</pre>
             </li>
             <li>
               <Link
+                href="/best-markdown-to-pdf-converter-2026"
+                className="text-emerald-700 hover:text-emerald-800 hover:underline"
+              >
+                Best Markdown→PDF Converter 2026 (8-tool comparison)
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/about"
                 className="text-emerald-700 hover:text-emerald-800 hover:underline"
               >

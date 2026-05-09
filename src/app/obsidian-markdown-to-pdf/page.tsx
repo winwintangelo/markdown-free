@@ -221,6 +221,14 @@ export default function ObsidianToPdfPage() {
               </li>
               <li>
                 <Link
+                  href="/best-markdown-to-pdf-converter-2026"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
+                >
+                  Best Markdown→PDF Converter 2026 (comparison)
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/faq"
                   className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
