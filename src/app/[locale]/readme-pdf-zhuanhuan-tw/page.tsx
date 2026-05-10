@@ -21,25 +21,26 @@ export async function generateMetadata({
   }
 
   return {
-    title: "Markdown 轉 PDF（README 也可）| 免費線上工具 | Markdown Free",
+    title: "Markdown 轉 PDF — .md 檔案一鍵轉換，免費線上（2026）",
     description:
-      "如何把 .md 轉成 PDF？上傳 README.md 或任何 Markdown 檔案，一鍵轉換成專業 PDF。免費、免註冊、檔案不儲存。",
+      "把 .md 檔案轉成 PDF：上傳 README.md 或任何 Markdown 文件，立即下載 PDF。免費、免註冊、檔案不存檔，繁體中文完整支援。線上工具，無需安裝。",
     keywords: [
       "markdown 轉 pdf",
-      "readme 轉 pdf",
-      "readme.md pdf",
       ".md 轉 pdf",
+      "readme.md 轉 pdf",
+      "readme 轉 pdf",
+      "線上 markdown 轉 pdf",
+      "markdown pdf 免費",
+      "markdown 檔案 pdf",
       "github readme pdf",
-      "markdown文件 pdf",
-      "readme轉換 免費",
     ],
     alternates: {
       canonical: "/zh-Hant/readme-pdf-zhuanhuan-tw",
     },
     openGraph: {
-      title: "Markdown 轉 PDF（README 也可）| 免費線上工具",
+      title: "Markdown 轉 PDF — .md 檔案一鍵轉換，免費線上（2026）",
       description:
-        "如何把 .md 轉成 PDF？上傳 README.md，一鍵轉換。免費、免註冊。",
+        "上傳 .md 或 README.md，立即下載 PDF。免費、免註冊、繁體中文支援。",
       locale: "zh_TW",
     },
   };

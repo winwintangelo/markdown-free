@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Footer } from "@/components/footer";
 import { getDictionary } from "@/i18n";
 import { notFound } from "next/navigation";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // This page is only for id locale
 export function generateStaticParams() {
@@ -11,14 +12,17 @@ export function generateStaticParams() {
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Markdown ke Word (DOCX) Gratis | Konverter Online | Markdown Free",
-    description: "Konversi file Markdown ke dokumen Word (DOCX) secara instan. 100% gratis, tanpa daftar, tanpa iklan. File Anda diproses dengan aman dan tidak pernah disimpan.",
+    title: "Konversi Markdown ke Word (DOCX) — Gratis Online, Tanpa Daftar (2026)",
+    description: "Ubah file Markdown (.md) ke dokumen Word (DOCX) langsung di browser. Drag-and-drop, unduh instan. Gratis, tanpa daftar, tanpa instal. File diproses di memori dan langsung dihapus. Versi 2026.",
     keywords: [
       "markdown ke word",
       "markdown ke docx",
-      "konversi markdown word",
+      "konversi markdown ke word",
       "md ke word gratis",
-      "markdown word converter indonesia",
+      "konversi md ke docx",
+      "markdown word online gratis",
+      "markdown docx tanpa daftar",
+      "konverter markdown word 2026",
     ],
     alternates: {
       canonical: "https://www.markdown.free/id/markdown-ke-word",
@@ -36,14 +40,36 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     openGraph: {
-      title: "Markdown ke Word (DOCX) Gratis | Konverter Online",
-      description: "Konversi file .md ke format Microsoft Word. Gratis, privat, unduh langsung.",
+      title: "Konversi Markdown ke Word (.docx) — Gratis Online, Tanpa Daftar",
+      description: "Ubah .md ke DOCX langsung di browser. Drag-and-drop, unduh instan. Gratis, tanpa daftar.",
       url: "https://www.markdown.free/id/markdown-ke-word",
       type: "website",
       locale: "id_ID",
     },
   };
 }
+
+const faq = [
+  { q: "Bagaimana cara konversi Markdown ke Word (.docx)?", a: "Buka Markdown Free, drag-and-drop file .md Anda (atau tempel teks Markdown), pratinjau hasil, lalu klik tombol \"Ke DOCX\" untuk mengunduh dokumen Word. Seluruh proses sekitar 10 detik, tanpa instalasi." },
+  { q: "Apakah konverter Markdown ke Word ini gratis?", a: "Ya. Markdown Free 100% gratis tanpa biaya tersembunyi, paket premium, atau persyaratan pendaftaran." },
+  { q: "Apakah saya perlu mendaftar untuk konversi Markdown ke Word?", a: "Tidak. Markdown Free tidak memerlukan akun atau pendaftaran. Cukup buka halaman, unggah file, dan unduh hasilnya." },
+  { q: "Apa perbedaan antara Word dan DOCX?", a: "DOCX adalah format file standar yang digunakan Microsoft Word sejak 2007. Saat kami menyebut \"dokumen Word\", yang dimaksud adalah file .docx yang dapat dibuka di Word, Google Docs, dan LibreOffice." },
+  { q: "Apakah file Markdown saya disimpan di server Anda?", a: "Tidak. File Anda diproses sementara di memori dan langsung dihapus setelah konversi. Kami tidak menyimpan konten Anda." },
+  { q: "Apakah format tabel, blok kode, dan checklist dipertahankan saat konversi ke Word?", a: "Ya. Tabel, blok kode, heading, daftar berurutan/tidak berurutan, dan checklist GFM dipertahankan sebagai gaya Word yang tepat." },
+  { q: "Berapa ukuran file maksimum untuk konversi Markdown ke Word?", a: "Saat ini batasnya 5MB per file, mencakup hampir semua dokumen Markdown nyata (~750.000 kata)." },
+  { q: "Apakah konverter Markdown ke .docx ini berfungsi tanpa instalasi?", a: "Ya. Markdown Free berjalan sepenuhnya di browser — tidak perlu instalasi, plugin, atau ekstensi." },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "id",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -61,6 +87,7 @@ export default async function MarkdownKeWordPage({ params }: PageProps) {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
       <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
         {/* Hero Section */}
         <section className="mb-12 text-center">
@@ -191,38 +218,14 @@ export default async function MarkdownKeWordPage({ params }: PageProps) {
             Pertanyaan yang Sering Diajukan
           </h2>
           <div className="space-y-4">
-            <details className="rounded-xl border border-slate-200 bg-white p-4">
-              <summary className="cursor-pointer font-medium text-slate-900">
-                Apakah konverter Markdown ke Word ini gratis?
-              </summary>
-              <p className="mt-2 text-sm text-slate-600">
-                Ya! Markdown Free 100% gratis tanpa biaya tersembunyi, paket premium, atau persyaratan pendaftaran.
-              </p>
-            </details>
-            <details className="rounded-xl border border-slate-200 bg-white p-4">
-              <summary className="cursor-pointer font-medium text-slate-900">
-                Apa perbedaan antara Word dan DOCX?
-              </summary>
-              <p className="mt-2 text-sm text-slate-600">
-                DOCX adalah format file yang digunakan oleh Microsoft Word sejak 2007. Ketika kami mengatakan "dokumen Word," yang kami maksud adalah file .docx yang dapat dibuka di Word, Google Docs, LibreOffice, dan pengolah kata lainnya.
-              </p>
-            </details>
-            <details className="rounded-xl border border-slate-200 bg-white p-4">
-              <summary className="cursor-pointer font-medium text-slate-900">
-                Apakah file saya disimpan di server Anda?
-              </summary>
-              <p className="mt-2 text-sm text-slate-600">
-                Tidak. File Anda diproses di memori dan segera dihapus setelah konversi. Kami tidak pernah menyimpan konten Anda.
-              </p>
-            </details>
-            <details className="rounded-xl border border-slate-200 bg-white p-4">
-              <summary className="cursor-pointer font-medium text-slate-900">
-                Apakah format seperti tabel dan blok kode dipertahankan?
-              </summary>
-              <p className="mt-2 text-sm text-slate-600">
-                Ya! Tabel, blok kode, heading, daftar, dan format Markdown lainnya dikonversi ke gaya Word yang tepat.
-              </p>
-            </details>
+            {faq.map((item, i) => (
+              <details key={i} className="rounded-xl border border-slate-200 bg-white p-4">
+                <summary className="cursor-pointer font-medium text-slate-900">
+                  {item.q}
+                </summary>
+                <p className="mt-2 text-sm text-slate-600">{item.a}</p>
+              </details>
+            ))}
           </div>
         </section>
 

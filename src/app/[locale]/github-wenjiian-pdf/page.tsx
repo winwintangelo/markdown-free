@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // Only show this page for Traditional Chinese locale
 export function generateStaticParams() {
@@ -21,28 +22,52 @@ export async function generateMetadata({
   }
 
   return {
-    title: "GitHub文件轉PDF | Markdown Free",
+    title: "GitHub README 轉 PDF — 免費線上工具，免註冊（2026）",
     description:
-      "將GitHub的Markdown文件轉換為PDF。支援README、CHANGELOG、技術文件。免費線上工具，無需註冊。",
+      "把 GitHub 上的 README.md、CHANGELOG.md、技術文件一鍵轉成 PDF。免費、免註冊、檔案不存檔。完整支援繁體中文、表格、程式碼區塊。2026 最新版本。",
     keywords: [
-      "github文件轉pdf",
+      "github 文件 轉 pdf",
+      "github readme 轉 pdf",
       "github markdown pdf",
-      "github文件 pdf",
-      "技術文件轉pdf",
-      "開源專案文件",
-      "github 文件匯出",
+      "github 文件 pdf",
+      "技術文件 轉 pdf",
+      "開源專案 文件 pdf",
+      "readme 轉 pdf 免費",
+      "github 文件 匯出 pdf",
     ],
     alternates: {
       canonical: "/zh-Hant/github-wenjiian-pdf",
     },
     openGraph: {
-      title: "GitHub文件轉PDF | Markdown Free",
+      title: "GitHub README 轉 PDF — 免費線上工具，免註冊（2026）",
       description:
-        "將GitHub的Markdown文件轉換為PDF。免費，無需註冊。",
+        "把 GitHub README.md 一鍵轉成 PDF。免費、免註冊、繁體中文支援。",
       locale: "zh_TW",
     },
   };
 }
+
+const faq = [
+  { q: "如何把 GitHub 上的 README.md 轉成 PDF？", a: "在 GitHub 儲存庫中打開 README.md，點擊「Raw」按鈕並儲存檔案；接著拖放到 Markdown Free，預覽結果後點擊「轉成 PDF」就能下載。整個過程約 10 秒，不需安裝任何軟體。" },
+  { q: "GitHub 文件轉 PDF 工具是免費的嗎？", a: "是。Markdown Free 100% 免費，沒有付費方案、沒有使用次數限制、沒有浮水印，也不需要註冊帳號。" },
+  { q: "可以把 GitHub README.md 轉成 PDF 嗎，需要註冊嗎？", a: "可以，且不需要註冊。Markdown Free 不要求帳號，所有檔案都在瀏覽器或無伺服器記憶體中處理，完成後立即丟棄。" },
+  { q: "繁體中文的 README 在轉 PDF 後會出現亂碼或字型豆腐嗎？", a: "不會。Markdown Free 在 PDF 渲染管線中內嵌 Noto Sans CJK 字型，繁體中文、簡體中文、日文、韓文都能正確顯示，不會出現□□□豆腐字。" },
+  { q: "可以轉換 README 以外的 GitHub Markdown 檔案嗎？", a: "可以。CHANGELOG.md、CONTRIBUTING.md、docs/ 資料夾下的任何 .md 檔案、甚至 GitHub Wiki 匯出的 .md 都能直接轉換。" },
+  { q: "GitHub README 中的圖片會包含在 PDF 裡嗎？", a: "絕對網址（https://...）的圖片會包含在 PDF 中。儲存庫相對路徑（例如 ./images/foo.png）在 GitHub 之外無法解析——請改用 raw.githubusercontent.com 的完整網址。" },
+  { q: "GitHub 文件轉 PDF 有檔案大小限制嗎？", a: "目前每個檔案的上限是 5MB，足以涵蓋幾乎所有真實世界的 README 與技術文件（約 75 萬字）。" },
+  { q: "我的 GitHub 文件會被儲存在你們的伺服器嗎？", a: "不會。PDF 在無伺服器記憶體中產生，完成後立即丟棄；HTML 與 TXT 匯出完全在瀏覽器中處理，不會離開你的電腦。" },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "zh-Hant",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 export default async function GithubWenjiianPdfPage({
   params,
@@ -59,6 +84,8 @@ export default async function GithubWenjiianPdfPage({
   const dict = getDictionary(locale);
 
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>GitHub文件轉PDF</h1>
@@ -197,6 +224,14 @@ export default async function GithubWenjiianPdfPage({
           </ul>
         </div>
 
+        <h2>常見問題</h2>
+        {faq.map((item, i) => (
+          <div key={i}>
+            <h3>{item.q}</h3>
+            <p>{item.a}</p>
+          </div>
+        ))}
+
         {/* Related Pages */}
         <div className="not-prose border-t border-slate-200 pt-8">
           <h2 className="mb-4 text-lg font-semibold text-slate-700">相關頁面</h2>
@@ -222,5 +257,6 @@ export default async function GithubWenjiianPdfPage({
 
       <Footer locale={locale} dict={dict} />
     </main>
+    </>
   );
 }
