@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // Only show this page for Korean locale
 export function generateStaticParams() {
@@ -21,28 +22,52 @@ export async function generateMetadata({
   }
 
   return {
-    title: "마크다운 PDF 변환 무료 | Markdown PDF 변환 | Markdown Free",
+    title: "마크다운 PDF 변환 — 무료, 회원가입 없이, 한글 깨짐 없이 (2026) | Markdown Free",
     description:
-      "마크다운 PDF 변환 무료 — .md 파일을 PDF로 변환. 회원가입 불필요, 파일 저장 없음. 드래그 앤 드롭으로 간편하게.",
+      ".md 파일을 PDF로 즉시 변환. 드래그 앤 드롭, 즉시 다운로드. 무료, 회원가입 없이, 설치 없이, 한글 깨짐 없이. GFM 표·체크리스트·코드 블록 지원. Noto Sans CJK 폰트 내장. 2026 최신.",
     keywords: [
       "마크다운 pdf 변환",
-      "마크다운 pdf",
+      "md pdf 변환",
       "markdown pdf 변환",
       "md pdf 변환 무료",
       "markdown 변환 온라인",
-      "readme pdf 변환",
+      "마크다운 pdf 회원가입 없이",
+      "markdown pdf 한글",
+      "markdown pdf 2026",
     ],
     alternates: {
       canonical: "/ko/markdown-pdf-byeonhwan",
     },
     openGraph: {
-      title: "마크다운 PDF 변환 무료 | Markdown Free",
+      title: "마크다운 PDF 변환 — 무료, 회원가입 없이 (2026)",
       description:
-        "마크다운 PDF 변환 — .md 파일을 PDF로 무료 변환. 회원가입 불필요.",
+        ".md → PDF 무료 변환기. 드래그 앤 드롭, 즉시 다운로드. 한글 깨짐 없이.",
       locale: "ko_KR",
     },
   };
 }
+
+const faq = [
+  { q: "마크다운을 PDF로 어떻게 변환하나요?", a: "Markdown Free에 .md 파일을 드래그 앤 드롭하거나 Markdown 텍스트를 붙여넣고, 미리보기로 확인한 뒤 \"PDF로 내보내기\"를 클릭하면 됩니다. 약 10초, 회원가입과 설치 없이." },
+  { q: "마크다운 PDF 변환은 정말 무료인가요?", a: "네. Markdown Free는 100% 무료입니다. 프리미엄 등급, 회원가입, 사용량 제한, PDF 워터마크가 없습니다." },
+  { q: "회원가입 없이 마크다운을 PDF로 변환할 수 있나요?", a: "가능합니다. Markdown Free는 계정이 필요 없습니다. 모든 파일은 브라우저(HTML/TXT) 또는 서버리스 메모리(PDF/DOCX/EPUB)에서 처리되며 절대 저장되지 않습니다." },
+  { q: "한글이 들어 있는 마크다운도 PDF로 변환하면 깨지지 않나요?", a: "깨지지 않습니다. Markdown Free는 PDF 렌더 파이프라인에 Noto Sans CJK KR 글꼴을 임베드하므로 한글, 한자, 일본어, 중국어가 모두 □□□ 두부 글자 없이 정확하게 표시됩니다." },
+  { q: "GitHub README.md도 PDF로 변환할 수 있나요?", a: "네. README.md, CHANGELOG.md, CONTRIBUTING.md 등 GitHub의 .md 파일을 \"Raw\" 버튼으로 저장한 뒤 Markdown Free에 업로드하면 됩니다." },
+  { q: "마크다운 PDF 변환 파일 크기 제한은?", a: "현재 5MB / 파일입니다. 5MB Markdown은 약 75만 단어에 해당하며 거의 모든 실제 문서를 커버합니다." },
+  { q: "내 마크다운 파일이 서버에 저장되나요?", a: "아니요. PDF는 서버리스 메모리에서 생성되고 즉시 폐기됩니다. HTML과 TXT 내보내기는 전적으로 브라우저에서 처리되며 컴퓨터 밖으로 나가지 않습니다." },
+  { q: "표, 코드 블록, 체크리스트 같은 GFM 형식이 유지되나요?", a: "네. GFM의 표, 체크리스트, 코드 블록(구문 강조 포함), 취소선, 자동 링크 등이 모두 PDF 출력에 정확하게 보존됩니다." },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "ko",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 export default async function MarkdownPdfByeonhwanPage({
   params,
@@ -59,6 +84,8 @@ export default async function MarkdownPdfByeonhwanPage({
   const dict = getDictionary(locale);
 
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>마크다운 PDF 변환 - 무료, 회원가입 불필요</h1>
@@ -123,30 +150,12 @@ export default async function MarkdownPdfByeonhwanPage({
 
         <h2>자주 묻는 질문</h2>
 
-        <h3>정말 무료인가요?</h3>
-        <p>
-          네! Markdown Free는 완전히 무료입니다. 프리미엄 플랜도, 일일 제한도,
-          숨겨진 유료 기능도 없습니다.
-        </p>
-
-        <h3>파일이 안전한가요?</h3>
-        <p>
-          걱정 없이 사용하세요. 미리보기는 브라우저 내에서 처리되고,
-          PDF 변환 시에도 파일은 메모리에서 처리 후 즉시 삭제됩니다.
-          파일이 저장되는 일은 절대 없습니다.
-        </p>
-
-        <h3>파일 크기 제한이 있나요?</h3>
-        <p>
-          5MB까지의 파일을 지원합니다. 일반적인 마크다운 문서에는
-          충분한 크기입니다.
-        </p>
-
-        <h3>모바일에서도 사용할 수 있나요?</h3>
-        <p>
-          네! 스마트폰과 태블릿에 최적화된 인터페이스로
-          이용하실 수 있습니다.
-        </p>
+        {faq.map((item, i) => (
+          <div key={i}>
+            <h3>{item.q}</h3>
+            <p>{item.a}</p>
+          </div>
+        ))}
 
         {/* Second CTA */}
         <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
@@ -187,5 +196,6 @@ export default async function MarkdownPdfByeonhwanPage({
 
       <Footer locale={locale} dict={dict} />
     </main>
+    </>
   );
 }

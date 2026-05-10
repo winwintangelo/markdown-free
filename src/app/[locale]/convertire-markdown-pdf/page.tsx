@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, isValidLocale, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // Only show this page for Italian locale
 export function generateStaticParams() {
@@ -15,33 +16,57 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  
+
   if (locale !== "it") {
     return {};
   }
 
   return {
-    title: "Convertire Markdown in PDF Gratis | Markdown Free",
+    title: "Convertire Markdown in PDF Gratis — Online, Senza Registrazione (2026) | Markdown Free",
     description:
-      "Converti i tuoi file Markdown in PDF gratuitamente. Nessuna registrazione richiesta, nessun limite, privacy garantita. Trascina il file e scarica il PDF in pochi secondi.",
+      "Convertitore Markdown a PDF online gratuito: trascina il file .md, scarica il PDF in pochi secondi. Senza registrazione, senza installazione, senza filigrana. Tabelle GFM, checklist e blocchi di codice mantenuti. Versione 2026.",
     keywords: [
       "convertire markdown in pdf",
       "markdown a pdf gratis",
       "convertitore markdown pdf",
       "md to pdf italiano",
       "markdown pdf gratuito",
+      "markdown pdf senza registrazione",
+      "convertitore markdown online 2026",
     ],
     alternates: {
       canonical: "/it/convertire-markdown-pdf",
     },
     openGraph: {
-      title: "Convertire Markdown in PDF Gratis | Markdown Free",
+      title: "Convertire Markdown in PDF Gratis — Online, Senza Registrazione (2026)",
       description:
-        "Converti i tuoi file Markdown in PDF gratuitamente. Nessuna registrazione, privacy garantita.",
+        "Trascina .md, scarica PDF. Senza registrazione, senza installazione, senza filigrana.",
       locale: "it_IT",
     },
   };
 }
+
+const faq = [
+  { q: "Come si converte un file Markdown in PDF?", a: "Apri Markdown Free, trascina il file .md nell'area di caricamento (oppure incolla il testo Markdown), controlla l'anteprima e clicca \"A PDF\" per scaricare. L'intero processo richiede circa 10 secondi, senza registrazione né installazione." },
+  { q: "Il convertitore Markdown a PDF è davvero gratuito?", a: "Sì. Markdown Free è 100% gratuito senza piani premium, senza registrazione, senza limiti d'uso e senza filigrana sul PDF esportato." },
+  { q: "Posso convertire Markdown in PDF senza registrarmi?", a: "Sì. Markdown Free non richiede un account. I file vengono elaborati nel tuo browser (HTML/TXT) o in memoria serverless (PDF/DOCX/EPUB) e non vengono mai memorizzati." },
+  { q: "Posso convertire un README.md di GitHub in PDF?", a: "Sì. Apri il README.md nel repository GitHub, clicca \"Raw\" e salva il file, poi caricalo su Markdown Free ed esporta in PDF. Funziona anche per CHANGELOG.md, CONTRIBUTING.md e qualsiasi file .md." },
+  { q: "I miei file Markdown vengono salvati sui vostri server?", a: "No. I PDF vengono generati in memoria serverless e scartati immediatamente. Le esportazioni HTML e TXT vengono elaborate completamente nel browser e non lasciano mai il tuo computer." },
+  { q: "Qual è il limite di dimensione del file?", a: "Attualmente 5MB per file, sufficiente per praticamente qualsiasi documento Markdown reale (~750.000 parole di Markdown semplice)." },
+  { q: "Le tabelle, i blocchi di codice e le checklist GFM vengono mantenuti nel PDF?", a: "Sì. Tutte le funzionalità GFM — tabelle, blocchi di codice (con evidenziazione della sintassi), checklist, strikethrough, autolink — vengono preservate correttamente nell'output PDF." },
+  { q: "Funziona senza installazione?", a: "Sì. Markdown Free funziona interamente nel browser — nessuna installazione, plugin o estensione richiesti." },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "it",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 export default async function ConvertireMarkdownPdfPage({
   params,
@@ -59,6 +84,8 @@ export default async function ConvertireMarkdownPdfPage({
   const dict = getDictionary(locale);
 
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>Convertire Markdown in PDF Gratis</h1>
@@ -122,29 +149,12 @@ export default async function ConvertireMarkdownPdfPage({
 
         <h2>Domande Frequenti</h2>
 
-        <h3>È davvero gratis?</h3>
-        <p>
-          Sì! Markdown Free è completamente gratuito. Non ci sono piani premium, 
-          limiti giornalieri o funzionalità nascoste a pagamento.
-        </p>
-
-        <h3>I miei file sono al sicuro?</h3>
-        <p>
-          Assolutamente. L&apos;anteprima viene generata direttamente nel tuo browser. 
-          Per la conversione PDF, il contenuto viene elaborato in memoria e 
-          immediatamente eliminato — non salviamo mai i tuoi file.
-        </p>
-
-        <h3>Qual è il limite di dimensione?</h3>
-        <p>
-          Puoi caricare file fino a 5 MB — più che sufficiente per qualsiasi 
-          documento Markdown.
-        </p>
-
-        <h3>Funziona su mobile?</h3>
-        <p>
-          Sì! L&apos;interfaccia è ottimizzata per smartphone e tablet.
-        </p>
+        {faq.map((item, i) => (
+          <div key={i}>
+            <h3>{item.q}</h3>
+            <p>{item.a}</p>
+          </div>
+        ))}
 
         {/* Second CTA */}
         <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
@@ -185,6 +195,7 @@ export default async function ConvertireMarkdownPdfPage({
 
       <Footer locale={locale} dict={dict} />
     </main>
+    </>
   );
 }
 

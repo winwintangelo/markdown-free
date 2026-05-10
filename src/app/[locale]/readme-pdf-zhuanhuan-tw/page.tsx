@@ -3,6 +3,29 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
+
+const faq = [
+  { q: "如何把 .md 檔案轉成 PDF？", a: "把 .md 檔案拖放到 Markdown Free 的上傳區（或直接貼上 Markdown 文字），預覽確認後點擊「轉 PDF」即可下載。整個流程約 10 秒，不需安裝、不需註冊。" },
+  { q: "README.md 可以轉 PDF 嗎？", a: "可以。GitHub 的 README.md、CHANGELOG.md、CONTRIBUTING.md，或任何 .md / .markdown 檔案都支援。表格、程式碼區塊、清單、checklist 等格式完整保留。" },
+  { q: "Markdown 轉 PDF 工具是免費的嗎？", a: "是。Markdown Free 100% 免費，沒有付費版、沒有註冊、沒有使用次數限制，匯出的 PDF 也沒有浮水印。" },
+  { q: "可以不註冊就把 Markdown 轉成 PDF 嗎？", a: "可以。Markdown Free 不需要帳號，所有檔案都在瀏覽器或無伺服器記憶體中處理，處理完立即丟棄。" },
+  { q: "繁體中文的 Markdown 轉成 PDF 後會出現亂碼嗎？", a: "不會。Markdown Free 在 PDF 渲染管線中內嵌 Noto Sans CJK 字型，繁體中文、簡體中文、日文、韓文都能正確顯示，不會出現□□□豆腐字。" },
+  { q: "Markdown 中的圖片會包含在 PDF 裡嗎？", a: "絕對網址（https://...）的圖片會包含在 PDF 中。儲存庫相對路徑（例如 ./images/foo.png）在 GitHub 之外無法解析——請改用 raw.githubusercontent.com 的完整網址。" },
+  { q: "Markdown 轉 PDF 有檔案大小限制嗎？", a: "目前每個檔案的上限是 5MB，足以涵蓋幾乎所有真實世界的 README 與 Markdown 文件（約 75 萬字）。" },
+  { q: "我的 Markdown 檔案會被儲存在你們的伺服器嗎？", a: "不會。PDF 在無伺服器記憶體中產生，完成後立即丟棄；HTML 與 TXT 匯出完全在瀏覽器中處理，不會離開你的電腦。" },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "zh-Hant",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 // Only show this page for Traditional Chinese locale
 export function generateStaticParams() {
@@ -61,6 +84,8 @@ export default async function ReadmePdfZhuanhuanTwPage({
   const dict = getDictionary(locale);
 
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>Markdown 轉 PDF（README 也可）</h1>
@@ -166,58 +191,14 @@ MIT`}</pre>
 
         <h2>常見問題</h2>
 
-        {/* High-intent FAQ with exact search phrases */}
-        <details className="group" open>
-          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-700">
-            如何把 .md 轉成 PDF？
-          </summary>
-          <p className="mt-2">
-            很簡單！只要把 <code>.md</code> 檔案拖放到上傳區，
-            預覽確認後點擊「轉 PDF」即可下載。不需安裝軟體、不需註冊帳號。
-          </p>
-        </details>
-
-        <details className="group mt-4">
-          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-700">
-            README.md 可以轉 PDF 嗎？
-          </summary>
-          <p className="mt-2">
-            當然可以！GitHub 的 README.md、CHANGELOG.md、CONTRIBUTING.md，
-            或任何 <code>.md</code> / <code>.markdown</code> 檔案都支援。
-            表格、程式碼區塊、清單等格式都會完整保留。
-          </p>
-        </details>
-
-        <details className="group mt-4">
-          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-700">
-            檔案會被上傳或儲存嗎？
-          </summary>
-          <p className="mt-2">
-            <strong>不會儲存。</strong>預覽完全在瀏覽器本地處理。
-            PDF 轉換時，檔案只在記憶體中暫存，轉換完成後立即刪除。
-            我們不會保留任何檔案副本。
-          </p>
-        </details>
-
-        <details className="group mt-4">
-          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-700">
-            README 中的圖片會被包含嗎？
-          </summary>
-          <p className="mt-2">
-            絕對 URL（如 https://...）的圖片會被包含在 PDF 中。
-            相對路徑的圖片可能無法正確顯示，建議使用完整 URL。
-          </p>
-        </details>
-
-        <details className="group mt-4">
-          <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-700">
-            可以自訂 PDF 格式嗎？
-          </summary>
-          <p className="mt-2">
-            目前 PDF 使用針對可讀性最佳化的專業版面。
-            我們正在考慮在未來版本中新增自訂選項。
-          </p>
-        </details>
+        {faq.map((item, i) => (
+          <details key={i} className={i === 0 ? "group" : "group mt-4"} open={i === 0 ? true : undefined}>
+            <summary className="cursor-pointer font-semibold text-slate-800 hover:text-emerald-700">
+              {item.q}
+            </summary>
+            <p className="mt-2">{item.a}</p>
+          </details>
+        ))}
 
         {/* Second CTA */}
         <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
@@ -258,5 +239,6 @@ MIT`}</pre>
 
       <Footer locale={locale} dict={dict} />
     </main>
+    </>
   );
 }

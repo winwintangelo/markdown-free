@@ -4,28 +4,53 @@ import { Footer } from "@/components/footer";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
-  title: "GitHub README to PDF Converter | Markdown Free",
+  title: "GitHub README to PDF — Free, No Signup (2026) | Markdown Free",
   description:
-    "Convert GitHub README.md files to PDF instantly. Preserves code blocks, tables, badges, and formatting. Free, no sign-up, privacy-friendly.",
+    "Convert any GitHub README.md to a polished PDF in seconds. Drag-and-drop the .md, download PDF — free, no signup, no install, no watermark. Code blocks, tables, badges, and shields.io links preserved. Updated for 2026.",
   keywords: [
     "github readme to pdf",
-    "convert github readme pdf",
+    "convert github readme to pdf",
+    "download github readme as pdf",
+    "how to download github readme as pdf",
     "readme.md to pdf",
     "github markdown pdf",
     "github documentation pdf",
-    "export github readme",
+    "export github readme to pdf",
   ],
   alternates: {
     canonical: "/github-readme-to-pdf",
   },
   openGraph: {
-    title: "GitHub README to PDF Converter | Markdown Free",
+    title: "GitHub README to PDF — Free, No Signup (2026)",
     description:
-      "Convert GitHub README.md files to PDF instantly. Free, no sign-up required.",
+      "Free GitHub README→PDF converter. Drag-and-drop .md, download PDF. No signup, no install.",
     locale: "en_US",
   },
+};
+
+const faq = [
+  { q: "How do I convert a GitHub README to PDF?", a: "Open the repo's README.md on GitHub, click \"Raw\" and save the file, then drag-and-drop it into Markdown Free and click Export PDF. The whole flow takes ~10 seconds, no signup, no install." },
+  { q: "How do I download a GitHub README as PDF?", a: "On the README.md page in GitHub, click \"Raw\", save the page as a .md file (Ctrl+S / Cmd+S), upload to Markdown Free, then export to PDF. Everything stays in your browser." },
+  { q: "Is the GitHub README to PDF converter free?", a: "Yes. Markdown Free is 100% free with no premium tier, no signup, no usage caps, and no watermark on the exported PDF." },
+  { q: "Do GitHub images and badges appear in the PDF?", a: "Yes for any image with an absolute URL — that includes shields.io badges, raw.githubusercontent.com images, and externally hosted assets. Relative repo paths (./images/foo.png) won't resolve outside GitHub; replace them with the raw.githubusercontent.com URL before converting." },
+  { q: "Can I convert CHANGELOG.md, CONTRIBUTING.md, or LICENSE files too?", a: "Yes. Any .md or .markdown file works — README.md, CHANGELOG.md, CONTRIBUTING.md, /docs files, even GitHub Wiki .md exports." },
+  { q: "Does it work for private repos or GitHub Enterprise?", a: "Markdown Free never connects to GitHub directly — it just converts a .md file you upload. So it works for any repo (public, private, GHE) as long as you can save the README.md to your machine." },
+  { q: "Is there a file size limit?", a: "Yes — 5MB per file, which covers virtually every real-world README and documentation file (~750,000 words of plain Markdown)." },
+  { q: "Are my README files stored on your servers?", a: "No. PDFs are generated in serverless memory and discarded immediately. HTML and TXT exports are processed entirely in your browser and never leave your machine." },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "en",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
 };
 
 export default function GitHubReadmeToPdfPage() {
@@ -34,6 +59,7 @@ export default function GitHubReadmeToPdfPage() {
   return (
     <ConverterProvider>
       <LocaleTracker locale="en" />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
       <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
         <article className="prose prose-slate max-w-none">
           <h1>Convert GitHub README to PDF</h1>
@@ -123,23 +149,12 @@ export default function GitHubReadmeToPdfPage() {
 
           <h2>Frequently Asked Questions</h2>
 
-          <h3>Do GitHub images appear in the PDF?</h3>
-          <p>
-            Yes, if your README uses absolute image URLs (like <code>https://...</code>). 
-            Relative paths (<code>./images/...</code>) may not work unless you download 
-            the images separately.
-          </p>
-
-          <h3>What about GitHub badges?</h3>
-          <p>
-            Badges from shields.io and similar services are included in the PDF 
-            as they use absolute URLs.
-          </p>
-
-          <h3>Is there a file size limit?</h3>
-          <p>
-            Files up to 5MB are supported. This covers virtually all README files.
-          </p>
+          {faq.map((item, i) => (
+            <div key={i}>
+              <h3>{item.q}</h3>
+              <p>{item.a}</p>
+            </div>
+          ))}
 
           {/* Second CTA */}
           <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">

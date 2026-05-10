@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // Only show this page for Indonesian locale
 export function generateStaticParams() {
@@ -21,27 +22,51 @@ export async function generateMetadata({
   }
 
   return {
-    title: "Konversi README.md ke PDF | Markdown Free",
+    title: "Konversi README.md ke PDF — Gratis Online, Tanpa Daftar (2026) | Markdown Free",
     description:
-      "Konversi README.md GitHub menjadi PDF profesional. Cocok untuk dokumentasi, portofolio, presentasi. Gratis, tanpa daftar.",
+      "Konversi README.md GitHub menjadi PDF profesional dalam hitungan detik. Drag-and-drop file .md, unduh PDF langsung. Gratis, tanpa daftar, tanpa instal. Tabel GFM, checklist, dan blok kode dipertahankan. Versi 2026.",
     keywords: [
       "konversi readme pdf",
-      "readme.md pdf",
+      "readme.md ke pdf",
       "github readme pdf",
-      "markdown dokumentasi pdf",
-      "readme konversi gratis",
+      "konversi readme gratis",
+      "readme pdf tanpa daftar",
+      "markdown readme pdf 2026",
+      "github markdown pdf indonesia",
     ],
     alternates: {
       canonical: "/id/konversi-readme-pdf",
     },
     openGraph: {
-      title: "Konversi README.md ke PDF | Markdown Free",
+      title: "Konversi README.md ke PDF — Gratis Online, Tanpa Daftar (2026)",
       description:
-        "Konversi README.md GitHub menjadi PDF profesional. Gratis, tanpa daftar.",
+        "Konverter GitHub README→PDF gratis. Drag-and-drop .md, unduh PDF. Tanpa daftar, tanpa instal.",
       locale: "id_ID",
     },
   };
 }
+
+const faq = [
+  { q: "Bagaimana cara mengonversi README GitHub ke PDF?", a: "Buka README.md di repository GitHub Anda, klik tombol \"Raw\", simpan filenya, lalu drag-and-drop ke Markdown Free dan klik \"Ke PDF\" untuk mengunduh. Seluruh proses sekitar 10 detik, tanpa instalasi." },
+  { q: "Bagaimana cara mengunduh README GitHub sebagai PDF?", a: "Buka README.md di GitHub, klik \"Raw\" dan simpan halaman sebagai file .md, lalu unggah ke Markdown Free dan ekspor ke PDF. Seluruh alur tetap di browser Anda." },
+  { q: "Apakah konverter README ke PDF ini gratis?", a: "Ya. Markdown Free 100% gratis tanpa paket premium, tanpa pendaftaran, tanpa batasan penggunaan, dan tanpa watermark di PDF hasil." },
+  { q: "Bisakah saya mengonversi README.md ke PDF tanpa mendaftar?", a: "Bisa. Markdown Free tidak memerlukan akun. File diproses di browser (HTML/TXT) atau di memori serverless (PDF/DOCX/EPUB) dan tidak pernah disimpan." },
+  { q: "Apakah gambar dari README saya akan ikut ke PDF?", a: "Ya untuk URL absolut (https://...). Path relatif dari repository (./images/foo.png) tidak terselesaikan di luar GitHub — ganti dengan URL raw.githubusercontent.com sebelum konversi." },
+  { q: "Bisa konversi CHANGELOG.md, CONTRIBUTING.md, atau file Markdown lain?", a: "Bisa. File .md atau .markdown apa pun bisa: README.md, CHANGELOG.md, CONTRIBUTING.md, dokumentasi di /docs, semuanya." },
+  { q: "Apakah ada batas ukuran file untuk konversi README ke PDF?", a: "Ya — 5MB per file, mencakup hampir semua README dan dokumentasi nyata (~750.000 kata Markdown polos)." },
+  { q: "Apakah file README saya disimpan di server Anda?", a: "Tidak. PDF dibuat di memori serverless dan langsung dihapus. Ekspor HTML dan TXT diproses sepenuhnya di browser dan tidak pernah meninggalkan komputer Anda." },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "id",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 export default async function KonversiReadmePdfPage({
   params,
@@ -58,6 +83,8 @@ export default async function KonversiReadmePdfPage({
   const dict = getDictionary(locale);
 
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>Konversi README.md ke PDF</h1>
@@ -163,24 +190,12 @@ MIT`}</pre>
 
         <h2>Pertanyaan Umum</h2>
 
-        <h3>Apakah gambar di README akan ikut?</h3>
-        <p>
-          Gambar dengan URL absolut (seperti https://...) akan masuk ke PDF.
-          Gambar dengan path relatif mungkin tidak tampil dengan benar.
-          Disarankan menggunakan URL lengkap.
-        </p>
-
-        <h3>Bisa konversi file Markdown lain dari repository?</h3>
-        <p>
-          Tentu! CHANGELOG.md, CONTRIBUTING.md, dokumentasi di folder /docs,
-          semua file <code>.md</code> didukung.
-        </p>
-
-        <h3>Bisa kustomisasi format PDF?</h3>
-        <p>
-          Saat ini PDF menggunakan layout profesional yang dioptimalkan untuk keterbacaan.
-          Kami sedang mempertimbangkan opsi kustomisasi untuk versi mendatang.
-        </p>
+        {faq.map((item, i) => (
+          <div key={i}>
+            <h3>{item.q}</h3>
+            <p>{item.a}</p>
+          </div>
+        ))}
 
         {/* Second CTA */}
         <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
@@ -221,5 +236,6 @@ MIT`}</pre>
 
       <Footer locale={locale} dict={dict} />
     </main>
+    </>
   );
 }

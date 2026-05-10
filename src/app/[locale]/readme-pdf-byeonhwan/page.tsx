@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // Only show this page for Korean locale
 export function generateStaticParams() {
@@ -21,27 +22,51 @@ export async function generateMetadata({
   }
 
   return {
-    title: "README.md PDF 변환 | Markdown Free",
+    title: "README.md PDF 변환 — 무료, 회원가입 없이 (2026) | Markdown Free",
     description:
-      "GitHub README.md를 전문적인 PDF로 변환. 문서화, 포트폴리오, 프레젠테이션에 최적. 무료, 회원가입 불필요.",
+      "GitHub README.md를 전문적인 PDF로 변환. 드래그 앤 드롭으로 .md 파일 업로드, 즉시 PDF 다운로드. 무료, 회원가입 없이, 한글 깨짐 없이. GFM 표·체크리스트·코드 블록 지원. 2026 최신.",
     keywords: [
       "readme pdf 변환",
-      "readme.md pdf",
+      "readme.md pdf 변환",
       "github readme pdf",
-      "markdown 문서 pdf",
       "readme 변환 무료",
+      "readme pdf 회원가입 없이",
+      "github readme pdf 한글",
+      "markdown readme pdf 2026",
     ],
     alternates: {
       canonical: "/ko/readme-pdf-byeonhwan",
     },
     openGraph: {
-      title: "README.md PDF 변환 | Markdown Free",
+      title: "README.md PDF 변환 — 무료, 회원가입 없이 (2026)",
       description:
-        "GitHub README.md를 전문적인 PDF로 변환. 무료, 회원가입 불필요.",
+        "GitHub README.md → PDF 무료 변환기. 드래그 앤 드롭, 즉시 다운로드. 한글 깨짐 없이.",
       locale: "ko_KR",
     },
   };
 }
+
+const faq = [
+  { q: "GitHub README를 PDF로 어떻게 변환하나요?", a: "GitHub 저장소에서 README.md를 열어 \"Raw\" 버튼을 클릭하고 파일을 저장한 뒤, Markdown Free에 드래그 앤 드롭하고 \"PDF로 내보내기\"를 클릭하면 됩니다. 전체 과정 약 10초, 설치 불필요." },
+  { q: "GitHub README를 PDF로 다운로드하는 방법은?", a: "GitHub에서 README.md를 열고 \"Raw\"를 클릭해 페이지를 .md 파일로 저장한 뒤, Markdown Free에 업로드하고 PDF로 내보내세요. 전체 흐름이 브라우저 안에서 진행됩니다." },
+  { q: "이 README→PDF 변환기는 무료인가요?", a: "네. Markdown Free는 100% 무료이며, 프리미엄 등급, 회원가입, 사용량 제한, PDF 워터마크가 없습니다." },
+  { q: "회원가입 없이 README.md를 PDF로 변환할 수 있나요?", a: "네. Markdown Free는 계정이 필요 없습니다. 파일은 브라우저(HTML/TXT) 또는 서버리스 메모리(PDF/DOCX/EPUB)에서 처리되고 절대 저장되지 않습니다." },
+  { q: "한글이 들어 있는 README도 깨지지 않나요?", a: "깨지지 않습니다. Markdown Free는 PDF 렌더 파이프라인에 Noto Sans CJK KR 글꼴을 임베드하므로 한글, 한자, 일본어, 중국어가 모두 □□□ 두부 글자 없이 정확하게 표시됩니다." },
+  { q: "README의 이미지도 PDF에 포함되나요?", a: "절대 URL(https://...)은 포함됩니다. 저장소의 상대 경로 이미지(./images/foo.png)는 GitHub 외부에서 해석되지 않으므로, 변환 전에 raw.githubusercontent.com URL로 교체하세요." },
+  { q: "CHANGELOG.md, CONTRIBUTING.md 같은 다른 Markdown 파일도 변환되나요?", a: "네. .md 또는 .markdown 파일은 모두 가능합니다 — README.md, CHANGELOG.md, CONTRIBUTING.md, /docs 문서까지 전부." },
+  { q: "README 파일이 서버에 저장되나요?", a: "아니요. PDF는 서버리스 메모리에서 생성되고 즉시 폐기됩니다. HTML과 TXT 내보내기는 전적으로 브라우저에서 처리되며 컴퓨터 밖으로 나가지 않습니다." },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "ko",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 export default async function ReadmePdfByeonhwanPage({
   params,
@@ -58,6 +83,8 @@ export default async function ReadmePdfByeonhwanPage({
   const dict = getDictionary(locale);
 
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>README.md PDF 변환</h1>
@@ -166,24 +193,12 @@ MIT`}</pre>
 
         <h2>자주 묻는 질문</h2>
 
-        <h3>README 내의 이미지가 포함되나요?</h3>
-        <p>
-          절대 URL(예: https://...)의 이미지는 PDF에 포함됩니다.
-          상대 경로의 이미지는 올바르게 표시되지 않을 수 있습니다.
-          전체 URL 사용을 권장합니다.
-        </p>
-
-        <h3>저장소의 다른 마크다운 파일도 변환할 수 있나요?</h3>
-        <p>
-          물론입니다! CHANGELOG.md, CONTRIBUTING.md, /docs 폴더 내의
-          문서 등 모든 <code>.md</code> 파일을 지원합니다.
-        </p>
-
-        <h3>PDF 포맷을 커스터마이즈할 수 있나요?</h3>
-        <p>
-          현재 PDF는 가독성을 중시한 전문적인 레이아웃으로
-          출력됩니다. 향후 버전에서 커스터마이즈 옵션을 고려 중입니다.
-        </p>
+        {faq.map((item, i) => (
+          <div key={i}>
+            <h3>{item.q}</h3>
+            <p>{item.a}</p>
+          </div>
+        ))}
 
         {/* Second CTA */}
         <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
@@ -224,5 +239,6 @@ MIT`}</pre>
 
       <Footer locale={locale} dict={dict} />
     </main>
+    </>
   );
 }

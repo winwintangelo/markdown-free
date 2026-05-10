@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // Only show this page for Simplified Chinese locale
 export function generateStaticParams() {
@@ -21,27 +22,51 @@ export async function generateMetadata({
   }
 
   return {
-    title: "README.md转PDF | Markdown Free",
+    title: "README.md 转 PDF — 免费在线，无需注册（2026）| Markdown Free",
     description:
-      "将GitHub的README.md转换为专业PDF。适合文档归档、作品集、演示。免费，无需注册。",
+      "将 GitHub README.md 一键转成专业 PDF。拖放 .md 文件，立即下载 PDF。免费、无需注册、无需安装、无水印。GFM 表格、清单、代码块完整保留。中文支持，无字体豆腐。2026 最新版本。",
     keywords: [
-      "readme转pdf",
-      "readme.md pdf",
+      "readme 转 pdf",
+      "readme.md 转 pdf",
       "github readme pdf",
-      "markdown文档 pdf",
-      "readme转换 免费",
+      "readme 转换 免费",
+      "readme pdf 无需注册",
+      "github markdown pdf 中文",
+      "readme.md pdf 2026",
     ],
     alternates: {
       canonical: "/zh-Hans/readme-pdf-zhuanhuan",
     },
     openGraph: {
-      title: "README.md转PDF | Markdown Free",
+      title: "README.md 转 PDF — 免费在线，无需注册（2026）",
       description:
-        "将GitHub的README.md转换为专业PDF。免费，无需注册。",
+        "GitHub README → PDF 免费转换器。拖放 .md，立即下载 PDF。无需注册、无需安装。",
       locale: "zh_CN",
     },
   };
 }
+
+const faq = [
+  { q: "如何把 GitHub 上的 README 转成 PDF？", a: "在 GitHub 仓库打开 README.md，点击「Raw」按钮并保存文件；接着拖放到 Markdown Free，预览结果后点击「转 PDF」即可下载。整个过程约 10 秒，无需安装任何软件。" },
+  { q: "如何下载 GitHub README 为 PDF？", a: "在 GitHub 上打开 README.md，点击「Raw」并将页面保存为 .md 文件，然后上传到 Markdown Free 并导出 PDF。整个流程都在浏览器内完成。" },
+  { q: "这个 README 转 PDF 工具是免费的吗？", a: "是。Markdown Free 100% 免费，没有付费版、无需注册、没有使用次数限制，导出的 PDF 也没有水印。" },
+  { q: "可以不注册就把 README.md 转成 PDF 吗？", a: "可以。Markdown Free 不需要账号，所有文件都在浏览器或无服务器内存中处理，处理完立即丢弃。" },
+  { q: "中文 README 转 PDF 后会出现乱码或字体豆腐吗？", a: "不会。Markdown Free 在 PDF 渲染管线中内嵌 Noto Sans CJK 字体，简体中文、繁体中文、日文、韩文都能正确显示，不会出现 □□□ 豆腐字。" },
+  { q: "README 中的图片会包含在 PDF 里吗？", a: "绝对网址（https://...）的图片会包含在 PDF 中。仓库相对路径（例如 ./images/foo.png）在 GitHub 之外无法解析——请改用 raw.githubusercontent.com 的完整网址。" },
+  { q: "可以转换 README 以外的 Markdown 文件吗？", a: "可以。CHANGELOG.md、CONTRIBUTING.md、docs/ 文件夹下的任何 .md 文件、甚至 GitHub Wiki 导出的 .md 都能直接转换。" },
+  { q: "我的 README 文件会被保存在你们的服务器吗？", a: "不会。PDF 在无服务器内存中生成，完成后立即丢弃；HTML 与 TXT 导出完全在浏览器中处理，不会离开你的电脑。" },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "zh-Hans",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 export default async function ReadmePdfZhuanhuanPage({
   params,
@@ -58,6 +83,8 @@ export default async function ReadmePdfZhuanhuanPage({
   const dict = getDictionary(locale);
 
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>README.md转PDF</h1>
@@ -163,24 +190,12 @@ MIT`}</pre>
 
         <h2>常见问题</h2>
 
-        <h3>README中的图片会被包含吗？</h3>
-        <p>
-          绝对URL（如 https://...）的图片会被包含在PDF中。
-          相对路径的图片可能无法正确显示。
-          建议使用完整URL。
-        </p>
-
-        <h3>可以转换仓库中的其他Markdown文件吗？</h3>
-        <p>
-          当然可以！CHANGELOG.md、CONTRIBUTING.md、/docs文件夹中的
-          文档等任何<code>.md</code>文件都支持。
-        </p>
-
-        <h3>可以自定义PDF格式吗？</h3>
-        <p>
-          目前PDF使用针对可读性优化的专业布局。
-          我们正在考虑在未来版本中添加自定义选项。
-        </p>
+        {faq.map((item, i) => (
+          <div key={i}>
+            <h3>{item.q}</h3>
+            <p>{item.a}</p>
+          </div>
+        ))}
 
         {/* Second CTA */}
         <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
@@ -221,5 +236,6 @@ MIT`}</pre>
 
       <Footer locale={locale} dict={dict} />
     </main>
+    </>
   );
 }

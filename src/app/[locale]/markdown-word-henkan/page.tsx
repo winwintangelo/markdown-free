@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Footer } from "@/components/footer";
 import { getDictionary } from "@/i18n";
 import { notFound } from "next/navigation";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // This page is only for ja locale
 export function generateStaticParams() {
@@ -11,14 +12,17 @@ export function generateStaticParams() {
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Markdown Word（DOCX）変換 | 無料オンラインツール | Markdown Free",
-    description: "MarkdownファイルをWord文書（DOCX）に即座に変換。100%無料、登録不要、広告なし。ファイルは安全に処理され、保存されません。",
+    title: "Markdown Word（DOCX）変換 — 無料・登録不要・文字化けなし（2026） | Markdown Free",
+    description: "Markdown ファイル（.md）を Word 文書（.docx）にブラウザで直接変換。ドラッグ＆ドロップで即座にダウンロード。無料、登録不要、インストール不要、日本語の文字化けなし。ファイルはメモリ上で処理され即削除。2026年版。",
     keywords: [
       "markdown word 変換",
       "markdown docx 変換",
       "md word 変換",
+      "md docx 変換",
       "マークダウン ワード 変換",
-      "markdown word converter",
+      "markdown word 無料",
+      "markdown docx 登録不要",
+      "markdown word converter 2026",
     ],
     alternates: {
       canonical: "https://www.markdown.free/ja/markdown-word-henkan",
@@ -36,14 +40,36 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     openGraph: {
-      title: "Markdown Word（DOCX）変換 | 無料オンラインツール",
-      description: ".mdファイルをMicrosoft Word形式に変換。無料・プライベート・即時ダウンロード。",
+      title: "Markdown Word（DOCX）変換 — 無料・登録不要・文字化けなし（2026）",
+      description: ".md を .docx にブラウザで変換。ドラッグ＆ドロップで即時ダウンロード。無料、登録不要。",
       url: "https://www.markdown.free/ja/markdown-word-henkan",
       type: "website",
       locale: "ja_JP",
     },
   };
 }
+
+const faq = [
+  { q: "Markdown を Word（.docx）に変換する方法は？", a: "Markdown Free を開いて .md ファイルをドラッグ＆ドロップ（または Markdown テキストを貼り付け）、プレビューで確認後「DOCX へ」ボタンをクリックするだけ。約 10 秒で完了、登録もインストールも不要です。" },
+  { q: "この Markdown Word 変換ツールは無料ですか？", a: "はい。Markdown Free は完全無料です。プレミアムプラン、登録、利用回数制限はありません。" },
+  { q: "登録なしで Markdown を Word に変換できますか？", a: "できます。Markdown Free はアカウント不要です。ファイルはメモリ上で処理され、変換完了直後に破棄されます。" },
+  { q: "Word と DOCX の違いは？", a: "DOCX は 2007 年以降の Microsoft Word で使われるファイル形式です。「Word 文書」と言うとき、Word、Google Docs、LibreOffice などで開ける .docx ファイルを意味します。" },
+  { q: "日本語の Markdown を Word に変換すると文字化けしますか？", a: "しません。Markdown Free は日本語、中国語、韓国語などの CJK 文字を正しく保持します。表、コードブロック、見出しも適切な Word スタイルとして書き出されます。" },
+  { q: "ファイルはサーバーに保存されますか？", a: "いいえ。ファイルはメモリ上で一時的に処理され、変換完了直後に削除されます。HTML/TXT のエクスポートは完全にブラウザ内で処理されます。" },
+  { q: "表、コードブロック、チェックリストなどの書式は保持されますか？", a: "はい。GFM の表、コードブロック、見出し、順序付き／順序なしリスト、チェックリスト、取り消し線など、すべて適切な Word スタイルに変換されます。" },
+  { q: "ファイルサイズの上限は？", a: "現在 5MB／ファイルです。Markdown 5MB は約 75 万語に相当し、ほぼすべての実際の文書をカバーします。" },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "ja",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -61,6 +87,7 @@ export default async function MarkdownWordHenkanPage({ params }: PageProps) {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
       <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
         {/* Hero Section */}
         <section className="mb-12 text-center">
@@ -191,38 +218,12 @@ export default async function MarkdownWordHenkanPage({ params }: PageProps) {
             よくある質問
           </h2>
           <div className="space-y-4">
-            <details className="rounded-xl border border-slate-200 bg-white p-4">
-              <summary className="cursor-pointer font-medium text-slate-900">
-                このMarkdown Word変換ツールは無料ですか？
-              </summary>
-              <p className="mt-2 text-sm text-slate-600">
-                はい！Markdown Freeは隠れたコスト、プレミアムプラン、登録要件なしで100%無料です。
-              </p>
-            </details>
-            <details className="rounded-xl border border-slate-200 bg-white p-4">
-              <summary className="cursor-pointer font-medium text-slate-900">
-                WordとDOCXの違いは何ですか？
-              </summary>
-              <p className="mt-2 text-sm text-slate-600">
-                DOCXは2007年以降のMicrosoft Wordで使用されるファイル形式です。「Word文書」と言う時、Word、Google Docs、LibreOffice、その他のワープロで開ける.docxファイルを意味します。
-              </p>
-            </details>
-            <details className="rounded-xl border border-slate-200 bg-white p-4">
-              <summary className="cursor-pointer font-medium text-slate-900">
-                私のファイルはサーバーに保存されますか？
-              </summary>
-              <p className="mt-2 text-sm text-slate-600">
-                いいえ。ファイルはメモリ内で処理され、変換後すぐに削除されます。コンテンツを保存することはありません。
-              </p>
-            </details>
-            <details className="rounded-xl border border-slate-200 bg-white p-4">
-              <summary className="cursor-pointer font-medium text-slate-900">
-                テーブルやコードブロックなどのフォーマットは保持されますか？
-              </summary>
-              <p className="mt-2 text-sm text-slate-600">
-                はい！テーブル、コードブロック、見出し、リスト、その他のMarkdownフォーマットは適切なWordスタイルに変換されます。
-              </p>
-            </details>
+            {faq.map((item, i) => (
+              <details key={i} className="rounded-xl border border-slate-200 bg-white p-4">
+                <summary className="cursor-pointer font-medium text-slate-900">{item.q}</summary>
+                <p className="mt-2 text-sm text-slate-600">{item.a}</p>
+              </details>
+            ))}
           </div>
         </section>
 

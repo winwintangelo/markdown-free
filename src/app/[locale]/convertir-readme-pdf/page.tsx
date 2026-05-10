@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // Only show this page for Spanish locale
 export function generateStaticParams() {
@@ -15,33 +16,57 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  
+
   if (locale !== "es") {
     return {};
   }
 
   return {
-    title: "Convertir README.md a PDF | Markdown Free",
+    title: "Convertir README.md a PDF — Gratis Online, Sin Registro (2026) | Markdown Free",
     description:
-      "Convierte tu README.md de GitHub en un PDF profesional. Perfecto para documentación, portfolio o presentaciones. Gratis y sin registro.",
+      "Convierte cualquier README.md de GitHub a un PDF profesional en segundos. Arrastra el archivo .md, descarga el PDF — gratis, sin registro, sin instalación, sin marca de agua. Tablas GFM, checklists y bloques de código se conservan. Versión 2026.",
     keywords: [
       "convertir readme pdf",
       "readme.md a pdf",
-      "github readme pdf",
-      "documentación markdown pdf",
-      "readme markdown convertidor",
+      "github readme a pdf",
+      "convertir readme gratis",
+      "readme pdf sin registro",
+      "github markdown pdf 2026",
+      "readme.md pdf español",
     ],
     alternates: {
       canonical: "/es/convertir-readme-pdf",
     },
     openGraph: {
-      title: "Convertir README.md a PDF | Markdown Free",
+      title: "Convertir README.md a PDF — Gratis Online, Sin Registro (2026)",
       description:
-        "Convierte tu README.md de GitHub en un PDF profesional. Gratis y sin registro.",
+        "Convertidor README→PDF gratis. Arrastra .md, descarga PDF. Sin registro, sin instalación.",
       locale: "es_ES",
     },
   };
 }
+
+const faq = [
+  { q: "¿Cómo convierto un README de GitHub a PDF?", a: "Abre Markdown Free, arrastra el archivo README.md a la zona de carga (o pega el contenido), revisa la vista previa y haz clic en Exportar a PDF. Sin registro, sin instalación, en unos 10 segundos." },
+  { q: "¿Cómo descargo un README de GitHub como PDF?", a: "Abre el README.md del repositorio en GitHub, haz clic en \"Raw\" y guarda la página como archivo .md, luego súbelo a Markdown Free y expórtalo a PDF. Todo el flujo permanece en tu navegador." },
+  { q: "¿El convertidor README a PDF es gratis?", a: "Sí. Markdown Free es 100% gratis sin nivel premium, sin registro, sin límites de uso y sin marca de agua en el PDF exportado." },
+  { q: "¿Puedo convertir README.md a PDF sin registrarme?", a: "Sí. Markdown Free no requiere cuenta. Los archivos se procesan en tu navegador (HTML/TXT) o en memoria serverless (PDF/DOCX/EPUB) y nunca se almacenan." },
+  { q: "¿Las imágenes de mi README se incluyen en el PDF?", a: "Sí para URLs absolutas (https://...). Las rutas relativas del repositorio (./images/foo.png) no se resuelven fuera de GitHub — sustitúyelas por la URL de raw.githubusercontent.com antes de convertir." },
+  { q: "¿Puedo convertir CHANGELOG.md, CONTRIBUTING.md u otros archivos Markdown?", a: "Sí. Cualquier archivo .md o .markdown funciona — README.md, CHANGELOG.md, CONTRIBUTING.md, documentación en /docs, todos." },
+  { q: "¿Hay un límite de tamaño de archivo para la conversión README a PDF?", a: "Sí — 5MB por archivo, lo que cubre prácticamente cualquier README y archivo de documentación real (~750.000 palabras de Markdown plano)." },
+  { q: "¿Mis archivos README se guardan en vuestros servidores?", a: "No. Los PDFs se generan en memoria serverless y se descartan inmediatamente. Las exportaciones HTML y TXT se procesan completamente en tu navegador y nunca salen de tu equipo." },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "es",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 export default async function ConvertirReadmePdfPage({
   params,
@@ -59,6 +84,8 @@ export default async function ConvertirReadmePdfPage({
   const dict = getDictionary(locale);
 
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>Convertir README.md a PDF</h1>
@@ -169,24 +196,12 @@ MIT`}</pre>
 
         <h2>Preguntas Frecuentes</h2>
 
-        <h3>¿Las imágenes del README se incluyen?</h3>
-        <p>
-          Las imágenes con URLs absolutas (ej. https://...) se incluyen en el PDF. 
-          Las imágenes con rutas relativas podrían no mostrarse correctamente — 
-          te recomendamos usar URLs completas.
-        </p>
-
-        <h3>¿Puedo convertir otros archivos Markdown del repositorio?</h3>
-        <p>
-          ¡Por supuesto! Funciona con cualquier archivo <code>.md</code>: CHANGELOG.md, 
-          CONTRIBUTING.md, documentación en la carpeta /docs, etc.
-        </p>
-
-        <h3>¿El formato del PDF es personalizable?</h3>
-        <p>
-          Actualmente el PDF usa un diseño profesional optimizado para legibilidad. 
-          Estamos evaluando opciones de personalización para versiones futuras.
-        </p>
+        {faq.map((item, i) => (
+          <div key={i}>
+            <h3>{item.q}</h3>
+            <p>{item.a}</p>
+          </div>
+        ))}
 
         {/* Second CTA */}
         <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
@@ -227,6 +242,7 @@ MIT`}</pre>
 
       <Footer locale={locale} dict={dict} />
     </main>
+    </>
   );
 }
 

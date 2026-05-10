@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // Only show this page for Indonesian locale
 export function generateStaticParams() {
@@ -21,27 +22,51 @@ export async function generateMetadata({
   }
 
   return {
-    title: "Konversi Markdown ke PDF Gratis | Markdown Free",
+    title: "Konverter Markdown ke PDF — Gratis Online, Tanpa Daftar (2026) | Markdown Free",
     description:
-      "Konversi file Markdown ke PDF secara gratis. Tanpa daftar, file tidak disimpan. Drag and drop untuk konversi. Mendukung GitHub Flavored Markdown.",
+      "Konverter Markdown ke PDF online gratis: drag-and-drop file .md, unduh PDF instan. Tanpa daftar, tanpa instal, tanpa watermark. Tabel GFM, checklist, dan blok kode dipertahankan. Versi 2026.",
     keywords: [
-      "konversi markdown pdf",
+      "konversi markdown ke pdf",
       "md ke pdf gratis",
-      "markdown converter",
+      "konverter markdown online",
+      "markdown ke pdf tanpa daftar",
       "konversi markdown online",
       "readme ke pdf",
+      "markdown pdf 2026",
     ],
     alternates: {
       canonical: "/id/konversi-markdown-pdf",
     },
     openGraph: {
-      title: "Konversi Markdown ke PDF Gratis | Markdown Free",
+      title: "Konverter Markdown ke PDF — Gratis Online, Tanpa Daftar (2026)",
       description:
-        "Konversi file Markdown ke PDF secara gratis. Tanpa daftar, privasi terjamin.",
+        "Drag-and-drop .md, unduh PDF. Tanpa daftar, tanpa instal, tanpa watermark.",
       locale: "id_ID",
     },
   };
 }
+
+const faq = [
+  { q: "Bagaimana cara mengonversi Markdown ke PDF?", a: "Buka Markdown Free, drag-and-drop file .md Anda (atau tempel teks Markdown), pratinjau hasil, lalu klik tombol \"Ke PDF\" untuk mengunduh. Seluruh proses sekitar 10 detik, tanpa instalasi." },
+  { q: "Apakah konverter Markdown ke PDF ini gratis?", a: "Ya. Markdown Free 100% gratis tanpa paket premium, tanpa pendaftaran, tanpa batasan penggunaan, dan tanpa watermark di PDF hasil." },
+  { q: "Bisa konversi Markdown ke PDF tanpa daftar?", a: "Bisa. Markdown Free tidak memerlukan akun atau pendaftaran. File diproses di browser (HTML/TXT) atau di memori serverless (PDF/DOCX/EPUB) dan tidak pernah disimpan." },
+  { q: "Bisa konversi GitHub README.md ke PDF?", a: "Bisa. Buka README.md di repository GitHub, klik \"Raw\" dan simpan filenya, lalu unggah ke Markdown Free dan ekspor ke PDF. CHANGELOG.md, CONTRIBUTING.md dan file .md lain juga didukung." },
+  { q: "Apakah file Markdown saya disimpan di server?", a: "Tidak. PDF dibuat di memori serverless dan langsung dihapus. Ekspor HTML dan TXT diproses sepenuhnya di browser dan tidak pernah meninggalkan komputer Anda." },
+  { q: "Berapa ukuran file maksimum untuk konversi Markdown ke PDF?", a: "Saat ini 5MB per file, mencakup hampir semua dokumen Markdown nyata (~750.000 kata)." },
+  { q: "Apakah format tabel, blok kode, dan checklist dipertahankan di PDF?", a: "Ya. Semua fitur GFM — tabel, blok kode (dengan syntax highlighting), checklist, daftar, strikethrough, autolink — dipertahankan dengan benar di output PDF." },
+  { q: "Apakah tool ini berfungsi tanpa instalasi?", a: "Ya. Markdown Free berjalan sepenuhnya di browser — tidak perlu instalasi, plugin, atau ekstensi." },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "id",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 export default async function KonversiMarkdownPdfPage({
   params,
@@ -58,6 +83,8 @@ export default async function KonversiMarkdownPdfPage({
   const dict = getDictionary(locale);
 
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>Konversi Markdown ke PDF - Gratis</h1>
@@ -121,28 +148,12 @@ export default async function KonversiMarkdownPdfPage({
 
         <h2>Pertanyaan Umum</h2>
 
-        <h3>Apakah benar-benar gratis?</h3>
-        <p>
-          Ya! Markdown Free sepenuhnya gratis. Tidak ada paket premium, tidak ada batas harian,
-          tidak ada fitur berbayar tersembunyi.
-        </p>
-
-        <h3>Apakah file saya aman?</h3>
-        <p>
-          Aman dan terjamin. Preview diproses di browser Anda,
-          dan saat konversi PDF, file diproses di memori lalu langsung dihapus.
-          File tidak pernah disimpan.
-        </p>
-
-        <h3>Berapa batas ukuran file?</h3>
-        <p>
-          Mendukung file hingga 5MB. Lebih dari cukup untuk dokumen Markdown biasa.
-        </p>
-
-        <h3>Bisa digunakan di HP?</h3>
-        <p>
-          Bisa! Antarmuka sudah dioptimalkan untuk smartphone dan tablet.
-        </p>
+        {faq.map((item, i) => (
+          <div key={i}>
+            <h3>{item.q}</h3>
+            <p>{item.a}</p>
+          </div>
+        ))}
 
         {/* Second CTA */}
         <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
@@ -183,5 +194,6 @@ export default async function KonversiMarkdownPdfPage({
 
       <Footer locale={locale} dict={dict} />
     </main>
+    </>
   );
 }

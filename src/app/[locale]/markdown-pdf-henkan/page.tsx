@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // Only show this page for Japanese locale
 export function generateStaticParams() {
@@ -21,9 +22,9 @@ export async function generateMetadata({
   }
 
   return {
-    title: "md pdf 変換 | Markdown PDF 変換 無料 | Markdown Free",
+    title: "md pdf 変換 — 無料・登録不要・文字化けなし（2026） | Markdown Free",
     description:
-      "md pdf 変換、markdown pdf 変換、pdf markdown 変換 — すべて無料。.mdファイルをPDFに変換。登録不要、ファイルは保存されません。",
+      "md pdf 変換・markdown pdf 変換・pdf markdown 変換 すべて無料。.md ファイルをドラッグ＆ドロップ、すぐにPDFをダウンロード。登録不要、インストール不要、日本語の文字化けなし。GFM の表・チェックリスト・コードブロック完全対応。2026年版。",
     keywords: [
       "md pdf 変換",
       "markdown pdf 変換",
@@ -32,18 +33,43 @@ export async function generateMetadata({
       "マークダウン pdf",
       "markdown 変換 オンライン",
       "readme pdf 変換",
+      "md ファイル pdf 変換",
+      "markdown pdf 登録不要",
+      "markdown pdf 2026",
     ],
     alternates: {
       canonical: "/ja/markdown-pdf-henkan",
     },
     openGraph: {
-      title: "md pdf 変換 | Markdown PDF 変換 無料",
+      title: "md pdf 変換 — 無料・登録不要・文字化けなし（2026）",
       description:
-        "md pdf 変換、markdown pdf 変換 — 無料で簡単。登録不要、プライバシー保護。",
+        "md → PDF 無料変換ツール。ドラッグ＆ドロップでPDF即ダウンロード。登録・インストール不要、日本語文字化けなし。",
       locale: "ja_JP",
     },
   };
 }
+
+const faq = [
+  { q: "md ファイルを PDF に変換する方法は？", a: "Markdown Free を開いて .md ファイルをドラッグ＆ドロップ（または Markdown テキストを貼り付け）、プレビューで確認後「PDF」ボタンをクリックするだけ。約 10 秒で完了、登録もインストールも不要です。" },
+  { q: "Markdown PDF 変換は本当に無料ですか？", a: "はい。Markdown Free は完全無料です。プレミアムプラン、登録、利用回数制限、PDF への透かしは一切ありません。" },
+  { q: "登録なしで Markdown を PDF に変換できますか？", a: "できます。Markdown Free はアカウント不要です。HTML/TXT はブラウザ内、PDF/DOCX/EPUB はサーバーレスメモリ上で処理され、ファイルは一切保存されません。" },
+  { q: "日本語の Markdown を PDF に変換すると文字化けしますか？", a: "しません。Markdown Free は PDF レンダリングパイプラインに Noto Sans CJK JP フォントを埋め込んでいるため、日本語、中国語（簡体・繁体）、韓国語のすべてが正しく表示され、□□□（豆腐）になることはありません。" },
+  { q: "GitHub の README.md も PDF に変換できますか？", a: "はい。GitHub のリポジトリで README.md を開き「Raw」ボタンをクリックして .md ファイルとして保存、Markdown Free にアップロードすれば PDF として書き出せます。CHANGELOG.md や CONTRIBUTING.md も同様です。" },
+  { q: "Markdown PDF 変換のファイルサイズ上限は？", a: "現在 5MB／ファイルです。Markdown 5MB は約 75 万語に相当し、ほぼすべての実際の文書をカバーします。" },
+  { q: "ファイルはどこで処理されますか？", a: "PDF はサーバーレス関数のメモリ内で生成され、変換完了直後に破棄されます。HTML と TXT のエクスポートは完全にブラウザ内で処理され、お使いのコンピュータから外に出ません。" },
+  { q: "GFM（GitHub Flavored Markdown）の表やチェックリストは保持されますか？", a: "はい。表、チェックリスト、取り消し線、コードブロック（シンタックスハイライト付き）、自動リンクなど、GFM のすべての機能が PDF 出力で正しく保持されます。" },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "ja",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 export default async function MarkdownPdfHenkanPage({
   params,
@@ -60,6 +86,8 @@ export default async function MarkdownPdfHenkanPage({
   const dict = getDictionary(locale);
 
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>md pdf 変換・Markdown PDF 変換 - 無料・登録不要</h1>
@@ -125,30 +153,12 @@ export default async function MarkdownPdfHenkanPage({
 
         <h2>よくある質問</h2>
 
-        <h3>本当に無料ですか？</h3>
-        <p>
-          はい！Markdown Freeは完全無料です。プレミアムプランも、日数制限も、
-          隠れた有料機能もありません。
-        </p>
-
-        <h3>ファイルの安全性は？</h3>
-        <p>
-          安心してご利用いただけます。プレビューはブラウザ内で処理され、
-          PDF変換時もファイルはメモリ上で処理後、即座に削除されます。
-          ファイルが保存されることは一切ありません。
-        </p>
-
-        <h3>ファイルサイズの上限は？</h3>
-        <p>
-          5MBまでのファイルに対応しています。通常のMarkdownドキュメントには
-          十分なサイズです。
-        </p>
-
-        <h3>スマートフォンでも使えますか？</h3>
-        <p>
-          はい！スマートフォンやタブレットに最適化されたインターフェースで
-          ご利用いただけます。
-        </p>
+        {faq.map((item, i) => (
+          <div key={i}>
+            <h3>{item.q}</h3>
+            <p>{item.a}</p>
+          </div>
+        ))}
 
         {/* Second CTA */}
         <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
@@ -189,5 +199,6 @@ export default async function MarkdownPdfHenkanPage({
 
       <Footer locale={locale} dict={dict} />
     </main>
+    </>
   );
 }

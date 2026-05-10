@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // Only show this page for Vietnamese locale
 export function generateStaticParams() {
@@ -21,27 +22,52 @@ export async function generateMetadata({
   }
 
   return {
-    title: "Chuyển đổi Markdown sang PDF Miễn phí | Markdown Free",
+    title: "Chuyển đổi Markdown sang PDF — Miễn phí, Không Đăng ký (2026) | Markdown Free",
     description:
-      "Chuyển đổi file Markdown sang PDF miễn phí. Không cần đăng ký, file không được lưu trữ. Kéo thả để chuyển đổi. Hỗ trợ GitHub Flavored Markdown.",
+      "Công cụ chuyển đổi Markdown sang PDF trực tuyến miễn phí. Kéo thả file .md, tải PDF ngay lập tức. Không đăng ký, không cài đặt, không watermark. Dấu tiếng Việt hiển thị chính xác. Bảng, checklist, khối mã GFM được giữ nguyên. Phiên bản 2026.",
     keywords: [
       "chuyển đổi markdown pdf",
       "md sang pdf miễn phí",
       "công cụ chuyển đổi markdown",
-      "chuyển đổi markdown trực tuyến",
+      "markdown pdf trực tuyến",
+      "markdown sang pdf không đăng ký",
+      "markdown pdf tiếng việt",
       "readme sang pdf",
+      "markdown pdf 2026",
     ],
     alternates: {
       canonical: "/vi/chuyen-doi-markdown-pdf",
     },
     openGraph: {
-      title: "Chuyển đổi Markdown sang PDF Miễn phí | Markdown Free",
+      title: "Chuyển đổi Markdown sang PDF — Miễn phí, Không Đăng ký (2026)",
       description:
-        "Chuyển đổi file Markdown sang PDF miễn phí. Không cần đăng ký, bảo mật riêng tư.",
+        "Kéo thả .md, tải PDF ngay lập tức. Không đăng ký, không cài đặt, dấu tiếng Việt hiển thị chuẩn.",
       locale: "vi_VN",
     },
   };
 }
+
+const faq = [
+  { q: "Làm thế nào để chuyển đổi file Markdown sang PDF?", a: "Mở Markdown Free, kéo thả file .md vào khu vực tải lên (hoặc dán văn bản Markdown), xem trước kết quả, rồi nhấn \"Sang PDF\" để tải xuống. Toàn bộ quá trình khoảng 10 giây, không cần cài đặt." },
+  { q: "Công cụ chuyển đổi Markdown sang PDF này có miễn phí không?", a: "Có. Markdown Free hoàn toàn miễn phí 100%, không có gói cao cấp, không cần đăng ký, không giới hạn sử dụng và không có watermark trên PDF xuất ra." },
+  { q: "Có thể chuyển đổi Markdown sang PDF mà không cần đăng ký không?", a: "Được. Markdown Free không yêu cầu tài khoản. File được xử lý trong trình duyệt (HTML/TXT) hoặc trong bộ nhớ serverless (PDF/DOCX/EPUB) và không bao giờ được lưu trữ." },
+  { q: "Dấu tiếng Việt có hiển thị đúng trong PDF không?", a: "Có. Markdown Free nhúng font hỗ trợ đầy đủ Unicode trong pipeline render PDF, nên dấu tiếng Việt, ký tự Hán-Nôm, và các ngôn ngữ khác (Hàn, Nhật, Trung) đều hiển thị chính xác mà không bị □□□ hoặc thiếu dấu." },
+  { q: "Có thể chuyển đổi GitHub README.md sang PDF không?", a: "Có. Mở README.md trong repository GitHub, nhấn nút \"Raw\" và lưu file, sau đó tải lên Markdown Free và xuất PDF. CHANGELOG.md, CONTRIBUTING.md và bất kỳ file .md nào cũng được hỗ trợ." },
+  { q: "Giới hạn kích thước file là bao nhiêu?", a: "Hiện tại 5MB mỗi file, đủ cho hầu hết tài liệu Markdown thực tế (~750.000 từ Markdown thuần)." },
+  { q: "File Markdown của tôi có được lưu trên máy chủ không?", a: "Không. PDF được tạo trong bộ nhớ serverless và bị loại bỏ ngay lập tức. Xuất HTML và TXT được xử lý hoàn toàn trong trình duyệt và không bao giờ rời khỏi máy của bạn." },
+  { q: "Bảng, khối mã, checklist GFM có được giữ nguyên trong PDF không?", a: "Có. Tất cả các tính năng GFM — bảng, danh sách công việc, khối mã (với syntax highlighting), gạch ngang, autolink — đều được bảo toàn chính xác trong PDF." },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "vi",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 export default async function ChuyenDoiMarkdownPdfPage({
   params,
@@ -58,6 +84,8 @@ export default async function ChuyenDoiMarkdownPdfPage({
   const dict = getDictionary(locale);
 
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>Chuyển đổi Markdown sang PDF - Miễn phí</h1>
@@ -121,28 +149,12 @@ export default async function ChuyenDoiMarkdownPdfPage({
 
         <h2>Câu hỏi thường gặp</h2>
 
-        <h3>Có thật sự miễn phí không?</h3>
-        <p>
-          Có! Markdown Free hoàn toàn miễn phí. Không có gói cao cấp, không giới hạn hàng ngày,
-          không có tính năng trả phí ẩn.
-        </p>
-
-        <h3>File của tôi có an toàn không?</h3>
-        <p>
-          An toàn và bảo mật. Xem trước được xử lý trong trình duyệt của bạn,
-          và khi chuyển đổi PDF, file được xử lý trong bộ nhớ rồi xóa ngay lập tức.
-          File không bao giờ được lưu trữ.
-        </p>
-
-        <h3>Giới hạn kích thước file là bao nhiêu?</h3>
-        <p>
-          Hỗ trợ file lên đến 5MB. Quá đủ cho tài liệu Markdown thông thường.
-        </p>
-
-        <h3>Có dùng được trên điện thoại không?</h3>
-        <p>
-          Có! Giao diện đã được tối ưu cho điện thoại thông minh và máy tính bảng.
-        </p>
+        {faq.map((item, i) => (
+          <div key={i}>
+            <h3>{item.q}</h3>
+            <p>{item.a}</p>
+          </div>
+        ))}
 
         {/* Second CTA */}
         <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
@@ -183,5 +195,6 @@ export default async function ChuyenDoiMarkdownPdfPage({
 
       <Footer locale={locale} dict={dict} />
     </main>
+    </>
   );
 }

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // Only show this page for Simplified Chinese locale
 export function generateStaticParams() {
@@ -21,27 +22,53 @@ export async function generateMetadata({
   }
 
   return {
-    title: "Markdown转PDF免费在线工具 | Markdown Free",
+    title: "Markdown 转 PDF — 免费在线工具，无需注册（2026） | Markdown Free",
     description:
-      "免费将Markdown文件转换为PDF。无需注册，文件不会被存储。拖放即可转换。支持GitHub Flavored Markdown。",
+      "在线 Markdown 转 PDF 免费工具：拖放 .md 文件，立即下载 PDF。无需注册、无需安装、无水印。中文支持，无字体豆腐。GFM 表格、清单、代码块完整保留。2026 最新版本。",
     keywords: [
-      "markdown转pdf",
-      "md转pdf免费",
-      "markdown转换器",
-      "在线markdown转换",
-      "readme转pdf",
+      "markdown 转 pdf",
+      "md 转 pdf",
+      "在线 markdown 转 pdf",
+      "markdown 转 pdf 免费",
+      "markdown 转换器",
+      "markdown pdf 在线工具",
+      "markdown pdf 无需注册",
+      "markdown pdf 中文",
+      "markdown pdf 2026",
     ],
     alternates: {
       canonical: "/zh-Hans/markdown-pdf-zhuanhuan",
     },
     openGraph: {
-      title: "Markdown转PDF免费在线工具 | Markdown Free",
+      title: "Markdown 转 PDF — 免费在线工具，无需注册（2026）",
       description:
-        "免费将Markdown文件转换为PDF。无需注册，隐私保护。",
+        "拖放 .md 文件，立即下载 PDF。无需注册、无需安装、中文支持。",
       locale: "zh_CN",
     },
   };
 }
+
+const faq = [
+  { q: "如何把 Markdown 文件转成 PDF？", a: "把 .md 文件拖放到 Markdown Free 的上传区（或直接粘贴 Markdown 文字），预览确认后点击「转 PDF」即可下载。整个流程约 10 秒，无需安装、无需注册。" },
+  { q: "Markdown 转 PDF 工具是免费的吗？", a: "是。Markdown Free 100% 免费，没有付费版、没有注册、没有使用次数限制，导出的 PDF 也没有水印。" },
+  { q: "可以不注册就把 Markdown 转成 PDF 吗？", a: "可以。Markdown Free 不需要账号，所有文件都在浏览器或无服务器内存中处理，处理完立即丢弃。" },
+  { q: "中文 Markdown 转 PDF 后会出现乱码或字体豆腐吗？", a: "不会。Markdown Free 在 PDF 渲染管线中内嵌 Noto Sans CJK 字体，简体中文、繁体中文、日文、韩文都能正确显示，不会出现 □□□ 豆腐字。" },
+  { q: "可以转换 GitHub README.md 吗？", a: "可以。在 GitHub 仓库打开 README.md，点击「Raw」保存文件，然后上传到 Markdown Free 即可导出 PDF。CHANGELOG.md、CONTRIBUTING.md 等任何 .md 文件都支持。" },
+  { q: "Markdown 转 PDF 有文件大小限制吗？", a: "目前每个文件的上限是 5MB，足以涵盖几乎所有真实世界的 Markdown 文档（约 75 万字）。" },
+  { q: "我的 Markdown 文件会被保存在你们的服务器吗？", a: "不会。PDF 在无服务器内存中生成，完成后立即丢弃；HTML 与 TXT 导出完全在浏览器中处理，不会离开你的电脑。" },
+  { q: "GFM 的表格、清单、代码块在 PDF 里会保留吗？", a: "会。表格、任务清单、代码块（含语法高亮）、删除线、自动链接等 GFM 特性都会在 PDF 中正确保留。" },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "zh-Hans",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
 
 export default async function MarkdownPdfZhuanhuanPage({
   params,
@@ -58,6 +85,8 @@ export default async function MarkdownPdfZhuanhuanPage({
   const dict = getDictionary(locale);
 
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
     <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pb-16 pt-10">
       <article className="prose prose-slate max-w-none">
         <h1>Markdown转PDF - 免费在线工具</h1>
@@ -121,29 +150,12 @@ export default async function MarkdownPdfZhuanhuanPage({
 
         <h2>常见问题</h2>
 
-        <h3>真的免费吗？</h3>
-        <p>
-          是的！Markdown Free完全免费。没有高级版，没有每日限制，
-          没有隐藏的付费功能。
-        </p>
-
-        <h3>文件安全吗？</h3>
-        <p>
-          请放心使用。预览在浏览器内处理，
-          PDF转换时文件在内存中处理后立即删除。
-          文件绝不会被存储。
-        </p>
-
-        <h3>文件大小限制是多少？</h3>
-        <p>
-          支持最大5MB的文件。对于一般的Markdown文档来说
-          绰绰有余。
-        </p>
-
-        <h3>手机上能用吗？</h3>
-        <p>
-          可以！界面已针对手机和平板进行优化。
-        </p>
+        {faq.map((item, i) => (
+          <div key={i}>
+            <h3>{item.q}</h3>
+            <p>{item.a}</p>
+          </div>
+        ))}
 
         {/* Second CTA */}
         <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
@@ -184,5 +196,6 @@ export default async function MarkdownPdfZhuanhuanPage({
 
       <Footer locale={locale} dict={dict} />
     </main>
+    </>
   );
 }
