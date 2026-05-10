@@ -12,7 +12,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Konversi Markdown ke Word (DOCX) — Gratis Online, Tanpa Daftar (2026)",
+    title: "Konverter Markdown ke Word (DOCX) — Gratis Online, Tanpa Daftar (2026)",
     description: "Ubah file Markdown (.md) ke dokumen Word (DOCX) langsung di browser. Drag-and-drop, unduh instan. Gratis, tanpa daftar, tanpa instal. File diproses di memori dan langsung dihapus. Versi 2026.",
     keywords: [
       "markdown ke word",
@@ -40,7 +40,7 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     openGraph: {
-      title: "Konversi Markdown ke Word (.docx) — Gratis Online, Tanpa Daftar",
+      title: "Konverter Markdown ke Word (DOCX) — Gratis Online, Tanpa Daftar",
       description: "Ubah .md ke DOCX langsung di browser. Drag-and-drop, unduh instan. Gratis, tanpa daftar.",
       url: "https://www.markdown.free/id/markdown-ke-word",
       type: "website",
