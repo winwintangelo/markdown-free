@@ -51,6 +51,12 @@ export async function generateMetadata({
   return {
     title: `${titles[locale]} | Markdown Free`,
     description: descriptions[locale],
+    alternates: {
+      canonical: locale === "en" ? "/about" : `/${locale}/about`,
+    },
+    ...(locale !== "en" && {
+      robots: { index: false, follow: true },
+    }),
   };
 }
 
