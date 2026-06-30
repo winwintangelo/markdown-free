@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { getDictionary } from "@/i18n";
 import { notFound } from "next/navigation";
 
@@ -238,6 +239,8 @@ export default async function MarkdownWordByeonhwanPage({ params }: PageProps) {
             무료 • 회원가입 불필요 • 즉시 다운로드
           </p>
         </section>
+        {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} current="docx" />
       </main>
       <Footer locale={locale} dict={dict} />
     </>

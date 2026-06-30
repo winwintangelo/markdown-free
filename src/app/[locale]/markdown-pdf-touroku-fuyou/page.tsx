@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, type Locale } from "@/i18n";
 
 // Only show this page for Japanese locale
@@ -170,27 +171,8 @@ export default async function MarkdownPdfTourokufuyouPage({
           </Link>
         </div>
 
-        {/* Related Pages */}
-        <div className="not-prose border-t border-slate-200 pt-8">
-          <h2 className="mb-4 text-lg font-semibold text-slate-700">関連ページ</h2>
-          <ul className="space-y-2">
-            <li>
-              <Link href="/ja/markdown-pdf-henkan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
-                Markdown PDF 変換 - 無料・登録不要
-              </Link>
-            </li>
-            <li>
-              <Link href="/ja/readme-pdf-henkan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
-                README.md PDF 変換
-              </Link>
-            </li>
-            <li>
-              <Link href="/ja/markdown-henkan-hikaku" className="text-emerald-700 hover:text-emerald-800 hover:underline">
-                Markdownコンバーター比較
-              </Link>
-            </li>
-          </ul>
-        </div>
+        {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} />
       </article>
 
       <Footer locale={locale} dict={dict} />

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary, type Locale } from "@/i18n";
@@ -230,15 +231,8 @@ export default async function MarkdownByeonhwanBigyoPage({
             <Link href="/ko" className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800">Markdown Free 열기<span aria-hidden="true">→</span></Link>
           </div>
 
-          <div className="not-prose border-t border-slate-200 pt-8">
-            <h2 className="mb-4 text-lg font-semibold text-slate-700">관련 페이지</h2>
-            <ul className="space-y-2">
-              <li><Link href="/ko/markdown-pdf-byeonhwan" className="text-emerald-700 hover:text-emerald-800 hover:underline">마크다운 PDF 변환 - 무료, 가입 불필요</Link></li>
-              <li><Link href="/ko/readme-pdf-byeonhwan" className="text-emerald-700 hover:text-emerald-800 hover:underline">README.md PDF 변환</Link></li>
-              <li><Link href="/ko/markdown-word-byeonhwan" className="text-emerald-700 hover:text-emerald-800 hover:underline">마크다운 워드 변환</Link></li>
-              <li><Link href="/ko/markdown-pdf-hoewon-gaibeop-eobs-i" className="text-emerald-700 hover:text-emerald-800 hover:underline">회원가입 없이 마크다운 PDF</Link></li>
-            </ul>
-          </div>
+          {/* Related tool suite cross-links */}
+          <RelatedTools locale={locale} current="comparison" />
         </article>
 
         <Footer locale={locale} dict={dict} />

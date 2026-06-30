@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, isValidLocale, type Locale } from "@/i18n";
 
 // Only show this page for Vietnamese locale
@@ -174,21 +175,8 @@ export default async function ChuyenDoiMarkdownEpubPage({
         </div>
       </section>
 
-      {/* Related Tools */}
-      <section className="mb-12 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="mb-3 text-lg font-semibold text-slate-900">Công cụ liên quan</h2>
-        <div className="flex flex-wrap gap-3">
-          <Link href="/vi" className="text-purple-600 hover:text-purple-700 hover:underline">
-            Markdown sang PDF
-          </Link>
-          <Link href="/markdown-to-docx" className="text-purple-600 hover:text-purple-700 hover:underline">
-            Markdown sang DOCX
-          </Link>
-          <Link href="/readme-to-pdf" className="text-purple-600 hover:text-purple-700 hover:underline">
-            README sang PDF
-          </Link>
-        </div>
-      </section>
+      {/* Related tool suite cross-links */}
+      <RelatedTools locale={locale} current="epub" />
 
       {/* CTA */}
       <section className="text-center">

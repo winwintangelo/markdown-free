@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary, type Locale } from "@/i18n";
@@ -231,15 +232,8 @@ export default async function MarkdownHenkanHikakuPage({
             <Link href="/ja" className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800">Markdown Freeを開く<span aria-hidden="true">→</span></Link>
           </div>
 
-          <div className="not-prose border-t border-slate-200 pt-8">
-            <h2 className="mb-4 text-lg font-semibold text-slate-700">関連ページ</h2>
-            <ul className="space-y-2">
-              <li><Link href="/ja/markdown-pdf-henkan" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown PDF変換 - 無料・登録不要</Link></li>
-              <li><Link href="/ja/markdown-pdf-touroku-fuyou" className="text-emerald-700 hover:text-emerald-800 hover:underline">登録不要のMarkdown PDF変換</Link></li>
-              <li><Link href="/ja/readme-pdf-henkan" className="text-emerald-700 hover:text-emerald-800 hover:underline">README.md PDF変換</Link></li>
-              <li><Link href="/ja/markdown-docx-henkan" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown DOCX変換</Link></li>
-            </ul>
-          </div>
+          {/* Related tool suite cross-links */}
+          <RelatedTools locale={locale} current="comparison" />
         </article>
 
         <Footer locale={locale} dict={dict} />

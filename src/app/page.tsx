@@ -4,6 +4,7 @@ import { PasteArea } from "@/components/paste-area";
 import { ExportRow } from "@/components/export-row";
 import { PreviewCard } from "@/components/preview-card";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { Header } from "@/components/header";
 import { LanguageBanner } from "@/components/language-banner";
 import { LocaleTracker } from "@/components/locale-tracker";
@@ -147,6 +148,8 @@ export default function Home() {
         </section>
 
         {/* Footer */}
+        <RelatedTools locale="en" current="pdf" />
+
         <Footer locale="en" dict={dict} />
       </main>
       <LanguageBanner currentLocale="en" dict={dict} />

@@ -6,6 +6,7 @@ import { PasteArea } from "@/components/paste-area";
 import { ExportRow } from "@/components/export-row";
 import { PreviewCard } from "@/components/preview-card";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { EngagementTracker } from "@/components/engagement-tracker";
 import { AIReferralTracker } from "@/components/ai-referral-tracker";
 import { InternalReferralTracker } from "@/components/internal-referral-tracker";
@@ -202,6 +203,9 @@ export default async function LocaleHomePage({
             </>
           );
         })()}
+
+        {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} current="pdf" />
 
         {/* Footer */}
         <Footer locale={locale} dict={dict} />

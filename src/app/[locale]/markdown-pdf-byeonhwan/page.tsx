@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
 
@@ -171,27 +172,8 @@ export default async function MarkdownPdfByeonhwanPage({
           </Link>
         </div>
 
-        {/* Related Pages */}
-        <div className="not-prose border-t border-slate-200 pt-8">
-          <h2 className="mb-4 text-lg font-semibold text-slate-700">관련 페이지</h2>
-          <ul className="space-y-2">
-            <li>
-              <Link href="/ko/markdown-pdf-hoewon-gaibeop-eobs-i" className="text-emerald-700 hover:text-emerald-800 hover:underline">
-                회원가입 없이 Markdown PDF 변환
-              </Link>
-            </li>
-            <li>
-              <Link href="/ko/readme-pdf-byeonhwan" className="text-emerald-700 hover:text-emerald-800 hover:underline">
-                README.md PDF 변환
-              </Link>
-            </li>
-            <li>
-              <Link href="/ko/markdown-byeonhwan-bigyo" className="text-emerald-700 hover:text-emerald-800 hover:underline">
-                Markdown 변환기 비교
-              </Link>
-            </li>
-          </ul>
-        </div>
+        {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} current="pdf" />
       </article>
 
       <Footer locale={locale} dict={dict} />

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 import { trackNavClick } from "@/lib/analytics";
+import { TOOL_LINKS } from "@/lib/tool-links";
 import type { Locale, Dictionary } from "@/i18n";
 
 interface FooterProps {
@@ -38,8 +39,25 @@ export function Footer({ locale, dict = defaultDict as Dictionary }: FooterProps
   // Get correct path prefix
   const pathPrefix = locale && locale !== "en" ? `/${locale}` : "";
 
+  // Tool-suite cross-links for the current locale (falls back to English)
+  const toolLinks = TOOL_LINKS[locale ?? "en"] ?? TOOL_LINKS.en ?? [];
+
   return (
     <footer ref={sectionRef} className="mt-4 flex flex-col items-center gap-2 text-[11px] text-slate-500">
+      {/* Tool suite cross-links — internal linking across the converter family */}
+      {toolLinks.length > 1 && (
+        <nav aria-label="Tools" className="flex flex-wrap justify-center gap-x-3 gap-y-1">
+          {toolLinks.map((t) => (
+            <Link
+              key={t.key}
+              href={t.href}
+              className="hover:text-slate-700 transition-colors"
+            >
+              {t.label}
+            </Link>
+          ))}
+        </nav>
+      )}
       {/* Language links for SEO crawlability */}
       <nav aria-label="Language" className="flex flex-wrap justify-center gap-x-2 gap-y-1">
         {localeLinks.map((l) => (

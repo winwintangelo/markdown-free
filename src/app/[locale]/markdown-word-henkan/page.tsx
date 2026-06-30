@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { getDictionary } from "@/i18n";
 import { notFound } from "next/navigation";
 import { safeJsonLd } from "@/lib/json-ld";
@@ -239,6 +240,8 @@ export default async function MarkdownWordHenkanPage({ params }: PageProps) {
             無料 • 登録不要 • 即時ダウンロード
           </p>
         </section>
+        {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} current="docx" />
       </main>
       <Footer locale={locale} dict={dict} />
     </>
