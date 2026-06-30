@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { hreflangAlternates } from "@/lib/tool-links";
 import { getDictionary, isValidLocale, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
 
@@ -36,6 +37,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/it/convertire-markdown-pdf",
+      languages: hreflangAlternates("pdf"),
     },
     openGraph: {
       title: "Convertire Markdown in PDF Gratis — Online, Senza Registrazione (2026)",

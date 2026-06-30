@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { RelatedTools } from "@/components/related-tools";
+import { hreflangAlternates } from "@/lib/tool-links";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
 
@@ -38,6 +39,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/ko/markdown-pdf-byeonhwan",
+      languages: hreflangAlternates("pdf"),
     },
     openGraph: {
       title: "마크다운 PDF 변환 — 무료, 회원가입 없이 (2026)",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { hreflangAlternates } from "@/lib/tool-links";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
 
@@ -36,6 +37,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/id/konversi-markdown-pdf",
+      languages: hreflangAlternates("pdf"),
     },
     openGraph: {
       title: "Konverter Markdown ke PDF — Gratis Online, Tanpa Daftar (2026)",

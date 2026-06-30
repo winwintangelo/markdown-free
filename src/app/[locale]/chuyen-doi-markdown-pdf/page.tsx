@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { hreflangAlternates } from "@/lib/tool-links";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
 
@@ -37,6 +38,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/vi/chuyen-doi-markdown-pdf",
+      languages: hreflangAlternates("pdf"),
     },
     openGraph: {
       title: "Chuyển đổi Markdown sang PDF — Miễn phí, Không Đăng ký (2026)",

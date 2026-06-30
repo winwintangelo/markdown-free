@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { hreflangAlternates } from "@/lib/tool-links";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
 
@@ -38,6 +39,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/zh-Hans/markdown-pdf-zhuanhuan",
+      languages: hreflangAlternates("pdf"),
     },
     openGraph: {
       title: "Markdown 转 PDF — 免费在线工具，无需注册（2026）",

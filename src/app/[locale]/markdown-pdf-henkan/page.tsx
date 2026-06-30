@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { RelatedTools } from "@/components/related-tools";
+import { hreflangAlternates } from "@/lib/tool-links";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
 
@@ -40,6 +41,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/ja/markdown-pdf-henkan",
+      languages: hreflangAlternates("pdf"),
     },
     openGraph: {
       title: "md pdf 変換 — 無料・登録不要・文字化けなし（2026）",

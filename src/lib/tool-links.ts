@@ -135,3 +135,19 @@ export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
 export function relatedTools(locale: Locale, current?: ToolKey): ToolLink[] {
   return (TOOL_LINKS[locale] ?? []).filter((t) => t.key !== current);
 }
+
+/**
+ * hreflang `alternates.languages` map for a tool intent, derived from the
+ * manifest. Every locale that publishes the tool maps to its localized slug, so
+ * the whole cluster declares each other as reciprocal alternates. Used in each
+ * intent page's `generateMetadata`.
+ */
+export function hreflangAlternates(key: ToolKey): Record<string, string> {
+  const languages: Record<string, string> = {};
+  for (const locale of Object.keys(TOOL_LINKS) as Locale[]) {
+    const link = TOOL_LINKS[locale]?.find((t) => t.key === key);
+    if (link) languages[locale] = link.href;
+  }
+  languages["x-default"] = languages.en ?? "/";
+  return languages;
+}
