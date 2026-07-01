@@ -5,6 +5,7 @@ import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 export const metadata: Metadata = {
   title: "README.md to PDF — Free, No Signup (2026) | Markdown Free",
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/readme-to-pdf",
+    languages: hreflangAlternates("readme"),
   },
   openGraph: {
     title: "README.md to PDF — Free, No Signup (2026)",

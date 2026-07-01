@@ -5,6 +5,7 @@ import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 export const metadata: Metadata = {
   title: "Best Markdown to PDF Converter (2026 Comparison) | Markdown Free",
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/best-markdown-to-pdf-converter-2026",
+    languages: hreflangAlternates("comparison"),
   },
   openGraph: {
     title: "Best Markdown to PDF Converter (2026 Comparison)",

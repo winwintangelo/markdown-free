@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 // Only show this page for Simplified Chinese locale
 export function generateStaticParams() {
@@ -36,6 +37,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/zh-Hans/readme-pdf-zhuanhuan",
+      languages: hreflangAlternates("readme"),
     },
     openGraph: {
       title: "README.md 转 PDF — 免费在线，无需注册（2026）",

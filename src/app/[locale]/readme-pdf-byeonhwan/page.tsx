@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 // Only show this page for Korean locale
 export function generateStaticParams() {
@@ -37,6 +38,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/ko/readme-pdf-byeonhwan",
+      languages: hreflangAlternates("readme"),
     },
     openGraph: {
       title: "README.md PDF 변환 — 무료, 회원가입 없이 (2026)",

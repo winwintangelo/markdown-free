@@ -6,6 +6,7 @@ import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 export function generateStaticParams() { return [{ locale: "vi" }]; }
 
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: "Công cụ chuyển đổi Markdown sang PDF tốt nhất 2026 | So sánh 8 lựa chọn",
     description: "So sánh 8 công cụ chuyển đổi Markdown sang PDF: Markdown Free, Pandoc, Typora, Dillinger, StackEdit, md-to-pdf, Markdown PDF (VS Code), Online2PDF. Lựa chọn nào phù hợp.",
     keywords: ["so sánh markdown converter", "markdown sang pdf tốt nhất 2026", "markdown pdf miễn phí", "markdown không cần cài đặt", "pandoc vs markdown free", "markdown pdf trực tuyến"],
-    alternates: { canonical: "/vi/so-sanh-cong-cu-markdown" },
+    alternates: { canonical: "/vi/so-sanh-cong-cu-markdown", languages: hreflangAlternates("comparison") },
     openGraph: { title: "Công cụ chuyển đổi Markdown sang PDF tốt nhất 2026", description: "So sánh trung thực 8 công cụ Markdown→PDF, kèm theo công cụ thắng cho từng trường hợp sử dụng.", locale: "vi_VN" },
   };
 }

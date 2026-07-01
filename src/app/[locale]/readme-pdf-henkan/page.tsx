@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, type Locale } from "@/i18n";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 // Only show this page for Japanese locale
 export function generateStaticParams() {
@@ -34,6 +35,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/ja/readme-pdf-henkan",
+      languages: hreflangAlternates("readme"),
     },
     openGraph: {
       title: "README.md PDF 変換 | Markdown Free",

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, isValidLocale, type Locale } from "@/i18n";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 // Only show this page for Italian locale
 export function generateStaticParams() {
@@ -33,6 +34,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/it/convertire-readme-pdf",
+      languages: hreflangAlternates("readme"),
     },
     openGraph: {
       title: "Convertire README.md in PDF | Markdown Free",

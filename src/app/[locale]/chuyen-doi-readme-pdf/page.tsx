@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 // Only show this page for Vietnamese locale
 export function generateStaticParams() {
@@ -33,6 +34,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/vi/chuyen-doi-readme-pdf",
+      languages: hreflangAlternates("readme"),
     },
     openGraph: {
       title: "Chuyển đổi README.md sang PDF | Markdown Free",

@@ -6,6 +6,7 @@ import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 export function generateStaticParams() { return [{ locale: "hi" }]; }
 
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: "2026 के लिए सबसे अच्छा Markdown से PDF कन्वर्टर | 8 विकल्पों की तुलना",
     description: "8 Markdown→PDF टूल्स की तुलना: Markdown Free, Pandoc, Typora, Dillinger, StackEdit, md-to-pdf, Markdown PDF (VS Code), Online2PDF। कौन सा आपके लिए सही है।",
     keywords: ["markdown कन्वर्टर तुलना", "सबसे अच्छा markdown to pdf 2026", "markdown pdf मुफ्त", "बिना इंस्टॉल markdown", "pandoc vs markdown free", "markdown pdf ऑनलाइन"],
-    alternates: { canonical: "/hi/markdown-pdf-tulna-2026" },
+    alternates: { canonical: "/hi/markdown-pdf-tulna-2026", languages: hreflangAlternates("comparison") },
     openGraph: { title: "2026 के लिए सबसे अच्छा Markdown से PDF कन्वर्टर", description: "8 Markdown→PDF टूल्स की ईमानदार तुलना, हर उपयोग के लिए कौन जीतता है।", locale: "hi_IN" },
   };
 }

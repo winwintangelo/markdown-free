@@ -6,6 +6,7 @@ import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 export function generateStaticParams() { return [{ locale: "id" }]; }
 
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: "Konverter Markdown ke PDF Terbaik 2026 | Perbandingan 8 Tool",
     description: "Perbandingan 8 alat konversi Markdown ke PDF: Markdown Free, Pandoc, Typora, Dillinger, StackEdit, md-to-pdf, Markdown PDF (VS Code), Online2PDF. Mana yang cocok.",
     keywords: ["perbandingan konverter markdown", "markdown ke pdf terbaik 2026", "markdown pdf gratis", "markdown tanpa instal", "pandoc vs markdown free", "markdown pdf online"],
-    alternates: { canonical: "/id/perbandingan-konverter-markdown" },
+    alternates: { canonical: "/id/perbandingan-konverter-markdown", languages: hreflangAlternates("comparison") },
     openGraph: { title: "Konverter Markdown ke PDF Terbaik 2026", description: "Perbandingan jujur 8 alat Markdown→PDF, beserta yang menang untuk masing-masing kasus penggunaan.", locale: "id_ID" },
   };
 }

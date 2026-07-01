@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 // Only show this page for Spanish locale
 export function generateStaticParams() {
@@ -36,6 +37,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/es/convertir-readme-pdf",
+      languages: hreflangAlternates("readme"),
     },
     openGraph: {
       title: "Convertir README.md a PDF — Gratis Online, Sin Registro (2026)",

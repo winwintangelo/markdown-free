@@ -7,6 +7,7 @@ import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 export function generateStaticParams() {
   return [{ locale: "ko" }];
@@ -34,6 +35,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/ko/markdown-byeonhwan-bigyo",
+      languages: hreflangAlternates("comparison"),
     },
     openGraph: {
       title: "마크다운 PDF 변환기 비교 2026",

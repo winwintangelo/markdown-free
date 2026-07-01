@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 const faq = [
   { q: "如何把 .md 檔案轉成 PDF？", a: "把 .md 檔案拖放到 Markdown Free 的上傳區（或直接貼上 Markdown 文字），預覽確認後點擊「轉 PDF」即可下載。整個流程約 10 秒，不需安裝、不需註冊。" },
@@ -59,6 +60,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/zh-Hant/readme-pdf-zhuanhuan-tw",
+      languages: hreflangAlternates("readme"),
     },
     openGraph: {
       title: "Markdown 轉 PDF — .md 檔案一鍵轉換，免費線上（2026）",

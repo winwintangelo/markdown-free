@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, isValidLocale, type Locale } from "@/i18n";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 // Only show this page for Spanish locale
 export function generateStaticParams() {
@@ -33,6 +34,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/es/convertir-markdown-epub",
+      languages: hreflangAlternates("epub"),
     },
     openGraph: {
       title: "Convertir Markdown a EPUB Gratis | Markdown Free",

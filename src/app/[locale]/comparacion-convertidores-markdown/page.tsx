@@ -6,6 +6,7 @@ import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 export function generateStaticParams() { return [{ locale: "es" }]; }
 
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: "Mejores convertidores Markdown a PDF 2026 | Comparación de 8",
     description: "Comparación de 8 herramientas para convertir Markdown a PDF: Markdown Free, Pandoc, Typora, Dillinger, StackEdit, md-to-pdf, Markdown PDF (VS Code), Online2PDF.",
     keywords: ["mejor markdown a pdf 2026", "comparación markdown pdf", "convertidor markdown gratis", "markdown sin instalación", "pandoc vs markdown free", "markdown pdf online"],
-    alternates: { canonical: "/es/comparacion-convertidores-markdown" },
+    alternates: { canonical: "/es/comparacion-convertidores-markdown", languages: hreflangAlternates("comparison") },
     openGraph: { title: "Mejores convertidores Markdown a PDF 2026", description: "Comparación honesta de 8 herramientas Markdown→PDF, con la mejor para cada caso de uso.", locale: "es_ES" },
   };
 }

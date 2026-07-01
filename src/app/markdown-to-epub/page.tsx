@@ -4,12 +4,14 @@ import { Footer } from "@/components/footer";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary } from "@/i18n";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 export const metadata: Metadata = {
   title: "Markdown to EPUB Converter – Free, Private, No Signup | Markdown Free",
   description: "Convert Markdown files to EPUB ebooks instantly. 100% free, no signup required, no ads. Perfect for reading on Kindle, Apple Books, Kobo, and other e-readers.",
   alternates: {
     canonical: "https://www.markdown.free/markdown-to-epub",
+    languages: hreflangAlternates("epub"),
   },
   openGraph: {
     title: "Markdown to EPUB Converter – Free Ebook Export",

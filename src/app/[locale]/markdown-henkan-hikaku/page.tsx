@@ -7,6 +7,7 @@ import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 export function generateStaticParams() {
   return [{ locale: "ja" }];
@@ -34,6 +35,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/ja/markdown-henkan-hikaku",
+      languages: hreflangAlternates("comparison"),
     },
     openGraph: {
       title: "Markdown PDF変換ツール徹底比較 2026",

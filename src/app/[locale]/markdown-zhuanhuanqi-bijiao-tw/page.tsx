@@ -6,6 +6,7 @@ import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 export function generateStaticParams() { return [{ locale: "zh-Hant" }]; }
 
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: "Markdown 轉 PDF 工具比較 2026 | 8 款免費推薦",
     description: "比較 8 款 Markdown 轉 PDF 工具：Markdown Free、Pandoc、Typora、Dillinger、StackEdit、md-to-pdf、Markdown PDF (VS Code)、Online2PDF。中文不亂碼的選擇。",
     keywords: ["markdown pdf 轉換 比較", "markdown pdf 中文亂碼", "pandoc 中文 pdf", "markdown 轉換器 推薦", "線上 markdown pdf", "markdown 字型豆腐"],
-    alternates: { canonical: "/zh-Hant/markdown-zhuanhuanqi-bijiao-tw" },
+    alternates: { canonical: "/zh-Hant/markdown-zhuanhuanqi-bijiao-tw", languages: hreflangAlternates("comparison") },
     openGraph: { title: "Markdown 轉 PDF 工具比較 2026", description: "誠實比較 8 款 Markdown 轉 PDF 工具，按用途說明哪款適合你。", locale: "zh_TW" },
   };
 }

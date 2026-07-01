@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, isValidLocale, type Locale } from "@/i18n";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 // Only show this page for Korean locale
 export function generateStaticParams() {
@@ -34,6 +35,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/ko/markdown-epub-byeonhwan",
+      languages: hreflangAlternates("epub"),
     },
     openGraph: {
       title: "마크다운 EPUB 변환 – 무료 온라인 도구 | Markdown Free",

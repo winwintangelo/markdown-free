@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, isValidLocale, type Locale } from "@/i18n";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 // Only show this page for Simplified Chinese locale
 export function generateStaticParams() {
@@ -34,6 +35,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/zh-Hans/markdown-epub-zhuanhuan",
+      languages: hreflangAlternates("epub"),
     },
     openGraph: {
       title: "Markdown转EPUB – 免费在线工具 | Markdown Free",

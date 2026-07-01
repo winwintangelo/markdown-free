@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
+import { hreflangAlternates } from "@/lib/tool-links";
 
 // Only show this page for Indonesian locale
 export function generateStaticParams() {
@@ -36,6 +37,7 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: "/id/konversi-readme-pdf",
+      languages: hreflangAlternates("readme"),
     },
     openGraph: {
       title: "Konversi README.md ke PDF — Gratis Online, Tanpa Daftar (2026)",
