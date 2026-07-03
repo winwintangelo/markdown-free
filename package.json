@@ -28,6 +28,8 @@
     "clsx": "^2.1.1",
     "epub-gen-memory": "^1.1.2",
     "html-to-docx": "^1.8.0",
+    "html-to-image": "^1.11.13",
+    "jszip": "^3.10.1",
     "lucide-react": "^0.468.0",
     "next": "^15.5.18",
     "puppeteer-core": "^23.11.1",
@@ -39,6 +41,7 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
     "tailwind-merge": "^2.6.1",
+    "undici": "^7.28.0",
     "unified": "^11.0.5"
   },
   "devDependencies": {

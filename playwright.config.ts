@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./e2e",
-  testMatch: ["app.spec.ts", "i18n.spec.ts", "filename.spec.ts", "multilingual.spec.ts", "security.spec.ts", "word-pages.spec.ts", "share.spec.ts", "mobile.spec.ts", "clipboard.spec.ts", "related-tools.spec.ts"], // Local tests (use production config for production.spec.ts)
+  testMatch: ["app.spec.ts", "i18n.spec.ts", "filename.spec.ts", "multilingual.spec.ts", "security.spec.ts", "word-pages.spec.ts", "share.spec.ts", "mobile.spec.ts", "clipboard.spec.ts", "related-tools.spec.ts", "image-export.spec.ts", "img-proxy.spec.ts"], // Local tests (use production config for production.spec.ts)
   outputDir: "./tmp/test-results",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -18,6 +18,13 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
+    },
+    {
+      // Safari's canvas area limit is the binding constraint for image export
+      // (spec 5.9: WebKit is mandatory for the PNG/JPG suite)
+      name: "webkit-image",
+      use: { ...devices["Desktop Safari"] },
+      testMatch: "image-export.spec.ts",
     },
   ],
   webServer: {

@@ -68,7 +68,7 @@ export function trackEvent(
 // =============================================================================
 
 export type UploadSource = "file" | "paste" | "sample";
-export type ExportFormat = "pdf" | "txt" | "html" | "docx" | "epub";
+export type ExportFormat = "pdf" | "txt" | "html" | "docx" | "epub" | "png" | "jpg";
 
 // Error categories for "Failure Lens" tracking
 export type ErrorCategory = "user_error" | "system_error";
@@ -83,11 +83,13 @@ export const UPLOAD_ERROR_CATEGORY: Record<UploadErrorReason, ErrorCategory> = {
 };
 
 // Convert error codes with category mapping
-export type ConvertErrorCode = 
-  | "pdf_timeout" 
-  | "pdf_server_error" 
+export type ConvertErrorCode =
+  | "pdf_timeout"
+  | "pdf_server_error"
   | "network_error"
   | "aborted"
+  | "img_too_large"
+  | "img_render_failed"
   | "unknown";
 
 export const CONVERT_ERROR_CATEGORY: Record<ConvertErrorCode, ErrorCategory> = {
@@ -95,6 +97,8 @@ export const CONVERT_ERROR_CATEGORY: Record<ConvertErrorCode, ErrorCategory> = {
   pdf_server_error: "system_error", // 500 error from server
   network_error: "system_error",    // Network connectivity issue
   aborted: "user_error",            // User cancelled the request
+  img_too_large: "user_error",      // Document exceeds canvas limits even degraded
+  img_render_failed: "system_error", // Browser canvas/rasterization failure
   unknown: "system_error",          // Unknown error (assume system)
 };
 
@@ -125,12 +129,14 @@ export function trackUploadAbandoned(source: UploadSource): void {
 
 /**
  * Track successful conversion
+ * `extra` carries format-specific dimensions (e.g. split_parts for png/jpg)
  */
 export function trackConvertSuccess(
   format: ExportFormat,
-  source: UploadSource
+  source: UploadSource,
+  extra?: Record<string, string>
 ): void {
-  trackEvent("convert_success", { format, source });
+  trackEvent("convert_success", { format, source, ...extra });
 }
 
 /**
@@ -160,6 +166,17 @@ export function trackShareFile(
   source: UploadSource
 ): void {
   trackEvent("share_file", { format, source });
+}
+
+/**
+ * Track when split image output is handed to navigator.share({ files })
+ * instead of ZIP download (the mobile 长图 workflow)
+ */
+export function trackShareFilesUsed(
+  format: ExportFormat,
+  parts: number
+): void {
+  trackEvent("share_files_used", { format, parts: String(parts) });
 }
 
 // =============================================================================
@@ -306,7 +323,7 @@ export function trackLanguageSwitch(from: SupportedLocale, to: SupportedLocale):
  */
 export function trackLocaleConversion(
   locale: SupportedLocale,
-  format: "pdf" | "txt" | "html" | "docx" | "epub"
+  format: ExportFormat
 ): void {
   trackEvent("locale_conversion", { locale, format });
 }

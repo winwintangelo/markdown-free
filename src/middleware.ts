@@ -39,6 +39,13 @@ const RATE_LIMIT = {
   maxRequests: IS_PRODUCTION ? 15 : 100, // 15/min in prod, 100/min in dev/test
 };
 
+// Image proxy gets its own, higher budget: a single image export can
+// legitimately fall back to the proxy for up to 20 images in one document.
+const IMG_PROXY_RATE_LIMIT = {
+  windowMs: 60 * 1000,
+  maxRequests: IS_PRODUCTION ? 60 : 200,
+};
+
 // Allowed origins for API requests
 const ALLOWED_ORIGINS = [
   "https://www.markdown.free",
@@ -67,27 +74,41 @@ function cleanupRateLimits() {
 }
 
 /**
- * Check rate limit for an IP
+ * Check rate limit for a key (IP, optionally prefixed per route bucket)
  */
-function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
+function checkRateLimit(
+  key: string,
+  limit: { windowMs: number; maxRequests: number }
+): { allowed: boolean; remaining: number } {
   const now = Date.now();
-  const entry = rateLimitMap.get(ip);
+  const entry = rateLimitMap.get(key);
 
   if (!entry || now > entry.resetTime) {
     // New window
-    rateLimitMap.set(ip, {
+    rateLimitMap.set(key, {
       count: 1,
-      resetTime: now + RATE_LIMIT.windowMs,
+      resetTime: now + limit.windowMs,
     });
-    return { allowed: true, remaining: RATE_LIMIT.maxRequests - 1 };
+    return { allowed: true, remaining: limit.maxRequests - 1 };
   }
 
-  if (entry.count >= RATE_LIMIT.maxRequests) {
+  if (entry.count >= limit.maxRequests) {
     return { allowed: false, remaining: 0 };
   }
 
   entry.count++;
-  return { allowed: true, remaining: RATE_LIMIT.maxRequests - entry.count };
+  return { allowed: true, remaining: limit.maxRequests - entry.count };
+}
+
+/**
+ * Get client IP from request headers
+ */
+function getClientIp(request: NextRequest): string {
+  return (
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown"
+  );
 }
 
 /**
@@ -142,13 +163,9 @@ export function middleware(request: NextRequest) {
       cleanupRateLimits();
     }
 
-    // Get client IP
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      request.headers.get("x-real-ip") ||
-      "unknown";
+    const ip = getClientIp(request);
 
-    const { allowed, remaining } = checkRateLimit(ip);
+    const { allowed, remaining } = checkRateLimit(ip, RATE_LIMIT);
 
     if (!allowed) {
       console.log(`[Security] Rate limit exceeded for IP: ${ip}`);
@@ -171,6 +188,41 @@ export function middleware(request: NextRequest) {
     // Add rate limit headers to response
     const response = NextResponse.next();
     response.headers.set("X-RateLimit-Limit", RATE_LIMIT.maxRequests.toString());
+    response.headers.set("X-RateLimit-Remaining", remaining.toString());
+    return response;
+  }
+
+  // Rate limiting for the image proxy (client-side image export fallback)
+  if (request.nextUrl.pathname === "/api/img-proxy") {
+    if (Math.random() < 0.01) {
+      cleanupRateLimits();
+    }
+
+    const ip = getClientIp(request);
+
+    // Separate bucket from the PDF limiter so one export can't starve the other
+    const { allowed, remaining } = checkRateLimit(`img:${ip}`, IMG_PROXY_RATE_LIMIT);
+
+    if (!allowed) {
+      console.log(`[Security] Image proxy rate limit exceeded for IP: ${ip}`);
+      return NextResponse.json(
+        {
+          error: "RATE_LIMITED",
+          message: "Too many requests. Please wait a minute before trying again.",
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": "60",
+            "X-RateLimit-Limit": IMG_PROXY_RATE_LIMIT.maxRequests.toString(),
+            "X-RateLimit-Remaining": "0",
+          },
+        }
+      );
+    }
+
+    const response = NextResponse.next();
+    response.headers.set("X-RateLimit-Limit", IMG_PROXY_RATE_LIMIT.maxRequests.toString());
     response.headers.set("X-RateLimit-Remaining", remaining.toString());
     return response;
   }

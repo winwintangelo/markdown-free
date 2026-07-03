@@ -6,8 +6,14 @@
  *
  * Security measures:
  * - HTTPS only (blocks HTTP to prevent downgrade attacks)
+ * - Port allowlist: default port (443) only — the proxy can't be used as a port scanner
  * - Blocks localhost, internal IPs, IPv6 private ranges (SSRF protection)
- * - Manual redirect handling with re-validation at each hop
+ * - DNS-rebinding pin: connections go through an undici Agent whose lookup
+ *   validates every resolved address at connect time. The socket connects to an
+ *   address returned by that same validated lookup — there is no second,
+ *   unvalidated resolution an attacker could rebind.
+ * - Manual redirect handling with re-validation at each hop (each hop opens a
+ *   new connection, so the connect-time IP validation applies per hop too)
  * - Validates URL format and hostname (normalized, trailing dot stripped)
  * - Magic number validation (don't trust Content-Type)
  * - Maximum pixel dimensions (prevent decompression bombs)
@@ -16,6 +22,10 @@
  * - Timeout protection (5s per image)
  * - SVG blocked (can contain scripts)
  */
+
+import { lookup as dnsLookup } from "node:dns";
+import type { LookupAddress } from "node:dns";
+import { Agent, fetch as undiciFetch, type Response as UndiciResponse } from "undici";
 
 // Maximum image size in bytes (2MB per image)
 const MAX_IMAGE_SIZE = 2 * 1024 * 1024;
@@ -119,7 +129,20 @@ const ALLOWED_MIME_TYPES = [
 /**
  * Check if an IP address is in a blocked range
  */
-function isBlockedIP(ip: string): boolean {
+export function isBlockedIP(ip: string): boolean {
+  // IPv4-mapped IPv6 in hex form (the URL parser normalizes
+  // [::ffff:127.0.0.1] to ::ffff:7f00:1) — decode to dotted form and
+  // re-check against the IPv4 ranges
+  const mappedHex = ip.toLowerCase().match(/^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/);
+  if (mappedHex) {
+    const hi = parseInt(mappedHex[1], 16);
+    const lo = parseInt(mappedHex[2], 16);
+    const dotted = `${hi >>> 8}.${hi & 0xff}.${lo >>> 8}.${lo & 0xff}`;
+    if (isBlockedIP(dotted)) {
+      return true;
+    }
+  }
+
   for (const pattern of BLOCKED_IPV4_PATTERNS) {
     if (pattern.test(ip)) {
       return true;
@@ -150,13 +173,20 @@ function normalizeHostname(hostname: string): string {
 /**
  * Check if a URL is safe to fetch (not internal/localhost)
  */
-function isUrlSafe(url: string): boolean {
+export function isUrlSafe(url: string): boolean {
   try {
     const parsed = new URL(url);
 
     // SECURITY: HTTPS only - block HTTP to prevent downgrade attacks
     if (parsed.protocol !== "https:") {
       console.log(`[ImageProxy] Blocked non-HTTPS URL: ${parsed.protocol}`);
+      return false;
+    }
+
+    // SECURITY: default port only — an explicit non-443 port would let the
+    // proxy probe arbitrary services (port scanning / internal admin panels)
+    if (parsed.port !== "" && parsed.port !== "443") {
+      console.log(`[ImageProxy] Blocked non-standard port: ${parsed.port}`);
       return false;
     }
 
@@ -186,10 +216,15 @@ function isUrlSafe(url: string): boolean {
       }
     }
 
-    // IPv6 pattern (URL class removes brackets from hostname)
-    if (/^[0-9a-f:]+$/i.test(hostname)) {
-      if (isBlockedIP(hostname)) {
-        console.log(`[ImageProxy] Blocked IPv6: ${hostname}`);
+    // IPv6 pattern — WHATWG URL keeps the brackets in hostname ("[::1]"),
+    // so strip them before matching
+    const bareHost =
+      hostname.startsWith("[") && hostname.endsWith("]")
+        ? hostname.slice(1, -1)
+        : hostname;
+    if (/^[0-9a-f:.]+$/i.test(bareHost) && bareHost.includes(":")) {
+      if (isBlockedIP(bareHost)) {
+        console.log(`[ImageProxy] Blocked IPv6: ${bareHost}`);
         return false;
       }
     }
@@ -312,12 +347,78 @@ function getImageDimensions(buffer: ArrayBuffer, mimeType: string): { width: num
 }
 
 /**
+ * DNS-rebinding protection: a lookup function that validates every resolved
+ * address before handing it to the socket. Because net.connect uses the
+ * address returned by THIS callback, validation and connection are one step —
+ * an attacker cannot return a public IP to the validator and a private IP to
+ * the connector.
+ */
+function ssrfValidatingLookup(
+  hostname: string,
+  options: { family?: number; hints?: number; all?: boolean },
+  callback: (err: NodeJS.ErrnoException | null, address: unknown, family?: number) => void
+): void {
+  dnsLookup(
+    hostname,
+    { all: true, family: options.family ?? 0, hints: options.hints },
+    (err, addresses) => {
+      if (err) {
+        callback(err, "", 4);
+        return;
+      }
+      const list = addresses as unknown as LookupAddress[];
+      if (!list || list.length === 0) {
+        callback(Object.assign(new Error(`No address for ${hostname}`), { code: "ENOTFOUND" }), "", 4);
+        return;
+      }
+      for (const { address } of list) {
+        if (isBlockedIP(address)) {
+          console.log(`[ImageProxy] Blocked resolved IP ${address} for ${hostname}`);
+          callback(Object.assign(new Error(`Blocked address for ${hostname}`), { code: "EACCES" }), "", 4);
+          return;
+        }
+      }
+      if (options.all) {
+        callback(null, list);
+      } else {
+        callback(null, list[0].address, list[0].family);
+      }
+    }
+  );
+}
+
+// Shared dispatcher for all proxied image fetches (connection-level SSRF guard)
+const ssrfSafeAgent = new Agent({
+  connect: {
+    // undici types the lookup as net.LookupFunction; our wrapper matches its
+    // runtime contract (single-address and all:true callback shapes)
+    lookup: ssrfValidatingLookup as never,
+  },
+});
+
+type FetchImpl = (
+  url: string,
+  init: Parameters<typeof undiciFetch>[1]
+) => Promise<UndiciResponse>;
+
+let fetchImpl: FetchImpl = (url, init) =>
+  undiciFetch(url, { ...init, dispatcher: ssrfSafeAgent });
+
+/**
+ * Test seam ONLY: swap the fetch implementation so unit tests can mock
+ * redirect chains without network access. Pass null to restore the real one.
+ */
+export function __setFetchImplForTests(impl: FetchImpl | null): void {
+  fetchImpl = impl ?? ((url, init) => undiciFetch(url, { ...init, dispatcher: ssrfSafeAgent }));
+}
+
+/**
  * Fetch an image with manual redirect handling to prevent SSRF via redirects
  */
-async function fetchWithRedirectValidation(
+export async function fetchWithRedirectValidation(
   url: string,
   redirectCount: number = 0
-): Promise<Response | null> {
+): Promise<UndiciResponse | null> {
   if (redirectCount > MAX_REDIRECTS) {
     console.log(`[ImageProxy] Too many redirects for ${url.substring(0, 100)}`);
     return null;
@@ -331,7 +432,7 @@ async function fetchWithRedirectValidation(
   const timeout = setTimeout(() => controller.abort(), IMAGE_FETCH_TIMEOUT);
 
   try {
-    const response = await fetch(url, {
+    const response = await fetchImpl(url, {
       signal: controller.signal,
       redirect: "manual",
       headers: {
@@ -368,9 +469,14 @@ async function fetchWithRedirectValidation(
 }
 
 /**
- * Fetch an image and convert to Base64 data URI
+ * Fetch a remote image with full validation (SSRF checks, redirects, size,
+ * magic numbers, dimensions) and return its raw bytes + detected MIME type.
+ * Shared by the Base64 embedding path (PDF/DOCX/EPUB) and the /api/img-proxy
+ * route (client-side image export).
  */
-async function fetchImageAsBase64(url: string): Promise<{ data: string; size: number } | null> {
+export async function fetchValidatedImage(
+  url: string
+): Promise<{ buffer: ArrayBuffer; mimeType: string } | null> {
   // Block SVG files by URL extension
   const urlLower = url.toLowerCase();
   if (urlLower.endsWith(".svg") || urlLower.includes(".svg?") || urlLower.includes(".svg#")) {
@@ -430,12 +536,23 @@ async function fetchImageAsBase64(url: string): Promise<{ data: string; size: nu
     }
   }
 
-  // Convert to Base64
-  const base64 = Buffer.from(buffer).toString("base64");
+  return { buffer, mimeType: detectedMimeType };
+}
+
+/**
+ * Fetch an image and convert to Base64 data URI
+ */
+async function fetchImageAsBase64(url: string): Promise<{ data: string; size: number } | null> {
+  const result = await fetchValidatedImage(url);
+  if (!result) {
+    return null;
+  }
+
+  const base64 = Buffer.from(result.buffer).toString("base64");
 
   return {
-    data: `data:${detectedMimeType};base64,${base64}`,
-    size: buffer.byteLength,
+    data: `data:${result.mimeType};base64,${base64}`,
+    size: result.buffer.byteLength,
   };
 }
 

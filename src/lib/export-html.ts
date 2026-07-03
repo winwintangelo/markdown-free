@@ -3,8 +3,9 @@ import { downloadFile, generateFilename } from "./download";
 /**
  * Minimal CSS styles extracted from Tailwind prose classes
  * This ensures exported HTML matches the preview styling
+ * (also reused, scoped, by the PNG/JPG image exporter)
  */
-const EMBEDDED_STYLES = `
+export const EMBEDDED_STYLES = `
 /* Base styles */
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;

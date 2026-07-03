@@ -28,12 +28,14 @@ import {
 } from "@/lib/analytics";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 import { PostConvertFeedback } from "./post-convert-feedback";
+import { ImageExportPanel } from "./image-export-panel";
 import type { Locale, Dictionary } from "@/i18n";
 
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useWebShare } from "@/hooks/use-web-share";
 
-type ExportFormat = "pdf" | "txt" | "html" | "docx" | "epub";
+type ExportFormat = "pdf" | "txt" | "html" | "docx" | "epub" | "png" | "jpg";
+type ImageFormat = "png" | "jpg";
 
 interface ExportError {
   format: ExportFormat;
@@ -66,6 +68,8 @@ const defaultDict = {
     savePdf: "Save PDF",
     saveDocx: "Save DOCX",
     more: "More formats",
+    toPng: "To PNG",
+    toJpg: "To JPG",
   },
   errors: {
     pdfTimeout: "PDF generation timed out. Please try again.",
@@ -88,6 +92,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     format: "pdf" | "docx";
   } | null>(null);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
+  const [imageFormat, setImageFormat] = useState<ImageFormat | null>(null);
   const moreMenuRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
   const hoveredFormatsRef = useRef<Set<ExportFormat>>(new Set());
@@ -133,6 +138,13 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       setUploadHint(null);
     }
   }, [hasContent, uploadHint]);
+
+  // Close the image options panel when content is cleared
+  useEffect(() => {
+    if (!state.content) {
+      setImageFormat(null);
+    }
+  }, [state.content]);
 
   // Close "More" menu when clicking outside
   useEffect(() => {
@@ -509,6 +521,36 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     }
   }, [error, clearError, handleExport]);
 
+  // PNG/JPG buttons toggle the options panel (spec 2.2: pick format → options
+  // row appears → convert from there). With no content they behave like the
+  // other export buttons and trigger the upload flow.
+  const handleImageButton = useCallback(
+    (format: ImageFormat) => {
+      if (!state.content) {
+        trackExportTriggerUpload(format as AnalyticsExportFormat);
+        triggerFileUpload();
+        setUploadHint(dict.export.selectFileHint || defaultDict.export.selectFileHint);
+        if (hintTimeoutRef.current) clearTimeout(hintTimeoutRef.current);
+        hintTimeoutRef.current = setTimeout(() => {
+          setUploadHint(dict.export.uploadOrPaste || defaultDict.export.uploadOrPaste);
+          hintTimeoutRef.current = setTimeout(() => setUploadHint(null), 5000);
+        }, 5000);
+        return;
+      }
+      setImageFormat((current) => (current === format ? null : format));
+    },
+    [state.content, dict.export.selectFileHint, dict.export.uploadOrPaste, triggerFileUpload]
+  );
+
+  const handleImageTryPdf = useCallback(() => {
+    setImageFormat(null);
+    handleExport("pdf");
+  }, [handleExport]);
+
+  const handleImageSuccess = useCallback((format: ImageFormat) => {
+    setLastSuccessFormat(format);
+  }, []);
+
   // Share icon SVG for mobile buttons
   const ShareIcon = () => (
     <Share className="h-3.5 w-3.5" />
@@ -697,6 +739,20 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                     {dict.export.toEpub || defaultDict.export.toEpub}
                   </button>
                   <div className="my-1 border-t border-slate-100" />
+                  {(["png", "jpg"] as ImageFormat[]).map((format) => (
+                    <button
+                      key={format}
+                      type="button"
+                      disabled={isLoading}
+                      onClick={() => { handleImageButton(format); setMoreMenuOpen(false); }}
+                      data-testid={`save-${format}-button`}
+                      className="flex w-full items-center px-4 py-2 text-xs text-slate-600 transition hover:bg-slate-50"
+                    >
+                      {format === "png"
+                        ? (dict.export.toPng || defaultDict.export.toPng)
+                        : (dict.export.toJpg || defaultDict.export.toJpg)}
+                    </button>
+                  ))}
                   <button
                     type="button"
                     disabled={isLoading}
@@ -819,6 +875,29 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                 )}
                 {dict.export.toHtml}
               </button>
+
+              {/* To PNG / To JPG — toggle the image options panel */}
+              {(["png", "jpg"] as ImageFormat[]).map((format) => (
+                <button
+                  key={format}
+                  type="button"
+                  disabled={isLoading}
+                  onClick={() => handleImageButton(format)}
+                  onMouseEnter={() => handleButtonHover(format)}
+                  aria-expanded={imageFormat === format}
+                  data-testid={`to-${format}-button`}
+                  className={cn(
+                    "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
+                    imageFormat === format
+                      ? "border-amber-300 bg-amber-100 text-amber-800"
+                      : "border-amber-200 bg-amber-50 text-amber-700 hover:border-amber-300 hover:bg-amber-100"
+                  )}
+                >
+                  {format === "png"
+                    ? (dict.export.toPng || defaultDict.export.toPng)
+                    : (dict.export.toJpg || defaultDict.export.toJpg)}
+                </button>
+              ))}
             </div>
 
             {/* Privacy notice */}
@@ -828,6 +907,21 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           </>
         )}
       </div>
+      )}
+
+      {/* Image export options (PNG/JPG selected) */}
+      {imageFormat && state.content && (
+        <ImageExportPanel
+          format={imageFormat}
+          markdown={state.content.content}
+          renderedHtml={renderedHtml}
+          originalFilename={state.content.filename}
+          locale={locale}
+          dict={dict}
+          source={state.content.source === "file" ? "file" : "paste"}
+          onTryPdf={handleImageTryPdf}
+          onSuccess={handleImageSuccess}
+        />
       )}
 
       {/* Loading message for PDF */}
