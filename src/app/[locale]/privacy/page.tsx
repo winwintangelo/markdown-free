@@ -123,7 +123,7 @@ const content: Partial<Record<Locale, {
       items: [
         "Page views and visitor counts",
         "Referrer information (where visitors come from)",
-        "Counts of successful conversions (PDF, DOCX, EPUB, HTML, TXT)",
+        "Counts of successful conversions (PDF, DOCX, PNG, EPUB, HTML, TXT)",
         "General device/browser information"
       ],
       notice: "We do not send your Markdown content, file names, or any text you paste to our analytics provider. Analytics respects your browser's Do Not Track setting."
@@ -196,7 +196,7 @@ const content: Partial<Record<Locale, {
       items: [
         "Visualizzazioni di pagina e conteggio visitatori",
         "Informazioni sui referrer (da dove arrivano i visitatori)",
-        "Conteggio delle conversioni riuscite (PDF, DOCX, EPUB, HTML, TXT)",
+        "Conteggio delle conversioni riuscite (PDF, DOCX, PNG, EPUB, HTML, TXT)",
         "Informazioni generali su dispositivo/browser"
       ],
       notice: "Non inviamo il contenuto Markdown, i nomi dei file o qualsiasi testo che incolli al nostro provider di analytics. Le analytics rispettano l'impostazione Do Not Track del tuo browser."
@@ -269,7 +269,7 @@ const content: Partial<Record<Locale, {
       items: [
         "Vistas de página y conteo de visitantes",
         "Información de referencia (de dónde vienen los visitantes)",
-        "Conteo de conversiones exitosas (PDF, DOCX, EPUB, HTML, TXT)",
+        "Conteo de conversiones exitosas (PDF, DOCX, PNG, EPUB, HTML, TXT)",
         "Información general de dispositivo/navegador"
       ],
       notice: "No enviamos tu contenido Markdown, nombres de archivos o cualquier texto que pegues a nuestro proveedor de analytics. Las analytics respetan la configuración Do Not Track de tu navegador."
@@ -342,7 +342,7 @@ const content: Partial<Record<Locale, {
       items: [
         "ページビューと訪問者数",
         "リファラー情報（訪問元）",
-        "変換成功数（PDF、DOCX、EPUB、HTML、TXT）",
+        "変換成功数（PDF、DOCX、PNG、EPUB、HTML、TXT）",
         "一般的なデバイス/ブラウザ情報"
       ],
       notice: "Markdownコンテンツ、ファイル名、貼り付けたテキストはアナリティクスプロバイダーに送信されません。アナリティクスはブラウザのDo Not Track設定を尊重します。"
@@ -415,7 +415,7 @@ const content: Partial<Record<Locale, {
       items: [
         "페이지 조회수 및 방문자 수",
         "리퍼러 정보 (방문자 유입 경로)",
-        "성공적인 변환 횟수 (PDF, DOCX, EPUB, HTML, TXT)",
+        "성공적인 변환 횟수 (PDF, DOCX, PNG, EPUB, HTML, TXT)",
         "일반적인 기기/브라우저 정보"
       ],
       notice: "Markdown 콘텐츠, 파일명, 붙여넣은 텍스트는 분석 제공업체에 전송되지 않습니다. 분석은 브라우저의 Do Not Track 설정을 존중합니다."
@@ -488,7 +488,7 @@ const content: Partial<Record<Locale, {
       items: [
         "页面浏览量和访客数量",
         "来源信息（访客从哪里来）",
-        "成功转换次数（PDF、DOCX、EPUB、HTML、TXT）",
+        "成功转换次数（PDF、DOCX、PNG、EPUB、HTML、TXT）",
         "一般设备/浏览器信息"
       ],
       notice: "我们不会将您的 Markdown 内容、文件名或任何粘贴的文本发送给分析服务提供商。分析会尊重您浏览器的「请勿跟踪」设置。"
@@ -561,7 +561,7 @@ const content: Partial<Record<Locale, {
       items: [
         "頁面瀏覽量和訪客數量",
         "來源資訊（訪客從哪裡來）",
-        "成功轉換次數（PDF、DOCX、EPUB、HTML、TXT）",
+        "成功轉換次數（PDF、DOCX、PNG、EPUB、HTML、TXT）",
         "一般裝置/瀏覽器資訊"
       ],
       notice: "我們不會將您的 Markdown 內容、檔案名稱或任何貼上的文字傳送給分析服務提供商。分析會尊重您瀏覽器的「請勿追蹤」設定。"
@@ -634,7 +634,7 @@ const content: Partial<Record<Locale, {
       items: [
         "Tampilan halaman dan jumlah pengunjung",
         "Informasi perujuk (dari mana pengunjung berasal)",
-        "Jumlah konversi yang berhasil (PDF, DOCX, EPUB, HTML, TXT)",
+        "Jumlah konversi yang berhasil (PDF, DOCX, PNG, EPUB, HTML, TXT)",
         "Informasi perangkat/browser umum"
       ],
       notice: "Kami tidak mengirim konten Markdown, nama file, atau teks apa pun yang Anda tempel ke penyedia analitik kami. Analitik menghormati pengaturan Do Not Track browser Anda."
@@ -707,7 +707,7 @@ const content: Partial<Record<Locale, {
       items: [
         "Lượt xem trang và số lượng khách truy cập",
         "Thông tin nguồn giới thiệu (khách truy cập đến từ đâu)",
-        "Số lần chuyển đổi thành công (PDF, DOCX, EPUB, HTML, TXT)",
+        "Số lần chuyển đổi thành công (PDF, DOCX, PNG, EPUB, HTML, TXT)",
         "Thông tin thiết bị/trình duyệt chung"
       ],
       notice: "Chúng tôi không gửi nội dung Markdown, tên tệp hoặc bất kỳ văn bản nào bạn dán cho nhà cung cấp phân tích của chúng tôi. Phân tích tôn trọng cài đặt Không Theo dõi của trình duyệt của bạn."

@@ -29,7 +29,7 @@ export default function AboutPage() {
           <h2>What is Markdown Free?</h2>
           <p>
             Markdown Free lets you upload a <code>.md</code> file, preview it
-            instantly with beautiful formatting, then export to PDF, DOCX, EPUB, or HTML
+            instantly with beautiful formatting, then export to PDF, Word (DOCX), image (PNG), EPUB, or HTML
             with a single click. No signup required, no complex interfaces—just
             drag, drop, and download.
           </p>
@@ -74,8 +74,8 @@ export default function AboutPage() {
               <strong>Preview</strong> — See your formatted Markdown instantly
             </li>
             <li>
-              <strong>Export</strong> — Click To PDF, To DOCX, To EPUB, or To HTML to
-              download
+              <strong>Export</strong> — Click To PDF, To Word (DOCX), or To Image
+              (PNG); EPUB, HTML and TXT are under More formats
             </li>
           </ol>
 

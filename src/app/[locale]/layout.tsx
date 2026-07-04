@@ -65,7 +65,7 @@ export async function generateMetadata({
           url: "/og-image.svg",
           width: 1200,
           height: 630,
-          alt: "Markdown Free - Convert Markdown to PDF, DOCX, EPUB",
+          alt: "Markdown Free - Convert Markdown to PDF, Word, Image (PNG), EPUB",
         },
       ],
     },

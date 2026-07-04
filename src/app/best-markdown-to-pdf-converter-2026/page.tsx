@@ -169,7 +169,7 @@ export default function BestMarkdownToPdfConverter2026Page() {
                   <td className="px-3 py-3">Browser, non-Latin scripts</td>
                   <td className="px-3 py-3">Free</td>
                   <td className="px-3 py-3">Yes — embedded Noto fonts, no setup</td>
-                  <td className="px-3 py-3">PDF, DOCX, EPUB, HTML, TXT</td>
+                  <td className="px-3 py-3">PDF, DOCX, PNG, EPUB, HTML, TXT</td>
                   <td className="px-3 py-3">None</td>
                   <td className="px-3 py-3">Files in memory, not stored</td>
                 </tr>

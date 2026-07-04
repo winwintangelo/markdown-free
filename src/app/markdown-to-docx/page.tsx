@@ -91,7 +91,7 @@ export default function MarkdownToDocxPage() {
               <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">3</span>
               <div>
                 <h3 className="font-medium text-slate-900">Export to DOCX</h3>
-                <p className="text-sm text-slate-600">Click "To DOCX" and download your Word document instantly.</p>
+                <p className="text-sm text-slate-600">Click "To Word (DOCX)" and download your Word document instantly.</p>
               </div>
             </li>
           </ol>

@@ -20,7 +20,7 @@
   "paste": {
     "label": "粘贴的Markdown",
     "placeholder": "在此粘贴您的Markdown…",
-    "helper": "此处的更改也将用于导出为PDF、DOCX、EPUB或HTML。",
+    "helper": "此处的更改也将用于导出为PDF、Word (DOCX)、图片 (PNG)、EPUB或HTML。",
     "tooLarge": "内容超过1MB限制，已被截断。",
     "clipboardButton": "从剪贴板粘贴",
     "clipboardHint": "一键操作 — 来自ChatGPT、Claude、Obsidian等",
@@ -148,9 +148,9 @@
   },
   "faqPage": {
     "title": "常见问题 | Markdown Free",
-    "description": "关于 Markdown Free 的常见问题：如何将 Markdown 转换为 PDF、DOCX、EPUB。是否免费？是否安全？文件格式、隐私等。",
+    "description": "关于 Markdown Free 的常见问题：如何将 Markdown 转换为 PDF、Word (DOCX)、图片 (PNG)、EPUB。是否免费？是否安全？文件格式、隐私等。",
     "heading": "常见问题",
-    "subtitle": "关于使用 Markdown Free 将 Markdown 转换为 PDF、DOCX 和 EPUB 的所有信息。",
+    "subtitle": "关于使用 Markdown Free 将 Markdown 转换为 PDF、Word (DOCX)、图片 (PNG) 和 EPUB 的所有信息。",
     "home": "首页",
     "faq": "常见问题",
     "ctaTitle": "准备好转换您的 Markdown 了吗？",

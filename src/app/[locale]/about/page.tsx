@@ -77,7 +77,7 @@ const content: Partial<Record<Locale, {
     lead: "A fast, free, web-based Markdown viewer and converter with an ultra-simple flow.",
     whatIs: {
       title: "What is Markdown Free?",
-      text: "Markdown Free lets you upload a .md file, preview it instantly with beautiful formatting, then export to PDF, DOCX, EPUB, or HTML with a single click. No signup required, no complex interfaces—just drag, drop, and download."
+      text: "Markdown Free lets you upload a .md file, preview it instantly with beautiful formatting, then export to PDF, Word (DOCX), image (PNG), EPUB, or HTML with a single click. No signup required, no complex interfaces—just drag, drop, and download."
     },
     whyBuilt: {
       title: "Why we built this",
@@ -98,7 +98,7 @@ const content: Partial<Record<Locale, {
       steps: [
         { title: "Upload", text: "Drag & drop your .md, .markdown, or .txt file" },
         { title: "Preview", text: "See your formatted Markdown instantly" },
-        { title: "Export", text: "Click To PDF, To DOCX, To EPUB, or To HTML to download" }
+        { title: "Export", text: "Click To PDF, To Word (DOCX), or To Image (PNG) to download; EPUB, HTML and TXT are under More formats" }
       ]
     },
     technical: {
@@ -120,7 +120,7 @@ const content: Partial<Record<Locale, {
     lead: "Un visualizzatore e convertitore Markdown veloce, gratuito e basato sul web, con un flusso ultra-semplice.",
     whatIs: {
       title: "Cos'è Markdown Free?",
-      text: "Markdown Free ti permette di caricare un file .md, visualizzarlo istantaneamente con una formattazione elegante, e poi esportarlo in PDF, DOCX, EPUB o HTML con un solo clic. Nessuna registrazione, nessuna interfaccia complessa — solo trascina, rilascia e scarica."
+      text: "Markdown Free ti permette di caricare un file .md, visualizzarlo istantaneamente con una formattazione elegante, e poi esportarlo in PDF, Word (DOCX), immagine (PNG), EPUB o HTML con un solo clic. Nessuna registrazione, nessuna interfaccia complessa — solo trascina, rilascia e scarica."
     },
     whyBuilt: {
       title: "Perché l'abbiamo creato",
@@ -141,7 +141,7 @@ const content: Partial<Record<Locale, {
       steps: [
         { title: "Carica", text: "Trascina e rilascia il tuo file .md, .markdown o .txt" },
         { title: "Anteprima", text: "Visualizza il tuo Markdown formattato istantaneamente" },
-        { title: "Esporta", text: "Clicca su In PDF, In DOCX, In EPUB o In HTML per scaricare" }
+        { title: "Esporta", text: "Clicca su In PDF, In Word (DOCX) o In Immagine (PNG) per scaricare; EPUB, HTML e TXT sono in Altri formati" }
       ]
     },
     technical: {
@@ -163,7 +163,7 @@ const content: Partial<Record<Locale, {
     lead: "Un visor y convertidor de Markdown rápido, gratuito y basado en web, con un flujo ultra-simple.",
     whatIs: {
       title: "¿Qué es Markdown Free?",
-      text: "Markdown Free te permite subir un archivo .md, previsualizarlo instantáneamente con un formato elegante, y luego exportarlo a PDF, DOCX, EPUB o HTML con un solo clic. Sin registro, sin interfaces complejas — solo arrastra, suelta y descarga."
+      text: "Markdown Free te permite subir un archivo .md, previsualizarlo instantáneamente con un formato elegante, y luego exportarlo a PDF, Word (DOCX), imagen (PNG), EPUB o HTML con un solo clic. Sin registro, sin interfaces complejas — solo arrastra, suelta y descarga."
     },
     whyBuilt: {
       title: "Por qué lo creamos",
@@ -184,7 +184,7 @@ const content: Partial<Record<Locale, {
       steps: [
         { title: "Subir", text: "Arrastra y suelta tu archivo .md, .markdown o .txt" },
         { title: "Vista previa", text: "Ve tu Markdown formateado instantáneamente" },
-        { title: "Exportar", text: "Haz clic en A PDF, A DOCX, A EPUB o A HTML para descargar" }
+        { title: "Exportar", text: "Haz clic en A PDF, A Word (DOCX) o A Imagen (PNG) para descargar; EPUB, HTML y TXT están en Más formatos" }
       ]
     },
     technical: {
@@ -206,7 +206,7 @@ const content: Partial<Record<Locale, {
     lead: "高速・無料・ウェブベースのMarkdownビューア＆コンバーター。シンプルな操作で完結。",
     whatIs: {
       title: "Markdown Free とは？",
-      text: "Markdown Freeは、.mdファイルをアップロードし、美しいフォーマットで即座にプレビューし、ワンクリックでPDF、DOCX、EPUB、HTMLにエクスポートできます。登録不要、複雑なインターフェースなし—ドラッグ＆ドロップしてダウンロードするだけ。"
+      text: "Markdown Freeは、.mdファイルをアップロードし、美しいフォーマットで即座にプレビューし、ワンクリックでPDF、Word (DOCX)、画像 (PNG)、EPUB、HTMLにエクスポートできます。登録不要、複雑なインターフェースなし—ドラッグ＆ドロップしてダウンロードするだけ。"
     },
     whyBuilt: {
       title: "開発の背景",
@@ -227,7 +227,7 @@ const content: Partial<Record<Locale, {
       steps: [
         { title: "アップロード", text: ".md、.markdown、または.txtファイルをドラッグ＆ドロップ" },
         { title: "プレビュー", text: "フォーマットされたMarkdownを即座に確認" },
-        { title: "エクスポート", text: "PDF、DOCX、EPUB、またはHTMLをクリックしてダウンロード" }
+        { title: "エクスポート", text: "「PDFへ」「Wordへ (DOCX)」「画像へ (PNG)」をクリックしてダウンロード。EPUB・HTML・TXTは「他の形式」から" }
       ]
     },
     technical: {
@@ -249,7 +249,7 @@ const content: Partial<Record<Locale, {
     lead: "빠르고, 무료이며, 웹 기반의 Markdown 뷰어 및 변환기. 매우 간단한 흐름으로 작업 완료.",
     whatIs: {
       title: "Markdown Free란?",
-      text: "Markdown Free를 사용하면 .md 파일을 업로드하고, 아름다운 포맷으로 즉시 미리 보고, 클릭 한 번으로 PDF, DOCX, EPUB 또는 HTML로 내보낼 수 있습니다. 가입 불필요, 복잡한 인터페이스 없음—드래그, 드롭, 다운로드만 하면 됩니다."
+      text: "Markdown Free를 사용하면 .md 파일을 업로드하고, 아름다운 포맷으로 즉시 미리 보고, 클릭 한 번으로 PDF, Word (DOCX), 이미지 (PNG), EPUB 또는 HTML로 내보낼 수 있습니다. 가입 불필요, 복잡한 인터페이스 없음—드래그, 드롭, 다운로드만 하면 됩니다."
     },
     whyBuilt: {
       title: "개발 배경",
@@ -270,7 +270,7 @@ const content: Partial<Record<Locale, {
       steps: [
         { title: "업로드", text: ".md, .markdown 또는 .txt 파일을 드래그 앤 드롭" },
         { title: "미리보기", text: "포맷된 Markdown을 즉시 확인" },
-        { title: "내보내기", text: "PDF, DOCX, EPUB 또는 HTML을 클릭하여 다운로드" }
+        { title: "내보내기", text: "PDF로, Word로 (DOCX) 또는 이미지로 (PNG)를 클릭하여 다운로드; EPUB·HTML·TXT는 다른 형식에" }
       ]
     },
     technical: {
@@ -292,7 +292,7 @@ const content: Partial<Record<Locale, {
     lead: "快速、免费、基于网页的 Markdown 查看器和转换器。操作流程极其简单。",
     whatIs: {
       title: "什么是 Markdown Free？",
-      text: "Markdown Free 让您上传 .md 文件，即时预览美观的格式，然后一键导出为 PDF、DOCX、EPUB 或 HTML。无需注册，无复杂界面——只需拖放和下载。"
+      text: "Markdown Free 让您上传 .md 文件，即时预览美观的格式，然后一键导出为 PDF、Word (DOCX)、图片 (PNG)、EPUB 或 HTML。无需注册，无复杂界面——只需拖放和下载。"
     },
     whyBuilt: {
       title: "为什么开发这个工具",
@@ -313,7 +313,7 @@ const content: Partial<Record<Locale, {
       steps: [
         { title: "上传", text: "拖放您的 .md、.markdown 或 .txt 文件" },
         { title: "预览", text: "即时查看格式化的 Markdown" },
-        { title: "导出", text: "点击 PDF、DOCX、EPUB 或 HTML 下载" }
+        { title: "导出", text: "点击「转PDF」「转Word (DOCX)」或「转图片 (PNG)」下载；EPUB、HTML、TXT在「更多格式」中" }
       ]
     },
     technical: {
@@ -335,7 +335,7 @@ const content: Partial<Record<Locale, {
     lead: "快速、免費、基於網頁的 Markdown 檢視器和轉換器。操作流程極其簡單。",
     whatIs: {
       title: "什麼是 Markdown Free？",
-      text: "Markdown Free 讓您上傳 .md 檔案，即時預覽美觀的格式，然後一鍵匯出為 PDF、DOCX、EPUB 或 HTML。無需註冊，無複雜介面——只需拖放和下載。"
+      text: "Markdown Free 讓您上傳 .md 檔案，即時預覽美觀的格式，然後一鍵匯出為 PDF、Word (DOCX)、圖片 (PNG)、EPUB 或 HTML。無需註冊，無複雜介面——只需拖放和下載。"
     },
     whyBuilt: {
       title: "為什麼開發這個工具",
@@ -356,7 +356,7 @@ const content: Partial<Record<Locale, {
       steps: [
         { title: "上傳", text: "拖放您的 .md、.markdown 或 .txt 檔案" },
         { title: "預覽", text: "即時檢視格式化的 Markdown" },
-        { title: "匯出", text: "點擊 PDF、DOCX、EPUB 或 HTML 下載" }
+        { title: "匯出", text: "點擊「轉PDF」「轉Word (DOCX)」或「轉圖片 (PNG)」下載；EPUB、HTML、TXT在「更多格式」中" }
       ]
     },
     technical: {
@@ -378,7 +378,7 @@ const content: Partial<Record<Locale, {
     lead: "Penampil dan konverter Markdown berbasis web yang cepat, gratis, dengan alur yang sangat sederhana.",
     whatIs: {
       title: "Apa itu Markdown Free?",
-      text: "Markdown Free memungkinkan Anda mengunggah file .md, melihat pratinjau secara instan dengan format yang indah, lalu mengekspor ke PDF, DOCX, EPUB, atau HTML dengan satu klik. Tanpa perlu daftar, tanpa antarmuka yang rumit—cukup seret, lepas, dan unduh."
+      text: "Markdown Free memungkinkan Anda mengunggah file .md, melihat pratinjau secara instan dengan format yang indah, lalu mengekspor ke PDF, Word (DOCX), gambar (PNG), EPUB, atau HTML dengan satu klik. Tanpa perlu daftar, tanpa antarmuka yang rumit—cukup seret, lepas, dan unduh."
     },
     whyBuilt: {
       title: "Mengapa kami membuat ini",
@@ -399,7 +399,7 @@ const content: Partial<Record<Locale, {
       steps: [
         { title: "Unggah", text: "Seret dan lepas file .md, .markdown, atau .txt Anda" },
         { title: "Pratinjau", text: "Lihat Markdown Anda yang diformat secara instan" },
-        { title: "Ekspor", text: "Klik Ke PDF, Ke DOCX, Ke EPUB, atau Ke HTML untuk mengunduh" }
+        { title: "Ekspor", text: "Klik Ke PDF, Ke Word (DOCX), atau Ke Gambar (PNG) untuk mengunduh; EPUB, HTML, TXT ada di Format lainnya" }
       ]
     },
     technical: {
@@ -421,7 +421,7 @@ const content: Partial<Record<Locale, {
     lead: "Trình xem và chuyển đổi Markdown miễn phí, nhanh chóng, dựa trên web với quy trình cực kỳ đơn giản.",
     whatIs: {
       title: "Markdown Free là gì?",
-      text: "Markdown Free cho phép bạn tải lên file .md, xem trước ngay lập tức với định dạng đẹp, sau đó xuất sang PDF, DOCX, EPUB hoặc HTML chỉ với một cú nhấp chuột. Không cần đăng ký, không có giao diện phức tạp—chỉ cần kéo, thả và tải xuống."
+      text: "Markdown Free cho phép bạn tải lên file .md, xem trước ngay lập tức với định dạng đẹp, sau đó xuất sang PDF, Word (DOCX), ảnh (PNG), EPUB hoặc HTML chỉ với một cú nhấp chuột. Không cần đăng ký, không có giao diện phức tạp—chỉ cần kéo, thả và tải xuống."
     },
     whyBuilt: {
       title: "Tại sao chúng tôi xây dựng công cụ này",
@@ -442,7 +442,7 @@ const content: Partial<Record<Locale, {
       steps: [
         { title: "Tải lên", text: "Kéo và thả file .md, .markdown hoặc .txt của bạn" },
         { title: "Xem trước", text: "Xem Markdown đã định dạng của bạn ngay lập tức" },
-        { title: "Xuất", text: "Nhấp Sang PDF, Sang DOCX, Sang EPUB hoặc Sang HTML để tải xuống" }
+        { title: "Xuất", text: "Nhấp Sang PDF, Sang Word (DOCX) hoặc Sang Ảnh (PNG) để tải xuống; EPUB, HTML, TXT trong Định dạng khác" }
       ]
     },
     technical: {

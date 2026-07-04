@@ -20,7 +20,7 @@
   "paste": {
     "label": "Markdown Pegado",
     "placeholder": "Pega tu Markdown aquí…",
-    "helper": "Los cambios aquí también se usarán al exportar a PDF, DOCX, EPUB o HTML.",
+    "helper": "Los cambios aquí también se usarán al exportar a PDF, Word (DOCX), imagen (PNG), EPUB o HTML.",
     "tooLarge": "El contenido excede el límite de 1MB. Se ha truncado.",
     "clipboardButton": "Pegar del portapapeles",
     "clipboardHint": "Un toque — desde ChatGPT, Claude, Obsidian, etc.",
@@ -152,9 +152,9 @@
   },
   "faqPage": {
     "title": "Preguntas Frecuentes | Markdown Free",
-    "description": "Preguntas comunes sobre Markdown Free: Cómo convertir Markdown a PDF, DOCX, EPUB. ¿Es gratis? ¿Es seguro? Formatos de archivo, privacidad y más.",
+    "description": "Preguntas comunes sobre Markdown Free: Cómo convertir Markdown a PDF, Word (DOCX), imagen (PNG), EPUB. ¿Es gratis? ¿Es seguro? Formatos de archivo, privacidad y más.",
     "heading": "Preguntas Frecuentes",
-    "subtitle": "Todo lo que necesitas saber sobre la conversión de Markdown a PDF, DOCX y EPUB con Markdown Free.",
+    "subtitle": "Todo lo que necesitas saber sobre la conversión de Markdown a PDF, Word (DOCX), imagen (PNG) y EPUB con Markdown Free.",
     "home": "Inicio",
     "faq": "FAQ",
     "ctaTitle": "¿Listo para convertir tu Markdown?",

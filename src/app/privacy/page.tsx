@@ -85,7 +85,7 @@ export default function PrivacyPage() {
           <ul>
             <li>Page views and visitor counts</li>
             <li>Referrer information (where visitors come from)</li>
-            <li>Counts of successful conversions (PDF, DOCX, EPUB, HTML, TXT)</li>
+            <li>Counts of successful conversions (PDF, DOCX, PNG, EPUB, HTML, TXT)</li>
             <li>General device/browser information</li>
           </ul>
           <p>

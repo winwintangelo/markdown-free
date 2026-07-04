@@ -20,7 +20,7 @@
   "paste": {
     "label": "貼り付けられたMarkdown",
     "placeholder": "ここにMarkdownを貼り付けてください…",
-    "helper": "ここでの変更はPDF、DOCX、EPUB、HTMLへのエクスポート時にも使用されます。",
+    "helper": "ここでの変更はPDF、Word (DOCX)、画像 (PNG)、EPUB、HTMLへのエクスポート時にも使用されます。",
     "tooLarge": "コンテンツが1MBの制限を超えています。切り詰められました。",
     "clipboardButton": "クリップボードから貼り付け",
     "clipboardHint": "ワンタップ — ChatGPT、Claude、Obsidianなどから",
@@ -180,9 +180,9 @@
   },
   "faqPage": {
     "title": "よくある質問 | Markdown Free",
-    "description": "Markdown Freeに関するよくある質問：MarkdownをPDF、DOCX、EPUBに変換する方法。無料ですか？安全ですか？ファイル形式、プライバシーなど。",
+    "description": "Markdown Freeに関するよくある質問：MarkdownをPDF、Word (DOCX)、画像 (PNG)、EPUBに変換する方法。無料ですか？安全ですか？ファイル形式、プライバシーなど。",
     "heading": "よくある質問",
-    "subtitle": "Markdown FreeでMarkdownをPDF、DOCX、EPUBに変換する方法について。",
+    "subtitle": "Markdown FreeでMarkdownをPDF、Word (DOCX)、画像 (PNG)、EPUBに変換する方法について。",
     "home": "ホーム",
     "faq": "よくある質問",
     "ctaTitle": "Markdownを変換する準備はできましたか？",

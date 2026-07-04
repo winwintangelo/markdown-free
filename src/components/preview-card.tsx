@@ -27,7 +27,7 @@ const defaultDict = {
       title: "How it works",
       step1: "Upload a .md file or paste Markdown text.",
       step2: "See the formatted preview right here.",
-      step3: "Click To PDF, To DOCX, To EPUB, or To HTML to download your converted file.",
+      step3: "Click To PDF, To Word (DOCX), or To Image (PNG) to download your converted file. EPUB, HTML and TXT live under More formats.",
       note: "Once you add your own Markdown, this preview will update to match it."
     }
   }

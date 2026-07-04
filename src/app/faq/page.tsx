@@ -99,7 +99,7 @@ const extendedFaq = [
   {
     question: "Why use Markdown Free instead of other converters?",
     answer:
-      "Markdown Free is completely free with no signup, respects your privacy by not storing files, supports multiple output formats (PDF, DOCX, EPUB, HTML, TXT), and works in multiple languages. Many alternatives require accounts, have conversion limits, or store your data.",
+      "Markdown Free is completely free with no signup, respects your privacy by not storing files, supports multiple output formats (PDF, DOCX, PNG/JPG images, EPUB, HTML, TXT), and works in multiple languages. Many alternatives require accounts, have conversion limits, or store your data.",
   },
 ];
 

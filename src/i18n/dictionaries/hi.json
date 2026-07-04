@@ -20,7 +20,7 @@
   "paste": {
     "label": "पेस्ट किया गया Markdown",
     "placeholder": "अपना Markdown यहाँ पेस्ट करें…",
-    "helper": "यहाँ किए गए परिवर्तन PDF, DOCX, EPUB या HTML में एक्सपोर्ट करते समय भी उपयोग होंगे।",
+    "helper": "यहाँ किए गए परिवर्तन PDF, Word (DOCX), इमेज (PNG), EPUB या HTML में एक्सपोर्ट करते समय भी उपयोग होंगे।",
     "tooLarge": "सामग्री 1MB सीमा से अधिक है। इसे काट दिया गया है।",
     "clipboardButton": "क्लिपबोर्ड से पेस्ट करें",
     "clipboardHint": "एक टैप — ChatGPT, Claude, Obsidian आदि से।",
@@ -148,9 +148,9 @@
   },
   "faqPage": {
     "title": "FAQ - अक्सर पूछे जाने वाले प्रश्न | Markdown Free",
-    "description": "Markdown Free के बारे में सामान्य प्रश्न: Markdown को PDF, DOCX, EPUB में कैसे बदलें। क्या यह मुफ्त है? क्या यह सुरक्षित है? फाइल फॉर्मेट, गोपनीयता, और बहुत कुछ।",
+    "description": "Markdown Free के बारे में सामान्य प्रश्न: Markdown को PDF, Word (DOCX), इमेज (PNG), EPUB में कैसे बदलें। क्या यह मुफ्त है? क्या यह सुरक्षित है? फाइल फॉर्मेट, गोपनीयता, और बहुत कुछ।",
     "heading": "अक्सर पूछे जाने वाले प्रश्न",
-    "subtitle": "Markdown Free के साथ Markdown को PDF, DOCX, और EPUB में बदलने के बारे में आपको जो भी जानने की ज़रूरत है।",
+    "subtitle": "Markdown Free के साथ Markdown को PDF, Word (DOCX), इमेज (PNG), और EPUB में बदलने के बारे में आपको जो भी जानने की ज़रूरत है।",
     "home": "होम",
     "faq": "FAQ",
     "ctaTitle": "अपने Markdown को कनवर्ट करने के लिए तैयार हैं?",

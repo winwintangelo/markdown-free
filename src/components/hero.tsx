@@ -12,8 +12,8 @@ interface HeroProps {
 const defaultDict = {
   hero: {
     badge: "Free • No signup • Instant export",
-    title: "Free Markdown to PDF, DOCX & EPUB Converter",
-    subtitle: "Upload or paste your .md file, preview it instantly, then export to PDF, DOCX, EPUB or HTML in one click. Free, private and secure — your files are never stored."
+    title: "Free Markdown to PDF, Word & Image Converter",
+    subtitle: "Upload or paste your .md file, preview it instantly, then export to PDF, Word (DOCX), image (PNG), EPUB or HTML in one click. Free, private and secure — your files are never stored."
   }
 };
 

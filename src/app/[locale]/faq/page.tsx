@@ -101,12 +101,12 @@ function getExtendedFaq(locale: Locale, dict: ReturnType<typeof getDictionary>) 
       answer: locale === "zh-Hant" ? "可以！Markdown Free 支援匯出為 DOCX 格式。上傳您的 Markdown 檔案後，點擊「轉 DOCX」即可獲得保留格式、標題和程式碼區塊的 Word 相容文件。" :
               locale === "zh-Hans" ? "可以！Markdown Free 支持导出为 DOCX 格式。上传您的 Markdown 文件后，点击「转 DOCX」即可获得保留格式、标题和代码块的 Word 兼容文档。" :
               locale === "ja" ? "はい！Markdown Free は DOCX 形式へのエクスポートをサポートしています。Markdown ファイルをアップロードして「DOCX に変換」をクリックすると、書式、見出し、コードブロックが保持された Word 互換のドキュメントが得られます。" :
-              locale === "ko" ? "네! Markdown Free는 DOCX 형식으로 내보내기를 지원합니다. 마크다운 파일을 업로드하고 'DOCX로 변환'을 클릭하면 서식, 제목, 코드 블록이 유지된 Word 호환 문서를 얻을 수 있습니다." :
-              locale === "es" ? "¡Sí! Markdown Free admite la exportación a formato DOCX. Sube tu archivo Markdown y haz clic en 'A DOCX' para obtener un documento compatible con Word que preserva el formato, los títulos y los bloques de código." :
-              locale === "it" ? "Sì! Markdown Free supporta l'esportazione in formato DOCX. Carica il tuo file Markdown e clicca su 'A DOCX' per ottenere un documento compatibile con Word che preserva formattazione, titoli e blocchi di codice." :
-              locale === "id" ? "Ya! Markdown Free mendukung ekspor ke format DOCX. Unggah file Markdown Anda dan klik 'Ke DOCX' untuk mendapatkan dokumen yang kompatibel dengan Word yang mempertahankan format, judul, dan blok kode." :
-              locale === "vi" ? "Có! Markdown Free hỗ trợ xuất sang định dạng DOCX. Tải lên tệp Markdown của bạn và nhấp vào 'Sang DOCX' để nhận tài liệu tương thích với Word giữ nguyên định dạng, tiêu đề và khối mã." :
-              "Yes! Markdown Free supports exporting to DOCX format. Upload your Markdown file and click 'To DOCX' to get a Word-compatible document that preserves formatting, headings, and code blocks.",
+              locale === "ko" ? "네! Markdown Free는 DOCX 형식으로 내보내기를 지원합니다. 마크다운 파일을 업로드하고 'Word로 (DOCX)'을 클릭하면 서식, 제목, 코드 블록이 유지된 Word 호환 문서를 얻을 수 있습니다." :
+              locale === "es" ? "¡Sí! Markdown Free admite la exportación a formato DOCX. Sube tu archivo Markdown y haz clic en 'A Word (DOCX)' para obtener un documento compatible con Word que preserva el formato, los títulos y los bloques de código." :
+              locale === "it" ? "Sì! Markdown Free supporta l'esportazione in formato DOCX. Carica il tuo file Markdown e clicca su 'In Word (DOCX)' per ottenere un documento compatibile con Word che preserva formattazione, titoli e blocchi di codice." :
+              locale === "id" ? "Ya! Markdown Free mendukung ekspor ke format DOCX. Unggah file Markdown Anda dan klik 'Ke Word (DOCX)' untuk mendapatkan dokumen yang kompatibel dengan Word yang mempertahankan format, judul, dan blok kode." :
+              locale === "vi" ? "Có! Markdown Free hỗ trợ xuất sang định dạng DOCX. Tải lên tệp Markdown của bạn và nhấp vào 'Sang Word (DOCX)' để nhận tài liệu tương thích với Word giữ nguyên định dạng, tiêu đề và khối mã." :
+              "Yes! Markdown Free supports exporting to DOCX format. Upload your Markdown file and click 'To Word (DOCX)' to get a Word-compatible document that preserves formatting, headings, and code blocks.",
     },
   ];
 
