@@ -12,13 +12,10 @@ import {
 import { AlertCircle, Download, Loader2, Share, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
-  allowedPixelRatios,
-  clampPixelRatio,
   defaultImageOptions,
   imagePartFilename,
   ImageExportCancelledError,
   ImageTooLargeError,
-  type ImageExportOptions,
   type ImageExportWarning,
 } from "@/lib/export-image";
 import { downloadBlob, generateFilename } from "@/lib/download";
@@ -32,12 +29,18 @@ import {
 } from "@/lib/analytics";
 import type { Locale, Dictionary } from "@/i18n";
 
-type ImageFormat = "png" | "jpg";
-type ImageWidth = ImageExportOptions["width"];
-type PixelRatio = ImageExportOptions["pixelRatio"];
-type SplitMode = ImageExportOptions["splitMode"];
+/**
+ * Status surface for the one-tap image export. There is intentionally NO
+ * options UI — image export behaves like every other converter button:
+ * device-based defaults (width from viewport, sharpness from DPR), and the
+ * only decision users ever see is the long-document prompt (single tall
+ * image vs ZIP package). This component renders progress, that prompt,
+ * warnings/errors, and the split-result share row.
+ */
 
-const WIDTHS: ImageWidth[] = [600, 800, 1080, 1200];
+type ImageFormat = "png" | "jpg";
+
+const JPG_QUALITY = 0.9;
 // Above this part count the OS share sheet becomes unwieldy — ZIP instead
 const MAX_SHARE_PARTS = 5;
 
@@ -54,12 +57,11 @@ interface LongDocPrompt {
 }
 
 export interface ImageExportPanelHandle {
-  /** One-tap conversion with the panel's current (device-defaulted) settings */
+  /** One-tap conversion with device-based defaults */
   convert: (format: ImageFormat) => void;
 }
 
 interface ImageExportPanelProps {
-  open: boolean;
   markdown: string;
   renderedHtml: string;
   originalFilename: string | null;
@@ -74,7 +76,6 @@ interface ImageExportPanelProps {
 export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPanelProps>(
   function ImageExportPanel(
     {
-      open,
       markdown,
       renderedHtml,
       originalFilename,
@@ -87,12 +88,7 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
     },
     ref
   ) {
-    // Device-aware defaults: width from viewport, sharpness from DPR (spec-clamped)
     const [format, setFormat] = useState<ImageFormat>("png");
-    const [width, setWidth] = useState<ImageWidth>(() => defaultImageOptions().width);
-    const [ratio, setRatio] = useState<PixelRatio>(() => defaultImageOptions().pixelRatio);
-    const [quality, setQuality] = useState(90); // JPG only, 60–100
-    const [splitMode, setSplitMode] = useState<SplitMode>("auto");
     const [converting, setConverting] = useState(false);
     const [progress, setProgress] = useState<{ current: number; total: number } | null>(null);
     const [result, setResult] = useState<ImageResult | null>(null);
@@ -102,26 +98,21 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
 
     const t = dict.export;
 
-    // Stale results don't survive input or format changes
+    // Stale results don't survive input changes
     useEffect(() => {
       setResult(null);
       setErrorCode(null);
-    }, [format, markdown]);
+    }, [markdown]);
 
     useEffect(() => {
       onConvertingChange(converting);
     }, [converting, onConvertingChange]);
 
-    const handleWidthChange = useCallback((next: ImageWidth) => {
-      setWidth(next);
-      // 3x is hidden at 1080/1200 — clamp an active 3x selection visibly (spec 2.1)
-      setRatio((current) => clampPixelRatio(next, current));
-    }, []);
-
     const runConvert = useCallback(
       async (fmt: ImageFormat) => {
         if (convertingRef.current) return;
         convertingRef.current = true;
+        setFormat(fmt);
         setConverting(true);
         setProgress(null);
         setResult(null);
@@ -133,14 +124,18 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
             renderedHtml ||
             (await (await import("@/lib/markdown")).markdownToHtml(markdown));
 
+          // Device-aware defaults: phone-sized viewports → 1080px (长图 /
+          // social width), desktop → 800px; sharpness from devicePixelRatio
+          const { width, pixelRatio } = defaultImageOptions();
+
           const exported = await exportToImage(
             html,
             {
               format: fmt,
               width,
-              pixelRatio: ratio,
-              quality: quality / 100,
-              splitMode,
+              pixelRatio,
+              quality: JPG_QUALITY,
+              splitMode: "auto",
               onLongDocument: (pages, canSingle) =>
                 new Promise((resolve) => setLongDocPrompt({ pages, canSingle, resolve })),
             },
@@ -191,15 +186,14 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
           setLongDocPrompt(null);
         }
       },
-      [markdown, renderedHtml, originalFilename, locale, source, width, ratio, quality, splitMode, onSuccess]
+      [markdown, renderedHtml, originalFilename, locale, source, onSuccess]
     );
 
-    // One-tap entry point (To PNG button, To JPG menu item)
+    // One-tap entry point (To Image button, To JPG menu item)
     useImperativeHandle(
       ref,
       () => ({
         convert: (fmt: ImageFormat) => {
-          setFormat(fmt);
           void runConvert(fmt);
         },
       }),
@@ -262,7 +256,6 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
       downloadBlob(zipBlob, zipName);
     }, [result, resultFiles]);
 
-    const scaleOptions = allowedPixelRatios(width);
     const blockedWarning = result?.warnings.find((w) => w.code === "images_blocked") as
       | { code: "images_blocked"; count: number }
       | undefined;
@@ -271,8 +264,7 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
       converting || longDocPrompt !== null || errorCode !== null ||
       blockedWarning !== undefined || (result !== null && result.blobs.length > 1);
 
-    // Nothing to show: options closed and no active conversion state
-    if (!open && !hasStatus) {
+    if (!hasStatus) {
       return null;
     }
 
@@ -281,150 +273,6 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
         className="space-y-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm"
         data-testid="image-options-panel"
       >
-        {open && (
-          <div className="flex flex-wrap items-end gap-x-5 gap-y-3">
-            {/* Format */}
-            <fieldset className="flex flex-col gap-1 text-xs font-medium text-slate-600">
-              <legend className="mb-1">{format === "png" ? t.toPng : t.toJpg}</legend>
-              <div className="flex overflow-hidden rounded-lg border border-slate-200" role="radiogroup">
-                {(["png", "jpg"] as ImageFormat[]).map((fmt) => (
-                  <button
-                    key={fmt}
-                    type="button"
-                    role="radio"
-                    aria-checked={format === fmt}
-                    disabled={converting}
-                    onClick={() => setFormat(fmt)}
-                    data-testid={`image-format-${fmt}`}
-                    className={cn(
-                      "px-2.5 py-1.5 text-xs uppercase transition",
-                      format === fmt
-                        ? "bg-emerald-700 font-semibold text-white"
-                        : "bg-slate-50 text-slate-600 hover:bg-white"
-                    )}
-                  >
-                    {fmt}
-                  </button>
-                ))}
-              </div>
-            </fieldset>
-
-            {/* Width */}
-            <label className="flex flex-col gap-1 text-xs font-medium text-slate-600">
-              {t.imageWidth}
-              <select
-                value={width}
-                disabled={converting}
-                onChange={(e) => handleWidthChange(Number(e.target.value) as ImageWidth)}
-                data-testid="image-width-select"
-                className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-1.5 text-xs text-slate-700"
-              >
-                {WIDTHS.map((w) => (
-                  <option key={w} value={w}>
-                    {w} px
-                    {w === 1080 && (locale === "zh-Hans" || locale === "zh-Hant")
-                      ? ` · ${t.imageWechatHint}`
-                      : ""}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            {/* Scale — options depend on width (spec 2.1 matrix) */}
-            <label className="flex flex-col gap-1 text-xs font-medium text-slate-600">
-              {t.imageScale}
-              <select
-                value={ratio}
-                disabled={converting}
-                onChange={(e) => setRatio(Number(e.target.value) as PixelRatio)}
-                data-testid="image-scale-select"
-                className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-1.5 text-xs text-slate-700"
-              >
-                {scaleOptions.map((r) => (
-                  <option key={r} value={r}>
-                    {r}x
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            {/* Quality — JPG only */}
-            {format === "jpg" && (
-              <label className="flex flex-col gap-1 text-xs font-medium text-slate-600">
-                {t.imageQuality}: {quality}
-                <input
-                  type="range"
-                  min={60}
-                  max={100}
-                  step={1}
-                  value={quality}
-                  disabled={converting}
-                  onChange={(e) => setQuality(Number(e.target.value))}
-                  data-testid="image-quality-slider"
-                  className="w-28 accent-emerald-700"
-                />
-              </label>
-            )}
-
-            {/* Long document handling */}
-            <fieldset className="flex flex-col gap-1 text-xs font-medium text-slate-600">
-              <legend className="mb-1">{t.imageSplit}</legend>
-              <div className="flex overflow-hidden rounded-lg border border-slate-200" role="radiogroup">
-                {(
-                  [
-                    ["auto", t.imageSplitAuto],
-                    ["single", t.imageSplitSingle],
-                    ["split", t.imageSplitParts],
-                  ] as Array<[SplitMode, string]>
-                ).map(([mode, label]) => (
-                  <button
-                    key={mode}
-                    type="button"
-                    role="radio"
-                    aria-checked={splitMode === mode}
-                    disabled={converting}
-                    onClick={() => setSplitMode(mode)}
-                    data-testid={`image-split-${mode}`}
-                    className={cn(
-                      "px-2.5 py-1.5 text-xs transition",
-                      splitMode === mode
-                        ? "bg-emerald-700 font-semibold text-white"
-                        : "bg-slate-50 text-slate-600 hover:bg-white"
-                    )}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-            </fieldset>
-
-            {/* Convert */}
-            <button
-              type="button"
-              disabled={converting}
-              onClick={() => void runConvert(format)}
-              data-testid="image-convert-button"
-              className={cn(
-                "inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold shadow-sm transition",
-                converting
-                  ? "cursor-wait bg-emerald-500 text-white"
-                  : "bg-emerald-700 text-white hover:bg-emerald-800"
-              )}
-            >
-              {converting ? (
-                <Loader2 className="h-3 w-3 animate-spin" />
-              ) : (
-                <Download className="h-3 w-3" />
-              )}
-              {converting
-                ? t.generatingImage
-                : format === "png"
-                  ? t.downloadPng
-                  : t.downloadJpg}
-            </button>
-          </div>
-        )}
-
         {/* Long-document prompt: one long image vs split package, with the
             tradeoff spelled out on each choice */}
         {longDocPrompt && (
@@ -479,8 +327,8 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
           </div>
         )}
 
-        {/* Progress (visible for one-tap conversions with the options closed) */}
-        {converting && !open && !longDocPrompt && (
+        {/* Progress while rendering */}
+        {converting && !longDocPrompt && (
           <p className="flex items-center gap-2 text-xs text-slate-500" data-testid="image-progress">
             <Loader2 className="h-3 w-3 animate-spin" />
             {t.generatingImage}
@@ -522,7 +370,8 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
           </div>
         )}
 
-        {/* Split result: share (mobile 长图 path) or ZIP */}
+        {/* Split result: the ZIP already auto-downloaded; this row carries the
+            note plus share / re-download */}
         {result && result.blobs.length > 1 && (
           <div
             className="flex flex-wrap items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2"
@@ -549,9 +398,7 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
                 data-testid="image-zip-button"
                 className={cn(
                   "inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold shadow-sm transition",
-                  canShareResult
-                    ? "border border-slate-200 bg-white text-slate-700 hover:border-slate-300"
-                    : "bg-emerald-700 text-white hover:bg-emerald-800"
+                  "border border-slate-200 bg-white text-slate-700 hover:border-slate-300"
                 )}
               >
                 <Download className="h-3 w-3" />

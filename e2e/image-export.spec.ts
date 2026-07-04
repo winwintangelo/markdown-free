@@ -6,11 +6,13 @@ import { openMoreFormats } from "./export-helpers";
 /**
  * Markdown → PNG/JPG image export (spec section 5 + one-tap UX)
  *
- * "To PNG" converts in one tap with device-based defaults (width from
- * viewport, sharpness from devicePixelRatio); the caret next to it opens the
- * options panel. Long documents (> 10 pages) pause with a prompt: one long
- * image vs a split package. WebKit runs this file too (playwright.config.ts)
- * — Safari's canvas area limit is the binding constraint for the split logic.
+ * "To Image (PNG)" is a plain one-tap button like every other converter:
+ * device-based defaults (width from viewport, sharpness from DPR), no
+ * options UI. Short documents always come out as a single image (degrading
+ * sharpness to fit one canvas); long documents (> 10 pages) prompt for one
+ * tall image vs a ZIP package, and either choice auto-downloads. WebKit runs
+ * this file too (playwright.config.ts) — Safari's canvas area limit is the
+ * binding constraint for the split logic.
  */
 
 test.use({ actionTimeout: 60_000 });
@@ -50,11 +52,6 @@ async function pasteMarkdown(page: Page, content: string) {
   await page.getByRole("button", { name: "paste Markdown" }).click();
   await page.locator("textarea").fill(content);
   await expect(page.getByText("Ready to export", { exact: false })).toBeVisible();
-}
-
-async function openImagePanel(page: Page) {
-  await page.getByTestId("image-options-toggle").click();
-  await expect(page.getByTestId("image-width-select")).toBeVisible();
 }
 
 /** The device-based default sharpness the app should pick at a given width */
@@ -134,12 +131,12 @@ function getEvents(page: Page): Promise<Array<{ name: string; data?: Record<stri
 }
 
 test.describe("Image export — one-tap flow", () => {
-  test("To PNG converts in one tap with device-based defaults", async ({ page }) => {
+  test("To Image (PNG) converts in one tap with device-based defaults", async ({ page }) => {
     await stubAnalytics(page);
     await page.goto("/");
     await pasteMarkdown(page, SIMPLE_MD);
 
-    // No options panel step: one tap → download
+    // No options step: one tap → download
     const downloadPromise = page.waitForEvent("download");
     await page.getByTestId("to-png-button").click();
     const buf = await saveDownload(downloadPromise);
@@ -169,7 +166,7 @@ test.describe("Image export — one-tap flow", () => {
     expect(darkPixels).toBeGreaterThan(2000);
   });
 
-  test("To JPG one-taps from the More formats menu", async ({ page }) => {
+  test("To JPG one-taps from the More formats menu, white background", async ({ page }) => {
     await page.goto("/");
     await pasteMarkdown(page, SIMPLE_MD);
 
@@ -188,6 +185,12 @@ test.describe("Image export — one-tap flow", () => {
     // JPEG SOI marker
     expect(buf[0]).toBe(0xff);
     expect(buf[1]).toBe(0xd8);
+
+    // corner pixel is white (composited), never black-filled alpha
+    const [r, g, b] = await samplePixel(page, buf, "image/jpeg", 2, 2);
+    expect(r).toBeGreaterThan(240);
+    expect(g).toBeGreaterThan(240);
+    expect(b).toBeGreaterThan(240);
   });
 
   test("blocked remote image: export completes with warning and placeholder", async ({ page }) => {
@@ -206,178 +209,51 @@ test.describe("Image export — one-tap flow", () => {
     await expect(warning).toBeVisible();
     await expect(warning).toContainText("1");
   });
-});
 
-test.describe("Image export — options panel", () => {
-  test("caret toggles the panel; format toggle controls the quality slider", async ({ page }) => {
+  test("there is no options dropdown — image export is a plain button", async ({ page }) => {
     await page.goto("/");
     await pasteMarkdown(page, SIMPLE_MD);
-
-    await openImagePanel(page);
-    await expect(page.getByTestId("image-options-toggle")).toHaveAttribute("aria-expanded", "true");
-
-    // PNG is the default: no quality slider
-    await expect(page.getByTestId("image-quality-slider")).toHaveCount(0);
-
-    // Switching to JPG reveals it, switching back hides it
-    await page.getByTestId("image-format-jpg").click();
-    await expect(page.getByTestId("image-quality-slider")).toBeVisible();
-    await page.getByTestId("image-format-png").click();
-    await expect(page.getByTestId("image-quality-slider")).toHaveCount(0);
-
-    // Second caret click closes the panel
-    await page.getByTestId("image-options-toggle").click();
-    await expect(page.getByTestId("image-width-select")).toHaveCount(0);
-  });
-
-  test("JPG via panel: white background, quality changes byte size", async ({ page }) => {
-    await page.goto("/");
-    await pasteMarkdown(page, SIMPLE_MD);
-    await openImagePanel(page);
-    await page.getByTestId("image-format-jpg").click();
-
-    const setQuality = (value: number) =>
-      page.getByTestId("image-quality-slider").evaluate((el, v) => {
-        const input = el as HTMLInputElement;
-        const setter = Object.getOwnPropertyDescriptor(
-          window.HTMLInputElement.prototype,
-          "value"
-        )!.set!;
-        setter.call(input, String(v));
-        input.dispatchEvent(new Event("input", { bubbles: true }));
-        input.dispatchEvent(new Event("change", { bubbles: true }));
-      }, value);
-
-    await setQuality(60);
-    const downloadLow = page.waitForEvent("download");
-    await page.getByTestId("image-convert-button").click();
-    const lowQuality = await saveDownload(downloadLow);
-
-    await setQuality(100);
-    const downloadHigh = page.waitForEvent("download");
-    await page.getByTestId("image-convert-button").click();
-    const highQuality = await saveDownload(downloadHigh);
-
-    // JPEG SOI marker, never a PNG
-    expect(lowQuality[0]).toBe(0xff);
-    expect(lowQuality[1]).toBe(0xd8);
-
-    // corner pixel is white (composited), not black-filled alpha
-    const [r, g, b] = await samplePixel(page, lowQuality, "image/jpeg", 2, 2);
-    expect(r).toBeGreaterThan(240);
-    expect(g).toBeGreaterThan(240);
-    expect(b).toBeGreaterThan(240);
-
-    expect(lowQuality.length).toBeLessThan(highQuality.length);
-  });
-
-  test("3x available at 800px, hidden at 1080/1200px, active 3x clamps to 2x", async ({ page }) => {
-    await page.goto("/");
-    await pasteMarkdown(page, SIMPLE_MD);
-    await openImagePanel(page);
-
-    const scale = page.getByTestId("image-scale-select");
-    const width = page.getByTestId("image-width-select");
-
-    await width.selectOption("800");
-    await expect(scale.locator("option")).toHaveCount(3); // 1x/2x/3x at 800
-
-    await scale.selectOption("3");
-    await width.selectOption("1080");
-    await expect(scale.locator("option")).toHaveCount(2); // 3x absent, not disabled
-    await expect(scale).toHaveValue("2"); // visible clamp
-
-    await width.selectOption("1200");
-    await expect(scale.locator("option")).toHaveCount(2);
-
-    await width.selectOption("600");
-    await expect(scale.locator("option")).toHaveCount(3);
+    await expect(page.getByTestId("image-options-toggle")).toHaveCount(0);
+    await expect(page.getByTestId("to-png-button")).not.toHaveAttribute("aria-haspopup");
   });
 });
 
-test.describe("Image export — long documents", () => {
+test.describe("Image export — short documents stay single", () => {
   test.slow();
 
-  test("forced split via panel downloads a ZIP of ordered, complete parts", async ({ page }) => {
-    await stubAnalytics(page);
-    await page.goto("/");
-    await pasteMarkdown(page, longDoc(12));
-    await openImagePanel(page);
-
-    await page.getByTestId("image-split-split").click();
-
-    // The ZIP auto-downloads when conversion finishes — no extra tap
-    const downloadPromise = page.waitForEvent("download", { timeout: 60_000 });
-    await page.getByTestId("image-convert-button").click();
-    const download = await downloadPromise;
-    expect(download.suggestedFilename()).toMatch(/-images\.zip$/);
-
-    const result = page.getByTestId("image-result");
-    await expect(result).toBeVisible({ timeout: 60_000 });
-
-    // The Share button only appears on file-share-capable browsers (desktop
-    // WebKit supports it natively; desktop Chromium doesn't) — deterministic
-    // branching assertions live in the mocked share tests below
-    const canShareFiles = await page.evaluate(() => {
-      try {
-        return (
-          "canShare" in navigator &&
-          navigator.canShare({ files: [new File(["x"], "x.png", { type: "image/png" })] })
-        );
-      } catch {
-        return false;
-      }
+  test("a tall short doc on a 3x device degrades sharpness instead of splitting", async ({
+    browser,
+  }) => {
+    // Simulate a high-DPR device: default sharpness becomes 3x at 800px
+    const context = await browser.newContext({
+      deviceScaleFactor: 3,
+      viewport: { width: 1280, height: 720 },
     });
-    await expect(page.getByTestId("image-share-button")).toHaveCount(canShareFiles ? 1 : 0);
+    const page = await context.newPage();
+    try {
+      await page.goto("/");
+      await pasteMarkdown(page, longDoc(45));
 
-    const zipBuffer = fs.readFileSync((await download.path())!);
-    const zip = await JSZip.loadAsync(zipBuffer);
-    const names = Object.keys(zip.files).sort();
+      // ~8,500 CSS px can't fit one canvas at 3x (~2,222 px budget) or 2x
+      // (5,000) — auto degrades to 1x rather than silently splitting
+      const downloadPromise = page.waitForEvent("download", { timeout: 60_000 });
+      await page.getByTestId("to-png-button").click();
+      const buf = await saveDownload(downloadPromise);
 
-    expect(names.length).toBeGreaterThan(1);
-    // Sequentially numbered: …-01.png, …-02.png, …
-    names.forEach((name, i) => {
-      expect(name).toMatch(new RegExp(`-${String(i + 1).padStart(2, "0")}\\.png$`));
-    });
-
-    // Every part is a real PNG at the device-default pixel width
-    const ratio = await expectedDeviceRatio(page, 800);
-    for (const name of names) {
-      const part = await zip.files[name].async("nodebuffer");
-      expect(part.subarray(0, 8).equals(PNG_MAGIC)).toBe(true);
-      expect(part.readUInt32BE(16)).toBe(800 * ratio);
+      expect(buf.subarray(0, 8).equals(PNG_MAGIC)).toBe(true);
+      expect(buf.readUInt32BE(16)).toBe(800); // degraded to 1x
+      await expect(page.getByTestId("image-longdoc-prompt")).toHaveCount(0);
+      await expect(page.getByTestId("image-result")).toHaveCount(0);
+    } finally {
+      await context.close();
     }
-
-    // The split note reflects the real part count, as does analytics
-    await expect(result).toContainText(String(names.length));
-    const events = await getEvents(page);
-    const success = events.find((e) => e.name === "convert_success");
-    expect(success?.data?.split_parts).toBe(String(names.length));
-  });
-
-  test("auto mode keeps short documents single, degrading sharpness to fit", async ({ page }) => {
-    await page.goto("/");
-    await pasteMarkdown(page, longDoc(45));
-    await openImagePanel(page);
-
-    // ~8,500 CSS px at 3x can't fit one canvas (~2,222 px budget) — auto
-    // degrades sharpness to 1x instead of silently splitting
-    await page.getByTestId("image-scale-select").selectOption("3");
-    const downloadPromise = page.waitForEvent("download");
-    await page.getByTestId("image-convert-button").click();
-    const buf = await saveDownload(downloadPromise);
-
-    expect(buf.subarray(0, 8).equals(PNG_MAGIC)).toBe(true);
-    expect(buf.readUInt32BE(16)).toBe(800); // degraded to 1x
-    await expect(page.getByTestId("image-longdoc-prompt")).toHaveCount(0);
-    await expect(page.getByTestId("image-result")).toHaveCount(0);
   });
 });
 
 test.describe("Image export — long-document prompt (>10 pages)", () => {
   test.slow();
 
-  test("one-tap on a very long doc prompts; split produces the package", async ({ page }) => {
+  test("one-tap on a very long doc prompts; split auto-downloads the package", async ({ page }) => {
     await stubAnalytics(page);
     await page.goto("/");
     // ~21,000 CSS px — beyond the 16,000px per-side canvas cap, so the
@@ -397,14 +273,36 @@ test.describe("Image export — long-document prompt (>10 pages)", () => {
     await page.getByTestId("image-longdoc-split").click();
     await expect(prompt).toHaveCount(0);
 
-    const zipBuffer = await saveDownload(downloadPromise);
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toMatch(/-images\.zip$/);
+    const zipBuffer = fs.readFileSync((await download.path())!);
     const zip = await JSZip.loadAsync(zipBuffer);
+    const names = Object.keys(zip.files).sort();
+
     // >10 pages split at ~1280 CSS px per part
-    expect(Object.keys(zip.files).length).toBeGreaterThan(5);
+    expect(names.length).toBeGreaterThan(5);
+    // Sequentially numbered: …-01.png, …-02.png, …
+    names.forEach((name, i) => {
+      expect(name).toMatch(new RegExp(`-${String(i + 1).padStart(2, "0")}\\.png$`));
+    });
+    // Every part is a real PNG at the device-default pixel width
+    const ratio = await expectedDeviceRatio(page, 800);
+    for (const name of names.slice(0, 3)) {
+      const part = await zip.files[name].async("nodebuffer");
+      expect(part.subarray(0, 8).equals(PNG_MAGIC)).toBe(true);
+      expect(part.readUInt32BE(16)).toBe(800 * ratio);
+    }
+
+    // The result row shows the split note; with >5 parts the share path is
+    // not offered even on share-capable browsers
+    const result = page.getByTestId("image-result");
+    await expect(result).toBeVisible();
+    await expect(result).toContainText(String(names.length));
+    await expect(page.getByTestId("image-share-button")).toHaveCount(0);
 
     const events = await getEvents(page);
     const success = events.find((e) => e.name === "convert_success");
-    expect(Number(success?.data?.split_parts)).toBeGreaterThan(5);
+    expect(success?.data?.split_parts).toBe(String(names.length));
   });
 
   test("choosing single produces one tall image (degraded sharpness)", async ({ page }) => {
@@ -444,69 +342,8 @@ test.describe("Image export — long-document prompt (>10 pages)", () => {
   });
 });
 
-test.describe("Image export — share path branching (spec 5.12)", () => {
-  test.slow();
-
-  function mockShare(page: Page) {
-    return page.addInitScript(() => {
-      const w = window as unknown as { __sharedFiles: number };
-      w.__sharedFiles = -1;
-      (navigator as unknown as { canShare: (d: unknown) => boolean }).canShare = () => true;
-      (navigator as unknown as { share: (d: { files: File[] }) => Promise<void> }).share = (
-        data
-      ) => {
-        w.__sharedFiles = data.files.length;
-        return Promise.resolve();
-      };
-    });
-  }
-
-  test("≤5 parts on a share-capable browser: Share is primary, called with the blobs", async ({
-    page,
-  }) => {
-    await stubAnalytics(page);
-    await mockShare(page);
-    await page.goto("/");
-    await pasteMarkdown(page, longDoc(12));
-    await openImagePanel(page);
-
-    await page.getByTestId("image-split-split").click();
-    await page.getByTestId("image-convert-button").click();
-    await expect(page.getByTestId("image-result")).toBeVisible({ timeout: 60_000 });
-
-    const shareButton = page.getByTestId("image-share-button");
-    await expect(shareButton).toBeVisible();
-    await expect(page.getByTestId("image-zip-button")).toBeVisible(); // ZIP stays as secondary
-
-    await shareButton.click();
-    const shared = await page.evaluate(
-      () => (window as unknown as { __sharedFiles: number }).__sharedFiles
-    );
-    expect(shared).toBeGreaterThan(1);
-    expect(shared).toBeLessThanOrEqual(5);
-
-    const events = await getEvents(page);
-    const shareEvent = events.find((e) => e.name === "share_files_used");
-    expect(shareEvent?.data?.parts).toBe(String(shared));
-  });
-
-  test("more than 5 parts: share hidden even when canShare is true", async ({ page }) => {
-    await mockShare(page);
-    await page.goto("/");
-    await pasteMarkdown(page, longDoc(40));
-    await openImagePanel(page);
-
-    await page.getByTestId("image-split-split").click();
-    await page.getByTestId("image-convert-button").click();
-    await expect(page.getByTestId("image-result")).toBeVisible({ timeout: 60_000 });
-
-    await expect(page.getByTestId("image-share-button")).toHaveCount(0);
-    await expect(page.getByTestId("image-zip-button")).toBeVisible();
-  });
-});
-
 test.describe("Image export — input states", () => {
-  test("no content: PNG button triggers the upload flow, no conversion", async ({ page }) => {
+  test("no content: image button triggers the upload flow, no conversion", async ({ page }) => {
     await page.goto("/");
     await page.getByTestId("to-png-button").click();
     await expect(page.getByText("Select a Markdown file to export")).toBeVisible();

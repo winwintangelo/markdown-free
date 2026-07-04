@@ -71,7 +71,6 @@ const defaultDict = {
     toPng: "To Image (PNG)",
     toJpg: "To JPG",
     generatingImage: "Rendering image...",
-    imageOptions: "Image options",
   },
   errors: {
     pdfTimeout: "PDF generation timed out. Please try again.",
@@ -94,7 +93,6 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     format: "pdf" | "docx";
   } | null>(null);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
-  const [imagePanelOpen, setImagePanelOpen] = useState(false);
   const [imageConverting, setImageConverting] = useState(false);
   const imagePanelRef = useRef<ImageExportPanelHandle>(null);
   const moreMenuRef = useRef<HTMLDivElement>(null);
@@ -143,12 +141,6 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     }
   }, [hasContent, uploadHint]);
 
-  // Close the image options panel when content is cleared
-  useEffect(() => {
-    if (!state.content) {
-      setImagePanelOpen(false);
-    }
-  }, [state.content]);
 
   // Close "More" menu when clicking outside
   useEffect(() => {
@@ -552,17 +544,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     [state.content, triggerUploadWithHint]
   );
 
-  // The caret next to "To PNG" opens the options panel for power users
-  const handleImagePanelToggle = useCallback(() => {
-    if (!state.content) {
-      triggerUploadWithHint("png");
-      return;
-    }
-    setImagePanelOpen((open) => !open);
-  }, [state.content, triggerUploadWithHint]);
-
   const handleImageTryPdf = useCallback(() => {
-    setImagePanelOpen(false);
     handleExport("pdf");
   }, [handleExport]);
 
@@ -836,45 +818,25 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                   : (dict.export.toDocx || defaultDict.export.toDocx)}
               </button>
 
-              {/* To PNG split button: main = one-tap convert, caret = options */}
-              <div className="inline-flex overflow-hidden rounded-full border border-amber-200 shadow-sm">
-                <button
-                  type="button"
-                  disabled={isLoading}
-                  onClick={() => handleImageOneTap("png")}
-                  onMouseEnter={() => handleButtonHover("png")}
-                  data-testid="to-png-button"
-                  className={cn(
-                    "inline-flex items-center gap-1.5 px-5 py-2.5 text-[13px] font-semibold transition",
-                    imageConverting
-                      ? "cursor-wait bg-amber-100 text-amber-800"
-                      : "bg-amber-50 text-amber-700 hover:bg-amber-100"
-                  )}
-                >
-                  {imageConverting && <Loader2 className="h-3 w-3 animate-spin" />}
-                  {imageConverting
-                    ? (dict.export.generatingImage || defaultDict.export.generatingImage)
-                    : (dict.export.toPng || defaultDict.export.toPng)}
-                </button>
-                <button
-                  type="button"
-                  disabled={isLoading}
-                  onClick={handleImagePanelToggle}
-                  aria-expanded={imagePanelOpen}
-                  aria-haspopup="true"
-                  aria-label={dict.export.imageOptions || defaultDict.export.imageOptions}
-                  title={dict.export.imageOptions || defaultDict.export.imageOptions}
-                  data-testid="image-options-toggle"
-                  className={cn(
-                    "inline-flex items-center border-l border-amber-200 px-2 transition",
-                    imagePanelOpen
-                      ? "bg-amber-100 text-amber-800"
-                      : "bg-amber-50 text-amber-700 hover:bg-amber-100"
-                  )}
-                >
-                  <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", imagePanelOpen && "rotate-180")} />
-                </button>
-              </div>
+              {/* To Image (PNG) — one-tap, same contract as every other button */}
+              <button
+                type="button"
+                disabled={isLoading}
+                onClick={() => handleImageOneTap("png")}
+                onMouseEnter={() => handleButtonHover("png")}
+                data-testid="to-png-button"
+                className={cn(
+                  "inline-flex items-center gap-1.5 rounded-full border px-5 py-2.5 text-[13px] font-semibold shadow-sm transition",
+                  imageConverting
+                    ? "cursor-wait border-amber-300 bg-amber-100 text-amber-800"
+                    : "border-amber-200 bg-amber-50 text-amber-700 hover:border-amber-300 hover:bg-amber-100"
+                )}
+              >
+                {imageConverting && <Loader2 className="h-3 w-3 animate-spin" />}
+                {imageConverting
+                  ? (dict.export.generatingImage || defaultDict.export.generatingImage)
+                  : (dict.export.toPng || defaultDict.export.toPng)}
+              </button>
 
               {/* Long-tail formats live behind the More formats menu */}
               <div ref={moreMenuRef} className="relative">
@@ -942,12 +904,11 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       </div>
       )}
 
-      {/* Image export: always mounted with content so one-tap conversions can
-          run and surface progress/prompt/result even with options closed */}
+      {/* Image export status surface: progress, long-doc prompt, warnings,
+          errors and the split-result share row */}
       {state.content && (
         <ImageExportPanel
           ref={imagePanelRef}
-          open={imagePanelOpen}
           markdown={state.content.content}
           renderedHtml={renderedHtml}
           originalFilename={state.content.filename}
