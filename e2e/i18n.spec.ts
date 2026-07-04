@@ -725,6 +725,9 @@ test.describe("Markdown Free - Title & Meta Deduplication", () => {
     { path: "/zh-Hans/markdown-pdf-zhuanhuan", label: "zh-Hans MD PDF conversion" },
     { path: "/id/konversi-markdown-pdf",       label: "Indonesian MD PDF conversion" },
     { path: "/vi/chuyen-doi-markdown-pdf",     label: "Vietnamese MD PDF conversion" },
+    { path: "/markdown-to-png",                label: "Markdown to PNG" },
+    { path: "/ja/markdown-gazou-henkan",       label: "Japanese MD image conversion" },
+    { path: "/zh-Hans/markdown-zhuan-tupian",  label: "zh-Hans MD image conversion" },
   ];
 
   for (const { path, label } of intentPages) {

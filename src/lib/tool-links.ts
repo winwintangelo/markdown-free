@@ -11,7 +11,7 @@ import type { Locale } from "@/i18n/config";
  * every supported language; the heading and the comparison label are localized.
  */
 
-export type ToolKey = "pdf" | "readme" | "docx" | "epub" | "comparison";
+export type ToolKey = "pdf" | "readme" | "docx" | "epub" | "image" | "comparison";
 
 export interface ToolLink {
   key: ToolKey;
@@ -46,16 +46,17 @@ const COMPARISON_LABEL: Record<Locale, string> = {
   hi: "कन्वर्टर तुलना",
 };
 
-/** Builds the standard 5-tool list for a locale from its route slugs. */
+/** Builds the standard 6-tool list for a locale from its route slugs. */
 function suite(
   locale: Locale,
-  hrefs: { pdf: string; readme: string; docx: string; epub: string; comparison: string }
+  hrefs: { pdf: string; readme: string; docx: string; epub: string; image: string; comparison: string }
 ): ToolLink[] {
   return [
     { key: "pdf", href: hrefs.pdf, label: "Markdown → PDF" },
     { key: "readme", href: hrefs.readme, label: "README → PDF" },
     { key: "docx", href: hrefs.docx, label: "Markdown → Word" },
     { key: "epub", href: hrefs.epub, label: "Markdown → EPUB" },
+    { key: "image", href: hrefs.image, label: "Markdown → PNG" },
     { key: "comparison", href: hrefs.comparison, label: COMPARISON_LABEL[locale] },
   ];
 }
@@ -70,6 +71,7 @@ export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
     readme: "/readme-to-pdf",
     docx: "/markdown-to-docx",
     epub: "/markdown-to-epub",
+    image: "/markdown-to-png",
     comparison: "/best-markdown-to-pdf-converter-2026",
   }),
   es: suite("es", {
@@ -77,6 +79,7 @@ export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
     readme: "/es/convertir-readme-pdf",
     docx: "/es/markdown-a-word",
     epub: "/es/convertir-markdown-epub",
+    image: "/es/markdown-a-png",
     comparison: "/es/comparacion-convertidores-markdown",
   }),
   it: suite("it", {
@@ -84,6 +87,7 @@ export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
     readme: "/it/convertire-readme-pdf",
     docx: "/it/markdown-in-word",
     epub: "/it/markdown-epub-gratis",
+    image: "/it/markdown-in-png",
     comparison: "/it/confronto-convertitori-markdown",
   }),
   ja: suite("ja", {
@@ -91,6 +95,7 @@ export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
     readme: "/ja/readme-pdf-henkan",
     docx: "/ja/markdown-docx-henkan",
     epub: "/ja/markdown-epub-henkan",
+    image: "/ja/markdown-gazou-henkan",
     comparison: "/ja/markdown-henkan-hikaku",
   }),
   ko: suite("ko", {
@@ -98,6 +103,7 @@ export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
     readme: "/ko/readme-pdf-byeonhwan",
     docx: "/ko/markdown-word-byeonhwan",
     epub: "/ko/markdown-epub-byeonhwan",
+    image: "/ko/markdown-imiji-byeonhwan",
     comparison: "/ko/markdown-byeonhwan-bigyo",
   }),
   "zh-Hans": suite("zh-Hans", {
@@ -105,6 +111,7 @@ export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
     readme: "/zh-Hans/readme-pdf-zhuanhuan",
     docx: "/zh-Hans/markdown-zhuanhuan-word",
     epub: "/zh-Hans/markdown-epub-zhuanhuan",
+    image: "/zh-Hans/markdown-zhuan-tupian",
     comparison: "/zh-Hans/markdown-zhuanhuanqi-bijiao",
   }),
   "zh-Hant": suite("zh-Hant", {
@@ -112,6 +119,7 @@ export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
     readme: "/zh-Hant/readme-pdf-zhuanhuan-tw",
     docx: "/zh-Hant/markdown-docx-zhuanhuan",
     epub: "/zh-Hant/markdown-epub-zhuanhuan-tw",
+    image: "/zh-Hant/markdown-zhuan-tupian-tw",
     comparison: "/zh-Hant/markdown-zhuanhuanqi-bijiao-tw",
   }),
   id: suite("id", {
@@ -119,6 +127,7 @@ export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
     readme: "/id/konversi-readme-pdf",
     docx: "/id/markdown-ke-word",
     epub: "/id/konversi-markdown-epub",
+    image: "/id/markdown-ke-gambar",
     comparison: "/id/perbandingan-konverter-markdown",
   }),
   vi: suite("vi", {
@@ -126,6 +135,7 @@ export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
     readme: "/vi/chuyen-doi-readme-pdf",
     docx: "/vi/markdown-sang-word",
     epub: "/vi/chuyen-doi-markdown-epub",
+    image: "/vi/markdown-sang-anh",
     comparison: "/vi/so-sanh-cong-cu-markdown",
   }),
   hi: [{ key: "comparison", href: "/hi/markdown-pdf-tulna-2026", label: COMPARISON_LABEL.hi }],

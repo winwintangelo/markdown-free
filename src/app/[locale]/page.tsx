@@ -51,6 +51,7 @@ function getJsonLd(locale: Locale, dict: ReturnType<typeof getDictionary>) {
         featureList: [
           "Markdown to PDF conversion",
           "Markdown to DOCX conversion",
+          "Markdown to image conversion (PNG / JPG, client-side)",
           "Markdown to EPUB conversion",
           "Markdown to HTML conversion",
           "Markdown to TXT conversion",
@@ -59,7 +60,7 @@ function getJsonLd(locale: Locale, dict: ReturnType<typeof getDictionary>) {
           "Files never stored on servers",
           "GitHub Flavored Markdown support",
           "Code syntax highlighting",
-          "Multiple languages: English, Chinese, Japanese, Korean, Spanish, Italian, Indonesian, Vietnamese",
+          "Multiple languages: English, Chinese, Japanese, Korean, Spanish, Italian, Indonesian, Vietnamese, Hindi",
         ],
         softwareVersion: "1.0",
         creator: {
@@ -72,7 +73,7 @@ function getJsonLd(locale: Locale, dict: ReturnType<typeof getDictionary>) {
           "@type": "WebPage",
           url: `${siteUrl}/faq`,
         },
-        keywords: "markdown, pdf, docx, epub, converter, free, online, no signup, privacy",
+        keywords: "markdown, pdf, docx, epub, png, image, markdown to image, converter, free, online, no signup, privacy",
       },
       {
         "@type": "FAQPage",

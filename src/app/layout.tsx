@@ -10,9 +10,9 @@ const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 const siteUrl = "https://www.markdown.free";
 
 export const metadata: Metadata = {
-  title: "Markdown to PDF, DOCX & EPUB Converter – Free, Private, No Signup | Markdown Free",
+  title: "Markdown to PDF, Word (DOCX) & Image (PNG) Converter – Free, Private, No Signup | Markdown Free",
   description:
-    "Convert Markdown to PDF, DOCX & EPUB instantly. 100% free, no signup, no ad trackers. Files processed temporarily and never stored.",
+    "Convert Markdown to PDF, Word (DOCX), image (PNG) or EPUB instantly. 100% free, no signup, no ad trackers. Files processed temporarily and never stored.",
   authors: [{ name: "Markdown Free" }],
   creator: "Markdown Free",
   publisher: "Markdown Free",
@@ -38,23 +38,23 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "Markdown Free",
-    title: "Markdown to PDF, DOCX & EPUB Converter – Free, Private, No Signup",
+    title: "Markdown to PDF, Word (DOCX) & Image (PNG) Converter – Free, Private, No Signup",
     description:
-      "Convert Markdown to PDF, DOCX & EPUB instantly. 100% free, no signup, no ad trackers.",
+      "Convert Markdown to PDF, Word (DOCX), image (PNG) or EPUB instantly. 100% free, no signup, no ad trackers.",
     images: [
       {
         url: "/og-image.svg",
         width: 1200,
         height: 630,
-        alt: "Markdown Free - Convert Markdown to PDF, DOCX, EPUB",
+        alt: "Markdown Free - Convert Markdown to PDF, Word, Image (PNG), EPUB",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Markdown to PDF, DOCX & EPUB Converter – Free, Private, No Signup",
+    title: "Markdown to PDF, Word (DOCX) & Image (PNG) Converter – Free, Private, No Signup",
     description:
-      "Convert Markdown to PDF, DOCX & EPUB instantly. 100% free, no signup, no ad trackers.",
+      "Convert Markdown to PDF, Word (DOCX), image (PNG) or EPUB instantly. 100% free, no signup, no ad trackers.",
     images: ["/og-image.svg"],
   },
   robots: {

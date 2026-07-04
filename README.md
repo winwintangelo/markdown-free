@@ -1,6 +1,6 @@
 # Markdown Free
 
-Convert Markdown to PDF, HTML, or DOCX in under 30 seconds.
+Convert Markdown to PDF, Word (DOCX), image (PNG/JPG), EPUB, HTML, or TXT in under 30 seconds.
 
 **Live site:** https://www.markdown.free
 
@@ -8,10 +8,11 @@ Convert Markdown to PDF, HTML, or DOCX in under 30 seconds.
 
 - Drag & drop file upload or paste Markdown directly
 - Live preview before exporting
-- Export to PDF, HTML, TXT, or DOCX
+- Export to PDF, Word (DOCX), image (PNG/JPG), EPUB, HTML, or TXT
+- Image export renders entirely in the browser; long documents become one tall image or a ZIP of parts
 - GitHub Flavored Markdown (tables, task lists, code blocks)
 - No signup, no watermarks, no tracking cookies
-- 9 languages: EN, ES, IT, ZH-Hant, ZH-Hans, JA, KO, ID, VI
+- 10 languages: EN, ES, IT, ZH-Hant, ZH-Hans, JA, KO, ID, VI, HI
 
 ## Development
 

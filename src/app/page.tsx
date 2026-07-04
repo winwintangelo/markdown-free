@@ -26,7 +26,7 @@ const jsonLd = {
       alternateName: "Markdown to PDF Converter",
       url: "https://www.markdown.free",
       description:
-        "Free online tool to convert Markdown files to PDF, DOCX, EPUB, HTML, and TXT. No signup required, privacy-friendly, runs in browser.",
+        "Free online tool to convert Markdown files to PDF, Word (DOCX), images (PNG/JPG), EPUB, HTML, and TXT. No signup required, privacy-friendly, runs in browser.",
       applicationCategory: ["DeveloperApplication", "UtilityApplication"],
       operatingSystem: "Any (Web Browser)",
       browserRequirements: "Requires JavaScript",
@@ -39,6 +39,7 @@ const jsonLd = {
       featureList: [
         "Markdown to PDF conversion",
         "Markdown to DOCX conversion",
+        "Markdown to image conversion (PNG / JPG, client-side)",
         "Markdown to EPUB conversion",
         "Markdown to HTML conversion",
         "Markdown to TXT conversion",
@@ -47,7 +48,7 @@ const jsonLd = {
         "Files never stored on servers",
         "GitHub Flavored Markdown support",
         "Code syntax highlighting",
-        "Multiple languages: English, Chinese, Japanese, Korean, Spanish, Italian, Indonesian, Vietnamese",
+        "Multiple languages: English, Chinese, Japanese, Korean, Spanish, Italian, Indonesian, Vietnamese, Hindi",
       ],
       softwareVersion: "1.0",
       creator: {
@@ -60,7 +61,7 @@ const jsonLd = {
         "@type": "WebPage",
         url: "https://www.markdown.free/faq",
       },
-      keywords: "markdown, pdf, docx, epub, converter, free, online, no signup, privacy",
+      keywords: "markdown, pdf, docx, epub, png, image, markdown to image, converter, free, online, no signup, privacy",
     },
     {
       "@type": "FAQPage",
@@ -94,7 +95,7 @@ const jsonLd = {
           name: "Which formats does Markdown Free support?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Input: .md, .markdown, .txt files (up to 1MB). Output: PDF, DOCX (Word), EPUB, HTML, TXT. Supports GitHub Flavored Markdown.",
+            text: "Input: .md, .markdown, .txt files (up to 1MB). Output: PDF, DOCX (Word), PNG/JPG images, EPUB, HTML, TXT. Supports GitHub Flavored Markdown.",
           },
         },
         {
@@ -103,6 +104,14 @@ const jsonLd = {
           acceptedAnswer: {
             "@type": "Answer",
             text: "Yes. All connections use HTTPS. Markdown preview renders client-side. PDF generation is server-side but content is never persisted. All HTML is XSS-sanitized.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I convert Markdown to an image (PNG or JPG)?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Click To Image (PNG) to render your Markdown as a sharp PNG right in your browser — nothing is uploaded. Long documents can be exported as one tall image or a ZIP of screen-sized parts; JPG is available under More formats.",
           },
         },
       ],

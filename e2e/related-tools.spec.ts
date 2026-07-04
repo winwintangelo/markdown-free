@@ -27,6 +27,7 @@ test.describe("Related tools cross-links", () => {
     await expect(page.locator('a[href="/readme-to-pdf"]').first()).toBeVisible(VISIBLE);
     await expect(page.locator('a[href="/markdown-to-docx"]').first()).toBeVisible(VISIBLE);
     await expect(page.locator('a[href="/markdown-to-epub"]').first()).toBeVisible(VISIBLE);
+    await expect(page.locator('a[href="/markdown-to-png"]').first()).toBeVisible(VISIBLE);
   });
 
   // epub pages previously hardcoded English tool routes — lock the fix in.
@@ -37,6 +38,11 @@ test.describe("Related tools cross-links", () => {
     { path: "/vi/chuyen-doi-markdown-epub", sibling: "/vi/chuyen-doi-markdown-pdf" },
     { path: "/zh-Hant/markdown-epub-zhuanhuan-tw", sibling: "/zh-Hant/markdown-pdf-zhuanhuan-tw" },
     { path: "/zh-Hans/markdown-epub-zhuanhuan", sibling: "/zh-Hans/markdown-pdf-zhuanhuan" },
+    // Image cluster pages must also link within their own locale.
+    { path: "/ja/markdown-gazou-henkan", sibling: "/ja/markdown-pdf-henkan" },
+    { path: "/ko/markdown-imiji-byeonhwan", sibling: "/ko/markdown-pdf-byeonhwan" },
+    { path: "/zh-Hans/markdown-zhuan-tupian", sibling: "/zh-Hans/markdown-pdf-zhuanhuan" },
+    { path: "/vi/markdown-sang-anh", sibling: "/vi/chuyen-doi-markdown-pdf" },
   ];
 
   for (const { path, sibling } of localizedPages) {

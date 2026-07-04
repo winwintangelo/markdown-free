@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Markdown转PDF、DOCX和EPUB转换器 – 免费、私密、无需注册 | Markdown Free",
-    "description": "即时将Markdown转换为PDF、DOCX和EPUB。100%免费，无需注册，无广告追踪。"
+    "title": "Markdown转PDF、Word、图片(PNG)转换器 – 免费、私密、无需注册 | Markdown Free",
+    "description": "即时将Markdown转换为PDF、Word (DOCX)、图片 (PNG/长图) 和EPUB。100%免费，无需注册，无广告追踪。"
   },
   "hero": {
     "badge": "免费 • 无需注册 • 即时导出",
-    "title": "免费 Markdown 转 PDF、DOCX 和 EPUB 转换器",
-    "subtitle": "上传或粘贴您的.md文件，即时预览，一键导出为PDF、DOCX、EPUB或HTML。免费、私密、安全——您的文件绝不会被存储。"
+    "title": "免费 Markdown 转 PDF、Word 和图片转换器",
+    "subtitle": "上传或粘贴您的.md文件，即时预览，一键导出为PDF、Word (DOCX)、图片 (PNG/长图)、EPUB或HTML。免费、私密、安全——您的文件绝不会被存储。"
   },
   "upload": {
     "dragDrop": "拖放您的Markdown文件",
@@ -80,7 +80,7 @@
       "title": "使用方法",
       "step1": "上传.md文件或粘贴Markdown文本。",
       "step2": "在此查看格式化预览。",
-      "step3": "点击「转PDF」、「转DOCX」、「转EPUB」或「转HTML」下载转换后的文件。",
+      "step3": "点击「转PDF」、「转Word (DOCX)」或「转图片 (PNG)」下载转换后的文件。EPUB、HTML、TXT在「更多格式」中。",
       "note": "添加您自己的Markdown后，此预览将相应更新。"
     },
     "showFullPreview": "展开完整预览",
@@ -135,6 +135,10 @@
     {
       "question": "转换安全吗？",
       "answer": "是的。所有连接使用HTTPS。Markdown预览在客户端渲染。PDF生成在服务器端但内容不会被持久化。所有HTML都经过XSS净化处理。"
+    },
+    {
+      "question": "可以把 Markdown 转成图片（PNG/长图）吗？",
+      "answer": "可以。点击「转图片 (PNG)」即可在浏览器中把 Markdown 渲染为清晰的 PNG——文件不会被上传。长文档可导出为一张长图或分段图片ZIP，适合微信公众号排版；JPG 在「更多格式」中。"
     }
   ],
   "languageBanner": {

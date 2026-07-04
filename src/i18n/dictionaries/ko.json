@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "마크다운 PDF, DOCX & EPUB 변환 - 무설치 & 글자 깨짐 없음 | Markdown Free",
-    "description": "마크다운을 PDF, DOCX, EPUB로 즉시 변환하세요. 한글 완벽 지원 — 깨짐 없이 변환. 100% 무료, 설치 불필요, 가입 불필요. 브라우저에서 바로 변환."
+    "title": "마크다운 PDF, Word & 이미지(PNG) 변환 - 무설치 & 글자 깨짐 없음 | Markdown Free",
+    "description": "마크다운을 PDF, Word (DOCX), 이미지 (PNG), EPUB로 즉시 변환하세요. 한글 완벽 지원 — 깨짐 없이 변환. 100% 무료, 설치 불필요, 가입 불필요. 브라우저에서 바로 변환."
   },
   "hero": {
     "badge": "무료 • 무설치 • 즉시 내보내기",
-    "title": "무료 마크다운 PDF, DOCX & EPUB 변환 – 무설치 & 글자 깨짐 없음",
-    "subtitle": ".md 파일을 업로드하거나 붙여넣기하고, 즉시 미리보기 후 한 번의 클릭으로 PDF, DOCX, EPUB 또는 HTML로 내보내세요. 한글 완벽 지원 — 깨짐 없이 변환. 설치 없이 브라우저에서 바로."
+    "title": "무료 마크다운 PDF, Word & 이미지 변환 – 무설치 & 글자 깨짐 없음",
+    "subtitle": ".md 파일을 업로드하거나 붙여넣기하고, 즉시 미리보기 후 한 번의 클릭으로 PDF, Word (DOCX), 이미지 (PNG), EPUB 또는 HTML로 내보내세요. 한글 완벽 지원 — 깨짐 없이 변환. 설치 없이 브라우저에서 바로."
   },
   "upload": {
     "dragDrop": "Markdown 파일을 드래그 앤 드롭하세요",
@@ -80,7 +80,7 @@
       "title": "사용 방법",
       "step1": ".md 파일을 업로드하거나 Markdown 텍스트를 붙여넣으세요.",
       "step2": "여기서 포맷된 미리보기를 확인하세요.",
-      "step3": "PDF로, DOCX로, EPUB로 또는 HTML로를 클릭하여 변환된 파일을 다운로드하세요.",
+      "step3": "PDF로, Word로 (DOCX) 또는 이미지로 (PNG)를 클릭하여 변환된 파일을 다운로드하세요. EPUB·HTML·TXT는 다른 형식에서 이용할 수 있습니다.",
       "note": "Markdown을 추가하면 이 미리보기가 그에 맞게 업데이트됩니다."
     },
     "showFullPreview": "전체 미리보기",
@@ -135,6 +135,10 @@
     {
       "question": "변환은 안전한가요?",
       "answer": "네. 모든 연결은 HTTPS를 사용합니다. Markdown 미리보기는 클라이언트 측에서 렌더링됩니다. PDF 생성은 서버 측이지만 콘텐츠는 보존되지 않습니다. 모든 HTML은 XSS 살균 처리됩니다."
+    },
+    {
+      "question": "마크다운을 이미지(PNG·JPG)로 변환할 수 있나요?",
+      "answer": "네. 이미지로 (PNG)를 클릭하면 브라우저에서 바로 마크다운을 선명한 PNG로 변환합니다 — 파일이 업로드되지 않습니다. 긴 문서는 세로로 긴 이미지 한 장 또는 ZIP 분할로 내보낼 수 있으며, JPG는 다른 형식 메뉴에 있습니다."
     }
   ],
   "languageBanner": {

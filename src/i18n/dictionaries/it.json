@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Convertitore Markdown in PDF, DOCX e EPUB – Gratis, Privato, Senza Registrazione | Markdown Free",
-    "description": "Converti Markdown in PDF, DOCX e EPUB in un istante. 100% gratis, senza registrazione, senza tracciamento."
+    "title": "Convertitore Markdown in PDF, Word (DOCX) e Immagine (PNG) – Gratis, Privato, Senza Registrazione | Markdown Free",
+    "description": "Converti Markdown in PDF, Word (DOCX), immagine (PNG) o EPUB in un istante. 100% gratis, senza registrazione, senza tracciamento."
   },
   "hero": {
     "badge": "Gratis • Senza account • Esporta subito",
-    "title": "Convertitore Gratuito da Markdown a PDF, DOCX e EPUB",
-    "subtitle": "Carica o incolla il tuo file .md, visualizzalo istantaneamente, poi esporta in PDF, DOCX, EPUB o HTML con un solo clic. Gratuito, privato e sicuro — i tuoi file non vengono mai salvati."
+    "title": "Convertitore Gratuito da Markdown a PDF, Word e Immagine",
+    "subtitle": "Carica o incolla il tuo file .md, visualizzalo istantaneamente, poi esporta in PDF, Word (DOCX), immagine (PNG), EPUB o HTML con un solo clic. Gratuito, privato e sicuro — i tuoi file non vengono mai salvati."
   },
   "upload": {
     "dragDrop": "Trascina e rilascia il tuo file Markdown",
@@ -80,7 +80,7 @@
       "title": "Come funziona",
       "step1": "Carica un file .md oppure incolla del testo Markdown.",
       "step2": "Visualizza l'anteprima formattata qui.",
-      "step3": "Clicca su In PDF, In DOCX, In EPUB o In HTML per scaricare il file convertito.",
+      "step3": "Clicca su In PDF, In Word (DOCX) o In Immagine (PNG) per scaricare il file convertito. EPUB, HTML e TXT sono in Altri formati.",
       "note": "Quando aggiungi il tuo Markdown, questa anteprima si aggiornerà automaticamente."
     },
     "showFullPreview": "Mostra anteprima completa",
@@ -139,6 +139,10 @@
     {
       "question": "Perché scegliere Markdown Free rispetto ad altri convertitori?",
       "answer": "Markdown Free è stato progettato pensando alla semplicità e alla privacy. Nessuna registrazione, nessun account, nessuna email richiesta. Carica, converti, scarica — tutto in pochi secondi. Ideale per sviluppatori, studenti e professionisti italiani che apprezzano la velocità e la riservatezza."
+    },
+    {
+      "question": "Posso convertire Markdown in immagine (PNG o JPG)?",
+      "answer": "Sì. Clicca In Immagine (PNG) per trasformare il tuo Markdown in una PNG nitida direttamente nel browser — nulla viene caricato. I documenti lunghi possono diventare un'unica immagine lunga o uno ZIP di parti; JPG è disponibile in Altri formati."
     }
   ],
   "languageBanner": {

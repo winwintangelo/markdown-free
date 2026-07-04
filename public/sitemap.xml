@@ -782,4 +782,140 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Markdown to Image (PNG) intent cluster -->
+  <url>
+    <loc>https://www.markdown.free/markdown-to-png</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-png" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-png" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-png" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-gazou-henkan" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-imiji-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuan-tupian" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-zhuan-tupian-tw" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-gambar" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-anh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-png" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/it/markdown-in-png</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-png" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-png" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-png" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-gazou-henkan" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-imiji-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuan-tupian" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-zhuan-tupian-tw" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-gambar" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-anh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-png" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/es/markdown-a-png</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-png" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-png" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-png" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-gazou-henkan" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-imiji-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuan-tupian" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-zhuan-tupian-tw" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-gambar" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-anh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-png" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ja/markdown-gazou-henkan</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-png" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-png" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-png" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-gazou-henkan" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-imiji-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuan-tupian" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-zhuan-tupian-tw" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-gambar" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-anh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-png" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/ko/markdown-imiji-byeonhwan</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-png" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-png" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-png" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-gazou-henkan" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-imiji-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuan-tupian" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-zhuan-tupian-tw" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-gambar" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-anh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-png" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hans/markdown-zhuan-tupian</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-png" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-png" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-png" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-gazou-henkan" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-imiji-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuan-tupian" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-zhuan-tupian-tw" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-gambar" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-anh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-png" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/zh-Hant/markdown-zhuan-tupian-tw</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-png" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-png" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-png" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-gazou-henkan" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-imiji-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuan-tupian" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-zhuan-tupian-tw" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-gambar" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-anh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-png" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/id/markdown-ke-gambar</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-png" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-png" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-png" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-gazou-henkan" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-imiji-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuan-tupian" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-zhuan-tupian-tw" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-gambar" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-anh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-png" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.markdown.free/vi/markdown-sang-anh</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.markdown.free/markdown-to-png" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.markdown.free/it/markdown-in-png" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.markdown.free/es/markdown-a-png" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.markdown.free/ja/markdown-gazou-henkan" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.markdown.free/ko/markdown-imiji-byeonhwan" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.markdown.free/zh-Hans/markdown-zhuan-tupian" />
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://www.markdown.free/zh-Hant/markdown-zhuan-tupian-tw" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.markdown.free/id/markdown-ke-gambar" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.markdown.free/vi/markdown-sang-anh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.markdown.free/markdown-to-png" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

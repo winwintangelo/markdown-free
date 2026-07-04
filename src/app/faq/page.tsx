@@ -11,14 +11,14 @@ const siteUrl = "https://www.markdown.free";
 export const metadata: Metadata = {
   title: "FAQ - Frequently Asked Questions | Markdown Free",
   description:
-    "Common questions about Markdown Free: How to convert Markdown to PDF, DOCX, EPUB. Is it free? Is it secure? File formats, privacy, and more.",
+    "Common questions about Markdown Free: How to convert Markdown to PDF, Word (DOCX), images (PNG/JPG), EPUB. Is it free? Is it secure? File formats, privacy, and more.",
   alternates: {
     canonical: "/faq",
   },
   openGraph: {
     title: "FAQ - Frequently Asked Questions | Markdown Free",
     description:
-      "Common questions about Markdown Free: How to convert Markdown to PDF, DOCX, EPUB. Is it free? Is it secure?",
+      "Common questions about Markdown Free: How to convert Markdown to PDF, Word (DOCX), images (PNG/JPG), EPUB. Is it free? Is it secure?",
     url: `${siteUrl}/faq`,
     type: "website",
   },
@@ -39,7 +39,12 @@ const extendedFaq = [
   {
     question: "Can I convert Markdown to Word document (DOCX)?",
     answer:
-      "Yes! Markdown Free supports exporting to DOCX format. Upload your Markdown file and click 'To DOCX' to get a Word-compatible document that preserves formatting, headings, and code blocks.",
+      "Yes! Markdown Free supports exporting to DOCX format. Upload your Markdown file and click 'To Word (DOCX)' to get a Word-compatible document that preserves formatting, headings, and code blocks.",
+  },
+  {
+    question: "Can I convert Markdown to an image (PNG or JPG)?",
+    answer:
+      "Yes! Click 'To Image (PNG)' and your Markdown is rendered as a sharp PNG entirely in your browser — nothing is uploaded. Long documents can be exported as one tall image or a ZIP of screen-sized parts, which is ideal for posting articles on platforms that only accept images. JPG export is available under 'More formats'.",
   },
   {
     question: "Do you store or log my Markdown files?",
@@ -49,7 +54,7 @@ const extendedFaq = [
   {
     question: "What file formats does Markdown Free support?",
     answer:
-      "Input formats: .md, .markdown, .txt files (up to 1MB). Output formats: PDF, DOCX (Microsoft Word), EPUB, HTML, and plain TXT. We support GitHub Flavored Markdown including tables, task lists, and code blocks.",
+      "Input formats: .md, .markdown, .txt files (up to 1MB). Output formats: PDF, DOCX (Microsoft Word), PNG/JPG images, EPUB, HTML, and plain TXT. We support GitHub Flavored Markdown including tables, task lists, and code blocks.",
   },
   {
     question: "Is the conversion secure?",
@@ -139,8 +144,8 @@ export default function FAQPage() {
             Frequently Asked Questions
           </h1>
           <p className="mt-4 text-lg text-slate-600">
-            Everything you need to know about converting Markdown to PDF, DOCX,
-            HTML, and TXT with Markdown Free.
+            Everything you need to know about converting Markdown to PDF, Word
+            (DOCX), images (PNG/JPG), EPUB, HTML, and TXT with Markdown Free.
           </p>
         </header>
 

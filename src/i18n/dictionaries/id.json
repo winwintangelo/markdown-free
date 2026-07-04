@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Konverter Markdown ke PDF, DOCX & EPUB – Gratis, Privat, Tanpa Daftar | Markdown Free",
-    "description": "Konversi Markdown ke PDF, DOCX & EPUB secara instan. 100% gratis, tanpa daftar, tanpa pelacak iklan."
+    "title": "Konverter Markdown ke PDF, Word & Gambar (PNG) – Gratis, Privat, Tanpa Daftar | Markdown Free",
+    "description": "Konversi Markdown ke PDF, Word (DOCX), gambar (PNG) & EPUB secara instan. 100% gratis, tanpa daftar, tanpa pelacak iklan."
   },
   "hero": {
     "badge": "Gratis • Tanpa daftar • Ekspor instan",
-    "title": "Konverter Markdown ke PDF, DOCX & EPUB Gratis",
-    "subtitle": "Unggah atau tempel file .md Anda, pratinjau secara instan, lalu ekspor ke PDF, DOCX, EPUB atau HTML dalam satu klik. Gratis, privat dan aman — file Anda tidak pernah disimpan."
+    "title": "Konverter Markdown ke PDF, Word & Gambar Gratis",
+    "subtitle": "Unggah atau tempel file .md Anda, pratinjau secara instan, lalu ekspor ke PDF, Word (DOCX), gambar (PNG), EPUB atau HTML dalam satu klik. Gratis, privat dan aman — file Anda tidak pernah disimpan."
   },
   "upload": {
     "dragDrop": "Seret & lepas file Markdown Anda",
@@ -80,7 +80,7 @@
       "title": "Cara kerjanya",
       "step1": "Unggah file .md atau tempel teks Markdown.",
       "step2": "Lihat pratinjau yang diformat di sini.",
-      "step3": "Klik Ke PDF, Ke DOCX, Ke EPUB, atau Ke HTML untuk mengunduh file yang dikonversi.",
+      "step3": "Klik Ke PDF, Ke Word (DOCX), atau Ke Gambar (PNG) untuk mengunduh file yang dikonversi. EPUB, HTML, dan TXT ada di Format lainnya.",
       "note": "Setelah Anda menambahkan Markdown Anda sendiri, pratinjau ini akan diperbarui sesuai."
     },
     "showFullPreview": "Tampilkan pratinjau lengkap",
@@ -135,6 +135,10 @@
     {
       "question": "Apakah konversi aman?",
       "answer": "Ya. Semua koneksi menggunakan HTTPS. Pratinjau Markdown dirender di sisi klien. Pembuatan PDF di sisi server tetapi konten tidak pernah disimpan. Semua HTML disanitasi dari XSS."
+    },
+    {
+      "question": "Bisakah mengonversi Markdown menjadi gambar (PNG atau JPG)?",
+      "answer": "Bisa. Klik Ke Gambar (PNG) untuk merender Markdown Anda menjadi PNG tajam langsung di browser — tidak ada yang diunggah. Dokumen panjang dapat diekspor sebagai satu gambar panjang atau ZIP per bagian; JPG tersedia di Format lainnya."
     }
   ],
   "languageBanner": {
