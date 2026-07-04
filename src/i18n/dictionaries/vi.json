@@ -53,7 +53,7 @@
     "savePdf": "Lưu PDF",
     "saveDocx": "Lưu DOCX",
     "more": "Định dạng khác",
-    "toPng": "Sang PNG",
+    "toPng": "Sang Ảnh (PNG)",
     "toJpg": "Sang JPG",
     "imageWidth": "Chiều rộng",
     "imageScale": "Độ sắc nét",
@@ -74,7 +74,9 @@
     "shareImages": "Chia sẻ ảnh",
     "downloadZip": "Tải xuống dạng ZIP",
     "imageLongDoc": "Tài liệu dài ({n} trang). Bạn muốn xuất như thế nào?",
-    "imageOptions": "Tùy chọn ảnh"
+    "imageOptions": "Tùy chọn ảnh",
+    "imageLongSingleHint": "Một ảnh dài — dễ chia sẻ",
+    "imageLongSplitHint": "ZIP gồm các ảnh vừa màn hình — sắc nét hơn cho tài liệu rất dài"
   },
   "preview": {
     "title": "Xem trước",

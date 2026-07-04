@@ -53,7 +53,7 @@
     "savePdf": "Simpan PDF",
     "saveDocx": "Simpan DOCX",
     "more": "Format lainnya",
-    "toPng": "Ke PNG",
+    "toPng": "Ke Gambar (PNG)",
     "toJpg": "Ke JPG",
     "imageWidth": "Lebar",
     "imageScale": "Ketajaman",
@@ -74,7 +74,9 @@
     "shareImages": "Bagikan gambar",
     "downloadZip": "Unduh sebagai ZIP",
     "imageLongDoc": "Dokumen panjang ({n} halaman). Bagaimana Anda ingin mengekspornya?",
-    "imageOptions": "Opsi gambar"
+    "imageOptions": "Opsi gambar",
+    "imageLongSingleHint": "Satu gambar panjang — mudah dibagikan",
+    "imageLongSplitHint": "ZIP berisi gambar seukuran layar — lebih tajam untuk dokumen panjang"
   },
   "preview": {
     "title": "Pratinjau",

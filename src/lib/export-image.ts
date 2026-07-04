@@ -471,39 +471,40 @@ export async function exportToImage(
 
     const totalHeight = Math.ceil(article.getBoundingClientRect().height);
 
-    // Long-document gate (one-tap flow): in auto mode, very long documents
-    // pause here and let the user pick one long image vs a split package.
+    // Auto mode: short documents (≤ LONG_DOC_PAGES) are ALWAYS a single
+    // image — never silently split — degrading sharpness if needed to fit
+    // one canvas. Long documents pause and ask the user (single vs package);
+    // without a prompt callback they default to the split package.
     let splitMode = opts.splitMode;
-    if (splitMode === "auto" && opts.onLongDocument) {
+    if (splitMode === "auto") {
       const pages = Math.ceil(totalHeight / PAGE_CSS_HEIGHT);
       if (pages > LONG_DOC_PAGES) {
         const canSingle = totalHeight <= maxSingleCssHeight(opts.width, 1);
-        const choice = await opts.onLongDocument(pages, canSingle);
-        if (choice === "cancel") {
-          throw new ImageExportCancelledError();
+        if (opts.onLongDocument) {
+          const choice = await opts.onLongDocument(pages, canSingle);
+          if (choice === "cancel") {
+            throw new ImageExportCancelledError();
+          }
+          splitMode = choice;
+        } else {
+          splitMode = "split";
         }
-        splitMode = choice;
+      } else {
+        splitMode = "single";
       }
     }
-
-    const fitsSingle = totalHeight <= maxSingleCssHeight(opts.width, ratio);
 
     // Decide single vs split (spec 3.4)
     let partHeight: number | null = null; // null → render as one image
     if (splitMode === "split") {
       partHeight = Math.min(FORCED_PART_CSS_HEIGHT, maxSingleCssHeight(opts.width, ratio));
-    } else if (!fitsSingle) {
-      if (splitMode === "single") {
-        // Progressively degrade sharpness rather than splitting
-        while (ratio > 1 && totalHeight > maxSingleCssHeight(opts.width, ratio)) {
-          ratio = (ratio - 1) as 1 | 2;
-        }
-        if (totalHeight > maxSingleCssHeight(opts.width, ratio)) {
-          throw new ImageTooLargeError();
-        }
-      } else {
-        // auto: split at the canvas limit for the chosen ratio
-        partHeight = maxSingleCssHeight(opts.width, ratio);
+    } else if (totalHeight > maxSingleCssHeight(opts.width, ratio)) {
+      // Progressively degrade sharpness rather than splitting
+      while (ratio > 1 && totalHeight > maxSingleCssHeight(opts.width, ratio)) {
+        ratio = (ratio - 1) as 1 | 2;
+      }
+      if (totalHeight > maxSingleCssHeight(opts.width, ratio)) {
+        throw new ImageTooLargeError();
       }
     }
 

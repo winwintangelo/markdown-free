@@ -305,7 +305,12 @@ test.describe("Image export — long documents", () => {
     await openImagePanel(page);
 
     await page.getByTestId("image-split-split").click();
+
+    // The ZIP auto-downloads when conversion finishes — no extra tap
+    const downloadPromise = page.waitForEvent("download", { timeout: 60_000 });
     await page.getByTestId("image-convert-button").click();
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toMatch(/-images\.zip$/);
 
     const result = page.getByTestId("image-result");
     await expect(result).toBeVisible({ timeout: 60_000 });
@@ -324,11 +329,6 @@ test.describe("Image export — long documents", () => {
       }
     });
     await expect(page.getByTestId("image-share-button")).toHaveCount(canShareFiles ? 1 : 0);
-
-    const downloadPromise = page.waitForEvent("download");
-    await page.getByTestId("image-zip-button").click();
-    const download = await downloadPromise;
-    expect(download.suggestedFilename()).toMatch(/-images\.zip$/);
 
     const zipBuffer = fs.readFileSync((await download.path())!);
     const zip = await JSZip.loadAsync(zipBuffer);
@@ -355,17 +355,22 @@ test.describe("Image export — long documents", () => {
     expect(success?.data?.split_parts).toBe(String(names.length));
   });
 
-  test("auto mode splits when over the canvas limit (3x width budget)", async ({ page }) => {
+  test("auto mode keeps short documents single, degrading sharpness to fit", async ({ page }) => {
     await page.goto("/");
     await pasteMarkdown(page, longDoc(45));
     await openImagePanel(page);
 
-    // 800px × 3x caps a single canvas at ~2222 CSS px — forces a silent
-    // auto-split without tripping the >10-page prompt
+    // ~8,500 CSS px at 3x can't fit one canvas (~2,222 px budget) — auto
+    // degrades sharpness to 1x instead of silently splitting
     await page.getByTestId("image-scale-select").selectOption("3");
+    const downloadPromise = page.waitForEvent("download");
     await page.getByTestId("image-convert-button").click();
-    await expect(page.getByTestId("image-result")).toBeVisible({ timeout: 60_000 });
+    const buf = await saveDownload(downloadPromise);
+
+    expect(buf.subarray(0, 8).equals(PNG_MAGIC)).toBe(true);
+    expect(buf.readUInt32BE(16)).toBe(800); // degraded to 1x
     await expect(page.getByTestId("image-longdoc-prompt")).toHaveCount(0);
+    await expect(page.getByTestId("image-result")).toHaveCount(0);
   });
 });
 
@@ -383,16 +388,15 @@ test.describe("Image export — long-document prompt (>10 pages)", () => {
 
     const prompt = page.getByTestId("image-longdoc-prompt");
     await expect(prompt).toBeVisible({ timeout: 30_000 });
+    // The tradeoff is explained on the choice itself
+    await expect(prompt).toContainText("ZIP of screen-sized images");
     await expect(page.getByTestId("image-longdoc-single")).toHaveCount(0);
 
+    // Choosing the package auto-downloads the ZIP when rendering finishes
+    const downloadPromise = page.waitForEvent("download", { timeout: 120_000 });
     await page.getByTestId("image-longdoc-split").click();
     await expect(prompt).toHaveCount(0);
 
-    const result = page.getByTestId("image-result");
-    await expect(result).toBeVisible({ timeout: 120_000 });
-
-    const downloadPromise = page.waitForEvent("download");
-    await page.getByTestId("image-zip-button").click();
     const zipBuffer = await saveDownload(downloadPromise);
     const zip = await JSZip.loadAsync(zipBuffer);
     // >10 pages split at ~1280 CSS px per part
@@ -409,7 +413,7 @@ test.describe("Image export — long-document prompt (>10 pages)", () => {
     // the 16,000px per-side cap, so "single image" is offered at 1x
     await pasteMarkdown(page, longDoc(75));
 
-    const downloadPromise = page.waitForEvent("download");
+    const downloadPromise = page.waitForEvent("download", { timeout: 60_000 });
     await page.getByTestId("to-png-button").click();
 
     await expect(page.getByTestId("image-longdoc-prompt")).toBeVisible({ timeout: 30_000 });
@@ -436,7 +440,7 @@ test.describe("Image export — long-document prompt (>10 pages)", () => {
     await expect(page.getByTestId("image-result")).toHaveCount(0);
     await expect(page.getByTestId("image-error")).toHaveCount(0);
     // The button returns to its idle label
-    await expect(page.getByTestId("to-png-button")).toContainText("To PNG");
+    await expect(page.getByTestId("to-png-button")).toContainText("(PNG)");
   });
 });
 

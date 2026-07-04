@@ -68,7 +68,7 @@ const defaultDict = {
     savePdf: "Save PDF",
     saveDocx: "Save DOCX",
     more: "More formats",
-    toPng: "To PNG",
+    toPng: "To Image (PNG)",
     toJpg: "To JPG",
     generatingImage: "Rendering image...",
     imageOptions: "Image options",

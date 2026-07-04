@@ -151,6 +151,18 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
 
           if (exported.blobs.length === 1) {
             downloadBlob(exported.blobs[0], filename);
+          } else {
+            // The split package auto-downloads too — same one-tap contract as
+            // every other export button. The result row stays visible after
+            // for the share path / re-download.
+            const { zipImageBlobs } = await import("@/lib/export-image");
+            const zipBlob = await zipImageBlobs(
+              exported.blobs.map((blob, i) => ({
+                name: imagePartFilename(filename, i, exported.blobs.length),
+                blob,
+              }))
+            );
+            downloadBlob(zipBlob, `${filename.replace(/\.(png|jpg)$/i, "")}-images.zip`);
           }
 
           setResult({ blobs: exported.blobs, filename, warnings: exported.warnings });
@@ -413,42 +425,55 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
           </div>
         )}
 
-        {/* Long-document prompt: one long image vs split package */}
+        {/* Long-document prompt: one long image vs split package, with the
+            tradeoff spelled out on each choice */}
         {longDocPrompt && (
           <div
-            className="flex flex-wrap items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2"
+            className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2.5"
             data-testid="image-longdoc-prompt"
           >
-            <span className="text-xs text-emerald-900">
-              {t.imageLongDoc.replace("{n}", String(longDocPrompt.pages))}
-            </span>
-            <div className="flex items-center gap-2">
+            <div className="flex items-start justify-between gap-2">
+              <span className="text-xs font-medium text-emerald-900">
+                {t.imageLongDoc.replace("{n}", String(longDocPrompt.pages))}
+              </span>
+              <button
+                type="button"
+                onClick={() => answerLongDoc("cancel")}
+                data-testid="image-longdoc-cancel"
+                aria-label="Cancel"
+                className="flex-shrink-0 rounded-full p-1 text-emerald-700 transition hover:bg-emerald-100"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="mt-2 flex flex-col gap-2 sm:flex-row">
               {longDocPrompt.canSingle && (
                 <button
                   type="button"
                   onClick={() => answerLongDoc("single")}
                   data-testid="image-longdoc-single"
-                  className="rounded-full border border-emerald-300 bg-white px-4 py-1.5 text-xs font-semibold text-emerald-800 shadow-sm transition hover:bg-emerald-100"
+                  className="flex-1 rounded-lg border border-emerald-300 bg-white px-3 py-2 text-left shadow-sm transition hover:bg-emerald-100"
                 >
-                  {t.imageSplitSingle}
+                  <span className="block text-xs font-semibold text-emerald-800">
+                    {t.imageSplitSingle}
+                  </span>
+                  <span className="mt-0.5 block text-[11px] text-emerald-700">
+                    {t.imageLongSingleHint}
+                  </span>
                 </button>
               )}
               <button
                 type="button"
                 onClick={() => answerLongDoc("split")}
                 data-testid="image-longdoc-split"
-                className="rounded-full bg-emerald-700 px-4 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-emerald-800"
+                className="flex-1 rounded-lg bg-emerald-700 px-3 py-2 text-left shadow-sm transition hover:bg-emerald-800"
               >
-                {t.imageSplitParts}
-              </button>
-              <button
-                type="button"
-                onClick={() => answerLongDoc("cancel")}
-                data-testid="image-longdoc-cancel"
-                aria-label="Cancel"
-                className="rounded-full p-1 text-emerald-700 transition hover:bg-emerald-100"
-              >
-                <X className="h-4 w-4" />
+                <span className="block text-xs font-semibold text-white">
+                  {t.imageSplitParts} (ZIP)
+                </span>
+                <span className="mt-0.5 block text-[11px] text-emerald-100">
+                  {t.imageLongSplitHint}
+                </span>
               </button>
             </div>
           </div>

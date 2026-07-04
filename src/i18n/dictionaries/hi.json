@@ -53,7 +53,7 @@
     "savePdf": "PDF सेव करें",
     "saveDocx": "DOCX सेव करें",
     "more": "और फॉर्मेट",
-    "toPng": "PNG में",
+    "toPng": "इमेज में (PNG)",
     "toJpg": "JPG में",
     "imageWidth": "चौड़ाई",
     "imageScale": "स्पष्टता",
@@ -74,7 +74,9 @@
     "shareImages": "इमेज शेयर करें",
     "downloadZip": "ZIP डाउनलोड करें",
     "imageLongDoc": "लंबा दस्तावेज़ ({n} पेज)। आप इसे कैसे एक्सपोर्ट करना चाहेंगे?",
-    "imageOptions": "इमेज विकल्प"
+    "imageOptions": "इमेज विकल्प",
+    "imageLongSingleHint": "एक लंबी इमेज — शेयर करना आसान",
+    "imageLongSplitHint": "स्क्रीन-आकार इमेज की ZIP — बहुत लंबे दस्तावेज़ों के लिए अधिक शार्प"
   },
   "preview": {
     "title": "प्रीव्यू",

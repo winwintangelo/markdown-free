@@ -53,7 +53,7 @@
     "savePdf": "Save PDF",
     "saveDocx": "Save DOCX",
     "more": "More formats",
-    "toPng": "To PNG",
+    "toPng": "To Image (PNG)",
     "toJpg": "To JPG",
     "imageWidth": "Width",
     "imageScale": "Sharpness",
@@ -74,7 +74,9 @@
     "shareImages": "Share images",
     "downloadZip": "Download as ZIP",
     "imageLongDoc": "Long document ({n} pages). How would you like to export it?",
-    "imageOptions": "Image options"
+    "imageOptions": "Image options",
+    "imageLongSingleHint": "One tall image — easy to share",
+    "imageLongSplitHint": "ZIP of screen-sized images — sharper for very long documents"
   },
   "preview": {
     "title": "Preview",

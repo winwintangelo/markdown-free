@@ -53,7 +53,7 @@
     "savePdf": "PDF保存",
     "saveDocx": "DOCX保存",
     "more": "他の形式",
-    "toPng": "PNGへ",
+    "toPng": "画像へ (PNG)",
     "toJpg": "JPGへ",
     "imageWidth": "幅",
     "imageScale": "鮮明度",
@@ -74,7 +74,9 @@
     "shareImages": "画像を共有",
     "downloadZip": "ZIPでダウンロード",
     "imageLongDoc": "長い文書です（{n}ページ相当）。どのように書き出しますか？",
-    "imageOptions": "画像オプション"
+    "imageOptions": "画像オプション",
+    "imageLongSingleHint": "1枚の縦長画像 — 共有しやすい",
+    "imageLongSplitHint": "画面サイズの画像のZIP — 長い文書でも鮮明"
   },
   "preview": {
     "title": "プレビュー",

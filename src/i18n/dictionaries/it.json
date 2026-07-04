@@ -53,7 +53,7 @@
     "savePdf": "Salva PDF",
     "saveDocx": "Salva DOCX",
     "more": "Altri formati",
-    "toPng": "In PNG",
+    "toPng": "In Immagine (PNG)",
     "toJpg": "In JPG",
     "imageWidth": "Larghezza",
     "imageScale": "Nitidezza",
@@ -74,7 +74,9 @@
     "shareImages": "Condividi immagini",
     "downloadZip": "Scarica come ZIP",
     "imageLongDoc": "Documento lungo ({n} pagine). Come vuoi esportarlo?",
-    "imageOptions": "Opzioni immagine"
+    "imageOptions": "Opzioni immagine",
+    "imageLongSingleHint": "Un'unica immagine lunga — facile da condividere",
+    "imageLongSplitHint": "ZIP di immagini a schermo — più nitide per documenti molto lunghi"
   },
   "preview": {
     "title": "Anteprima",

@@ -53,7 +53,7 @@
     "savePdf": "儲存PDF",
     "saveDocx": "儲存DOCX",
     "more": "更多格式",
-    "toPng": "轉PNG",
+    "toPng": "轉圖片 (PNG)",
     "toJpg": "轉JPG",
     "imageWidth": "寬度",
     "imageScale": "清晰度",
@@ -74,7 +74,9 @@
     "shareImages": "分享圖片",
     "downloadZip": "下載ZIP",
     "imageLongDoc": "偵測到長文件（約 {n} 頁）。要如何匯出？",
-    "imageOptions": "圖片選項"
+    "imageOptions": "圖片選項",
+    "imageLongSingleHint": "一張長圖 — 便於分享",
+    "imageLongSplitHint": "分段圖片ZIP — 超長文件更清晰"
   },
   "preview": {
     "title": "預覽",
