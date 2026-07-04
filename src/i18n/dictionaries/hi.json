@@ -72,7 +72,9 @@
     "imageTryPdf": "PDF आज़माएँ",
     "imageBlocked": "{n} इमेज लोड नहीं हो सकीं और आउटपुट में खाली दिखेंगी।",
     "shareImages": "इमेज शेयर करें",
-    "downloadZip": "ZIP डाउनलोड करें"
+    "downloadZip": "ZIP डाउनलोड करें",
+    "imageLongDoc": "लंबा दस्तावेज़ ({n} पेज)। आप इसे कैसे एक्सपोर्ट करना चाहेंगे?",
+    "imageOptions": "इमेज विकल्प"
   },
   "preview": {
     "title": "प्रीव्यू",

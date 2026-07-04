@@ -72,7 +72,9 @@
     "imageTryPdf": "PDFを試す",
     "imageBlocked": "{n}枚の画像を読み込めなかったため、出力では空白になります。",
     "shareImages": "画像を共有",
-    "downloadZip": "ZIPでダウンロード"
+    "downloadZip": "ZIPでダウンロード",
+    "imageLongDoc": "長い文書です（{n}ページ相当）。どのように書き出しますか？",
+    "imageOptions": "画像オプション"
   },
   "preview": {
     "title": "プレビュー",

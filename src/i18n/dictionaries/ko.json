@@ -72,7 +72,9 @@
     "imageTryPdf": "PDF 시도",
     "imageBlocked": "이미지 {n}개를 불러오지 못해 출력에서 비어 있게 표시됩니다.",
     "shareImages": "이미지 공유",
-    "downloadZip": "ZIP 다운로드"
+    "downloadZip": "ZIP 다운로드",
+    "imageLongDoc": "긴 문서입니다({n}페이지 분량). 어떻게 내보낼까요?",
+    "imageOptions": "이미지 옵션"
   },
   "preview": {
     "title": "미리보기",

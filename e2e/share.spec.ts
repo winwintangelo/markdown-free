@@ -47,13 +47,13 @@ test.describe("Sharing Feature - Desktop (unchanged)", () => {
   test("should show standard download buttons on desktop", async ({ page }) => {
     const pdfButton = page.getByRole("button", { name: "To PDF" });
     const docxButton = page.getByRole("button", { name: "To DOCX" });
-    const txtButton = page.getByRole("button", { name: "To TXT" });
-    const htmlButton = page.getByRole("button", { name: "To HTML" });
+    const pngButton = page.getByTestId("to-png-button");
+    const moreFormatsButton = page.getByTestId("more-formats-button");
 
     await expect(pdfButton).toBeVisible();
     await expect(docxButton).toBeVisible();
-    await expect(txtButton).toBeVisible();
-    await expect(htmlButton).toBeVisible();
+    await expect(pngButton).toBeVisible();
+    await expect(moreFormatsButton).toBeVisible();
   });
 
   test("should NOT show share buttons on desktop", async ({ page }) => {
@@ -90,8 +90,7 @@ test.describe("Sharing Feature - Desktop (unchanged)", () => {
     // Standard download buttons should be enabled
     await expect(page.getByRole("button", { name: "To PDF" })).toBeEnabled();
     await expect(page.getByRole("button", { name: "To DOCX" })).toBeEnabled();
-    await expect(page.getByRole("button", { name: "To TXT" })).toBeEnabled();
-    await expect(page.getByRole("button", { name: "To HTML" })).toBeEnabled();
+    await expect(page.getByTestId("more-formats-button")).toBeEnabled();
   });
 });
 
@@ -123,8 +122,7 @@ test.describe("Sharing Feature - Mobile fallback (no Web Share API)", () => {
     // Without Web Share API, mobile should fallback to standard buttons
     await expect(page.getByRole("button", { name: "To PDF" })).toBeVisible();
     await expect(page.getByRole("button", { name: "To DOCX" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "To TXT" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "To HTML" })).toBeVisible();
+    await expect(page.getByTestId("more-formats-button")).toBeVisible();
   });
 
   test("should NOT show share buttons on mobile without Web Share API", async ({ page }) => {

@@ -72,7 +72,9 @@
     "imageTryPdf": "Coba PDF",
     "imageBlocked": "{n} gambar tidak dapat dimuat dan akan tampak kosong pada hasil.",
     "shareImages": "Bagikan gambar",
-    "downloadZip": "Unduh sebagai ZIP"
+    "downloadZip": "Unduh sebagai ZIP",
+    "imageLongDoc": "Dokumen panjang ({n} halaman). Bagaimana Anda ingin mengekspornya?",
+    "imageOptions": "Opsi gambar"
   },
   "preview": {
     "title": "Pratinjau",

@@ -72,7 +72,9 @@
     "imageTryPdf": "試試PDF",
     "imageBlocked": "{n} 張圖片無法載入，在輸出中將顯示為空白。",
     "shareImages": "分享圖片",
-    "downloadZip": "下載ZIP"
+    "downloadZip": "下載ZIP",
+    "imageLongDoc": "偵測到長文件（約 {n} 頁）。要如何匯出？",
+    "imageOptions": "圖片選項"
   },
   "preview": {
     "title": "預覽",

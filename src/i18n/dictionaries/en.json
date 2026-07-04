@@ -72,7 +72,9 @@
     "imageTryPdf": "Try PDF",
     "imageBlocked": "{n} image(s) couldn't be loaded and appear blank in the output.",
     "shareImages": "Share images",
-    "downloadZip": "Download as ZIP"
+    "downloadZip": "Download as ZIP",
+    "imageLongDoc": "Long document ({n} pages). How would you like to export it?",
+    "imageOptions": "Image options"
   },
   "preview": {
     "title": "Preview",

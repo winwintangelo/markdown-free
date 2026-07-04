@@ -19,6 +19,13 @@ export interface ImageExportOptions {
   pixelRatio: 1 | 2 | 3;
   quality?: number; // 0.6–1.0, JPG only
   splitMode: "auto" | "single" | "split";
+  /**
+   * Long-document gate for the one-tap flow: called in auto mode when the
+   * document exceeds LONG_DOC_PAGES screen-heights, letting the UI ask the
+   * user for one long image vs a split package. `canSingle` is false when
+   * even a 1x canvas cannot hold the document as one image.
+   */
+  onLongDocument?: (pages: number, canSingle: boolean) => Promise<"single" | "split" | "cancel">;
 }
 
 export type ImageExportWarning =
@@ -40,10 +47,25 @@ export class ImageTooLargeError extends Error {
   }
 }
 
+export class ImageExportCancelledError extends Error {
+  readonly code = "CANCELLED";
+  constructor() {
+    super("Image export cancelled by user");
+    this.name = "ImageExportCancelledError";
+  }
+}
+
 // Safari is the binding constraint: ~16.77M total canvas pixels. Stay under it.
 const MAX_CANVAS_AREA = 16_000_000;
+// Per-side canvas cap: html-to-image clamps (and silently downscales) any
+// canvas side above 16,384px, and browsers have per-side limits of their own.
+const MAX_CANVAS_SIDE = 16_000;
 // Forced-split target part height (CSS px) — roughly screen-height parts
 const FORCED_PART_CSS_HEIGHT = 1280;
+// One "page" for long-document detection = one forced part height
+const PAGE_CSS_HEIGHT = FORCED_PART_CSS_HEIGHT;
+// Above this many pages, auto mode asks the user (single long image vs package)
+const LONG_DOC_PAGES = 10;
 // Per-image client fetch timeout
 const IMAGE_FETCH_TIMEOUT_MS = 8000;
 // Max images routed through the proxy per export (matches server-side cap)
@@ -68,9 +90,29 @@ export function clampPixelRatio(
   return allowed.includes(ratio) ? ratio : allowed[allowed.length - 1];
 }
 
+/**
+ * Device-aware defaults for the one-tap flow: phone-sized viewports get the
+ * 1080px social/长图 width, larger screens the 800px document width; sharpness
+ * follows the device pixel ratio (clamped by the scale×width matrix).
+ */
+export function defaultImageOptions(): {
+  width: ImageExportOptions["width"];
+  pixelRatio: 1 | 2 | 3;
+} {
+  if (typeof window === "undefined") {
+    return { width: 800, pixelRatio: 2 };
+  }
+  const width: ImageExportOptions["width"] = window.innerWidth < 768 ? 1080 : 800;
+  const dpr = Math.round(window.devicePixelRatio || 1);
+  const ratio = Math.min(3, Math.max(1, dpr)) as 1 | 2 | 3;
+  return { width, pixelRatio: clampPixelRatio(width, ratio) };
+}
+
 /** Tallest single canvas (in CSS px) for a given width × ratio */
 function maxSingleCssHeight(width: number, ratio: number): number {
-  return Math.floor(MAX_CANVAS_AREA / (width * ratio * ratio));
+  const byArea = MAX_CANVAS_AREA / (width * ratio * ratio);
+  const bySide = MAX_CANVAS_SIDE / ratio;
+  return Math.floor(Math.min(byArea, bySide));
 }
 
 /** `report.png` → `report-01.png`, `report-02.png`, … */
@@ -428,14 +470,30 @@ export async function exportToImage(
     await doubleRaf();
 
     const totalHeight = Math.ceil(article.getBoundingClientRect().height);
+
+    // Long-document gate (one-tap flow): in auto mode, very long documents
+    // pause here and let the user pick one long image vs a split package.
+    let splitMode = opts.splitMode;
+    if (splitMode === "auto" && opts.onLongDocument) {
+      const pages = Math.ceil(totalHeight / PAGE_CSS_HEIGHT);
+      if (pages > LONG_DOC_PAGES) {
+        const canSingle = totalHeight <= maxSingleCssHeight(opts.width, 1);
+        const choice = await opts.onLongDocument(pages, canSingle);
+        if (choice === "cancel") {
+          throw new ImageExportCancelledError();
+        }
+        splitMode = choice;
+      }
+    }
+
     const fitsSingle = totalHeight <= maxSingleCssHeight(opts.width, ratio);
 
     // Decide single vs split (spec 3.4)
     let partHeight: number | null = null; // null → render as one image
-    if (opts.splitMode === "split") {
+    if (splitMode === "split") {
       partHeight = Math.min(FORCED_PART_CSS_HEIGHT, maxSingleCssHeight(opts.width, ratio));
     } else if (!fitsSingle) {
-      if (opts.splitMode === "single") {
+      if (splitMode === "single") {
         // Progressively degrade sharpness rather than splitting
         while (ratio > 1 && totalHeight > maxSingleCssHeight(opts.width, ratio)) {
           ratio = (ratio - 1) as 1 | 2;

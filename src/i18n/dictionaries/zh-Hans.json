@@ -72,7 +72,9 @@
     "imageTryPdf": "试试PDF",
     "imageBlocked": "{n} 张图片无法加载，在输出中将显示为空白。",
     "shareImages": "分享图片",
-    "downloadZip": "下载ZIP"
+    "downloadZip": "下载ZIP",
+    "imageLongDoc": "检测到长文档（约 {n} 页）。要如何导出？",
+    "imageOptions": "图片选项"
   },
   "preview": {
     "title": "预览",

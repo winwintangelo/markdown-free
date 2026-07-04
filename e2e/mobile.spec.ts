@@ -42,8 +42,7 @@ test.describe("Mobile Redesign - Desktop unchanged", () => {
   test("should show all export buttons on desktop without content", async ({ page }) => {
     await expect(page.getByRole("button", { name: "To PDF" })).toBeVisible();
     await expect(page.getByRole("button", { name: "To DOCX" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "To TXT" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "To HTML" })).toBeVisible();
+    await expect(page.getByTestId("more-formats-button")).toBeVisible();
   });
 });
 
@@ -152,7 +151,7 @@ test.describe("Mobile Redesign - Mobile layout", () => {
 
     // Without Web Share API: fallback to standard download buttons
     await expect(page.getByRole("button", { name: "To PDF" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "To TXT" })).toBeVisible();
+    await expect(page.getByTestId("more-formats-button")).toBeVisible();
   });
 
   // ---------- Preview Card ----------

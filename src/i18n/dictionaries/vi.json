@@ -72,7 +72,9 @@
     "imageTryPdf": "Thử PDF",
     "imageBlocked": "{n} ảnh không thể tải và sẽ hiển thị trống trong kết quả.",
     "shareImages": "Chia sẻ ảnh",
-    "downloadZip": "Tải xuống dạng ZIP"
+    "downloadZip": "Tải xuống dạng ZIP",
+    "imageLongDoc": "Tài liệu dài ({n} trang). Bạn muốn xuất như thế nào?",
+    "imageOptions": "Tùy chọn ảnh"
   },
   "preview": {
     "title": "Xem trước",

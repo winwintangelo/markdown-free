@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import { Loader2, AlertCircle, X, Share, MoreHorizontal } from "lucide-react";
+import { Loader2, AlertCircle, X, Share, MoreHorizontal, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useConverter } from "@/hooks/use-converter";
 import { exportTxt } from "@/lib/export-txt";
@@ -28,7 +28,7 @@ import {
 } from "@/lib/analytics";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 import { PostConvertFeedback } from "./post-convert-feedback";
-import { ImageExportPanel } from "./image-export-panel";
+import { ImageExportPanel, type ImageExportPanelHandle } from "./image-export-panel";
 import type { Locale, Dictionary } from "@/i18n";
 
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -70,6 +70,8 @@ const defaultDict = {
     more: "More formats",
     toPng: "To PNG",
     toJpg: "To JPG",
+    generatingImage: "Rendering image...",
+    imageOptions: "Image options",
   },
   errors: {
     pdfTimeout: "PDF generation timed out. Please try again.",
@@ -92,7 +94,9 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     format: "pdf" | "docx";
   } | null>(null);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
-  const [imageFormat, setImageFormat] = useState<ImageFormat | null>(null);
+  const [imagePanelOpen, setImagePanelOpen] = useState(false);
+  const [imageConverting, setImageConverting] = useState(false);
+  const imagePanelRef = useRef<ImageExportPanelHandle>(null);
   const moreMenuRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
   const hoveredFormatsRef = useRef<Set<ExportFormat>>(new Set());
@@ -113,7 +117,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   // Content is ready for export
   const hasContent = state.content && state.status === "ready";
   // Button is in loading state
-  const isLoading = loadingFormat !== null || loadingShareFormat !== null;
+  const isLoading = loadingFormat !== null || loadingShareFormat !== null || imageConverting;
 
   // Track hover on buttons when no content (shows interest)
   const handleButtonHover = useCallback((format: ExportFormat) => {
@@ -142,7 +146,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   // Close the image options panel when content is cleared
   useEffect(() => {
     if (!state.content) {
-      setImageFormat(null);
+      setImagePanelOpen(false);
     }
   }, [state.content]);
 
@@ -521,29 +525,44 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     }
   }, [error, clearError, handleExport]);
 
-  // PNG/JPG buttons toggle the options panel (spec 2.2: pick format → options
-  // row appears → convert from there). With no content they behave like the
-  // other export buttons and trigger the upload flow.
-  const handleImageButton = useCallback(
+  const triggerUploadWithHint = useCallback(
     (format: ImageFormat) => {
-      if (!state.content) {
-        trackExportTriggerUpload(format as AnalyticsExportFormat);
-        triggerFileUpload();
-        setUploadHint(dict.export.selectFileHint || defaultDict.export.selectFileHint);
-        if (hintTimeoutRef.current) clearTimeout(hintTimeoutRef.current);
-        hintTimeoutRef.current = setTimeout(() => {
-          setUploadHint(dict.export.uploadOrPaste || defaultDict.export.uploadOrPaste);
-          hintTimeoutRef.current = setTimeout(() => setUploadHint(null), 5000);
-        }, 5000);
-        return;
-      }
-      setImageFormat((current) => (current === format ? null : format));
+      trackExportTriggerUpload(format as AnalyticsExportFormat);
+      triggerFileUpload();
+      setUploadHint(dict.export.selectFileHint || defaultDict.export.selectFileHint);
+      if (hintTimeoutRef.current) clearTimeout(hintTimeoutRef.current);
+      hintTimeoutRef.current = setTimeout(() => {
+        setUploadHint(dict.export.uploadOrPaste || defaultDict.export.uploadOrPaste);
+        hintTimeoutRef.current = setTimeout(() => setUploadHint(null), 5000);
+      }, 5000);
     },
-    [state.content, dict.export.selectFileHint, dict.export.uploadOrPaste, triggerFileUpload]
+    [dict.export.selectFileHint, dict.export.uploadOrPaste, triggerFileUpload]
   );
 
+  // One-tap image export: convert immediately with device-based defaults.
+  // With no content it behaves like the other export buttons (upload flow).
+  const handleImageOneTap = useCallback(
+    (format: ImageFormat) => {
+      if (!state.content) {
+        triggerUploadWithHint(format);
+        return;
+      }
+      imagePanelRef.current?.convert(format);
+    },
+    [state.content, triggerUploadWithHint]
+  );
+
+  // The caret next to "To PNG" opens the options panel for power users
+  const handleImagePanelToggle = useCallback(() => {
+    if (!state.content) {
+      triggerUploadWithHint("png");
+      return;
+    }
+    setImagePanelOpen((open) => !open);
+  }, [state.content, triggerUploadWithHint]);
+
   const handleImageTryPdf = useCallback(() => {
-    setImageFormat(null);
+    setImagePanelOpen(false);
     handleExport("pdf");
   }, [handleExport]);
 
@@ -744,7 +763,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                       key={format}
                       type="button"
                       disabled={isLoading}
-                      onClick={() => { handleImageButton(format); setMoreMenuOpen(false); }}
+                      onClick={() => { handleImageOneTap(format); setMoreMenuOpen(false); }}
                       data-testid={`save-${format}-button`}
                       className="flex w-full items-center px-4 py-2 text-xs text-slate-600 transition hover:bg-slate-50"
                     >
@@ -776,7 +795,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         ) : (
           /* ===== DESKTOP / FALLBACK LAYOUT (unchanged) ===== */
           <>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               {/* Primary: To PDF - Always active, triggers file picker if no content */}
               <button
                 type="button"
@@ -784,7 +803,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                 onClick={() => handleExport("pdf")}
                 onMouseEnter={() => handleButtonHover("pdf")}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold shadow-sm transition",
+                  "inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-[13px] font-semibold shadow-sm transition",
                   loadingFormat === "pdf"
                     ? "cursor-wait bg-emerald-500 text-white"
                     : "bg-emerald-700 text-white hover:bg-emerald-800"
@@ -803,7 +822,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                 onClick={() => handleExport("docx")}
                 onMouseEnter={() => handleButtonHover("docx")}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
+                  "inline-flex items-center gap-1.5 rounded-full border px-5 py-2.5 text-[13px] font-semibold shadow-sm transition",
                   loadingFormat === "docx"
                     ? "cursor-wait border-blue-200 bg-blue-100 text-blue-600"
                     : "border-blue-200 bg-blue-50 text-blue-700 hover:border-blue-300 hover:bg-blue-100"
@@ -817,87 +836,101 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                   : (dict.export.toDocx || defaultDict.export.toDocx)}
               </button>
 
-              {/* To EPUB - After DOCX, purple styling */}
-              <button
-                type="button"
-                disabled={isLoading}
-                onClick={() => handleExport("epub")}
-                onMouseEnter={() => handleButtonHover("epub")}
-                className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
-                  loadingFormat === "epub"
-                    ? "cursor-wait border-purple-200 bg-purple-100 text-purple-600"
-                    : "border-purple-200 bg-purple-50 text-purple-700 hover:border-purple-300 hover:bg-purple-100"
-                )}
-              >
-                {loadingFormat === "epub" && (
-                  <Loader2 className="h-3 w-3 animate-spin" />
-                )}
-                {loadingFormat === "epub"
-                  ? (dict.export.generatingEpub || defaultDict.export.generatingEpub)
-                  : (dict.export.toEpub || defaultDict.export.toEpub)}
-              </button>
-
-              {/* Secondary: To TXT */}
-              <button
-                type="button"
-                disabled={isLoading}
-                onClick={() => handleExport("txt")}
-                onMouseEnter={() => handleButtonHover("txt")}
-                className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
-                  loadingFormat === "txt"
-                    ? "cursor-wait border-slate-200 bg-slate-100 text-slate-500"
-                    : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-white"
-                )}
-              >
-                {loadingFormat === "txt" && (
-                  <Loader2 className="h-3 w-3 animate-spin" />
-                )}
-                {dict.export.toTxt}
-              </button>
-
-              {/* Secondary: To HTML */}
-              <button
-                type="button"
-                disabled={isLoading}
-                onClick={() => handleExport("html")}
-                onMouseEnter={() => handleButtonHover("html")}
-                className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
-                  loadingFormat === "html"
-                    ? "cursor-wait border-slate-200 bg-slate-100 text-slate-500"
-                    : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-white"
-                )}
-              >
-                {loadingFormat === "html" && (
-                  <Loader2 className="h-3 w-3 animate-spin" />
-                )}
-                {dict.export.toHtml}
-              </button>
-
-              {/* To PNG / To JPG — toggle the image options panel */}
-              {(["png", "jpg"] as ImageFormat[]).map((format) => (
+              {/* To PNG split button: main = one-tap convert, caret = options */}
+              <div className="inline-flex overflow-hidden rounded-full border border-amber-200 shadow-sm">
                 <button
-                  key={format}
                   type="button"
                   disabled={isLoading}
-                  onClick={() => handleImageButton(format)}
-                  onMouseEnter={() => handleButtonHover(format)}
-                  aria-expanded={imageFormat === format}
-                  data-testid={`to-${format}-button`}
+                  onClick={() => handleImageOneTap("png")}
+                  onMouseEnter={() => handleButtonHover("png")}
+                  data-testid="to-png-button"
                   className={cn(
-                    "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold shadow-sm transition",
-                    imageFormat === format
-                      ? "border-amber-300 bg-amber-100 text-amber-800"
-                      : "border-amber-200 bg-amber-50 text-amber-700 hover:border-amber-300 hover:bg-amber-100"
+                    "inline-flex items-center gap-1.5 px-5 py-2.5 text-[13px] font-semibold transition",
+                    imageConverting
+                      ? "cursor-wait bg-amber-100 text-amber-800"
+                      : "bg-amber-50 text-amber-700 hover:bg-amber-100"
                   )}
                 >
-                  {format === "png"
-                    ? (dict.export.toPng || defaultDict.export.toPng)
-                    : (dict.export.toJpg || defaultDict.export.toJpg)}
+                  {imageConverting && <Loader2 className="h-3 w-3 animate-spin" />}
+                  {imageConverting
+                    ? (dict.export.generatingImage || defaultDict.export.generatingImage)
+                    : (dict.export.toPng || defaultDict.export.toPng)}
                 </button>
-              ))}
+                <button
+                  type="button"
+                  disabled={isLoading}
+                  onClick={handleImagePanelToggle}
+                  aria-expanded={imagePanelOpen}
+                  aria-haspopup="true"
+                  aria-label={dict.export.imageOptions || defaultDict.export.imageOptions}
+                  title={dict.export.imageOptions || defaultDict.export.imageOptions}
+                  data-testid="image-options-toggle"
+                  className={cn(
+                    "inline-flex items-center border-l border-amber-200 px-2 transition",
+                    imagePanelOpen
+                      ? "bg-amber-100 text-amber-800"
+                      : "bg-amber-50 text-amber-700 hover:bg-amber-100"
+                  )}
+                >
+                  <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", imagePanelOpen && "rotate-180")} />
+                </button>
+              </div>
+
+              {/* Long-tail formats live behind the More formats menu */}
+              <div ref={moreMenuRef} className="relative">
+                <button
+                  type="button"
+                  disabled={isLoading}
+                  onClick={() => setMoreMenuOpen(!moreMenuOpen)}
+                  aria-expanded={moreMenuOpen}
+                  aria-haspopup="true"
+                  data-testid="more-formats-button"
+                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-semibold text-slate-600 shadow-sm transition hover:border-slate-300 hover:bg-white"
+                >
+                  {dict.export.more || defaultDict.export.more}
+                  <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", moreMenuOpen && "rotate-180")} />
+                </button>
+                {moreMenuOpen && (
+                  <div
+                    className="absolute left-0 top-full z-50 mt-1 min-w-[150px] rounded-lg border border-slate-200 bg-white py-1 shadow-lg"
+                    data-testid="more-formats-menu"
+                  >
+                    <button
+                      type="button"
+                      disabled={isLoading}
+                      onClick={() => { handleExport("epub"); setMoreMenuOpen(false); }}
+                      className="flex w-full items-center px-4 py-2 text-xs text-slate-600 transition hover:bg-slate-50"
+                    >
+                      {dict.export.toEpub || defaultDict.export.toEpub}
+                    </button>
+                    <button
+                      type="button"
+                      disabled={isLoading}
+                      onClick={() => { handleExport("html"); setMoreMenuOpen(false); }}
+                      className="flex w-full items-center px-4 py-2 text-xs text-slate-600 transition hover:bg-slate-50"
+                    >
+                      {dict.export.toHtml}
+                    </button>
+                    <button
+                      type="button"
+                      disabled={isLoading}
+                      onClick={() => { handleExport("txt"); setMoreMenuOpen(false); }}
+                      className="flex w-full items-center px-4 py-2 text-xs text-slate-600 transition hover:bg-slate-50"
+                    >
+                      {dict.export.toTxt}
+                    </button>
+                    <button
+                      type="button"
+                      disabled={isLoading}
+                      onClick={() => { handleImageOneTap("jpg"); setMoreMenuOpen(false); }}
+                      data-testid="menu-to-jpg"
+                      className="flex w-full items-center px-4 py-2 text-xs text-slate-600 transition hover:bg-slate-50"
+                    >
+                      {dict.export.toJpg || defaultDict.export.toJpg}
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Privacy notice */}
@@ -909,10 +942,12 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       </div>
       )}
 
-      {/* Image export options (PNG/JPG selected) */}
-      {imageFormat && state.content && (
+      {/* Image export: always mounted with content so one-tap conversions can
+          run and surface progress/prompt/result even with options closed */}
+      {state.content && (
         <ImageExportPanel
-          format={imageFormat}
+          ref={imagePanelRef}
+          open={imagePanelOpen}
           markdown={state.content.content}
           renderedHtml={renderedHtml}
           originalFilename={state.content.filename}
@@ -921,6 +956,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           source={state.content.source === "file" ? "file" : "paste"}
           onTryPdf={handleImageTryPdf}
           onSuccess={handleImageSuccess}
+          onConvertingChange={setImageConverting}
         />
       )}
 

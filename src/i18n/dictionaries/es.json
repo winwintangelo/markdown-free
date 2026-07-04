@@ -72,7 +72,9 @@
     "imageTryPdf": "Probar PDF",
     "imageBlocked": "{n} imagen(es) no se pudieron cargar y aparecerán en blanco.",
     "shareImages": "Compartir imágenes",
-    "downloadZip": "Descargar como ZIP"
+    "downloadZip": "Descargar como ZIP",
+    "imageLongDoc": "Documento largo ({n} páginas). ¿Cómo quieres exportarlo?",
+    "imageOptions": "Opciones de imagen"
   },
   "preview": {
     "title": "Vista Previa",

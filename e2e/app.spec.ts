@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { openMoreFormats } from "./export-helpers";
 import path from "path";
 
 test.describe("Markdown Free - App Layout", () => {
@@ -53,14 +54,12 @@ test.describe("Markdown Free - App Layout", () => {
 
   test("should have enabled export buttons that trigger file picker when no content", async ({ page }) => {
     const pdfButton = page.getByRole("button", { name: "To PDF" });
-    const txtButton = page.getByRole("button", { name: "To TXT" });
-    const htmlButton = page.getByRole("button", { name: "To HTML" });
+    const moreFormatsButton = page.getByTestId("more-formats-button");
     const docxButton = page.getByRole("button", { name: "To DOCX" });
 
     // Buttons should be enabled (active buttons UX)
     await expect(pdfButton).toBeEnabled();
-    await expect(txtButton).toBeEnabled();
-    await expect(htmlButton).toBeEnabled();
+    await expect(moreFormatsButton).toBeEnabled();
     await expect(docxButton).toBeEnabled();
 
     // Clicking should show a hint message (file picker is triggered but we can't easily test that)
@@ -256,12 +255,10 @@ test.describe("Markdown Free - File Upload", () => {
 
     // Check buttons are enabled
     const pdfButton = page.getByRole("button", { name: "To PDF" });
-    const txtButton = page.getByRole("button", { name: "To TXT" });
-    const htmlButton = page.getByRole("button", { name: "To HTML" });
+    const moreFormatsButton = page.getByTestId("more-formats-button");
 
     await expect(pdfButton).toBeEnabled();
-    await expect(txtButton).toBeEnabled();
-    await expect(htmlButton).toBeEnabled();
+    await expect(moreFormatsButton).toBeEnabled();
   });
 
   test("uploading a .txt file works correctly", async ({ page }) => {
@@ -644,6 +641,7 @@ test.describe("Markdown Free - Export Functionality", () => {
 
     // Click TXT button
     const txtButton = page.getByRole("button", { name: "To TXT" });
+    await openMoreFormats(page);
     await txtButton.click();
 
     // Verify download was triggered
@@ -667,6 +665,7 @@ test.describe("Markdown Free - Export Functionality", () => {
 
     // Click HTML button
     const htmlButton = page.getByRole("button", { name: "To HTML" });
+    await openMoreFormats(page);
     await htmlButton.click();
 
     // Verify download was triggered
@@ -1142,8 +1141,7 @@ function hello() {
 
     // Other export buttons should also be disabled during generation
     await expect(page.getByRole("button", { name: "To PDF" })).toBeDisabled();
-    await expect(page.getByRole("button", { name: "To TXT" })).toBeDisabled();
-    await expect(page.getByRole("button", { name: "To HTML" })).toBeDisabled();
+    await expect(page.getByTestId("more-formats-button")).toBeDisabled();
   });
 
   test("DOCX retry after error works correctly", async ({ page }) => {
@@ -1202,14 +1200,12 @@ function hello() {
 
   test("export buttons are enabled when no content (active buttons UX)", async ({ page }) => {
     const pdfButton = page.getByRole("button", { name: "To PDF" });
-    const txtButton = page.getByRole("button", { name: "To TXT" });
-    const htmlButton = page.getByRole("button", { name: "To HTML" });
+    const moreFormatsButton = page.getByTestId("more-formats-button");
     const docxButton = page.getByRole("button", { name: "To DOCX" });
 
     // Buttons should be enabled - clicking triggers file picker
     await expect(pdfButton).toBeEnabled();
-    await expect(txtButton).toBeEnabled();
-    await expect(htmlButton).toBeEnabled();
+    await expect(moreFormatsButton).toBeEnabled();
     await expect(docxButton).toBeEnabled();
   });
 
@@ -1225,12 +1221,10 @@ function hello() {
     await page.waitForTimeout(500);
 
     const pdfButton = page.getByRole("button", { name: "To PDF" });
-    const txtButton = page.getByRole("button", { name: "To TXT" });
-    const htmlButton = page.getByRole("button", { name: "To HTML" });
+    const moreFormatsButton = page.getByTestId("more-formats-button");
 
     await expect(pdfButton).toBeEnabled();
-    await expect(txtButton).toBeEnabled();
-    await expect(htmlButton).toBeEnabled();
+    await expect(moreFormatsButton).toBeEnabled();
   });
 });
 
@@ -1272,8 +1266,7 @@ test.describe("Markdown Free - File Validation", () => {
 
     // Export buttons should remain enabled (active buttons UX - clicking triggers file picker)
     await expect(page.getByRole("button", { name: "To PDF" })).toBeEnabled();
-    await expect(page.getByRole("button", { name: "To TXT" })).toBeEnabled();
-    await expect(page.getByRole("button", { name: "To HTML" })).toBeEnabled();
+    await expect(page.getByTestId("more-formats-button")).toBeEnabled();
   });
 
   test("file exactly at 1MB limit should be accepted", async ({ page }) => {
@@ -1380,6 +1373,7 @@ test.describe("Markdown Free - Export Content Validation", () => {
     const downloadPromise = page.waitForEvent("download");
 
     // Click TXT button
+    await openMoreFormats(page);
     await page.getByRole("button", { name: "To TXT" }).click();
 
     // Get download and read content
@@ -1410,6 +1404,7 @@ test.describe("Markdown Free - Export Content Validation", () => {
     const downloadPromise = page.waitForEvent("download");
 
     // Click HTML button
+    await openMoreFormats(page);
     await page.getByRole("button", { name: "To HTML" }).click();
 
     // Get download and read content
@@ -2095,17 +2090,17 @@ test.describe("Markdown Free - Enhanced Analytics (Engagement Tracking)", () => 
 
     // Buttons should be enabled (active buttons UX)
     const pdfButton = page.getByRole("button", { name: "To PDF" });
-    const txtButton = page.getByRole("button", { name: "To TXT" });
-    const htmlButton = page.getByRole("button", { name: "To HTML" });
+    const pngButton = page.getByTestId("to-png-button");
+    const moreFormatsButton = page.getByTestId("more-formats-button");
 
     await expect(pdfButton).toBeEnabled();
 
     // Hover over each button
     await pdfButton.hover();
     await page.waitForTimeout(50);
-    await txtButton.hover();
+    await pngButton.hover();
     await page.waitForTimeout(50);
-    await htmlButton.hover();
+    await moreFormatsButton.hover();
     await page.waitForTimeout(50);
 
     // No errors should have occurred
@@ -2285,6 +2280,7 @@ test.describe("Markdown Free - Post-Convert Feedback", () => {
     // Use the full text and a longer timeout to handle cold dev-server compilation
     await expect(page.getByText("Ready to export (uploaded file)")).toBeVisible({ timeout: 15000 });
     const downloadPromise = page.waitForEvent("download");
+    await openMoreFormats(page);
     await page.getByRole("button", { name: /To TXT/i }).click();
     await downloadPromise;
   }
@@ -2415,6 +2411,7 @@ test.describe("Markdown Free - Post-Convert Feedback", () => {
 
     // Do another export
     const downloadPromise2 = page.waitForEvent("download");
+    await openMoreFormats(page);
     await page.getByRole("button", { name: /To TXT/i }).click();
     await downloadPromise2;
 
@@ -2610,6 +2607,7 @@ test.describe("Markdown Free - Special Filename Handling", () => {
     await expect(page.getByText("Ready to export")).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download");
+    await openMoreFormats(page);
     await page.getByRole("button", { name: /To TXT/i }).click();
     const download = await downloadPromise;
 
@@ -2630,6 +2628,7 @@ test.describe("Markdown Free - Special Filename Handling", () => {
     await expect(page.getByText("Ready to export")).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download");
+    await openMoreFormats(page);
     await page.getByRole("button", { name: /To HTML/i }).click();
     const download = await downloadPromise;
 

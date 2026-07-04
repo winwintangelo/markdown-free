@@ -349,9 +349,12 @@ test.describe("Markdown Free - Internationalization", () => {
 
     test("export buttons are translated in Spanish", async ({ page }) => {
       await page.goto("/es");
-      
-      // Check Spanish export button text
+
+      // Check Spanish export button text (long-tail formats live in the
+      // "More formats" menu — its trigger label is translated too)
       await expect(page.getByRole("button", { name: "A PDF" })).toBeVisible();
+      await expect(page.getByRole("button", { name: "Más formatos" })).toBeVisible();
+      await page.getByTestId("more-formats-button").click();
       await expect(page.getByRole("button", { name: "A TXT" })).toBeVisible();
       await expect(page.getByRole("button", { name: "A HTML" })).toBeVisible();
     });

@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { openMoreFormats } from "./export-helpers";
 
 /**
  * Production E2E Test Suite for https://www.markdown.free/
@@ -82,8 +83,7 @@ test.describe("Production - Core Functionality", () => {
     await page.goto("/");
 
     await expect(page.getByRole("button", { name: "To PDF" })).toBeDisabled();
-    await expect(page.getByRole("button", { name: "To TXT" })).toBeDisabled();
-    await expect(page.getByRole("button", { name: "To HTML" })).toBeDisabled();
+    await expect(page.getByTestId("more-formats-button")).toBeDisabled();
   });
 
   test("paste area toggle works", async ({ page }) => {
@@ -117,8 +117,7 @@ test.describe("Production - Core Functionality", () => {
 
     // Buttons should be enabled
     await expect(page.getByRole("button", { name: "To PDF" })).toBeEnabled();
-    await expect(page.getByRole("button", { name: "To TXT" })).toBeEnabled();
-    await expect(page.getByRole("button", { name: "To HTML" })).toBeEnabled();
+    await expect(page.getByTestId("more-formats-button")).toBeEnabled();
 
     // Preview should show rendered content
     await expect(page.locator("article h1")).toContainText("Hello Production");
@@ -139,8 +138,7 @@ test.describe("Production - Core Functionality", () => {
 
     // Buttons should be enabled
     await expect(page.getByRole("button", { name: "To PDF" })).toBeEnabled();
-    await expect(page.getByRole("button", { name: "To TXT" })).toBeEnabled();
-    await expect(page.getByRole("button", { name: "To HTML" })).toBeEnabled();
+    await expect(page.getByTestId("more-formats-button")).toBeEnabled();
 
     // Status should show filename
     await expect(page.getByText(/test\.md/)).toBeVisible();
@@ -161,6 +159,7 @@ test.describe("Production - Export (Real API)", () => {
 
   test("TXT export downloads correct file", async ({ page }) => {
     const downloadPromise = page.waitForEvent("download");
+    await openMoreFormats(page);
     await page.getByRole("button", { name: "To TXT" }).click();
 
     const download = await downloadPromise;
@@ -177,6 +176,7 @@ test.describe("Production - Export (Real API)", () => {
 
   test("HTML export downloads correct file", async ({ page }) => {
     const downloadPromise = page.waitForEvent("download");
+    await openMoreFormats(page);
     await page.getByRole("button", { name: "To HTML" }).click();
 
     const download = await downloadPromise;
@@ -497,6 +497,7 @@ test.describe("Production - Special Filename Handling (Real API)", () => {
     await page.waitForTimeout(300);
 
     const downloadPromise = page.waitForEvent("download");
+    await openMoreFormats(page);
     await page.getByRole("button", { name: "To TXT" }).click();
 
     const download = await downloadPromise;
@@ -519,6 +520,7 @@ test.describe("Production - Special Filename Handling (Real API)", () => {
     await page.waitForTimeout(300);
 
     const downloadPromise = page.waitForEvent("download");
+    await openMoreFormats(page);
     await page.getByRole("button", { name: "To HTML" }).click();
 
     const download = await downloadPromise;
