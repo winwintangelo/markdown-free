@@ -40,7 +40,7 @@
     "toPdf": "Sang PDF",
     "toTxt": "Sang TXT",
     "toHtml": "Sang HTML",
-    "toDocx": "Sang DOCX",
+    "toDocx": "Sang Word (DOCX)",
     "toEpub": "Sang EPUB",
     "privacy": "Tệp được xử lý tạm thời để chuyển đổi và không được lưu trữ.",
     "generatingDocx": "Đang tạo DOCX...",

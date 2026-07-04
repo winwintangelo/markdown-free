@@ -40,7 +40,7 @@
     "toPdf": "PDF में",
     "toTxt": "TXT में",
     "toHtml": "HTML में",
-    "toDocx": "DOCX में",
+    "toDocx": "Word में (DOCX)",
     "toEpub": "EPUB में",
     "privacy": "फाइलें कनवर्जन के लिए अस्थायी रूप से प्रोसेस होती हैं और संग्रहित नहीं होतीं।",
     "generating": "PDF बनाई जा रही है...",

@@ -40,7 +40,7 @@
     "toPdf": "转PDF",
     "toTxt": "转TXT",
     "toHtml": "转HTML",
-    "toDocx": "转DOCX",
+    "toDocx": "转Word (DOCX)",
     "toEpub": "转EPUB",
     "privacy": "文件仅为转换临时处理，不会被存储。",
     "generatingDocx": "正在生成DOCX...",

@@ -40,7 +40,7 @@
     "toPdf": "In PDF",
     "toTxt": "In TXT",
     "toHtml": "In HTML",
-    "toDocx": "In DOCX",
+    "toDocx": "In Word (DOCX)",
     "toEpub": "In EPUB",
     "privacy": "I file vengono elaborati temporaneamente per la conversione e non vengono salvati.",
     "generatingDocx": "Generazione DOCX...",

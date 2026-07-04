@@ -40,7 +40,7 @@
     "toPdf": "PDFへ",
     "toTxt": "TXTへ",
     "toHtml": "HTMLへ",
-    "toDocx": "DOCXへ",
+    "toDocx": "Wordへ (DOCX)",
     "toEpub": "EPUBへ",
     "privacy": "ファイルは変換のために一時的に処理され、保存されません。",
     "generatingDocx": "DOCXを生成中...",

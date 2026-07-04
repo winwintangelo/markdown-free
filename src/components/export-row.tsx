@@ -55,7 +55,7 @@ const defaultDict = {
     toPdf: "To PDF",
     toTxt: "To TXT",
     toHtml: "To HTML",
-    toDocx: "To DOCX",
+    toDocx: "To Word (DOCX)",
     toEpub: "To EPUB",
     privacy: "Files are processed temporarily for conversion and not stored.",
     generating: "Generating PDF...",

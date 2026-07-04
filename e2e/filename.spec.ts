@@ -182,7 +182,7 @@ test.describe("Filename preservation - DOCX export", () => {
       // Check download filename
       await expectDownloadFilename(
         page,
-        'button:has-text("To DOCX")',
+        'button:has-text("To Word (DOCX)")',
         `${testCase.expected}.docx`
       );
     });
@@ -220,7 +220,7 @@ test.describe("Filename edge cases", () => {
     await uploadFile(page, longName, testMarkdown);
     await expect(page.getByText("Ready to export")).toBeVisible({ timeout: 5000 });
 
-    await expectDownloadFilename(page, 'button:has-text("To DOCX")', `${expectedBase}.docx`);
+    await expectDownloadFilename(page, 'button:has-text("To Word (DOCX)")', `${expectedBase}.docx`);
   });
 
   test("handles filename with only special characters", async ({ page }) => {
@@ -245,7 +245,7 @@ test.describe("Filename edge cases", () => {
     await uploadFile(page, specialName, testMarkdown);
     await expect(page.getByText("Ready to export")).toBeVisible({ timeout: 5000 });
 
-    await expectDownloadFilename(page, 'button:has-text("To DOCX")', "✨🎉🚀.docx");
+    await expectDownloadFilename(page, 'button:has-text("To Word (DOCX)")', "✨🎉🚀.docx");
   });
 
   test("handles mixed RTL and LTR characters", async ({ page }) => {
@@ -270,7 +270,7 @@ test.describe("Filename edge cases", () => {
     await uploadFile(page, mixedName, testMarkdown);
     await expect(page.getByText("Ready to export")).toBeVisible({ timeout: 5000 });
 
-    await expectDownloadFilename(page, 'button:has-text("To DOCX")', "document-文档-📄.docx");
+    await expectDownloadFilename(page, 'button:has-text("To Word (DOCX)")', "document-文档-📄.docx");
   });
 });
 

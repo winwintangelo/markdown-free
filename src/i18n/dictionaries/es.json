@@ -40,7 +40,7 @@
     "toPdf": "A PDF",
     "toTxt": "A TXT",
     "toHtml": "A HTML",
-    "toDocx": "A DOCX",
+    "toDocx": "A Word (DOCX)",
     "toEpub": "A EPUB",
     "privacy": "Los archivos se procesan temporalmente para la conversión y no se almacenan.",
     "generatingDocx": "Generando DOCX...",

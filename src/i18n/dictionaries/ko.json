@@ -40,7 +40,7 @@
     "toPdf": "PDF로",
     "toTxt": "TXT로",
     "toHtml": "HTML로",
-    "toDocx": "DOCX로",
+    "toDocx": "Word로 (DOCX)",
     "toEpub": "EPUB로",
     "privacy": "파일은 변환을 위해 일시적으로 처리되며 저장되지 않습니다.",
     "generatingDocx": "DOCX 생성 중...",

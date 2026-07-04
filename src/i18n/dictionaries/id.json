@@ -40,7 +40,7 @@
     "toPdf": "Ke PDF",
     "toTxt": "Ke TXT",
     "toHtml": "Ke HTML",
-    "toDocx": "Ke DOCX",
+    "toDocx": "Ke Word (DOCX)",
     "toEpub": "Ke EPUB",
     "privacy": "File diproses sementara untuk konversi dan tidak disimpan.",
     "generatingDocx": "Membuat DOCX...",

@@ -55,7 +55,7 @@ test.describe("Markdown Free - App Layout", () => {
   test("should have enabled export buttons that trigger file picker when no content", async ({ page }) => {
     const pdfButton = page.getByRole("button", { name: "To PDF" });
     const moreFormatsButton = page.getByTestId("more-formats-button");
-    const docxButton = page.getByRole("button", { name: "To DOCX" });
+    const docxButton = page.getByRole("button", { name: "To Word (DOCX)" });
 
     // Buttons should be enabled (active buttons UX)
     await expect(pdfButton).toBeEnabled();
@@ -68,7 +68,7 @@ test.describe("Markdown Free - App Layout", () => {
   });
 
   test("should show DOCX button with Word styling", async ({ page }) => {
-    const docxButton = page.getByRole("button", { name: "To DOCX" });
+    const docxButton = page.getByRole("button", { name: "To Word (DOCX)" });
     await expect(docxButton).toBeVisible();
     await expect(docxButton).toBeEnabled();
     
@@ -701,7 +701,7 @@ test.describe("Markdown Free - Export Functionality", () => {
     const downloadPromise = page.waitForEvent("download");
 
     // Click DOCX button
-    const docxButton = page.getByRole("button", { name: "To DOCX" });
+    const docxButton = page.getByRole("button", { name: "To Word (DOCX)" });
     await docxButton.click();
 
     // Verify download was triggered
@@ -734,7 +734,7 @@ test.describe("Markdown Free - Export Functionality", () => {
     await page.waitForTimeout(500);
 
     // Click DOCX button
-    const docxButton = page.getByRole("button", { name: "To DOCX" });
+    const docxButton = page.getByRole("button", { name: "To Word (DOCX)" });
     await docxButton.click();
 
     // Should show loading state
@@ -766,7 +766,7 @@ test.describe("Markdown Free - Export Functionality", () => {
     await page.waitForTimeout(500);
 
     // Click DOCX button
-    const docxButton = page.getByRole("button", { name: "To DOCX" });
+    const docxButton = page.getByRole("button", { name: "To Word (DOCX)" });
     await docxButton.click();
 
     // Should show error banner with retry button
@@ -798,7 +798,7 @@ test.describe("Markdown Free - Export Functionality", () => {
     await page.waitForTimeout(500);
 
     // Click DOCX button
-    await page.getByRole("button", { name: "To DOCX" }).click();
+    await page.getByRole("button", { name: "To Word (DOCX)" }).click();
 
     // Should show timeout error
     await expect(page.getByText("DOCX generation timed out")).toBeVisible();
@@ -828,7 +828,7 @@ test.describe("Markdown Free - Export Functionality", () => {
     await page.waitForTimeout(500);
 
     // Trigger error
-    await page.getByRole("button", { name: "To DOCX" }).click();
+    await page.getByRole("button", { name: "To Word (DOCX)" }).click();
     await expect(page.getByText("DOCX generation failed", { exact: true })).toBeVisible();
 
     // Click dismiss button (X)
@@ -875,7 +875,7 @@ test.describe("Markdown Free - Export Functionality", () => {
     const downloadPromise = page.waitForEvent("download");
 
     // Click DOCX button
-    await page.getByRole("button", { name: "To DOCX" }).click();
+    await page.getByRole("button", { name: "To Word (DOCX)" }).click();
 
     // Verify download
     const download = await downloadPromise;
@@ -904,7 +904,7 @@ test.describe("Markdown Free - Export Functionality", () => {
     await page.waitForTimeout(500);
 
     // Click DOCX button
-    await page.getByRole("button", { name: "To DOCX" }).click();
+    await page.getByRole("button", { name: "To Word (DOCX)" }).click();
 
     // Should show error message
     await expect(page.getByText("DOCX generation failed", { exact: true })).toBeVisible();
@@ -941,7 +941,7 @@ test.describe("Markdown Free - Export Functionality", () => {
     const downloadPromise = page.waitForEvent("download");
 
     // Click DOCX button
-    await page.getByRole("button", { name: "To DOCX" }).click();
+    await page.getByRole("button", { name: "To Word (DOCX)" }).click();
 
     // Verify download was triggered
     const download = await downloadPromise;
@@ -982,7 +982,7 @@ test.describe("Markdown Free - Export Functionality", () => {
     await expect(page.getByText("Ready to export")).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download");
-    await page.getByRole("button", { name: "To DOCX" }).click();
+    await page.getByRole("button", { name: "To Word (DOCX)" }).click();
     const download = await downloadPromise;
 
     expect(apiRequestBody).not.toBeNull();
@@ -1024,7 +1024,7 @@ test.describe("Markdown Free - Export Functionality", () => {
     await expect(page.getByText("Ready to export")).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download");
-    await page.getByRole("button", { name: "To DOCX" }).click();
+    await page.getByRole("button", { name: "To Word (DOCX)" }).click();
     const download = await downloadPromise;
 
     expect(apiRequestBody).not.toBeNull();
@@ -1094,7 +1094,7 @@ function hello() {
     await expect(page.getByText("Ready to export")).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download");
-    await page.getByRole("button", { name: "To DOCX" }).click();
+    await page.getByRole("button", { name: "To Word (DOCX)" }).click();
     const download = await downloadPromise;
 
     // Verify API received full content
@@ -1129,7 +1129,7 @@ function hello() {
 
     await page.waitForTimeout(500);
 
-    const docxButton = page.getByRole("button", { name: "To DOCX" });
+    const docxButton = page.getByRole("button", { name: "To Word (DOCX)" });
     
     // Start DOCX generation
     await docxButton.click();
@@ -1181,7 +1181,7 @@ function hello() {
     await page.waitForTimeout(500);
 
     // First attempt - should fail
-    await page.getByRole("button", { name: "To DOCX" }).click();
+    await page.getByRole("button", { name: "To Word (DOCX)" }).click();
     await expect(page.getByText("DOCX generation failed", { exact: true })).toBeVisible();
 
     // Set up download listener for retry
@@ -1201,7 +1201,7 @@ function hello() {
   test("export buttons are enabled when no content (active buttons UX)", async ({ page }) => {
     const pdfButton = page.getByRole("button", { name: "To PDF" });
     const moreFormatsButton = page.getByTestId("more-formats-button");
-    const docxButton = page.getByRole("button", { name: "To DOCX" });
+    const docxButton = page.getByRole("button", { name: "To Word (DOCX)" });
 
     // Buttons should be enabled - clicking triggers file picker
     await expect(pdfButton).toBeEnabled();
