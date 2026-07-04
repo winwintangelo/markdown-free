@@ -15,7 +15,8 @@
     "supports": ".md, .markdown, .txt対応 • 最大1MB",
     "noFile": "ファイルが選択されていません",
     "trySample": "サンプルファイルを試す",
-    "pasteMarkdown": "Markdownを貼り付け"
+    "pasteMarkdown": "Markdownを貼り付け",
+    "readyToExport": "エクスポート準備完了"
   },
   "paste": {
     "label": "貼り付けられたMarkdown",

@@ -188,7 +188,7 @@ test.describe("Multilingual PDF Export", () => {
     await textarea.fill(ALL_LANGUAGES_CONTENT);
 
     // Wait for preview to update
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     // Set up download listener
     const downloadPromise = page.waitForEvent("download", { timeout: 60000 });
@@ -219,7 +219,7 @@ test.describe("Multilingual PDF Export", () => {
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill(content);
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download", { timeout: 60000 });
     await page.getByRole("button", { name: "To PDF" }).click();
@@ -241,7 +241,7 @@ test.describe("Multilingual PDF Export", () => {
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill(content);
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download", { timeout: 60000 });
     await page.getByRole("button", { name: "To PDF" }).click();
@@ -263,7 +263,7 @@ test.describe("Multilingual PDF Export", () => {
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill(content);
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download", { timeout: 60000 });
     await page.getByRole("button", { name: "To PDF" }).click();
@@ -285,7 +285,7 @@ test.describe("Multilingual PDF Export", () => {
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill(content);
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download", { timeout: 60000 });
     await page.getByRole("button", { name: "To PDF" }).click();
@@ -307,7 +307,7 @@ test.describe("Multilingual PDF Export", () => {
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill(content);
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download", { timeout: 60000 });
     await page.getByRole("button", { name: "To PDF" }).click();
@@ -335,7 +335,7 @@ test.describe("Multilingual File Upload", () => {
     await fileInput.setInputFiles(path.join(process.cwd(), "test-fixtures/multilingual-test.md"));
 
     // Wait for file to be processed
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     // Set up download listener with longer timeout for large file
     const downloadPromise = page.waitForEvent("download", { timeout: 60000 });
@@ -386,7 +386,7 @@ All currency symbols should render correctly.`;
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill(content);
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download", { timeout: 60000 });
     await page.getByRole("button", { name: "To PDF" }).click();
@@ -421,7 +421,7 @@ All symbols should render correctly.`;
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill(content);
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download", { timeout: 60000 });
     await page.getByRole("button", { name: "To PDF" }).click();

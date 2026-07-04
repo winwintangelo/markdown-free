@@ -15,7 +15,8 @@
     "supports": "支援 .md、.markdown、.txt • 最大 1 MB",
     "noFile": "尚未選擇檔案",
     "trySample": "試用範例檔案",
-    "pasteMarkdown": "貼上Markdown"
+    "pasteMarkdown": "貼上Markdown",
+    "readyToExport": "可以匯出了"
   },
   "paste": {
     "label": "貼上的Markdown",

@@ -15,7 +15,8 @@
     "supports": "Supports .md, .markdown, .txt • Max 1 MB",
     "noFile": "No file selected yet",
     "trySample": "Try sample file",
-    "pasteMarkdown": "paste Markdown"
+    "pasteMarkdown": "paste Markdown",
+    "readyToExport": "ready to export"
   },
   "paste": {
     "label": "Pasted Markdown",

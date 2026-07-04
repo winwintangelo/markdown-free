@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
-import { Upload } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Upload, Check } from "lucide-react";
 import { cn, formatFileSize, isValidFileType, isValidFileSize } from "@/lib/utils";
 import { useConverter } from "@/hooks/use-converter";
 import { trackUploadStart, trackUploadError, trackUploadHover, trackPasteToggleClick, trackSampleClick } from "@/lib/analytics";
@@ -21,6 +21,7 @@ const defaultDict = {
     chooseFile: "choose file",
     supports: "Supports .md, .markdown, .txt • Max 1 MB",
     noFile: "No file selected yet",
+    readyToExport: "ready to export",
     trySample: "Try sample file",
     pasteMarkdown: "paste Markdown"
   },
@@ -37,6 +38,19 @@ export function UploadCard({ locale: _locale, dict = defaultDict as unknown as D
   const [isDragOver, setIsDragOver] = useState(false);
   const hasTrackedHoverRef = useRef(false);
   const sectionRef = useSectionVisibility("upload");
+
+  // One-shot "ready" animation: bump a key each time a new file/sample loads
+  // so the checkmark + bridge replay their entrance.
+  const [readyKey, setReadyKey] = useState(0);
+  const prevContentRef = useRef(state.content);
+  useEffect(() => {
+    const loadedNow =
+      state.content?.source === "file" || state.content?.source === "sample";
+    if (loadedNow && state.content !== prevContentRef.current) {
+      setReadyKey((k) => k + 1);
+    }
+    prevContentRef.current = state.content;
+  }, [state.content]);
 
   const handleFile = useCallback(
     async (file: File) => {
@@ -179,23 +193,27 @@ export function UploadCard({ locale: _locale, dict = defaultDict as unknown as D
       return {
         dotColor: "bg-red-400",
         text: state.error.message,
+        isReady: false,
       };
     }
     if (state.content?.source === "file") {
       return {
         dotColor: "bg-emerald-500",
         text: `${state.content.filename} (${formatFileSize(state.content.size)})`,
+        isReady: true,
       };
     }
     if (state.content?.source === "sample") {
       return {
         dotColor: "bg-emerald-500",
         text: `Sample file loaded (${formatFileSize(state.content.size)})`,
+        isReady: true,
       };
     }
     return {
       dotColor: "bg-slate-300",
       text: dict.upload.noFile,
+      isReady: false,
     };
   };
 
@@ -251,9 +269,26 @@ export function UploadCard({ locale: _locale, dict = defaultDict as unknown as D
       />
 
       {/* Status indicator */}
-      <div className="pointer-events-none mt-4 flex items-center gap-2 text-xs text-slate-500">
-        <span className={cn("inline-flex h-1.5 w-1.5 rounded-full", status.dotColor)} />
-        <span>{status.text}</span>
+      <div className="pointer-events-none mt-4 flex items-center justify-center gap-1.5 text-xs">
+        {status.isReady ? (
+          <span key={readyKey} className="flex items-center gap-1.5">
+            <Check
+              className="ready-check-pop h-3.5 w-3.5 text-emerald-600"
+              strokeWidth={3}
+            />
+            <span className="ready-bridge-in text-slate-600">
+              {status.text}
+              <span className="ml-1 text-slate-400">
+                · {dict.upload.readyToExport} ↓
+              </span>
+            </span>
+          </span>
+        ) : (
+          <span className="flex items-center gap-2 text-slate-500">
+            <span className={cn("inline-flex h-1.5 w-1.5 rounded-full", status.dotColor)} />
+            <span>{status.text}</span>
+          </span>
+        )}
       </div>
 
       {/* Action links */}

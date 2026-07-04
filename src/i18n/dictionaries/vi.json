@@ -15,7 +15,8 @@
     "supports": "Hỗ trợ .md, .markdown, .txt • Tối đa 1 MB",
     "noFile": "Chưa chọn tệp nào",
     "trySample": "Thử tệp mẫu",
-    "pasteMarkdown": "dán Markdown"
+    "pasteMarkdown": "dán Markdown",
+    "readyToExport": "sẵn sàng để xuất"
   },
   "paste": {
     "label": "Markdown đã dán",

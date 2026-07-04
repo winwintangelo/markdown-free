@@ -15,7 +15,8 @@
     "supports": ".md, .markdown, .txt का समर्थन • अधिकतम 1 MB",
     "noFile": "अभी कोई फाइल चयनित नहीं",
     "trySample": "नमूना फाइल आज़माएँ",
-    "pasteMarkdown": "Markdown पेस्ट करें"
+    "pasteMarkdown": "Markdown पेस्ट करें",
+    "readyToExport": "एक्सपोर्ट के लिए तैयार"
   },
   "paste": {
     "label": "पेस्ट किया गया Markdown",

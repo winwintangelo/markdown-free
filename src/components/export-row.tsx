@@ -94,6 +94,8 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   } | null>(null);
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [imageConverting, setImageConverting] = useState(false);
+  const [rowGlow, setRowGlow] = useState(false);
+  const glowContentRef = useRef(state.content);
   const imagePanelRef = useRef<ImageExportPanelHandle>(null);
   const moreMenuRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
@@ -116,6 +118,19 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   const hasContent = state.content && state.status === "ready";
   // Button is in loading state
   const isLoading = loadingFormat !== null || loadingShareFormat !== null || imageConverting;
+
+  // One-shot glow on the export row when new content becomes ready — the
+  // universal "ready to export" cue (fires for file, sample and paste, on
+  // desktop and mobile), paired with the upload zone's checkmark.
+  useEffect(() => {
+    if (state.content && state.content !== glowContentRef.current) {
+      glowContentRef.current = state.content;
+      setRowGlow(true);
+      const t = setTimeout(() => setRowGlow(false), 1300);
+      return () => clearTimeout(t);
+    }
+    glowContentRef.current = state.content;
+  }, [state.content]);
 
   // Track hover on buttons when no content (shows interest)
   const handleButtonHover = useCallback((format: ExportFormat) => {
@@ -604,7 +619,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           </p>
         </div>
       ) : (
-      <div ref={sectionRef} className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+      <div ref={sectionRef} className={cn("flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm", rowGlow && "export-ready-glow")}>
         {showShareUI ? (
           /* ===== MOBILE SHARE-FIRST LAYOUT ===== */
           <div className="flex w-full flex-col gap-2">

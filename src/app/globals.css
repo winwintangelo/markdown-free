@@ -50,3 +50,45 @@
   40%, 80% { transform: translateX(6px); }
 }
 
+/* "Ready" cue: checkmark pop in the upload zone status line */
+@keyframes ready-check-pop {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.ready-check-pop {
+  animation: ready-check-pop 0.4s cubic-bezier(0.2, 1.4, 0.5, 1) both;
+}
+
+/* "Ready" cue: the bridge text (filename · ready to export ↓) fades/rises in */
+@keyframes ready-bridge-in {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.ready-bridge-in {
+  animation: ready-bridge-in 0.4s ease both;
+}
+
+/* "Ready" cue: the export button row glows emerald once, then settles */
+@keyframes export-ready-glow {
+  0% {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25), 0 8px 20px rgba(16, 185, 129, 0.16);
+    border-color: #10b981;
+  }
+  100% {
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+    border-color: #e2e8f0;
+  }
+}
+.export-ready-glow {
+  animation: export-ready-glow 1.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ready-check-pop,
+  .ready-bridge-in,
+  .export-ready-glow {
+    animation: none;
+  }
+}
+

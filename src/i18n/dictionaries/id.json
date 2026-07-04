@@ -15,7 +15,8 @@
     "supports": "Mendukung .md, .markdown, .txt • Maks 1 MB",
     "noFile": "Belum ada file yang dipilih",
     "trySample": "Coba file contoh",
-    "pasteMarkdown": "tempel Markdown"
+    "pasteMarkdown": "tempel Markdown",
+    "readyToExport": "siap diekspor"
   },
   "paste": {
     "label": "Markdown yang Ditempel",

@@ -39,7 +39,7 @@ This is a normal markdown document.
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill(content);
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download", { timeout: 60000 });
     await page.getByRole("button", { name: "To PDF" }).click();
@@ -75,7 +75,7 @@ Normal text continues here.`;
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill(content);
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download", { timeout: 60000 });
     await page.getByRole("button", { name: "To PDF" }).click();
@@ -116,7 +116,7 @@ Normal text after XSS attempts.
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill(content);
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     // Verify XSS is sanitized in preview (no script tags, no javascript: URLs)
     const previewContent = await page.locator("article").innerHTML();
@@ -161,7 +161,7 @@ This should render as code, not execute.`;
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill(content);
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download", { timeout: 60000 });
     await page.getByRole("button", { name: "To PDF" }).click();
@@ -223,7 +223,7 @@ This document has an external image that should be proxied.`;
     const textarea = page.getByPlaceholder("Paste your Markdown here…");
     await textarea.fill(content);
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download", { timeout: 60000 });
     await page.getByRole("button", { name: "To PDF" }).click();

@@ -935,7 +935,7 @@ test.describe("Markdown Free - Export Functionality", () => {
     await textarea.fill("# Pasted Content\n\nThis was pasted, not uploaded.");
 
     // Wait for content to be processed
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     // Set up download listener
     const downloadPromise = page.waitForEvent("download");
@@ -979,7 +979,7 @@ test.describe("Markdown Free - Export Functionality", () => {
       buffer: Buffer.from("# Quarterly Report\n\nQ1-Q4 Analysis"),
     });
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download");
     await page.getByRole("button", { name: "To Word (DOCX)" }).click();
@@ -1021,7 +1021,7 @@ test.describe("Markdown Free - Export Functionality", () => {
       buffer: Buffer.from("# 标题\n\n内容"),
     });
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download");
     await page.getByRole("button", { name: "To Word (DOCX)" }).click();
@@ -1091,7 +1091,7 @@ function hello() {
       buffer: Buffer.from(complexMarkdown),
     });
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download");
     await page.getByRole("button", { name: "To Word (DOCX)" }).click();
@@ -2479,7 +2479,7 @@ test.describe("Markdown Free - Special Filename Handling", () => {
     });
 
     // Wait for content to load
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     // Set up download listener
     const downloadPromise = page.waitForEvent("download");
@@ -2532,7 +2532,7 @@ test.describe("Markdown Free - Special Filename Handling", () => {
       buffer: Buffer.from("# My Notes\n\nImportant stuff"),
     });
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download");
     await page.getByRole("button", { name: /To PDF/i }).click();
@@ -2580,7 +2580,7 @@ test.describe("Markdown Free - Special Filename Handling", () => {
       buffer: Buffer.from("# 标题\n\n内容"),
     });
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download");
     await page.getByRole("button", { name: /To PDF/i }).click();
@@ -2604,7 +2604,7 @@ test.describe("Markdown Free - Special Filename Handling", () => {
       buffer: Buffer.from("# Summary\n\nYear in review"),
     });
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download");
     await openMoreFormats(page);
@@ -2625,7 +2625,7 @@ test.describe("Markdown Free - Special Filename Handling", () => {
       buffer: Buffer.from("# My Résumé\n\nExperience"),
     });
 
-    await expect(page.getByText("Ready to export")).toBeVisible();
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible();
 
     const downloadPromise = page.waitForEvent("download");
     await openMoreFormats(page);

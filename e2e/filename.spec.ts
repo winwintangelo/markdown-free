@@ -125,7 +125,7 @@ test.describe("Filename preservation - PDF export", () => {
       await uploadFile(page, testCase.filename, testMarkdown);
       
       // Wait for content to load
-      await expect(page.getByText("Ready to export")).toBeVisible({ timeout: 5000 });
+      await expect(page.getByText(/Ready to export \(/)).toBeVisible({ timeout: 5000 });
 
       // Check download filename
       await expectDownloadFilename(
@@ -177,7 +177,7 @@ test.describe("Filename preservation - DOCX export", () => {
       await uploadFile(page, testCase.filename, testMarkdown);
       
       // Wait for content to load
-      await expect(page.getByText("Ready to export")).toBeVisible({ timeout: 5000 });
+      await expect(page.getByText(/Ready to export \(/)).toBeVisible({ timeout: 5000 });
 
       // Check download filename
       await expectDownloadFilename(
@@ -218,7 +218,7 @@ test.describe("Filename edge cases", () => {
     });
 
     await uploadFile(page, longName, testMarkdown);
-    await expect(page.getByText("Ready to export")).toBeVisible({ timeout: 5000 });
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible({ timeout: 5000 });
 
     await expectDownloadFilename(page, 'button:has-text("To Word (DOCX)")', `${expectedBase}.docx`);
   });
@@ -243,7 +243,7 @@ test.describe("Filename edge cases", () => {
     });
 
     await uploadFile(page, specialName, testMarkdown);
-    await expect(page.getByText("Ready to export")).toBeVisible({ timeout: 5000 });
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible({ timeout: 5000 });
 
     await expectDownloadFilename(page, 'button:has-text("To Word (DOCX)")', "✨🎉🚀.docx");
   });
@@ -268,7 +268,7 @@ test.describe("Filename edge cases", () => {
     });
 
     await uploadFile(page, mixedName, testMarkdown);
-    await expect(page.getByText("Ready to export")).toBeVisible({ timeout: 5000 });
+    await expect(page.getByText(/Ready to export \(/)).toBeVisible({ timeout: 5000 });
 
     await expectDownloadFilename(page, 'button:has-text("To Word (DOCX)")', "document-文档-📄.docx");
   });
