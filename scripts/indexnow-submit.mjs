@@ -26,7 +26,17 @@ const INDEXNOW_ENDPOINT = "https://api.indexnow.org/indexnow";
 // Recently changed pages (update this when deploying significant changes)
 // ============================================================================
 const NEW_PAGES = [
-  // All locale homepages (title dedup fix + Umami proxy - Feb 8)
+  // Markdown → Image (PNG) intent cluster — NEW pages (2026-07-04)
+  "/markdown-to-png",
+  "/ja/markdown-gazou-henkan",
+  "/ko/markdown-imiji-byeonhwan",
+  "/zh-Hans/markdown-zhuan-tupian",
+  "/zh-Hant/markdown-zhuan-tupian-tw",
+  "/es/markdown-a-png",
+  "/it/markdown-in-png",
+  "/id/markdown-ke-gambar",
+  "/vi/markdown-sang-anh",
+  // Homepages — title/hero/copy now include Word (DOCX) + Image (PNG)
   "/",
   "/ja",
   "/ko",
@@ -36,19 +46,22 @@ const NEW_PAGES = [
   "/zh-Hant",
   "/id",
   "/vi",
-  // FAQ pages (title fix)
+  "/hi",
+  // FAQ pages — new image Q&A + subtitle/meta-description refresh
   "/faq",
   "/ja/faq",
   "/ko/faq",
   "/it/faq",
   "/es/faq",
-  // About/Privacy (brand added to title)
-  "/about",
-  "/privacy",
-  "/ja/about",
-  "/ja/privacy",
-  "/ko/about",
-  "/ko/privacy",
+  "/zh-Hans/faq",
+  "/zh-Hant/faq",
+  "/id/faq",
+  "/vi/faq",
+  "/hi/faq",
+  // Word/DOCX + no-watermark pages — button rename + format list
+  "/markdown-to-docx",
+  "/markdown-to-word",
+  "/markdown-to-pdf-no-watermark",
 ];
 
 // ============================================================================
