@@ -68,7 +68,7 @@ function getJsonLd(locale: Locale, dict: ReturnType<typeof getDictionary>) {
           name: "Markdown Free",
           url: siteUrl,
         },
-        screenshot: `${siteUrl}/og-image.svg`,
+        screenshot: `${siteUrl}/og-image.png`,
         softwareHelp: {
           "@type": "WebPage",
           url: `${siteUrl}/faq`,

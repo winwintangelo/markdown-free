@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Export bar — design options</title>
+<style>
+  :root {
+    --slate-50:#f8fafc; --slate-100:#f1f5f9; --slate-200:#e2e8f0; --slate-300:#cbd5e1;
+    --slate-400:#94a3b8; --slate-500:#64748b; --slate-600:#475569; --slate-700:#334155; --slate-900:#0f172a;
+    --emerald-500:#10b981; --emerald-700:#047857; --emerald-800:#065f46;
+    --blue-50:#eff6ff; --blue-200:#bfdbfe; --blue-300:#93c5fd; --blue-600:#2563eb; --blue-700:#1d4ed8;
+    --purple-50:#faf5ff; --purple-200:#e9d5ff; --purple-700:#7e22ce;
+    --amber-50:#fffbeb; --amber-100:#fef3c7; --amber-200:#fde68a; --amber-300:#fcd34d; --amber-700:#b45309; --amber-800:#92400e;
+    --green-50:#f0fdf4; --green-200:#bbf7d0; --green-800:#166534;
+    --red-50:#fef2f2; --red-200:#fecaca; --red-700:#b91c1c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--slate-50); color: var(--slate-900);
+    padding: 48px 24px 96px; line-height: 1.5;
+  }
+  .page { max-width: 980px; margin: 0 auto; }
+  h1 { font-size: 28px; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .intro { color: var(--slate-500); font-size: 14px; max-width: 720px; margin-bottom: 8px; }
+  .traffic {
+    display: inline-flex; gap: 14px; flex-wrap: wrap; margin: 12px 0 40px;
+    font-size: 12px; color: var(--slate-600);
+    background: #fff; border: 1px solid var(--slate-200); border-radius: 12px; padding: 10px 14px;
+  }
+  .traffic b { color: var(--slate-900); }
+
+  section { margin-bottom: 56px; }
+  .option-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; flex-wrap: wrap; }
+  .option-head h2 { font-size: 18px; letter-spacing: -0.01em; }
+  .tag {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+    padding: 3px 9px; border-radius: 999px;
+  }
+  .tag.rec { background: var(--green-50); color: var(--green-800); border: 1px solid var(--green-200); }
+  .tag.alt { background: var(--blue-50); color: var(--blue-700); border: 1px solid var(--blue-200); }
+  .tag.bold { background: var(--amber-50); color: var(--amber-800); border: 1px solid var(--amber-200); }
+  .tag.base { background: var(--slate-100); color: var(--slate-500); border: 1px solid var(--slate-200); }
+  .option-desc { font-size: 13px; color: var(--slate-500); margin-bottom: 14px; max-width: 760px; }
+
+  /* ===== the mock export card (mimics the real site card) ===== */
+  .card {
+    background: #fff; border: 1px solid var(--slate-200); border-radius: 16px;
+    padding: 14px 16px; box-shadow: 0 1px 2px rgba(15,23,42,.05);
+  }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .row + .row { margin-top: 8px; }
+  .row .spacer { flex: 1; }
+  .privacy { font-size: 11px; color: var(--slate-500); }
+
+  /* pill buttons — matches the live site scale */
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    border-radius: 999px; padding: 8px 16px;
+    font-size: 12px; font-weight: 600; font-family: inherit;
+    border: 1px solid transparent; cursor: pointer;
+    box-shadow: 0 1px 2px rgba(15,23,42,.06); transition: all .12s ease;
+    background: var(--slate-50); color: var(--slate-700); border-color: var(--slate-200);
+  }
+  .btn:hover { background: #fff; border-color: var(--slate-300); }
+  .btn.pdf { background: var(--emerald-700); color: #fff; border-color: var(--emerald-700); }
+  .btn.pdf:hover { background: var(--emerald-800); }
+  .btn.docx { background: var(--blue-50); color: var(--blue-700); border-color: var(--blue-200); }
+  .btn.docx:hover { background: #dbeafe; border-color: var(--blue-300); }
+  .btn.epub { background: var(--purple-50); color: var(--purple-700); border-color: var(--purple-200); }
+  .btn.img  { background: var(--amber-50); color: var(--amber-700); border-color: var(--amber-200); }
+  .btn.img:hover, .btn.img.active { background: var(--amber-100); border-color: var(--amber-300); color: var(--amber-800); }
+  .btn.big { padding: 10px 20px; font-size: 13px; }
+  .btn.mini { padding: 5px 12px; font-size: 11px; font-weight: 500; box-shadow: none; color: var(--slate-500); }
+  .btn.mini:hover { color: var(--slate-700); }
+  .btn.chip {
+    padding: 6px 12px; font-size: 11px; box-shadow: none; font-weight: 600;
+    background: #fff; border-style: dashed; border-color: var(--slate-300); color: var(--slate-500);
+  }
+  .btn.chip:hover { color: var(--slate-700); border-color: var(--slate-400); background: var(--slate-50); }
+  .caret { font-size: 9px; opacity: .7; }
+
+  /* dropdown */
+  .dd-wrap { position: relative; display: inline-block; }
+  .dd {
+    position: absolute; top: calc(100% + 6px); left: 0; z-index: 30; min-width: 150px;
+    background: #fff; border: 1px solid var(--slate-200); border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(15,23,42,.12); padding: 6px; display: none;
+  }
+  .dd.open { display: block; }
+  .dd button {
+    display: flex; width: 100%; align-items: center; gap: 8px;
+    padding: 8px 12px; font-size: 12px; color: var(--slate-600); font-family: inherit;
+    background: none; border: none; border-radius: 8px; cursor: pointer; text-align: left;
+  }
+  .dd button:hover { background: var(--slate-50); color: var(--slate-900); }
+  .dd .dd-note { font-size: 10px; color: var(--slate-400); padding: 4px 12px 6px; display: block; }
+
+  /* group dividers (option C) */
+  .group { display: inline-flex; align-items: center; gap: 8px; padding: 4px 10px; border-radius: 12px; }
+  .group + .group { border-left: 1px solid var(--slate-200); padding-left: 18px; margin-left: 8px; }
+  .group-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--slate-400); margin-right: 2px; }
+
+  /* icon tiles (option H) */
+  .tiles { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+  .tile {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+    min-width: 86px; padding: 12px 14px; border-radius: 14px; cursor: pointer;
+    font-family: inherit; font-size: 12px; font-weight: 700;
+    background: #fff; border: 1px solid var(--slate-200); color: var(--slate-700);
+    box-shadow: 0 1px 2px rgba(15,23,42,.05); transition: all .12s ease;
+  }
+  .tile:hover { border-color: var(--slate-300); transform: translateY(-1px); }
+  .tile .ic { font-size: 20px; line-height: 1; }
+  .tile .sub { font-size: 9px; font-weight: 500; color: var(--slate-400); }
+  .tile.pdf { border-color: var(--emerald-700); background: var(--emerald-700); color: #fff; }
+  .tile.pdf .sub { color: rgba(255,255,255,.7); }
+  .tile.docx { border-color: var(--blue-200); background: var(--blue-50); color: var(--blue-700); }
+  .tile.docx .sub { color: var(--blue-600); opacity: .6; }
+  .tile.img { border-color: var(--amber-200); background: var(--amber-50); color: var(--amber-800); }
+  .tile.img .sub { color: var(--amber-700); opacity: .7; }
+  .tile.small { min-width: 64px; padding: 8px 10px; font-size: 11px; font-weight: 600; color: var(--slate-500); }
+  .tile.small .ic { font-size: 14px; }
+
+  /* promoted pill hint (option G) */
+  .hint {
+    font-size: 10px; color: var(--green-800); background: var(--green-50);
+    border: 1px solid var(--green-200); border-radius: 8px; padding: 3px 8px;
+  }
+
+  /* image options panel mock */
+  .panel {
+    margin-top: 10px; border: 1px solid var(--slate-200); border-radius: 14px;
+    background: #fff; padding: 12px 14px; display: none;
+  }
+  .panel.open { display: block; }
+  .panel .controls { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 18px; }
+  .field { display: flex; flex-direction: column; gap: 4px; font-size: 11px; font-weight: 600; color: var(--slate-600); }
+  .field select {
+    font-family: inherit; font-size: 12px; color: var(--slate-700);
+    background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 8px; padding: 6px 8px;
+  }
+  .seg { display: inline-flex; border: 1px solid var(--slate-200); border-radius: 8px; overflow: hidden; }
+  .seg button {
+    font-family: inherit; font-size: 11px; padding: 6px 10px; border: none; cursor: pointer;
+    background: var(--slate-50); color: var(--slate-600);
+  }
+  .seg button.on { background: var(--emerald-700); color: #fff; font-weight: 700; }
+  .field input[type=range] { width: 110px; accent-color: var(--emerald-700); }
+  .dl {
+    display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 8px 18px;
+    font-family: inherit; font-size: 12px; font-weight: 700; border: none; cursor: pointer;
+    background: var(--emerald-700); color: #fff; box-shadow: 0 1px 2px rgba(15,23,42,.1);
+  }
+  .dl:hover { background: var(--emerald-800); }
+
+  /* pros/cons */
+  .pc { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; max-width: 760px; }
+  .pc div { font-size: 12px; border-radius: 12px; padding: 10px 14px; }
+  .pc .pros { background: var(--green-50); border: 1px solid var(--green-200); color: var(--green-800); }
+  .pc .cons { background: var(--red-50); border: 1px solid var(--red-200); color: var(--red-700); }
+  .pc ul { padding-left: 16px; }
+  .pc li { margin: 2px 0; }
+  .pc b { display: block; margin-bottom: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+
+  .note {
+    margin-top: 40px; background: #fff; border: 1px solid var(--slate-200); border-radius: 16px;
+    padding: 18px 20px; font-size: 13px; color: var(--slate-600); max-width: 980px;
+  }
+  .note h3 { font-size: 14px; color: var(--slate-900); margin-bottom: 6px; }
+  .note ul { padding-left: 18px; }
+  .note li { margin: 3px 0; }
+  @media (max-width: 640px) { .pc { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Export bar — design options</h1>
+  <p class="intro">The current bar shows 7 equally-weighted pills. Traffic says the weights should be anything but equal. Every option below is interactive — click the buttons.</p>
+  <div class="traffic">
+    <span>📊 usage:</span>
+    <span><b>PDF</b> heavy</span>
+    <span><b>DOCX</b> heavy</span>
+    <span><b>PNG</b> expected heavy (new)</span>
+    <span><b>EPUB</b> rare</span>
+    <span><b>HTML</b> rare</span>
+    <span><b>TXT</b> rare</span>
+  </div>
+
+  <!-- ============ CURRENT ============ -->
+  <section>
+    <div class="option-head"><h2>Current</h2><span class="tag base">baseline</span></div>
+    <p class="option-desc">Seven pills, one visual tier. PNG/JPG made it two buttons longer.</p>
+    <div class="card">
+      <div class="row">
+        <button class="btn pdf">To PDF</button>
+        <button class="btn docx">To DOCX</button>
+        <button class="btn epub">To EPUB</button>
+        <button class="btn">To TXT</button>
+        <button class="btn">To HTML</button>
+        <button class="btn img">To PNG</button>
+        <button class="btn img">To JPG</button>
+        <span class="spacer"></span>
+        <span class="privacy">Files are processed temporarily for conversion and not stored.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OPTION B ============ -->
+  <section>
+    <div class="option-head"><h2>Option B — Primary three + “More formats” menu</h2><span class="tag alt">alternative</span></div>
+    <p class="option-desc">
+      Most aggressive cleanup: only the big three visible, everything else behind a dropdown —
+      the same pattern the mobile layout already uses for its “More formats” menu.
+    </p>
+    <div class="card">
+      <div class="row">
+        <button class="btn pdf big">To PDF</button>
+        <button class="btn docx big">To DOCX</button>
+        <button class="btn img big" onclick="togglePanel('b')">To PNG <span class="caret">▾</span></button>
+        <span class="dd-wrap">
+          <button class="btn" onclick="toggleDd(event, 'dd-b')">More formats <span class="caret">▾</span></button>
+          <span class="dd" id="dd-b">
+            <button>To EPUB</button>
+            <button>To HTML</button>
+            <button>To TXT</button>
+            <button>To JPG</button>
+            <span class="dd-note">JPG could also live inside the PNG panel instead</span>
+          </span>
+        </span>
+        <span class="spacer"></span>
+        <span class="privacy">Files are never stored.</span>
+      </div>
+      <div class="panel" id="panel-b">
+        <div class="controls">
+          <div class="field">Width
+            <select><option>600 px</option><option selected>800 px</option><option>1080 px</option><option>1200 px</option></select>
+          </div>
+          <div class="field">Sharpness
+            <select><option>1x</option><option selected>2x</option><option>3x</option></select>
+          </div>
+          <div class="field">Long document
+            <span class="seg"><button class="on" onclick="segPick(this)">Auto</button><button onclick="segPick(this)">Single</button><button onclick="segPick(this)">Split</button></span>
+          </div>
+          <button class="dl">Download PNG</button>
+        </div>
+      </div>
+    </div>
+    <div class="pc">
+      <div class="pros"><b>Pros</b><ul>
+        <li>Cleanest possible bar — 4 pills, lots of air</li>
+        <li>Desktop and mobile share one mental model (“More” menu)</li>
+        <li>Scales gracefully if formats keep growing</li>
+      </ul></div>
+      <div class="cons"><b>Cons</b><ul>
+        <li>EPUB/HTML/TXT cost two clicks and lose at-a-glance discoverability</li>
+        <li>Landing pages that promise “export to EPUB” point at a hidden button</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- ============ OPTION C ============ -->
+  <section>
+    <div class="option-head"><h2>Option C — Grouped bar with category labels</h2><span class="tag alt">alternative</span></div>
+    <p class="option-desc">
+      Keep every pill but organize by output type: Documents · Image · Text. Improves scannability without hiding anything —
+      but the row stays just as long.
+    </p>
+    <div class="card">
+      <div class="row">
+        <span class="group">
+          <span class="group-label">Docs</span>
+          <button class="btn pdf">PDF</button>
+          <button class="btn docx">DOCX</button>
+          <button class="btn epub">EPUB</button>
+        </span>
+        <span class="group">
+          <span class="group-label">Image</span>
+          <button class="btn img" onclick="togglePanel('c')">PNG / JPG <span class="caret">▾</span></button>
+        </span>
+        <span class="group">
+          <span class="group-label">Text</span>
+          <button class="btn">HTML</button>
+          <button class="btn">TXT</button>
+        </span>
+        <span class="spacer"></span>
+        <span class="privacy">Files are never stored.</span>
+      </div>
+      <div class="panel" id="panel-c">
+        <div class="controls">
+          <div class="field">Format
+            <span class="seg"><button class="on" onclick="segPick(this); jpgFields('c', false)">PNG</button><button onclick="segPick(this); jpgFields('c', true)">JPG</button></span>
+          </div>
+          <div class="field">Width
+            <select><option>600 px</option><option selected>800 px</option><option>1080 px</option><option>1200 px</option></select>
+          </div>
+          <div class="field">Sharpness
+            <select><option>1x</option><option selected>2x</option><option>3x</option></select>
+          </div>
+          <div class="field" id="c-quality" style="display:none">Quality: 90
+            <input type="range" min="60" max="100" value="90">
+          </div>
+          <div class="field">Long document
+            <span class="seg"><button class="on" onclick="segPick(this)">Auto</button><button onclick="segPick(this)">Single</button><button onclick="segPick(this)">Split</button></span>
+          </div>
+          <button class="dl" id="c-dl">Download PNG</button>
+        </div>
+      </div>
+    </div>
+    <div class="pc">
+      <div class="pros"><b>Pros</b><ul>
+        <li>Everything visible and one click; easier to scan than a flat list</li>
+        <li>Communicates the breadth of the tool (marketing value)</li>
+      </ul></div>
+      <div class="cons"><b>Cons</b><ul>
+        <li>Doesn’t actually reduce clutter — same number of targets</li>
+        <li>Group labels add visual noise of their own; weakest fit for the traffic data</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- ============ OPTION E ============ -->
+  <section>
+    <div class="option-head"><h2>Option E — Two-tier rows</h2><span class="tag rec">recommended</span></div>
+    <p class="option-desc">
+      Primary formats get a big-pill row of their own; the long tail moves to a second line of smaller, lighter pills.
+      Everything stays a visible, one-click <em>button</em> — hierarchy comes purely from size and weight.
+      JPG merges into the PNG panel as a format toggle.
+    </p>
+    <div class="card">
+      <div class="row">
+        <button class="btn pdf big">To PDF</button>
+        <button class="btn docx big">To DOCX</button>
+        <button class="btn img big" id="e-png" onclick="togglePanel('e')">To PNG <span class="caret">▾</span></button>
+        <span class="spacer"></span>
+        <span class="privacy">Files are never stored.</span>
+      </div>
+      <div class="row">
+        <button class="btn mini">To EPUB</button>
+        <button class="btn mini">To HTML</button>
+        <button class="btn mini">To TXT</button>
+      </div>
+      <div class="panel" id="panel-e">
+        <div class="controls">
+          <div class="field">Format
+            <span class="seg"><button class="on" onclick="segPick(this); jpgFields('e', false)">PNG</button><button onclick="segPick(this); jpgFields('e', true)">JPG</button></span>
+          </div>
+          <div class="field">Width
+            <select><option>600 px</option><option selected>800 px</option><option>1080 px</option><option>1200 px</option></select>
+          </div>
+          <div class="field">Sharpness
+            <select><option>1x</option><option selected>2x</option><option>3x</option></select>
+          </div>
+          <div class="field" id="e-quality" style="display:none">Quality: 90
+            <input type="range" min="60" max="100" value="90">
+          </div>
+          <div class="field">Long document
+            <span class="seg"><button class="on" onclick="segPick(this)">Auto</button><button onclick="segPick(this)">Single image</button><button onclick="segPick(this)">Split into parts</button></span>
+          </div>
+          <button class="dl" id="e-dl">Download PNG</button>
+        </div>
+      </div>
+    </div>
+    <div class="pc">
+      <div class="pros"><b>Pros</b><ul>
+        <li>Clear hierarchy that matches traffic, yet every format stays a visible one-click pill</li>
+        <li>No menus, no hidden states — intent-page promises (“export to EPUB”) stay pointable</li>
+        <li>Primary row has room to breathe; scales if PNG options grow</li>
+      </ul></div>
+      <div class="cons"><b>Cons</b><ul>
+        <li>Card gets one line taller (minor on desktop, fine on mobile which has its own layout)</li>
+        <li>Two rows can read as “advanced vs basic” rather than “popular vs rare”</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- ============ OPTION F ============ -->
+  <section>
+    <div class="option-head"><h2>Option F — Inline “+3 more” expander</h2><span class="tag alt">alternative</span></div>
+    <p class="option-desc">
+      One row with the big three plus a subtle dashed “+3 more” chip. Clicking it expands the remaining
+      pills <em>in place</em> — no floating menu, no second tier. The expanded state would be remembered
+      (localStorage), so long-tail users see their format from the second visit on.
+    </p>
+    <div class="card">
+      <div class="row" id="f-row">
+        <button class="btn pdf big">To PDF</button>
+        <button class="btn docx big">To DOCX</button>
+        <button class="btn img big" onclick="togglePanel('f')">To PNG <span class="caret">▾</span></button>
+        <button class="btn chip" id="f-chip" onclick="expandF()">+3 more</button>
+        <span class="spacer"></span>
+        <span class="privacy">Files are never stored.</span>
+      </div>
+      <div class="panel" id="panel-f">
+        <div class="controls">
+          <div class="field">Format
+            <span class="seg"><button class="on" onclick="segPick(this); jpgFields('f', false)">PNG</button><button onclick="segPick(this); jpgFields('f', true)">JPG</button></span>
+          </div>
+          <div class="field">Width
+            <select><option>600 px</option><option selected>800 px</option><option>1080 px</option><option>1200 px</option></select>
+          </div>
+          <div class="field">Sharpness
+            <select><option>1x</option><option selected>2x</option><option>3x</option></select>
+          </div>
+          <div class="field" id="f-quality" style="display:none">Quality: 90
+            <input type="range" min="60" max="100" value="90">
+          </div>
+          <div class="field">Long document
+            <span class="seg"><button class="on" onclick="segPick(this)">Auto</button><button onclick="segPick(this)">Single</button><button onclick="segPick(this)">Split</button></span>
+          </div>
+          <button class="dl" id="f-dl">Download PNG</button>
+        </div>
+      </div>
+    </div>
+    <div class="pc">
+      <div class="pros"><b>Pros</b><ul>
+        <li>Default view is as clean as Option B, but expansion happens inline — no menu to aim at</li>
+        <li>Sticky expansion means the two-click cost is paid once per user, ever</li>
+        <li>“+3 more” honestly advertises there’s more, unlike a generic “More” button</li>
+      </ul></div>
+      <div class="cons"><b>Cons</b><ul>
+        <li>First-time EPUB/HTML/TXT users still pay one extra click</li>
+        <li>Row width jumps when expanded — slight layout shift</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- ============ OPTION G ============ -->
+  <section>
+    <div class="option-head"><h2>Option G — Adaptive bar (learns your format)</h2><span class="tag bold">bold pick</span></div>
+    <p class="option-desc">
+      Same clean default as Option B, but the bar personalizes: export a hidden format once and it gets
+      <em>promoted into the visible row</em> on your next visit (localStorage, no server state).
+      An EPUB regular ends up with an EPUB pill; everyone else never sees it.
+      <b>Try it:</b> open “More” and click “To EPUB”.
+    </p>
+    <div class="card">
+      <div class="row" id="g-row">
+        <button class="btn pdf big">To PDF</button>
+        <button class="btn docx big">To DOCX</button>
+        <button class="btn img big" onclick="togglePanel('g')">To PNG <span class="caret">▾</span></button>
+        <span class="dd-wrap" id="g-more">
+          <button class="btn" onclick="toggleDd(event, 'dd-g')">More <span class="caret">▾</span></button>
+          <span class="dd" id="dd-g">
+            <button onclick="promoteG('To EPUB', 'epub')">To EPUB</button>
+            <button onclick="promoteG('To HTML', '')">To HTML</button>
+            <button onclick="promoteG('To TXT', '')">To TXT</button>
+            <button onclick="promoteG('To JPG', 'img')">To JPG</button>
+          </span>
+        </span>
+        <span class="spacer"></span>
+        <span class="privacy">Files are never stored.</span>
+      </div>
+      <div class="panel" id="panel-g">
+        <div class="controls">
+          <div class="field">Width
+            <select><option>600 px</option><option selected>800 px</option><option>1080 px</option><option>1200 px</option></select>
+          </div>
+          <div class="field">Sharpness
+            <select><option>1x</option><option selected>2x</option><option>3x</option></select>
+          </div>
+          <div class="field">Long document
+            <span class="seg"><button class="on" onclick="segPick(this)">Auto</button><button onclick="segPick(this)">Single</button><button onclick="segPick(this)">Split</button></span>
+          </div>
+          <button class="dl">Download PNG</button>
+        </div>
+      </div>
+    </div>
+    <div class="pc">
+      <div class="pros"><b>Pros</b><ul>
+        <li>Every user converges on a bar that matches <em>their</em> usage, not the average</li>
+        <li>Clean default for the majority; zero ongoing cost for regulars of rare formats</li>
+        <li>Cookieless personalization (localStorage) — consistent with the privacy stance</li>
+      </ul></div>
+      <div class="cons"><b>Cons</b><ul>
+        <li>Moving targets can confuse (“where did that button come from?”)</li>
+        <li>Most implementation effort of all options; harder to e2e test deterministically</li>
+        <li>First-time long-tail users still start behind the menu</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- ============ OPTION H ============ -->
+  <section>
+    <div class="option-head"><h2>Option H — Icon tiles</h2><span class="tag alt">alternative</span></div>
+    <p class="option-desc">
+      A different visual language: export targets as compact tiles with icons — large tiles for the big three,
+      small quiet tiles for the rest. Feels like a “save as” destination picker; the icons carry the hierarchy
+      and make formats recognizable at a glance (helpful across 10 locales).
+    </p>
+    <div class="card">
+      <div class="tiles">
+        <button class="tile pdf"><span class="ic">📄</span>PDF<span class="sub">document</span></button>
+        <button class="tile docx"><span class="ic">📝</span>DOCX<span class="sub">Word</span></button>
+        <button class="tile img" onclick="togglePanel('h')"><span class="ic">🖼️</span>PNG / JPG<span class="sub">image · 长图</span></button>
+        <button class="tile small"><span class="ic">📚</span>EPUB</button>
+        <button class="tile small"><span class="ic">🌐</span>HTML</button>
+        <button class="tile small"><span class="ic">📃</span>TXT</button>
+      </div>
+      <div class="panel" id="panel-h">
+        <div class="controls">
+          <div class="field">Format
+            <span class="seg"><button class="on" onclick="segPick(this); jpgFields('h', false)">PNG</button><button onclick="segPick(this); jpgFields('h', true)">JPG</button></span>
+          </div>
+          <div class="field">Width
+            <select><option>600 px</option><option selected>800 px</option><option>1080 px</option><option>1200 px</option></select>
+          </div>
+          <div class="field">Sharpness
+            <select><option>1x</option><option selected>2x</option><option>3x</option></select>
+          </div>
+          <div class="field" id="h-quality" style="display:none">Quality: 90
+            <input type="range" min="60" max="100" value="90">
+          </div>
+          <div class="field">Long document
+            <span class="seg"><button class="on" onclick="segPick(this)">Auto</button><button onclick="segPick(this)">Single</button><button onclick="segPick(this)">Split</button></span>
+          </div>
+          <button class="dl" id="h-dl">Download PNG</button>
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <span class="privacy">Files are never stored.</span>
+      </div>
+    </div>
+    <div class="pc">
+      <div class="pros"><b>Pros</b><ul>
+        <li>Icons + size make hierarchy and format type instantly scannable, even pre-translation</li>
+        <li>Distinctive look — differentiates from every pill-bar competitor</li>
+        <li>Sub-labels add context (“Word”, “长图”) without extra copy elsewhere</li>
+      </ul></div>
+      <div class="cons"><b>Cons</b><ul>
+        <li>Tallest variant — pushes the preview card further down (hurts the upload-first flow)</li>
+        <li>Bigger visual departure: needs restyling of hover/loading/error states everywhere</li>
+        <li>Emoji icons render inconsistently across platforms (custom SVGs would be needed)</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <div class="note">
+    <h3>Recommendation &amp; notes</h3>
+    <ul>
+      <li><b>Option E</b> is the best risk/reward now that quiet-text-links are off the table: it matches the traffic tiers while keeping every format a visible one-click button — nothing hidden, no intent-page promise broken. <b>Option G</b> is the most interesting if you're comfortable with adaptive UI; it can be layered on top of B later without a redesign.</li>
+      <li>All options assume the <b>JPG-merge</b>: one “To PNG” button whose panel has a PNG | JPG toggle (quality slider appears for JPG). That alone removes a button from every variant and simplifies the scale-matrix rules to one surface.</li>
+      <li><b>Mobile is already tiered</b> (Share PDF / Share DOCX + “More formats” menu) and needs no change beyond PNG/JPG entries, which are done.</li>
+      <li>Analytics to watch after shipping: <code>export_hover</code> and <code>convert_success</code> for EPUB/HTML/TXT — if they don’t drop, the demotion was free.</li>
+      <li>The “How it works” copy and hero subtitle should mention PNG once the bar is re-tiered (“export to PDF, DOCX or PNG”).</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  function togglePanel(id) {
+    document.getElementById("panel-" + id).classList.toggle("open");
+    var btn = document.getElementById(id + "-png");
+    if (btn) btn.classList.toggle("active");
+  }
+  function toggleDd(e, id) {
+    e.stopPropagation();
+    document.getElementById(id).classList.toggle("open");
+  }
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest(".dd-wrap")) {
+      document.querySelectorAll(".dd").forEach(function (d) { d.classList.remove("open"); });
+    }
+  });
+  function segPick(btn) {
+    btn.parentElement.querySelectorAll("button").forEach(function (b) { b.classList.remove("on"); });
+    btn.classList.add("on");
+  }
+  function jpgFields(id, isJpg) {
+    var q = document.getElementById(id + "-quality");
+    if (q) q.style.display = isJpg ? "flex" : "none";
+    var dl = document.getElementById(id + "-dl");
+    if (dl) dl.textContent = "Download " + (isJpg ? "JPG" : "PNG");
+  }
+  // Option F: expand the long-tail pills inline
+  function expandF() {
+    var chip = document.getElementById("f-chip");
+    ["To EPUB", "To HTML", "To TXT"].forEach(function (label) {
+      var b = document.createElement("button");
+      b.className = "btn";
+      b.textContent = label;
+      chip.parentNode.insertBefore(b, chip);
+    });
+    chip.remove();
+  }
+  // Option G: simulate promoting a format after first use
+  function promoteG(label, cls) {
+    document.getElementById("dd-g").classList.remove("open");
+    var row = document.getElementById("g-row");
+    var more = document.getElementById("g-more");
+    var b = document.createElement("button");
+    b.className = "btn " + cls;
+    b.textContent = label;
+    row.insertBefore(b, more);
+    var hint = document.createElement("span");
+    hint.className = "hint";
+    hint.textContent = "promoted — sticks for this user (localStorage)";
+    row.insertBefore(hint, more.nextSibling);
+    setTimeout(function () { hint.remove(); }, 4000);
+  }
+</script>
+</body>
+</html>

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/footer";
-import { getDictionary } from "@/i18n";
+import { RelatedTools } from "@/components/related-tools";
+import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 import { notFound } from "next/navigation";
 
 // This page is only for zh-Hant locale
@@ -11,12 +13,16 @@ export function generateStaticParams() {
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Markdown轉換Word（DOCX）| 免費線上工具 | Markdown Free",
-    description: "即時將Markdown檔案轉換為Word文件（DOCX）。100%免費，無需註冊，無廣告。您的檔案安全處理，永不儲存。",
+    title: "Markdown轉換Word（DOCX）線上工具 – 免費Markdown轉Word | Markdown Free",
+    description: "線上免費將Markdown檔案轉換為Word文件（DOCX）。markdown轉word線上工具，無需註冊、無廣告。檔案安全處理，永不儲存。README、md 檔案一鍵轉 Word。",
     keywords: [
       "markdown轉word",
+      "markdown轉word線上工具",
+      "線上markdown轉word",
       "markdown轉docx",
       "md轉word",
+      "readme轉word",
+      "markdown轉檔",
       "markdown word轉換器",
       "markdown轉換word線上",
     ],
@@ -45,6 +51,36 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+const faq = [
+  {
+    question: "這個Markdown轉Word工具是免費的嗎？",
+    answer: "是的！Markdown Free 100%免費，沒有隱藏費用、進階方案或註冊要求。",
+  },
+  {
+    question: "Word和DOCX有什麼區別？",
+    answer: "DOCX是2007年以來Microsoft Word使用的檔案格式。當我們說「Word文件」時，指的是可以在Word、Google Docs、LibreOffice和其他文書處理器中開啟的.docx檔案。",
+  },
+  {
+    question: "我的檔案會儲存在您的伺服器上嗎？",
+    answer: "不會。檔案在記憶體中處理，轉換後立即刪除。我們從不儲存您的內容。",
+  },
+  {
+    question: "表格和程式碼區塊等格式會保留嗎？",
+    answer: "是的！表格、程式碼區塊、標題、清單和其他Markdown格式都會轉換為適當的Word樣式。",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "zh-Hant",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+
 interface PageProps {
   params: Promise<{ locale: string }>;
 }
@@ -62,6 +98,10 @@ export default async function MarkdownWordZhuanhuanPage({ params }: PageProps) {
   return (
     <>
       <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
+        />
         {/* Hero Section */}
         <section className="mb-12 text-center">
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
@@ -225,6 +265,9 @@ export default async function MarkdownWordZhuanhuanPage({ params }: PageProps) {
             </details>
           </div>
         </section>
+
+        {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale as Locale} current="docx" />
 
         {/* CTA */}
         <section className="text-center">

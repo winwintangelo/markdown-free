@@ -31,7 +31,12 @@ export async function generateMetadata({
       canonical: "/id/markdown-ke-gambar",
       languages: hreflangAlternates("image"),
     },
+    twitter: {
+      card: "summary_large_image",
+      images: ["/og-markdown-to-png.png"],
+    },
     openGraph: {
+      images: [{ url: "/og-markdown-to-png.png", width: 1200, height: 630, alt: "Markdown to Image (PNG) — Markdown Free" }],
       title: "Konversi Markdown ke Gambar PNG – Gratis, Privat, Tanpa Daftar | Markdown Free",
       description: "Render file .md Anda sebagai gambar PNG tajam, sepenuhnya di browser. Gratis dan privat.",
       locale: "id_ID",

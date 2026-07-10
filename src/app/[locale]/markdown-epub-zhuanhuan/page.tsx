@@ -23,11 +23,15 @@ export async function generateMetadata({
   }
 
   return {
-    title: "Markdown转EPUB – 免费在线工具 | Markdown Free",
+    title: "Markdown转EPUB电子书 – 免费在线转换工具 | Markdown Free",
     description:
-      "免费将Markdown文件转换为EPUB。无需注册，无限制。适合在Kindle、Apple Books、Kobo等电子阅读器上阅读。",
+      "免费将Markdown转换为EPUB电子书。在线markdown转epub，无需注册、无限制。适合在Kindle、Apple Books、Kobo等电子阅读器上阅读。",
     keywords: [
       "markdown转epub",
+      "在线markdown转epub",
+      "markdown转epub在线",
+      "markdown转化为epub",
+      "markdown转电子书",
       "markdown epub 免费",
       "md epub 转换工具",
       "markdown 电子书",

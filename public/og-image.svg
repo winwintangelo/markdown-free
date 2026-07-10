@@ -1,30 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
-  <!-- Background -->
-  <rect width="1200" height="630" fill="#f8fafc"/>
-  
-  <!-- Gradient overlay -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" font-family="'Helvetica Neue', Arial, sans-serif">
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ecfdf5;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#f8fafc;stop-opacity:1" />
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
     </linearGradient>
   </defs>
-  <rect width="1200" height="630" fill="url(#grad)"/>
-  
-  <!-- Logo -->
-  <rect x="520" y="180" width="80" height="80" rx="16" fill="#10B981"/>
-  <text x="560" y="232" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="600" fill="white">md</text>
-  
-  <!-- App name -->
-  <text x="620" y="228" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="600" fill="#0f172a">Markdown Free</text>
-  
-  <!-- Tagline -->
-  <text x="600" y="340" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#475569">Preview &amp; Convert Markdown Files</text>
-  
-  <!-- Features -->
-  <text x="600" y="420" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#64748b">Free • No signup • Instant export to PDF, TXT, HTML</text>
-  
-  <!-- Domain -->
-  <text x="600" y="550" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="500" fill="#10B981">markdown.free</text>
-</svg>
 
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Logo + wordmark (centered) -->
+  <rect x="474" y="96" width="72" height="72" rx="16" fill="#10B981"/>
+  <text x="510" y="145" text-anchor="middle" font-size="34" font-weight="700" fill="#ffffff">md</text>
+  <text x="566" y="146" font-size="40" font-weight="600" fill="#0f172a">Markdown Free</text>
+
+  <!-- Headline -->
+  <text x="600" y="290" text-anchor="middle" font-size="62" font-weight="800" fill="#0f172a">Convert Markdown, instantly</text>
+
+  <!-- Format chips -->
+  <g font-size="24" font-weight="600" text-anchor="middle">
+    <rect x="238" y="346" width="118" height="56" rx="28" fill="#ffffff" stroke="#a7f3d0" stroke-width="2"/>
+    <text x="297" y="382" fill="#0f766e">PDF</text>
+    <rect x="372" y="346" width="176" height="56" rx="28" fill="#ffffff" stroke="#a7f3d0" stroke-width="2"/>
+    <text x="460" y="382" fill="#0f766e">Word (DOCX)</text>
+    <rect x="564" y="346" width="172" height="56" rx="28" fill="#ffffff" stroke="#a7f3d0" stroke-width="2"/>
+    <text x="650" y="382" fill="#0f766e">Image (PNG)</text>
+    <rect x="752" y="346" width="122" height="56" rx="28" fill="#ffffff" stroke="#a7f3d0" stroke-width="2"/>
+    <text x="813" y="382" fill="#0f766e">EPUB</text>
+    <rect x="890" y="346" width="72" height="56" rx="28" fill="#ffffff" stroke="#a7f3d0" stroke-width="2"/>
+    <text x="926" y="382" fill="#0f766e">…</text>
+  </g>
+
+  <!-- Subtitle -->
+  <text x="600" y="486" text-anchor="middle" font-size="28" fill="#475569">Free &#183; No signup &#183; Files never stored</text>
+
+  <!-- Domain -->
+  <text x="600" y="560" text-anchor="middle" font-size="24" font-weight="600" fill="#10B981">markdown.free</text>
+</svg>

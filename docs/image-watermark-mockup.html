@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image watermark — text credit mockups</title>
+<style>
+  :root { --ink:#0f172a; --muted:#475569; --faint:#64748b; --line:#e2e8f0; --green:#10B981; --mint:#ecfdf5; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f1f5f9; color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; }
+  .page { max-width:1120px; margin:0 auto; padding:40px 28px 72px; }
+  header h1 { font-size:26px; margin:0 0 6px; letter-spacing:-.01em; }
+  header p { margin:0; color:var(--muted); font-size:15px; line-height:1.55; max-width:780px; }
+  .constraints { display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 8px; }
+  .tag { font-size:12.5px; font-weight:600; color:#0f766e; background:#fff;
+    border:1.5px solid #a7f3d0; border-radius:999px; padding:5px 12px; }
+  h2 { font-size:15px; text-transform:uppercase; letter-spacing:.06em; color:var(--faint);
+    margin:40px 0 16px; font-weight:700; }
+  .sub { color:var(--faint); font-weight:400; text-transform:none; letter-spacing:0; font-size:13.5px; }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:22px; }
+  .tile { background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    box-shadow:0 6px 18px rgba(15,23,42,.06); }
+  .tile.bad { border-color:#fecaca; }
+
+  /* rendered-markdown content sample inside each tile */
+  .doc { padding:24px 24px 0; }
+  .doc h3 { font-size:18px; margin:0 0 9px; letter-spacing:-.01em; }
+  .doc p { font-size:13.5px; line-height:1.62; color:#334155; margin:0 0 11px; }
+  .doc a.mdlink { color:#0f766e; text-decoration:underline; text-underline-offset:2px; }
+
+  /* ===== credit treatments ===== */
+  /* base footer area */
+  .foot { padding:0 24px 20px; }
+  .foot.pt { padding-top:14px; }
+  .rule { height:1px; background:var(--line); margin:0 0 10px; border:0; }
+
+  .credit { font-weight:600; color:#94a3b8; }
+  .credit .dom { color:#64748b; }
+
+  /* stamp: uppercase, tracked, tiny — reads as a label, not prose */
+  .stamp { font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; }
+  .r-right { text-align:right; }
+  .r-center { text-align:center; }
+
+  /* tinted full-width bar */
+  .bar { background:#f8fafc; border-top:1px solid var(--line); padding:11px 24px; text-align:center; }
+
+  /* corner (no divider) */
+  .doc.tall { padding-bottom:34px; position:relative; }
+  .corner { position:absolute; right:20px; bottom:14px; }
+  .corner .arrow { color:#cbd5e1; }
+
+  /* the "avoid" one — bare, blends in */
+  .badcredit { font-size:13.5px; color:#64748b; }
+
+  .meta { padding:13px 20px; border-top:1px solid #f1f5f9; background:#fff; }
+  .meta .n { font-size:14px; font-weight:700; margin:0 0 3px; }
+  .meta .n .pin { font-size:11px; font-weight:700; color:#0f766e; background:#dcfce7;
+    border-radius:5px; padding:2px 7px; margin-left:6px; vertical-align:1px; }
+  .meta .n .no { font-size:11px; font-weight:700; color:#b91c1c; background:#fee2e2;
+    border-radius:5px; padding:2px 7px; margin-left:6px; vertical-align:1px; }
+  .meta .s { font-size:12.5px; color:var(--faint); margin:0; line-height:1.5; }
+  .note { margin-top:12px; font-size:13px; color:var(--faint); line-height:1.6; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Image watermark — text credit, must read as a stamp</h1>
+    <p>Text only, no logo. The key test: it has to be obviously a <em>tool credit</em>, never mistaken for the author's own content. Each sample ends with a real paragraph (and a link) right above the credit, so you can see whether the eye separates them.</p>
+    <div class="constraints">
+      <span class="tag">Text only — no logo</span>
+      <span class="tag">Reads as a credit, not content</span>
+      <span class="tag">On by default · one-tap remove</span>
+    </div>
+  </header>
+
+  <h2>What we're avoiding <span class="sub">— why a bare URL fails</span></h2>
+  <div class="grid">
+    <div class="tile bad">
+      <div class="doc">
+        <h3>Weekend reading list</h3>
+        <p>A few links I saved this week. Full notes are on my site — see <a class="mdlink" href="#">example.com/notes</a> for the rest.</p>
+      </div>
+      <div class="foot pt">
+        <span class="badcredit">markdown.free</span>
+      </div>
+      <div class="meta"><p class="n">Bare domain <span class="no">avoid</span></p><p class="s">Same size/color as body text, sits right under a real link — a reader can't tell it's not another link the author added.</p></div>
+    </div>
+  </div>
+
+  <h2>The differentiated options <span class="sub">— all text-only, all read as a credit</span></h2>
+  <div class="grid">
+
+    <!-- 1: divider + tracked caps, right, "made with" -->
+    <div class="tile">
+      <div class="doc">
+        <h3>Weekend reading list</h3>
+        <p>A few links I saved this week. Full notes are on my site — see <a class="mdlink" href="#">example.com/notes</a> for the rest.</p>
+      </div>
+      <div class="foot pt">
+        <hr class="rule">
+        <div class="credit stamp r-right">Made with <span class="dom">markdown.free</span></div>
+      </div>
+      <div class="meta"><p class="n">Divider + tracked caps <span class="pin">rec</span></p><p class="s">Hairline detaches it; UPPERCASE + wide spacing is a style body text never uses; “made with” names it as a tool. Unmistakable.</p></div>
+    </div>
+
+    <!-- 2: divider + tracked caps, centered -->
+    <div class="tile">
+      <div class="doc">
+        <h3>Weekend reading list</h3>
+        <p>A few links I saved this week. Full notes are on my site — see <a class="mdlink" href="#">example.com/notes</a> for the rest.</p>
+      </div>
+      <div class="foot pt">
+        <hr class="rule">
+        <div class="credit stamp r-center">Made with <span class="dom">markdown.free</span></div>
+      </div>
+      <div class="meta"><p class="n">Divider + tracked caps, centered</p><p class="s">Same idea, centered. Reads like a classic document footer / colophon. A touch more formal.</p></div>
+    </div>
+
+    <!-- 3: tinted full-width bar -->
+    <div class="tile">
+      <div class="doc">
+        <h3>Weekend reading list</h3>
+        <p>A few links I saved this week. Full notes are on my site — see <a class="mdlink" href="#">example.com/notes</a> for the rest.</p>
+      </div>
+      <div class="bar">
+        <span class="credit stamp">Made with <span class="dom">markdown.free</span></span>
+      </div>
+      <div class="meta"><p class="n">Tinted footer bar</p><p class="s">Its own faint background strip — the strongest “this is a caption, not content” signal. Slightly more product-y.</p></div>
+    </div>
+
+    <!-- 4: corner, tracked caps + arrow, no divider -->
+    <div class="tile">
+      <div class="doc tall">
+        <h3>Weekend reading list</h3>
+        <p>A few links I saved this week. Full notes are on my site — see <a class="mdlink" href="#">example.com/notes</a> for the rest.</p>
+        <span class="corner credit stamp"><span class="arrow">&#8599;</span> <span class="dom">markdown.free</span></span>
+      </div>
+      <div class="meta"><p class="n">Corner, tracked caps + arrow</p><p class="s">No divider — keeps your original corner idea, but the caps/tracking + ↗ read as a stamp. Weakest separation of the four.</p></div>
+    </div>
+
+    <!-- 5: divider + "exported from" verb, right -->
+    <div class="tile">
+      <div class="doc">
+        <h3>Weekend reading list</h3>
+        <p>A few links I saved this week. Full notes are on my site — see <a class="mdlink" href="#">example.com/notes</a> for the rest.</p>
+      </div>
+      <div class="foot pt">
+        <hr class="rule">
+        <div class="credit stamp r-right">Exported from <span class="dom">markdown.free</span></div>
+      </div>
+      <div class="meta"><p class="n">“Exported from” wording</p><p class="s">Same layout as the pick, different verb — more neutral/utilitarian than “made with”. Choose the wording you prefer.</p></div>
+    </div>
+
+    <!-- 6: divider + short arrow form -->
+    <div class="tile">
+      <div class="doc">
+        <h3>Weekend reading list</h3>
+        <p>A few links I saved this week. Full notes are on my site — see <a class="mdlink" href="#">example.com/notes</a> for the rest.</p>
+      </div>
+      <div class="foot pt">
+        <hr class="rule">
+        <div class="credit stamp r-right"><span class="dom">markdown.free</span> &#8599;</div>
+      </div>
+      <div class="meta"><p class="n">Divider + domain + arrow</p><p class="s">Shortest. Divider does the separating; drops the verb. Cleaner, but names the tool less explicitly.</p></div>
+    </div>
+
+  </div>
+
+  <p class="note" style="margin-top:34px;">My pick: <strong>Divider + tracked caps “Made with markdown.free”, right-aligned</strong> (option 1). The hairline + all-caps + wide letter-spacing make it structurally impossible to mistake for markdown body text, links, or a heading — and “made with” states plainly that it's a tool credit. Open question for you: <strong>wording</strong> (“Made with” vs “Exported from” vs domain-only) and <strong>alignment</strong> (right vs centered), and whether you want the faint <strong>tinted bar</strong> (option 3) for the very strongest separation.</p>
+</div>
+</body>
+</html>

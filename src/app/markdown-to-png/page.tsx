@@ -31,6 +31,21 @@ export const metadata: Metadata = {
     url: "https://www.markdown.free/markdown-to-png",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/og-markdown-to-png.png",
+        width: 1200,
+        height: 630,
+        alt: "Markdown to Image (PNG) — Markdown Free",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Markdown to PNG Image Converter – Free & Private",
+    description:
+      "Render your .md file as a crisp PNG or JPG image, entirely in your browser. Free, private, instant download.",
+    images: ["/og-markdown-to-png.png"],
   },
 };
 

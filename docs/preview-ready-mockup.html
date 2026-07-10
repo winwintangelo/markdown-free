@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"Ready" indicator — placement options</title>
+<style>
+  :root {
+    --slate-50:#f8fafc; --slate-100:#f1f5f9; --slate-200:#e2e8f0; --slate-300:#cbd5e1;
+    --slate-400:#94a3b8; --slate-500:#64748b; --slate-600:#475569; --slate-700:#334155; --slate-900:#0f172a;
+    --emerald-50:#ecfdf5; --emerald-100:#d1fae5; --emerald-200:#a7f3d0; --emerald-400:#34d399; --emerald-500:#10b981; --emerald-600:#059669; --emerald-700:#047857; --emerald-800:#065f46;
+    --blue-50:#eff6ff; --blue-200:#bfdbfe; --blue-700:#1d4ed8;
+    --amber-50:#fffbeb; --amber-200:#fde68a; --amber-700:#b45309;
+    --green-50:#f0fdf4; --green-200:#bbf7d0; --green-800:#166534;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--slate-50); color: var(--slate-900); padding: 44px 24px 90px; line-height: 1.5; }
+  .page { max-width: 1120px; margin: 0 auto; }
+  h1 { font-size: 27px; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .intro { color: var(--slate-500); font-size: 14px; max-width: 800px; margin-bottom: 6px; }
+  .intro b { color: var(--slate-700); }
+  .locmap { display:flex; gap:8px; align-items:center; flex-wrap:wrap; font-size:12px; color:var(--slate-500); background:#fff; border:1px solid var(--slate-200); border-radius:12px; padding:10px 14px; margin:14px 0 26px; }
+  .locmap .pin { font-weight:700; color:var(--slate-700); background:var(--slate-100); border-radius:6px; padding:2px 7px; }
+  .locmap .arrow { color:var(--slate-300); }
+  .toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 30px; flex-wrap: wrap; }
+  .replay-all { font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; background: var(--emerald-700); color: #fff; border: none; border-radius: 999px; padding: 9px 18px; }
+  .replay-all:hover { background: var(--emerald-800); }
+  .hint { font-size: 12px; color: var(--slate-400); }
+
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+  .option-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 3px; flex-wrap: wrap; }
+  .option-head h2 { font-size: 16px; letter-spacing: -0.01em; }
+  .tag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding: 2px 8px; border-radius: 999px; }
+  .tag.rec { background: var(--green-50); color: var(--green-800); border: 1px solid var(--green-200); }
+  .tag.up { background: var(--emerald-50); color: var(--emerald-800); border: 1px solid var(--emerald-200); }
+  .tag.exp { background: var(--blue-50); color: var(--blue-700); border: 1px solid var(--blue-200); }
+  .option-desc { font-size: 12.5px; color: var(--slate-500); margin-bottom: 12px; min-height: 34px; }
+
+  /* ===== mini app stack ===== */
+  .stack { display: flex; flex-direction: column; gap: 10px; }
+
+  /* upload zone */
+  .zone {
+    position: relative; border: 2px dashed var(--slate-300); border-radius: 14px;
+    background: rgba(248,250,252,.8); padding: 16px 14px; text-align: center;
+    transition: border-color .25s ease, background .25s ease, box-shadow .25s ease;
+  }
+  .zone.loaded { border-style: solid; border-color: var(--emerald-500); background: var(--emerald-50); }
+  .zone .zicon { width: 34px; height: 34px; margin: 0 auto 8px; border-radius: 999px; background: var(--emerald-50); color: var(--emerald-700); display:flex; align-items:center; justify-content:center; font-size:16px; }
+  .zone.loaded .zicon { background: #fff; }
+  .zone .ztitle { font-size: 12.5px; font-weight: 600; color: var(--slate-900); }
+  .zone .ztitle .link { color: var(--emerald-700); }
+  .zone .zsub { font-size: 10.5px; color: var(--slate-400); margin-top: 3px; }
+  .zstatus { display: inline-flex; align-items: center; gap: 6px; margin-top: 9px; font-size: 11px; color: var(--slate-500); }
+  .zstatus .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--slate-300); position: relative; }
+  .zstatus .check { display:inline-flex; align-items:center; justify-content:center; width:14px; height:14px; border-radius:999px; background:var(--emerald-600); color:#fff; font-size:9px; font-weight:900; transform:scale(0); }
+  .zbridge { color: var(--emerald-700); font-weight: 600; }
+
+  /* export row */
+  .exprow {
+    position: relative; display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+    border: 1px solid var(--slate-200); border-radius: 14px; background: #fff; padding: 10px 12px;
+    transition: box-shadow .25s ease;
+  }
+  .btn { display:inline-flex; align-items:center; gap:5px; border-radius:999px; padding:7px 14px; font-size:11.5px; font-weight:600; border:1px solid transparent; }
+  .btn.pdf { background: var(--emerald-700); color:#fff; }
+  .btn.docx { background: var(--blue-50); color: var(--blue-700); border-color: var(--blue-200); }
+  .btn.img { background: var(--amber-50); color: var(--amber-700); border-color: var(--amber-200); }
+  .btn.more { background: var(--slate-50); color: var(--slate-600); border-color: var(--slate-200); font-size:11px; }
+  .exphelp { margin-left:auto; font-size:10.5px; color: var(--slate-400); }
+  .expchip { display:none; align-items:center; gap:6px; font-size:11px; font-weight:600; color: var(--emerald-800); background: var(--emerald-50); border:1px solid var(--emerald-200); border-radius:999px; padding:4px 10px; }
+  .expchip .c { display:inline-flex; align-items:center; justify-content:center; width:13px; height:13px; border-radius:999px; background:var(--emerald-600); color:#fff; font-size:8px; font-weight:900; }
+
+  /* preview strip (de-emphasized — shows it's furthest away) */
+  .prev { border:1px solid var(--slate-200); border-radius:14px; background:#fff; }
+  .prev .ph { display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-bottom:1px solid var(--slate-100); }
+  .prev .ph .l { font-size:10px; font-weight:700; letter-spacing:.04em; color:var(--slate-400); text-transform:uppercase; }
+  .prev .ph .b { display:inline-flex; align-items:center; gap:5px; font-size:10px; font-weight:600; color:var(--slate-500); background:var(--slate-100); border-radius:999px; padding:3px 8px; }
+  .prev .ph .b .d { width:5px; height:5px; border-radius:999px; background:var(--emerald-500); }
+  .prev .pbody { padding:10px 12px; font-size:11px; color:var(--slate-400); }
+  .prev.faded { opacity:.55; }
+
+  .spinner { width: 11px; height: 11px; border: 2px solid var(--slate-300); border-top-color: var(--slate-500); border-radius: 999px; animation: spin .6s linear infinite; display:inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes pop { 0%{transform:scale(0);} 60%{transform:scale(1.25);} 100%{transform:scale(1);} }
+
+  .replay { margin-top: 12px; font-family: inherit; font-size: 11.5px; font-weight: 600; cursor: pointer; background: #fff; color: var(--slate-600); border: 1px solid var(--slate-200); border-radius: 999px; padding: 6px 14px; }
+  .replay:hover { border-color: var(--slate-300); color: var(--slate-900); background: var(--slate-50); }
+  .pros { margin-top: 9px; font-size: 11.5px; color: var(--slate-500); }
+  .pros b { color: var(--slate-700); }
+
+  /* ---- indicator animations ---- */
+  /* zone success flash */
+  .zone.flash { animation: zoneflash 1.2s ease; }
+  @keyframes zoneflash {
+    0% { box-shadow: 0 0 0 3px rgba(16,185,129,.35), 0 8px 22px rgba(16,185,129,.22); border-color: var(--emerald-400); background: var(--emerald-100); }
+    100% { box-shadow: none; border-color: var(--emerald-500); background: var(--emerald-50); }
+  }
+  .zicon.iconpop { animation: pop .4s cubic-bezier(.2,1.4,.5,1); }
+  .check.show { animation: pop .38s cubic-bezier(.2,1.4,.5,1) forwards; }
+
+  /* export row: button sweep-in */
+  .exprow.sweep .btn { animation: sweepin .5s ease backwards; }
+  .exprow.sweep .btn:nth-child(1){ animation-delay:0s; }
+  .exprow.sweep .btn:nth-child(2){ animation-delay:.07s; }
+  .exprow.sweep .btn:nth-child(3){ animation-delay:.14s; }
+  .exprow.sweep .btn:nth-child(4){ animation-delay:.21s; }
+  @keyframes sweepin { from { opacity:.3; transform: translateY(4px) scale(.96); } to { opacity:1; transform:none; } }
+
+  /* export row: primary button ripple */
+  .btn.pdf.ripple { position: relative; }
+  .btn.pdf.ripple::after { content:""; position:absolute; inset:0; border-radius:999px; border:2px solid var(--emerald-500); animation: btnripple .75s ease-out; }
+  @keyframes btnripple { 0%{ transform:scale(1); opacity:.8; } 100%{ transform:scale(1.35); opacity:0; } }
+
+  /* export row: glow */
+  .exprow.glow { animation: rowglow 1.2s ease; }
+  @keyframes rowglow {
+    0% { box-shadow: 0 0 0 3px rgba(16,185,129,.25), 0 8px 20px rgba(16,185,129,.16); }
+    100% { box-shadow: 0 1px 2px rgba(15,23,42,.05); }
+  }
+  .expchip.show { display:inline-flex; animation: pop .34s cubic-bezier(.2,1.4,.5,1); }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>&ldquo;Ready&rdquo; indicator — <em>where</em> it should fire</h1>
+  <p class="intro">
+    You&rsquo;re right: the signal belongs near the action, not in the preview. When a file drops, attention is on the
+    <b>upload zone</b>; the next step is the <b>export row</b> right below it. The preview badge is ~600px further down —
+    the one place the eye isn&rsquo;t. So these options fire at the <b>upload zone</b> and/or <b>export row</b>.
+  </p>
+  <div class="locmap">
+    <span class="pin">① Upload zone</span> <span>your eyes are here on drop</span>
+    <span class="arrow">→</span>
+    <span class="pin">② Export row</span> <span>where you go next</span>
+    <span class="arrow">→</span>
+    <span class="pin">③ Preview</span> <span>far below — today&rsquo;s badge lives here 🙁</span>
+  </div>
+  <div class="toolbar">
+    <button class="replay-all" onclick="replayAll()">▶ Replay all</button>
+    <span class="hint">Each replays drop → ~0.7s parse → the &ldquo;ready&rdquo; cue fires in its location.</span>
+  </div>
+
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+  const OPTIONS = [
+    { id:"A", loc:"up", tag:"rec", name:"Upload status → checkmark + bridge",
+      desc:"The zone's own status line swaps its dot for a ✓ and adds a forward cue: “report.md loaded · ready to export ↓”. Confirms at the point of action and points to the next step." },
+    { id:"F", loc:"exp", tag:"", name:"Export-row “Ready” chip",
+      desc:"A “✓ Ready — pick a format” chip appears in the export row (in place of the muted helper text). Most explicit hand-off to the next step." },
+    { id:"G", loc:"both", tag:"rec", name:"Combo: zone ✓ + row glow",
+      desc:"The strongest read: the upload zone confirms with a ✓ AND the export row glows once. Acknowledges where you acted and where to go — one connected motion." },
+  ];
+
+  function stackHTML(o) {
+    // status line variants for the zone
+    const zoneStatus = `
+      <span class="zstatus" id="zst-${o.id}">
+        <span class="dot" id="zdot-${o.id}"></span>
+        <span class="check" id="zchk-${o.id}">✓</span>
+        <span id="ztxt-${o.id}">No file selected yet</span>
+      </span>`;
+    const expChip = `<span class="expchip" id="chip-${o.id}"><span class="c">✓</span> Ready — pick a format</span>`;
+    return `
+    <div class="stack">
+      <div class="zone" id="zone-${o.id}">
+        <div class="zicon" id="zicon-${o.id}">↑</div>
+        <div class="ztitle">Drag &amp; drop your Markdown file <span class="link">or choose file</span></div>
+        <div class="zsub">Supports .md, .markdown, .txt · Max 1 MB</div>
+        ${zoneStatus}
+      </div>
+      <div class="exprow" id="exp-${o.id}">
+        <span class="btn pdf" id="pdf-${o.id}">To PDF</span>
+        <span class="btn docx">To Word (DOCX)</span>
+        <span class="btn img">To Image (PNG)</span>
+        <span class="btn more">More formats ▾</span>
+        ${o.loc === "exp" && o.id === "F" ? expChip : '<span class="exphelp" id="help-'+o.id+'">Files are processed temporarily and not stored.</span>'}
+      </div>
+      <div class="prev faded">
+        <div class="ph"><span class="l">Preview</span><span class="b"><span class="d"></span> Ready to export</span></div>
+        <div class="pbody">Shakespeare&rsquo;s Sonnets — rendered markdown…</div>
+      </div>
+    </div>`;
+  }
+
+  function cardHTML(o) {
+    const locTag = o.loc === "up" ? '<span class="tag up">upload zone</span>'
+                 : o.loc === "exp" ? '<span class="tag exp">export row</span>'
+                 : '<span class="tag up">zone</span> <span class="tag exp">+ row</span>';
+    return `
+    <div class="option">
+      <div class="option-head">
+        <h2>${o.id}. ${o.name}</h2>
+        ${o.tag === "rec" ? '<span class="tag rec">strong pick</span>' : ''}
+        ${locTag}
+      </div>
+      <div class="option-desc">${o.desc}</div>
+      ${stackHTML(o)}
+      <button class="replay" onclick="replay('${o.id}')">↻ Replay</button>
+    </div>`;
+  }
+
+  document.getElementById("grid").innerHTML = OPTIONS.map(cardHTML).join("");
+
+  function setRendering(o) {
+    const zone = document.getElementById("zone-"+o.id);
+    zone.classList.remove("loaded","flash");
+    const dot = document.getElementById("zdot-"+o.id);
+    const chk = document.getElementById("zchk-"+o.id);
+    const ztxt = document.getElementById("ztxt-"+o.id);
+    dot.style.display=""; chk.classList.remove("show");
+    ztxt.innerHTML = 'Reading file…';
+    // spinner in place of dot
+    dot.outerHTML = `<span class="spinner" id="zdot-${o.id}"></span>`;
+    // reset export cues
+    const exp = document.getElementById("exp-"+o.id);
+    exp.classList.remove("sweep","glow");
+    const pdf = document.getElementById("pdf-"+o.id); if (pdf) pdf.classList.remove("ripple");
+    const chip = document.getElementById("chip-"+o.id); if (chip) chip.classList.remove("show");
+    const zicon = document.getElementById("zicon-"+o.id); if (zicon) zicon.classList.remove("iconpop");
+  }
+
+  function setDone(o) {
+    const zone = document.getElementById("zone-"+o.id);
+    const spin = document.getElementById("zdot-"+o.id);
+    const ztxt = document.getElementById("ztxt-"+o.id);
+    const chk = document.getElementById("zchk-"+o.id);
+    zone.classList.add("loaded");
+
+    // restore a dot node where the spinner was
+    spin.outerHTML = `<span class="dot" id="zdot-${o.id}"></span>`;
+    const dot = document.getElementById("zdot-"+o.id);
+    dot.style.background = "var(--emerald-500)";
+
+    // per-option
+    if (o.id === "A") { dot.style.display="none"; chk.classList.add("show"); ztxt.innerHTML = 'report.md loaded (2.4 KB) <span class="zbridge">· ready to export ↓</span>'; }
+    if (o.id === "F") { ztxt.textContent = 'report.md loaded (2.4 KB)'; const chip=document.getElementById("chip-"+o.id); if(chip) chip.classList.add("show"); }
+    if (o.id === "G") { dot.style.display="none"; chk.classList.add("show"); ztxt.innerHTML = 'report.md loaded (2.4 KB)'; document.getElementById("exp-"+o.id).classList.add("glow"); }
+  }
+
+  function replay(id) {
+    const o = OPTIONS.find(x => x.id === id);
+    setRendering(o);
+    setTimeout(() => setDone(o), 700);
+  }
+  function replayAll() { OPTIONS.forEach(o => replay(o.id)); }
+  window.addEventListener("load", () => setTimeout(replayAll, 400));
+</script>
+</body>
+</html>

@@ -31,7 +31,12 @@ export async function generateMetadata({
       canonical: "/it/markdown-in-png",
       languages: hreflangAlternates("image"),
     },
+    twitter: {
+      card: "summary_large_image",
+      images: ["/og-markdown-to-png.png"],
+    },
     openGraph: {
+      images: [{ url: "/og-markdown-to-png.png", width: 1200, height: 630, alt: "Markdown to Image (PNG) — Markdown Free" }],
       title: "Convertire Markdown in Immagine PNG – Gratis, Privato, Senza Registrazione | Markdown Free",
       description: "Renderizza il tuo file .md come un'immagine PNG nitida, tutto nel browser. Gratis e privato.",
       locale: "it_IT",

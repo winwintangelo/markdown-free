@@ -15,6 +15,7 @@
     "postinstall": "node scripts/postinstall.mjs",
     "report": "node scripts/umami-report.mjs",
     "report:sessions": "node scripts/umami-sessions.mjs",
+    "report:bing": "node scripts/bing-report.mjs",
     "validate": "node scripts/validate-production.mjs",
     "validate:verbose": "node scripts/validate-production.mjs --verbose",
     "validate:traffic": "node scripts/validate-production.mjs --simulate-traffic --verbose",

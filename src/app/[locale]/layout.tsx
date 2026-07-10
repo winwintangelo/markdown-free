@@ -62,7 +62,7 @@ export async function generateMetadata({
       description: dict.meta.description,
       images: [
         {
-          url: "/og-image.svg",
+          url: "/og-image.png",
           width: 1200,
           height: 630,
           alt: "Markdown Free - Convert Markdown to PDF, Word, Image (PNG), EPUB",
@@ -73,7 +73,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: dict.meta.title,
       description: dict.meta.description,
-      images: ["/og-image.svg"],
+      images: ["/og-image.png"],
     },
     robots: {
       index: true,

@@ -31,7 +31,12 @@ export async function generateMetadata({
       canonical: "/ja/markdown-gazou-henkan",
       languages: hreflangAlternates("image"),
     },
+    twitter: {
+      card: "summary_large_image",
+      images: ["/og-markdown-to-png.png"],
+    },
     openGraph: {
+      images: [{ url: "/og-markdown-to-png.png", width: 1200, height: 630, alt: "Markdown to Image (PNG) — Markdown Free" }],
       title: "Markdown画像変換（PNG）– 無料・登録不要・文字化けなし | Markdown Free",
       description: "Markdownをブラウザ内で鮮明なPNG画像としてレンダリング。無料・登録不要。",
       locale: "ja_JP",

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Chat Export — UI Concepts · Markdown Free</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .browser-frame { box-shadow: 0 20px 50px -12px rgba(15,23,42,.25); }
+  .scroll-preview { scrollbar-width: thin; }
+  .scroll-preview::-webkit-scrollbar { width: 6px; }
+  .scroll-preview::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+  .anchor-offset { scroll-margin-top: 80px; }
+</style>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+<!-- ================= STICKY NAV ================= -->
+<nav class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
+    <div class="flex items-center gap-2">
+      <div class="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-700 text-sm font-bold text-white">M</div>
+      <span class="text-sm font-semibold text-slate-700">AI Chat Export — UI Concepts</span>
+    </div>
+    <div class="flex gap-1 text-xs font-medium">
+      <a href="#decision" class="rounded-full bg-emerald-700 px-3 py-1.5 text-white hover:bg-emerald-800">★ Decision</a>
+      <a href="#concept-1" class="rounded-full px-3 py-1.5 text-slate-600 hover:bg-slate-100">1 · Build</a>
+      <a href="#concept-2" class="rounded-full px-3 py-1.5 text-slate-600 hover:bg-slate-100">2 · Build</a>
+      <a href="#concept-3" class="rounded-full px-3 py-1.5 text-slate-600 hover:bg-slate-100">3 · Skip</a>
+      <a href="#concept-4" class="rounded-full px-3 py-1.5 text-slate-600 hover:bg-slate-100">4 · Adapt</a>
+      <a href="#states" class="rounded-full px-3 py-1.5 text-slate-600 hover:bg-slate-100">States</a>
+    </div>
+  </div>
+</nav>
+
+<main class="mx-auto max-w-6xl px-5 py-10">
+
+  <!-- ================= INTRO ================= -->
+  <header class="mb-10">
+    <h1 class="text-2xl font-bold text-slate-900">Feature: Paste an AI chat link → get a clean PDF / DOCX</h1>
+    <p class="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
+      Four UI concepts for the new <strong>AI Chat Export</strong> feature. The user pastes a public share link
+      from ChatGPT, Claude, Gemini, DeepSeek (and other chatbots), the server fetches the conversation,
+      and it flows into the existing PDF / DOCX / Markdown / HTML export pipeline. The
+      <a href="#decision" class="font-semibold text-emerald-700 underline">final direction</a> is recorded
+      below; each concept is then annotated <strong>Build</strong> / <strong>Skip</strong> / <strong>Adapt</strong>.
+    </p>
+    <div class="mt-4 flex flex-wrap gap-3 text-xs">
+      <span class="rounded-md bg-emerald-50 px-2.5 py-1 font-medium text-emerald-800 ring-1 ring-emerald-200">Input: share URL</span>
+      <span class="rounded-md bg-slate-50 px-2.5 py-1 font-medium text-slate-600 ring-1 ring-slate-200">Output: PDF · DOCX · Markdown · HTML</span>
+      <span class="rounded-md bg-slate-50 px-2.5 py-1 font-medium text-slate-600 ring-1 ring-slate-200">10 locales</span>
+    </div>
+    <div class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs leading-relaxed text-amber-900">
+      <strong>Engineering note (does not affect this UI choice):</strong> server-side fetching of ChatGPT &
+      Claude share pages runs into bot protection — some links will fail to fetch. Every concept below
+      therefore includes a clear <em>error state</em>. The UI decision and the fetch-reliability work are
+      independent; pick the layout you like best.
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- DECISION                                                               -->
+  <!-- ===================================================================== -->
+  <section id="decision" class="anchor-offset mb-14">
+    <div class="rounded-xl border-2 border-emerald-300 bg-emerald-50 p-6">
+      <div class="flex items-center gap-2">
+        <span class="text-lg">★</span>
+        <h2 class="text-lg font-bold text-emerald-900">Final direction</h2>
+      </div>
+      <p class="mt-2 text-sm leading-relaxed text-emerald-900">
+        Build <strong>Concept 1 + Concept 2 together</strong>, adapt one piece of Concept 4, and skip Concept 3.
+        Concepts 1 and 2 aren't competing options — their cons are the same problem flipped, so they complete
+        each other.
+      </p>
+      <div class="mt-4 grid gap-3 sm:grid-cols-2">
+        <div class="rounded-lg bg-white p-3.5 ring-1 ring-emerald-200">
+          <p class="text-xs font-bold text-emerald-800">① Dedicated landing page — /ai-chat-to-pdf</p>
+          <p class="mt-1 text-xs leading-relaxed text-slate-600">The reason is <strong>positioning</strong>, not
+            just SEO. A dedicated route makes this a first-class feature with its own value proposition —
+            “Turn any AI chat into a polished PDF” is a sharp, shareable message. “We added a third input tab”
+            is not. SEO coverage is a bonus on top.</p>
+        </div>
+        <div class="rounded-lg bg-white p-3.5 ring-1 ring-emerald-200">
+          <p class="text-xs font-bold text-emerald-800">② Homepage third tab — companion, not alternative</p>
+          <p class="mt-1 text-xs leading-relaxed text-slate-600">Concept 1's con (homepage users can't discover
+            it) and Concept 2's con (still needs SEO pages) are the same problem flipped — they cancel out. The
+            URL-input logic is already built for ①; reusing it as a tab is just a render decision. Small marginal
+            cost, second surface.</p>
+        </div>
+        <div class="rounded-lg bg-white p-3.5 ring-1 ring-amber-200">
+          <p class="text-xs font-bold text-amber-700">③ Borrow Concept 4's preview — as an optional inline step</p>
+          <p class="mt-1 text-xs leading-relaxed text-slate-600">Not a forced wizard — that breaks the
+            zero-friction flow behind the 86% upload conversion rate. But the review step matters more here than
+            for file upload: the server-side fetch is opaque, so the user can't see what they got. So — an
+            optional inline “► Show preview before exporting” disclosure. Confirmation value, no speed cost.</p>
+        </div>
+        <div class="rounded-lg bg-white p-3.5 ring-1 ring-slate-200">
+          <p class="text-xs font-bold text-slate-500">✗ Skip Concept 3 — smart auto-detect input</p>
+          <p class="mt-1 text-xs leading-relaxed text-slate-600">Design-elegant but operationally wrong. A
+            feature invisible until you try it generates no “oh, this exists” moment. PT-007 users are
+            <em>actively searching</em> for this workflow — the UI has to announce it, not hide it behind
+            detection.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- CONCEPT 1 — LANDING PAGE                                               -->
+  <!-- ===================================================================== -->
+  <section id="concept-1" class="anchor-offset mb-14">
+    <div class="mb-3 flex items-center gap-3">
+      <h2 class="text-lg font-bold text-slate-900">Concept 1 — URL-first landing page</h2>
+      <span class="rounded-full bg-emerald-700 px-2.5 py-0.5 text-xs font-semibold text-white">✓ Build — primary surface</span>
+    </div>
+    <p class="mb-4 max-w-3xl text-sm text-slate-600">
+      A dedicated route (<code class="rounded bg-slate-200 px-1 text-xs">/ai-chat-to-pdf</code>). The point isn't
+      mainly SEO — it's <strong>positioning</strong>: a dedicated route makes this a first-class feature with its
+      own value proposition. “Turn any AI chat into a polished PDF” is a sharp, shareable message; “we added a
+      third input tab” is not. The URL bar is the hero.
+    </p>
+
+    <!-- browser frame -->
+    <div class="browser-frame overflow-hidden rounded-xl border border-slate-300 bg-white">
+      <div class="flex items-center gap-2 border-b border-slate-200 bg-slate-50 px-4 py-2.5">
+        <div class="flex gap-1.5"><span class="h-3 w-3 rounded-full bg-red-400"></span><span class="h-3 w-3 rounded-full bg-amber-400"></span><span class="h-3 w-3 rounded-full bg-green-400"></span></div>
+        <div class="ml-3 flex-1 rounded-md bg-white px-3 py-1 text-xs text-slate-400 ring-1 ring-slate-200">www.markdown.free/ai-chat-to-pdf</div>
+      </div>
+
+      <!-- mock app header -->
+      <div class="flex items-center justify-between border-b border-slate-100 px-6 py-3">
+        <div class="flex items-center gap-2">
+          <div class="flex h-6 w-6 items-center justify-center rounded bg-emerald-700 text-xs font-bold text-white">M</div>
+          <span class="text-sm font-semibold text-slate-700">Markdown Free</span>
+        </div>
+        <div class="hidden gap-4 text-xs text-slate-500 sm:flex"><span>About</span><span>FAQ</span><span>Privacy</span><span class="rounded border border-slate-200 px-2 py-1">EN ▾</span></div>
+      </div>
+
+      <!-- hero -->
+      <div class="px-6 py-12 text-center">
+        <span class="inline-block rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-200">New · No signup</span>
+        <h1 class="mx-auto mt-4 max-w-2xl text-3xl font-bold tracking-tight text-slate-900">Turn any AI chat into a polished PDF</h1>
+        <p class="mx-auto mt-3 max-w-xl text-sm text-slate-600">Paste a share link from ChatGPT, Claude, Gemini or DeepSeek. We fetch the conversation and hand you a clean PDF, DOCX or Markdown file in seconds.</p>
+
+        <!-- URL input pill -->
+        <div class="mx-auto mt-7 flex max-w-xl items-center gap-2 rounded-full border border-slate-300 bg-white p-1.5 shadow-sm focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-100">
+          <span class="pl-3 text-slate-400">🔗</span>
+          <input type="text" placeholder="Paste a ChatGPT / Claude / Gemini / DeepSeek share link…" class="flex-1 bg-transparent px-2 py-2 text-sm text-slate-700 outline-none placeholder:text-slate-400" />
+          <button class="rounded-full bg-emerald-700 px-5 py-2.5 text-sm font-semibold text-white shadow transition hover:bg-emerald-800">Convert →</button>
+        </div>
+
+        <!-- providers -->
+        <div class="mx-auto mt-5 flex max-w-xl flex-wrap items-center justify-center gap-2 text-xs text-slate-500">
+          <span class="font-medium text-slate-400">Works with</span>
+          <span class="flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1"><span class="h-2 w-2 rounded-full bg-[#10a37f]"></span>ChatGPT</span>
+          <span class="flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1"><span class="h-2 w-2 rounded-full bg-[#d97757]"></span>Claude</span>
+          <span class="flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1"><span class="h-2 w-2 rounded-full bg-[#4285f4]"></span>Gemini</span>
+          <span class="flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1"><span class="h-2 w-2 rounded-full bg-[#4d6bfe]"></span>DeepSeek</span>
+          <span class="rounded-full bg-slate-100 px-2.5 py-1">+ Grok, Copilot, Perplexity…</span>
+        </div>
+      </div>
+
+      <!-- how it works -->
+      <div class="grid gap-4 border-t border-slate-100 px-6 py-8 sm:grid-cols-3">
+        <div class="rounded-lg border border-slate-200 p-4">
+          <div class="mb-2 flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-700">1</div>
+          <p class="text-sm font-semibold text-slate-800">Paste the link</p>
+          <p class="mt-1 text-xs text-slate-500">In your AI chat, click Share → Copy link. Paste it above.</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 p-4">
+          <div class="mb-2 flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-700">2</div>
+          <p class="text-sm font-semibold text-slate-800">Preview</p>
+          <p class="mt-1 text-xs text-slate-500">We fetch the conversation and render a clean, formatted preview.</p>
+        </div>
+        <div class="rounded-lg border border-slate-200 p-4">
+          <div class="mb-2 flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-700">3</div>
+          <p class="text-sm font-semibold text-slate-800">Export</p>
+          <p class="mt-1 text-xs text-slate-500">Download as PDF, DOCX, Markdown or HTML. Nothing is stored.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-3 grid gap-3 text-xs sm:grid-cols-2">
+      <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3"><strong class="text-emerald-800">Pros</strong><ul class="mt-1 list-disc pl-4 text-emerald-900"><li><strong>Positioning</strong> — a first-class feature with its own value proposition, not a buried tab</li><li>“Turn any AI chat into a polished PDF” is a clean, shareable hook</li><li>URL input gets full prominence; clearest call to action</li><li>Doubles as the SEO intent page — reuses the generateStaticParams + FAQ + JSON-LD pattern</li></ul></div>
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3"><strong class="text-slate-700">Cons</strong><ul class="mt-1 list-disc pl-4 text-slate-600"><li>New route to build &amp; translate ×10 locales</li><li>Homepage users won't discover it on its own — <strong>resolved by pairing with Concept 2</strong></li></ul></div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- CONCEPT 2 — HOMEPAGE SEGMENTED TAB                                     -->
+  <!-- ===================================================================== -->
+  <section id="concept-2" class="anchor-offset mb-14">
+    <div class="mb-3 flex items-center gap-3">
+      <h2 class="text-lg font-bold text-slate-900">Concept 2 — Homepage upload card, third tab</h2>
+      <span class="rounded-full bg-emerald-700 px-2.5 py-0.5 text-xs font-semibold text-white">✓ Build — companion surface</span>
+    </div>
+    <p class="mb-4 max-w-3xl text-sm text-slate-600">
+      Adds an <strong>“AI chat link”</strong> segment to the existing upload card. Not an alternative to
+      Concept 1 — its <strong>companion</strong>. Concept 1 owns positioning; this owns discoverability among the
+      existing homepage audience. The URL-input logic is already built for Concept 1, so shipping it as a tab
+      here is mostly a render decision.
+    </p>
+
+    <div class="browser-frame mx-auto max-w-xl overflow-hidden rounded-xl border border-slate-300 bg-white">
+      <div class="flex items-center gap-2 border-b border-slate-200 bg-slate-50 px-4 py-2.5">
+        <div class="flex gap-1.5"><span class="h-3 w-3 rounded-full bg-red-400"></span><span class="h-3 w-3 rounded-full bg-amber-400"></span><span class="h-3 w-3 rounded-full bg-green-400"></span></div>
+        <div class="ml-3 flex-1 rounded-md bg-white px-3 py-1 text-xs text-slate-400 ring-1 ring-slate-200">www.markdown.free</div>
+      </div>
+
+      <div class="p-6">
+        <!-- segmented control -->
+        <div class="mb-4 flex gap-1 rounded-lg bg-slate-100 p-1">
+          <button class="flex-1 rounded-md px-3 py-2 text-xs font-medium text-slate-500">Upload file</button>
+          <button class="flex-1 rounded-md px-3 py-2 text-xs font-medium text-slate-500">Paste text</button>
+          <button class="flex-1 rounded-md bg-white px-3 py-2 text-xs font-semibold text-emerald-700 shadow-sm">AI chat link</button>
+        </div>
+
+        <!-- url input -->
+        <label class="text-xs font-medium text-slate-500">Paste a public share link</label>
+        <div class="mt-1.5 flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-100">
+          <span class="text-slate-400">🔗</span>
+          <input type="text" value="https://chatgpt.com/share/68f2a1c4-kubernetes-vs-docker" class="flex-1 bg-transparent text-sm text-slate-700 outline-none" />
+        </div>
+
+        <!-- detected chip -->
+        <div class="mt-2.5 flex items-center gap-2 rounded-md bg-emerald-50 px-3 py-2 text-xs text-emerald-800 ring-1 ring-emerald-200">
+          <span class="h-2 w-2 rounded-full bg-[#10a37f]"></span>
+          <span><strong>ChatGPT</strong> conversation detected · “Kubernetes vs Docker Swarm”</span>
+          <span class="ml-auto text-emerald-600">✓</span>
+        </div>
+
+        <button class="mt-4 w-full rounded-full bg-emerald-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800">Fetch &amp; preview</button>
+
+        <p class="mt-3 text-center text-[11px] text-slate-400">Works with ChatGPT · Claude · Gemini · DeepSeek &amp; more · nothing stored</p>
+      </div>
+    </div>
+
+    <div class="mt-3 grid gap-3 text-xs sm:grid-cols-2">
+      <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-3"><strong class="text-emerald-800">Pros</strong><ul class="mt-1 list-disc pl-4 text-emerald-900"><li>Maximum discoverability — every homepage visitor sees it</li><li>Small marginal cost on top of Concept 1 — shares the URL-input component</li></ul></div>
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3"><strong class="text-slate-700">Cons</strong><ul class="mt-1 list-disc pl-4 text-slate-600"><li>Competes for space in an already-busy card</li><li>Needs separate SEO intent pages — <strong>resolved by pairing with Concept 1</strong></li></ul></div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- CONCEPT 3 — SMART UNIVERSAL INPUT                                      -->
+  <!-- ===================================================================== -->
+  <section id="concept-3" class="anchor-offset mb-14">
+    <div class="mb-3 flex items-center gap-3">
+      <h2 class="text-lg font-bold text-slate-900">Concept 3 — Smart universal input (no tabs)</h2>
+      <span class="rounded-full bg-slate-200 px-2.5 py-0.5 text-xs font-semibold text-slate-600">✗ Skip</span>
+    </div>
+    <p class="mb-4 max-w-3xl text-sm text-slate-600">
+      One input zone accepts everything — a dropped file, pasted Markdown, <em>or</em> a pasted link,
+      auto-detected. Design-elegant but <strong>operationally wrong for this feature</strong> — see cons.
+    </p>
+
+    <div class="browser-frame mx-auto max-w-xl overflow-hidden rounded-xl border border-slate-300 bg-white">
+      <div class="flex items-center gap-2 border-b border-slate-200 bg-slate-50 px-4 py-2.5">
+        <div class="flex gap-1.5"><span class="h-3 w-3 rounded-full bg-red-400"></span><span class="h-3 w-3 rounded-full bg-amber-400"></span><span class="h-3 w-3 rounded-full bg-green-400"></span></div>
+        <div class="ml-3 flex-1 rounded-md bg-white px-3 py-1 text-xs text-slate-400 ring-1 ring-slate-200">www.markdown.free</div>
+      </div>
+
+      <div class="p-6">
+        <!-- universal dropzone -->
+        <div class="rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 p-7 text-center">
+          <div class="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-white text-xl shadow-sm ring-1 ring-slate-200">⤵</div>
+          <p class="text-sm font-semibold text-slate-700">Drop a file, paste Markdown, or paste an AI chat link</p>
+          <p class="mt-1 text-xs text-slate-500">.md · .markdown · .txt — or a ChatGPT / Claude / Gemini / DeepSeek share URL</p>
+          <input type="text" placeholder="…or paste here" class="mx-auto mt-4 block w-full max-w-sm rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100" />
+        </div>
+
+        <!-- auto-detect banner -->
+        <div class="mt-3 flex items-center gap-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3">
+          <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-base shadow-sm">🔗</span>
+          <div class="min-w-0 flex-1">
+            <p class="text-xs font-semibold text-emerald-900">Claude share link detected</p>
+            <p class="truncate text-[11px] text-emerald-700">claude.ai/share/9b1f…  ·  fetch this conversation and convert it?</p>
+          </div>
+          <button class="shrink-0 rounded-full bg-emerald-700 px-4 py-1.5 text-xs font-semibold text-white hover:bg-emerald-800">Fetch</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-3 grid gap-3 text-xs sm:grid-cols-2">
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-3"><strong class="text-slate-700">Pros</strong><ul class="mt-1 list-disc pl-4 text-slate-600"><li>Zero learning curve — one box, no modes to choose</li><li>Feels modern; the feature blends into the core flow</li></ul></div>
+      <div class="rounded-lg border border-red-200 bg-red-50 p-3"><strong class="text-red-800">Cons — why we skip it</strong><ul class="mt-1 list-disc pl-4 text-red-900"><li><strong>Invisible until you try it.</strong> A feature hidden behind detection generates no “oh, this exists” moment</li><li>PT-007 users are <em>actively searching</em> for this workflow — the UI must announce it, not bury it</li><li>For a feature whose entire value is discoverability of a new workflow, auto-detect is the wrong call</li><li>Relies on detection — an ambiguous paste could mis-route</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- CONCEPT 4 — GUIDED WIZARD                                              -->
+  <!-- ===================================================================== -->
+  <section id="concept-4" class="anchor-offset mb-14">
+    <div class="mb-3 flex items-center gap-3">
+      <h2 class="text-lg font-bold text-slate-900">Concept 4 — Guided 3-step wizard</h2>
+      <span class="rounded-full bg-amber-400 px-2.5 py-0.5 text-xs font-semibold text-amber-950">◐ Adapt — not as a wizard</span>
+    </div>
+    <p class="mb-4 max-w-3xl text-sm text-slate-600">
+      A focused stepper: <strong>Link → Review → Export</strong>. Right advanced mode, <strong>wrong
+      default</strong> — a forced 3-step wizard breaks the zero-friction flow behind the 86% upload conversion
+      rate. But one piece of it is worth keeping (see “Adapted approach” below the mock).
+    </p>
+
+    <div class="browser-frame mx-auto max-w-2xl overflow-hidden rounded-xl border border-slate-300 bg-white">
+      <div class="flex items-center gap-2 border-b border-slate-200 bg-slate-50 px-4 py-2.5">
+        <div class="flex gap-1.5"><span class="h-3 w-3 rounded-full bg-red-400"></span><span class="h-3 w-3 rounded-full bg-amber-400"></span><span class="h-3 w-3 rounded-full bg-green-400"></span></div>
+        <div class="ml-3 flex-1 rounded-md bg-white px-3 py-1 text-xs text-slate-400 ring-1 ring-slate-200">www.markdown.free/ai-chat-to-pdf</div>
+      </div>
+
+      <div class="p-6">
+        <!-- stepper -->
+        <div class="mb-6 flex items-center justify-center gap-2 text-xs font-medium">
+          <span class="flex items-center gap-1.5 text-emerald-700"><span class="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-700 text-[10px] text-white">✓</span>Link</span>
+          <span class="h-px w-8 bg-emerald-700"></span>
+          <span class="flex items-center gap-1.5 text-emerald-700"><span class="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-700 text-[10px] text-white">2</span>Review</span>
+          <span class="h-px w-8 bg-slate-200"></span>
+          <span class="flex items-center gap-1.5 text-slate-400"><span class="flex h-5 w-5 items-center justify-center rounded-full bg-slate-200 text-[10px]">3</span>Export</span>
+        </div>
+
+        <!-- review card -->
+        <div class="rounded-xl border border-slate-200">
+          <div class="flex flex-wrap items-center gap-2 border-b border-slate-100 px-4 py-3">
+            <span class="flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium"><span class="h-2 w-2 rounded-full bg-[#10a37f]"></span>ChatGPT</span>
+            <span class="text-sm font-semibold text-slate-800">Kubernetes vs Docker Swarm</span>
+            <span class="ml-auto text-xs text-slate-400">12 messages · May 2026</span>
+          </div>
+          <div class="scroll-preview max-h-56 space-y-3 overflow-y-auto p-4">
+            <div class="flex gap-2"><span class="shrink-0 rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-bold text-slate-600">YOU</span><p class="text-xs text-slate-600">When should I pick Kubernetes over Docker Swarm for a small team?</p></div>
+            <div class="flex gap-2"><span class="shrink-0 rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700">AI</span>
+              <div class="text-xs text-slate-600">
+                <p>Great question. The short version:</p>
+                <ul class="mt-1 list-disc pl-4"><li><strong>Docker Swarm</strong> — simpler, fine for &lt;10 services.</li><li><strong>Kubernetes</strong> — heavier, but the ecosystem wins at scale.</li></ul>
+                <pre class="mt-2 overflow-x-auto rounded bg-slate-900 px-2.5 py-1.5 text-[10px] text-slate-100">docker swarm init --advertise-addr 10.0.0.1</pre>
+              </div>
+            </div>
+            <div class="flex gap-2"><span class="shrink-0 rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-bold text-slate-600">YOU</span><p class="text-xs text-slate-600">What about rolling updates?</p></div>
+          </div>
+          <label class="flex items-center gap-2 border-t border-slate-100 px-4 py-2.5 text-xs text-slate-500">
+            <input type="checkbox" checked class="rounded border-slate-300 text-emerald-600" /> Include timestamps &amp; speaker labels
+          </label>
+        </div>
+
+        <div class="mt-4 flex items-center justify-between">
+          <button class="rounded-full px-4 py-2 text-sm font-medium text-slate-500 hover:bg-slate-100">← Back</button>
+          <button class="rounded-full bg-emerald-700 px-6 py-2.5 text-sm font-semibold text-white hover:bg-emerald-800">Continue to export →</button>
+        </div>
+
+        <!-- step 3 peek -->
+        <div class="mt-5 rounded-lg border border-dashed border-slate-300 bg-slate-50 p-3">
+          <p class="mb-2 text-[11px] font-medium uppercase tracking-wide text-slate-400">Step 3 preview — choose a format</p>
+          <div class="grid grid-cols-4 gap-2">
+            <div class="rounded-md border border-emerald-300 bg-white py-3 text-center text-xs font-semibold text-emerald-700 shadow-sm">PDF</div>
+            <div class="rounded-md border border-slate-200 bg-white py-3 text-center text-xs font-medium text-slate-500">DOCX</div>
+            <div class="rounded-md border border-slate-200 bg-white py-3 text-center text-xs font-medium text-slate-500">Markdown</div>
+            <div class="rounded-md border border-slate-200 bg-white py-3 text-center text-xs font-medium text-slate-500">HTML</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADAPTED APPROACH -->
+    <div class=”mt-5 rounded-xl border-2 border-amber-300 bg-amber-50 p-4”>
+      <p class=”mb-1 text-sm font-bold text-amber-900”>◐ Adapted approach — keep the review, drop the wizard</p>
+      <p class=”mb-4 max-w-3xl text-xs leading-relaxed text-amber-900”>
+        The server-side fetch is opaque — the user can't see what they got until they preview. That makes a
+        confirmation step more valuable here than for direct file upload. So the review becomes an
+        <strong>optional inline disclosure</strong> inside the Concept 1 / 2 flow — not a separate page. The
+        default path stays one click; cautious users expand.
+      </p>
+      <div class=”grid gap-3 sm:grid-cols-2”>
+        <!-- collapsed -->
+        <div class=”rounded-lg border border-amber-200 bg-white p-4”>
+          <p class=”mb-2 text-[11px] font-bold uppercase tracking-wide text-slate-400”>Collapsed (default)</p>
+          <div class=”flex items-center gap-2 rounded-md bg-emerald-50 px-3 py-2 text-xs text-emerald-800 ring-1 ring-emerald-200”>
+            <span class=”h-2 w-2 rounded-full bg-[#10a37f]”></span><span><strong>ChatGPT</strong> · “Kubernetes vs Docker Swarm” · 12 messages</span><span class=”ml-auto text-emerald-600”>✓</span>
+          </div>
+          <button class=”mt-2 text-xs font-medium text-slate-500 hover:text-slate-700”>► Show preview before exporting</button>
+          <div class=”mt-3 flex gap-2”>
+            <button class=”flex-1 rounded-full bg-emerald-700 px-3 py-2 text-xs font-semibold text-white”>To PDF</button>
+            <button class=”flex-1 rounded-full border border-slate-300 px-3 py-2 text-xs font-medium text-slate-600”>To DOCX</button>
+            <button class=”flex-1 rounded-full border border-slate-300 px-3 py-2 text-xs font-medium text-slate-600”>Markdown</button>
+          </div>
+        </div>
+        <!-- expanded -->
+        <div class=”rounded-lg border border-amber-200 bg-white p-4”>
+          <p class=”mb-2 text-[11px] font-bold uppercase tracking-wide text-slate-400”>Expanded (one click)</p>
+          <button class=”mb-2 text-xs font-medium text-emerald-700”>▼ Hide preview</button>
+          <div class=”scroll-preview max-h-32 space-y-2 overflow-y-auto rounded-md bg-slate-50 p-3 ring-1 ring-slate-200”>
+            <div class=”flex gap-2”><span class=”shrink-0 rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-bold text-slate-600”>YOU</span><p class=”text-[11px] text-slate-600”>When should I pick Kubernetes over Docker Swarm?</p></div>
+            <div class=”flex gap-2”><span class=”shrink-0 rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700”>AI</span><p class=”text-[11px] text-slate-600”>Short version: Swarm for &lt;10 services, Kubernetes when the ecosystem wins at scale…</p></div>
+          </div>
+          <div class=”mt-3 flex gap-2”>
+            <button class=”flex-1 rounded-full bg-emerald-700 px-3 py-2 text-xs font-semibold text-white”>To PDF</button>
+            <button class=”flex-1 rounded-full border border-slate-300 px-3 py-2 text-xs font-medium text-slate-600”>To DOCX</button>
+            <button class=”flex-1 rounded-full border border-slate-300 px-3 py-2 text-xs font-medium text-slate-600”>Markdown</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class=”mt-3 grid gap-3 text-xs sm:grid-cols-2”>
+      <div class=”rounded-lg border border-emerald-200 bg-emerald-50 p-3”><strong class=”text-emerald-800”>Keep</strong><ul class=”mt-1 list-disc pl-4 text-emerald-900”><li>The review/preview step — the fetch is opaque, so confirmation is genuinely useful here</li><li>Shipped as an optional inline disclosure, not a forced page</li></ul></div>
+      <div class=”rounded-lg border border-slate-200 bg-slate-50 p-3”><strong class=”text-slate-700”>Drop</strong><ul class=”mt-1 list-disc pl-4 text-slate-600”><li>The forced multi-step flow — extra clicks break the “30-second” house style</li><li>The separate stepper page — heaviest to build &amp; translate</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- STATES GALLERY                                                         -->
+  <!-- ===================================================================== -->
+  <section id="states" class="anchor-offset mb-10">
+    <h2 class="mb-1 text-lg font-bold text-slate-900">Flow states (apply to whichever concept you pick)</h2>
+    <p class="mb-4 max-w-3xl text-sm text-slate-600">After the link is pasted, the UI moves through these states.</p>
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <!-- detected -->
+      <div class="rounded-xl border border-slate-200 bg-white p-4">
+        <p class="mb-2 text-[11px] font-bold uppercase tracking-wide text-slate-400">1 · Detected</p>
+        <div class="flex items-center gap-2 rounded-md bg-emerald-50 px-3 py-2 text-xs text-emerald-800 ring-1 ring-emerald-200">
+          <span class="h-2 w-2 rounded-full bg-[#4d6bfe]"></span><span><strong>DeepSeek</strong> link recognised</span>
+        </div>
+        <p class="mt-2 text-[11px] text-slate-500">Provider matched from the URL host before any fetch.</p>
+      </div>
+      <!-- fetching -->
+      <div class="rounded-xl border border-slate-200 bg-white p-4">
+        <p class="mb-2 text-[11px] font-bold uppercase tracking-wide text-slate-400">2 · Fetching</p>
+        <div class="flex items-center gap-2 rounded-md bg-slate-50 px-3 py-2 text-xs text-slate-600 ring-1 ring-slate-200">
+          <span class="h-3 w-3 animate-spin rounded-full border-2 border-slate-300 border-t-emerald-600"></span>
+          <span>Fetching conversation…</span>
+        </div>
+        <p class="mt-2 text-[11px] text-slate-500">Server retrieves &amp; parses the shared chat. ~2–6s.</p>
+      </div>
+      <!-- ready -->
+      <div class="rounded-xl border border-slate-200 bg-white p-4">
+        <p class="mb-2 text-[11px] font-bold uppercase tracking-wide text-slate-400">3 · Ready</p>
+        <div class="rounded-md bg-white px-3 py-2 text-xs ring-1 ring-slate-200">
+          <p class="font-semibold text-slate-700">“Kubernetes vs Docker Swarm”</p>
+          <p class="mt-0.5 text-slate-400">12 messages · preview below · export ready</p>
+        </div>
+        <p class="mt-2 text-[11px] text-slate-500">Conversation rendered; export buttons enabled.</p>
+      </div>
+      <!-- error -->
+      <div class="rounded-xl border border-slate-200 bg-white p-4">
+        <p class="mb-2 text-[11px] font-bold uppercase tracking-wide text-slate-400">4 · Error</p>
+        <div class="rounded-md bg-red-50 px-3 py-2 text-xs text-red-700 ring-1 ring-red-200">
+          <p class="font-semibold">Couldn’t open this link</p>
+          <p class="mt-0.5 text-red-600">It may be private, expired, or blocked. Try “Paste text” instead.</p>
+        </div>
+        <p class="mt-2 text-[11px] text-slate-500">Always offers the paste-text fallback.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-slate-200 pt-6 text-xs text-slate-400">
+    Mockup · Markdown Free · AI Chat Export feature · Direction: build Concept 1 + 2, adapt Concept 4's preview as an optional inline disclosure, skip Concept 3.
+  </footer>
+
+</main>
+</body>
+</html>

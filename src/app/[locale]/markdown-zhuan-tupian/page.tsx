@@ -31,7 +31,12 @@ export async function generateMetadata({
       canonical: "/zh-Hans/markdown-zhuan-tupian",
       languages: hreflangAlternates("image"),
     },
+    twitter: {
+      card: "summary_large_image",
+      images: ["/og-markdown-to-png.png"],
+    },
     openGraph: {
+      images: [{ url: "/og-markdown-to-png.png", width: 1200, height: 630, alt: "Markdown to Image (PNG) — Markdown Free" }],
       title: "Markdown转图片/长图 – 免费在线工具，适合公众号排版 | Markdown Free",
       description: "把 Markdown 渲染为清晰的 PNG 长图，全程本地处理，无需注册。",
       locale: "zh_CN",

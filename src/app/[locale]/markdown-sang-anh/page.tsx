@@ -31,7 +31,12 @@ export async function generateMetadata({
       canonical: "/vi/markdown-sang-anh",
       languages: hreflangAlternates("image"),
     },
+    twitter: {
+      card: "summary_large_image",
+      images: ["/og-markdown-to-png.png"],
+    },
     openGraph: {
+      images: [{ url: "/og-markdown-to-png.png", width: 1200, height: 630, alt: "Markdown to Image (PNG) — Markdown Free" }],
       title: "Chuyển đổi Markdown sang Ảnh PNG – Miễn phí, Riêng tư, Không cần đăng ký | Markdown Free",
       description: "Kết xuất tệp .md thành ảnh PNG sắc nét, hoàn toàn trong trình duyệt. Miễn phí và riêng tư.",
       locale: "vi_VN",

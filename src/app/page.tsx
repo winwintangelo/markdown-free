@@ -56,7 +56,7 @@ const jsonLd = {
         name: "Markdown Free",
         url: "https://www.markdown.free",
       },
-      screenshot: "https://www.markdown.free/og-image.svg",
+      screenshot: "https://www.markdown.free/og-image.png",
       softwareHelp: {
         "@type": "WebPage",
         url: "https://www.markdown.free/faq",

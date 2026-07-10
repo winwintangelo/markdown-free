@@ -43,7 +43,7 @@ export const metadata: Metadata = {
       "Convert Markdown to PDF, Word (DOCX), image (PNG) or EPUB instantly. 100% free, no signup, no ad trackers.",
     images: [
       {
-        url: "/og-image.svg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Markdown Free - Convert Markdown to PDF, Word, Image (PNG), EPUB",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "Markdown to PDF, Word (DOCX) & Image (PNG) Converter – Free, Private, No Signup",
     description:
       "Convert Markdown to PDF, Word (DOCX), image (PNG) or EPUB instantly. 100% free, no signup, no ad trackers.",
-    images: ["/og-image.svg"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,

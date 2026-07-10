@@ -31,7 +31,12 @@ export async function generateMetadata({
       canonical: "/ko/markdown-imiji-byeonhwan",
       languages: hreflangAlternates("image"),
     },
+    twitter: {
+      card: "summary_large_image",
+      images: ["/og-markdown-to-png.png"],
+    },
     openGraph: {
+      images: [{ url: "/og-markdown-to-png.png", width: 1200, height: 630, alt: "Markdown to Image (PNG) — Markdown Free" }],
       title: "마크다운 이미지 변환 (PNG) – 무료, 가입 불필요, 글자 깨짐 없음 | Markdown Free",
       description: "마크다운을 브라우저에서 선명한 PNG 이미지로 렌더링. 무료, 가입 불필요.",
       locale: "ko_KR",
