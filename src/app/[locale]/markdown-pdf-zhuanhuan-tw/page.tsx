@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { hreflangAlternates } from "@/lib/tool-links";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
@@ -42,6 +43,7 @@ export async function generateMetadata({
       languages: hreflangAlternates("pdf"),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Markdown 轉 PDF — 免費線上工具，免註冊（2026）",
       description:
         "拖放 .md 檔案，立即下載 PDF。免註冊、免安裝、繁體中文支援。",
@@ -197,7 +199,9 @@ export default async function MarkdownPdfZhuanhuanTwPage({
       </article>
 
       <Footer locale={locale} dict={dict} />
-    </main>
+            {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} current="pdf" />
+      </main>
     </>
   );
 }

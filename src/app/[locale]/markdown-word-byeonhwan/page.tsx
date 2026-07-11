@@ -38,6 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Markdown Word(DOCX) 변환 | 무료 온라인 도구",
       description: ".md 파일을 Microsoft Word 형식으로 변환합니다. 무료, 프라이빗, 즉시 다운로드.",
       url: "https://www.markdown.free/ko/markdown-word-byeonhwan",

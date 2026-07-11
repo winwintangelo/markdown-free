@@ -39,6 +39,7 @@ export async function generateMetadata({
       canonical: "/zh-Hant/github-wenjiian-pdf",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "GitHub README 轉 PDF — 免費線上工具，免註冊（2026）",
       description:
         "把 GitHub README.md 一鍵轉成 PDF。免費、免註冊、繁體中文支援。",

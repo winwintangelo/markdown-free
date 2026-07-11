@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary, type Locale } from "@/i18n";
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: "对比 8 款 Markdown 转 PDF 工具：Markdown Free、Pandoc、Typora、Dillinger、StackEdit、md-to-pdf、Markdown PDF (VS Code)、Online2PDF。中文不乱码的选择。",
     keywords: ["markdown pdf 转换 对比", "markdown pdf 中文乱码", "pandoc 中文 pdf", "markdown 转换器 推荐", "在线 markdown pdf", "markdown 字体豆腐"],
     alternates: { canonical: "/zh-Hans/markdown-zhuanhuanqi-bijiao", languages: hreflangAlternates("comparison") },
-    openGraph: { title: "Markdown 转 PDF 工具对比 2026", description: "诚实对比 8 款 Markdown 转 PDF 工具，按用途说明哪款适合你。", locale: "zh_CN" },
+    openGraph: { images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }], title: "Markdown 转 PDF 工具对比 2026", description: "诚实对比 8 款 Markdown 转 PDF 工具，按用途说明哪款适合你。", locale: "zh_CN" },
   };
 }
 
@@ -166,6 +167,8 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           </div>
         </article>
         <Footer locale={locale} dict={dict} />
+              {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} current="comparison" />
       </main>
     </ConverterProvider>
   );

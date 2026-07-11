@@ -18,6 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
       canonical: "https://www.markdown.free/ja/markdown-docx-henkan",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Markdown DOCX（Word）変換 無料ツール",
       description: ".mdファイルをMicrosoft Word DOCX形式に変換。無料・プライベート・即時ダウンロード。",
       url: "https://www.markdown.free/ja/markdown-docx-henkan",

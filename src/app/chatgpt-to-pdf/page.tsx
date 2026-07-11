@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     canonical: "/chatgpt-to-pdf",
   },
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
     title: "Convert ChatGPT to PDF | Markdown Free",
     description:
       "Save ChatGPT conversations and code blocks as PDF. Free, instant export.",

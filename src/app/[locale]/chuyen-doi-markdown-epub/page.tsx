@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { safeJsonLd } from "@/lib/json-ld";
 import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, isValidLocale, type Locale } from "@/i18n";
 import { hreflangAlternates } from "@/lib/tool-links";
@@ -38,6 +39,7 @@ export async function generateMetadata({
       languages: hreflangAlternates("epub"),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Chuyển đổi Markdown sang EPUB miễn phí | Markdown Free",
       description:
         "Chuyển đổi file Markdown sang EPUB miễn phí. Không cần đăng ký, bảo mật đảm bảo.",
@@ -45,6 +47,46 @@ export async function generateMetadata({
     },
   };
 }
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "vi",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Công cụ chuyển đổi Markdown sang EPUB này có miễn phí không?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Có! Markdown Free miễn phí 100% không có chi phí ẩn, gói cao cấp hay yêu cầu đăng ký."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "EPUB có hoạt động trên Kindle không?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Có. Các thiết bị Kindle hiện đại hỗ trợ EPUB gốc. Đối với các mẫu cũ hơn, bạn có thể sử dụng tính năng “Gửi đến Kindle” hoặc Calibre để chuyển đổi EPUB sang MOBI."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Các chương được tạo như thế nào?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Markdown Free tự động chia tài liệu của bạn thành các chương tại tiêu đề H1 (hoặc H2 nếu không có H1) và tạo mục lục có thể điều hướng."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "File của tôi có được lưu trữ trên máy chủ của bạn không?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Không. File của bạn được xử lý trong bộ nhớ và xóa ngay sau khi chuyển đổi. Chúng tôi không bao giờ lưu trữ nội dung của bạn."
+      }
+    }
+  ]
+};
 
 export default async function ChuyenDoiMarkdownEpubPage({
   params,
@@ -63,6 +105,7 @@ export default async function ChuyenDoiMarkdownEpubPage({
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
       {/* Hero Section */}
       <section className="mb-12 text-center">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">

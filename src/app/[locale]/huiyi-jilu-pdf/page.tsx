@@ -37,6 +37,7 @@ export async function generateMetadata({
       canonical: "/zh-Hant/huiyi-jilu-pdf",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "會議記錄轉PDF | Markdown Free",
       description:
         "將會議記錄從Markdown轉換為PDF。適合團隊分享。免費，無需註冊。",

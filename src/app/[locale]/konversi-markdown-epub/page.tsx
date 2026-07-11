@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { safeJsonLd } from "@/lib/json-ld";
 import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, isValidLocale, type Locale } from "@/i18n";
 import { hreflangAlternates } from "@/lib/tool-links";
@@ -38,6 +39,7 @@ export async function generateMetadata({
       languages: hreflangAlternates("epub"),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Konversi Markdown ke EPUB Gratis | Markdown Free",
       description:
         "Konversi file Markdown ke EPUB secara gratis. Tanpa registrasi, privasi terjamin.",
@@ -45,6 +47,46 @@ export async function generateMetadata({
     },
   };
 }
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "id",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Apakah konverter Markdown ke EPUB ini gratis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ya! Markdown Free 100% gratis tanpa biaya tersembunyi, paket premium, atau persyaratan registrasi."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah EPUB berfungsi di Kindle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ya. Perangkat Kindle modern mendukung EPUB secara native. Untuk model lama, Anda dapat menggunakan fitur “Kirim ke Kindle” atau Calibre untuk mengonversi EPUB ke MOBI."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Bagaimana bab dihasilkan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Markdown Free secara otomatis membagi dokumen Anda menjadi bab pada heading H1 (atau H2 jika tidak ada H1) dan menghasilkan daftar isi yang dapat dinavigasi."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Apakah file saya disimpan di server Anda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tidak. File Anda diproses di memori dan langsung dihapus setelah konversi. Kami tidak pernah menyimpan konten Anda."
+      }
+    }
+  ]
+};
 
 export default async function KonversiMarkdownEpubPage({
   params,
@@ -63,6 +105,7 @@ export default async function KonversiMarkdownEpubPage({
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
       {/* Hero Section */}
       <section className="mb-12 text-center">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">

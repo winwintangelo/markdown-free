@@ -37,6 +37,7 @@ export async function generateMetadata({
       canonical: "/zh-Hant/jishu-biji-pdf",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "技術筆記轉PDF | Markdown Free",
       description:
         "將Markdown技術筆記轉換為PDF。免費，無需註冊。",

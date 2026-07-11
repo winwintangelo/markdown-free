@@ -37,6 +37,7 @@ export async function generateMetadata({
       canonical: "/zh-Hant/api-wendang-pdf",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "API文件轉PDF | Markdown Free",
       description:
         "將API文件從Markdown轉換為PDF。適合開發團隊。免費，無需註冊。",

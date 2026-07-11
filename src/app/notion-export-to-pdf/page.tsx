@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     canonical: "/notion-export-to-pdf",
   },
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
     title: "Notion Export to PDF | Markdown Free",
     description:
       "Convert Notion markdown exports to PDF — no paid plan required. Free, private.",

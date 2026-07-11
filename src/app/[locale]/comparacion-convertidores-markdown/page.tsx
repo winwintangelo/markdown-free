@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary, type Locale } from "@/i18n";
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: "Comparación de 8 herramientas para convertir Markdown a PDF: Markdown Free, Pandoc, Typora, Dillinger, StackEdit, md-to-pdf, Markdown PDF (VS Code), Online2PDF.",
     keywords: ["mejor markdown a pdf 2026", "comparación markdown pdf", "convertidor markdown gratis", "markdown sin instalación", "pandoc vs markdown free", "markdown pdf online"],
     alternates: { canonical: "/es/comparacion-convertidores-markdown", languages: hreflangAlternates("comparison") },
-    openGraph: { title: "Mejores convertidores Markdown a PDF 2026", description: "Comparación honesta de 8 herramientas Markdown→PDF, con la mejor para cada caso de uso.", locale: "es_ES" },
+    openGraph: { images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }], title: "Mejores convertidores Markdown a PDF 2026", description: "Comparación honesta de 8 herramientas Markdown→PDF, con la mejor para cada caso de uso.", locale: "es_ES" },
   };
 }
 
@@ -153,6 +154,8 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           </div>
         </article>
         <Footer locale={locale} dict={dict} />
+              {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} current="comparison" />
       </main>
     </ConverterProvider>
   );

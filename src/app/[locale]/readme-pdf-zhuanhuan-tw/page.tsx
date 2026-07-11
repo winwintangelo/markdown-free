@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
 import { hreflangAlternates } from "@/lib/tool-links";
@@ -63,6 +64,7 @@ export async function generateMetadata({
       languages: hreflangAlternates("readme"),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Markdown 轉 PDF — .md 檔案一鍵轉換，免費線上（2026）",
       description:
         "上傳 .md 或 README.md，立即下載 PDF。免費、免註冊、繁體中文支援。",
@@ -240,7 +242,9 @@ MIT`}</pre>
       </article>
 
       <Footer locale={locale} dict={dict} />
-    </main>
+            {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} current="readme" />
+      </main>
     </>
   );
 }

@@ -38,6 +38,7 @@ export async function generateMetadata({
       languages: hreflangAlternates("readme"),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "README.md PDF 変換 | Markdown Free",
       description:
         "GitHubのREADME.mdをプロフェッショナルなPDFに変換。無料・登録不要。",

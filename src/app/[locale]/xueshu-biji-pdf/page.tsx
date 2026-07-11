@@ -37,6 +37,7 @@ export async function generateMetadata({
       canonical: "/zh-Hant/xueshu-biji-pdf",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "學術筆記轉PDF | Markdown Free",
       description:
         "將學術筆記從Markdown轉換為PDF。適合學生和研究人員。免費，無需註冊。",

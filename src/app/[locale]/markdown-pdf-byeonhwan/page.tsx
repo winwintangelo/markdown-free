@@ -42,6 +42,7 @@ export async function generateMetadata({
       languages: hreflangAlternates("pdf"),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "마크다운 PDF 변환 — 무료, 회원가입 없이 (2026)",
       description:
         ".md → PDF 무료 변환기. 드래그 앤 드롭, 즉시 다운로드. 한글 깨짐 없이.",

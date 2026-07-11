@@ -17,6 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
       canonical: "https://www.markdown.free/zh-Hant/markdown-docx-zhuanhuan",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Markdown 轉 DOCX（Word）免費轉換器",
       description: "將 .md 檔案轉換為 Microsoft Word DOCX 格式。免費、私密、即時下載。",
       url: "https://www.markdown.free/zh-Hant/markdown-docx-zhuanhuan",

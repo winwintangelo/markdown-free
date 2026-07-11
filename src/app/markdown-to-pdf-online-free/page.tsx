@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     canonical: "/markdown-to-pdf-online-free",
   },
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
     title: "Free Online Markdown to PDF Converter | Markdown Free",
     description:
       "Convert Markdown to PDF online for free. No installation, no sign-up.",

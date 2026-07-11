@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, type Locale } from "@/i18n";
 import { hreflangAlternates } from "@/lib/tool-links";
 
@@ -37,6 +38,7 @@ export async function generateMetadata({
       languages: hreflangAlternates("readme"),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Chuyển đổi README.md sang PDF | Markdown Free",
       description:
         "Chuyển đổi README.md từ GitHub thành PDF chuyên nghiệp. Miễn phí, không cần đăng ký.",
@@ -222,6 +224,8 @@ MIT`}</pre>
       </article>
 
       <Footer locale={locale} dict={dict} />
-    </main>
+            {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} current="readme" />
+      </main>
   );
 }

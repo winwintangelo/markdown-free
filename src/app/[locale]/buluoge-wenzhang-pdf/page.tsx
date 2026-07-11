@@ -38,6 +38,7 @@ export async function generateMetadata({
       canonical: "/zh-Hant/buluoge-wenzhang-pdf",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "部落格文章轉PDF | Markdown Free",
       description:
         "將部落格文章從Markdown轉換為PDF。適合備份和分享。免費，無需註冊。",

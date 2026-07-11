@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     canonical: "/markdown-to-pdf-no-watermark",
   },
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
     title: "Markdown to PDF Without Watermark | Markdown Free",
     description:
       "Convert Markdown to PDF with no watermarks, no branding. Completely free.",

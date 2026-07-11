@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     canonical: "/github-readme-to-pdf",
   },
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
     title: "GitHub README to PDF — Free, No Signup (2026)",
     description:
       "Free GitHub README→PDF converter. Drag-and-drop .md, download PDF. No signup, no install.",

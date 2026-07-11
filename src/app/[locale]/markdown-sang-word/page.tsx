@@ -38,6 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Chuyển đổi Markdown sang Word (DOCX) | Công cụ Miễn phí",
       description: "Chuyển đổi tệp .md sang định dạng Microsoft Word. Miễn phí, riêng tư, tải xuống ngay lập tức.",
       url: "https://www.markdown.free/vi/markdown-sang-word",

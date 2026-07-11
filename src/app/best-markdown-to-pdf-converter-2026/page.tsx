@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary } from "@/i18n";
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
     languages: hreflangAlternates("comparison"),
   },
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
     title: "Best Markdown to PDF Converter (2026 Comparison)",
     description:
       "Honest comparison of 8 Markdown to PDF tools for 2026. Browser? CLI? CJK support? We say which tool wins for which case.",
@@ -646,6 +648,8 @@ export default function BestMarkdownToPdfConverter2026Page() {
         </article>
 
         <Footer locale="en" dict={dict} />
+              {/* Related tool suite cross-links */}
+        <RelatedTools locale="en" current="comparison" />
       </main>
     </ConverterProvider>
   );

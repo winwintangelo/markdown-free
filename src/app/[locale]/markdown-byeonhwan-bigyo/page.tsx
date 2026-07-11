@@ -38,6 +38,7 @@ export async function generateMetadata({
       languages: hreflangAlternates("comparison"),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "마크다운 PDF 변환기 비교 2026",
       description:
         "마크다운 PDF 변환 도구 8가지를 솔직하게 비교. 한글 깨짐 없이 쓸 수 있는 도구를 용도별로 정리.",

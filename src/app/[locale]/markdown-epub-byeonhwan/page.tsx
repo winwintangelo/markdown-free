@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { safeJsonLd } from "@/lib/json-ld";
 import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, isValidLocale, type Locale } from "@/i18n";
 import { hreflangAlternates } from "@/lib/tool-links";
@@ -38,6 +39,7 @@ export async function generateMetadata({
       languages: hreflangAlternates("epub"),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "마크다운 EPUB 변환 – 무료 온라인 도구 | Markdown Free",
       description:
         "마크다운 파일을 EPUB로 무료로 변환하세요. 회원가입 불필요, 개인정보 보호.",
@@ -45,6 +47,46 @@ export async function generateMetadata({
     },
   };
 }
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "ko",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "이 마크다운-EPUB 변환기는 무료인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네! Markdown Free는 숨겨진 비용, 프리미엄 플랜, 회원가입 요구 없이 100% 무료입니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "EPUB가 Kindle에서 작동하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네. 최신 Kindle 기기는 EPUB를 기본 지원합니다. 구형 모델의 경우 “Kindle로 보내기” 기능이나 Calibre를 사용하여 EPUB를 MOBI로 변환할 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "챕터는 어떻게 생성되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Markdown Free는 H1 제목(H1이 없으면 H2)에서 문서를 자동으로 챕터로 나누고 탐색 가능한 목차를 생성합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "파일이 서버에 저장되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아니요. 파일은 메모리에서 처리되며 변환 후 즉시 삭제됩니다. 콘텐츠를 저장하지 않습니다."
+      }
+    }
+  ]
+};
 
 export default async function MarkdownEpubByeonhwanPage({
   params,
@@ -63,6 +105,7 @@ export default async function MarkdownEpubByeonhwanPage({
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
       {/* Hero Section */}
       <section className="mb-12 text-center">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">

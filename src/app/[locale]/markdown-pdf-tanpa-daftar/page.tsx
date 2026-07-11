@@ -35,6 +35,7 @@ export async function generateMetadata({
       canonical: "/id/markdown-pdf-tanpa-daftar",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Markdown ke PDF Tanpa Daftar | Markdown Free",
       description:
         "Konversi Markdown ke PDF tanpa membuat akun. Tanpa login, tanpa pelacakan.",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary, type Locale } from "@/i18n";
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: "Perbandingan 8 alat konversi Markdown ke PDF: Markdown Free, Pandoc, Typora, Dillinger, StackEdit, md-to-pdf, Markdown PDF (VS Code), Online2PDF. Mana yang cocok.",
     keywords: ["perbandingan konverter markdown", "markdown ke pdf terbaik 2026", "markdown pdf gratis", "markdown tanpa instal", "pandoc vs markdown free", "markdown pdf online"],
     alternates: { canonical: "/id/perbandingan-konverter-markdown", languages: hreflangAlternates("comparison") },
-    openGraph: { title: "Konverter Markdown ke PDF Terbaik 2026", description: "Perbandingan jujur 8 alat Markdown→PDF, beserta yang menang untuk masing-masing kasus penggunaan.", locale: "id_ID" },
+    openGraph: { images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }], title: "Konverter Markdown ke PDF Terbaik 2026", description: "Perbandingan jujur 8 alat Markdown→PDF, beserta yang menang untuk masing-masing kasus penggunaan.", locale: "id_ID" },
   };
 }
 
@@ -153,6 +154,8 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           </div>
         </article>
         <Footer locale={locale} dict={dict} />
+              {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} current="comparison" />
       </main>
     </ConverterProvider>
   );

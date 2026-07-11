@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     canonical: "/obsidian-markdown-to-pdf",
   },
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
     title: "Obsidian Markdown to PDF Converter | Markdown Free",
     description:
       "Convert Obsidian notes to PDF. Free, private, no plugins required.",

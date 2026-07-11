@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { safeJsonLd } from "@/lib/json-ld";
+import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, isValidLocale, type Locale } from "@/i18n";
 import { hreflangAlternates } from "@/lib/tool-links";
 
@@ -37,6 +39,7 @@ export async function generateMetadata({
       languages: hreflangAlternates("epub"),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Convertire Markdown in EPUB Gratis | Markdown Free",
       description:
         "Converti i tuoi file Markdown in EPUB gratuitamente. Nessuna registrazione, privacy garantita.",
@@ -44,6 +47,46 @@ export async function generateMetadata({
     },
   };
 }
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "it",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Il convertitore Markdown-EPUB è gratuito?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sì! Markdown Free è 100% gratuito senza costi nascosti, piani premium o registrazione obbligatoria."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "L'EPUB funziona su Kindle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sì. I Kindle moderni supportano EPUB nativamente. Per i modelli più vecchi, puoi usare la funzione “Invia a Kindle” o Calibre per convertire EPUB in MOBI."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Come vengono generati i capitoli?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Markdown Free divide automaticamente il documento in capitoli ai titoli H1 (o H2 se non ci sono H1) e genera un indice navigabile."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I miei file vengono salvati sui vostri server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. I tuoi file vengono elaborati in memoria e immediatamente eliminati dopo la conversione. Non salviamo mai i tuoi contenuti."
+      }
+    }
+  ]
+};
 
 export default async function MarkdownEpubGratisPage({
   params,
@@ -62,6 +105,7 @@ export default async function MarkdownEpubGratisPage({
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
       {/* Hero Section */}
       <section className="mb-12 text-center">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
@@ -206,6 +250,8 @@ export default async function MarkdownEpubGratisPage({
       </section>
 
       <Footer locale={locale} dict={dict} />
-    </main>
+            {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} current="epub" />
+      </main>
   );
 }

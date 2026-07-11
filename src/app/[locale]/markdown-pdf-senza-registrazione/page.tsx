@@ -35,6 +35,7 @@ export async function generateMetadata({
       canonical: "/it/markdown-pdf-senza-registrazione",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Markdown a PDF Senza Registrazione | Markdown Free",
       description:
         "Converti Markdown in PDF senza creare un account. Zero login, zero tracciamento.",

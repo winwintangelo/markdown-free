@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { hreflangAlternates } from "@/lib/tool-links";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
@@ -41,6 +42,7 @@ export async function generateMetadata({
       languages: hreflangAlternates("pdf"),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Chuyển đổi Markdown sang PDF — Miễn phí, Không Đăng ký (2026)",
       description:
         "Kéo thả .md, tải PDF ngay lập tức. Không đăng ký, không cài đặt, dấu tiếng Việt hiển thị chuẩn.",
@@ -196,7 +198,9 @@ export default async function ChuyenDoiMarkdownPdfPage({
       </article>
 
       <Footer locale={locale} dict={dict} />
-    </main>
+            {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} current="pdf" />
+      </main>
     </>
   );
 }

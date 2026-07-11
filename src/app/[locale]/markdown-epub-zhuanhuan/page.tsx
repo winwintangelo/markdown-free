@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { safeJsonLd } from "@/lib/json-ld";
 import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, isValidLocale, type Locale } from "@/i18n";
 import { hreflangAlternates } from "@/lib/tool-links";
@@ -42,6 +43,7 @@ export async function generateMetadata({
       languages: hreflangAlternates("epub"),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Markdown转EPUB – 免费在线工具 | Markdown Free",
       description:
         "免费将Markdown文件转换为EPUB。无需注册，隐私保护。",
@@ -49,6 +51,46 @@ export async function generateMetadata({
     },
   };
 }
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "zh-Hans",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "这个Markdown转EPUB工具是免费的吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "是的！Markdown Free 100%免费，没有隐藏费用、高级计划或注册要求。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "EPUB能在Kindle上使用吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "可以。现代Kindle设备原生支持EPUB。对于旧款机型，你可以使用“发送到Kindle”功能或Calibre将EPUB转换为MOBI。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "章节是如何生成的？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Markdown Free会在H1标题处（如果没有H1则在H2处）自动将文档分割成章节，并生成可导航的目录。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "我的文件会存储在你们的服务器上吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不会。你的文件在内存中处理，转换后立即删除。我们从不存储你的内容。"
+      }
+    }
+  ]
+};
 
 export default async function MarkdownEpubZhuanhuanPage({
   params,
@@ -67,6 +109,7 @@ export default async function MarkdownEpubZhuanhuanPage({
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
       {/* Hero Section */}
       <section className="mb-12 text-center">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">

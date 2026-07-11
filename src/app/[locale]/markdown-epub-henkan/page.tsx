@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
+import { safeJsonLd } from "@/lib/json-ld";
 import { RelatedTools } from "@/components/related-tools";
 import { getDictionary, isValidLocale, type Locale } from "@/i18n";
 import { hreflangAlternates } from "@/lib/tool-links";
@@ -38,6 +39,7 @@ export async function generateMetadata({
       languages: hreflangAlternates("epub"),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Markdown EPUB変換 – 無料オンラインツール | Markdown Free",
       description:
         "MarkdownファイルをEPUBに無料で変換。登録不要、プライバシー保護。",
@@ -45,6 +47,46 @@ export async function generateMetadata({
     },
   };
 }
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "ja",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "このMarkdown-EPUB変換ツールは無料ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい！Markdown Freeは隠れた費用、プレミアムプラン、登録要件なしで100%無料です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "EPUBはKindleで動作しますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい。最新のKindleデバイスはEPUBをネイティブサポートしています。古いモデルの場合は、「Kindleに送信」機能またはCalibreを使用してEPUBをMOBIに変換できます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "チャプターはどのように生成されますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Markdown FreeはH1見出し（H1がない場合はH2）でドキュメントを自動的にチャプターに分割し、ナビゲーション可能な目次を生成します。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ファイルはサーバーに保存されますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "いいえ。ファイルはメモリ内で処理され、変換後すぐに削除されます。コンテンツを保存することはありません。"
+      }
+    }
+  ]
+};
 
 export default async function MarkdownEpubHenkanPage({
   params,
@@ -63,6 +105,7 @@ export default async function MarkdownEpubHenkanPage({
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
       {/* Hero Section */}
       <section className="mb-12 text-center">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">

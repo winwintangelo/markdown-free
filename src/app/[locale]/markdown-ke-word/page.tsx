@@ -41,6 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Konverter Markdown ke Word (DOCX) — Gratis Online, Tanpa Daftar",
       description: "Ubah .md ke DOCX langsung di browser. Drag-and-drop, unduh instan. Gratis, tanpa daftar.",
       url: "https://www.markdown.free/id/markdown-ke-word",

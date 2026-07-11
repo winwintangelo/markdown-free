@@ -36,6 +36,7 @@ export async function generateMetadata({
       canonical: "/ko/markdown-pdf-hoewon-gaibeop-eobs-i",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "회원가입 없이 Markdown PDF 변환 | Markdown Free",
       description:
         "계정 생성 없이 마크다운을 PDF로 변환. 로그인 없음, 추적 없음.",

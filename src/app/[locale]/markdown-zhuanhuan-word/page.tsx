@@ -42,6 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Markdown转换Word（DOCX）| 免费在线工具",
       description: "将.md文件转换为Microsoft Word格式。免费、私密、即时下载。",
       url: "https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word",

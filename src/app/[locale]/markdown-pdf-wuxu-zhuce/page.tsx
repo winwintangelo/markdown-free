@@ -35,6 +35,7 @@ export async function generateMetadata({
       canonical: "/zh-Hans/markdown-pdf-wuxu-zhuce",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "无需注册的Markdown转PDF | Markdown Free",
       description:
         "无需创建账户即可将Markdown转换为PDF。不用登录，不追踪用户。",

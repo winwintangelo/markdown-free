@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     canonical: "/claude-artifacts-to-pdf",
   },
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
     title: "Convert Claude Artifacts to PDF | Markdown Free",
     description:
       "Export Claude AI artifacts and code blocks to PDF. Free, instant export.",

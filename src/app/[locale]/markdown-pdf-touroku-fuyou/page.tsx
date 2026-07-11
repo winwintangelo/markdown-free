@@ -36,6 +36,7 @@ export async function generateMetadata({
       canonical: "/ja/markdown-pdf-touroku-fuyou",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "登録不要のMarkdown PDF変換 | Markdown Free",
       description:
         "アカウント作成なしでMarkdownをPDFに変換。ログイン不要、追跡なし。",

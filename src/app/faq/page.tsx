@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     canonical: "/faq",
   },
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
     title: "FAQ - Frequently Asked Questions | Markdown Free",
     description:
       "Common questions about Markdown Free: How to convert Markdown to PDF, Word (DOCX), images (PNG/JPG), EPUB. Is it free? Is it secure?",

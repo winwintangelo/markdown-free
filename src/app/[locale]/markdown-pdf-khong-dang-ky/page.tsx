@@ -35,6 +35,7 @@ export async function generateMetadata({
       canonical: "/vi/markdown-pdf-khong-dang-ky",
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: "Markdown sang PDF không cần đăng ký | Markdown Free",
       description:
         "Chuyển đổi Markdown sang PDF mà không cần tạo tài khoản. Không đăng nhập, không theo dõi.",

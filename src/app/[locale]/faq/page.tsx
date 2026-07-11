@@ -52,6 +52,7 @@ export async function generateMetadata({
       ),
     },
     openGraph: {
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
       title: dict.faqPage?.title || "FAQ | Markdown Free",
       description: dict.faqPage?.description || dict.meta.description,
       url,

@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
     title: "Markdown to Word (DOCX) Converter – Free Online Tool",
     description: "Convert your .md files to Microsoft Word format. Free, private, instant download.",
     url: "https://www.markdown.free/markdown-to-word",

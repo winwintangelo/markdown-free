@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     canonical: "/typora-to-pdf",
   },
   openGraph: {
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
     title: "Typora to PDF | Markdown Free",
     description:
       "Convert Typora markdown files to PDF online — no license, no install. Free and private.",
