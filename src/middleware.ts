@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getLocaleFromPath } from "@/i18n/config";
 
 /**
  * Security Middleware
@@ -133,9 +134,15 @@ function validateOrigin(request: NextRequest): boolean {
 }
 
 export function middleware(request: NextRequest) {
-  // Only apply security checks to API routes
-  if (!request.nextUrl.pathname.startsWith("/api/")) {
-    return NextResponse.next();
+  const { pathname } = request.nextUrl;
+
+  // Page (non-API) routes: stamp the resolved locale on the request so the root
+  // layout can render <html lang> server-side. Crawlers (especially Bing, our
+  // largest channel) don't execute the old client-side lang patch.
+  if (!pathname.startsWith("/api/")) {
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-locale", getLocaleFromPath(pathname));
+    return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
   // Skip OPTIONS requests (CORS preflight)
@@ -232,5 +239,11 @@ export function middleware(request: NextRequest) {
 
 // Configure which routes use this middleware
 export const config = {
-  matcher: ["/api/:path*"],
+  matcher: [
+    "/api/:path*",
+    // Page routes (for the x-locale header). Exclude static assets, files with
+    // an extension (sitemap.xml, og-image.png, robots.txt…), _next, and the
+    // Umami /ingest proxy.
+    "/((?!_next/static|_next/image|favicon\\.ico|ingest/|.*\\.[\\w]+$).*)",
+  ],
 };

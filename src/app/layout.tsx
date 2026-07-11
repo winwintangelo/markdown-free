@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { RouteHistoryTracker } from "@/components/route-history-tracker";
+import { isValidLocale, defaultLocale } from "@/i18n/config";
 import "./globals.css";
 
 // Umami Analytics configuration (proxied via /ingest to bypass adblockers)
@@ -84,13 +86,16 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // The locale is stamped on the request by middleware (see src/middleware.ts).
+  const headerLocale = (await headers()).get("x-locale");
+  const lang = headerLocale && isValidLocale(headerLocale) ? headerLocale : defaultLocale;
   return (
-    <html lang="en">
+    <html lang={lang}>
       <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
         <RouteHistoryTracker />
         {children}

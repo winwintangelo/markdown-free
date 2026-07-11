@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { LanguageBanner } from "@/components/language-banner";
 import { HtmlLangUpdater } from "@/components/html-lang-updater";
+import { LanguageBanner } from "@/components/language-banner";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { 
@@ -112,7 +112,9 @@ export default async function LocaleLayout({
 
   // This is a nested layout - it inherits html/body from root layout
   // We provide locale-specific components here
-  // HtmlLangUpdater updates the html lang attribute on the client
+  // <html lang> is set server-side by the root layout via the x-locale header
+  // (correct initial HTML for crawlers); HtmlLangUpdater keeps it in sync during
+  // client-side (soft) navigation, where the root layout does not re-render.
   // LocaleTracker sends locale-aware pageview events to Umami
   // Note: Header is NOT included here - pages that need it (homepage, about, privacy) add it themselves
   // Intent/landing pages intentionally skip the header for a focused experience
