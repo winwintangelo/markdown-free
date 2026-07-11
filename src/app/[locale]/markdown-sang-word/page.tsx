@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/footer";
-import { getDictionary } from "@/i18n";
+import { RelatedTools } from "@/components/related-tools";
+import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 import { notFound } from "next/navigation";
 
 // This page is only for vi locale
@@ -45,6 +47,36 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+const faq = [
+  {
+    question: "Công cụ chuyển đổi Markdown sang Word này có miễn phí không?",
+    answer: "Có! Markdown Free hoàn toàn miễn phí 100% không có chi phí ẩn, gói cao cấp hay yêu cầu đăng ký.",
+  },
+  {
+    question: "Sự khác biệt giữa Word và DOCX là gì?",
+    answer: "DOCX là định dạng tệp được Microsoft Word sử dụng từ năm 2007. Khi nói «tài liệu Word», chúng tôi muốn nói tệp .docx có thể mở trong Word, Google Docs, LibreOffice và các trình xử lý văn bản khác.",
+  },
+  {
+    question: "Tệp của tôi có được lưu trữ trên máy chủ của bạn không?",
+    answer: "Không. Tệp được xử lý trong bộ nhớ và xóa ngay sau khi chuyển đổi. Chúng tôi không bao giờ lưu trữ nội dung của bạn.",
+  },
+  {
+    question: "Định dạng như bảng và khối mã có được giữ nguyên không?",
+    answer: "Có! Bảng, khối mã, tiêu đề, danh sách và các định dạng Markdown khác được chuyển đổi sang các kiểu Word phù hợp.",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "vi",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+
 interface PageProps {
   params: Promise<{ locale: string }>;
 }
@@ -62,6 +94,10 @@ export default async function MarkdownSangWordPage({ params }: PageProps) {
   return (
     <>
       <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
+        />
         {/* Hero Section */}
         <section className="mb-12 text-center">
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
@@ -225,6 +261,9 @@ export default async function MarkdownSangWordPage({ params }: PageProps) {
             </details>
           </div>
         </section>
+
+        {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale as Locale} current="docx" />
 
         {/* CTA */}
         <section className="text-center">

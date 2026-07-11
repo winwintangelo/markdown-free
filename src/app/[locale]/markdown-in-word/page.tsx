@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/footer";
-import { getDictionary } from "@/i18n";
+import { RelatedTools } from "@/components/related-tools";
+import { getDictionary, type Locale } from "@/i18n";
+import { safeJsonLd } from "@/lib/json-ld";
 import { notFound } from "next/navigation";
 
 // This page is only for it locale
@@ -45,6 +47,36 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+const faq = [
+  {
+    question: "Questo convertitore da Markdown a Word è gratuito?",
+    answer: "Sì! Markdown Free è 100% gratuito senza costi nascosti, piani premium o requisiti di registrazione.",
+  },
+  {
+    question: "Qual è la differenza tra Word e DOCX?",
+    answer: "DOCX è il formato file utilizzato da Microsoft Word dal 2007. Quando diciamo «documento Word», intendiamo un file .docx che può essere aperto in Word, Google Docs, LibreOffice e altri elaboratori di testi.",
+  },
+  {
+    question: "I miei file vengono archiviati sui vostri server?",
+    answer: "No. I file vengono elaborati in memoria e eliminati immediatamente dopo la conversione. Non archiviamo mai i tuoi contenuti.",
+  },
+  {
+    question: "La formattazione come tabelle e blocchi di codice viene mantenuta?",
+    answer: "Sì! Tabelle, blocchi di codice, intestazioni, elenchi e altra formattazione Markdown vengono convertiti negli stili Word appropriati.",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "it",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+
 interface PageProps {
   params: Promise<{ locale: string }>;
 }
@@ -62,6 +94,10 @@ export default async function MarkdownInWordPage({ params }: PageProps) {
   return (
     <>
       <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
+        />
         {/* Hero Section */}
         <section className="mb-12 text-center">
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
@@ -225,6 +261,9 @@ export default async function MarkdownInWordPage({ params }: PageProps) {
             </details>
           </div>
         </section>
+
+        {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale as Locale} current="docx" />
 
         {/* CTA */}
         <section className="text-center">

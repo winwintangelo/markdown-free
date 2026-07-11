@@ -4,6 +4,7 @@ import { Footer } from "@/components/footer";
 import { RelatedTools } from "@/components/related-tools";
 import { getDictionary } from "@/i18n";
 import { notFound } from "next/navigation";
+import { safeJsonLd } from "@/lib/json-ld";
 
 // This page is only for ko locale
 export function generateStaticParams() {
@@ -46,6 +47,36 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+const faq = [
+  {
+    question: "이 Markdown Word 변환 도구는 무료인가요?",
+    answer: "네! Markdown Free는 숨겨진 비용, 프리미엄 플랜, 회원가입 없이 100% 무료입니다.",
+  },
+  {
+    question: "Word와 DOCX의 차이점은 무엇인가요?",
+    answer: "DOCX는 2007년 이후 Microsoft Word에서 사용되는 파일 형식입니다. 「Word 문서」라고 하면 Word, Google Docs, LibreOffice 및 기타 워드 프로세서에서 열 수 있는 .docx 파일을 의미합니다.",
+  },
+  {
+    question: "내 파일이 서버에 저장되나요?",
+    answer: "아니요. 파일은 메모리에서 처리되고 변환 후 즉시 삭제됩니다. 콘텐츠를 저장하지 않습니다.",
+  },
+  {
+    question: "표와 코드 블록 같은 서식이 유지되나요?",
+    answer: "네! 표, 코드 블록, 제목, 목록 및 기타 Markdown 서식이 적절한 Word 스타일로 변환됩니다.",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "ko",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+
 interface PageProps {
   params: Promise<{ locale: string }>;
 }
@@ -63,6 +94,10 @@ export default async function MarkdownWordByeonhwanPage({ params }: PageProps) {
   return (
     <>
       <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
+        />
         {/* Hero Section */}
         <section className="mb-12 text-center">
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">

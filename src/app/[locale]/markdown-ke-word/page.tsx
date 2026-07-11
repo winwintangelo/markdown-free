@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { getDictionary } from "@/i18n";
 import { notFound } from "next/navigation";
 import { safeJsonLd } from "@/lib/json-ld";
@@ -228,6 +229,9 @@ export default async function MarkdownKeWordPage({ params }: PageProps) {
             ))}
           </div>
         </section>
+
+        {/* Related tool suite cross-links */}
+        <RelatedTools locale={locale} current="docx" />
 
         {/* CTA */}
         <section className="text-center">

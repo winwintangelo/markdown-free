@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/footer";
+import { RelatedTools } from "@/components/related-tools";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
+import { safeJsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   title: "Markdown to Word (DOCX) Converter – Free Online Tool | Markdown Free",
@@ -40,11 +42,49 @@ export const metadata: Metadata = {
   },
 };
 
+const faq = [
+  {
+    question: "Is this Markdown to Word converter free?",
+    answer: "Yes! Markdown Free is 100% free with no hidden costs, premium tiers, or signup requirements.",
+  },
+  {
+    question: "What's the difference between Word and DOCX?",
+    answer: "DOCX is the file format used by Microsoft Word since 2007. When we say \"Word document,\" we mean a .docx file that opens in Word, Google Docs, LibreOffice, and other word processors.",
+  },
+  {
+    question: "Will my converted file open in Microsoft Word?",
+    answer: "Yes, the generated DOCX files are compatible with Microsoft Word 2007 and later, Google Docs, LibreOffice, and other word processors that support the .docx format.",
+  },
+  {
+    question: "Are my files stored on your servers?",
+    answer: "No. Your files are processed in memory and immediately discarded after conversion. We never store your content.",
+  },
+  {
+    question: "Does it preserve formatting like tables and code blocks?",
+    answer: "Yes! Tables, code blocks, headings, lists, and other Markdown formatting are converted to proper Word styles.",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  inLanguage: "en",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+
 export default function MarkdownToWordPage() {
   return (
     <ConverterProvider>
       <LocaleTracker locale="en" />
       <main className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
+        />
         {/* Hero Section */}
         <section className="mb-12 text-center">
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
@@ -216,6 +256,9 @@ export default function MarkdownToWordPage() {
             </details>
           </div>
         </section>
+
+        {/* Related tool suite cross-links */}
+        <RelatedTools locale="en" current="docx" />
 
         {/* CTA */}
         <section className="text-center">
