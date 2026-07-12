@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "note": "Experiment ledger (growth-impl.md §7.2). Seeded from real commits shipped before the loop existed; their windowed baselines are null and get backfilled from GSC (~16mo) / Bing history in P1 (else scored pre/post + flagged low-confidence). control_scope is null for these (full rollouts, no held-back cohort). Future experiments SHOULD carry a control_scope for difference-in-differences.",
+  "experiments": [
+    {
+      "id": "md-to-png-cluster",
+      "title": "Markdown → Image (PNG) feature + 9-locale SEO cluster",
+      "hypothesis": "A new md→image feature + its localized 转png/转图片/长图 cluster earns impressions on image-conversion intents Bing/CJK skews toward.",
+      "topic": "image-cluster",
+      "channel": "bing",
+      "target_metric": "impressions",
+      "guardrail_metrics": [],
+      "target_scope": { "pages": ["https://www.markdown.free/markdown-to-png"], "queries": [], "country": null },
+      "control_scope": null,
+      "shipped_date": "2026-07-04",
+      "commit": "7c36729",
+      "baseline": { "window_days": 28, "mean": null, "as_of": "2026-07-04" },
+      "measure_on": "2026-08-01",
+      "status": "shipped",
+      "outcome": { "treated_delta": null, "control_delta": null, "did": null, "guardrails_held": null, "note": "" }
+    },
+    {
+      "id": "cjk-zhuanhuan-word-epub",
+      "title": "CJK 转word/转epub Bing-demand tuning + RelatedTools + FAQ",
+      "hypothesis": "Retuned titles/keywords for Bing phrasings (markdown转word在线工具, 转epub) plus RelatedTools + FAQPage schema on the zh 转word/转epub pages improves their Bing position.",
+      "topic": "cjk-word-epub",
+      "channel": "bing",
+      "target_metric": "position",
+      "guardrail_metrics": ["clicks"],
+      "target_scope": { "pages": [
+        "https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word",
+        "https://www.markdown.free/zh-Hant/markdown-word-zhuanhuan",
+        "https://www.markdown.free/zh-Hans/markdown-epub-zhuanhuan",
+        "https://www.markdown.free/zh-Hant/markdown-epub-zhuanhuan-tw"
+      ], "queries": [], "country": null },
+      "control_scope": null,
+      "shipped_date": "2026-07-09",
+      "commit": "62bf43a",
+      "baseline": { "window_days": 28, "mean": null, "as_of": "2026-07-09" },
+      "measure_on": "2026-08-06",
+      "status": "shipped",
+      "outcome": { "treated_delta": null, "control_delta": null, "did": null, "guardrails_held": null, "note": "" }
+    },
+    {
+      "id": "word-cluster-sweep",
+      "title": "Word cluster: RelatedTools + FAQPage on all 9 pages + dynamic sitemap + reciprocal hreflang",
+      "hypothesis": "Completing RelatedTools + FAQPage schema across all 9 word pages, plus fresh-lastmod dynamic sitemap and reciprocal hreflang, lifts impressions for the word (DOCX) cluster.",
+      "topic": "word-cluster",
+      "channel": "gsc",
+      "target_metric": "impressions",
+      "guardrail_metrics": ["position"],
+      "target_scope": { "pages": [
+        "https://www.markdown.free/markdown-to-word",
+        "https://www.markdown.free/markdown-a-word",
+        "https://www.markdown.free/markdown-in-word",
+        "https://www.markdown.free/markdown-ke-word",
+        "https://www.markdown.free/markdown-sang-word",
+        "https://www.markdown.free/markdown-word-byeonhwan",
+        "https://www.markdown.free/markdown-word-henkan"
+      ], "queries": [], "country": null },
+      "control_scope": null,
+      "shipped_date": "2026-07-11",
+      "commit": "0378273",
+      "baseline": { "window_days": 28, "mean": null, "as_of": "2026-07-11" },
+      "measure_on": "2026-08-08",
+      "status": "shipped",
+      "outcome": { "treated_delta": null, "control_delta": null, "did": null, "guardrails_held": null, "note": "" }
+    },
+    {
+      "id": "og-image-relatedtools-faq",
+      "title": "og:image on 72 intent pages + RelatedTools (24) + EPUB FAQPage (9)",
+      "hypothesis": "Adding a real social card to 72 pages + RelatedTools internal links + EPUB FAQ schema improves social CTR and internal-link equity; ranking position should hold (guardrail).",
+      "topic": "social-cards",
+      "channel": "gsc",
+      "target_metric": "ctr",
+      "guardrail_metrics": ["position"],
+      "target_scope": { "pages": [
+        "https://www.markdown.free/readme-to-pdf",
+        "https://www.markdown.free/markdown-to-epub",
+        "https://www.markdown.free/markdown-to-word"
+      ], "queries": [], "country": null, "note": "representative subset of the 72; broaden when GSC page data flows" },
+      "control_scope": null,
+      "shipped_date": "2026-07-11",
+      "commit": "22b1c05",
+      "baseline": { "window_days": 28, "mean": null, "as_of": "2026-07-11" },
+      "measure_on": "2026-08-08",
+      "status": "shipped",
+      "outcome": { "treated_delta": null, "control_delta": null, "did": null, "guardrails_held": null, "note": "" }
+    },
+    {
+      "id": "server-side-html-lang",
+      "title": "Server-side <html lang> per locale",
+      "hypothesis": "Rendering the correct <html lang> server-side (not just client-side) improves indexing/impressions on non-EN locale pages for JS-light crawlers, esp. Bing (our #1 channel).",
+      "topic": "i18n-lang",
+      "channel": "bing",
+      "target_metric": "impressions",
+      "guardrail_metrics": [],
+      "target_scope": { "pages": [
+        "https://www.markdown.free/ja",
+        "https://www.markdown.free/ko",
+        "https://www.markdown.free/zh-Hans",
+        "https://www.markdown.free/zh-Hant"
+      ], "queries": [], "country": null },
+      "control_scope": null,
+      "shipped_date": "2026-07-11",
+      "commit": "3a48079",
+      "baseline": { "window_days": 28, "mean": null, "as_of": "2026-07-11" },
+      "measure_on": "2026-08-08",
+      "status": "shipped",
+      "outcome": { "treated_delta": null, "control_delta": null, "did": null, "guardrails_held": null, "note": "" }
+    }
+  ]
+}
