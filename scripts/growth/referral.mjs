@@ -11,7 +11,7 @@ import { SnapshotStore, isMain } from './lib.mjs';
 const GROUPS = {
   ai: ['chatgpt.com', 'chat.openai.com', 'openai.com', 'perplexity.ai', 'claude.ai',
        'gemini.google.com', 'copilot.microsoft.com', 'doubao.com', 'yuanbao.tencent.com', 'poe.com'],
-  search: ['google.', 'bing.com', 'baidu.com', 'duckduckgo.com', 'yahoo.', 'yandex.', 'ecosia.', 'sogou.com'],
+  search: ['google.', 'bing.com', 'baidu.com', 'duckduckgo.com', 'yahoo.', 'yandex.', 'ecosia.', 'sogou.com', 'brave.com', 'startpage.com', 'so.com', 'naver.com'],
   social: ['reddit.com', 'x.com', 't.co', 'twitter.com', 'linkedin.com', 'facebook.com',
            'github.com', 'news.ycombinator.com', 'ycombinator.com', 'weibo.', 'zhihu.com', 'xiaohongshu.com'],
 };

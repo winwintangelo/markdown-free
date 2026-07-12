@@ -34,7 +34,9 @@ export const daysBetween = (a, b) => Math.round((new Date(b) - new Date(a)) / 86
 // ---------------------------------------------------------------------------
 // number + row helpers
 // ---------------------------------------------------------------------------
-export const pctNum = (clicks, impr) => (impr ? +(((clicks / impr) * 100).toFixed(2)) : 0);
+// CTR is definitionally ≤100%; clamp to absorb source quirks (Bing weekly buckets
+// occasionally report clicks > impressions across the aggregation window).
+export const pctNum = (clicks, impr) => (impr ? +Math.min(100, (clicks / impr) * 100).toFixed(2) : 0);
 export const sortRows = (rows) =>
   [...rows].sort((a, b) => b.clicks - a.clicks || b.impressions - a.impressions);
 

@@ -7,6 +7,29 @@ Human-readable digest, appended by the `propose`/`summarize` stages each cycle
 
 ## 2026-07-12 — automated cycle
 
+**Channels:** bing, gsc, vercel, events, referral · _skipped: baidu_ · 4595ms
+
+**Measured:** none due.
+
+**Regressions:** none (baseline cycle — need a 2nd snapshot for deltas).
+
+**Striking-distance (pos 5–15) — top 5 of 37:**
+- [bing] https://www.markdown.free/readme-to-pdf — pos 5.08 · 1589 imp · 7.3% ctr
+- [gsc] https://www.markdown.free/readme-to-pdf — pos 7.77 · 1283 imp · 2.57% ctr
+- [gsc] https://www.markdown.free/id/markdown-ke-word — pos 7.67 · 877 imp · 2.74% ctr
+- [bing] readme to pdf — pos 5.98 · 541 imp · 4.44% ctr
+- [bing] https://www.markdown.free/ — pos 7.39 · 466 imp · 3.86% ctr
+
+**High-impression / low-CTR (title-rewrite candidates) — top 4:**
+- [bing] https://www.markdown.free/markdown-to-word — 366 imp · 0.82% ctr
+- [gsc] https://www.markdown.free/best-markdown-to-pdf-converter-2026 — 322 imp · 0% ctr
+- [gsc] md to word — 261 imp · 0.77% ctr
+- [gsc] readme to pdf — 183 imp · 0% ctr
+
+**Next:** run `/growth-loop` for ranked, moat-filtered proposals + gated 🟢 fixes.
+
+## 2026-07-12 — automated cycle
+
 **Channels:** bing · _skipped: gsc, vercel, events, baidu_ · 1522ms
 
 **Measured:** none due.

@@ -25,6 +25,7 @@
     "growth:measure": "node scripts/growth/measure.mjs",
     "growth:analyze": "node scripts/growth/analyze.mjs",
     "growth:cycle": "node scripts/growth/cycle.mjs",
+    "growth:verify": "node scripts/growth/verify.mjs",
     "validate": "node scripts/validate-production.mjs",
     "validate:verbose": "node scripts/validate-production.mjs --verbose",
     "validate:traffic": "node scripts/validate-production.mjs --simulate-traffic --verbose",
