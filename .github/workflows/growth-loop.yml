@@ -1,0 +1,64 @@
+# Growth loop — cloud cycle (growth-impl.md §12 P2, Option 3 in docs/growth-schedule.md).
+#
+# Runs the deterministic read-only cycle (snapshot → measure → analyze → digest) in the
+# cloud, so it fires with your laptop off. It does NOT touch the repo or deploy anything:
+# a cloud run can't write your local git archive, so it uploads the snapshot + digest as
+# a workflow artifact and pings Slack. The judgment half (proposals, gated fixes) stays a
+# human-run /growth-loop. The growth scripts have zero npm deps → no install step.
+#
+# Enable: add the secrets below, then uncomment `schedule:`. Manual-dispatch until then.
+#
+# Required secrets (Settings → Secrets and variables → Actions):
+#   BING_API_KEY, GSC_SITE_URL, GSC_SA_KEY (full service-account JSON),
+#   VERCEL_TOKEN, VERCEL_PROJECT_ID, (VERCEL_TEAM_ID), SLACK_WEBHOOK_URL
+
+name: Growth loop
+
+on:
+  workflow_dispatch: {}
+  # schedule:
+  #   - cron: "0 9 * * 1"   # Mondays 09:00 UTC — uncomment to run weekly
+
+permissions:
+  contents: read
+
+concurrency:
+  group: growth-loop
+  cancel-in-progress: false
+
+jobs:
+  cycle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Write GSC service-account key
+        # If the secret is unset, this writes an empty file → GSC simply skips (not fatal).
+        run: printf '%s' "$GSC_SA_KEY" > "$RUNNER_TEMP/gsc-key.json"
+        env:
+          GSC_SA_KEY: ${{ secrets.GSC_SA_KEY }}
+
+      - name: Run growth cycle
+        run: node scripts/growth/cycle.mjs
+        env:
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+          GSC_SERVICE_ACCOUNT_KEY: ${{ runner.temp }}/gsc-key.json
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Upload snapshot + digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: growth-snapshot-${{ github.run_id }}
+          path: |
+            data/snapshots/*.json
+            data/loop-log.md
+          retention-days: 90
+          if-no-files-found: warn
