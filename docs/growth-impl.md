@@ -163,9 +163,10 @@ Endpoint: `POST https://searchconsole.googleapis.com/webmasters/v3/sites/{encode
 Endpoints: `GET https://api.vercel.com/v1/query/web-analytics/visits/{count|aggregate}` (and `/events/*` for custom events). Auth: `Authorization: Bearer $VERCEL_TOKEN`. Params: `projectId` (name `markdown-free` works), `teamId` (only if team-owned), `since`, `until`, `by` (`requestPath`|`referrerHostname`|`country`|`deviceType`), `limit`≤100. Default window 28 days. Env: `VERCEL_TOKEN`, `VERCEL_PROJECT_ID`, `VERCEL_TEAM_ID?`. **Plan caveat:** Hobby retains only **1 month** → committing snapshots is the long-term archive. Response envelope is handled defensively (`data`/`rows`/array). Replaces the dead Umami report.
 
 ### 6.5 Conversion events (P1a — moat-critical)
-Conversions by **type** (pdf/docx/png/epub) and **script** (CJK vs Latin, from locale/content at emit). Two implementation paths:
-- **If Vercel's tier includes custom `track()` events** → read them via `/v1/query/web-analytics/events/aggregate?by=…`.
-- **Else** → a tiny first-party sink `app/api/ev/route.ts` that appends `{ts, type, script, locale}` to a store the snapshot reads (KV, a JSON log, or a lightweight table). No third-party tracker (decision #5).
+Conversions by **script** (CJK vs Latin) and **country/locale** — the moat, made measurable. **RESOLVED against the live Vercel events API (2026-07-12):**
+- Vercel **exposes** custom events (`convert_success`, `upload_start`, …) via `/v1/query/web-analytics/events/{count,aggregate}` with `filter=eventName eq '<name>'`.
+- It **cannot group by a custom property** (`by=format` / `by=locale` are rejected — `by` only accepts fixed dims: requestPath, country, deviceType, …). So we recover **script** by grouping `convert_success` **by `requestPath`** (the locale is in the path: `/zh-Hans`, `/ja`, …) → map to cjk/latin, and get **by-country** for free.
+- The **only** dimension still missing is conversions **by type** (pdf/docx/png — a custom property). That single breakout needs the tiny first-party sink `app/api/ev/route.ts` (appends `{ts, type, script, locale}`; no third-party tracker, decision #5) — deferred, not blocking.
 
 Events are **likely already fired client-side** (`src/lib/analytics.ts`, `docs/funnel.md`) — the work is a *readable sink* + tagging each event with `type` and `script`, not net-new instrumentation. **Funnel abandonment** (started-but-didn't-finish) falls out of these events; that is the entirety of our behavioral analytics (decision #5).
 
@@ -461,7 +462,7 @@ Autonomy demands explicit recovery. Principle: **fail soft, never leave state ha
 
 ## 18. Open questions (need your call)
 1. **Attribution vs intent micro-survey** — one sampled, post-success, optional-tap question: "how did you find us?" (attribution / dark traffic) **or** "what were you trying to do?" (intent). Which — or rotate? Must not dent the under-30-seconds, no-signup ethos. (Product change.)
-2. **Event sink** — does Vercel's current plan tier expose custom `track()` events to the API, or do we build the first-party `/api/ev` sink? (Determines P1a.)
+2. **Event sink** — **RESOLVED (2026-07-12):** Vercel exposes custom events but can't group them by custom properties. by-script + by-country + funnel work today (via `requestPath`); only conversions **by-type** (pdf/docx/png) need the `/api/ev` sink — deferred as a nice-to-have, not a blocker.
 3. **Confidence threshold + portfolio mix** — start values (threshold ~0.6; 40/30/20/10) are guesses to calibrate once real signals flow.
 4. **Baidu** — worth the CSV workflow, or park until Bing/GSC show CN is capturable at all?
 5. **Scheduler** — Routines vs GitHub Actions when we reach P2.

@@ -1,82 +1,88 @@
 // Conversion-events collector (growth-impl.md §6.5) — the moat-visibility signal.
 //
-// The app ALREADY fires these Vercel custom events (src/lib/analytics.ts), so this
-// is a readable sink, not new instrumentation:
-//   • convert_success  { format, source }   → conversions by TYPE
-//   • locale_conversion { locale, format }   → conversions by locale → SCRIPT (CJK vs Latin)
-//   • upload_start     { source }            → funnel top (abandonment vs convert_success)
+// Reads the app's EXISTING Vercel custom events (src/lib/analytics.ts): convert_success,
+// upload_start, locale_conversion. No new instrumentation.
 //
-// Reuses vercel.mjs auth. If the Vercel plan tier does NOT expose custom events to
-// the query API, this channel throws a clear message → build the first-party /api/ev
-// sink instead (docs/growth-impl.md §18 open-question #2). Snapshot tolerates the skip.
+// VERCEL EVENTS API — what it can and can't do (confirmed against the live API):
+//   • CAN count a specific event:            filter=`eventName eq 'convert_success'`
+//   • CAN group an event by a FIXED dim:     by ∈ {requestPath, country, deviceType, …}
+//   • CANNOT group by a CUSTOM property:     `by=format` / `by=locale` are rejected
 //
-// NOTE: the exact events-API param names (filter/by) are best-effort from the visits
-// API and should be confirmed on the first run with a real token.
+// So we recover the moat dimension (CJK vs Latin) from `requestPath` — the locale is
+// in the path (/zh-Hans, /ja, …). The one thing still missing is conversions by TYPE
+// (pdf/docx/png), which is a custom property → needs the first-party /api/ev sink to
+// break out (growth-impl.md §18 #2). Everything else works today.
 
 import { isMain } from './lib.mjs';
 import { vercelConfig, vercelCall } from './vercel.mjs';
 
-// Locales that render CJK (the moat). Everything else → 'latin' (non-CJK).
-const CJK_LOCALES = new Set(['ja', 'ko', 'zh-Hans', 'zh-Hant', 'zh']);
-const scriptOf = (locale) => (CJK_LOCALES.has(locale) ? 'cjk' : 'latin');
+const LOCALES = new Set(['it', 'es', 'ja', 'ko', 'zh-Hans', 'zh-Hant', 'id', 'vi', 'hi']);
+const CJK = new Set(['ja', 'ko', 'zh-Hans', 'zh-Hant', 'zh']);
+const pathToLocale = (p) => { const seg = (p || '/').split('/').filter(Boolean)[0]; return LOCALES.has(seg) ? seg : 'en'; };
+const scriptOf = (locale) => (CJK.has(locale) ? 'cjk' : 'latin');
+const nameFilter = (name) => `eventName eq '${name}'`;
 
-const nameFilter = (name) => `name eq '${name}'`;
-
-async function eventsCount(name, cfg) {
+async function eventCount(name, cfg) {
   const r = await vercelCall('/events/count', { filter: nameFilter(name) }, cfg);
   const row = Array.isArray(r) ? (r[0] ?? {}) : r;
-  return row.count ?? row.total ?? 0;
+  return { count: row.count ?? 0, visitors: row.visitors ?? 0 };
 }
 
-async function eventsAgg(name, byProp, cfg) {
-  const rows = await vercelCall('/events/aggregate', { by: byProp, filter: nameFilter(name), limit: 100 }, cfg);
-  if (!Array.isArray(rows)) return [];
-  return rows.map((r) => ({
-    key: r[byProp] ?? r.key ?? r.value ?? Object.values(r)[0],
-    count: r.count ?? r.total ?? 0,
-    visitors: r.visitors ?? 0,
-  }));
+async function eventBy(name, dim, cfg) {
+  const rows = await vercelCall('/events/aggregate', { by: dim, filter: nameFilter(name), limit: 100 }, cfg);
+  return Array.isArray(rows) ? rows.map((r) => ({ key: r[dim], count: r.count ?? 0, visitors: r.visitors ?? 0 })) : [];
 }
 
 export async function collect() {
   const cfg = vercelConfig();
 
-  // Probe first: if the tier doesn't expose events, fail with an actionable message.
-  let uploadStarts;
+  // Probe (also confirms events are available on this tier).
+  let cs;
   try {
-    uploadStarts = await eventsCount('upload_start', cfg);
+    cs = await eventCount('convert_success', cfg);
   } catch (e) {
-    throw new Error(
-      `Vercel events API unavailable (${e.message.slice(0, 80)}). ` +
-      `If the plan tier lacks custom-event queries, build the first-party /api/ev sink (growth-impl.md §18 #2).`
-    );
+    throw new Error(`Vercel events API: ${e.message.slice(0, 140)}`);
   }
+  const us = await eventCount('upload_start', cfg).catch(() => ({ count: 0, visitors: 0 }));
 
-  const byType = await eventsAgg('convert_success', 'format', cfg);       // conversions by pdf/docx/png/…
-  const byLocale = await eventsAgg('locale_conversion', 'locale', cfg);    // conversions by locale
-
-  // Fold locale → script (CJK vs Latin) — makes the moat visible.
+  // Conversions by page → fold to locale → script (the moat).
+  const byPath = await eventBy('convert_success', 'requestPath', cfg);
+  const localeTotals = {};
   const scriptTotals = { cjk: 0, latin: 0 };
-  for (const r of byLocale) scriptTotals[scriptOf(r.key)] += r.count || 0;
-  const byScript = Object.entries(scriptTotals).map(([script, count]) => ({ key: script, count }));
+  for (const r of byPath) {
+    const loc = pathToLocale(r.key);
+    localeTotals[loc] = (localeTotals[loc] || 0) + r.count;
+    scriptTotals[scriptOf(loc)] += r.count;
+  }
+  const byLocale = Object.entries(localeTotals).map(([key, count]) => ({ key, count })).sort((a, b) => b.count - a.count);
+  const byScript = Object.entries(scriptTotals).map(([key, count]) => ({ key, count }));
+  const byCountry = (await eventBy('convert_success', 'country', cfg).catch(() => [])).sort((a, b) => b.count - a.count);
 
-  const conversions = byType.reduce((s, r) => s + (r.count || 0), 0);
   const funnel = {
-    upload_start: uploadStarts,
-    convert_success: conversions,
-    abandonment: uploadStarts ? +(1 - conversions / uploadStarts).toFixed(3) : null,
+    upload_start: us.count,
+    convert_success: cs.count,
+    abandonment: us.count ? +(1 - cs.count / us.count).toFixed(3) : null,
   };
 
-  return { channel: 'events', dateRange: { start: cfg.since, end: cfg.until }, byType, byScript, byLocale, funnel };
+  return {
+    channel: 'events',
+    dateRange: { start: cfg.since, end: cfg.until },
+    totals: { conversions: cs.count, uploadStarts: us.count, visitors: cs.visitors },
+    funnel, byLocale, byScript, byCountry,
+    byType: [], // unavailable via Vercel API (custom property); needs /api/ev sink (§18 #2)
+    note: 'by-type needs the /api/ev sink; by-script derived from requestPath locale prefix.',
+  };
 }
 
 export async function runCli() {
   console.log('📊 Conversion events (Vercel custom events)');
   try {
-    const { byType, byScript, funnel } = await collect();
-    console.log(`   conversions: ${funnel.convert_success} · upload_start: ${funnel.upload_start} · abandonment: ${funnel.abandonment ?? 'n/a'}`);
-    console.log(`   by type:   ${byType.map((r) => `${r.key}=${r.count}`).join(' · ') || '(none)'}`);
-    console.log(`   by script: ${byScript.map((r) => `${r.key}=${r.count}`).join(' · ') || '(none)'}`);
+    const { totals, funnel, byScript, byLocale, byCountry } = await collect();
+    console.log(`   conversions ${totals.conversions} · upload_start ${funnel.upload_start} · abandonment ${funnel.abandonment ?? 'n/a'}`);
+    console.log(`   by script:  ${byScript.map((r) => `${r.key}=${r.count}`).join(' · ') || '(none)'}`);
+    console.log(`   by locale:  ${byLocale.slice(0, 8).map((r) => `${r.key}=${r.count}`).join(' · ') || '(none)'}`);
+    console.log(`   by country: ${byCountry.slice(0, 8).map((r) => `${r.key}=${r.count}`).join(' · ') || '(none)'}`);
+    console.log('   (by-type unavailable via Vercel API — add /api/ev sink for pdf/docx/png breakdown)');
   } catch (e) {
     console.error(`   ❌ ${e.message}`);
     process.exitCode = 1;

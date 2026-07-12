@@ -29,7 +29,8 @@ const CHANNELS = [
 ];
 
 const rowCount = (c) =>
-  (c.queries?.length ?? 0) + (c.pages?.length ?? 0) + (c.referrers?.length ?? 0) + (c.byType?.length ?? 0);
+  (c.queries?.length ?? 0) + (c.pages?.length ?? 0) + (c.referrers?.length ?? 0) +
+  (c.byLocale?.length ?? 0) + (c.byCountry?.length ?? 0) + (c.hosts?.length ?? 0);
 
 export async function runSnapshot() {
   const startedAt = Date.now();
