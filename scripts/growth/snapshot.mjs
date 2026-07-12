@@ -12,11 +12,20 @@
 
 import { SnapshotStore, todayStr, isMain } from './lib.mjs';
 import { collect as collectBing } from './bing.mjs';
+import { collect as collectGsc } from './gsc.mjs';
+import { collect as collectVercel } from './vercel.mjs';
+import { collect as collectEvents } from './events.mjs';
+import { collect as collectBaidu } from './baidu.mjs';
+import { deriveReferral } from './referral.mjs';
+import { collectContext } from './algo-context.mjs';
 
 const CHANNELS = [
   ['bing', collectBing],
-  // P1a: ['gsc', collectGsc], ['vercel', collectVercel], ['events', collectEvents], ['referral', collectReferral],
-  // P1b: ['baidu', collectBaidu],
+  ['gsc', collectGsc],
+  ['vercel', collectVercel],
+  ['events', collectEvents],
+  ['baidu', collectBaidu],
+  // 'referral' is derived from vercel after collection (not a separate API call).
 ];
 
 const rowCount = (c) =>
@@ -24,10 +33,13 @@ const rowCount = (c) =>
 
 export async function runSnapshot() {
   const startedAt = Date.now();
+  const date = todayStr();
+  let context = { algoUpdates: [], volatility: null, season: null };
+  try { context = collectContext(date); } catch { /* context is best-effort */ }
   const snapshot = {
-    date: todayStr(),
+    date,
     generatedAt: new Date().toISOString(),
-    context: { algoUpdates: [], volatility: null, season: null }, // filled by algo-context (P1b)
+    context, // algo-updates + season (§6.8)
     channels: {},
     errors: {},
     meta: { health: {} }, // §16 platform observability
@@ -45,6 +57,15 @@ export async function runSnapshot() {
       snapshot.meta.health[name] = { status: 'error', error: e.message };
       console.log(`skipped — ${e.message}`);
     }
+  }
+
+  // Derive the referral / AI-assistant channel from Vercel's referrer data
+  // (a classification of already-collected data, not a separate API call — §6.6).
+  if (snapshot.channels.vercel) {
+    try {
+      snapshot.channels.referral = deriveReferral(snapshot.channels.vercel);
+      snapshot.meta.health.referral = { status: 'ok', rows: snapshot.channels.referral.hosts.length };
+    } catch (e) { snapshot.errors.referral = e.message; }
   }
 
   snapshot.meta.health.runMs = Date.now() - startedAt;

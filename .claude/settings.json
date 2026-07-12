@@ -1,0 +1,28 @@
+{
+  "//": "Growth-loop guardrails (growth-impl.md §10.3, invariants). deny wins over allow — a hard block on push/deploy even if an unattended run tries. Committed (shared); personal overrides live in settings.local.json.",
+  "permissions": {
+    "allow": [
+      "Bash(node scripts/growth/*)",
+      "Bash(npm run snapshot:*)",
+      "Bash(npm run growth:*)",
+      "Bash(npm run report:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run test:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx playwright test:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git switch:*)",
+      "Bash(git checkout -b:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)"
+    ],
+    "deny": [
+      "Bash(git push:*)",
+      "Bash(git merge:*)",
+      "Bash(vercel:*)",
+      "Bash(npx vercel:*)",
+      "Bash(npm run deploy:*)"
+    ]
+  }
+}

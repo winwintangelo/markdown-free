@@ -51,4 +51,14 @@ tmp/
 # Misc
 *.log
 
-.claude/
+# .claude: keep personal/local config (settings.local.json) out, but commit the
+# shared growth-loop config (deny-list, /growth-loop command, growth-analyst agent).
+.claude/*
+!.claude/settings.json
+!.claude/commands/
+!.claude/agents/
+
+# Growth loop: credentials + raw data drops — never commit
+*gsc-key*.json
+*service-account*.json
+/data/drops/
