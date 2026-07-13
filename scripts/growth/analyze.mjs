@@ -17,6 +17,7 @@ export const T = {
   LOW_CTR_MAX: 1.0,        // % — high impressions but CTR under this = title/meta opportunity
   POSITION_DROP_ALERT: 3,  // positions worse WoW to raise a regression flag
   CLICKS_DROP_PCT: 30,     // % clicks lost WoW to raise a regression flag
+  CLICKS_FLOOR: 10,        // min prior-period clicks before a % drop counts (kills low-volume noise)
 };
 
 const chanRows = (snap, channel, kind) => snap?.channels?.[channel]?.[kind] ?? [];
@@ -55,7 +56,7 @@ function regressions(cur, prev) {
         if (r.position != null && p.position != null && r.position - p.position >= T.POSITION_DROP_ALERT) {
           flags.push({ type: 'position_drop', channel, kind, key: r.key, from: p.position, to: r.position });
         }
-        if (p.clicks > 0 && (p.clicks - r.clicks) / p.clicks * 100 >= T.CLICKS_DROP_PCT) {
+        if (p.clicks >= T.CLICKS_FLOOR && (p.clicks - r.clicks) / p.clicks * 100 >= T.CLICKS_DROP_PCT) {
           flags.push({ type: 'clicks_drop', channel, kind, key: r.key, from: p.clicks, to: r.clicks });
         }
       }
