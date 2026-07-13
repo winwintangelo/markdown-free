@@ -38,6 +38,14 @@
           "strength": 249,
           "weight": 1,
           "detail": "en converts (249)"
+        },
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
         }
       ],
       "firstSeen": "2026-07-13",
@@ -71,11 +79,23 @@
         {
           "date": "2026-07-13",
           "strength": 541
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 541
         }
       ],
       "confidence": {
-        "score": 0.895,
-        "quality": 0.77,
+        "score": 0.884,
+        "quality": 0.72,
         "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
@@ -121,6 +141,10 @@
       "lastSeen": "2026-07-13",
       "stage": "Growing",
       "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 71
+        },
         {
           "date": "2026-07-13",
           "strength": 71
@@ -225,6 +249,10 @@
         {
           "date": "2026-07-13",
           "strength": 70
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 70
         }
       ],
       "confidence": {
@@ -275,6 +303,10 @@
       "lastSeen": "2026-07-13",
       "stage": "Growing",
       "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 33
+        },
         {
           "date": "2026-07-13",
           "strength": 33
@@ -354,6 +386,14 @@
           "strength": 249,
           "weight": 1,
           "detail": "en converts (249)"
+        },
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
         }
       ],
       "firstSeen": "2026-07-13",
@@ -387,12 +427,24 @@
         {
           "date": "2026-07-13",
           "strength": 151
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 151
         }
       ],
       "confidence": {
-        "score": 0.8,
-        "quality": 0.8,
-        "quantity": 0.67,
+        "score": 0.885,
+        "quality": 0.72,
+        "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
         "prior": 0.6
@@ -472,6 +524,10 @@
         {
           "date": "2026-07-13",
           "strength": 110
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 110
         }
       ],
       "confidence": {
@@ -516,6 +572,14 @@
           "strength": 249,
           "weight": 1,
           "detail": "en converts (249)"
+        },
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 20,
+          "weight": 0.5,
+          "detail": "autocomplete google"
         }
       ],
       "firstSeen": "2026-07-13",
@@ -549,12 +613,24 @@
         {
           "date": "2026-07-13",
           "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
         }
       ],
       "confidence": {
-        "score": 0.81,
-        "quality": 0.85,
-        "quantity": 0.67,
+        "score": 0.887,
+        "quality": 0.73,
+        "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
         "prior": 0.6
@@ -607,6 +683,10 @@
       "lastSeen": "2026-07-13",
       "stage": "Hot",
       "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 1589
+        },
         {
           "date": "2026-07-13",
           "strength": 1589
@@ -711,6 +791,10 @@
         {
           "date": "2026-07-13",
           "strength": 466
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 466
         }
       ],
       "confidence": {
@@ -761,6 +845,10 @@
       "lastSeen": "2026-07-13",
       "stage": "Hot",
       "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 353
+        },
         {
           "date": "2026-07-13",
           "strength": 353
@@ -865,6 +953,10 @@
         {
           "date": "2026-07-13",
           "strength": 104
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 104
         }
       ],
       "confidence": {
@@ -915,6 +1007,10 @@
       "lastSeen": "2026-07-13",
       "stage": "Growing",
       "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 199
+        },
         {
           "date": "2026-07-13",
           "strength": 199
@@ -1027,6 +1123,10 @@
         {
           "date": "2026-07-13",
           "strength": 366
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 366
         }
       ],
       "confidence": {
@@ -1077,6 +1177,10 @@
       "lastSeen": "2026-07-13",
       "stage": "Growing",
       "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 163
+        },
         {
           "date": "2026-07-13",
           "strength": 163
@@ -1181,6 +1285,10 @@
         {
           "date": "2026-07-13",
           "strength": 139
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 139
         }
       ],
       "confidence": {
@@ -1231,6 +1339,10 @@
       "lastSeen": "2026-07-13",
       "stage": "Growing",
       "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 101
+        },
         {
           "date": "2026-07-13",
           "strength": 101
@@ -1335,6 +1447,10 @@
         {
           "date": "2026-07-13",
           "strength": 69
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 69
         }
       ],
       "confidence": {
@@ -1385,6 +1501,10 @@
       "lastSeen": "2026-07-13",
       "stage": "Growing",
       "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 39
+        },
         {
           "date": "2026-07-13",
           "strength": 39
@@ -1497,6 +1617,10 @@
         {
           "date": "2026-07-13",
           "strength": 138
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 138
         }
       ],
       "confidence": {
@@ -1563,6 +1687,10 @@
       "lastSeen": "2026-07-13",
       "stage": "Growing",
       "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 104
+        },
         {
           "date": "2026-07-13",
           "strength": 104
@@ -1675,6 +1803,10 @@
         {
           "date": "2026-07-13",
           "strength": 104
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 104
         }
       ],
       "confidence": {
@@ -1725,6 +1857,10 @@
       "lastSeen": "2026-07-13",
       "stage": "Growing",
       "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 33
+        },
         {
           "date": "2026-07-13",
           "strength": 33
@@ -1829,6 +1965,10 @@
         {
           "date": "2026-07-13",
           "strength": 58
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 58
         }
       ],
       "confidence": {
@@ -1881,6 +2021,14 @@
           "strength": 249,
           "weight": 1,
           "detail": "en converts (249)"
+        },
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
         }
       ],
       "firstSeen": "2026-07-13",
@@ -1914,12 +2062,24 @@
         {
           "date": "2026-07-13",
           "strength": 274
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 274
         }
       ],
       "confidence": {
-        "score": 0.8,
-        "quality": 0.8,
-        "quantity": 0.67,
+        "score": 0.885,
+        "quality": 0.72,
+        "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
         "prior": 0.6
@@ -1991,6 +2151,10 @@
         {
           "date": "2026-07-13",
           "strength": 90
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 90
         }
       ],
       "confidence": {
@@ -2041,6 +2205,10 @@
       "lastSeen": "2026-07-13",
       "stage": "Growing",
       "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 41
+        },
         {
           "date": "2026-07-13",
           "strength": 41
@@ -2145,6 +2313,10 @@
         {
           "date": "2026-07-13",
           "strength": 921
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 921
         }
       ],
       "confidence": {
@@ -2206,6 +2378,10 @@
         {
           "date": "2026-07-13",
           "strength": 158
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 157
         },
         {
           "date": "2026-07-13",
@@ -2299,6 +2475,10 @@
         {
           "date": "2026-07-13",
           "strength": 137
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 137
         }
       ],
       "confidence": {
@@ -2360,6 +2540,10 @@
         {
           "date": "2026-07-13",
           "strength": 129
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 142
         },
         {
           "date": "2026-07-13",
@@ -2453,6 +2637,10 @@
         {
           "date": "2026-07-13",
           "strength": 85
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 85
         }
       ],
       "confidence": {
@@ -2514,6 +2702,10 @@
         {
           "date": "2026-07-13",
           "strength": 158
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 159
         },
         {
           "date": "2026-07-13",
@@ -2615,6 +2807,10 @@
         {
           "date": "2026-07-13",
           "strength": 400
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 400
         }
       ],
       "confidence": {
@@ -2684,6 +2880,10 @@
         {
           "date": "2026-07-13",
           "strength": 21
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 21
         }
       ],
       "confidence": {
@@ -2703,6 +2903,7258 @@
         "metric": "sessions"
       },
       "strength": 21
+    },
+    {
+      "id": "sig:markdown to pdf",
+      "key": "markdown to pdf",
+      "topic": "pdf",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to html",
+      "key": "markdown to html",
+      "topic": "other",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to html"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to docx",
+      "key": "markdown to docx",
+      "topic": "word",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to docx"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to text",
+      "key": "markdown to text",
+      "topic": "other",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to text"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf online",
+      "key": "markdown to pdf online",
+      "topic": "pdf",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf online"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf vscode",
+      "key": "markdown to pdf vscode",
+      "topic": "pdf",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf vscode"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to latex",
+      "key": "markdown to latex",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to latex"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to confluence",
+      "key": "markdown to confluence",
+      "topic": "other",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to confluence"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to google docs",
+      "key": "markdown to google docs",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to google docs"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to excel",
+      "key": "markdown to excel",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to excel"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown toc",
+      "key": "markdown toc",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown toc"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to ppt",
+      "key": "markdown to ppt",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to ppt"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to word converter",
+      "key": "markdown to word converter",
+      "topic": "word",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete bing+google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to word converter"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf linux",
+      "key": "markdown to pdf linux",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf linux"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf converter",
+      "key": "markdown to pdf converter",
+      "topic": "pdf",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf converter"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf free",
+      "key": "markdown to pdf free",
+      "topic": "pdf",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf free"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf ilovepdf",
+      "key": "markdown to pdf ilovepdf",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf ilovepdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf cli",
+      "key": "markdown to pdf cli",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf cli"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf github",
+      "key": "markdown to pdf github",
+      "topic": "pdf",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf github"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf with images",
+      "key": "markdown to pdf with images",
+      "topic": "image",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf with images"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf python",
+      "key": "markdown to pdf python",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf python"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf tool",
+      "key": "markdown to pdf tool",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf tool"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf pandoc",
+      "key": "markdown to pdf pandoc",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf pandoc"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf windows",
+      "key": "markdown to pdf windows",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf windows"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf with mermaid",
+      "key": "markdown to pdf with mermaid",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf with mermaid"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to pdf converter online",
+      "key": "markdown to pdf converter online",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to pdf converter online"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to word online",
+      "key": "markdown to word online",
+      "topic": "word",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to word online"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to word vscode",
+      "key": "markdown to word vscode",
+      "topic": "word",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to word vscode"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to word python",
+      "key": "markdown to word python",
+      "topic": "word",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to word python"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to word github",
+      "key": "markdown to word github",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to word github"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to word format",
+      "key": "markdown to word format",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to word format"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to word conversion",
+      "key": "markdown to word conversion",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to word conversion"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to wordpress",
+      "key": "markdown to wordpress",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to wordpress"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to word offline",
+      "key": "markdown to word offline",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to word offline"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to word doc",
+      "key": "markdown to word doc",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to word doc"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to word document",
+      "key": "markdown to word document",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to word document"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to word converter online",
+      "key": "markdown to word converter online",
+      "topic": "word",
+      "strength": 20,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 20,
+          "weight": 0.5,
+          "detail": "autocomplete bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to word converter online"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to image",
+      "key": "markdown to image",
+      "topic": "image",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to image"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to image vscode",
+      "key": "markdown to image vscode",
+      "topic": "image",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to image vscode"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to image converter",
+      "key": "markdown to image converter",
+      "topic": "image",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to image converter"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to image online",
+      "key": "markdown to image online",
+      "topic": "image",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to image online"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:python markdown to image",
+      "key": "python markdown to image",
+      "topic": "image",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "python markdown to image"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to image github",
+      "key": "markdown to image github",
+      "topic": "image",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to image github"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to image generator",
+      "key": "markdown to image generator",
+      "topic": "image",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to image generator"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to image table",
+      "key": "markdown to image table",
+      "topic": "image",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to image table"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown image to pdf",
+      "key": "markdown image to pdf",
+      "topic": "image",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown image to pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown image to base64",
+      "key": "markdown image to base64",
+      "topic": "image",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown image to base64"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to image api",
+      "key": "markdown to image api",
+      "topic": "image",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to image api"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to image python",
+      "key": "markdown to image python",
+      "topic": "image",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to image python"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown table to image",
+      "key": "markdown table to image",
+      "topic": "image",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown table to image"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to epub",
+      "key": "markdown to epub",
+      "topic": "epub",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to epub"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to epub linux",
+      "key": "markdown to epub linux",
+      "topic": "epub",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to epub linux"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to epub converter",
+      "key": "markdown to epub converter",
+      "topic": "epub",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to epub converter"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to epub online",
+      "key": "markdown to epub online",
+      "topic": "epub",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to epub online"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to epub calibre",
+      "key": "markdown to epub calibre",
+      "topic": "epub",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to epub calibre"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to epub python",
+      "key": "markdown to epub python",
+      "topic": "epub",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to epub python"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to epub github",
+      "key": "markdown to epub github",
+      "topic": "epub",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to epub github"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to epub converter online",
+      "key": "markdown to epub converter online",
+      "topic": "epub",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to epub converter online"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to epub skill",
+      "key": "markdown to epub skill",
+      "topic": "epub",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to epub skill"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown to epub npm",
+      "key": "markdown to epub npm",
+      "topic": "epub",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to epub npm"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:mkd2ph markdown to epub",
+      "key": "mkd2ph markdown to epub",
+      "topic": "epub",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "mkd2ph markdown to epub"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:calibre epub to markdown",
+      "key": "calibre epub to markdown",
+      "topic": "epub",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "calibre epub to markdown"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert epub to markdown",
+      "key": "convert epub to markdown",
+      "topic": "epub",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert epub to markdown"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to pdf",
+      "key": "convert markdown to pdf",
+      "topic": "pdf",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to docx",
+      "key": "convert markdown to docx",
+      "topic": "word",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to docx"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to word",
+      "key": "convert markdown to word",
+      "topic": "word",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to word"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown",
+      "key": "convert markdown",
+      "topic": "other",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to confluence",
+      "key": "convert markdown to confluence",
+      "topic": "other",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to confluence"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to html",
+      "key": "convert markdown to html",
+      "topic": "other",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to html"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to text",
+      "key": "convert markdown to text",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to text"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to pdf linux",
+      "key": "convert markdown to pdf linux",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to pdf linux"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to pdf online free",
+      "key": "convert markdown to pdf online free",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to pdf online free"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to asciidoc",
+      "key": "convert markdown to asciidoc",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to asciidoc"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to excel",
+      "key": "convert markdown to excel",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to excel"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to word document",
+      "key": "convert markdown to word document",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to word document"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to pdf vscode",
+      "key": "convert markdown to pdf vscode",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to pdf vscode"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to word online",
+      "key": "convert markdown to word online",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to word online"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown to pdf python",
+      "key": "convert markdown to pdf python",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown to pdf python"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:convert markdown file to pdf",
+      "key": "convert markdown file to pdf",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown file to pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:readme to pdf converter",
+      "key": "readme to pdf converter",
+      "topic": "readme",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "readme to pdf converter"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:readme to pdf online",
+      "key": "readme to pdf online",
+      "topic": "readme",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "readme to pdf online"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:readme to pdf vscode",
+      "key": "readme to pdf vscode",
+      "topic": "readme",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "readme to pdf vscode"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:readme to pdf github",
+      "key": "readme to pdf github",
+      "topic": "readme",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "readme to pdf github"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:readme en pdf",
+      "key": "readme en pdf",
+      "topic": "readme",
+      "strength": 20,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 20,
+          "weight": 0.5,
+          "detail": "autocomplete bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "readme en pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:readme md to pdf",
+      "key": "readme md to pdf",
+      "topic": "readme",
+      "strength": 20,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 20,
+          "weight": 0.5,
+          "detail": "autocomplete bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "readme md to pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:github readme pdf",
+      "key": "github readme pdf",
+      "topic": "readme",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "github readme pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:the missing readme pdf",
+      "key": "the missing readme pdf",
+      "topic": "readme",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "the missing readme pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word converter",
+      "key": "md to word converter",
+      "topic": "word",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word converter"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word online",
+      "key": "md to word online",
+      "topic": "word",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word online"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word file",
+      "key": "md to word file",
+      "topic": "word",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word file"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word table",
+      "key": "md to word table",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word table"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word file converter",
+      "key": "md to word file converter",
+      "topic": "word",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word file converter"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word text",
+      "key": "md to word text",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word text"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word pandoc",
+      "key": "md to word pandoc",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word pandoc"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word python",
+      "key": "md to word python",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word python"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word document",
+      "key": "md to word document",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word document"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word doc converter",
+      "key": "md to word doc converter",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word doc converter"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word vscode",
+      "key": "md to word vscode",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word vscode"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word converter free",
+      "key": "md to word converter free",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word converter free"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word converter online",
+      "key": "md to word converter online",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word converter online"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md to word online free",
+      "key": "md to word online free",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word online free"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter",
+      "key": "markdown converter",
+      "topic": "other",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter to word",
+      "key": "markdown converter to word",
+      "topic": "word",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter to word"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter to pdf",
+      "key": "markdown converter to pdf",
+      "topic": "pdf",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter to pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter vscode",
+      "key": "markdown converter vscode",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter vscode"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter online",
+      "key": "markdown converter online",
+      "topic": "other",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter online"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter microsoft",
+      "key": "markdown converter microsoft",
+      "topic": "other",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter microsoft"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter github",
+      "key": "markdown converter github",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter github"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter to text",
+      "key": "markdown converter to text",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter to text"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter https markdowntohtml com",
+      "key": "markdown converter https markdowntohtml com",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter https markdowntohtml com"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:google docs markdown converter",
+      "key": "google docs markdown converter",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "google docs markdown converter"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter skill",
+      "key": "markdown converter skill",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter skill"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter browser javascript",
+      "key": "markdown converter browser javascript",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter browser javascript"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter free",
+      "key": "markdown converter free",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter free"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter to doc",
+      "key": "markdown converter to doc",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter to doc"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter to excel",
+      "key": "markdown converter to excel",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter to excel"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转pdf",
+      "key": "markdown转pdf",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转换",
+      "key": "markdown转换",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转换"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转html",
+      "key": "markdown转html",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转html"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转图片",
+      "key": "markdown转图片",
+      "topic": "image",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转图片"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转excel",
+      "key": "markdown转excel",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转excel"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转ppt",
+      "key": "markdown转ppt",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转ppt"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转word在线",
+      "key": "markdown转word在线",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转word在线"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转换器",
+      "key": "markdown转换器",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转换器"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转docx",
+      "key": "markdown转docx",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转docx"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转word",
+      "key": "markdown 转word",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转word"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转pdf",
+      "key": "markdown 转pdf",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转换",
+      "key": "markdown 转换",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转换"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转html",
+      "key": "markdown 转html",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转html"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转图片",
+      "key": "markdown 转图片",
+      "topic": "image",
+      "strength": 20,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 20,
+          "weight": 0.5,
+          "detail": "autocomplete bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转图片"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转excel",
+      "key": "markdown 转excel",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转excel"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转ppt",
+      "key": "markdown 转ppt",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转ppt"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转 word 工具",
+      "key": "markdown 转 word 工具",
+      "topic": "word",
+      "strength": 20,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 20,
+          "weight": 0.5,
+          "detail": "autocomplete bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转 word 工具"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转 word 在线工具",
+      "key": "markdown 转 word 在线工具",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转 word 在线工具"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转 word 格式",
+      "key": "markdown 转 word 格式",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转 word 格式"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转换为word",
+      "key": "markdown转换为word",
+      "topic": "word",
+      "strength": 20,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 20,
+          "weight": 0.5,
+          "detail": "autocomplete google"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 20
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转换为word"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转换 word",
+      "key": "markdown 转换 word",
+      "topic": "word",
+      "strength": 50,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 50,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转换 word"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转换pdf",
+      "key": "markdown转换pdf",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转换pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转换工具",
+      "key": "markdown转换工具",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转换工具"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转换软件",
+      "key": "markdown转换软件",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转换软件"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转换 word 在线",
+      "key": "markdown 转换 word 在线",
+      "topic": "word",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 40,
+          "weight": 0.5,
+          "detail": "autocomplete google+bing"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转换 word 在线"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转换为excel",
+      "key": "markdown转换为excel",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转换为excel"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转换器",
+      "key": "markdown 转换器",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转换器"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转换为word",
+      "key": "markdown 转换为word",
+      "topic": "word",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转换为word"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转换工具",
+      "key": "markdown 转换工具",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转换工具"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转换pdf",
+      "key": "markdown 转换pdf",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转换pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转换 ppt",
+      "key": "markdown 转换 ppt",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转换 ppt"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown 转换成pdf",
+      "key": "markdown 转换成pdf",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete bing · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown 转换成pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
     }
   ]
 }

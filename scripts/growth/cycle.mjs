@@ -22,6 +22,7 @@ import { runAnalyze } from './analyze.mjs';
 import { runDiscover } from './discover.mjs';
 import { runPropose, proposalMd } from './propose.mjs';
 import { generateReport } from './report.mjs';
+import { runMarket } from './market/autocomplete.mjs';
 
 function buildDigest(snapshot, measured, analysis, discovery, proposal) {
   const h = snapshot.meta?.health || {};
@@ -107,6 +108,8 @@ async function notify(title, body) {
 export async function runCycle() {
   const { snapshot } = await runSnapshot();
   const measured = runMeasure();     // measures due experiments (and learns on resolve)
+  let market = { gaps: [], present: [], suggestions: [] };
+  try { market = await runMarket(); } catch { /* market is best-effort (external network) */ }
   const discovery = runDiscover();   // mine snapshot → warehouse → age → graduate
   const analysis = runAnalyze();
   const proposal = runPropose();     // graduated signals → ranked portfolio
@@ -115,7 +118,7 @@ export async function runCycle() {
 
   // Per-cycle report: data/reports/<date>.{md,html} (numbers · trends · discoveries · issues · actions).
   const prev = SnapshotStore.recent(2)[1] || null;
-  const report = generateReport({ snapshot, measured, analysis, discovery, proposal, prev });
+  const report = generateReport({ snapshot, measured, analysis, discovery, proposal, prev, market });
 
   const regs = analysis.ok ? (analysis.regressions?.length || 0) : 0;
   const grad = discovery.ok ? discovery.graduated : 0;
