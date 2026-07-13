@@ -137,6 +137,10 @@ export function trackConvertSuccess(
   extra?: Record<string, string>
 ): void {
   trackEvent("convert_success", { format, source, ...extra });
+  // Also fire a per-format event so the growth loop can query conversions BY TYPE:
+  // the Vercel Web Analytics API groups by eventName but NOT by custom properties,
+  // so `format` on convert_success isn't queryable — a distinct `conv_<format>` name is.
+  trackEvent(`conv_${format}`, { source });
 }
 
 /**

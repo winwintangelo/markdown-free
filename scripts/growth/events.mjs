@@ -58,6 +58,17 @@ export async function collect() {
   const byScript = Object.entries(scriptTotals).map(([key, count]) => ({ key, count }));
   const byCountry = (await eventBy('convert_success', 'country', cfg).catch(() => [])).sort((a, b) => b.count - a.count);
 
+  // by-type: per-format events (conv_<format>) — Vercel groups by eventName (not by custom
+  // props), so these ARE queryable once src/lib/analytics.ts's conv_<format> event deploys + accrues.
+  let byType = [];
+  try {
+    const rows = await vercelCall('/events/aggregate', { by: 'eventName', limit: 100 }, cfg);
+    byType = (Array.isArray(rows) ? rows : [])
+      .filter((r) => String(r.eventName || '').startsWith('conv_'))
+      .map((r) => ({ key: String(r.eventName).slice(5), count: r.count ?? 0 }))
+      .sort((a, b) => b.count - a.count);
+  } catch { /* not available until the per-format events deploy */ }
+
   const funnel = {
     upload_start: us.count,
     convert_success: cs.count,
@@ -68,21 +79,20 @@ export async function collect() {
     channel: 'events',
     dateRange: { start: cfg.since, end: cfg.until },
     totals: { conversions: cs.count, uploadStarts: us.count, visitors: cs.visitors },
-    funnel, byLocale, byScript, byCountry,
-    byType: [], // unavailable via Vercel API (custom property); needs /api/ev sink (§18 #2)
-    note: 'by-type needs the /api/ev sink; by-script derived from requestPath locale prefix.',
+    funnel, byLocale, byScript, byCountry, byType,
+    note: 'by-type from conv_<format> events (deploy-gated — empty until analytics.ts ships); by-script from requestPath locale prefix.',
   };
 }
 
 export async function runCli() {
   console.log('📊 Conversion events (Vercel custom events)');
   try {
-    const { totals, funnel, byScript, byLocale, byCountry } = await collect();
+    const { totals, funnel, byScript, byLocale, byCountry, byType } = await collect();
     console.log(`   conversions ${totals.conversions} · upload_start ${funnel.upload_start} · abandonment ${funnel.abandonment ?? 'n/a'}`);
     console.log(`   by script:  ${byScript.map((r) => `${r.key}=${r.count}`).join(' · ') || '(none)'}`);
     console.log(`   by locale:  ${byLocale.slice(0, 8).map((r) => `${r.key}=${r.count}`).join(' · ') || '(none)'}`);
     console.log(`   by country: ${byCountry.slice(0, 8).map((r) => `${r.key}=${r.count}`).join(' · ') || '(none)'}`);
-    console.log('   (by-type unavailable via Vercel API — add /api/ev sink for pdf/docx/png breakdown)');
+    console.log(`   by type:    ${byType.map((r) => `${r.key}=${r.count}`).join(' · ') || '(none yet — deploys with the conv_<format> events)'}`);
   } catch (e) {
     console.error(`   ❌ ${e.message}`);
     process.exitCode = 1;

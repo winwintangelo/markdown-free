@@ -166,7 +166,7 @@ Endpoints: `GET https://api.vercel.com/v1/query/web-analytics/visits/{count|aggr
 Conversions by **script** (CJK vs Latin) and **country/locale** — the moat, made measurable. **RESOLVED against the live Vercel events API (2026-07-12):**
 - Vercel **exposes** custom events (`convert_success`, `upload_start`, …) via `/v1/query/web-analytics/events/{count,aggregate}` with `filter=eventName eq '<name>'`.
 - It **cannot group by a custom property** (`by=format` / `by=locale` are rejected — `by` only accepts fixed dims: requestPath, country, deviceType, …). So we recover **script** by grouping `convert_success` **by `requestPath`** (the locale is in the path: `/zh-Hans`, `/ja`, …) → map to cjk/latin, and get **by-country** for free.
-- The **only** dimension still missing is conversions **by type** (pdf/docx/png — a custom property). That single breakout needs the tiny first-party sink `app/api/ev/route.ts` (appends `{ts, type, script, locale}`; no third-party tracker, decision #5) — deferred, not blocking.
+- Conversions **by type** (pdf/docx/png) — a custom property, so not groupable directly. **Solved (W3, 2026-07-13) without a sink:** the app fires a per-format event `conv_<format>` alongside `convert_success`, and we group by **eventName** (which IS allowed). No `/api/ev` sink or KV needed. Deploy-gated — populates once `src/lib/analytics.ts` ships and events accrue.
 
 Events are **likely already fired client-side** (`src/lib/analytics.ts`, `docs/funnel.md`) — the work is a *readable sink* + tagging each event with `type` and `script`, not net-new instrumentation. **Funnel abandonment** (started-but-didn't-finish) falls out of these events; that is the entirety of our behavioral analytics (decision #5).
 
@@ -464,7 +464,7 @@ Autonomy demands explicit recovery. Principle: **fail soft, never leave state ha
 
 ## 18. Open questions (need your call)
 1. **Attribution vs intent micro-survey** — one sampled, post-success, optional-tap question: "how did you find us?" (attribution / dark traffic) **or** "what were you trying to do?" (intent). Which — or rotate? Must not dent the under-30-seconds, no-signup ethos. (Product change.)
-2. **Event sink** — **RESOLVED (2026-07-12):** Vercel exposes custom events but can't group them by custom properties. by-script + by-country + funnel work today (via `requestPath`); only conversions **by-type** (pdf/docx/png) need the `/api/ev` sink — deferred as a nice-to-have, not a blocker.
+2. **Event sink** — **RESOLVED (2026-07-13):** by-script + by-country + funnel work via `requestPath`; by-type now works too via per-format `conv_<format>` events grouped by eventName (W3) — no `/api/ev` sink needed.
 3. **Confidence threshold + portfolio mix** — start values (threshold ~0.6; 40/30/20/10) are guesses to calibrate once real signals flow.
 4. **Baidu** — worth the CSV workflow, or park until Bing/GSC show CN is capturable at all?
 5. **Scheduler** — Routines vs GitHub Actions when we reach P2.
