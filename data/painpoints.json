@@ -1,0 +1,1035 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "github:4869491786",
+      "source": "github",
+      "title": "feat(markdown): enable goldmark GFM extension so tables + autolinks + task lists render in article preview",
+      "url": "https://github.com/valueforvalue/DixieData/issues/525",
+      "date": "2026-07-13T00:53:53Z",
+      "engagement": 0,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:10.076Z"
+    },
+    {
+      "id": "github:4522836135",
+      "source": "github",
+      "title": "🌍 Add README translation: Croatian",
+      "url": "https://github.com/AbdullahOztoprak/first-contribution-playground/issues/60",
+      "date": "2026-05-26T08:51:34Z",
+      "engagement": 5,
+      "topic": "readme",
+      "seenAt": "2026-07-13T01:26:10.747Z"
+    },
+    {
+      "id": "github:4522836209",
+      "source": "github",
+      "title": "🌍 Add README translation: Serbian",
+      "url": "https://github.com/AbdullahOztoprak/first-contribution-playground/issues/61",
+      "date": "2026-05-26T08:51:35Z",
+      "engagement": 5,
+      "topic": "readme",
+      "seenAt": "2026-07-13T01:26:10.747Z"
+    },
+    {
+      "id": "github:4522836259",
+      "source": "github",
+      "title": "🌍 Add README translation: Slovak",
+      "url": "https://github.com/AbdullahOztoprak/first-contribution-playground/issues/62",
+      "date": "2026-05-26T08:51:35Z",
+      "engagement": 5,
+      "topic": "readme",
+      "seenAt": "2026-07-13T01:26:10.747Z"
+    },
+    {
+      "id": "github:4522836329",
+      "source": "github",
+      "title": "🌍 Add README translation: Slovenian",
+      "url": "https://github.com/AbdullahOztoprak/first-contribution-playground/issues/63",
+      "date": "2026-05-26T08:51:36Z",
+      "engagement": 5,
+      "topic": "readme",
+      "seenAt": "2026-07-13T01:26:10.747Z"
+    },
+    {
+      "id": "github:4522836396",
+      "source": "github",
+      "title": "🌍 Add README translation: Bulgarian",
+      "url": "https://github.com/AbdullahOztoprak/first-contribution-playground/issues/64",
+      "date": "2026-05-26T08:51:37Z",
+      "engagement": 5,
+      "topic": "readme",
+      "seenAt": "2026-07-13T01:26:10.747Z"
+    },
+    {
+      "id": "github:4522836463",
+      "source": "github",
+      "title": "🌍 Add README translation: Lithuanian",
+      "url": "https://github.com/AbdullahOztoprak/first-contribution-playground/issues/65",
+      "date": "2026-05-26T08:51:37Z",
+      "engagement": 5,
+      "topic": "readme",
+      "seenAt": "2026-07-13T01:26:10.747Z"
+    },
+    {
+      "id": "github:4522905431",
+      "source": "github",
+      "title": "🌍 Add README translation: Punjabi",
+      "url": "https://github.com/AbdullahOztoprak/first-contribution-playground/issues/66",
+      "date": "2026-05-26T09:03:12Z",
+      "engagement": 5,
+      "topic": "readme",
+      "seenAt": "2026-07-13T01:26:10.747Z"
+    },
+    {
+      "id": "github:4522905510",
+      "source": "github",
+      "title": "🌍 Add README translation: Javanese",
+      "url": "https://github.com/AbdullahOztoprak/first-contribution-playground/issues/67",
+      "date": "2026-05-26T09:03:13Z",
+      "engagement": 5,
+      "topic": "readme",
+      "seenAt": "2026-07-13T01:26:10.747Z"
+    },
+    {
+      "id": "github:4148310390",
+      "source": "github",
+      "title": "[BOUNTY $75] TEMPLATE: CLAUDE.md for a Next.js + SQLite SaaS project",
+      "url": "https://github.com/claude-builders-bounty/claude-builders-bounty/issues/2",
+      "date": "2026-03-27T00:55:38Z",
+      "engagement": 1172,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:11.945Z"
+    },
+    {
+      "id": "github:4869329994",
+      "source": "github",
+      "title": "PDF generation fails with 'Not enough horizontal space' on ANY markdown table",
+      "url": "https://github.com/filhocf/docforge-mcp/issues/10",
+      "date": "2026-07-13T00:09:32Z",
+      "engagement": 0,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:11.945Z"
+    },
+    {
+      "id": "github:4543593293",
+      "source": "github",
+      "title": "pandoc",
+      "url": "https://github.com/yoshik159753/dev-tips/issues/101",
+      "date": "2026-05-28T20:30:57Z",
+      "engagement": 0,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:12.829Z"
+    },
+    {
+      "id": "github:4807662976",
+      "source": "github",
+      "title": "[P2.2] Legacy export page offers EPUB/Markdown but errors 'not yet implemented'",
+      "url": "https://github.com/frankbria/auto-author/issues/194",
+      "date": "2026-07-04T04:39:56Z",
+      "engagement": 2,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:13.418Z"
+    },
+    {
+      "id": "github:4865260716",
+      "source": "github",
+      "title": "S-040 Plain Text, Markdown, and Bounded Clean-HTML Ingestion",
+      "url": "https://github.com/shytamir/semantic-rsvp-reader/issues/15",
+      "date": "2026-07-12T03:35:24Z",
+      "engagement": 3,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:13.418Z"
+    },
+    {
+      "id": "github:4864360409",
+      "source": "github",
+      "title": "fix(ui): improve Markdown table fit and heading hierarchy",
+      "url": "https://github.com/maka-agent/maka-agent/issues/739",
+      "date": "2026-07-11T22:11:00Z",
+      "engagement": 1,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:14.209Z"
+    },
+    {
+      "id": "stackoverflow:79971949",
+      "source": "stackoverflow",
+      "title": "How do I include typst produced HTML (including styling) within an mdbook?",
+      "url": "https://stackoverflow.com/questions/79971949/how-do-i-include-typst-produced-html-including-styling-within-an-mdbook",
+      "date": "2026-07-01T03:25:57.000Z",
+      "engagement": 0,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:07.712Z"
+    },
+    {
+      "id": "stackoverflow:79959006",
+      "source": "stackoverflow",
+      "title": "Pandoc not displaying front matter (YAML) date when compiled",
+      "url": "https://stackoverflow.com/questions/79959006/pandoc-not-displaying-front-matter-yaml-date-when-compiled",
+      "date": "2026-06-15T06:28:41.000Z",
+      "engagement": 3,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:07.712Z"
+    },
+    {
+      "id": "stackoverflow:79950687",
+      "source": "stackoverflow",
+      "title": "In-text citations not rendering properly for separate bibliographies using pandoc, RMarkdown, Bookdown to Word",
+      "url": "https://stackoverflow.com/questions/79950687/in-text-citations-not-rendering-properly-for-separate-bibliographies-using-pando",
+      "date": "2026-06-03T07:31:12.000Z",
+      "engagement": 0,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:07.712Z"
+    },
+    {
+      "id": "stackoverflow:79904753",
+      "source": "stackoverflow",
+      "title": "R: Add markdown-formatted text to document with officer package",
+      "url": "https://stackoverflow.com/questions/79904753/r-add-markdown-formatted-text-to-document-with-officer-package",
+      "date": "2026-03-10T16:48:06.000Z",
+      "engagement": 2,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:07.712Z"
+    },
+    {
+      "id": "stackoverflow:79826989",
+      "source": "stackoverflow",
+      "title": "tbl_regression not showing p-values when compiler is running on R Markdown",
+      "url": "https://stackoverflow.com/questions/79826989/tbl-regression-not-showing-p-values-when-compiler-is-running-on-r-markdown",
+      "date": "2025-11-21T22:34:30.000Z",
+      "engagement": 2,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:07.712Z"
+    },
+    {
+      "id": "stackoverflow:79819044",
+      "source": "stackoverflow",
+      "title": "LlamaParse system_prompt and system_prompt_append have no effect with parse_page_with_agent (Gemini 2.5) when converting PDF → Markdown",
+      "url": "https://stackoverflow.com/questions/79819044/llamaparse-system-prompt-and-system-prompt-append-have-no-effect-with-parse-page",
+      "date": "2025-11-13T15:08:42.000Z",
+      "engagement": 0,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:07.712Z"
+    },
+    {
+      "id": "stackoverflow:79810437",
+      "source": "stackoverflow",
+      "title": "Forcing Markdown headers to custom numbering",
+      "url": "https://stackoverflow.com/questions/79810437/forcing-markdown-headers-to-custom-numbering",
+      "date": "2025-11-05T17:58:31.000Z",
+      "engagement": 2,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:07.712Z"
+    },
+    {
+      "id": "stackoverflow:79769085",
+      "source": "stackoverflow",
+      "title": "RStudio rmarkdown code chunk printing boxes for data frame output",
+      "url": "https://stackoverflow.com/questions/79769085/rstudio-rmarkdown-code-chunk-printing-boxes-for-data-frame-output",
+      "date": "2025-09-19T03:23:24.000Z",
+      "engagement": 1,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:07.712Z"
+    },
+    {
+      "id": "stackoverflow:79762478",
+      "source": "stackoverflow",
+      "title": "Is there a way to generate HTML and PDFs with selectable text in pandoc?",
+      "url": "https://stackoverflow.com/questions/79762478/is-there-a-way-to-generate-html-and-pdfs-with-selectable-text-in-pandoc",
+      "date": "2025-09-12T01:44:06.000Z",
+      "engagement": 1,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:07.712Z"
+    },
+    {
+      "id": "stackoverflow:79934547",
+      "source": "stackoverflow",
+      "title": "Comment/note for instructions inside .md markdown",
+      "url": "https://stackoverflow.com/questions/79934547/comment-note-for-instructions-inside-md-markdown",
+      "date": "2026-05-01T08:01:23.000Z",
+      "engagement": 2,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:09.003Z"
+    },
+    {
+      "id": "stackoverflow:79856860",
+      "source": "stackoverflow",
+      "title": "Extending of default styles for markdown to docx conversion using Pandoc",
+      "url": "https://stackoverflow.com/questions/79856860/extending-of-default-styles-for-markdown-to-docx-conversion-using-pandoc",
+      "date": "2025-12-29T14:40:04.000Z",
+      "engagement": 2,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.003Z"
+    },
+    {
+      "id": "stackoverflow:79768320",
+      "source": "stackoverflow",
+      "title": "VS Code + Markdown Preview Enhanced: How to use Reveal.js (Pandoc export) features?",
+      "url": "https://stackoverflow.com/questions/79768320/vs-code-markdown-preview-enhanced-how-to-use-reveal-js-pandoc-export-featur",
+      "date": "2025-09-18T10:48:32.000Z",
+      "engagement": 1,
+      "topic": "comparison",
+      "seenAt": "2026-07-13T01:26:09.003Z"
+    },
+    {
+      "id": "stackoverflow:79681361",
+      "source": "stackoverflow",
+      "title": "How to export LaTeX math from MathJax to editable Word (OMML) using Pandoc?",
+      "url": "https://stackoverflow.com/questions/79681361/how-to-export-latex-math-from-mathjax-to-editable-word-omml-using-pandoc",
+      "date": "2025-06-27T03:10:12.000Z",
+      "engagement": 0,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.003Z"
+    },
+    {
+      "id": "stackoverflow:79680131",
+      "source": "stackoverflow",
+      "title": "Using --reference-doc with the pandoc Obsidian plugin to export word documents",
+      "url": "https://stackoverflow.com/questions/79680131/using-reference-doc-with-the-pandoc-obsidian-plugin-to-export-word-documents",
+      "date": "2025-06-26T08:12:17.000Z",
+      "engagement": 2,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.003Z"
+    },
+    {
+      "id": "stackoverflow:77317198",
+      "source": "stackoverflow",
+      "title": "walk2 returns error in `match_font_c()` when rendering a R markdown",
+      "url": "https://stackoverflow.com/questions/77317198/walk2-returns-error-in-match-font-c-when-rendering-a-r-markdown",
+      "date": "2023-10-18T14:20:38.000Z",
+      "engagement": 0,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:09.501Z"
+    },
+    {
+      "id": "stackoverflow:75322534",
+      "source": "stackoverflow",
+      "title": "Link to supplementary table links to main text table in R Markdown",
+      "url": "https://stackoverflow.com/questions/75322534/link-to-supplementary-table-links-to-main-text-table-in-r-markdown",
+      "date": "2023-02-02T11:31:07.000Z",
+      "engagement": 1,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:09.501Z"
+    },
+    {
+      "id": "stackoverflow:66239138",
+      "source": "stackoverflow",
+      "title": "Fix markdown tables with prettier",
+      "url": "https://stackoverflow.com/questions/66239138/fix-markdown-tables-with-prettier",
+      "date": "2021-02-17T09:29:56.000Z",
+      "engagement": 3,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:09.501Z"
+    },
+    {
+      "id": "stackoverflow:63380980",
+      "source": "stackoverflow",
+      "title": "&lt;img&gt; in markdown tables in github pages",
+      "url": "https://stackoverflow.com/questions/63380980/img-in-markdown-tables-in-github-pages",
+      "date": "2020-08-12T16:34:05.000Z",
+      "engagement": 0,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:09.501Z"
+    },
+    {
+      "id": "stackoverflow:59443219",
+      "source": "stackoverflow",
+      "title": "Eclipse Markdown Preview Editor brooken?",
+      "url": "https://stackoverflow.com/questions/59443219/eclipse-markdown-preview-editor-brooken",
+      "date": "2019-12-22T09:59:41.000Z",
+      "engagement": 2,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:09.501Z"
+    },
+    {
+      "id": "stackoverflow:56196209",
+      "source": "stackoverflow",
+      "title": "Robustly generate anchors in Markdown",
+      "url": "https://stackoverflow.com/questions/56196209/robustly-generate-anchors-in-markdown",
+      "date": "2019-05-18T05:22:58.000Z",
+      "engagement": 0,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:09.501Z"
+    },
+    {
+      "id": "stackoverflow:50957849",
+      "source": "stackoverflow",
+      "title": "Create Jira ticket with markdown",
+      "url": "https://stackoverflow.com/questions/50957849/create-jira-ticket-with-markdown",
+      "date": "2018-06-20T22:17:56.000Z",
+      "engagement": 4,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:09.501Z"
+    },
+    {
+      "id": "stackoverflow:70502171",
+      "source": "stackoverflow",
+      "title": "R markdown- The sample file successfully knits to PDF, but my file fails",
+      "url": "https://stackoverflow.com/questions/70502171/r-markdown-the-sample-file-successfully-knits-to-pdf-but-my-file-fails",
+      "date": "2021-12-28T02:14:03.000Z",
+      "engagement": 1,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:09.823Z"
+    },
+    {
+      "id": "stackoverflow:63368517",
+      "source": "stackoverflow",
+      "title": "CJK short title causes errors with Papaja RMarkdown",
+      "url": "https://stackoverflow.com/questions/63368517/cjk-short-title-causes-errors-with-papaja-rmarkdown",
+      "date": "2020-08-12T01:36:26.000Z",
+      "engagement": 2,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:09.823Z"
+    },
+    {
+      "id": "stackoverflow:56206478",
+      "source": "stackoverflow",
+      "title": "How to disable space when using pandoc with Chinese characters?",
+      "url": "https://stackoverflow.com/questions/56206478/how-to-disable-space-when-using-pandoc-with-chinese-characters",
+      "date": "2019-05-19T09:28:51.000Z",
+      "engagement": 1,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:09.823Z"
+    },
+    {
+      "id": "stackoverflow:55137760",
+      "source": "stackoverflow",
+      "title": "&quot;Undefined control sequence. \\file_get:nnN&quot; error while compiling markdown file to pdf using pandoc and xelatex",
+      "url": "https://stackoverflow.com/questions/55137760/undefined-control-sequence-file-getnnn-error-while-compiling-markdown-file",
+      "date": "2019-03-13T08:55:31.000Z",
+      "engagement": 6,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:09.823Z"
+    },
+    {
+      "id": "stackoverflow:52403217",
+      "source": "stackoverflow",
+      "title": "Rmarkdown: PDF file can not generate with a loop",
+      "url": "https://stackoverflow.com/questions/52403217/rmarkdown-pdf-file-can-not-generate-with-a-loop",
+      "date": "2018-09-19T10:00:53.000Z",
+      "engagement": 4,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:09.823Z"
+    },
+    {
+      "id": "stackoverflow:40892725",
+      "source": "stackoverflow",
+      "title": "pandoc does not recognize Chinese characters",
+      "url": "https://stackoverflow.com/questions/40892725/pandoc-does-not-recognize-chinese-characters",
+      "date": "2016-11-30T15:57:33.000Z",
+      "engagement": 4,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:09.823Z"
+    },
+    {
+      "id": "stackoverflow:79703916",
+      "source": "stackoverflow",
+      "title": "Pandoc and LaTeX in a Docker container with customized Dockerfiles",
+      "url": "https://stackoverflow.com/questions/79703916/pandoc-and-latex-in-a-docker-container-with-customized-dockerfiles",
+      "date": "2025-07-16T19:06:20.000Z",
+      "engagement": 0,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:10.152Z"
+    },
+    {
+      "id": "stackoverflow:79567788",
+      "source": "stackoverflow",
+      "title": "How can I remove pandoc EPUB links in markdown conversion?",
+      "url": "https://stackoverflow.com/questions/79567788/how-can-i-remove-pandoc-epub-links-in-markdown-conversion",
+      "date": "2025-04-11T00:33:40.000Z",
+      "engagement": 0,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:10.152Z"
+    },
+    {
+      "id": "stackoverflow:79187829",
+      "source": "stackoverflow",
+      "title": "How do I format pseudo-bibliographic paragraphs (not real biblatex citations) in Pandoc markdown for PDF &amp; EPUB outputs?",
+      "url": "https://stackoverflow.com/questions/79187829/how-do-i-format-pseudo-bibliographic-paragraphs-not-real-biblatex-citations-in",
+      "date": "2024-11-14T07:58:00.000Z",
+      "engagement": 1,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:10.152Z"
+    },
+    {
+      "id": "stackoverflow:79092202",
+      "source": "stackoverflow",
+      "title": "I&#39;m converting Markdown files to an ePUB book through Pandoc. How do I insert a page break in the title page when using a custom ePUB template?",
+      "url": "https://stackoverflow.com/questions/79092202/im-converting-markdown-files-to-an-epub-book-through-pandoc-how-do-i-insert-a",
+      "date": "2024-10-16T01:45:14.000Z",
+      "engagement": 3,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:10.152Z"
+    },
+    {
+      "id": "stackoverflow:78735991",
+      "source": "stackoverflow",
+      "title": "Pandoc 3.2.1, duplicate Footnote ID",
+      "url": "https://stackoverflow.com/questions/78735991/pandoc-3-2-1-duplicate-footnote-id",
+      "date": "2024-07-11T13:57:17.000Z",
+      "engagement": 1,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:10.152Z"
+    },
+    {
+      "id": "stackoverflow:78717039",
+      "source": "stackoverflow",
+      "title": "Pandoc table of contents: unnumbered parts and numbered chapters",
+      "url": "https://stackoverflow.com/questions/78717039/pandoc-table-of-contents-unnumbered-parts-and-numbered-chapters",
+      "date": "2024-07-07T10:31:41.000Z",
+      "engagement": 3,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:10.152Z"
+    },
+    {
+      "id": "stackoverflow:77435133",
+      "source": "stackoverflow",
+      "title": "Superscript in pandoc epub not rendering on Kindle",
+      "url": "https://stackoverflow.com/questions/77435133/superscript-in-pandoc-epub-not-rendering-on-kindle",
+      "date": "2023-11-07T01:56:30.000Z",
+      "engagement": 1,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:10.152Z"
+    },
+    {
+      "id": "stackoverflow:71743107",
+      "source": "stackoverflow",
+      "title": "What to do with odd span tags when using Pandoc to make markdown output",
+      "url": "https://stackoverflow.com/questions/71743107/what-to-do-with-odd-span-tags-when-using-pandoc-to-make-markdown-output",
+      "date": "2022-04-04T19:58:43.000Z",
+      "engagement": 4,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:10.152Z"
+    },
+    {
+      "id": "stackoverflow:69630104",
+      "source": "stackoverflow",
+      "title": "How to display MathML in VSCode and Markdown Preview Enhanced?",
+      "url": "https://stackoverflow.com/questions/69630104/how-to-display-mathml-in-vscode-and-markdown-preview-enhanced",
+      "date": "2021-10-19T11:37:26.000Z",
+      "engagement": 1,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:10.152Z"
+    },
+    {
+      "id": "stackoverflow:74396014",
+      "source": "stackoverflow",
+      "title": "How to render PDF from R Markdown with Chinese characters",
+      "url": "https://stackoverflow.com/questions/74396014/how-to-render-pdf-from-r-markdown-with-chinese-characters",
+      "date": "2022-11-10T22:30:17.000Z",
+      "engagement": 4,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:10.545Z"
+    },
+    {
+      "id": "stackoverflow:63174773",
+      "source": "stackoverflow",
+      "title": "Convert Chinese docx files to markdown with Pandoc",
+      "url": "https://stackoverflow.com/questions/63174773/convert-chinese-docx-files-to-markdown-with-pandoc",
+      "date": "2020-07-30T13:57:50.000Z",
+      "engagement": 0,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:10.545Z"
+    },
+    {
+      "id": "stackoverflow:49820466",
+      "source": "stackoverflow",
+      "title": "R Markdown tufte knitting gives &quot;Error: pandoc document conversion failed with error 5&quot;",
+      "url": "https://stackoverflow.com/questions/49820466/r-markdown-tufte-knitting-gives-error-pandoc-document-conversion-failed-with-e",
+      "date": "2018-04-13T15:28:22.000Z",
+      "engagement": 0,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:10.545Z"
+    },
+    {
+      "id": "stackoverflow:47954642",
+      "source": "stackoverflow",
+      "title": "pandoc complains about utf-8 decoding error even if my file is valid utf-8 encoded file",
+      "url": "https://stackoverflow.com/questions/47954642/pandoc-complains-about-utf-8-decoding-error-even-if-my-file-is-valid-utf-8-encod",
+      "date": "2017-12-23T17:45:01.000Z",
+      "engagement": 9,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:10.545Z"
+    },
+    {
+      "id": "stackoverflow:45658345",
+      "source": "stackoverflow",
+      "title": "How to customize the preview of Markdown in Pycharm?",
+      "url": "https://stackoverflow.com/questions/45658345/how-to-customize-the-preview-of-markdown-in-pycharm",
+      "date": "2017-08-13T08:07:34.000Z",
+      "engagement": 6,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:10.545Z"
+    },
+    {
+      "id": "stackoverflow:36676873",
+      "source": "stackoverflow",
+      "title": "Github pages + Jekyll didn&#39;t parse the markdown correctly?",
+      "url": "https://stackoverflow.com/questions/36676873/github-pages-jekyll-didnt-parse-the-markdown-correctly",
+      "date": "2016-04-17T13:03:12.000Z",
+      "engagement": 1,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:10.545Z"
+    },
+    {
+      "id": "hackernews:38482007",
+      "source": "hackernews",
+      "title": "Marker: Convert PDF to Markdown quickly with high accuracy",
+      "url": "https://github.com/VikParuchuri/marker",
+      "date": "2023-12-01T01:53:45Z",
+      "engagement": 778,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:19488561",
+      "source": "hackernews",
+      "title": "Convert Markdown to PDF only using browser",
+      "url": "https://md2pdf.netlify.com/",
+      "date": "2019-03-26T01:45:33Z",
+      "engagement": 148,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:14482828",
+      "source": "hackernews",
+      "title": "Convert a markdown manuscript to pdf/epub/mobi e-books",
+      "url": "http://chrisanthropic.github.io/Open-Publisher-Documentation/",
+      "date": "2017-06-04T18:40:12Z",
+      "engagement": 145,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:43231964",
+      "source": "hackernews",
+      "title": "Ask HN: Where are the good Markdown to PDF tools (that meet these requirements)?",
+      "url": "https://news.ycombinator.com/item?id=43231964",
+      "date": "2025-03-02T16:18:44Z",
+      "engagement": 97,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:47705802",
+      "source": "hackernews",
+      "title": "Show HN: Mdpdf a 2k line C CLI to convert Markdown to tiny PDFs",
+      "url": "https://github.com/schicho/mdpdf",
+      "date": "2026-04-09T16:33:52Z",
+      "engagement": 19,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:48175466",
+      "source": "hackernews",
+      "title": "Show HN: Pdf2md – 10MB Rust PDF-to-Markdown Tool with a Free API",
+      "url": "https://pdf2md.deepdiy.net/",
+      "date": "2026-05-18T04:06:00Z",
+      "engagement": 16,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:42072607",
+      "source": "hackernews",
+      "title": "Show HN: CLI to export Markdown to PDF using Jinja2 templates",
+      "url": "https://github.com/andy-verstraeten/mdexport",
+      "date": "2024-11-07T02:18:44Z",
+      "engagement": 9,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:43954354",
+      "source": "hackernews",
+      "title": "Show HN: One-liner CLI for batched PDF-to-Markdown at $1 per ~6k pages",
+      "url": "https://github.com/altaidevorg/llm-food",
+      "date": "2025-05-11T15:12:32Z",
+      "engagement": 8,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:41948448",
+      "source": "hackernews",
+      "title": "Show HN: Doctly AI – Accurate AI-Powered PDF to Markdown Parser",
+      "url": "https://news.ycombinator.com/item?id=41948448",
+      "date": "2024-10-25T18:56:09Z",
+      "engagement": 11,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:48789344",
+      "source": "hackernews",
+      "title": "Show HN: Markdown to PDF CLI Tool",
+      "url": "https://github.com/leonardosalasd/doc-engine-cli",
+      "date": "2026-07-04T21:37:56Z",
+      "engagement": 9,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:22714802",
+      "source": "hackernews",
+      "title": "Show HN: A web service for converting markdown to PDF",
+      "url": "https://github.com/spawnia/md-to-pdf",
+      "date": "2020-03-28T22:32:16Z",
+      "engagement": 7,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:47618274",
+      "source": "hackernews",
+      "title": "Show HN: Pdf-to-Markdown CLI",
+      "url": "https://news.ycombinator.com/item?id=47618274",
+      "date": "2026-04-02T18:28:05Z",
+      "engagement": 6,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:46464112",
+      "source": "hackernews",
+      "title": "Show HN: PDF to Markdown that preserves layout, images, and tables",
+      "url": "https://pdftomarkdown.pro/",
+      "date": "2026-01-02T12:27:56Z",
+      "engagement": 6,
+      "topic": "image",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:6782066",
+      "source": "hackernews",
+      "title": "Markdown to PDF Creator",
+      "url": "http://updraft.io/",
+      "date": "2013-11-22T17:11:05Z",
+      "engagement": 6,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:46307205",
+      "source": "hackernews",
+      "title": "Show HN: MDXport – Browser-Based Markdown to PDF Using Typst and WASM",
+      "url": "https://www.mdxport.com/en/",
+      "date": "2025-12-17T23:46:09Z",
+      "engagement": 6,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:08.449Z"
+    },
+    {
+      "id": "hackernews:10665466",
+      "source": "hackernews",
+      "title": "From Word to Markdown to InDesign: Fully Automated Typesetting Using Pandoc",
+      "url": "http://rhythmus.be/md2indd/",
+      "date": "2015-12-02T20:09:40Z",
+      "engagement": 155,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:16592356",
+      "source": "hackernews",
+      "title": "Say Yes to Markdown, No to MS Word",
+      "url": "https://medium.com/@drodil/say-yes-to-markdown-no-to-ms-word-be4692e7a8cd",
+      "date": "2018-03-15T12:52:25Z",
+      "engagement": 206,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:18430456",
+      "source": "hackernews",
+      "title": "Show HN: Convert a Markdown Doc to WordPress Posts and Pages",
+      "url": "https://scribewp.com",
+      "date": "2018-11-12T03:46:52Z",
+      "engagement": 72,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:46857775",
+      "source": "hackernews",
+      "title": "Show HN: Url/sitemap/pdf/word to Markdown (feedback wanted)",
+      "url": "https://output.md/",
+      "date": "2026-02-02T16:19:34Z",
+      "engagement": 3,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:37269482",
+      "source": "hackernews",
+      "title": "Show HN: Ws2markdown, a WordStar to Markdown Converter",
+      "url": "https://code.rosaelefanten.org/ws2markdown/dir?ci=tip",
+      "date": "2023-08-26T02:42:32Z",
+      "engagement": 3,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:45951295",
+      "source": "hackernews",
+      "title": "Show HN: Markdown to Word – Free Online Converter",
+      "url": "https://markdowntoword.io/",
+      "date": "2025-11-17T06:33:20Z",
+      "engagement": 7,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:44764371",
+      "source": "hackernews",
+      "title": "Markdown to Word",
+      "url": "https://mdtoword.org/",
+      "date": "2025-08-02T02:11:15Z",
+      "engagement": 4,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:47012454",
+      "source": "hackernews",
+      "title": "Show HN: MD To – Convert Markdown to Word without the bloat",
+      "url": "https://md-to.com/markdown-to-word/",
+      "date": "2026-02-14T07:29:50Z",
+      "engagement": 3,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:8553340",
+      "source": "hackernews",
+      "title": "Word2markdown – Convert Word to Markdown, with Images and Math",
+      "url": "https://github.com/Versal/word2markdown",
+      "date": "2014-11-03T20:40:06Z",
+      "engagement": 2,
+      "topic": "image",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:45271573",
+      "source": "hackernews",
+      "title": "Show HN: Markdown to Word – Free Online Converter",
+      "url": "https://markdowntoword.io/",
+      "date": "2025-09-17T04:10:19Z",
+      "engagement": 1,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:4517303",
+      "source": "hackernews",
+      "title": "Convert Markdown to a Word Document",
+      "url": "http://m8ck.us.to/2012/09/13/markdown-to-word/",
+      "date": "2012-09-13T17:06:31Z",
+      "engagement": 1,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:38668999",
+      "source": "hackernews",
+      "title": "Markdown to Word Tool",
+      "url": "https://sheremetyeva.medium.com/writage-markdown-to-word-document-conversion-in-one-click-c0924f2374f4",
+      "date": "2023-12-16T23:55:33Z",
+      "engagement": 1,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:21883153",
+      "source": "hackernews",
+      "title": "How to Convert WordPress to Markdown",
+      "url": "https://kevq.uk/how-to-convert-wordpress-to-markdown/",
+      "date": "2019-12-26T11:29:09Z",
+      "engagement": 1,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:48622123",
+      "source": "hackernews",
+      "title": "Ask HN: How should I convert Microsoft Word documents to Markdown?",
+      "url": "https://news.ycombinator.com/item?id=48622123",
+      "date": "2026-06-21T20:04:15Z",
+      "engagement": 13,
+      "topic": "word",
+      "seenAt": "2026-07-13T01:26:09.531Z"
+    },
+    {
+      "id": "hackernews:46644234",
+      "source": "hackernews",
+      "title": "Show HN: Markdown-table-repair – Fix broken Markdown tables from LLM streams",
+      "url": "https://news.ycombinator.com/item?id=46644234",
+      "date": "2026-01-16T08:10:21Z",
+      "engagement": 1,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:10.128Z"
+    },
+    {
+      "id": "hackernews:43532585",
+      "source": "hackernews",
+      "title": "Show HN: Convert PDFs to clean Markdown online (preserves tables/formulas)",
+      "url": "https://pdftomarkdown.pro/",
+      "date": "2025-03-31T08:30:05Z",
+      "engagement": 2,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:10.128Z"
+    },
+    {
+      "id": "hackernews:47278068",
+      "source": "hackernews",
+      "title": "Show HN: Droidctx – generate Markdown docs from your prod infra for coding agent",
+      "url": "https://github.com/DrDroidLab/context-builder",
+      "date": "2026-03-06T17:24:18Z",
+      "engagement": 2,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:10.128Z"
+    },
+    {
+      "id": "hackernews:45636123",
+      "source": "hackernews",
+      "title": "Show HN: MarkdownConverters – Convert any file format to clean Markdown",
+      "url": "https://markdownconverters.com",
+      "date": "2025-10-19T17:38:58Z",
+      "engagement": 14,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:10.128Z"
+    },
+    {
+      "id": "hackernews:47083014",
+      "source": "hackernews",
+      "title": "Show HN: Single-Binary Markdown-to-PDF CLI in Rust, Powered by Typst (MDXport)",
+      "url": "https://github.com/cosformula/mdxport-cli",
+      "date": "2026-02-20T02:44:25Z",
+      "engagement": 3,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:11.919Z"
+    },
+    {
+      "id": "hackernews:47320788",
+      "source": "hackernews",
+      "title": "Show HN: Draft2final – CLI converts Markdown into manuscript and screenplay PDFs",
+      "url": "https://www.draft2final.app/",
+      "date": "2026-03-10T09:13:09Z",
+      "engagement": 2,
+      "topic": "pdf",
+      "seenAt": "2026-07-13T01:26:11.919Z"
+    },
+    {
+      "id": "hackernews:26898591",
+      "source": "hackernews",
+      "title": "Converting Markdown to ePub or Mobi Using Pandoc",
+      "url": "https://themythicalengineer.com/converting-markdown-to-epub-mobi.html",
+      "date": "2021-04-22T04:00:56Z",
+      "engagement": 182,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:12.497Z"
+    },
+    {
+      "id": "hackernews:33718489",
+      "source": "hackernews",
+      "title": "Zotero citations in Markdown – publishing to ePub or PDF",
+      "url": "https://shkspr.mobi/blog/2022/11/zotero-citations-in-markdown-publishing-to-epub-or-pdf/",
+      "date": "2022-11-23T12:46:00Z",
+      "engagement": 10,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:12.497Z"
+    },
+    {
+      "id": "hackernews:14660475",
+      "source": "hackernews",
+      "title": "Show HN: Markdown to Epub Template",
+      "url": "https://github.com/johnpaulada/pandoc-markdown-book-template",
+      "date": "2017-06-29T03:08:28Z",
+      "engagement": 5,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:12.497Z"
+    },
+    {
+      "id": "hackernews:38042636",
+      "source": "hackernews",
+      "title": "Show HN: pandoc-from-markdown-to-epub shell script",
+      "url": "https://news.ycombinator.com/item?id=38042636",
+      "date": "2023-10-27T19:12:28Z",
+      "engagement": 5,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:12.497Z"
+    },
+    {
+      "id": "hackernews:44843958",
+      "source": "hackernews",
+      "title": "Show HN: Markdown to ePub file (for Send to Kindle)",
+      "url": "https://tools.encona.com/mdepub/index.html",
+      "date": "2025-08-09T04:07:18Z",
+      "engagement": 1,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:12.497Z"
+    },
+    {
+      "id": "hackernews:21153972",
+      "source": "hackernews",
+      "title": "Show HN: Convert Scala Language Specification markdown files to pdf/ePub format",
+      "url": "https://github.com/Ldpe2G/Scala_Language_Specification_pdf",
+      "date": "2019-10-04T01:14:17Z",
+      "engagement": 1,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:12.497Z"
+    },
+    {
+      "id": "hackernews:27105814",
+      "source": "hackernews",
+      "title": "Pandoc-novel: Markdown text to a novel in ePub and PDF",
+      "url": "https://github.com/jp-fosterson/pandoc-novel",
+      "date": "2021-05-10T13:35:12Z",
+      "engagement": 5,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:12.497Z"
+    },
+    {
+      "id": "hackernews:47273448",
+      "source": "hackernews",
+      "title": "Show HN: Markdown-to-Book – Convert Markdown to KDP Ready PDFs and EPUBs",
+      "url": "https://github.com/vpuna/markdown-to-book",
+      "date": "2026-03-06T11:02:44Z",
+      "engagement": 11,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:12.497Z"
+    },
+    {
+      "id": "hackernews:43096260",
+      "source": "hackernews",
+      "title": "Convert PDF files to nicely structured Markdown and ePub with layout detection",
+      "url": "https://github.com/overcuriousity/pdf2epub",
+      "date": "2025-02-18T23:03:42Z",
+      "engagement": 2,
+      "topic": "epub",
+      "seenAt": "2026-07-13T01:26:12.497Z"
+    },
+    {
+      "id": "hackernews:45037554",
+      "source": "hackernews",
+      "title": "Show HN: Pinery – A native macOS app for self-publishing with Markdown",
+      "url": "https://pinery.app",
+      "date": "2025-08-27T10:09:18Z",
+      "engagement": 1,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:12.497Z"
+    },
+    {
+      "id": "hackernews:41702962",
+      "source": "hackernews",
+      "title": "Show HN: Offline macOS app to convert Markdown documents",
+      "url": "https://docflex.app/",
+      "date": "2024-09-30T22:51:47Z",
+      "engagement": 10,
+      "topic": "other",
+      "seenAt": "2026-07-13T01:26:12.497Z"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "generatedAt": "2026-07-13T01:26:14.324Z",
+  "note": "Provisional painpoint themes — deterministic topic pre-grouping + heuristic triage. The /growth-loop agent refines these semantically (merge/split/rename/re-triage). build|defer|decline is a suggestion, not a verdict.",
+  "themes": [
+    {
+      "id": "theme:other",
+      "topic": "other",
+      "title": "other conversion painpoints",
+      "count": 6,
+      "sources": [
+        "github",
+        "stackoverflow"
+      ],
+      "recencyDays": 0,
+      "score": 0.72,
+      "triage": "build",
+      "goalId": null,
+      "representative": [
+        {
+          "title": "S-040 Plain Text, Markdown, and Bounded Clean-HTML Ingestion",
+          "url": "https://github.com/shytamir/semantic-rsvp-reader/issues/15",
+          "source": "github",
+          "engagement": 3
+        },
+        {
+          "title": "Pandoc not displaying front matter (YAML) date when compiled",
+          "url": "https://stackoverflow.com/questions/79959006/pandoc-not-displaying-front-matter-yaml-date-when-compiled",
+          "source": "stackoverflow",
+          "engagement": 3
+        },
+        {
+          "title": "fix(ui): improve Markdown table fit and heading hierarchy",
+          "url": "https://github.com/maka-agent/maka-agent/issues/739",
+          "source": "github",
+          "engagement": 1
+        }
+      ],
+      "items": [
+        "github:4865260716",
+        "stackoverflow:79959006",
+        "github:4864360409",
+        "github:4869491786",
+        "github:4543593293",
+        "stackoverflow:79971949"
+      ]
+    },
+    {
+      "id": "theme:readme",
+      "topic": "readme",
+      "title": "readme conversion painpoints",
+      "count": 8,
+      "sources": [
+        "github"
+      ],
+      "recencyDays": 48,
+      "score": 0.58,
+      "triage": "build",
+      "goalId": null,
+      "representative": [
+        {
+          "title": "🌍 Add README translation: Croatian",
+          "url": "https://github.com/AbdullahOztoprak/first-contribution-playground/issues/60",
+          "source": "github",
+          "engagement": 5
+        },
+        {
+          "title": "🌍 Add README translation: Serbian",
+          "url": "https://github.com/AbdullahOztoprak/first-contribution-playground/issues/61",
+          "source": "github",
+          "engagement": 5
+        },
+        {
+          "title": "🌍 Add README translation: Slovak",
+          "url": "https://github.com/AbdullahOztoprak/first-contribution-playground/issues/62",
+          "source": "github",
+          "engagement": 5
+        }
+      ],
+      "items": [
+        "github:4522836135",
+        "github:4522836209",
+        "github:4522836259",
+        "github:4522836329",
+        "github:4522836396",
+        "github:4522836463",
+        "github:4522905431",
+        "github:4522905510"
+      ]
+    },
+    {
+      "id": "theme:pdf",
+      "topic": "pdf",
+      "title": "pdf conversion painpoints",
+      "count": 3,
+      "sources": [
+        "hackernews",
+        "github"
+      ],
+      "recencyDays": 0,
+      "score": 0.58,
+      "triage": "build",
+      "goalId": null,
+      "representative": [
+        {
+          "title": "Show HN: Pdf2md – 10MB Rust PDF-to-Markdown Tool with a Free API",
+          "url": "https://pdf2md.deepdiy.net/",
+          "source": "hackernews",
+          "engagement": 16
+        },
+        {
+          "title": "Show HN: Markdown to PDF CLI Tool",
+          "url": "https://github.com/leonardosalasd/doc-engine-cli",
+          "source": "hackernews",
+          "engagement": 9
+        },
+        {
+          "title": "PDF generation fails with 'Not enough horizontal space' on ANY markdown table",
+          "url": "https://github.com/filhocf/docforge-mcp/issues/10",
+          "source": "github",
+          "engagement": 0
+        }
+      ],
+      "items": [
+        "hackernews:48175466",
+        "hackernews:48789344",
+        "github:4869329994"
+      ]
+    },
+    {
+      "id": "theme:word",
+      "topic": "word",
+      "title": "word conversion painpoints",
+      "count": 2,
+      "sources": [
+        "hackernews",
+        "stackoverflow"
+      ],
+      "recencyDays": 22,
+      "score": 0.48,
+      "triage": "build",
+      "goalId": null,
+      "representative": [
+        {
+          "title": "Ask HN: How should I convert Microsoft Word documents to Markdown?",
+          "url": "https://news.ycombinator.com/item?id=48622123",
+          "source": "hackernews",
+          "engagement": 13
+        },
+        {
+          "title": "In-text citations not rendering properly for separate bibliographies using pandoc, RMarkdown, Bookdown to Word",
+          "url": "https://stackoverflow.com/questions/79950687/in-text-citations-not-rendering-properly-for-separate-bibliographies-using-pando",
+          "source": "stackoverflow",
+          "engagement": 0
+        }
+      ],
+      "items": [
+        "hackernews:48622123",
+        "stackoverflow:79950687"
+      ]
+    }
+  ]
+}

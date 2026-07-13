@@ -32,6 +32,8 @@
     "growth:meta": "node scripts/growth/meta.mjs",
     "growth:report": "node scripts/growth/report.mjs",
     "growth:market": "node scripts/growth/market/autocomplete.mjs",
+    "growth:social": "node scripts/growth/social/collect.mjs",
+    "growth:consolidate": "node scripts/growth/consolidate.mjs",
     "validate": "node scripts/validate-production.mjs",
     "validate:verbose": "node scripts/validate-production.mjs --verbose",
     "validate:traffic": "node scripts/validate-production.mjs --simulate-traffic --verbose",
