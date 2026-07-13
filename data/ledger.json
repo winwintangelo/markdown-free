@@ -10,14 +10,30 @@
       "channel": "bing",
       "target_metric": "impressions",
       "guardrail_metrics": [],
-      "target_scope": { "pages": ["https://www.markdown.free/markdown-to-png"], "queries": [], "country": null },
+      "target_scope": {
+        "pages": [
+          "https://www.markdown.free/markdown-to-png"
+        ],
+        "queries": [],
+        "country": null
+      },
       "control_scope": null,
       "shipped_date": "2026-07-04",
       "commit": "7c36729",
-      "baseline": { "window_days": 28, "mean": null, "as_of": "2026-07-04" },
+      "baseline": {
+        "window_days": 28,
+        "mean": null,
+        "as_of": "2026-07-04"
+      },
       "measure_on": "2026-08-01",
       "status": "shipped",
-      "outcome": { "treated_delta": null, "control_delta": null, "did": null, "guardrails_held": null, "note": "" }
+      "outcome": {
+        "treated_delta": null,
+        "control_delta": null,
+        "did": null,
+        "guardrails_held": null,
+        "note": ""
+      }
     },
     {
       "id": "cjk-zhuanhuan-word-epub",
@@ -26,20 +42,36 @@
       "topic": "cjk-word-epub",
       "channel": "bing",
       "target_metric": "position",
-      "guardrail_metrics": ["clicks"],
-      "target_scope": { "pages": [
-        "https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word",
-        "https://www.markdown.free/zh-Hant/markdown-word-zhuanhuan",
-        "https://www.markdown.free/zh-Hans/markdown-epub-zhuanhuan",
-        "https://www.markdown.free/zh-Hant/markdown-epub-zhuanhuan-tw"
-      ], "queries": [], "country": null },
+      "guardrail_metrics": [
+        "clicks"
+      ],
+      "target_scope": {
+        "pages": [
+          "https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word",
+          "https://www.markdown.free/zh-Hant/markdown-word-zhuanhuan",
+          "https://www.markdown.free/zh-Hans/markdown-epub-zhuanhuan",
+          "https://www.markdown.free/zh-Hant/markdown-epub-zhuanhuan-tw"
+        ],
+        "queries": [],
+        "country": null
+      },
       "control_scope": null,
       "shipped_date": "2026-07-09",
       "commit": "62bf43a",
-      "baseline": { "window_days": 28, "mean": null, "as_of": "2026-07-09" },
+      "baseline": {
+        "window_days": 28,
+        "mean": null,
+        "as_of": "2026-07-09"
+      },
       "measure_on": "2026-08-06",
       "status": "shipped",
-      "outcome": { "treated_delta": null, "control_delta": null, "did": null, "guardrails_held": null, "note": "" }
+      "outcome": {
+        "treated_delta": null,
+        "control_delta": null,
+        "did": null,
+        "guardrails_held": null,
+        "note": ""
+      }
     },
     {
       "id": "word-cluster-sweep",
@@ -48,23 +80,39 @@
       "topic": "word-cluster",
       "channel": "gsc",
       "target_metric": "impressions",
-      "guardrail_metrics": ["position"],
-      "target_scope": { "pages": [
-        "https://www.markdown.free/markdown-to-word",
-        "https://www.markdown.free/markdown-a-word",
-        "https://www.markdown.free/markdown-in-word",
-        "https://www.markdown.free/markdown-ke-word",
-        "https://www.markdown.free/markdown-sang-word",
-        "https://www.markdown.free/markdown-word-byeonhwan",
-        "https://www.markdown.free/markdown-word-henkan"
-      ], "queries": [], "country": null },
+      "guardrail_metrics": [
+        "position"
+      ],
+      "target_scope": {
+        "pages": [
+          "https://www.markdown.free/markdown-to-word",
+          "https://www.markdown.free/markdown-a-word",
+          "https://www.markdown.free/markdown-in-word",
+          "https://www.markdown.free/markdown-ke-word",
+          "https://www.markdown.free/markdown-sang-word",
+          "https://www.markdown.free/markdown-word-byeonhwan",
+          "https://www.markdown.free/markdown-word-henkan"
+        ],
+        "queries": [],
+        "country": null
+      },
       "control_scope": null,
       "shipped_date": "2026-07-11",
       "commit": "0378273",
-      "baseline": { "window_days": 28, "mean": null, "as_of": "2026-07-11" },
+      "baseline": {
+        "window_days": 28,
+        "mean": null,
+        "as_of": "2026-07-11"
+      },
       "measure_on": "2026-08-08",
       "status": "shipped",
-      "outcome": { "treated_delta": null, "control_delta": null, "did": null, "guardrails_held": null, "note": "" }
+      "outcome": {
+        "treated_delta": null,
+        "control_delta": null,
+        "did": null,
+        "guardrails_held": null,
+        "note": ""
+      }
     },
     {
       "id": "og-image-relatedtools-faq",
@@ -73,19 +121,36 @@
       "topic": "social-cards",
       "channel": "gsc",
       "target_metric": "ctr",
-      "guardrail_metrics": ["position"],
-      "target_scope": { "pages": [
-        "https://www.markdown.free/readme-to-pdf",
-        "https://www.markdown.free/markdown-to-epub",
-        "https://www.markdown.free/markdown-to-word"
-      ], "queries": [], "country": null, "note": "representative subset of the 72; broaden when GSC page data flows" },
+      "guardrail_metrics": [
+        "position"
+      ],
+      "target_scope": {
+        "pages": [
+          "https://www.markdown.free/readme-to-pdf",
+          "https://www.markdown.free/markdown-to-epub",
+          "https://www.markdown.free/markdown-to-word"
+        ],
+        "queries": [],
+        "country": null,
+        "note": "representative subset of the 72; broaden when GSC page data flows"
+      },
       "control_scope": null,
       "shipped_date": "2026-07-11",
       "commit": "22b1c05",
-      "baseline": { "window_days": 28, "mean": null, "as_of": "2026-07-11" },
+      "baseline": {
+        "window_days": 28,
+        "mean": null,
+        "as_of": "2026-07-11"
+      },
       "measure_on": "2026-08-08",
       "status": "shipped",
-      "outcome": { "treated_delta": null, "control_delta": null, "did": null, "guardrails_held": null, "note": "" }
+      "outcome": {
+        "treated_delta": null,
+        "control_delta": null,
+        "did": null,
+        "guardrails_held": null,
+        "note": ""
+      }
     },
     {
       "id": "server-side-html-lang",
@@ -95,19 +160,81 @@
       "channel": "bing",
       "target_metric": "impressions",
       "guardrail_metrics": [],
-      "target_scope": { "pages": [
-        "https://www.markdown.free/ja",
-        "https://www.markdown.free/ko",
-        "https://www.markdown.free/zh-Hans",
-        "https://www.markdown.free/zh-Hant"
-      ], "queries": [], "country": null },
+      "target_scope": {
+        "pages": [
+          "https://www.markdown.free/ja",
+          "https://www.markdown.free/ko",
+          "https://www.markdown.free/zh-Hans",
+          "https://www.markdown.free/zh-Hant"
+        ],
+        "queries": [],
+        "country": null
+      },
       "control_scope": null,
       "shipped_date": "2026-07-11",
       "commit": "3a48079",
-      "baseline": { "window_days": 28, "mean": null, "as_of": "2026-07-11" },
+      "baseline": {
+        "window_days": 28,
+        "mean": null,
+        "as_of": "2026-07-11"
+      },
       "measure_on": "2026-08-08",
       "status": "shipped",
-      "outcome": { "treated_delta": null, "control_delta": null, "did": null, "guardrails_held": null, "note": "" }
+      "outcome": {
+        "treated_delta": null,
+        "control_delta": null,
+        "did": null,
+        "guardrails_held": null,
+        "note": ""
+      }
+    },
+    {
+      "id": "word-title-meta-ctr-2026-07-13",
+      "title": "Rewrite /markdown-to-word title + meta for CTR (formatting-fidelity hook)",
+      "hypothesis": "Surfacing the real Word-conversion anxiety — tables/formatting stay intact — plus the privacy edge in the title/meta lifts Bing CTR from 0.82% (pos 8.6) without losing position.",
+      "topic": "word",
+      "channel": "bing",
+      "target_metric": "ctr",
+      "guardrail_metrics": [
+        "position"
+      ],
+      "target_scope": {
+        "pages": [
+          "https://www.markdown.free/markdown-to-word"
+        ],
+        "queries": [],
+        "country": null
+      },
+      "control_scope": {
+        "pages": [
+          "https://www.markdown.free/readme-to-pdf"
+        ]
+      },
+      "shipped_date": "2026-07-13",
+      "commit": "pending",
+      "baseline": {
+        "window_days": 28,
+        "mean": 0.82,
+        "as_of": "2026-07-13"
+      },
+      "control_baseline": {
+        "window_days": 28,
+        "mean": 7.3,
+        "as_of": "2026-07-13"
+      },
+      "guardrail_baseline": {
+        "position": 8.61
+      },
+      "measure_on": "2026-08-10",
+      "status": "shipped",
+      "outcome": {
+        "treated_delta": null,
+        "control_delta": null,
+        "did": null,
+        "guardrails_held": null,
+        "note": ""
+      },
+      "note": "DiD vs /readme-to-pdf (untouched control) — removes site-wide shocks; parallel-trends assumed between two EN SEO pages. Bing only (GSC impressions too thin here). VERDICT ONLY VALID ONCE MERGED + DEPLOYED — the title/meta must be live for CTR to move."
     }
   ]
 }

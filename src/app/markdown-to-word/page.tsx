@@ -7,8 +7,8 @@ import { LocaleTracker } from "@/components/locale-tracker";
 import { safeJsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
-  title: "Markdown to Word (DOCX) Converter – Free Online Tool | Markdown Free",
-  description: "Convert Markdown to Word documents (DOCX) instantly. 100% free, no signup required, no ads. Your files are processed securely and never stored.",
+  title: "Markdown to Word (DOCX) — Free, Keeps Tables & Formatting | Markdown Free",
+  description: "Convert Markdown to a Word .docx in seconds — tables, headings, and code blocks stay intact. 100% free, no signup, and files are never stored.",
   keywords: [
     "markdown to word",
     "markdown to docx",
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
-    title: "Markdown to Word (DOCX) Converter – Free Online Tool",
-    description: "Convert your .md files to Microsoft Word format. Free, private, instant download.",
+    title: "Markdown to Word (DOCX) — Free, Keeps Tables & Formatting",
+    description: "Turn your .md files into clean Word documents with tables and formatting intact. Free, private, instant.",
     url: "https://www.markdown.free/markdown-to-word",
     type: "website",
     locale: "en_US",
