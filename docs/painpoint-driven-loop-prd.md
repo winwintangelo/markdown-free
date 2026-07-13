@@ -5,6 +5,16 @@
 > **Author:** Drafted in the markdown-promotion framework repo; intended to be built in the markdown.free product repo.
 > **One-line:** Discover real markdown painpoints online → consolidate → build targeted features → respond to fresh posts with the solution. A demand-driven loop that feeds both the product roadmap and distribution.
 
+> **⇢ MERGE + IMPLEMENTATION STATUS (2026-07-13).** This loop was **merged into the growth-intelligence platform** (`docs/growth-impl.md`), built on branch `growth-loop-p0`. The **shared skeleton** (signal store → weekly digest → one human gate → gated action → measure) plus the **moat filter**, **own-funnel cross-reference**, and **Knowledge Base** are **implemented** — but by the *growth/SEO* half, mining **internal analytics only** (`scripts/growth/*`, not `scripts/loop/*`). The painpoint loop's **distinctive demand-discovery + distribution half is NOT built.** Per-stage:
+> - **1 Discover (external social: GitHub/SO/HN/Reddit)** — ❌ not built. `discover.mjs` mines internal channels (GSC/Bing/Vercel/events), not social sources.
+> - **2 Consolidate (LLM theme-clustering)** — ❌ not built. Signals are per-page/query, deterministic — no clustering of social complaints into themes.
+> - **3 Triage** — 🟡 partial. Moat filter ✅ (heuristic in `opportunity.mjs` + `goals.mjs`, not the "encoded ruleset" envisioned); build/defer/decline decision states ❌; `track: growth|product` field exists but nothing feeds the product track.
+> - **4 Build handoff tagged with theme-ID** — ❌ ledger has `topic`/`commit`, not social painpoint-theme IDs.
+> - **5 Listen-for-new (active watches)** — ❌ no `watch` table, no new-post detection.
+> - **6 Reply-to-fresh (LLM draft → human post, UTM, reply tracking)** — ❌ not built at all.
+> - **Data model** `painpoint_item / painpoint_theme / watch / reply` — ❌ (growth uses `signals` [internal] / `ledger` / `knowledge` instead).
+> - **Shared infra** ✅: Signal Warehouse + Experiment Ledger, weekly digest + one approval gate, committed-JSON-in-git review surface, Knowledge Base, measurement/attribution (`measure_on`, learn).
+
 ---
 
 ## 1. Summary
