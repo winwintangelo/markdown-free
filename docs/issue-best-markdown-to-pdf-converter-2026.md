@@ -2,6 +2,8 @@
 
 > **For SME consultation.** The growth loop surfaced this page as a "low-CTR" opportunity, but on inspection it's a **ranking/authority problem, not a snippet problem** — a title rewrite won't fix it. This doc frames the issue + the strategic questions for an SEO SME to weigh.
 > **Date:** 2026-07-13 · **Owner:** growth loop (auto-flagged)
+>
+> **✅ UPDATE 2026-07-13 — SME-reviewed; direction decided.** Verdict: pursue it, but reframe the asset around **information gain** (original benchmark data) + honest "where we lose," migrate to an **evergreen URL**, and make **long-tail intents the primary strategy**. Full plan in [§ SME verdict & action plan](#sme-verdict--action-plan) below. The rest of this doc (data + diagnosis) stands as the rationale.
 
 ## The data
 | Channel | Impressions | Clicks | CTR | Avg position |
@@ -37,4 +39,38 @@
 - **Backlinks** to the page and to the top-ranked competitors.
 
 ## What the loop will do meanwhile
-The loop keeps `/best-markdown-to-pdf-converter-2026` visible (400 impressions is real demand) but will **not** auto-propose a title tweak for it again — this doc records that its lever is rank/authority, a strategic call for a human + SME, not a mechanical 🟢 fix. Once a direction is chosen, it can be logged as an experiment (target_metric: **position**, measure_on +28d) so the loop tracks whether the change moved rank.
+The loop keeps `/best-markdown-to-pdf-converter-2026` visible (400 impressions is real demand) but will **not** auto-propose a title tweak for it again — this doc records that its lever is rank/authority, a strategic call for a human + SME, not a mechanical 🟢 fix.
+
+---
+
+## SME verdict & action plan
+SMEs confirmed the diagnosis (rank/authority, not snippet) and resolved the open questions. **Verdict: pursue it — but reframe the asset around _information gain_, and make long-tail the primary strategy.** Four decisions:
+
+### 1. Rebuild as an original-benchmark asset (information gain) — the key move
+Not *"here are 10 Markdown converters"* but *"we tested N converters against the same M-feature benchmark."* A real feature/score matrix across the field — e.g.:
+
+| Feature | Pandoc | Markdown Free | Typora | VSCode | Dillinger |
+|---|:--:|:--:|:--:|:--:|:--:|
+| Mermaid | ✅ | ✅ | ❌ | ⚠️ | ❌ |
+| MathJax | ✅ | ⚠️ | ❌ | ❌ | ❌ |
+| Footnotes | ✅ | ✅ | ⚠️ | ⚠️ | ❌ |
+| CSS fidelity | 10/10 | 9/10 | 8/10 | 7/10 | 3/10 |
+| **Rendering score** | 96 | 92 | 84 | 79 | 61 |
+
+**Original data Google can't find elsewhere, AI systems can cite, and developers link to** — this is what earns the authority the page currently lacks. Extend the matrix with page-breaks, fonts, offline, privacy, templates, LaTeX (the long-tail terms below double as benchmark rows).
+
+> ⚠️ **The benchmark must be REAL.** The table above is *illustrative* — the shipped scores must come from actually testing each tool. **Do not ship placeholder/estimated numbers.** Fabricated comparison data is worse than no page (trust + legal exposure, and it collapses the moment a reader checks). This is a hands-on research task for the team, not something to auto-generate.
+
+### 2. Include "where our tool loses" (honest disclosure)
+State plainly where competitors win — *"for books, Pandoc is better"*, *"if you're already in VSCode, use the extension."* Counterintuitively this **increases trust** and neutralizes the vendor-bias headwind that likely caps a self-published "best X" page.
+
+### 3. Evergreen URL
+Migrate `/best-markdown-to-pdf-converter-2026` → **`/best-markdown-to-pdf-converters/`** (year out of the slug) with a **301 redirect** from the old URL so the ~400 impressions of accrued signal carry over. Title → **"Best Markdown to PDF Converters (2026 Tested)"** — freshness lives in the title, not the URL, so the page compounds authority across years instead of resetting annually.
+
+### 4. Long-tail first (the bigger strategic shift)
+Don't fight the one hard head term (*best markdown converter*); **own ~50 easier long-tail intents** where a small domain outranks big competitors. Starter set (SME-picked): `markdown pdf css` · `markdown pdf page break` · `markdown pdf mermaid` · `markdown pdf latex` · `markdown pdf fonts` · `markdown pdf templates` · `pandoc vs markdown free` · `typora pdf export` · `markdown pdf offline` · `markdown pdf privacy`. Each becomes a focused page/section; the benchmark page is the **hub** that links them (and each is a benchmark row). This is now a primary SEO track, not a one-page fix.
+
+## How the loop tracks it
+- **Long-tail intents → wired into the loop now.** Added to the autocomplete collector's seeds (`scripts/growth/market/autocomplete.mjs`), so each cycle the loop reports **present-vs-gap** for these terms in the report's *Demand gaps* section. As pages ship, they graduate from "gap" to tracked signals.
+- **Comparison-page rebuild → log on ship.** When the evergreen URL + real benchmark goes live, register a ledger experiment: `target_metric: position`, `topic: comparison`, `measure_on: ship + 28d` (authority moves slowly — consider a 6–8 week window). **Guardrail:** the 301 must preserve the old page's impressions.
+- **Each long-tail page → a light experiment** (target `impressions`/`position` on its query) so the "long-tail beats head-term" thesis is measured, not assumed.

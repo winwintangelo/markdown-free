@@ -12,9 +12,15 @@ import { SnapshotStore, topicOf, DATA_DIR, writeJsonAtomic, isMain } from '../li
 import { SignalWarehouse } from '../signals.mjs';
 
 const SEEDS = [
+  // broad discovery
   'markdown to', 'markdown to pdf', 'markdown to word', 'markdown to image',
   'markdown to epub', 'convert markdown', 'readme to pdf', 'md to word',
   'markdown converter', 'markdown 转', 'markdown 转换',
+  // long-tail targets — SME "long-tail first" strategy (docs/issue-best-markdown-to-pdf-converter-2026.md).
+  // The loop tracks present-vs-gap for each so we can build focused pages and watch them graduate.
+  'markdown pdf css', 'markdown pdf page break', 'markdown pdf mermaid',
+  'markdown pdf latex', 'markdown pdf fonts', 'markdown pdf templates',
+  'pandoc vs markdown', 'typora pdf export', 'markdown pdf offline', 'markdown pdf privacy',
 ];
 
 async function suggest(url) {
