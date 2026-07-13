@@ -30,6 +30,7 @@
     "growth:propose": "node scripts/growth/propose.mjs",
     "growth:learn": "node scripts/growth/learn.mjs",
     "growth:meta": "node scripts/growth/meta.mjs",
+    "growth:report": "node scripts/growth/report.mjs",
     "validate": "node scripts/validate-production.mjs",
     "validate:verbose": "node scripts/validate-production.mjs --verbose",
     "validate:traffic": "node scripts/validate-production.mjs --simulate-traffic --verbose",

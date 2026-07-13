@@ -15,12 +15,13 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { DATA_DIR, todayStr, isMain } from './lib.mjs';
+import { DATA_DIR, todayStr, isMain, SnapshotStore } from './lib.mjs';
 import { runSnapshot } from './snapshot.mjs';
 import { runMeasure } from './measure.mjs';
 import { runAnalyze } from './analyze.mjs';
 import { runDiscover } from './discover.mjs';
 import { runPropose, proposalMd } from './propose.mjs';
+import { generateReport } from './report.mjs';
 
 function buildDigest(snapshot, measured, analysis, discovery, proposal) {
   const h = snapshot.meta?.health || {};
@@ -112,21 +113,26 @@ export async function runCycle() {
   const digest = buildDigest(snapshot, measured, analysis, discovery, proposal);
   prependToLog(digest);
 
+  // Per-cycle report: data/reports/<date>.{md,html} (numbers · trends · discoveries · issues · actions).
+  const prev = SnapshotStore.recent(2)[1] || null;
+  const report = generateReport({ snapshot, measured, analysis, discovery, proposal, prev });
+
   const regs = analysis.ok ? (analysis.regressions?.length || 0) : 0;
   const grad = discovery.ok ? discovery.graduated : 0;
   const nProps = proposal.portfolio.slate.length;
   const reviewNeeded = regs > 0 || measured.length > 0 || nProps > 0;
   const summary = `${Object.keys(snapshot.channels).length} channels · ${grad} graduated · ${nProps} proposals · ${regs} regressions · ${measured.length} measured`;
-  return { snapshot, digest, summary, reviewNeeded };
+  return { snapshot, digest, summary, reviewNeeded, report };
 }
 
 async function main() {
   console.log(`🔁 growth cycle — ${todayStr()}`);
-  const { digest, summary, reviewNeeded, snapshot } = await runCycle();
+  const { digest, summary, reviewNeeded, snapshot, report } = await runCycle();
   console.log('\n' + digest + '\n');
   const title = `Growth digest ${snapshot.date}${reviewNeeded ? ' — review needed' : ''}`;
   await notify(title, summary);
-  console.log(`📌 ${title} · ${summary} · appended to data/loop-log.md`);
+  console.log(`📌 ${title} · ${summary}`);
+  console.log(`   digest → data/loop-log.md · report → ${report.mdPath} (+ .html)`);
 }
 
 if (isMain(import.meta.url)) main();
