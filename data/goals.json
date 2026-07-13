@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "period": "2026-H2",
+  "note": "Strategic goals steer the Opportunity Engine (growth-impl.md §9). Each goal binds to a metric the loop tracks, plus optional topics/locales. Human-set quarterly — EDIT THESE to your real objectives; the ones below are starters derived from the 2026-07 data (AI referrals real, CN market, conversion).",
+  "goals": [
+    {
+      "id": "ai-referrals",
+      "title": "Grow AI-assistant referrals",
+      "metric": "referral.ai",
+      "target": "+50%",
+      "topics": ["ai-visibility"],
+      "locales": []
+    },
+    {
+      "id": "cn-market",
+      "title": "Expand the Chinese market",
+      "metric": "bing/baidu CN impressions",
+      "target": "+30%",
+      "topics": ["word", "pdf", "epub", "image"],
+      "locales": ["zh-Hans", "zh-Hant"]
+    },
+    {
+      "id": "conversion",
+      "title": "Improve conversion rate",
+      "metric": "events.conversions",
+      "target": "+20%",
+      "topics": [],
+      "locales": []
+    }
+  ]
+}

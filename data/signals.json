@@ -1,0 +1,2300 @@
+{
+  "version": 1,
+  "note": "Signal Warehouse (growth-impl.md §7.1). Raw observations mined from snapshots by discover.mjs; aged New→Growing→Hot→Cooling→Archived; graduate on confidence ≥ threshold. Managed only via signals.mjs (SignalWarehouse). Archived signals are kept (history), not deleted.",
+  "signals": [
+    {
+      "id": "sig:readme to pdf",
+      "key": "readme to pdf",
+      "topic": "readme",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 541,
+          "weight": 0.7,
+          "detail": "pos 5.98 · 541 imp"
+        },
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 183,
+          "weight": 0.7,
+          "detail": "pos 8.09 · 183 imp"
+        },
+        {
+          "channel": "gsc",
+          "kind": "low_ctr",
+          "metric": "ctr",
+          "strength": 183,
+          "weight": 0.7,
+          "detail": "0% ctr · 183 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Hot",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 541
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 541
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 541
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 541
+        }
+      ],
+      "confidence": {
+        "score": 0.895,
+        "quality": 0.77,
+        "quantity": 1,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "readme to pdf"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 541
+    },
+    {
+      "id": "sig:readme.md to pdf",
+      "key": "readme.md to pdf",
+      "topic": "readme",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 71,
+          "weight": 0.7,
+          "detail": "pos 5.24 · 71 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 71
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 71
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 71
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 71
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "readme.md to pdf"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 71
+    },
+    {
+      "id": "sig:markdown转epub",
+      "key": "markdown转epub",
+      "topic": "epub",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 70,
+          "weight": 0.7,
+          "detail": "pos 8.14 · 70 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 70
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 70
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 70
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 70
+        }
+      ],
+      "confidence": {
+        "score": 0.795,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转epub"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 70
+    },
+    {
+      "id": "sig:markdown转word在线工具",
+      "key": "markdown转word在线工具",
+      "topic": "word",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 33,
+          "weight": 0.7,
+          "detail": "pos 6.18 · 33 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 33
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 33
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 33
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 33
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转word在线工具"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 33
+    },
+    {
+      "id": "sig:markdown to word",
+      "key": "markdown to word",
+      "topic": "word",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 151,
+          "weight": 0.7,
+          "detail": "pos 9.5 · 151 imp"
+        },
+        {
+          "channel": "bing",
+          "kind": "low_ctr",
+          "metric": "ctr",
+          "strength": 151,
+          "weight": 0.7,
+          "detail": "0.66% ctr · 151 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 151
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 151
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 151
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 151
+        }
+      ],
+      "confidence": {
+        "score": 0.8,
+        "quality": 0.8,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown to word"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 151
+    },
+    {
+      "id": "sig:mark down to pdf",
+      "key": "mark down to pdf",
+      "topic": "pdf",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 110,
+          "weight": 0.7,
+          "detail": "pos 9.27 · 110 imp"
+        },
+        {
+          "channel": "bing",
+          "kind": "low_ctr",
+          "metric": "ctr",
+          "strength": 110,
+          "weight": 0.7,
+          "detail": "0.91% ctr · 110 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 110
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 110
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 110
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 110
+        }
+      ],
+      "confidence": {
+        "score": 0.8,
+        "quality": 0.8,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "mark down to pdf"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 110
+    },
+    {
+      "id": "sig:markdown转word",
+      "key": "markdown转word",
+      "topic": "word",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 50,
+          "weight": 0.7,
+          "detail": "pos 8.94 · 50 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 50
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转word"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 50
+    },
+    {
+      "id": "sig:https://www.markdown.free/readme-to-pdf",
+      "key": "https://www.markdown.free/readme-to-pdf",
+      "topic": "readme",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 1589,
+          "weight": 0.7,
+          "detail": "pos 5.08 · 1589 imp"
+        },
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 1305,
+          "weight": 0.7,
+          "detail": "pos 7.89 · 1305 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Hot",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 1589
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 1589
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 1589
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 1589
+        }
+      ],
+      "confidence": {
+        "score": 0.9,
+        "quality": 0.8,
+        "quantity": 1,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/readme-to-pdf"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 1589
+    },
+    {
+      "id": "sig:https://www.markdown.free/",
+      "key": "https://www.markdown.free/",
+      "topic": "other",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 466,
+          "weight": 0.7,
+          "detail": "pos 7.39 · 466 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Hot",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 466
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 466
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 466
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 466
+        }
+      ],
+      "confidence": {
+        "score": 0.795,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 466
+    },
+    {
+      "id": "sig:https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word",
+      "key": "https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word",
+      "topic": "word",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 353,
+          "weight": 0.7,
+          "detail": "pos 8.05 · 353 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 61,
+          "weight": 1,
+          "detail": "zh-Hans converts (61)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Hot",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 353
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 353
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 353
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 353
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 353
+    },
+    {
+      "id": "sig:https://www.markdown.free/zh-Hans/readme-pdf-zhuanhuan",
+      "key": "https://www.markdown.free/zh-Hans/readme-pdf-zhuanhuan",
+      "topic": "readme",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 104,
+          "weight": 0.7,
+          "detail": "pos 5.2 · 104 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 61,
+          "weight": 1,
+          "detail": "zh-Hans converts (61)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 104
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 104
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 104
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 104
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/zh-Hans/readme-pdf-zhuanhuan"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 104
+    },
+    {
+      "id": "sig:https://www.markdown.free/obsidian-markdown-to-pdf",
+      "key": "https://www.markdown.free/obsidian-markdown-to-pdf",
+      "topic": "pdf",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 199,
+          "weight": 0.7,
+          "detail": "pos 6.02 · 199 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 199
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 199
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 199
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 199
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/obsidian-markdown-to-pdf"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 199
+    },
+    {
+      "id": "sig:https://www.markdown.free/markdown-to-word",
+      "key": "https://www.markdown.free/markdown-to-word",
+      "topic": "word",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 366,
+          "weight": 0.7,
+          "detail": "pos 8.61 · 366 imp"
+        },
+        {
+          "channel": "bing",
+          "kind": "low_ctr",
+          "metric": "ctr",
+          "strength": 366,
+          "weight": 0.7,
+          "detail": "0.82% ctr · 366 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Hot",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 366
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 366
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 366
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 366
+        }
+      ],
+      "confidence": {
+        "score": 0.8,
+        "quality": 0.8,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/markdown-to-word"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 366
+    },
+    {
+      "id": "sig:https://www.markdown.free/es/markdown-a-word",
+      "key": "https://www.markdown.free/es/markdown-a-word",
+      "topic": "word",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 163,
+          "weight": 0.7,
+          "detail": "pos 7.38 · 163 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 30,
+          "weight": 1,
+          "detail": "es converts (30)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 163
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 163
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 163
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 163
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/es/markdown-a-word"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 163
+    },
+    {
+      "id": "sig:https://www.markdown.free/markdown-to-docx",
+      "key": "https://www.markdown.free/markdown-to-docx",
+      "topic": "word",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 139,
+          "weight": 0.7,
+          "detail": "pos 7.55 · 139 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 139
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 139
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 139
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 139
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/markdown-to-docx"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 139
+    },
+    {
+      "id": "sig:https://www.markdown.free/zh-Hans/markdown-epub-zhuanhuan",
+      "key": "https://www.markdown.free/zh-Hans/markdown-epub-zhuanhuan",
+      "topic": "epub",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 101,
+          "weight": 0.7,
+          "detail": "pos 7.25 · 101 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 61,
+          "weight": 1,
+          "detail": "zh-Hans converts (61)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 101
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 101
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 101
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 101
+        }
+      ],
+      "confidence": {
+        "score": 0.795,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/zh-Hans/markdown-epub-zhuanhuan"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 101
+    },
+    {
+      "id": "sig:https://www.markdown.free/zh-Hans",
+      "key": "https://www.markdown.free/zh-Hans",
+      "topic": "other",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 69,
+          "weight": 0.7,
+          "detail": "pos 10.29 · 69 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 61,
+          "weight": 1,
+          "detail": "zh-Hans converts (61)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 69
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 69
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 69
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 69
+        }
+      ],
+      "confidence": {
+        "score": 0.795,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/zh-Hans"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 69
+    },
+    {
+      "id": "sig:https://www.markdown.free/markdown-to-epub",
+      "key": "https://www.markdown.free/markdown-to-epub",
+      "topic": "epub",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 39,
+          "weight": 0.7,
+          "detail": "pos 6.72 · 39 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 39
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 39
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 39
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 39
+        }
+      ],
+      "confidence": {
+        "score": 0.795,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/markdown-to-epub"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 39
+    },
+    {
+      "id": "sig:https://www.markdown.free/it",
+      "key": "https://www.markdown.free/it",
+      "topic": "other",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 36,
+          "weight": 0.7,
+          "detail": "pos 6.28 · 36 imp"
+        },
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 138,
+          "weight": 0.7,
+          "detail": "pos 11.31 · 138 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 10,
+          "weight": 1,
+          "detail": "it converts (10)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 127
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 127
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 127
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 138
+        }
+      ],
+      "confidence": {
+        "score": 0.885,
+        "quality": 0.8,
+        "quantity": 1,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/it"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 138
+    },
+    {
+      "id": "sig:https://www.markdown.free/it/markdown-in-word",
+      "key": "https://www.markdown.free/it/markdown-in-word",
+      "topic": "word",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 104,
+          "weight": 0.7,
+          "detail": "pos 6.95 · 104 imp"
+        },
+        {
+          "channel": "bing",
+          "kind": "low_ctr",
+          "metric": "ctr",
+          "strength": 104,
+          "weight": 0.7,
+          "detail": "0.96% ctr · 104 imp"
+        },
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 71,
+          "weight": 0.7,
+          "detail": "pos 9.08 · 71 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 10,
+          "weight": 1,
+          "detail": "it converts (10)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 104
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 104
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 104
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 104
+        }
+      ],
+      "confidence": {
+        "score": 0.895,
+        "quality": 0.77,
+        "quantity": 1,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/it/markdown-in-word"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 104
+    },
+    {
+      "id": "sig:https://www.markdown.free/ja",
+      "key": "https://www.markdown.free/ja",
+      "topic": "other",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 66,
+          "weight": 0.7,
+          "detail": "pos 7.5 · 66 imp"
+        },
+        {
+          "channel": "gsc",
+          "kind": "low_ctr",
+          "metric": "ctr",
+          "strength": 104,
+          "weight": 0.7,
+          "detail": "0.96% ctr · 104 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 7,
+          "weight": 1,
+          "detail": "ja converts (7)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 102
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 102
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 102
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 104
+        }
+      ],
+      "confidence": {
+        "score": 0.885,
+        "quality": 0.8,
+        "quantity": 1,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/ja"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 104
+    },
+    {
+      "id": "sig:https://www.markdown.free/github-readme-to-pdf",
+      "key": "https://www.markdown.free/github-readme-to-pdf",
+      "topic": "readme",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 33,
+          "weight": 0.7,
+          "detail": "pos 6.24 · 33 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 33
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 33
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 33
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 33
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/github-readme-to-pdf"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 33
+    },
+    {
+      "id": "sig:https://www.markdown.free/ja/markdown-word-henkan",
+      "key": "https://www.markdown.free/ja/markdown-word-henkan",
+      "topic": "word",
+      "sources": [
+        {
+          "channel": "bing",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 58,
+          "weight": 0.7,
+          "detail": "pos 7.97 · 58 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 7,
+          "weight": 1,
+          "detail": "ja converts (7)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 58
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 58
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 58
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 58
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/ja/markdown-word-henkan"
+          ]
+        },
+        "channel": "bing",
+        "metric": "position"
+      },
+      "strength": 58
+    },
+    {
+      "id": "sig:md to word",
+      "key": "md to word",
+      "topic": "word",
+      "sources": [
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 274,
+          "weight": 0.7,
+          "detail": "pos 8.54 · 274 imp"
+        },
+        {
+          "channel": "gsc",
+          "kind": "low_ctr",
+          "metric": "ctr",
+          "strength": 274,
+          "weight": 0.7,
+          "detail": "0.73% ctr · 274 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 261
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 261
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 261
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 274
+        }
+      ],
+      "confidence": {
+        "score": 0.8,
+        "quality": 0.8,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md to word"
+          ]
+        },
+        "channel": "gsc",
+        "metric": "position"
+      },
+      "strength": 274
+    },
+    {
+      "id": "sig:ubah file md ke word",
+      "key": "ubah file md ke word",
+      "topic": "word",
+      "sources": [
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 90,
+          "weight": 0.7,
+          "detail": "pos 8.36 · 90 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 87
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 87
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 87
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 90
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "ubah file md ke word"
+          ]
+        },
+        "channel": "gsc",
+        "metric": "position"
+      },
+      "strength": 90
+    },
+    {
+      "id": "sig:chuyển markdown sang pdf",
+      "key": "chuyển markdown sang pdf",
+      "topic": "pdf",
+      "sources": [
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 41,
+          "weight": 0.7,
+          "detail": "pos 9.61 · 41 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 41
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 41
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 41
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 41
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "chuyển markdown sang pdf"
+          ]
+        },
+        "channel": "gsc",
+        "metric": "position"
+      },
+      "strength": 41
+    },
+    {
+      "id": "sig:https://www.markdown.free/id/markdown-ke-word",
+      "key": "https://www.markdown.free/id/markdown-ke-word",
+      "topic": "word",
+      "sources": [
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 921,
+          "weight": 0.7,
+          "detail": "pos 7.65 · 921 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 38,
+          "weight": 1,
+          "detail": "id converts (38)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Hot",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 877
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 877
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 877
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 921
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/id/markdown-ke-word"
+          ]
+        },
+        "channel": "gsc",
+        "metric": "position"
+      },
+      "strength": 921
+    },
+    {
+      "id": "sig:https://www.markdown.free/es/convertir-readme-pdf",
+      "key": "https://www.markdown.free/es/convertir-readme-pdf",
+      "topic": "readme",
+      "sources": [
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 157,
+          "weight": 0.7,
+          "detail": "pos 6.97 · 157 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 30,
+          "weight": 1,
+          "detail": "es converts (30)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 158
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 158
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 158
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 157
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/es/convertir-readme-pdf"
+          ]
+        },
+        "channel": "gsc",
+        "metric": "position"
+      },
+      "strength": 157
+    },
+    {
+      "id": "sig:https://www.markdown.free/zh-Hant/github-wenjiian-pdf",
+      "key": "https://www.markdown.free/zh-Hant/github-wenjiian-pdf",
+      "topic": "pdf",
+      "sources": [
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 137,
+          "weight": 0.7,
+          "detail": "pos 6.17 · 137 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 10,
+          "weight": 1,
+          "detail": "zh-Hant converts (10)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 124
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 124
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 124
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 137
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/zh-Hant/github-wenjiian-pdf"
+          ]
+        },
+        "channel": "gsc",
+        "metric": "position"
+      },
+      "strength": 137
+    },
+    {
+      "id": "sig:https://www.markdown.free/vi",
+      "key": "https://www.markdown.free/vi",
+      "topic": "other",
+      "sources": [
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 142,
+          "weight": 0.7,
+          "detail": "pos 10.11 · 142 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 3,
+          "weight": 1,
+          "detail": "vi converts (3)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 129
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 129
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 129
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 142
+        }
+      ],
+      "confidence": {
+        "score": 0.795,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/vi"
+          ]
+        },
+        "channel": "gsc",
+        "metric": "position"
+      },
+      "strength": 142
+    },
+    {
+      "id": "sig:https://www.markdown.free/zh-Hant",
+      "key": "https://www.markdown.free/zh-Hant",
+      "topic": "other",
+      "sources": [
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 85,
+          "weight": 0.7,
+          "detail": "pos 12.15 · 85 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 10,
+          "weight": 1,
+          "detail": "zh-Hant converts (10)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 80
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 80
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 80
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 85
+        }
+      ],
+      "confidence": {
+        "score": 0.795,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/zh-Hant"
+          ]
+        },
+        "channel": "gsc",
+        "metric": "position"
+      },
+      "strength": 85
+    },
+    {
+      "id": "sig:https://www.markdown.free/vi/chuyen-doi-markdown-pdf",
+      "key": "https://www.markdown.free/vi/chuyen-doi-markdown-pdf",
+      "topic": "pdf",
+      "sources": [
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 159,
+          "weight": 0.7,
+          "detail": "pos 7.85 · 159 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 3,
+          "weight": 1,
+          "detail": "vi converts (3)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 158
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 158
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 158
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 159
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/vi/chuyen-doi-markdown-pdf"
+          ]
+        },
+        "channel": "gsc",
+        "metric": "position"
+      },
+      "strength": 159
+    },
+    {
+      "id": "sig:https://www.markdown.free/best-markdown-to-pdf-converter-2026",
+      "key": "https://www.markdown.free/best-markdown-to-pdf-converter-2026",
+      "topic": "comparison",
+      "sources": [
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 400,
+          "weight": 0.7,
+          "detail": "pos 10.13 · 400 imp"
+        },
+        {
+          "channel": "gsc",
+          "kind": "low_ctr",
+          "metric": "ctr",
+          "strength": 400,
+          "weight": 0.7,
+          "detail": "0% ctr · 400 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 249,
+          "weight": 1,
+          "detail": "en converts (249)"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Hot",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 322
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 322
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 322
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 400
+        }
+      ],
+      "confidence": {
+        "score": 0.777,
+        "quality": 0.8,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.45
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "https://www.markdown.free/best-markdown-to-pdf-converter-2026"
+          ]
+        },
+        "channel": "gsc",
+        "metric": "position"
+      },
+      "strength": 400
+    },
+    {
+      "id": "sig:ai-referral",
+      "key": "AI-assistant referrals",
+      "topic": "ai-visibility",
+      "sources": [
+        {
+          "channel": "referral",
+          "kind": "ai_referral",
+          "metric": "sessions",
+          "strength": 21,
+          "weight": 0.6,
+          "detail": "21 AI sessions"
+        }
+      ],
+      "firstSeen": "2026-07-13",
+      "lastSeen": "2026-07-13",
+      "stage": "Growing",
+      "trend": [
+        {
+          "date": "2026-07-13",
+          "strength": 22
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 22
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 22
+        },
+        {
+          "date": "2026-07-13",
+          "strength": 21
+        }
+      ],
+      "confidence": {
+        "score": 0.545,
+        "quality": 0.6,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0.5,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {},
+        "channel": "referral",
+        "metric": "sessions"
+      },
+      "strength": 21
+    }
+  ]
+}

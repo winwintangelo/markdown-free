@@ -394,6 +394,8 @@ Read-only (`Read, Grep, Glob`, + the report scripts). Handles the analysis phase
 
 **Two kinds of auto-implement (the reviewer's one lump, split):** (a) 🟢 **mechanical fixes** surfaced by the regression watch/diff — available from **P0** under Level B, no engine needed (broken link, missing schema, meta tweak); (b) **engine-proposed** changes (new pages/content from the Opportunity Engine) — flow into the `implement` stage at **P4**. Both stop at a branch; both never push.
 
+**Build status (2026-07-13): P0–P5 all implemented** on branch `growth-loop-p0`. The intelligence layer runs deterministically each cycle — `discover` (Signal Warehouse + Confidence Engine, multi-source corroboration) → `propose` (Opportunity Engine: portfolio-balanced, goal-tilted, moat-weighted, explained) → `measure`→`learn` (Knowledge Base: wins branch / losses prune) → `meta` (advisory tuning). The `/growth-loop` agent **refines** the engine's output; it no longer builds proposals from scratch. **Deferred (P5): per-user on-page A/B** — needs an app-side experiment harness + traffic volume for significance; out of scope for the analytics loop. **Market-signal sources** (search-intent autocomplete/Trends, competitor, community) are additional Signal Warehouse *inputs* to layer in later; the engine currently mines the internal channels (GSC/Bing/Vercel/events), which already produce a strong graduated portfolio.
+
 ---
 
 ## 13. Your one-time setup (unblocks P1)

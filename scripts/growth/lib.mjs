@@ -120,3 +120,34 @@ export function saveTmpReport(name, rawData, csvRows, csvColumns) {
 // True when the module at `metaUrl` is being run directly as a CLI.
 export const isMain = (metaUrl) =>
   !!process.argv[1] && metaUrl === pathToFileURL(process.argv[1]).href;
+
+// ---------------------------------------------------------------------------
+// intent-cluster + locale helpers (shared by the P3+ intelligence layer)
+// A "topic" is the intent cluster (word/pdf/epub/image/readme/comparison) — the
+// knowledge-graph key, so learnings transfer across locales & specific pages.
+// ---------------------------------------------------------------------------
+const CLUSTERS = [
+  ['image', /png|jpe?g|image|图片|长图|imagen|immagine|画像|gambar/],
+  ['epub', /epub/],
+  ['comparison', /\bbest\b|\bvs\b|compare|converter-2026|alternative/],
+  ['readme', /readme/],
+  ['word', /word|docx|ke-word|a-word|in-word|sang-word|henkan|byeonhwan|zhuanhuan-word|word-zhuanhuan|转word|轉word/],
+  ['pdf', /pdf/],
+];
+export function topicOf(s) {
+  const t = String(s || '').toLowerCase();
+  for (const [name, re] of CLUSTERS) if (re.test(t)) return name;
+  return 'other';
+}
+
+const _LOCALES = new Set(['it', 'es', 'ja', 'ko', 'zh-Hans', 'zh-Hant', 'id', 'vi', 'hi']);
+export function localeOfPath(p) {
+  let seg;
+  try { seg = new URL(p, 'https://x').pathname.split('/').filter(Boolean)[0]; }
+  catch { seg = String(p || '/').split('/').filter(Boolean)[0]; }
+  return _LOCALES.has(seg) ? seg : 'en';
+}
+export const isCJKLocale = (loc) => ['ja', 'ko', 'zh-Hans', 'zh-Hant', 'zh'].includes(loc);
+
+// clamp helper
+export const clamp01 = (x) => Math.max(0, Math.min(1, x));

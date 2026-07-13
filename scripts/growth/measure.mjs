@@ -10,6 +10,7 @@
 
 import { SnapshotStore, todayStr, isMain } from './lib.mjs';
 import { ExperimentLedger } from './ledger.mjs';
+import { learnFromExperiment } from './learn.mjs';
 
 const WINDOW_DAYS = 28;
 
@@ -106,6 +107,8 @@ export function runMeasure(asOf) {
   for (const entry of due) {
     const { status, outcome } = scoreExperiment(entry, snapshots);
     ExperimentLedger.record(entry.id, outcome, status);
+    // P4: a resolved experiment feeds the Knowledge Base (wins branch, losses prune).
+    if (status === 'won' || status === 'lost') learnFromExperiment({ ...entry, status, outcome });
     results.push({ id: entry.id, status, note: outcome.note });
   }
   return results;

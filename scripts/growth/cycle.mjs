@@ -19,8 +19,10 @@ import { DATA_DIR, todayStr, isMain } from './lib.mjs';
 import { runSnapshot } from './snapshot.mjs';
 import { runMeasure } from './measure.mjs';
 import { runAnalyze } from './analyze.mjs';
+import { runDiscover } from './discover.mjs';
+import { runPropose, proposalMd } from './propose.mjs';
 
-function buildDigest(snapshot, measured, analysis) {
+function buildDigest(snapshot, measured, analysis, discovery, proposal) {
   const h = snapshot.meta?.health || {};
   const ok = Object.keys(snapshot.channels).join(', ') || 'none';
   const skipped = Object.keys(snapshot.errors).join(', ');
@@ -57,21 +59,14 @@ function buildDigest(snapshot, measured, analysis) {
   }
   lines.push('');
 
-  // Top opportunities (for the human to turn into proposals via /growth-loop)
-  const sd = analysis.opportunities?.strikingDistance || [];
-  const lc = analysis.opportunities?.lowCtr || [];
-  if (sd.length) {
-    lines.push(`**Striking-distance (pos 5–15) — top ${Math.min(5, sd.length)} of ${sd.length}:**`);
-    sd.slice(0, 5).forEach((r) => lines.push(`- [${r.channel}] ${r.key} — pos ${r.position} · ${r.impressions} imp · ${r.ctr}% ctr`));
+  // Signal Warehouse + Opportunity Engine (P3)
+  if (discovery?.ok) {
+    lines.push(`**Signals:** ${discovery.mined} mined · ${discovery.total} in warehouse · **${discovery.graduated} graduated** (confidence ≥ threshold)`);
     lines.push('');
   }
-  if (lc.length) {
-    lines.push(`**High-impression / low-CTR (title-rewrite candidates) — top ${Math.min(4, lc.length)}:**`);
-    lc.slice(0, 4).forEach((r) => lines.push(`- [${r.channel}] ${r.key} — ${r.impressions} imp · ${r.ctr}% ctr`));
-    lines.push('');
-  }
-
-  lines.push('**Next:** run `/growth-loop` for ranked, moat-filtered proposals + gated 🟢 fixes.');
+  lines.push(proposalMd(proposal));
+  lines.push('');
+  lines.push('**Next:** review the portfolio above; run `/growth-loop` to refine with judgment + implement 🟢 items.');
   return lines.join('\n');
 }
 
@@ -110,15 +105,18 @@ async function notify(title, body) {
 
 export async function runCycle() {
   const { snapshot } = await runSnapshot();
-  const measured = runMeasure();
+  const measured = runMeasure();     // measures due experiments (and learns on resolve)
+  const discovery = runDiscover();   // mine snapshot → warehouse → age → graduate
   const analysis = runAnalyze();
-  const digest = buildDigest(snapshot, measured, analysis);
+  const proposal = runPropose();     // graduated signals → ranked portfolio
+  const digest = buildDigest(snapshot, measured, analysis, discovery, proposal);
   prependToLog(digest);
 
   const regs = analysis.ok ? (analysis.regressions?.length || 0) : 0;
-  const opps = analysis.ok ? (analysis.opportunities?.strikingDistance?.length || 0) : 0;
-  const reviewNeeded = regs > 0 || measured.length > 0;
-  const summary = `${Object.keys(snapshot.channels).length} channels · ${opps} opportunities · ${regs} regressions · ${measured.length} measured`;
+  const grad = discovery.ok ? discovery.graduated : 0;
+  const nProps = proposal.portfolio.slate.length;
+  const reviewNeeded = regs > 0 || measured.length > 0 || nProps > 0;
+  const summary = `${Object.keys(snapshot.channels).length} channels · ${grad} graduated · ${nProps} proposals · ${regs} regressions · ${measured.length} measured`;
   return { snapshot, digest, summary, reviewNeeded };
 }
 

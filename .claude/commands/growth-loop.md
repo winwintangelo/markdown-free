@@ -17,18 +17,15 @@ judgment only where the design says a human/LLM does (propose, implement, summar
 
 1. **snapshot** — `npm run growth:snapshot`. Writes `data/snapshots/<date>.json`. If every channel is skipped, stop and report (likely missing creds — §13).
 2. **measure** — `npm run growth:measure`. Scores any ledger entry whose `measure_on` has arrived (trailing means · DiD vs control · guardrails) and records the verdict. Report each verdict with its note. (Most cycles: "nothing due yet.")
-3. **analyze** — `npm run growth:analyze`. Reports deltas + threshold-gated regressions + striking-distance / low-CTR opportunities. Read this output — it is your evidence base.
-4. **propose** *(your judgment)* — from the analyze output + the ledger, produce a **ranked** action list:
-   - Score on impact × effort × confidence × **moat alignment** (simple, no-signup, CJK-correct). Down-weight/decline anything that dilutes the moat.
-   - Classify each: 🟢 **auto-safe** (mechanical, reversible: missing schema, broken link, hreflang entry, meta tweak) vs 🟡 **needs-approval** (content, new pages, redirects, anything strategic/outward).
-   - Give every item a one-line **why** (the evidence behind it).
-   - Append the digest to `data/loop-log.md` (newest on top).
-5. **implement** *(gated, Level B)* — only if there are 🟢 items and the user is present/approving:
+3. **discover** — `npm run growth:discover`. Mines the snapshot into the Signal Warehouse (grouping by page/query so multi-channel + in-funnel corroboration compounds), ages signals, graduates those the Confidence Engine clears. Report how many graduated.
+4. **analyze** — `npm run growth:analyze`. Deltas + threshold-gated regressions — your regression watch.
+5. **propose** *(engine + your judgment)* — run `npm run growth:propose`: the Opportunity Engine ranks graduated signals into a portfolio (impact × effort⁻¹ × confidence × **moat** × **goal**, ~40/30/20/10 buckets), 🟢/🟡 tagged, each with a `why` + KB context. **REFINE, don't rebuild:** sanity-check the moat/impact calls, re-order for judgment the heuristics miss, drop anything off-thesis, confirm the gates. Append the refined digest to `data/loop-log.md`.
+6. **implement** *(gated, Level B)* — only if there are 🟢 items and the user is present/approving:
    - `git switch -c growth/<date>` (never on `main`).
    - Make the change → `npx tsc --noEmit` → prod-build e2e (`npm run build` + tests) → `git commit`. **Do not push.**
-   - Write a ledger entry per change (`node -e` via the ExperimentLedger, or hand-add to `data/ledger.json`): hypothesis, target_metric (+ guardrail_metrics), target_scope (+ control_scope if a cohort), baseline (backfill or capture now), `measure_on = today + 28d`.
+   - Write a ledger entry per change (hypothesis, target_metric + guardrail_metrics, target_scope + control_scope if a cohort, baseline, `measure_on = today + 28d`) — the graduated signal's `target` is the starting point. A resolved verdict later feeds the Knowledge Base automatically (measure → learn).
    - If tsc/e2e fails, revert that item, keep the rest, and report it as needing a hand.
-6. **summarize** *(your judgment)* — end with: what was measured, what's proposed (🟡 items needing the user's call), what was auto-implemented (branch name), the health block from analyze (§16), and a one-line **"your move."**
+7. **summarize** *(your judgment)* — end with: what was measured, what graduated, what's proposed (🟡 items needing the user's call), what was auto-implemented (branch name), the health block (§16), and a one-line **"your move."**
 
 ## Notes
 - Stages 1–4 are read-only; prefer the `growth-analyst` subagent for them. Only stage 5 writes, and only to a branch.
