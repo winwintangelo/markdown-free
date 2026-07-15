@@ -23,8 +23,9 @@ import { runDiscover } from './discover.mjs';
 import { runPropose, proposalMd } from './propose.mjs';
 import { generateReport } from './report.mjs';
 import { runMarket } from './market/autocomplete.mjs';
+import { runSeoAudit } from './seo-audit.mjs';
 
-function buildDigest(snapshot, measured, analysis, discovery, proposal) {
+function buildDigest(snapshot, measured, analysis, discovery, proposal, seo = null) {
   const h = snapshot.meta?.health || {};
   const ok = Object.keys(snapshot.channels).join(', ') || 'none';
   const skipped = Object.keys(snapshot.errors).join(', ');
@@ -68,6 +69,12 @@ function buildDigest(snapshot, measured, analysis, discovery, proposal) {
   }
   lines.push(proposalMd(proposal));
   lines.push('');
+  if (seo) {
+    lines.push(seo.ok
+      ? `**SEO hygiene:** ✅ ${seo.checked} pages clean (${seo.scope})${seo.warns?.length ? ` · ${seo.warns.length} warning(s)` : ''}`
+      : `**⚠ SEO hygiene:** ${seo.errors.length} error(s) across ${seo.checked} pages — ${seo.errors.slice(0, 3).map((e) => `\`${e.path}\` (${e.code})`).join(', ')}${seo.errors.length > 3 ? '…' : ''}`);
+    lines.push('');
+  }
   lines.push('**Next:** review the portfolio above; run `/growth-loop` to refine with judgment + implement 🟢 items.');
   return lines.join('\n');
 }
@@ -113,18 +120,21 @@ export async function runCycle() {
   const discovery = runDiscover();   // mine snapshot → warehouse → age → graduate
   const analysis = runAnalyze();
   const proposal = runPropose();     // graduated signals → ranked portfolio
-  const digest = buildDigest(snapshot, measured, analysis, discovery, proposal);
+  let seo = null;
+  try { seo = await runSeoAudit(); } catch { /* SEO audit is best-effort (external fetch) */ }
+  const digest = buildDigest(snapshot, measured, analysis, discovery, proposal, seo);
   prependToLog(digest);
 
   // Per-cycle report: data/reports/<date>.{md,html} (numbers · trends · discoveries · issues · actions).
   const prev = SnapshotStore.recent(2)[1] || null;
-  const report = generateReport({ snapshot, measured, analysis, discovery, proposal, prev, market });
+  const report = generateReport({ snapshot, measured, analysis, discovery, proposal, prev, market, seo });
 
   const regs = analysis.ok ? (analysis.regressions?.length || 0) : 0;
+  const seoErrs = seo ? seo.errors.length : 0;
   const grad = discovery.ok ? discovery.graduated : 0;
   const nProps = proposal.portfolio.slate.length;
-  const reviewNeeded = regs > 0 || measured.length > 0 || nProps > 0;
-  const summary = `${Object.keys(snapshot.channels).length} channels · ${grad} graduated · ${nProps} proposals · ${regs} regressions · ${measured.length} measured`;
+  const reviewNeeded = regs > 0 || seoErrs > 0 || measured.length > 0 || nProps > 0;
+  const summary = `${Object.keys(snapshot.channels).length} channels · ${grad} graduated · ${nProps} proposals · ${regs} regressions · ${seoErrs} SEO errors · ${measured.length} measured`;
   return { snapshot, digest, summary, reviewNeeded, report };
 }
 
