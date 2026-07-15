@@ -4,7 +4,7 @@
 // carrying a `why`. Heuristic scores here are the deterministic first pass; the
 // /growth-loop agent refines moat/impact judgment on top.
 
-import { localeOfPath, isCJKLocale, clamp01 } from './lib.mjs';
+import { localeOfPath, isCJKLocale, clamp01, pathOf } from './lib.mjs';
 import { goalAlignment, loadGoals } from './goals.mjs';
 
 const EFFORT = { low_ctr: 0.3, striking_distance: 0.35, ai_referral: 0.5, converting_locale: 0.5, default: 0.6 };
@@ -65,10 +65,33 @@ const bucketOf = (c) =>
 
 const MIX = { quick_win: 0.4, strategic_bet: 0.3, maintenance: 0.2, wildcard: 0.1 };
 
-export function buildPortfolio(signals, { goalsDoc = loadGoals(), regressions = [], slate = 10 } = {}) {
+// Split candidates the loop should NOT auto-propose out of the actionable set:
+//   • locked   — the page/query is under an in-flight experiment (target OR control);
+//                shipping a change would contaminate the measurement.
+//   • declined — a human ruled this lever out (decline memory).
+// Suppressed candidates are returned (for a transparent 🔒 note), not silently dropped.
+function partition(candidates, { locks = new Map(), declines = new Map() }) {
+  const live = [];
+  const suppressed = [];
+  for (const c of candidates) {
+    const k = pathOf(c.key);
+    // Query-keyed proposals (e.g. "readme to pdf") map to editing the page that ranks for
+    // them; if that query slugifies exactly to a locked page path, it's the same
+    // contamination — suppress it too. Exact match only, so we never over-suppress.
+    const lock = locks.get(k) || (!k.startsWith('/') ? locks.get('/' + k.replace(/\s+/g, '-')) : null);
+    if (lock) { suppressed.push({ ...c, suppressed: 'experiment', expId: lock.id, measureOn: lock.measure_on, role: lock.role }); continue; }
+    const dec = declines.get(k);
+    if (dec && (!dec.kinds || dec.kinds.includes(c.kind))) { suppressed.push({ ...c, suppressed: 'declined', reason: dec.reason, ref: dec.ref }); continue; }
+    live.push(c);
+  }
+  return { live, suppressed };
+}
+
+export function buildPortfolio(signals, { goalsDoc = loadGoals(), regressions = [], slate = 10, locks = new Map(), declines = new Map() } = {}) {
   const candidates = signals.map((s) => buildCandidate(s, goalsDoc)).sort((a, b) => b.score - a.score);
+  const { live, suppressed } = partition(candidates, { locks, declines });
   const buckets = { quick_win: [], strategic_bet: [], maintenance: [], wildcard: [] };
-  for (const c of candidates) buckets[bucketOf(c)].push(c);
+  for (const c of live) buckets[bucketOf(c)].push(c);
   // regressions are maintenance (keep shipped wins healthy)
   for (const r of regressions.slice(0, 5)) {
     buckets.maintenance.unshift({
@@ -80,12 +103,15 @@ export function buildPortfolio(signals, { goalsDoc = loadGoals(), regressions = 
   for (const [b, frac] of Object.entries(MIX)) {
     slateOut.push(...buckets[b].slice(0, Math.max(0, Math.round(slate * frac))).map((c) => ({ ...c, bucket: b })));
   }
-  // Backfill from the highest-scored remaining candidates if buckets are lopsided.
+  // Backfill from the highest-scored remaining ACTIONABLE candidates if buckets are lopsided.
   const chosen = new Set(slateOut.map((c) => c.id || c.key));
-  for (const c of candidates) {
+  for (const c of live) {
     if (slateOut.length >= slate) break;
     const k = c.id || c.key;
     if (!chosen.has(k)) { slateOut.push({ ...c, bucket: bucketOf(c) }); chosen.add(k); }
   }
-  return { slate: slateOut.sort((a, b) => b.score - a.score), buckets, totalCandidates: candidates.length };
+  return {
+    slate: slateOut.sort((a, b) => b.score - a.score), buckets,
+    totalCandidates: candidates.length, actionable: live.length, suppressed,
+  };
 }

@@ -149,5 +149,17 @@ export function localeOfPath(p) {
 }
 export const isCJKLocale = (loc) => ['ja', 'ko', 'zh-Hans', 'zh-Hant', 'zh'].includes(loc);
 
+// Canonical key for cross-referencing a signal/candidate key against experiment &
+// decline scopes. URLs → pathname (trailing slash trimmed, so full-URL and path forms
+// match); everything else (query strings) → trimmed lowercase. Used by the experiment
+// lock + decline memory so "same page/query" compares equal regardless of URL form.
+export function pathOf(s) {
+  const raw = String(s || '').trim();
+  if (/^https?:\/\//i.test(raw) || raw.startsWith('/')) {
+    try { return new URL(raw, 'https://x').pathname.replace(/\/+$/, '') || '/'; } catch { /* fall through */ }
+  }
+  return raw.toLowerCase();
+}
+
 // clamp helper
 export const clamp01 = (x) => Math.max(0, Math.min(1, x));

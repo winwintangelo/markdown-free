@@ -2,7 +2,7 @@
 // The ONLY module that reads/writes data/ledger.json. Everything else calls these.
 
 import path from 'node:path';
-import { DATA_DIR, readJson, writeJsonAtomic, todayStr, isMain } from './lib.mjs';
+import { DATA_DIR, readJson, writeJsonAtomic, todayStr, isMain, pathOf } from './lib.mjs';
 
 const FILE = () => path.join(DATA_DIR(), 'ledger.json');
 const load = () => readJson(FILE(), { version: 1, experiments: [] });
@@ -12,6 +12,27 @@ export const ExperimentLedger = {
   all() { return load().experiments; },
 
   byTopic(topic) { return load().experiments.filter((e) => e.topic === topic); },
+
+  // Pages/queries under an IN-FLIGHT experiment (shipped/measuring, not yet resolved) —
+  // both target AND control scopes. The Opportunity Engine excludes these so we never
+  // propose a change that would contaminate a measurement in progress (a change to a
+  // control corrupts the DiD just as much as a change to the treatment). The lock holds
+  // until the experiment is measured (won/lost/inconclusive), even if measure_on passed.
+  // Returns Map<normalizedKey, { id, measure_on, role }>.
+  lockedKeys() {
+    const map = new Map();
+    for (const e of load().experiments) {
+      if (!['shipped', 'measuring'].includes(e.status)) continue;
+      for (const [role, sc] of [['target', e.target_scope], ['control', e.control_scope]]) {
+        if (!sc) continue;
+        for (const p of [...(sc.pages || []), ...(sc.queries || [])]) {
+          const k = pathOf(p);
+          if (!map.has(k)) map.set(k, { id: e.id, measure_on: e.measure_on, role });
+        }
+      }
+    }
+    return map;
+  },
 
   // Entries whose measure_on has arrived and that haven't been scored yet.
   due(asOf) {

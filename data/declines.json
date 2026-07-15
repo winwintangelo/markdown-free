@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "declines": [
+    {
+      "key": "https://www.markdown.free/best-markdown-to-pdf-converter-2026",
+      "kinds": ["low_ctr"],
+      "reason": "Rank/authority problem, not a snippet failure (pos ~10, 0% CTR, Google-only). SME-reviewed 2026-07-13: a title/meta rewrite won't move clicks at position 10. Pursuing an evergreen information-gain rebuild (/best-markdown-to-pdf-converters) with real benchmark data instead.",
+      "ref": "docs/issue-best-markdown-to-pdf-converter-2026.md",
+      "decided": "2026-07-13"
+    }
+  ]
+}

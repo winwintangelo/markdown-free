@@ -39,7 +39,7 @@
 - **Backlinks** to the page and to the top-ranked competitors.
 
 ## What the loop will do meanwhile
-The loop keeps `/best-markdown-to-pdf-converter-2026` visible (400 impressions is real demand) but will **not** auto-propose a title tweak for it again — this doc records that its lever is rank/authority, a strategic call for a human + SME, not a mechanical 🟢 fix.
+The loop keeps `/best-markdown-to-pdf-converter-2026` visible (400 impressions is real demand) but will **not** auto-propose a title tweak for it again — its lever is rank/authority, a strategic call for a human + SME, not a mechanical 🟢 fix. **This is now enforced in code**, not just documented: the decision lives in `data/declines.json` (`kinds: ["low_ctr"]`), and the Opportunity Engine's decline memory (`scripts/growth/declines.mjs`) suppresses the low-CTR proposal every cycle, surfacing it under a 🚫 note instead of the 🟢 slate. A genuinely different lever for this page (e.g. a content/authority proposal) can still surface.
 
 ---
 

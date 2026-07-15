@@ -8,6 +8,8 @@ import { buildPortfolio } from './opportunity.mjs';
 import { loadGoals } from './goals.mjs';
 import { runAnalyze } from './analyze.mjs';
 import { KnowledgeBase } from './knowledge.mjs';
+import { ExperimentLedger } from './ledger.mjs';
+import { Declines } from './declines.mjs';
 
 const gate = (g) => (g === 'green' ? '🟢' : '🟡');
 
@@ -15,7 +17,11 @@ export function runPropose() {
   const graduated = SignalWarehouse.graduated();
   const analysis = runAnalyze();
   const regressions = analysis.ok ? analysis.regressions : [];
-  const portfolio = buildPortfolio(graduated, { goalsDoc: loadGoals(), regressions });
+  const portfolio = buildPortfolio(graduated, {
+    goalsDoc: loadGoals(), regressions,
+    locks: ExperimentLedger.lockedKeys(),  // don't propose changes to in-flight experiment pages
+    declines: Declines.active(),           // don't re-surface human-declined levers
+  });
   return { portfolio, graduatedCount: graduated.length };
 }
 
@@ -33,6 +39,22 @@ export function proposalMd({ portfolio, graduatedCount }) {
     const kb = c.topic ? KnowledgeBase.learnings(c.topic).slice(0, 1) : [];
     if (kb.length) lines.push(`   ↳ KB(${c.topic}): ${kb[0].claim}`);
   });
+  const sup = suppressedMd(portfolio.suppressed);
+  if (sup) lines.push(sup);
+  return lines.join('\n');
+}
+
+// Transparency: report what the loop deliberately held back and why (never silently drop).
+export function suppressedMd(suppressed = []) {
+  if (!suppressed.length) return '';
+  const exp = suppressed.filter((s) => s.suppressed === 'experiment');
+  const dec = suppressed.filter((s) => s.suppressed === 'declined');
+  const bits = [];
+  if (exp.length) bits.push(`${exp.length} under active experiments (locked to protect measurement)`);
+  if (dec.length) bits.push(`${dec.length} human-declined`);
+  const lines = ['', `🔒 _${suppressed.length} candidate(s) suppressed: ${bits.join(' · ')}._`];
+  exp.slice(0, 6).forEach((s) => lines.push(`   🔒 \`${s.key}\` — exp \`${s.expId}\` (${s.role}) → measures ${s.measureOn}`));
+  dec.slice(0, 4).forEach((s) => lines.push(`   🚫 \`${s.key}\` — declined: ${(s.reason || '').slice(0, 90)}${(s.reason || '').length > 90 ? '…' : ''}`));
   return lines.join('\n');
 }
 
