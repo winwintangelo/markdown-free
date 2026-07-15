@@ -6,9 +6,9 @@ import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary } from "@/i18n";
 
 export const metadata: Metadata = {
-  title: "Obsidian Markdown to PDF Converter | Markdown Free",
+  title: "Obsidian to PDF — Free, No Plugins, Keeps Your Formatting | Markdown Free",
   description:
-    "Convert Obsidian notes to PDF. Handles standard markdown formatting, code blocks, and tables. Free, private, no plugins required.",
+    "Export Obsidian notes to a clean PDF in seconds — no plugins to install, no signup, and your tables, code blocks, and headings stay intact. 100% free and private.",
   keywords: [
     "obsidian to pdf",
     "obsidian markdown pdf",
@@ -22,9 +22,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],
-    title: "Obsidian Markdown to PDF Converter | Markdown Free",
+    title: "Obsidian to PDF — Free, No Plugins, Keeps Your Formatting",
     description:
-      "Convert Obsidian notes to PDF. Free, private, no plugins required.",
+      "Turn your Obsidian notes into a clean PDF — no plugins, no signup. Tables, code, and headings stay intact.",
     locale: "en_US",
   },
 };

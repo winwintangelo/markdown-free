@@ -235,6 +235,54 @@
         "note": ""
       },
       "note": "DiD vs /readme-to-pdf (untouched control) — removes site-wide shocks; parallel-trends assumed between two EN SEO pages. Bing only (GSC impressions too thin here). VERDICT ONLY VALID ONCE MERGED + DEPLOYED — the title/meta must be live for CTR to move."
+    },
+    {
+      "id": "obsidian-title-meta-ctr-2026-07-15",
+      "title": "Rewrite /obsidian-markdown-to-pdf title + meta for CTR (no-plugins hook)",
+      "hypothesis": "Leading the snippet with the Obsidian export pain (no plugins to install) + formatting-fidelity + free/private lifts Bing CTR from 1.95% (low for pos 5.96) without losing position.",
+      "topic": "pdf",
+      "channel": "bing",
+      "target_metric": "ctr",
+      "guardrail_metrics": [
+        "position"
+      ],
+      "target_scope": {
+        "pages": [
+          "https://www.markdown.free/obsidian-markdown-to-pdf"
+        ],
+        "queries": [],
+        "country": null
+      },
+      "control_scope": {
+        "pages": [
+          "https://www.markdown.free/claude-artifacts-to-pdf"
+        ]
+      },
+      "shipped_date": "2026-07-15",
+      "commit": "pending",
+      "baseline": {
+        "window_days": 28,
+        "mean": 1.95,
+        "as_of": "2026-07-15"
+      },
+      "control_baseline": {
+        "window_days": 28,
+        "mean": 12.34,
+        "as_of": "2026-07-15"
+      },
+      "guardrail_baseline": {
+        "position": 5.96
+      },
+      "measure_on": "2026-08-12",
+      "status": "shipped",
+      "outcome": {
+        "treated_delta": null,
+        "control_delta": null,
+        "did": null,
+        "guardrails_held": null,
+        "note": ""
+      },
+      "note": "DiD vs /claude-artifacts-to-pdf (untouched, high-volume Bing control — 316 impr → low-variance trend estimate; different CTR level is fine for DiD, which compares deltas). Parallel-trends caveat: control is a Bing 'star', watch its own trajectory. Bing only (page thin/absent on GSC). VERDICT ONLY VALID ONCE MERGED + DEPLOYED."
     }
   ]
 }
