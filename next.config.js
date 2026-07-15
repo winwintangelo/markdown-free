@@ -4,6 +4,16 @@ const path = require("path");
 const nextConfig = {
   outputFileTracingRoot: path.join(__dirname),
   serverExternalPackages: ["epub-gen-memory"],
+  // Streaming Metadata (Next 15.2+): because the root layout reads headers() for
+  // <html lang>, every route is dynamic, so Next streams <title>/<meta description>/og
+  // into <body> (hoisted client-side) instead of <head>. Googlebot runs JS and recovers,
+  // but Lighthouse + JS-light crawlers (Bing, AI indexers) see no <head> description.
+  // Treating all user-agents as "HTML-limited" forces metadata to render (blocking) in
+  // <head> for everyone. The docs' perf caveat (slower TTFB) only applies to ASYNC
+  // generateMetadata; ours is static strings, so the cost is ~zero.
+  // NOTE: interim fix — the proper fix is to drop the headers() dependency so routes
+  // prerender statically (also restores CDN caching). See lang-ssr-dynamic-tradeoff.
+  htmlLimitedBots: /.*/,
   webpack: (config) => {
     // Suppress "Module not found: Can't resolve 'encoding'" warning from html-to-docx
     // The 'encoding' module is optional and not needed for DOCX generation
