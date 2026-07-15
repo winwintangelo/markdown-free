@@ -1,11 +1,11 @@
 {
-  "date": "2026-07-13",
-  "generatedAt": "2026-07-13T01:14:15.299Z",
-  "seeds": 11,
+  "date": "2026-07-15",
+  "generatedAt": "2026-07-15T01:25:54.075Z",
+  "seeds": 21,
   "counts": {
-    "suggestions": 152,
-    "gaps": 128,
-    "present": 24
+    "suggestions": 239,
+    "gaps": 210,
+    "present": 29
   },
   "gaps": [
     {
@@ -28,6 +28,15 @@
     },
     {
       "query": "convert markdown to html",
+      "engines": [
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
+      "query": "convert markdown to text",
       "engines": [
         "google",
         "bing"
@@ -63,6 +72,15 @@
       "topic": "other"
     },
     {
+      "query": "markdown converter skill",
+      "engines": [
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
       "query": "markdown converter to pdf",
       "engines": [
         "google",
@@ -79,6 +97,51 @@
       ],
       "present": false,
       "topic": "word"
+    },
+    {
+      "query": "markdown pdf mermaid",
+      "engines": [
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf mermaid not working",
+      "engines": [
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf mermaid syntax error",
+      "engines": [
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf mermaid vscode",
+      "engines": [
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf page break",
+      "engines": [
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
     },
     {
       "query": "markdown to confluence",
@@ -99,6 +162,15 @@
       "topic": "epub"
     },
     {
+      "query": "markdown to google docs",
+      "engines": [
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
       "query": "markdown to html",
       "engines": [
         "google",
@@ -109,6 +181,15 @@
     },
     {
       "query": "markdown to image",
+      "engines": [
+        "bing",
+        "google"
+      ],
+      "present": false,
+      "topic": "image"
+    },
+    {
+      "query": "markdown to image api",
       "engines": [
         "google",
         "bing"
@@ -144,7 +225,16 @@
       "topic": "image"
     },
     {
-      "query": "markdown to pdf online",
+      "query": "markdown to image python",
+      "engines": [
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "image"
+    },
+    {
+      "query": "markdown to pdf linux",
       "engines": [
         "google",
         "bing"
@@ -153,13 +243,49 @@
       "topic": "pdf"
     },
     {
-      "query": "markdown to pdf vscode",
+      "query": "markdown to pdf online",
+      "engines": [
+        "bing",
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to pdf pandoc",
       "engines": [
         "google",
         "bing"
       ],
       "present": false,
       "topic": "pdf"
+    },
+    {
+      "query": "markdown to pdf python",
+      "engines": [
+        "bing",
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to pdf vscode",
+      "engines": [
+        "bing",
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to rich text",
+      "engines": [
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "other"
     },
     {
       "query": "markdown to text",
@@ -173,8 +299,26 @@
     {
       "query": "markdown to word converter",
       "engines": [
-        "bing",
-        "google"
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "word"
+    },
+    {
+      "query": "markdown to word doc",
+      "engines": [
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "word"
+    },
+    {
+      "query": "markdown to word document",
+      "engines": [
+        "google",
+        "bing"
       ],
       "present": false,
       "topic": "word"
@@ -189,7 +333,7 @@
       "topic": "word"
     },
     {
-      "query": "markdown to word vscode",
+      "query": "markdown to word table",
       "engines": [
         "google",
         "bing"
@@ -216,7 +360,7 @@
       "topic": "word"
     },
     {
-      "query": "md to word file",
+      "query": "md to word converter free",
       "engines": [
         "google",
         "bing"
@@ -225,7 +369,16 @@
       "topic": "word"
     },
     {
-      "query": "md to word file converter",
+      "query": "md to word converter online",
+      "engines": [
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "word"
+    },
+    {
+      "query": "md to word document",
       "engines": [
         "google",
         "bing"
@@ -243,6 +396,15 @@
       "topic": "word"
     },
     {
+      "query": "pandoc vs markdown",
+      "engines": [
+        "google",
+        "bing"
+      ],
+      "present": false,
+      "topic": "comparison"
+    },
+    {
       "query": "readme to pdf vscode",
       "engines": [
         "google",
@@ -252,12 +414,13 @@
       "topic": "readme"
     },
     {
-      "query": "calibre epub to markdown",
+      "query": "vscode markdown pdf css",
       "engines": [
+        "google",
         "bing"
       ],
       "present": false,
-      "topic": "epub"
+      "topic": "pdf"
     },
     {
       "query": "convert epub to markdown",
@@ -276,7 +439,15 @@
       "topic": "pdf"
     },
     {
-      "query": "convert markdown to asciidoc",
+      "query": "convert markdown file to word",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "word"
+    },
+    {
+      "query": "convert markdown to confluence page",
       "engines": [
         "google"
       ],
@@ -292,7 +463,23 @@
       "topic": "other"
     },
     {
-      "query": "convert markdown to pdf linux",
+      "query": "convert markdown to google docs",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
+      "query": "convert markdown to image",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "image"
+    },
+    {
+      "query": "convert markdown to pdf in vscode",
       "engines": [
         "google"
       ],
@@ -300,9 +487,17 @@
       "topic": "pdf"
     },
     {
-      "query": "convert markdown to pdf online free",
+      "query": "convert markdown to pdf offline",
       "engines": [
-        "google"
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "convert markdown to pdf online",
+      "engines": [
+        "bing"
       ],
       "present": false,
       "topic": "pdf"
@@ -324,9 +519,9 @@
       "topic": "pdf"
     },
     {
-      "query": "convert markdown to text",
+      "query": "convert markdown to rich text",
       "engines": [
-        "google"
+        "bing"
       ],
       "present": false,
       "topic": "other"
@@ -348,20 +543,44 @@
       "topic": "word"
     },
     {
-      "query": "github readme pdf",
+      "query": "convert pdf to markdown offline tool",
       "engines": [
         "bing"
       ],
       "present": false,
-      "topic": "readme"
+      "topic": "pdf"
     },
     {
-      "query": "google docs markdown converter",
+      "query": "epub markdown guide",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "epub"
+    },
+    {
+      "query": "free pdf to markdown",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "from markdown to pdf",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "how to export markdown to pdf",
       "engines": [
         "google"
       ],
       "present": false,
-      "topic": "other"
+      "topic": "pdf"
     },
     {
       "query": "markdown converter browser javascript",
@@ -372,7 +591,23 @@
       "topic": "other"
     },
     {
+      "query": "markdown converter chrome extension",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
       "query": "markdown converter free",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
+      "query": "markdown converter from text",
       "engines": [
         "bing"
       ],
@@ -388,15 +623,7 @@
       "topic": "other"
     },
     {
-      "query": "markdown converter https markdowntohtml com",
-      "engines": [
-        "google"
-      ],
-      "present": false,
-      "topic": "other"
-    },
-    {
-      "query": "markdown converter skill",
+      "query": "markdown converter in appian",
       "engines": [
         "bing"
       ],
@@ -420,6 +647,14 @@
       "topic": "other"
     },
     {
+      "query": "markdown converter to html",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
       "query": "markdown converter to text",
       "engines": [
         "google"
@@ -428,31 +663,15 @@
       "topic": "other"
     },
     {
-      "query": "markdown converter vscode",
+      "query": "markdown force page break",
       "engines": [
-        "google"
+        "bing"
       ],
       "present": false,
       "topic": "other"
     },
     {
-      "query": "markdown image to base64",
-      "engines": [
-        "google"
-      ],
-      "present": false,
-      "topic": "image"
-    },
-    {
-      "query": "markdown image to pdf",
-      "engines": [
-        "google"
-      ],
-      "present": false,
-      "topic": "image"
-    },
-    {
-      "query": "markdown table to image",
+      "query": "markdown how to add image",
       "engines": [
         "bing"
       ],
@@ -460,15 +679,215 @@
       "topic": "image"
     },
     {
-      "query": "markdown to epub calibre",
+      "query": "markdown link to image",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "image"
+    },
+    {
+      "query": "markdown mermaid pdf export",
       "engines": [
         "google"
       ],
       "present": false,
-      "topic": "epub"
+      "topic": "pdf"
     },
     {
-      "query": "markdown to epub converter online",
+      "query": "markdown new page break",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
+      "query": "markdown pdf + css styles",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf css",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf css github",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf css おすすめ",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf css 設定",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf custom css",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf font",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf font size",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf latex",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf latex vscode",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf mermaid server",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf mermaid support",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf mermaid version",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf mermaid windows",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf offline",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf online",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf template",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf templates",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown pdf tex",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown preview enhanced pdf css",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to csv",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
+      "query": "markdown to docs",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
+      "query": "markdown to docx converter",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "word"
+    },
+    {
+      "query": "markdown to epub calibre",
       "engines": [
         "google"
       ],
@@ -516,6 +935,14 @@
       "topic": "epub"
     },
     {
+      "query": "markdown to epub vscode",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "epub"
+    },
+    {
       "query": "markdown to excel",
       "engines": [
         "bing"
@@ -524,39 +951,31 @@
       "topic": "other"
     },
     {
-      "query": "markdown to google docs",
+      "query": "markdown to html converter",
       "engines": [
-        "google"
+        "bing"
       ],
       "present": false,
       "topic": "other"
     },
     {
-      "query": "markdown to image api",
+      "query": "markdown to image converter free",
       "engines": [
-        "bing"
+        "google"
+      ],
+      "present": false,
+      "topic": "image"
+    },
+    {
+      "query": "markdown to image converter online",
+      "engines": [
+        "google"
       ],
       "present": false,
       "topic": "image"
     },
     {
       "query": "markdown to image generator",
-      "engines": [
-        "google"
-      ],
-      "present": false,
-      "topic": "image"
-    },
-    {
-      "query": "markdown to image python",
-      "engines": [
-        "bing"
-      ],
-      "present": false,
-      "topic": "image"
-    },
-    {
-      "query": "markdown to image table",
       "engines": [
         "google"
       ],
@@ -572,15 +991,31 @@
       "topic": "image"
     },
     {
-      "query": "markdown to latex",
+      "query": "markdown to pdf api template",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to pdf cli",
       "engines": [
         "google"
       ],
       "present": false,
-      "topic": "other"
+      "topic": "pdf"
     },
     {
-      "query": "markdown to pdf cli",
+      "query": "markdown to pdf code",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to pdf converter offline",
       "engines": [
         "google"
       ],
@@ -596,23 +1031,7 @@
       "topic": "pdf"
     },
     {
-      "query": "markdown to pdf ilovepdf",
-      "engines": [
-        "google"
-      ],
-      "present": false,
-      "topic": "pdf"
-    },
-    {
-      "query": "markdown to pdf linux",
-      "engines": [
-        "google"
-      ],
-      "present": false,
-      "topic": "pdf"
-    },
-    {
-      "query": "markdown to pdf pandoc",
+      "query": "markdown to pdf download",
       "engines": [
         "bing"
       ],
@@ -620,7 +1039,55 @@
       "topic": "pdf"
     },
     {
-      "query": "markdown to pdf python",
+      "query": "markdown to pdf file",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to pdf latex online",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to pdf latex style",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to pdf latex support",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to pdf mac",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to pdf mermaid online",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to pdf online free",
       "engines": [
         "bing"
       ],
@@ -644,12 +1111,12 @@
       "topic": "pdf"
     },
     {
-      "query": "markdown to pdf with images",
+      "query": "markdown to pdf with latex math",
       "engines": [
         "google"
       ],
       "present": false,
-      "topic": "image"
+      "topic": "pdf"
     },
     {
       "query": "markdown to pdf with mermaid",
@@ -660,7 +1127,31 @@
       "topic": "pdf"
     },
     {
-      "query": "markdown to ppt",
+      "query": "markdown to pdf with mermaid online",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to pdf without latex",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown to rtf",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
+      "query": "markdown to table",
       "engines": [
         "bing"
       ],
@@ -676,23 +1167,7 @@
       "topic": "word"
     },
     {
-      "query": "markdown to word doc",
-      "engines": [
-        "bing"
-      ],
-      "present": false,
-      "topic": "word"
-    },
-    {
-      "query": "markdown to word document",
-      "engines": [
-        "bing"
-      ],
-      "present": false,
-      "topic": "word"
-    },
-    {
-      "query": "markdown to word format",
+      "query": "markdown to word doc converter",
       "engines": [
         "google"
       ],
@@ -702,23 +1177,15 @@
     {
       "query": "markdown to word github",
       "engines": [
-        "google"
+        "bing"
       ],
       "present": false,
       "topic": "word"
     },
     {
-      "query": "markdown to word offline",
+      "query": "markdown to word vscode",
       "engines": [
-        "google"
-      ],
-      "present": false,
-      "topic": "word"
-    },
-    {
-      "query": "markdown to wordpress",
-      "engines": [
-        "google"
+        "bing"
       ],
       "present": false,
       "topic": "word"
@@ -732,6 +1199,46 @@
       "topic": "other"
     },
     {
+      "query": "markdown todo list",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
+      "query": "markdown tool",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
+      "query": "markdown 转 html",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
+      "query": "markdown 转 pdf 在线",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown 转 word",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "word"
+    },
+    {
       "query": "markdown 转 word 在线工具",
       "engines": [
         "bing"
@@ -740,23 +1247,7 @@
       "topic": "word"
     },
     {
-      "query": "markdown 转 word 格式",
-      "engines": [
-        "bing"
-      ],
-      "present": false,
-      "topic": "word"
-    },
-    {
       "query": "markdown 转excel",
-      "engines": [
-        "bing"
-      ],
-      "present": false,
-      "topic": "other"
-    },
-    {
-      "query": "markdown 转html",
       "engines": [
         "bing"
       ],
@@ -778,14 +1269,6 @@
       ],
       "present": false,
       "topic": "other"
-    },
-    {
-      "query": "markdown 转word",
-      "engines": [
-        "bing"
-      ],
-      "present": false,
-      "topic": "word"
     },
     {
       "query": "markdown 转换",
@@ -844,12 +1327,28 @@
       "topic": "pdf"
     },
     {
-      "query": "markdown转docx",
+      "query": "markdown-pdf css",
       "engines": [
         "google"
       ],
       "present": false,
-      "topic": "word"
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown-pdf font",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "markdown-pdf.mermaid server",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
     },
     {
       "query": "markdown转excel",
@@ -948,17 +1447,17 @@
       "topic": "other"
     },
     {
-      "query": "md to word converter free",
+      "query": "md to word converter online free",
       "engines": [
-        "bing"
+        "google"
       ],
       "present": false,
       "topic": "word"
     },
     {
-      "query": "md to word converter online",
+      "query": "md to word doc",
       "engines": [
-        "bing"
+        "google"
       ],
       "present": false,
       "topic": "word"
@@ -972,9 +1471,25 @@
       "topic": "word"
     },
     {
-      "query": "md to word document",
+      "query": "md to word file",
       "engines": [
         "bing"
+      ],
+      "present": false,
+      "topic": "word"
+    },
+    {
+      "query": "md to word file converter",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "word"
+    },
+    {
+      "query": "md to word format",
+      "engines": [
+        "google"
       ],
       "present": false,
       "topic": "word"
@@ -983,14 +1498,6 @@
       "query": "md to word online free",
       "engines": [
         "bing"
-      ],
-      "present": false,
-      "topic": "word"
-    },
-    {
-      "query": "md to word pandoc",
-      "engines": [
-        "google"
       ],
       "present": false,
       "topic": "word"
@@ -1012,14 +1519,6 @@
       "topic": "word"
     },
     {
-      "query": "md to word text",
-      "engines": [
-        "google"
-      ],
-      "present": false,
-      "topic": "word"
-    },
-    {
       "query": "md to word vscode",
       "engines": [
         "bing"
@@ -1028,7 +1527,39 @@
       "topic": "word"
     },
     {
-      "query": "mkd2ph markdown to epub",
+      "query": "page break in markdown",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
+      "query": "pandoc and markdown",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
+      "query": "pandoc markdown css github markdown",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "other"
+    },
+    {
+      "query": "pandoc markdown pdf css",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "pandoc markdown to epub",
       "engines": [
         "bing"
       ],
@@ -1036,12 +1567,124 @@
       "topic": "epub"
     },
     {
-      "query": "python markdown to image",
+      "query": "pandoc markdown to pdf latex",
       "engines": [
         "google"
       ],
       "present": false,
-      "topic": "image"
+      "topic": "pdf"
+    },
+    {
+      "query": "pandoc markdown to pdf latex template",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "pandoc markdown to pdf page break",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "pandoc markdown to pdf templates",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "pandoc markdown vs commonmark",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "comparison"
+    },
+    {
+      "query": "pandoc markdown vs latex",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "comparison"
+    },
+    {
+      "query": "pandoc vs markdownify",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "comparison"
+    },
+    {
+      "query": "pdf to markdown online",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "python markdown-pdf css",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "r markdown pdf latex",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "r markdown pdf page break",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "r markdown pdf report templates",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "r markdown pdf template",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "r markdown pdf templates",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "readme export to pdf",
+      "engines": [
+        "bing"
+      ],
+      "present": false,
+      "topic": "readme"
     },
     {
       "query": "readme to pdf github",
@@ -1052,38 +1695,75 @@
       "topic": "readme"
     },
     {
-      "query": "the missing readme pdf",
+      "query": "readme to pdf linux",
       "engines": [
-        "bing"
+        "google"
       ],
       "present": false,
       "topic": "readme"
+    },
+    {
+      "query": "readme to pdf python",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "readme"
+    },
+    {
+      "query": "readme to pdf with images",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "image"
+    },
+    {
+      "query": "vscode markdown pdf mermaid not working",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
+    },
+    {
+      "query": "vscode markdown pdf page break",
+      "engines": [
+        "google"
+      ],
+      "present": false,
+      "topic": "pdf"
     }
   ],
   "present": [
     "markdown to pdf",
     "markdown to word",
-    "markdown to docx",
     "markdown to pdf converter",
+    "markdown to docx",
+    "markdown to word online",
     "markdown to pdf free",
     "markdown to pdf github",
-    "markdown to word online",
     "markdown to word converter online",
     "markdown to epub",
     "markdown to epub converter",
     "convert markdown to pdf",
-    "convert markdown to docx",
     "convert markdown to word",
+    "convert markdown to docx",
     "readme to pdf",
     "readme to pdf converter",
     "readme to pdf online",
-    "readme en pdf",
+    "readme to pdf generator",
+    "readme to pdf free",
+    "convert readme to pdf",
     "readme md to pdf",
+    "readme file to pdf",
     "md to word",
     "markdown转word",
     "markdown 转图片",
     "markdown 转 word 工具",
     "markdown转换为word",
-    "markdown 转换 word 在线"
+    "markdown 转换 word 在线",
+    "markdown to pdf offline tool",
+    "markdown to pdf offline"
   ]
 }

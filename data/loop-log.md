@@ -5,6 +5,45 @@ Human-readable digest, appended by the `propose`/`summarize` stages each cycle
 
 ---
 
+## 2026-07-15 — automated cycle
+
+**Channels:** bing, gsc, vercel, events, referral · _skipped: baidu_ · 5946ms
+
+**Measured:** none due.
+
+**Regressions:** none.
+
+**Signals:** 34 mined · 300 in warehouse · **34 graduated** (confidence ≥ threshold)
+
+**Opportunity Engine:** 34 graduated signals → 34 candidates · top 10 (portfolio-balanced):
+1. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/readme-to-pdf`
+   _3 sources · converts in-funnel · impact 1.00 · score 2.186_
+2. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word`
+   _2 sources · converts in-funnel · impact 0.68 · advances 'cn-market' · CJK (moat) · score 2.105 · goal:cn-market_
+   ↳ KB(word): CJK word-conversion demand (转word) skews to Bing, not Google
+3. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/id/markdown-ke-word`
+   _2 sources · converts in-funnel · impact 1.00 · score 1.967_
+   ↳ KB(word): CJK word-conversion demand (转word) skews to Bing, not Google
+4. 🟢 **[quick_win]** Rewrite title/meta to lift CTR — `readme to pdf`
+   _5 sources · converts in-funnel · impact 0.68 · score 1.694_
+5. 🟢 **[quick_win]** Rewrite title/meta to lift CTR — `https://www.markdown.free/best-markdown-to-pdf-converter-2026`
+   _3 sources · converts in-funnel · impact 0.63 · score 1.384_
+6. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/`
+   _3 sources · converts in-funnel · impact 0.58 · score 1.252_
+7. 🟢 **[quick_win]** Rewrite title/meta to lift CTR — `https://www.markdown.free/markdown-to-word`
+   _3 sources · converts in-funnel · impact 0.47 · score 1.06_
+   ↳ KB(word): CJK word-conversion demand (转word) skews to Bing, not Google
+8. 🟢 **[quick_win]** Rewrite title/meta to lift CTR — `md to word`
+   _4 sources · converts in-funnel · impact 0.36 · score 0.896_
+   ↳ KB(word): CJK word-conversion demand (转word) skews to Bing, not Google
+9. 🟢 **[quick_win]** Rewrite title/meta to lift CTR — `https://www.markdown.free/es/markdown-a-word`
+   _3 sources · converts in-funnel · impact 0.25 · score 0.575_
+   ↳ KB(word): CJK word-conversion demand (转word) skews to Bing, not Google
+10. 🟢 **[quick_win]** Rewrite title/meta to lift CTR — `https://www.markdown.free/ja`
+   _3 sources · converts in-funnel · impact 0.14 · advances 'cn-market' · CJK (moat) · score 0.559 · goal:cn-market_
+
+**Next:** review the portfolio above; run `/growth-loop` to refine with judgment + implement 🟢 items.
+
 ## 2026-07-13 — automated cycle
 
 **Channels:** bing, gsc, vercel, events, referral · _skipped: baidu_ · 11701ms
