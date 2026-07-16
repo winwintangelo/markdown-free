@@ -1,0 +1,59 @@
+{
+  "generatedAt": "2026-07-16T01:17:47.830Z",
+  "site": "https://www.markdown.free",
+  "scope": "core",
+  "checked": 10,
+  "ok": true,
+  "errors": [],
+  "warns": [
+    {
+      "path": "/",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 99 chars (aim 15–65)"
+    },
+    {
+      "path": "/markdown-to-word",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 77 chars (aim 15–65)"
+    },
+    {
+      "path": "/readme-to-pdf",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 204 chars (aim 50–165)"
+    },
+    {
+      "path": "/obsidian-markdown-to-pdf",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 73 chars (aim 15–65)"
+    },
+    {
+      "path": "/markdown-to-png",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 74 chars (aim 15–65)"
+    },
+    {
+      "path": "/es",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 105 chars (aim 15–65)"
+    },
+    {
+      "path": "/ja",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 69 chars (aim 15–65)"
+    },
+    {
+      "path": "/es/markdown-a-word",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 169 chars (aim 50–165)"
+    }
+  ],
+  "infos": []
+}

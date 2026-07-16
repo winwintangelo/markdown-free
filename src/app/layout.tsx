@@ -12,7 +12,12 @@ const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 const siteUrl = "https://www.markdown.free";
 
 export const metadata: Metadata = {
-  title: "Markdown to PDF, Word (DOCX) & Image (PNG) Converter – Free, Private, No Signup | Markdown Free",
+  // Kept ≤65 chars so Google doesn't truncate it in the SERP (was 99 chars → cut off
+  // mid-phrase). Front-loads the primary intents (PDF/Word/Image/Converter — "converter" is
+  // a demand gap we rank nowhere for) and keeps the "Markdown Free" brand exactly once (the
+  // i18n dedup test asserts this; the brand also carries the free-ness hook). og:/twitter
+  // titles below stay longer (social cards have room) and keep the privacy angle.
+  title: "Markdown to PDF, Word & Image Converter | Markdown Free",
   description:
     "Convert Markdown to PDF, Word (DOCX), image (PNG) or EPUB instantly. 100% free, no signup, no ad trackers. Files processed temporarily and never stored.",
   authors: [{ name: "Markdown Free" }],

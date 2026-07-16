@@ -5,6 +5,85 @@ Human-readable digest, appended by the `propose`/`summarize` stages each cycle
 
 ---
 
+## 2026-07-16 — manual action (title hygiene + lock-leak fix)
+
+**🔧 Loop-integrity fix.** `word-cluster-sweep`'s 6 non-EN targets were seeded in the
+ledger without locale prefixes (`/markdown-ke-word` instead of `/id/markdown-ke-word`,
+etc.), so experiment-lock never matched them → they leaked into the opportunity slate as
+false-positive "quick wins" (this cycle's #1 `/id/markdown-ke-word` + #4 `/es/markdown-a-word`
+were both locked targets). Corrected the URLs → re-ran propose: locked count 11→15, both
+pages now suppress, clean new #1 is the homepage `/`. Also unbreaks the 2026-08-08
+measurement, which would otherwise have queried dead URLs.
+
+**✂️ Title truncation fixes** (SEO audit warnings, unlocked pages only):
+- `/` homepage: 99 → 55 chars — `Markdown to PDF, Word & Image Converter | Markdown Free` (`src/app/layout.tsx`)
+- `/es`: 105 → 52 chars — `Convertidor de Markdown a PDF y Word | Markdown Free` (`es.json` meta.title; per-locale, does not touch locked `/ja` `/ko` `/zh-Hans` `/zh-Hant`)
+
+**Full e2e caught a regression on the first cut:** my initial trims dropped the "Markdown Free"
+brand → `i18n.spec.ts` "title contains Markdown Free exactly once" failed for `/` + `/es`.
+Reworked to keep the brand (which also carries the free-ness hook) + the "Converter" keyword
+(a demand gap we rank nowhere for), still ≤65. Re-ran full suite: **484 passed + 3 known
+baselines** (filename ×2, image-proxy flake) — 0 new failures. SEO audit: **0 errors**, both
+pages served in `<head>`, length warnings 8→6 (remaining 6 are all locked experiment targets).
+
+**⏸ Deferred (locked — fix after each measures):** `/markdown-to-word` (t77), `/readme-to-pdf`
+(d204), `/obsidian-markdown-to-pdf` (t73), `/markdown-to-png` (t74), `/ja` (t69),
+`/es/markdown-a-word` (d169) → due 2026-08-01 … 08-12.
+
+_Working-tree changes only — not committed/deployed. `git push`/deploy is the human's call._
+
+---
+
+## 2026-07-16 — automated cycle
+
+**Channels:** bing, gsc, vercel, events, referral · _skipped: baidu_ · 7519ms
+
+**Measured:** none due.
+
+**Regressions:** none.
+
+**Signals:** 35 mined · 307 in warehouse · **35 graduated** (confidence ≥ threshold)
+
+**Opportunity Engine:** 35 graduated signals → 35 candidates · top 10 (portfolio-balanced):
+1. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/id/markdown-ke-word`
+   _2 sources · converts in-funnel · impact 1.00 · score 1.967_
+   ↳ KB(word): CJK word-conversion demand (转word) skews to Bing, not Google
+2. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/`
+   _3 sources · converts in-funnel · impact 0.58 · score 1.252_
+3. 🟢 **[quick_win]** Rewrite title/meta to lift CTR — `md to word`
+   _4 sources · converts in-funnel · impact 0.41 · score 1.022_
+   ↳ KB(word): CJK word-conversion demand (转word) skews to Bing, not Google
+4. 🟢 **[quick_win]** Rewrite title/meta to lift CTR — `https://www.markdown.free/es/markdown-a-word`
+   _3 sources · converts in-funnel · impact 0.25 · score 0.575_
+   ↳ KB(word): CJK word-conversion demand (转word) skews to Bing, not Google
+5. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/zh-Hant/github-wenjiian-pdf`
+   _2 sources · converts in-funnel · impact 0.18 · advances 'cn-market' · CJK (moat) · score 0.566 · goal:cn-market_
+   ↳ KB(pdf): readme→pdf is the top Google intent; /claude-artifacts-to-pdf is a Bing star (~12.5% CTR)
+6. 🟢 **[quick_win]** Rewrite title/meta to lift CTR — `https://www.markdown.free/it`
+   _4 sources · converts in-funnel · impact 0.21 · score 0.524_
+7. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/markdown-to-docx`
+   _2 sources · converts in-funnel · impact 0.21 · score 0.413_
+   ↳ KB(word): CJK word-conversion demand (转word) skews to Bing, not Google
+8. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/vi`
+   _2 sources · converts in-funnel · impact 0.21 · score 0.413_
+9. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/es/convertir-readme-pdf`
+   _2 sources · converts in-funnel · impact 0.20 · score 0.393_
+10. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/zh-Hans/readme-pdf-zhuanhuan`
+   _2 sources · converts in-funnel · impact 0.13 · advances 'cn-market' · CJK (moat) · score 0.39 · goal:cn-market_
+
+🔒 _12 candidate(s) suppressed: 11 under active experiments (locked to protect measurement) · 1 human-declined._
+   🔒 `https://www.markdown.free/readme-to-pdf` — exp `og-image-relatedtools-faq` (target) → measures 2026-08-08
+   🔒 `https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word` — exp `cjk-zhuanhuan-word-epub` (target) → measures 2026-08-06
+   🔒 `readme to pdf` — exp `og-image-relatedtools-faq` (target) → measures 2026-08-08
+   🔒 `https://www.markdown.free/markdown-to-word` — exp `word-cluster-sweep` (target) → measures 2026-08-08
+   🔒 `https://www.markdown.free/ja` — exp `server-side-html-lang` (target) → measures 2026-08-08
+   🔒 `https://www.markdown.free/obsidian-markdown-to-pdf` — exp `obsidian-title-meta-ctr-2026-07-15` (target) → measures 2026-08-12
+   🚫 `https://www.markdown.free/best-markdown-to-pdf-converter-2026` — declined: Rank/authority problem, not a snippet failure (pos ~10, 0% CTR, Google-only). SME-reviewed…
+
+**SEO hygiene:** ✅ 10 pages clean (core) · 8 warning(s)
+
+**Next:** review the portfolio above; run `/growth-loop` to refine with judgment + implement 🟢 items.
+
 ## 2026-07-15 — automated cycle
 
 **Channels:** bing, gsc, vercel, events, referral · _skipped: baidu_ · 5946ms

@@ -19,25 +19,25 @@
           "channel": "gsc",
           "kind": "striking_distance",
           "metric": "position",
-          "strength": 184,
+          "strength": 187,
           "weight": 0.7,
-          "detail": "pos 8.18 · 184 imp"
+          "detail": "pos 8.07 · 187 imp"
         },
         {
           "channel": "gsc",
           "kind": "low_ctr",
           "metric": "ctr",
-          "strength": 184,
+          "strength": 187,
           "weight": 0.7,
-          "detail": "0% ctr · 184 imp"
+          "detail": "0% ctr · 187 imp"
         },
         {
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         },
         {
           "channel": "search_intent",
@@ -49,7 +49,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Hot",
       "trend": [
         {
@@ -74,14 +74,6 @@
         },
         {
           "date": "2026-07-13",
-          "strength": 541
-        },
-        {
-          "date": "2026-07-13",
-          "strength": 541
-        },
-        {
-          "date": "2026-07-13",
           "strength": 40
         },
         {
@@ -98,6 +90,14 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 541
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 541
         }
       ],
@@ -140,13 +140,13 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -183,6 +183,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 71
+        },
+        {
+          "date": "2026-07-16",
           "strength": 71
         }
       ],
@@ -225,13 +229,13 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -268,6 +272,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 70
+        },
+        {
+          "date": "2026-07-16",
           "strength": 70
         }
       ],
@@ -310,13 +318,13 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -353,6 +361,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 33
+        },
+        {
+          "date": "2026-07-16",
           "strength": 33
         }
       ],
@@ -403,9 +415,9 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         },
         {
           "channel": "search_intent",
@@ -417,7 +429,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -442,14 +454,6 @@
         },
         {
           "date": "2026-07-13",
-          "strength": 151
-        },
-        {
-          "date": "2026-07-13",
-          "strength": 151
-        },
-        {
-          "date": "2026-07-13",
           "strength": 40
         },
         {
@@ -466,6 +470,14 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 151
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 151
         }
       ],
@@ -516,13 +528,13 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -559,6 +571,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 110
+        },
+        {
+          "date": "2026-07-16",
           "strength": 110
         }
       ],
@@ -601,9 +617,9 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         },
         {
           "channel": "search_intent",
@@ -615,7 +631,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -640,14 +656,6 @@
         },
         {
           "date": "2026-07-13",
-          "strength": 50
-        },
-        {
-          "date": "2026-07-13",
-          "strength": 50
-        },
-        {
-          "date": "2026-07-13",
           "strength": 20
         },
         {
@@ -664,6 +672,14 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -706,22 +722,22 @@
           "channel": "gsc",
           "kind": "striking_distance",
           "metric": "position",
-          "strength": 1326,
+          "strength": 1340,
           "weight": 0.7,
-          "detail": "pos 8.05 · 1326 imp"
+          "detail": "pos 8.12 · 1340 imp"
         },
         {
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
-      "stage": "Cooling",
+      "lastSeen": "2026-07-16",
+      "stage": "Hot",
       "trend": [
         {
           "date": "2026-07-13",
@@ -758,6 +774,10 @@
         {
           "date": "2026-07-15",
           "strength": 1326
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 1340
         }
       ],
       "confidence": {
@@ -780,7 +800,7 @@
         "channel": "gsc",
         "metric": "position"
       },
-      "strength": 1326
+      "strength": 1340
     },
     {
       "id": "sig:https://www.markdown.free/",
@@ -799,21 +819,21 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         },
         {
           "channel": "gsc",
           "kind": "striking_distance",
           "metric": "position",
-          "strength": 39,
+          "strength": 43,
           "weight": 0.7,
-          "detail": "pos 13.74 · 39 imp"
+          "detail": "pos 13.42 · 43 imp"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Hot",
       "trend": [
         {
@@ -850,6 +870,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 466
+        },
+        {
+          "date": "2026-07-16",
           "strength": 466
         }
       ],
@@ -892,13 +916,13 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 73,
+          "strength": 71,
           "weight": 1,
-          "detail": "zh-Hans converts (73)"
+          "detail": "zh-Hans converts (71)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Hot",
       "trend": [
         {
@@ -935,6 +959,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 547
+        },
+        {
+          "date": "2026-07-16",
           "strength": 547
         }
       ],
@@ -1020,10 +1048,10 @@
         }
       ],
       "confidence": {
-        "score": 0.796,
+        "score": 0.789,
         "quality": 0.85,
         "quantity": 0.67,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 1,
         "prior": 0.6
       },
@@ -1058,13 +1086,13 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -1101,6 +1129,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 205
+        },
+        {
+          "date": "2026-07-16",
           "strength": 205
         }
       ],
@@ -1151,13 +1183,13 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Hot",
       "trend": [
         {
@@ -1194,6 +1226,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 374
+        },
+        {
+          "date": "2026-07-16",
           "strength": 374
         }
       ],
@@ -1236,9 +1272,9 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 34,
+          "strength": 31,
           "weight": 1,
-          "detail": "es converts (34)"
+          "detail": "es converts (31)"
         },
         {
           "channel": "bing",
@@ -1250,7 +1286,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -1287,6 +1323,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 203
+        },
+        {
+          "date": "2026-07-16",
           "strength": 203
         }
       ],
@@ -1329,13 +1369,13 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -1372,6 +1412,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 168
+        },
+        {
+          "date": "2026-07-16",
           "strength": 168
         }
       ],
@@ -1414,13 +1458,13 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 73,
+          "strength": 71,
           "weight": 1,
-          "detail": "zh-Hans converts (73)"
+          "detail": "zh-Hans converts (71)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -1457,6 +1501,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 123
+        },
+        {
+          "date": "2026-07-16",
           "strength": 123
         }
       ],
@@ -1499,13 +1547,13 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 73,
+          "strength": 71,
           "weight": 1,
-          "detail": "zh-Hans converts (73)"
+          "detail": "zh-Hans converts (71)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -1542,6 +1590,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 69
+        },
+        {
+          "date": "2026-07-16",
           "strength": 69
         }
       ],
@@ -1584,13 +1636,13 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -1627,6 +1679,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 41
+        },
+        {
+          "date": "2026-07-16",
           "strength": 41
         }
       ],
@@ -1669,9 +1725,9 @@
           "channel": "gsc",
           "kind": "striking_distance",
           "metric": "position",
-          "strength": 156,
+          "strength": 168,
           "weight": 0.7,
-          "detail": "pos 10.76 · 156 imp"
+          "detail": "pos 10.72 · 168 imp"
         },
         {
           "channel": "events",
@@ -1680,10 +1736,18 @@
           "strength": 3,
           "weight": 1,
           "detail": "it converts (3)"
+        },
+        {
+          "channel": "gsc",
+          "kind": "low_ctr",
+          "metric": "ctr",
+          "strength": 168,
+          "weight": 0.7,
+          "detail": "0.6% ctr · 168 imp"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -1721,11 +1785,15 @@
         {
           "date": "2026-07-15",
           "strength": 156
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 168
         }
       ],
       "confidence": {
-        "score": 0.885,
-        "quality": 0.8,
+        "score": 0.88,
+        "quality": 0.77,
         "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
@@ -1743,7 +1811,7 @@
         "channel": "bing",
         "metric": "position"
       },
-      "strength": 156
+      "strength": 168
     },
     {
       "id": "sig:https://www.markdown.free/it/markdown-in-word",
@@ -1784,7 +1852,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -1821,6 +1889,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 108
+        },
+        {
+          "date": "2026-07-16",
           "strength": 108
         }
       ],
@@ -1863,21 +1935,21 @@
           "channel": "gsc",
           "kind": "low_ctr",
           "metric": "ctr",
-          "strength": 114,
+          "strength": 122,
           "weight": 0.7,
-          "detail": "0.88% ctr · 114 imp"
+          "detail": "0.82% ctr · 122 imp"
         },
         {
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 6,
+          "strength": 3,
           "weight": 1,
-          "detail": "ja converts (6)"
+          "detail": "ja converts (3)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -1915,6 +1987,10 @@
         {
           "date": "2026-07-15",
           "strength": 114
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 122
         }
       ],
       "confidence": {
@@ -1937,7 +2013,7 @@
         "channel": "bing",
         "metric": "position"
       },
-      "strength": 114
+      "strength": 122
     },
     {
       "id": "sig:https://www.markdown.free/github-readme-to-pdf",
@@ -1956,13 +2032,13 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -1999,6 +2075,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 33
+        },
+        {
+          "date": "2026-07-16",
           "strength": 33
         }
       ],
@@ -2041,13 +2121,13 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 6,
+          "strength": 3,
           "weight": 1,
-          "detail": "ja converts (6)"
+          "detail": "ja converts (3)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -2085,6 +2165,10 @@
         {
           "date": "2026-07-15",
           "strength": 58
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 58
         }
       ],
       "confidence": {
@@ -2118,25 +2202,25 @@
           "channel": "gsc",
           "kind": "striking_distance",
           "metric": "position",
-          "strength": 286,
+          "strength": 326,
           "weight": 0.7,
-          "detail": "pos 8.53 · 286 imp"
+          "detail": "pos 8.53 · 326 imp"
         },
         {
           "channel": "gsc",
           "kind": "low_ctr",
           "metric": "ctr",
-          "strength": 286,
+          "strength": 326,
           "weight": 0.7,
-          "detail": "0.7% ctr · 286 imp"
+          "detail": "0.61% ctr · 326 imp"
         },
         {
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         },
         {
           "channel": "search_intent",
@@ -2148,17 +2232,9 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
-      "stage": "Growing",
+      "lastSeen": "2026-07-16",
+      "stage": "Hot",
       "trend": [
-        {
-          "date": "2026-07-13",
-          "strength": 261
-        },
-        {
-          "date": "2026-07-13",
-          "strength": 261
-        },
         {
           "date": "2026-07-13",
           "strength": 261
@@ -2198,6 +2274,14 @@
         {
           "date": "2026-07-15",
           "strength": 286
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 326
         }
       ],
       "confidence": {
@@ -2220,7 +2304,7 @@
         "channel": "gsc",
         "metric": "position"
       },
-      "strength": 286
+      "strength": 326
     },
     {
       "id": "sig:ubah file md ke word",
@@ -2233,19 +2317,19 @@
           "metric": "position",
           "strength": 93,
           "weight": 0.7,
-          "detail": "pos 8.45 · 93 imp"
+          "detail": "pos 8.42 · 93 imp"
         },
         {
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -2283,6 +2367,10 @@
         {
           "date": "2026-07-15",
           "strength": 93
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 93
         }
       ],
       "confidence": {
@@ -2316,21 +2404,21 @@
           "channel": "gsc",
           "kind": "striking_distance",
           "metric": "position",
-          "strength": 41,
+          "strength": 46,
           "weight": 0.7,
-          "detail": "pos 9.61 · 41 imp"
+          "detail": "pos 9.57 · 46 imp"
         },
         {
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -2368,6 +2456,10 @@
         {
           "date": "2026-07-15",
           "strength": 41
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 46
         }
       ],
       "confidence": {
@@ -2390,7 +2482,7 @@
         "channel": "gsc",
         "metric": "position"
       },
-      "strength": 41
+      "strength": 46
     },
     {
       "id": "sig:https://www.markdown.free/id/markdown-ke-word",
@@ -2401,9 +2493,9 @@
           "channel": "gsc",
           "kind": "striking_distance",
           "metric": "position",
-          "strength": 963,
+          "strength": 1039,
           "weight": 0.7,
-          "detail": "pos 7.69 · 963 imp"
+          "detail": "pos 7.71 · 1039 imp"
         },
         {
           "channel": "events",
@@ -2415,7 +2507,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Hot",
       "trend": [
         {
@@ -2453,6 +2545,10 @@
         {
           "date": "2026-07-15",
           "strength": 963
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 1039
         }
       ],
       "confidence": {
@@ -2475,7 +2571,7 @@
         "channel": "gsc",
         "metric": "position"
       },
-      "strength": 963
+      "strength": 1039
     },
     {
       "id": "sig:https://www.markdown.free/es/convertir-readme-pdf",
@@ -2486,21 +2582,21 @@
           "channel": "gsc",
           "kind": "striking_distance",
           "metric": "position",
-          "strength": 163,
+          "strength": 160,
           "weight": 0.7,
-          "detail": "pos 7.26 · 163 imp"
+          "detail": "pos 7.25 · 160 imp"
         },
         {
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 34,
+          "strength": 31,
           "weight": 1,
-          "detail": "es converts (34)"
+          "detail": "es converts (31)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -2538,6 +2634,10 @@
         {
           "date": "2026-07-15",
           "strength": 163
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 160
         }
       ],
       "confidence": {
@@ -2560,7 +2660,7 @@
         "channel": "gsc",
         "metric": "position"
       },
-      "strength": 163
+      "strength": 160
     },
     {
       "id": "sig:https://www.markdown.free/zh-Hant/github-wenjiian-pdf",
@@ -2571,9 +2671,9 @@
           "channel": "gsc",
           "kind": "striking_distance",
           "metric": "position",
-          "strength": 144,
+          "strength": 147,
           "weight": 0.7,
-          "detail": "pos 6.5 · 144 imp"
+          "detail": "pos 6.54 · 147 imp"
         },
         {
           "channel": "events",
@@ -2585,7 +2685,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -2623,6 +2723,10 @@
         {
           "date": "2026-07-15",
           "strength": 144
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 147
         }
       ],
       "confidence": {
@@ -2645,7 +2749,7 @@
         "channel": "gsc",
         "metric": "position"
       },
-      "strength": 144
+      "strength": 147
     },
     {
       "id": "sig:https://www.markdown.free/vi",
@@ -2656,9 +2760,9 @@
           "channel": "gsc",
           "kind": "striking_distance",
           "metric": "position",
-          "strength": 158,
+          "strength": 171,
           "weight": 0.7,
-          "detail": "pos 10.35 · 158 imp"
+          "detail": "pos 10.36 · 171 imp"
         },
         {
           "channel": "events",
@@ -2670,7 +2774,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -2708,6 +2812,10 @@
         {
           "date": "2026-07-15",
           "strength": 158
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 171
         }
       ],
       "confidence": {
@@ -2730,7 +2838,7 @@
         "channel": "gsc",
         "metric": "position"
       },
-      "strength": 158
+      "strength": 171
     },
     {
       "id": "sig:https://www.markdown.free/zh-Hant",
@@ -2741,9 +2849,9 @@
           "channel": "gsc",
           "kind": "striking_distance",
           "metric": "position",
-          "strength": 90,
+          "strength": 93,
           "weight": 0.7,
-          "detail": "pos 12.2 · 90 imp"
+          "detail": "pos 12.12 · 93 imp"
         },
         {
           "channel": "events",
@@ -2755,7 +2863,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -2793,6 +2901,10 @@
         {
           "date": "2026-07-15",
           "strength": 90
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 93
         }
       ],
       "confidence": {
@@ -2815,7 +2927,7 @@
         "channel": "gsc",
         "metric": "position"
       },
-      "strength": 90
+      "strength": 93
     },
     {
       "id": "sig:https://www.markdown.free/vi/chuyen-doi-markdown-pdf",
@@ -2826,9 +2938,9 @@
           "channel": "gsc",
           "kind": "striking_distance",
           "metric": "position",
-          "strength": 148,
+          "strength": 139,
           "weight": 0.7,
-          "detail": "pos 7.75 · 148 imp"
+          "detail": "pos 7.68 · 139 imp"
         },
         {
           "channel": "events",
@@ -2840,7 +2952,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -2878,6 +2990,10 @@
         {
           "date": "2026-07-15",
           "strength": 148
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 139
         }
       ],
       "confidence": {
@@ -2900,7 +3016,7 @@
         "channel": "gsc",
         "metric": "position"
       },
-      "strength": 148
+      "strength": 139
     },
     {
       "id": "sig:https://www.markdown.free/best-markdown-to-pdf-converter-2026",
@@ -2911,29 +3027,29 @@
           "channel": "gsc",
           "kind": "striking_distance",
           "metric": "position",
-          "strength": 503,
+          "strength": 562,
           "weight": 0.7,
-          "detail": "pos 10.16 · 503 imp"
+          "detail": "pos 9.95 · 562 imp"
         },
         {
           "channel": "gsc",
           "kind": "low_ctr",
           "metric": "ctr",
-          "strength": 503,
+          "strength": 562,
           "weight": 0.7,
-          "detail": "0.2% ctr · 503 imp"
+          "detail": "0.71% ctr · 562 imp"
         },
         {
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 346,
+          "strength": 345,
           "weight": 1,
-          "detail": "en converts (346)"
+          "detail": "en converts (345)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Hot",
       "trend": [
         {
@@ -2971,6 +3087,10 @@
         {
           "date": "2026-07-15",
           "strength": 503
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 562
         }
       ],
       "confidence": {
@@ -2993,7 +3113,7 @@
         "channel": "gsc",
         "metric": "position"
       },
-      "strength": 503
+      "strength": 562
     },
     {
       "id": "sig:ai-referral",
@@ -3004,13 +3124,13 @@
           "channel": "referral",
           "kind": "ai_referral",
           "metric": "sessions",
-          "strength": 18,
+          "strength": 17,
           "weight": 0.6,
-          "detail": "18 AI sessions"
+          "detail": "17 AI sessions"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Cooling",
       "trend": [
         {
@@ -3048,6 +3168,10 @@
         {
           "date": "2026-07-15",
           "strength": 18
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 17
         }
       ],
       "confidence": {
@@ -3066,7 +3190,7 @@
         "channel": "referral",
         "metric": "sessions"
       },
-      "strength": 18
+      "strength": 17
     },
     {
       "id": "sig:markdown to pdf",
@@ -3084,7 +3208,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3097,6 +3221,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 40
         }
       ],
@@ -3137,7 +3265,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3150,6 +3278,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -3190,7 +3322,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3203,6 +3335,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 40
         }
       ],
@@ -3243,7 +3379,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3256,6 +3392,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -3296,7 +3436,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3309,6 +3449,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -3349,7 +3493,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3362,6 +3506,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -3415,10 +3563,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -3439,20 +3587,20 @@
       "id": "sig:markdown to confluence",
       "key": "markdown to confluence",
       "topic": "other",
-      "strength": 50,
+      "strength": 30,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 50,
+          "strength": 30,
           "weight": 0.5,
-          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+          "detail": "autocomplete bing · GAP (no ranking presence)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
-      "stage": "Growing",
+      "lastSeen": "2026-07-16",
+      "stage": "Cooling",
       "trend": [
         {
           "date": "2026-07-13",
@@ -3465,6 +3613,10 @@
         {
           "date": "2026-07-15",
           "strength": 50
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 30
         }
       ],
       "confidence": {
@@ -3504,7 +3656,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3517,6 +3669,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -3557,7 +3713,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3570,6 +3726,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -3610,7 +3770,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3623,6 +3783,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -3676,10 +3840,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -3712,7 +3876,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3725,6 +3889,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -3765,7 +3933,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3778,6 +3946,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -3818,7 +3990,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3831,6 +4003,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 40
         }
       ],
@@ -3871,7 +4047,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3884,6 +4060,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 40
         }
       ],
@@ -3937,10 +4117,10 @@
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -3973,7 +4153,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -3986,6 +4166,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -4026,7 +4210,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Cooling",
       "trend": [
         {
@@ -4039,6 +4223,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-16",
           "strength": 20
         }
       ],
@@ -4092,10 +4280,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -4128,7 +4316,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -4141,6 +4329,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -4181,7 +4373,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -4194,6 +4386,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -4222,20 +4418,20 @@
       "id": "sig:markdown to pdf pandoc",
       "key": "markdown to pdf pandoc",
       "topic": "pdf",
-      "strength": 50,
+      "strength": 30,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 50,
+          "strength": 30,
           "weight": 0.5,
-          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+          "detail": "autocomplete bing · GAP (no ranking presence)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
-      "stage": "Growing",
+      "lastSeen": "2026-07-16",
+      "stage": "Cooling",
       "trend": [
         {
           "date": "2026-07-13",
@@ -4248,6 +4444,10 @@
         {
           "date": "2026-07-15",
           "strength": 50
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 30
         }
       ],
       "confidence": {
@@ -4287,7 +4487,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -4300,6 +4500,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -4328,19 +4532,19 @@
       "id": "sig:markdown to pdf with mermaid",
       "key": "markdown to pdf with mermaid",
       "topic": "pdf",
-      "strength": 30,
+      "strength": 50,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 30,
+          "strength": 50,
           "weight": 0.5,
-          "detail": "autocomplete bing · GAP (no ranking presence)"
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -4354,6 +4558,10 @@
         {
           "date": "2026-07-15",
           "strength": 30
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 50
         }
       ],
       "confidence": {
@@ -4393,7 +4601,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -4406,6 +4614,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -4446,7 +4658,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -4459,6 +4671,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 40
         }
       ],
@@ -4487,20 +4703,20 @@
       "id": "sig:markdown to word vscode",
       "key": "markdown to word vscode",
       "topic": "word",
-      "strength": 30,
+      "strength": 50,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 30,
+          "strength": 50,
           "weight": 0.5,
-          "detail": "autocomplete bing · GAP (no ranking presence)"
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
-      "stage": "Cooling",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-13",
@@ -4513,6 +4729,10 @@
         {
           "date": "2026-07-15",
           "strength": 30
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 50
         }
       ],
       "confidence": {
@@ -4552,7 +4772,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -4565,6 +4785,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -4605,7 +4829,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -4618,6 +4842,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -4671,10 +4899,10 @@
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4707,7 +4935,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -4720,6 +4948,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -4773,10 +5005,10 @@
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4822,10 +5054,10 @@
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4858,7 +5090,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -4871,6 +5103,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -4911,7 +5147,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -4924,6 +5160,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -4952,20 +5192,20 @@
       "id": "sig:markdown to word converter online",
       "key": "markdown to word converter online",
       "topic": "word",
-      "strength": 40,
+      "strength": 20,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 40,
+          "strength": 20,
           "weight": 0.5,
-          "detail": "autocomplete google+bing"
+          "detail": "autocomplete bing"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
-      "stage": "Growing",
+      "lastSeen": "2026-07-16",
+      "stage": "Cooling",
       "trend": [
         {
           "date": "2026-07-13",
@@ -4978,6 +5218,10 @@
         {
           "date": "2026-07-15",
           "strength": 40
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 20
         }
       ],
       "confidence": {
@@ -5017,7 +5261,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5030,6 +5274,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -5070,7 +5318,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5083,6 +5331,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -5123,7 +5375,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5136,6 +5388,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -5176,7 +5432,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5189,6 +5445,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -5242,10 +5502,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5278,7 +5538,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5291,6 +5551,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -5331,7 +5595,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5344,6 +5608,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -5397,10 +5665,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5446,10 +5714,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5495,10 +5763,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5531,7 +5799,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5544,6 +5812,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -5584,7 +5856,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5597,6 +5869,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -5650,10 +5926,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5686,7 +5962,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5699,6 +5975,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 40
         }
       ],
@@ -5739,7 +6019,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5752,6 +6032,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -5792,7 +6076,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5805,6 +6089,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 40
         }
       ],
@@ -5845,7 +6133,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5858,6 +6146,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -5898,7 +6190,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5911,6 +6203,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -5951,7 +6247,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -5964,6 +6260,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -6004,7 +6304,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -6017,6 +6317,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -6070,10 +6374,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6106,7 +6410,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -6119,6 +6423,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -6159,7 +6467,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -6172,6 +6480,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -6225,10 +6537,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6274,10 +6586,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6310,7 +6622,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -6323,6 +6635,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -6363,7 +6679,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -6376,6 +6692,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 40
         }
       ],
@@ -6416,7 +6736,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -6429,6 +6749,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 40
         }
       ],
@@ -6469,7 +6793,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -6482,6 +6806,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 40
         }
       ],
@@ -6510,20 +6838,20 @@
       "id": "sig:convert markdown",
       "key": "convert markdown",
       "topic": "other",
-      "strength": 50,
+      "strength": 30,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 50,
+          "strength": 30,
           "weight": 0.5,
-          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+          "detail": "autocomplete bing · GAP (no ranking presence)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
-      "stage": "Growing",
+      "lastSeen": "2026-07-16",
+      "stage": "Cooling",
       "trend": [
         {
           "date": "2026-07-13",
@@ -6536,6 +6864,10 @@
         {
           "date": "2026-07-15",
           "strength": 50
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 30
         }
       ],
       "confidence": {
@@ -6575,7 +6907,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -6588,6 +6920,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -6628,7 +6964,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -6641,6 +6977,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -6669,20 +7009,20 @@
       "id": "sig:convert markdown to text",
       "key": "convert markdown to text",
       "topic": "other",
-      "strength": 50,
+      "strength": 30,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 50,
+          "strength": 30,
           "weight": 0.5,
-          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+          "detail": "autocomplete bing · GAP (no ranking presence)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
-      "stage": "Growing",
+      "lastSeen": "2026-07-16",
+      "stage": "Cooling",
       "trend": [
         {
           "date": "2026-07-13",
@@ -6695,6 +7035,10 @@
         {
           "date": "2026-07-15",
           "strength": 50
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 30
         }
       ],
       "confidence": {
@@ -6747,10 +7091,10 @@
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -6796,10 +7140,10 @@
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -6845,10 +7189,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6881,7 +7225,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -6894,6 +7238,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -6922,19 +7270,19 @@
       "id": "sig:convert markdown to word document",
       "key": "convert markdown to word document",
       "topic": "word",
-      "strength": 30,
+      "strength": 50,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 30,
+          "strength": 50,
           "weight": 0.5,
-          "detail": "autocomplete bing · GAP (no ranking presence)"
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -6948,6 +7296,10 @@
         {
           "date": "2026-07-15",
           "strength": 30
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 50
         }
       ],
       "confidence": {
@@ -6987,7 +7339,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -7000,6 +7352,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -7040,7 +7396,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -7053,6 +7409,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -7093,7 +7453,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -7106,6 +7466,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -7146,7 +7510,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -7159,6 +7523,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -7199,7 +7567,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -7212,6 +7580,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 40
         }
       ],
@@ -7252,7 +7624,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -7265,6 +7637,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 40
         }
       ],
@@ -7305,7 +7681,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -7318,6 +7694,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -7358,7 +7738,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -7371,6 +7751,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -7424,10 +7808,10 @@
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7460,7 +7844,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -7473,6 +7857,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-16",
           "strength": 20
         }
       ],
@@ -7526,10 +7914,10 @@
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7575,10 +7963,10 @@
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7611,7 +7999,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -7624,6 +8012,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -7664,7 +8056,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -7677,6 +8069,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -7717,7 +8113,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Cooling",
       "trend": [
         {
@@ -7730,6 +8126,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -7770,7 +8170,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -7783,6 +8183,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -7823,7 +8227,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Cooling",
       "trend": [
         {
@@ -7836,6 +8240,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -7889,10 +8297,10 @@
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7938,10 +8346,10 @@
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7962,19 +8370,19 @@
       "id": "sig:md to word python",
       "key": "md to word python",
       "topic": "word",
-      "strength": 30,
+      "strength": 50,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 30,
+          "strength": 50,
           "weight": 0.5,
-          "detail": "autocomplete bing · GAP (no ranking presence)"
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -7988,6 +8396,10 @@
         {
           "date": "2026-07-15",
           "strength": 30
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 50
         }
       ],
       "confidence": {
@@ -8027,7 +8439,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8040,6 +8452,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -8080,7 +8496,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8093,6 +8509,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -8133,7 +8553,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8146,6 +8566,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -8186,7 +8610,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8199,6 +8623,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -8239,7 +8667,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8252,6 +8680,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -8292,7 +8724,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8305,6 +8737,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -8345,7 +8781,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8358,6 +8794,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -8398,7 +8838,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8411,6 +8851,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -8451,7 +8895,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8464,6 +8908,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -8517,10 +8965,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -8553,7 +9001,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8566,6 +9014,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -8606,7 +9058,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8619,6 +9071,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -8659,7 +9115,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8672,6 +9128,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -8729,10 +9189,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.418,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.95,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -8778,10 +9238,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -8827,10 +9287,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -8851,20 +9311,20 @@
       "id": "sig:markdown converter skill",
       "key": "markdown converter skill",
       "topic": "other",
-      "strength": 50,
+      "strength": 30,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 50,
+          "strength": 30,
           "weight": 0.5,
-          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+          "detail": "autocomplete bing · GAP (no ranking presence)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
-      "stage": "Growing",
+      "lastSeen": "2026-07-16",
+      "stage": "Cooling",
       "trend": [
         {
           "date": "2026-07-13",
@@ -8877,6 +9337,10 @@
         {
           "date": "2026-07-15",
           "strength": 50
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 30
         }
       ],
       "confidence": {
@@ -8916,7 +9380,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8929,6 +9393,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -8957,19 +9425,19 @@
       "id": "sig:markdown converter free",
       "key": "markdown converter free",
       "topic": "other",
-      "strength": 30,
+      "strength": 50,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 30,
+          "strength": 50,
           "weight": 0.5,
-          "detail": "autocomplete bing · GAP (no ranking presence)"
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -8983,6 +9451,10 @@
         {
           "date": "2026-07-15",
           "strength": 30
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 50
         }
       ],
       "confidence": {
@@ -9022,7 +9494,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9035,6 +9507,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -9075,7 +9551,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9088,6 +9564,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -9116,20 +9596,20 @@
       "id": "sig:markdown转pdf",
       "key": "markdown转pdf",
       "topic": "pdf",
-      "strength": 30,
+      "strength": 20,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 30,
+          "strength": 20,
           "weight": 0.5,
-          "detail": "autocomplete google · GAP (no ranking presence)"
+          "detail": "autocomplete google"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
-      "stage": "Growing",
+      "lastSeen": "2026-07-16",
+      "stage": "Cooling",
       "trend": [
         {
           "date": "2026-07-13",
@@ -9142,6 +9622,10 @@
         {
           "date": "2026-07-15",
           "strength": 30
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 20
         }
       ],
       "confidence": {
@@ -9181,7 +9665,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9194,6 +9678,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -9234,7 +9722,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9247,6 +9735,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -9287,7 +9779,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9300,6 +9792,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -9340,7 +9836,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9353,6 +9849,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -9393,7 +9893,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9406,6 +9906,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -9446,7 +9950,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9459,6 +9963,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -9499,7 +10007,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9512,6 +10020,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -9552,7 +10064,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-13",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9562,13 +10074,17 @@
         {
           "date": "2026-07-13",
           "strength": 30
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 30
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.44,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 1,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -9614,10 +10130,10 @@
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -9650,7 +10166,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9663,6 +10179,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -9703,7 +10223,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9716,6 +10236,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -9769,10 +10293,10 @@
         }
       ],
       "confidence": {
-        "score": 0.411,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9805,7 +10329,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9818,6 +10342,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-16",
           "strength": 20
         }
       ],
@@ -9858,7 +10386,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9871,6 +10399,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -9911,7 +10443,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9924,6 +10456,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -9964,7 +10500,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -9977,6 +10513,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-16",
           "strength": 20
         }
       ],
@@ -10017,7 +10557,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -10030,6 +10570,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -10083,10 +10627,10 @@
         }
       ],
       "confidence": {
-        "score": 0.426,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.9,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -10119,7 +10663,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -10132,6 +10676,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-16",
           "strength": 20
         }
       ],
@@ -10172,7 +10720,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -10185,6 +10733,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -10225,7 +10777,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -10238,6 +10790,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -10278,7 +10834,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -10291,6 +10847,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -10348,10 +10908,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.418,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.95,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -10384,7 +10944,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -10397,6 +10957,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 40
+        },
+        {
+          "date": "2026-07-16",
           "strength": 40
         }
       ],
@@ -10454,10 +11018,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.418,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.95,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -10490,7 +11054,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -10503,6 +11067,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -10543,7 +11111,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -10556,6 +11124,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -10596,7 +11168,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -10609,6 +11181,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -10649,7 +11225,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -10662,6 +11238,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -10702,7 +11282,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -10715,6 +11295,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -10755,7 +11339,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-15",
+      "lastSeen": "2026-07-16",
       "stage": "Growing",
       "trend": [
         {
@@ -10768,6 +11352,10 @@
         },
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -10808,11 +11396,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -10853,11 +11445,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -10886,24 +11482,28 @@
       "id": "sig:markdown to html converter",
       "key": "markdown to html converter",
       "topic": "other",
-      "strength": 30,
+      "strength": 50,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 30,
+          "strength": 50,
           "weight": 0.5,
-          "detail": "autocomplete bing · GAP (no ranking presence)"
+          "detail": "autocomplete google+bing · GAP (no ranking presence)"
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
           "strength": 30
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 50
         }
       ],
       "confidence": {
@@ -10943,11 +11543,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -10988,11 +11592,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11033,11 +11641,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11078,11 +11690,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11123,11 +11739,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11168,11 +11788,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11213,11 +11837,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11258,11 +11886,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11303,11 +11935,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -11348,11 +11984,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11393,11 +12033,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11438,11 +12082,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11483,11 +12131,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11528,11 +12180,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11573,11 +12229,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11618,11 +12278,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11663,11 +12327,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11708,11 +12376,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11753,11 +12425,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11798,11 +12474,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11843,11 +12523,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11888,11 +12572,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11933,11 +12621,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -11978,11 +12670,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12023,11 +12719,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-16",
           "strength": 20
         }
       ],
@@ -12068,11 +12768,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12113,11 +12817,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-16",
           "strength": 20
         }
       ],
@@ -12158,11 +12866,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12203,11 +12915,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-16",
           "strength": 20
         }
       ],
@@ -12248,11 +12964,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-16",
           "strength": 20
         }
       ],
@@ -12293,11 +13013,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12338,11 +13062,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12383,11 +13111,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12437,10 +13169,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.433,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.95,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -12473,11 +13205,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12518,11 +13254,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12563,11 +13303,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12608,11 +13352,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12662,10 +13410,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.433,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.95,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -12698,11 +13446,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12743,11 +13495,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12788,11 +13544,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12833,11 +13593,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12878,11 +13642,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12923,11 +13691,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -12968,11 +13740,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13013,11 +13789,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13046,24 +13826,28 @@
       "id": "sig:vscode markdown pdf css",
       "key": "vscode markdown pdf css",
       "topic": "pdf",
-      "strength": 50,
+      "strength": 30,
       "sources": [
         {
           "channel": "search_intent",
           "kind": "autocomplete",
           "metric": "demand",
-          "strength": 50,
+          "strength": 30,
           "weight": 0.5,
-          "detail": "autocomplete google+bing · GAP (no ranking presence)"
+          "detail": "autocomplete bing · GAP (no ranking presence)"
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Cooling",
       "trend": [
         {
           "date": "2026-07-15",
           "strength": 50
+        },
+        {
+          "date": "2026-07-16",
+          "strength": 30
         }
       ],
       "confidence": {
@@ -13103,11 +13887,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13148,11 +13936,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13193,11 +13985,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13238,11 +14034,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13283,11 +14083,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -13328,11 +14132,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13373,11 +14181,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13418,11 +14230,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13463,11 +14279,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13508,11 +14328,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13553,11 +14377,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13598,11 +14426,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13643,11 +14475,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13688,11 +14524,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13733,11 +14573,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13778,11 +14622,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13823,11 +14671,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13868,11 +14720,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -13913,11 +14769,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -13958,11 +14818,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -14003,11 +14867,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14048,11 +14916,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14093,11 +14965,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -14138,11 +15014,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -14183,11 +15063,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14237,10 +15121,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.433,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.95,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14273,11 +15157,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14318,11 +15206,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14363,11 +15255,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14408,11 +15304,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14453,11 +15353,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14498,11 +15402,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14543,11 +15451,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14588,11 +15500,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14633,11 +15549,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14678,11 +15598,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14723,11 +15647,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14768,11 +15696,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14813,11 +15745,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14858,11 +15794,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14903,11 +15843,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14948,11 +15892,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -14993,11 +15941,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15038,11 +15990,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15083,11 +16039,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15128,11 +16088,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15173,11 +16137,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15218,11 +16186,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15263,11 +16235,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15308,11 +16284,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15353,11 +16333,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15398,11 +16382,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15443,11 +16431,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-16",
           "strength": 50
         }
       ],
@@ -15488,11 +16480,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15533,11 +16529,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15578,11 +16578,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15623,11 +16627,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15668,11 +16676,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15713,11 +16725,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15758,11 +16774,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15803,11 +16823,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-16",
           "strength": 20
         }
       ],
@@ -15848,11 +16872,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15893,11 +16921,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -15938,11 +16970,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 20
+        },
+        {
+          "date": "2026-07-16",
           "strength": 20
         }
       ],
@@ -15983,11 +17019,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -16028,11 +17068,15 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 30
+        },
+        {
+          "date": "2026-07-16",
           "strength": 30
         }
       ],
@@ -16075,17 +17119,21 @@
           "channel": "events",
           "kind": "converting_locale",
           "metric": "conversions",
-          "strength": 73,
+          "strength": 71,
           "weight": 1,
-          "detail": "zh-Hans converts (73)"
+          "detail": "zh-Hans converts (71)"
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-15",
-      "stage": "New",
+      "lastSeen": "2026-07-16",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-15",
+          "strength": 67
+        },
+        {
+          "date": "2026-07-16",
           "strength": 67
         }
       ],
@@ -16107,6 +17155,329 @@
           ]
         },
         "channel": "bing",
+        "metric": "position"
+      }
+    },
+    {
+      "id": "sig:convert markdown table to excel",
+      "key": "convert markdown table to excel",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-16",
+      "lastSeen": "2026-07-16",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-16",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "convert markdown table to excel"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown converter mac",
+      "key": "markdown converter mac",
+      "topic": "other",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-16",
+      "lastSeen": "2026-07-16",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-16",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.425,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown converter mac"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown转换成pdf",
+      "key": "markdown转换成pdf",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-16",
+      "lastSeen": "2026-07-16",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-16",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown转换成pdf"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:vscode-markdown-pdf css",
+      "key": "vscode-markdown-pdf css",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-16",
+      "lastSeen": "2026-07-16",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-16",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "vscode-markdown-pdf css"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown pdf export mermaid",
+      "key": "markdown pdf export mermaid",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-16",
+      "lastSeen": "2026-07-16",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-16",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown pdf export mermaid"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:markdown pdf to pandoc",
+      "key": "markdown pdf to pandoc",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "search_intent",
+          "kind": "autocomplete",
+          "metric": "demand",
+          "strength": 30,
+          "weight": 0.5,
+          "detail": "autocomplete google · GAP (no ranking presence)"
+        }
+      ],
+      "firstSeen": "2026-07-16",
+      "lastSeen": "2026-07-16",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-16",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.44,
+        "quality": 0.5,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 0,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": false,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "markdown pdf to pandoc"
+          ]
+        },
+        "channel": "search_intent",
+        "metric": "demand"
+      }
+    },
+    {
+      "id": "sig:md ke word",
+      "key": "md ke word",
+      "topic": "word",
+      "strength": 31,
+      "sources": [
+        {
+          "channel": "gsc",
+          "kind": "striking_distance",
+          "metric": "position",
+          "strength": 31,
+          "weight": 0.7,
+          "detail": "pos 8.61 · 31 imp"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 345,
+          "weight": 1,
+          "detail": "en converts (345)"
+        }
+      ],
+      "firstSeen": "2026-07-16",
+      "lastSeen": "2026-07-16",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-16",
+          "strength": 31
+        }
+      ],
+      "confidence": {
+        "score": 0.81,
+        "quality": 0.85,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "queries": [
+            "md ke word"
+          ]
+        },
+        "channel": "gsc",
         "metric": "position"
       }
     }

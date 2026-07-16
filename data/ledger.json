@@ -86,15 +86,16 @@
       "target_scope": {
         "pages": [
           "https://www.markdown.free/markdown-to-word",
-          "https://www.markdown.free/markdown-a-word",
-          "https://www.markdown.free/markdown-in-word",
-          "https://www.markdown.free/markdown-ke-word",
-          "https://www.markdown.free/markdown-sang-word",
-          "https://www.markdown.free/markdown-word-byeonhwan",
-          "https://www.markdown.free/markdown-word-henkan"
+          "https://www.markdown.free/es/markdown-a-word",
+          "https://www.markdown.free/it/markdown-in-word",
+          "https://www.markdown.free/id/markdown-ke-word",
+          "https://www.markdown.free/vi/markdown-sang-word",
+          "https://www.markdown.free/ko/markdown-word-byeonhwan",
+          "https://www.markdown.free/ja/markdown-word-henkan"
         ],
         "queries": [],
-        "country": null
+        "country": null,
+        "note": "Fixed 2026-07-16: the 6 non-EN targets were seeded without their locale prefixes (e.g. /markdown-ke-word → /id/markdown-ke-word), so experiment-lock never matched them and they leaked into the opportunity slate. Corrected to the real published URLs (cross-checked against tool-links.ts / app routes)."
       },
       "control_scope": null,
       "shipped_date": "2026-07-11",
