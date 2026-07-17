@@ -309,7 +309,7 @@
       },
       "control_scope": null,
       "shipped_date": "2026-07-16",
-      "commit": null,
+      "commit": "d984502",
       "baseline": {
         "window_days": 28,
         "mean": 0,

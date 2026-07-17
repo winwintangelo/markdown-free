@@ -26,42 +26,15 @@ const INDEXNOW_ENDPOINT = "https://api.indexnow.org/indexnow";
 // Recently changed pages (update this when deploying significant changes)
 // ============================================================================
 const NEW_PAGES = [
-  // Markdown → Image (PNG) intent cluster — NEW pages (2026-07-04)
-  "/markdown-to-png",
-  "/ja/markdown-gazou-henkan",
-  "/ko/markdown-imiji-byeonhwan",
-  "/zh-Hans/markdown-zhuan-tupian",
-  "/zh-Hant/markdown-zhuan-tupian-tw",
-  "/es/markdown-a-png",
-  "/it/markdown-in-png",
-  "/id/markdown-ke-gambar",
-  "/vi/markdown-sang-anh",
-  // Homepages — title/hero/copy now include Word (DOCX) + Image (PNG)
+  // Converter-family cluster — NEW pages (2026-07-16, commit d984502)
+  "/markdown-converter",
+  "/markdown-to-html",
+  // Title-truncation fixes (2026-07-16, commit 82aa944)
   "/",
-  "/ja",
-  "/ko",
-  "/it",
   "/es",
-  "/zh-Hans",
-  "/zh-Hant",
-  "/id",
-  "/vi",
-  "/hi",
-  // FAQ pages — new image Q&A + subtitle/meta-description refresh
-  "/faq",
-  "/ja/faq",
-  "/ko/faq",
-  "/it/faq",
-  "/es/faq",
-  "/zh-Hans/faq",
-  "/zh-Hant/faq",
-  "/id/faq",
-  "/vi/faq",
-  "/hi/faq",
-  // Word/DOCX + no-watermark pages — button rename + format list
+  // Pages with new internal links to the converter cluster (d984502)
   "/markdown-to-docx",
-  "/markdown-to-word",
-  "/markdown-to-pdf-no-watermark",
+  "/markdown-to-pdf-online-free",
 ];
 
 // ============================================================================
