@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { RelatedTools } from "@/components/related-tools";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
+import { ComparisonCta } from "@/components/comparison-cta";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
 import { hreflangAlternates } from "@/lib/tool-links";
@@ -66,6 +67,15 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           <p className="text-sm text-slate-500">发布于 {PUBLISH_DATE} ・ 下次审阅 {NEXT_REVIEW} ・ Markdown Free 团队</p>
           <p className="lead text-lg text-slate-600">挑一个 Markdown 转 PDF 的工具，听起来像小事——直到你真的要用。然后你得在 1.5GB 的 LaTeX 安装（Pandoc）、付费桌面应用（Typora）、带广告的浏览器编辑器（Dillinger）和需要自己写脚本的方案（md-to-pdf）之间做选择。英文文档大多都能跑，但加入中文之后就开始翻车。&quot;最好&quot;的分水岭，正是中文是否会变成豆腐。</p>
           <p><strong>本文对比 2026 年的 8 款主流工具。</strong>结论：浏览器中处理中文不出问题，选 <Link href="/zh-Hans" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown Free</Link>；脚本批量转换，选 Pandoc；不介意付费、要离线打磨写作环境，选 Typora。</p>
+
+          {/* 埋点 CTA — 长图优先（微信 webview 里下载文件不便，长图可直接分享）exp comparison-cta-2026-07-16 */}
+          <ComparisonCta
+            position="top"
+            target="image"
+            href="/zh-Hans"
+            label="把 Markdown 转成长图（PNG）— 免费、无需注册"
+            sub="也支持 PDF、Word、EPUB ・ 微信里长图可直接分享"
+          />
 
           <h2>一览对比</h2>
           <div className="not-prose my-6 overflow-x-auto">
@@ -152,8 +162,8 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           <p>本文由对比表中出现的 <Link href="/zh-Hans" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown Free</Link> 团队撰写。我们尽量把其他工具更适合的场景写明：Pandoc 适合脚本流水线，Typora 适合离线打磨，VS Code 的 Markdown PDF 适合编辑器内工作流。外部链接均加 <code>rel=&quot;nofollow&quot;</code>。如果发现事实错误，请通过 <Link href="/zh-Hans/about" className="text-emerald-700 hover:text-emerald-800 hover:underline">这里</Link> 联系我们，我们会修正。</p>
 
           <div className="not-prose my-8 rounded-xl border border-emerald-200 bg-emerald-50 p-6 text-center">
-            <p className="mb-4 text-lg font-medium text-slate-700">试用 Markdown Free —— 无需安装、无需注册、无中文乱码</p>
-            <Link href="/zh-Hans" className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-emerald-800">打开 Markdown Free<span aria-hidden="true">→</span></Link>
+            <p className="mb-2 text-lg font-medium text-slate-700">试用 Markdown Free —— 无需安装、无需注册、无中文乱码</p>
+            <ComparisonCta position="bottom" href="/zh-Hans" label="打开 Markdown Free" className="my-2" />
           </div>
 
           <div className="not-prose border-t border-slate-200 pt-8">

@@ -4,6 +4,7 @@ import { Footer } from "@/components/footer";
 import { RelatedTools } from "@/components/related-tools";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
+import { ComparisonCta } from "@/components/comparison-cta";
 import { getDictionary } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
 import { hreflangAlternates } from "@/lib/tool-links";
@@ -149,6 +150,14 @@ export default function BestMarkdownToPdfConverter2026Page() {
             scripts), Pandoc wins for scripted batch processing, Typora wins
             for offline polish.
           </p>
+
+          {/* Instrumented CTA — additive only; page content untouched (surging on Google, exp comparison-cta-2026-07-16) */}
+          <ComparisonCta
+            position="top"
+            href="/"
+            label="Try Markdown Free — convert your .md now"
+            sub="Free · No signup · Files never stored"
+          />
 
           {/* Quick comparison */}
           <h2>Quick comparison</h2>
@@ -572,6 +581,13 @@ export default function BestMarkdownToPdfConverter2026Page() {
               </strong> → Dillinger or StackEdit
             </li>
           </ul>
+
+          <ComparisonCta
+            position="bottom"
+            href="/"
+            label="Convert your Markdown now — free, in the browser"
+            sub="PDF · Word · Image · EPUB — no signup"
+          />
 
           {/* FAQ */}
           <h2>Frequently asked questions</h2>

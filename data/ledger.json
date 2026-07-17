@@ -326,6 +326,42 @@
         "note": ""
       },
       "note": "New-page pattern (like md-to-png-cluster): control_scope null, baseline 0. SERP recon 2026-07-16: top 'free' multi-format hub (markdownconverter.pro) actually requires signup + credit packs — our information gain is honest breadth (6 formats incl. EPUB/image nobody in the SERP has) + genuinely-free. Internal links from /markdown-to-pdf-online-free + /markdown-to-docx only (TOOL_LINKS footer slot deliberately DEFERRED until in-flight experiments measure ~2026-08-12, to avoid touching locked pages). STAMP commit AFTER deploy. VERDICT ONLY VALID ONCE MERGED + DEPLOYED."
+    },
+    {
+      "id": "comparison-cta-2026-07-16",
+      "title": "Instrumented CTAs on both comparison pages (EN converter-first, zh PNG-first)",
+      "hypothesis": "The EN comparison page is surging on Google (impressions 322→562 in 4 days, 78% of Jul 10-17 pv from google.com) and the zh page's traffic is 7/8 CN + 100% referrer-less (AI chats / WeChat webviews), but the pages had only inline text links (EN) or a single untracked button (zh) — prominent instrumented CTAs (EN → converter; zh → PNG 长图 first, since WeChat webviews break file downloads) convert listicle readers into converter users.",
+      "topic": "comparison-conversion",
+      "channel": "events",
+      "target_metric": "cta_clicks",
+      "guardrail_metrics": [],
+      "target_scope": {
+        "pages": [
+          "https://www.markdown.free/best-markdown-to-pdf-converter-2026",
+          "https://www.markdown.free/zh-Hans/markdown-zhuanhuanqi-bijiao"
+        ],
+        "queries": [],
+        "country": null
+      },
+      "control_scope": null,
+      "shipped_date": "2026-07-16",
+      "commit": null,
+      "baseline": {
+        "window_days": 28,
+        "mean": 0,
+        "as_of": "2026-07-16",
+        "note": "New instrumentation — comparison_cta_click cannot exist before this ships (adoption-style baseline, like new-page experiments)."
+      },
+      "measure_on": "2026-08-13",
+      "status": "shipped",
+      "outcome": {
+        "treated_delta": null,
+        "control_delta": null,
+        "did": null,
+        "guardrails_held": null,
+        "note": ""
+      },
+      "note": "First experiment on the NEW events/cta_clicks metric (measure.mjs pathOf-normalized scopes + events.mjs comparison_cta_click byPath — both shipped with this change). Auto-verdict measures adoption only; at measure time ALSO compute CTA-CTR manually = cta_clicks / vercel pageviews per page (cross-channel guardrails unsupported), and check conv funnel didn't regress. Content deliberately untouched (EN page surging — additive CTA blocks only; title changes remain human-declined). Locks both comparison pages. STAMP commit AFTER deploy. VERDICT ONLY VALID ONCE DEPLOYED."
     }
   ]
 }

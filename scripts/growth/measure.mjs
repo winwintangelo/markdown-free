@@ -8,25 +8,38 @@
 //
 //   node scripts/growth/measure.mjs      (or: npm run growth:measure)
 
-import { SnapshotStore, todayStr, isMain } from './lib.mjs';
+import { SnapshotStore, todayStr, isMain, pathOf } from './lib.mjs';
 import { ExperimentLedger } from './ledger.mjs';
 import { learnFromExperiment } from './learn.mjs';
 
 const WINDOW_DAYS = 28;
 
 // Aggregate one metric over the rows in `scope` for a channel in a single snapshot.
+//
+// Scope keys are pathOf()-normalized on BOTH sides (same normalizer as the
+// experiment-lock): ledger scopes store full URLs while the vercel channel keys
+// rows by bare requestPath — without normalization CN-side experiments (whose only
+// visibility is Vercel, not GSC/Bing) could never match their own target pages.
 function metricInSnapshot(snapshot, channel, metric, scope) {
   const ch = snapshot?.channels?.[channel];
   if (!ch) return null;
-  const inScope = (rows = []) => {
-    if (scope?.pages?.length) return rows.filter((r) => scope.pages.includes(r.key));
-    if (scope?.queries?.length) return rows.filter((r) => scope.queries.includes(r.key));
-    return rows;
-  };
+  const scoped = (scope?.pages?.length || 0) + (scope?.queries?.length || 0) > 0;
+  const keys = new Set([...(scope?.pages || []), ...(scope?.queries || [])].map(pathOf));
+  const inScope = (rows = []) => (scoped ? rows.filter((r) => keys.has(pathOf(r.key))) : rows);
+
+  // `cta_clicks` lives in the events channel: comparison_cta_click grouped by
+  // requestPath (events.mjs). A present-but-unmatched cta block scores 0 (measured,
+  // no clicks); a missing block (pre-deploy snapshot) scores null (no data).
+  if (metric === 'cta_clicks') {
+    if (!ch.cta) return null;
+    return inScope(ch.cta.byPath).reduce((s, r) => s + (r.count || 0), 0);
+  }
+
   const rows = [...inScope(ch.pages), ...inScope(ch.queries)];
   if (!rows.length) return null;
 
-  if (metric === 'clicks' || metric === 'impressions') {
+  // pageviews/visitors come from the vercel channel (pages rows carry both).
+  if (metric === 'clicks' || metric === 'impressions' || metric === 'pageviews' || metric === 'visitors') {
     return rows.reduce((s, r) => s + (r[metric] || 0), 0);
   }
   if (metric === 'ctr') {
@@ -39,7 +52,6 @@ function metricInSnapshot(snapshot, channel, metric, scope) {
     for (const r of rows) if (r.position != null && r.impressions) { w += r.position * r.impressions; wi += r.impressions; }
     return wi ? +(w / wi).toFixed(2) : null;
   }
-  // pageviews / conversions live in non-search channels (vercel/events) — P1.
   return null;
 }
 

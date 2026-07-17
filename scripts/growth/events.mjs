@@ -75,12 +75,22 @@ export async function collect() {
     abandonment: us.count ? +(1 - cs.count / us.count).toFixed(3) : null,
   };
 
+  // CTA clicks on comparison/intent pages (comparison_cta_click) — grouped by
+  // requestPath so ledger experiments can scope clicks to specific pages (the
+  // measure stage reads this as metric `cta_clicks`). Deploy-gated like conv_<format>.
+  let cta = null;
+  try {
+    const cc = await eventCount('comparison_cta_click', cfg);
+    const ccByPath = cc.count ? await eventBy('comparison_cta_click', 'requestPath', cfg) : [];
+    cta = { total: cc.count, byPath: ccByPath.map((r) => ({ key: r.key, count: r.count })) };
+  } catch { /* absent until the CTA instrumentation deploys */ }
+
   return {
     channel: 'events',
     dateRange: { start: cfg.since, end: cfg.until },
     totals: { conversions: cs.count, uploadStarts: us.count, visitors: cs.visitors },
-    funnel, byLocale, byScript, byCountry, byType,
-    note: 'by-type from conv_<format> events (deploy-gated — empty until analytics.ts ships); by-script from requestPath locale prefix.',
+    funnel, byLocale, byScript, byCountry, byType, cta,
+    note: 'by-type from conv_<format> events (deploy-gated — empty until analytics.ts ships); by-script from requestPath locale prefix; cta from comparison_cta_click by requestPath (deploy-gated).',
   };
 }
 

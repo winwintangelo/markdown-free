@@ -492,6 +492,23 @@ export function trackInternalReferral(): void {
 }
 
 // =============================================================================
+// COMPARISON / INTENT PAGE CTA EVENTS
+// =============================================================================
+
+/**
+ * Track a CTA click on a comparison/intent page (→ the converter).
+ * The source PAGE is recovered server-side by grouping this event by requestPath
+ * (Vercel's events API can't group by custom props); `target` and `position`
+ * ride along as Umami-side detail.
+ */
+export function trackComparisonCta(
+  target: "converter" | "image",
+  position: "top" | "bottom"
+): void {
+  trackEvent("comparison_cta_click", { target, position });
+}
+
+// =============================================================================
 // POST-CONVERT FEEDBACK EVENTS
 // =============================================================================
 

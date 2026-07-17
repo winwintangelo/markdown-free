@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparison-page CTR options — mockup (2026-07-16)</title>
+<style>
+  :root {
+    --emerald-700: #047857; --emerald-800: #065f46; --emerald-50: #ecfdf5; --emerald-200: #a7f3d0;
+    --amber-500: #f59e0b; --amber-50: #fffbeb;
+    --slate-900: #0f172a; --slate-700: #334155; --slate-600: #475569; --slate-500: #64748b;
+    --slate-200: #e2e8f0; --slate-100: #f1f5f9; --slate-50: #f8fafc;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+         background: var(--slate-100); color: var(--slate-900); line-height: 1.6; padding: 2rem 1rem 4rem; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin-bottom: .25rem; }
+  .meta { color: var(--slate-500); font-size: .85rem; margin-bottom: 1.5rem; }
+  .context { background: #fff; border: 1px solid var(--slate-200); border-radius: 12px; padding: 1rem 1.25rem; font-size: .9rem; color: var(--slate-600); margin-bottom: 2rem; }
+  .context strong { color: var(--slate-900); }
+
+  .option { background: #fff; border: 1px solid var(--slate-200); border-radius: 16px; margin-bottom: 2rem; overflow: hidden; }
+  .option-head { padding: 1rem 1.25rem; border-bottom: 1px solid var(--slate-200); display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: baseline; }
+  .option-head h2 { font-size: 1.05rem; }
+  .chips { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .chip { font-size: .7rem; font-weight: 600; padding: .15rem .55rem; border-radius: 999px; background: var(--slate-100); color: var(--slate-600); }
+  .chip.good { background: var(--emerald-50); color: var(--emerald-800); }
+  .chip.warn { background: var(--amber-50); color: #92400e; }
+  .option-desc { padding: .9rem 1.25rem 0; font-size: .9rem; color: var(--slate-600); }
+  .frame { margin: 1rem 1.25rem 1.25rem; border: 1px solid var(--slate-200); border-radius: 10px; background: var(--slate-50); overflow: hidden; }
+  .frame-label { font-size: .7rem; text-transform: uppercase; letter-spacing: .05em; color: var(--slate-500); padding: .4rem .8rem; border-bottom: 1px dashed var(--slate-200); background: #fff; }
+  .page { padding: 1.25rem 1.5rem; background: #fff; }
+  .page h3 { font-size: 1.15rem; margin-bottom: .5rem; }
+  .page p { font-size: .85rem; color: var(--slate-600); margin-bottom: .6rem; }
+  .btn { display: inline-flex; align-items: center; gap: .5rem; border-radius: 999px; background: var(--emerald-700); color: #fff;
+         padding: .65rem 1.4rem; font-weight: 600; font-size: .9rem; text-decoration: none; box-shadow: 0 4px 10px rgb(4 120 87 / .25); }
+  .btn:hover { background: var(--emerald-800); }
+  .btn.secondary { background: #fff; color: var(--emerald-800); border: 1.5px solid var(--emerald-700); box-shadow: none; }
+  .sub { font-size: .78rem; color: var(--slate-500); margin-top: .5rem; }
+
+  /* A — verdict box */
+  .verdict { border: 1.5px solid var(--emerald-200); background: var(--emerald-50); border-radius: 12px; padding: 1rem 1.25rem; }
+  .verdict .tag { font-size: .7rem; font-weight: 700; color: var(--emerald-800); text-transform: uppercase; letter-spacing: .06em; }
+  .verdict h4 { font-size: 1.05rem; margin: .25rem 0 .35rem; }
+  .verdict ul { list-style: none; display: flex; flex-wrap: wrap; gap: .35rem 1rem; padding: 0; margin: 0 0 .8rem; font-size: .8rem; color: var(--slate-600); }
+  .verdict li::before { content: "✓ "; color: var(--emerald-700); font-weight: 700; }
+
+  /* B — sticky bar */
+  .scrolly { height: 300px; overflow-y: auto; position: relative; background: #fff; }
+  .scrolly .filler { padding: 1.25rem 1.5rem; }
+  .stickybar { position: sticky; bottom: 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+               background: rgb(255 255 255 / .96); backdrop-filter: blur(4px); border-top: 1px solid var(--slate-200);
+               padding: .6rem 1rem; box-shadow: 0 -4px 12px rgb(15 23 42 / .06); }
+  .stickybar .txt { font-size: .8rem; color: var(--slate-600); }
+  .stickybar .btn { padding: .45rem 1.1rem; font-size: .8rem; }
+
+  /* C — inline converter */
+  .dropzone { border: 2px dashed var(--emerald-700); border-radius: 12px; background: var(--emerald-50); padding: 1.75rem 1rem; text-align: center; }
+  .dropzone .big { font-weight: 600; color: var(--slate-900); font-size: .95rem; }
+  .dropzone .fmt { display: inline-block; margin: .6rem .2rem 0; font-size: .72rem; background: #fff; border: 1px solid var(--slate-200); border-radius: 6px; padding: .2rem .5rem; color: var(--slate-600); }
+
+  /* D — in-table CTA */
+  table { width: 100%; border-collapse: collapse; font-size: .78rem; }
+  th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--slate-200); color: var(--slate-700); }
+  th { background: var(--slate-50); font-weight: 600; }
+  tr.ours { background: var(--emerald-50); }
+  .tinybtn { display: inline-block; border-radius: 999px; background: var(--emerald-700); color: #fff; padding: .25rem .7rem; font-weight: 600; font-size: .72rem; text-decoration: none; white-space: nowrap; }
+
+  .zh { border-top: 1px dashed var(--slate-200); margin-top: 1rem; }
+  .rec { background: var(--emerald-50); border: 1px solid var(--emerald-200); border-radius: 12px; padding: 1rem 1.25rem; font-size: .9rem; }
+  .rec strong { color: var(--emerald-800); }
+  code { background: var(--slate-100); border-radius: 4px; padding: .05rem .3rem; font-size: .8em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Comparison-page → converter CTR: 4 options</h1>
+  <p class="meta">Mockup · 2026-07-16 · target pages: <code>/best-markdown-to-pdf-converter-2026</code> (EN, Google surge) + <code>/zh-Hans/markdown-zhuanhuanqi-bijiao</code> (CN, AI/WeChat traffic)</p>
+
+  <div class="context">
+    <strong>Already shipped (baseline for all options):</strong> plain top + bottom CTA buttons with
+    <code>comparison_cta_click</code> tracking (position + target props), registered as experiment
+    <code>comparison-cta-2026-07-16</code>. The options below are the <strong>next iteration</strong> — each is measurable
+    against that baseline using the same event. Constraint: the EN page is surging on Google, so options avoid
+    rewriting ranked text content — everything below is additive UI.
+  </div>
+
+  <!-- OPTION A -->
+  <div class="option">
+    <div class="option-head">
+      <h2>Option A — Verdict-first box</h2>
+      <div class="chips"><span class="chip good">effort: S</span><span class="chip good">risk: low</span><span class="chip">standard listicle pattern</span></div>
+    </div>
+    <p class="option-desc">A compact "our pick" card directly under the intro — readers who won't scroll 4,000 words get the
+      conclusion + a button in the first viewport. Replaces nothing; sits where the shipped top CTA is (upgrade of it).</p>
+    <div class="frame">
+      <div class="frame-label">In context — top of article, right after the intro paragraph</div>
+      <div class="page">
+        <h3>Best Markdown to PDF Converter (2026 Comparison)</h3>
+        <p>Picking a Markdown to PDF tool seems trivial — until you actually need one. Then you're choosing between a 1.5GB LaTeX install…</p>
+        <div class="verdict">
+          <span class="tag">⚡ Our pick for browser use</span>
+          <h4>Markdown Free — convert right now, no setup</h4>
+          <ul><li>Free, no signup</li><li>CJK never breaks (Noto embedded)</li><li>PDF · Word · Image · EPUB</li><li>Files never stored</li></ul>
+          <a class="btn" href="#">Convert your .md now →</a>
+          <span class="sub" style="display:inline-block;margin-left:.75rem">Prefer CLI batch? <u>Jump to Pandoc ↓</u></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION B -->
+  <div class="option">
+    <div class="option-head">
+      <h2>Option B — Sticky bottom CTA bar</h2>
+      <div class="chips"><span class="chip good">effort: S</span><span class="chip warn">risk: medium (UX taste)</span><span class="chip">best for 4,000-word pages + mobile</span></div>
+    </div>
+    <p class="option-desc">A slim bar that stays visible while the reader scrolls the whole comparison. Captures intent at the
+      exact moment a section convinces them — no scrolling back to find a button. Scroll inside the frame to feel it. Could show
+      only after 25% scroll depth to stay polite.</p>
+    <div class="frame">
+      <div class="frame-label">In context — scroll this frame</div>
+      <div class="scrolly">
+        <div class="filler">
+          <h3>Pandoc</h3>
+          <p>Command-line universal document converter… PDF output requires a LaTeX install (~1.5GB on macOS)…</p>
+          <p>…default engine fails on CJK; you must pass <code>--pdf-engine=xelatex -V mainfont="Noto Sans CJK SC"</code>…</p>
+          <h3>Dillinger</h3>
+          <p>Browser Markdown editor with live preview… hosted version carries ads… PDF export inherits system fonts, so CJK often breaks…</p>
+          <h3>StackEdit</h3>
+          <p>Browser editor with cloud sync and MathJax… PDF goes through the browser print pipeline…</p>
+          <h3>Typora</h3>
+          <p>Polished desktop WYSIWYG editor… one-time purchase… desktop only…</p>
+          <p style="color:var(--slate-500)">(…article continues…)</p>
+        </div>
+        <div class="stickybar">
+          <span class="txt"><strong>Markdown Free</strong> — free · no signup · CJK-safe</span>
+          <a class="btn" href="#">Try it now →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION C -->
+  <div class="option">
+    <div class="option-head">
+      <h2>Option C — Inline mini-converter</h2>
+      <div class="chips"><span class="chip warn">effort: M–L</span><span class="chip good">risk: low (additive)</span><span class="chip good">strongest proof — the tool IS the pitch</span></div>
+    </div>
+    <p class="option-desc">An embedded drop-zone right in the article (after our review section): readers comparing tools can
+      test ours without leaving the page. Reuses the existing <code>ConverterProvider</code>/upload pipeline; drop → redirect to
+      the converter with the file loaded (or convert in place). For tool-comparison intent, a working demo beats any copy.</p>
+    <div class="frame">
+      <div class="frame-label">In context — end of the "Markdown Free" review section</div>
+      <div class="page">
+        <p><strong>Best for:</strong> anyone who needs a Markdown file converted to PDF/DOCX/EPUB right now in the browser…</p>
+        <div class="dropzone">
+          <div class="big">⬇ Don't take our word for it — drop your .md here</div>
+          <span class="fmt">→ PDF</span><span class="fmt">→ Word</span><span class="fmt">→ PNG</span><span class="fmt">→ EPUB</span><span class="fmt">→ HTML</span>
+          <p class="sub">Converts in seconds · nothing stored · no signup</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION D -->
+  <div class="option">
+    <div class="option-head">
+      <h2>Option D — In-table CTA</h2>
+      <div class="chips"><span class="chip good">effort: XS</span><span class="chip good">risk: low</span><span class="chip">the table is the most-read element</span></div>
+    </div>
+    <p class="option-desc">Most listicle readers jump straight to the comparison table and never read the prose. A single
+      "Try free →" button inside our row converts exactly there. Cheapest option; combines well with A or B.</p>
+    <div class="frame">
+      <div class="frame-label">In context — the existing "Quick comparison" table</div>
+      <div class="page">
+        <table>
+          <tr><th>Tool</th><th>Best for</th><th>Price</th><th>CJK</th><th></th></tr>
+          <tr class="ours"><td><strong>Markdown Free</strong></td><td>Browser, zero setup</td><td>Free</td><td>✓ built-in</td><td><a class="tinybtn" href="#">Try free →</a></td></tr>
+          <tr><td>Pandoc</td><td>Scripted batch</td><td>Free</td><td>manual config</td><td></td></tr>
+          <tr><td>Dillinger</td><td>Quick Latin-script edits</td><td>Free (ads)</td><td>system fonts</td><td></td></tr>
+          <tr><td>Typora</td><td>Offline polish</td><td>Paid</td><td>theme-dependent</td><td></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="zh">
+      <p class="option-desc"><strong>zh 变体（长图优先）</strong> — CN 流量多来自微信 webview / AI 聊天（下载文件不便），按钮改为长图导向：</p>
+      <div class="frame">
+        <div class="frame-label">zh-Hans — 一览对比表中的 Markdown Free 行</div>
+        <div class="page">
+          <table>
+            <tr><th>工具</th><th>最适合</th><th>价格</th><th>中文支持</th><th></th></tr>
+            <tr class="ours"><td><strong>Markdown Free</strong></td><td>浏览器，中文不乱码</td><td>免费</td><td>✓ 内嵌 Noto</td><td><a class="tinybtn" href="#">转长图 →</a></td></tr>
+            <tr><td>Pandoc</td><td>脚本批处理</td><td>免费</td><td>需配置</td><td></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rec">
+    <strong>Recommendation:</strong> ship <strong>D (in-table)</strong> immediately — XS effort, lands where readers actually look —
+    and <strong>A (verdict box)</strong> as the top-CTA upgrade. Measure both ~2 weeks via <code>comparison_cta_click</code>
+    (the <code>position</code> prop separates blocks). If clicks flow but conversions still lag, build <strong>C (inline converter)</strong> —
+    the strongest but costliest option. <strong>B (sticky bar)</strong> is the mobile fallback if A+D underperform; gate it on 25%
+    scroll depth. All options are additive — no ranked text is touched while the Google surge is running.
+  </div>
+</div>
+</body>
+</html>
