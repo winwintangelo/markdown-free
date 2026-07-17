@@ -1,17 +1,11 @@
 {
-  "generatedAt": "2026-07-16T01:17:47.830Z",
+  "generatedAt": "2026-07-16T01:47:02.188Z",
   "site": "https://www.markdown.free",
   "scope": "core",
   "checked": 10,
   "ok": true,
   "errors": [],
   "warns": [
-    {
-      "path": "/",
-      "sev": "warn",
-      "code": "title-length",
-      "msg": "title 99 chars (aim 15–65)"
-    },
     {
       "path": "/markdown-to-word",
       "sev": "warn",
@@ -35,12 +29,6 @@
       "sev": "warn",
       "code": "title-length",
       "msg": "title 74 chars (aim 15–65)"
-    },
-    {
-      "path": "/es",
-      "sev": "warn",
-      "code": "title-length",
-      "msg": "title 105 chars (aim 15–65)"
     },
     {
       "path": "/ja",

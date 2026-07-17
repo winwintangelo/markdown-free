@@ -64,6 +64,12 @@ function suite(
 /**
  * Per-locale tool suite. `hi` only has a comparison page published, so it carries
  * a single entry; locales absent here render no hub.
+ *
+ * TODO(2026-08-13+): add the converter-family pages (/markdown-converter hub,
+ * /markdown-to-html) to the EN suite. Deliberately deferred — TOOL_LINKS renders
+ * site-wide (footer + RelatedTools), so adding entries now would modify pages
+ * locked under in-flight experiments (last one measures 2026-08-12). See ledger
+ * experiment converter-hub-html-2026-07-16.
  */
 export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
   en: suite("en", {

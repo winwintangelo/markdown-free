@@ -180,6 +180,14 @@ export default function MarkdownToDocxPage() {
             <Link href="/best-markdown-to-pdf-converter-2026" className="text-emerald-700 hover:text-emerald-800 hover:underline">
               2026 Markdown→PDF/DOCX converter comparison
             </Link>
+            {" "}— or need a different format? The{" "}
+            <Link href="/markdown-converter" className="text-emerald-700 hover:text-emerald-800 hover:underline">
+              full Markdown converter
+            </Link>{" "}
+            also exports PDF, image (PNG), EPUB, and{" "}
+            <Link href="/markdown-to-html" className="text-emerald-700 hover:text-emerald-800 hover:underline">
+              HTML
+            </Link>
             .
           </p>
         </section>

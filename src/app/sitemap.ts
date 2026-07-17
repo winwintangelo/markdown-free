@@ -102,6 +102,8 @@ const standalone = plain([
   // English-only tool/landing pages
   "/github-readme-to-pdf", "/chatgpt-to-pdf", "/claude-artifacts-to-pdf", "/notion-export-to-pdf",
   "/typora-to-pdf", "/obsidian-markdown-to-pdf", "/markdown-to-pdf-online-free",
+  // Converter-family cluster (hub + html spoke, shipped 2026-07-16)
+  "/markdown-converter", "/markdown-to-html",
   // zh-Hant long-tail intent pages
   "/zh-Hant/github-wenjiian-pdf", "/zh-Hant/api-wendang-pdf", "/zh-Hant/buluoge-wenzhang-pdf",
   "/zh-Hant/huiyi-jilu-pdf", "/zh-Hant/jishu-biji-pdf", "/zh-Hant/xueshu-biji-pdf",

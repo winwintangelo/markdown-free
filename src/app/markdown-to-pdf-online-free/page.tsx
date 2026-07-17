@@ -247,6 +247,22 @@ export default function OnlineFreePage() {
               </li>
               <li>
                 <Link
+                  href="/markdown-converter"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
+                >
+                  Free Markdown Converter — All Formats (PDF, Word, Image, HTML)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/markdown-to-html"
+                  className="text-emerald-700 hover:text-emerald-800 hover:underline"
+                >
+                  Markdown to HTML — In-browser Converter
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/faq"
                   className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >

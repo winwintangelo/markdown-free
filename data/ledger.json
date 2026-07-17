@@ -284,6 +284,48 @@
         "note": ""
       },
       "note": "DiD vs /claude-artifacts-to-pdf (untouched, high-volume Bing control — 316 impr → low-variance trend estimate; different CTR level is fine for DiD, which compares deltas). Parallel-trends caveat: control is a Bing 'star', watch its own trajectory. Bing only (page thin/absent on GSC). VERDICT ONLY VALID ONCE MERGED + DEPLOYED."
+    },
+    {
+      "id": "converter-hub-html-2026-07-16",
+      "title": "New pages: /markdown-converter hub + /markdown-to-html spoke",
+      "hypothesis": "The converter-family queries (markdown converter/+online/+free, convert markdown to html) have ZERO ranking presence (2026-07-16 demand-gap report) while the SERP is small exact-match tool sites, not authorities — a multi-format hub with an honest conversion matrix + the missing html spoke (feature existed, page didn't) earns impressions, Bing first.",
+      "topic": "converter-family",
+      "channel": "bing",
+      "target_metric": "impressions",
+      "guardrail_metrics": [],
+      "target_scope": {
+        "pages": [
+          "https://www.markdown.free/markdown-converter",
+          "https://www.markdown.free/markdown-to-html"
+        ],
+        "queries": [
+          "markdown converter",
+          "markdown converter online",
+          "markdown converter free",
+          "convert markdown to html",
+          "markdown to html"
+        ],
+        "country": null
+      },
+      "control_scope": null,
+      "shipped_date": "2026-07-16",
+      "commit": null,
+      "baseline": {
+        "window_days": 28,
+        "mean": 0,
+        "as_of": "2026-07-16",
+        "note": "New URLs — true zero baseline (no impressions possible before the pages exist)."
+      },
+      "measure_on": "2026-08-13",
+      "status": "shipped",
+      "outcome": {
+        "treated_delta": null,
+        "control_delta": null,
+        "did": null,
+        "guardrails_held": null,
+        "note": ""
+      },
+      "note": "New-page pattern (like md-to-png-cluster): control_scope null, baseline 0. SERP recon 2026-07-16: top 'free' multi-format hub (markdownconverter.pro) actually requires signup + credit packs — our information gain is honest breadth (6 formats incl. EPUB/image nobody in the SERP has) + genuinely-free. Internal links from /markdown-to-pdf-online-free + /markdown-to-docx only (TOOL_LINKS footer slot deliberately DEFERRED until in-flight experiments measure ~2026-08-12, to avoid touching locked pages). STAMP commit AFTER deploy. VERDICT ONLY VALID ONCE MERGED + DEPLOYED."
     }
   ]
 }
