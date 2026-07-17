@@ -345,7 +345,7 @@
       },
       "control_scope": null,
       "shipped_date": "2026-07-16",
-      "commit": null,
+      "commit": "67d4ecf",
       "baseline": {
         "window_days": 28,
         "mean": 0,
@@ -361,7 +361,7 @@
         "guardrails_held": null,
         "note": ""
       },
-      "note": "First experiment on the NEW events/cta_clicks metric (measure.mjs pathOf-normalized scopes + events.mjs comparison_cta_click byPath — both shipped with this change). Auto-verdict measures adoption only; at measure time ALSO compute CTA-CTR manually = cta_clicks / vercel pageviews per page (cross-channel guardrails unsupported), and check conv funnel didn't regress. Content deliberately untouched (EN page surging — additive CTA blocks only; title changes remain human-declined). Locks both comparison pages. STAMP commit AFTER deploy. VERDICT ONLY VALID ONCE DEPLOYED."
+      "note": "First experiment on the NEW events/cta_clicks metric (measure.mjs pathOf-normalized scopes + events.mjs comparison_cta_click byPath — both shipped with this change). Auto-verdict measures adoption only; at measure time ALSO compute CTA-CTR manually = cta_clicks / vercel pageviews per page (cross-channel guardrails unsupported), and check conv funnel didn't regress. Content deliberately untouched (EN page surging — additive CTA blocks only; title changes remain human-declined). Locks both comparison pages. STAMP commit AFTER deploy. VERDICT ONLY VALID ONCE DEPLOYED. ITERATION C (2026-07-16, human-approved from mockup): InlineConverter embedded after the Markdown Free section on BOTH pages — drop-zone + the real ExportRow (full reuse: conversions, errors, funnel events). comparison_cta_click gains position=inline (fires on file LOAD = engagement); on-page conversions now attribute to these pages via convert_success requestPath. Treatment = top/bottom CTAs + inline converter combined; position prop separates blocks at analysis time."
     }
   ]
 }

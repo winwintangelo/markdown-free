@@ -499,11 +499,12 @@ export function trackInternalReferral(): void {
  * Track a CTA click on a comparison/intent page (→ the converter).
  * The source PAGE is recovered server-side by grouping this event by requestPath
  * (Vercel's events API can't group by custom props); `target` and `position`
- * ride along as Umami-side detail.
+ * ride along as Umami-side detail. `position: "inline"` = a file loaded into the
+ * embedded InlineConverter (option C) — engagement, not just a click.
  */
 export function trackComparisonCta(
   target: "converter" | "image",
-  position: "top" | "bottom"
+  position: "top" | "bottom" | "inline"
 ): void {
   trackEvent("comparison_cta_click", { target, position });
 }

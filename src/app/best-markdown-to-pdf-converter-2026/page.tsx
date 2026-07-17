@@ -5,6 +5,7 @@ import { RelatedTools } from "@/components/related-tools";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { ComparisonCta } from "@/components/comparison-cta";
+import { InlineConverter } from "@/components/inline-converter";
 import { getDictionary } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
 import { hreflangAlternates } from "@/lib/tool-links";
@@ -297,6 +298,15 @@ export default function BestMarkdownToPdfConverter2026Page() {
             </Link>
             )
           </p>
+
+          {/* Inline mini-converter — exp comparison-cta-2026-07-16 iteration C: test the tool without leaving the article */}
+          <InlineConverter
+            locale="en"
+            dict={dict}
+            heading="⬇ Don't take our word for it — drop your .md here"
+            hint="Converts in seconds · nothing stored · no signup"
+            readyHint="pick a format below"
+          />
 
           <h2>Pandoc</h2>
           <p>

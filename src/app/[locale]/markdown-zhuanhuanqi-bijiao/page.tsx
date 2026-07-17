@@ -6,6 +6,7 @@ import { RelatedTools } from "@/components/related-tools";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { ComparisonCta } from "@/components/comparison-cta";
+import { InlineConverter } from "@/components/inline-converter";
 import { getDictionary, type Locale } from "@/i18n";
 import { safeJsonLd } from "@/lib/json-ld";
 import { hreflangAlternates } from "@/lib/tool-links";
@@ -101,6 +102,16 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           <p><strong>中文处理：</strong>把 Noto Sans CJK SC 直接嵌入 PDF 渲染管线，无字体参数、无安装、无豆腐。</p>
           <p><strong>优点：</strong>无注册、无追踪 cookie、隐私友好的分析、UI 支持 10 种语言、AI 生成的 Markdown 转公司 Word 文档时 DOCX 输出强劲。<br /><strong>缺点：</strong>单文件 5MB 上限、不支持离线（需要浏览器）、不支持 LaTeX/MathJax 数学、没有批处理、PDF 样式不可定制。<br /><strong>最适合：</strong>需要现在就在浏览器把 Markdown 转成 PDF/DOCX/EPUB 的人，特别是含中文的文档。</p>
           <p><Link href="/zh-Hans" className="text-emerald-700 hover:text-emerald-800 hover:underline">markdown.free/zh-Hans</Link>（也可直接打开 <Link href="/zh-Hans/markdown-zhuanhuan-word" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown 转 Word</Link> 或 <Link href="/zh-Hans/readme-pdf-zhuanhuan" className="text-emerald-700 hover:text-emerald-800 hover:underline">README 转 PDF</Link>）</p>
+
+          {/* 页内迷你转换器 — exp comparison-cta-2026-07-16 iteration C（长图优先文案，转换按钮为完整导出行） */}
+          <InlineConverter
+            locale={locale}
+            dict={dict}
+            heading="⬇ 别只看我们怎么说 — 把你的 .md 拖到这里试试"
+            hint="几秒完成 ・ 不存储文件 ・ 无需注册 ・ 可转长图（PNG）直接分享"
+            readyHint="在下方选择导出格式"
+            target="image"
+          />
 
           <h2>Pandoc</h2>
           <p>命令行通用文档转换器，可在 30+ 种格式间互转。脚本批处理与流水线场景的事实标准。</p>

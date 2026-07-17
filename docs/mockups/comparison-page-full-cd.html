@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Full comparison page — Options C+D mockup (EN / 中文)</title>
+<style>
+  :root {
+    --em7: #047857; --em8: #065f46; --em50: #ecfdf5; --em200: #a7f3d0;
+    --s900: #0f172a; --s700: #334155; --s600: #475569; --s500: #64748b;
+    --s200: #e2e8f0; --s100: #f1f5f9; --s50: #f8fafc;
+    --amber: #b45309; --amber-bg: #fef3c7; --violet: #6d28d9; --violet-bg: #ede9fe;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+         background: var(--s100); color: var(--s900); line-height: 1.65; }
+
+  /* control bar */
+  .bar { position: sticky; top: 0; z-index: 50; background: var(--s900); color: #fff; padding: .6rem 1rem;
+         display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; font-size: .8rem; }
+  .bar .title { font-weight: 600; margin-right: auto; }
+  .bar button { border: 1px solid #475569; background: transparent; color: #cbd5e1; border-radius: 999px;
+                padding: .25rem .9rem; font-size: .8rem; cursor: pointer; }
+  .bar button.active { background: #fff; color: var(--s900); border-color: #fff; font-weight: 600; }
+  .legend { display: flex; gap: .4rem; }
+  .lg { font-size: .68rem; font-weight: 700; border-radius: 4px; padding: .1rem .4rem; }
+  .lg.ship { background: var(--em50); color: var(--em8); }
+  .lg.d { background: var(--amber-bg); color: var(--amber); }
+  .lg.c { background: var(--violet-bg); color: var(--violet); }
+
+  /* page canvas */
+  .canvas { max-width: 780px; margin: 1.5rem auto 4rem; background: #fff; border: 1px solid var(--s200);
+            border-radius: 14px; padding: 2.5rem 2.25rem 3rem; }
+  @media (max-width: 820px) { .canvas { margin: 0; border-radius: 0; padding: 1.5rem 1rem 2.5rem; } }
+
+  h1 { font-size: 1.75rem; line-height: 1.3; margin-bottom: .5rem; }
+  .pubmeta { font-size: .8rem; color: var(--s500); margin-bottom: 1rem; }
+  .lead { font-size: 1.05rem; color: var(--s600); margin-bottom: 1rem; }
+  p { margin-bottom: .9rem; font-size: .95rem; color: var(--s700); }
+  h2 { font-size: 1.3rem; margin: 2rem 0 .75rem; }
+  h3 { font-size: 1rem; margin: 1.2rem 0 .4rem; }
+  a.inline { color: var(--em7); text-decoration: none; }
+  a.inline:hover { text-decoration: underline; }
+  code { background: var(--s100); border-radius: 4px; padding: .05rem .3rem; font-size: .82em; }
+  ul.choose { padding-left: 1.2rem; margin-bottom: 1rem; }
+  ul.choose li { margin-bottom: .5rem; font-size: .95rem; color: var(--s700); }
+
+  /* annotation badges */
+  .annot { position: relative; }
+  .annot::before { content: attr(data-label); position: absolute; top: -0.7rem; left: .75rem; z-index: 2;
+                   font-size: .66rem; font-weight: 800; letter-spacing: .04em; border-radius: 5px; padding: .12rem .5rem; }
+  .annot.ship::before { background: var(--em8); color: #fff; }
+  .annot.optd::before { background: var(--amber); color: #fff; }
+  .annot.optc::before { background: var(--violet); color: #fff; }
+  .annot.optd { outline: 2px dashed var(--amber); outline-offset: 4px; border-radius: 10px; }
+  .annot.optc { outline: 2px dashed var(--violet); outline-offset: 4px; border-radius: 14px; }
+  .annot.ship { outline: 2px dashed var(--em200); outline-offset: 4px; border-radius: 12px; }
+
+  /* shipped CTA */
+  .cta { text-align: center; margin: 1.9rem 0; }
+  .btn { display: inline-flex; align-items: center; gap: .5rem; border-radius: 999px; background: var(--em7); color: #fff;
+         padding: .65rem 1.5rem; font-weight: 600; font-size: .92rem; text-decoration: none; box-shadow: 0 4px 10px rgb(4 120 87 / .25); cursor: pointer; border: none; }
+  .btn:hover { background: var(--em8); }
+  .sub { font-size: .78rem; color: var(--s500); margin-top: .5rem; }
+
+  /* comparison table */
+  .tblwrap { overflow-x: auto; margin: 1.2rem 0 1.5rem; }
+  table { border-collapse: collapse; width: 100%; min-width: 700px; font-size: .8rem; }
+  th, td { text-align: left; padding: .55rem .6rem; border-bottom: 1px solid var(--s200); color: var(--s700); vertical-align: top; }
+  th { background: var(--s50); font-weight: 600; }
+  tr.alt { background: #fafbfc; }
+  tr.ours { background: var(--em50); }
+  tr.ours td:first-child { font-weight: 700; }
+  .tinybtn { display: inline-block; border-radius: 999px; background: var(--em7); color: #fff; padding: .3rem .8rem;
+             font-weight: 700; font-size: .74rem; text-decoration: none; white-space: nowrap; }
+  .tinybtn:hover { background: var(--em8); }
+
+  /* inline converter */
+  .inlineconv { border: 2px dashed var(--em7); border-radius: 12px; background: var(--em50); padding: 1.9rem 1.25rem;
+                text-align: center; margin: 1.4rem 0 1.8rem; cursor: pointer; transition: background .15s; }
+  .inlineconv:hover { background: #d1fae5; }
+  .inlineconv .big { font-weight: 700; font-size: 1rem; color: var(--s900); }
+  .inlineconv .fmt { display: inline-block; margin: .65rem .18rem 0; font-size: .74rem; background: #fff;
+                     border: 1px solid var(--s200); border-radius: 6px; padding: .22rem .55rem; color: var(--s600); }
+  .inlineconv .state { margin-top: .8rem; font-size: .82rem; font-weight: 600; color: var(--em8); min-height: 1.2em; }
+
+  .faqi { margin-bottom: 1rem; }
+  .faqi h3 { margin: 0 0 .25rem; }
+  .faqi p { font-size: .88rem; }
+  .ellipsis { text-align: center; color: var(--s500); font-size: .85rem; padding: .6rem 0 .2rem; }
+  .footer-note { max-width: 780px; margin: 0 auto 3rem; background: var(--em50); border: 1px solid var(--em200);
+                 border-radius: 12px; padding: 1rem 1.25rem; font-size: .88rem; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <span class="title">Mockup: full comparison page with C + D integrated</span>
+  <span class="legend"><span class="lg ship">SHIPPED (baseline)</span><span class="lg d">OPTION D</span><span class="lg c">OPTION C</span></span>
+  <button id="btn-en" class="active" onclick="setLang('en')">English</button>
+  <button id="btn-zh" onclick="setLang('zh')">中文</button>
+</div>
+
+<!-- ============================== ENGLISH ============================== -->
+<div class="canvas" id="page-en">
+  <h1>Best Markdown to PDF Converter (2026 Comparison)</h1>
+  <p class="pubmeta">Published 2026-05-09 · Reviewed for accuracy at next refresh (2026-11-09) · By the Markdown Free team</p>
+  <p class="lead">Picking a Markdown to PDF tool seems trivial — until you actually need one. Then you're choosing between a 1.5GB LaTeX install (Pandoc), a paid desktop app (Typora), a browser editor with ad banners (Dillinger), or a script you have to wire up yourself (md-to-pdf). Most work fine for English. They start failing the moment you add Korean, Japanese, Chinese, or Devanagari — that's where "best" actually splits.</p>
+  <p><strong>This guide compares 8 popular tools for 2026.</strong> The short answer: <a class="inline" href="#">Markdown Free</a> wins for browser-only no-setup use (especially with non-Latin scripts), Pandoc wins for scripted batch processing, Typora wins for offline polish.</p>
+
+  <div class="cta annot ship" data-label="SHIPPED — TOP CTA">
+    <a class="btn" href="#">Try Markdown Free — convert your .md now →</a>
+    <p class="sub">Free · No signup · Files never stored</p>
+  </div>
+
+  <h2>Quick comparison</h2>
+  <div class="tblwrap annot optd" data-label="OPTION D — IN-TABLE CTA">
+    <table>
+      <thead><tr><th>Tool</th><th>Best for</th><th>Price</th><th>CJK / Devanagari</th><th>Outputs</th><th>Install</th><th></th></tr></thead>
+      <tbody>
+        <tr class="ours"><td>Markdown Free</td><td>Browser, non-Latin scripts</td><td>Free</td><td>Yes — embedded Noto fonts, no setup</td><td>PDF, DOCX, PNG, EPUB, HTML, TXT</td><td>None</td><td><a class="tinybtn" href="#">Try free →</a></td></tr>
+        <tr class="alt"><td>Pandoc</td><td>Scripted batch conversion</td><td>Free</td><td>With config: <code>xelatex + mainfont</code></td><td>30+ formats</td><td>LaTeX (~1.5GB)</td><td></td></tr>
+        <tr><td>Dillinger</td><td>Quick browser editing (Latin)</td><td>Free, ads</td><td>System fonts only</td><td>PDF, HTML, MD</td><td>None</td><td></td></tr>
+        <tr class="alt"><td>StackEdit</td><td>Browser + Drive sync</td><td>Free</td><td>System fonts only</td><td>PDF, HTML, MD</td><td>None</td><td></td></tr>
+        <tr><td>Markdown PDF (VS Code)</td><td>VS Code workflows</td><td>Free</td><td>System fonts; CSS config</td><td>PDF, HTML, PNG, JPEG</td><td>VS Code + Chromium</td><td></td></tr>
+        <tr class="alt"><td>md-to-pdf (npm)</td><td>Custom build pipelines</td><td>Free</td><td>Via CSS + Puppeteer</td><td>PDF</td><td>Node.js + Chromium</td><td></td></tr>
+        <tr><td>Typora</td><td>Polished offline editor</td><td>Paid one-time</td><td>System fonts; theme-dependent</td><td>PDF, HTML, DOCX</td><td>Desktop app</td><td></td></tr>
+        <tr class="alt"><td>Online2PDF</td><td>Generic file conversion</td><td>Free, ads</td><td>Limited; not markdown-native</td><td>PDF</td><td>None</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Markdown Free</h2>
+  <p>A browser-based Markdown converter that runs entirely client-side for HTML, TXT, and DOCX exports; PDF generation runs on serverless infrastructure with files processed in memory and immediately discarded. Built on the principle that adding signup, ads, or trackers makes a 30-second task miserable.</p>
+  <p><strong>How it handles non-Latin scripts:</strong> embeds Noto Sans CJK JP/KR/SC/TC and Noto Sans Devanagari directly in the PDF rendering pipeline. No font flag, no install, no tofu.</p>
+  <p><strong>Strengths:</strong> no signup, no tracking cookies, privacy-friendly analytics, 10 supported UI languages, strong DOCX output for converting AI-generated markdown into corporate Word documents.<br>
+     <strong>Weaknesses:</strong> input file size cap, no offline mode, no LaTeX/MathJax math rendering, no batch processing, no customizable PDF styling.<br>
+     <strong>Best for:</strong> anyone who needs to convert Markdown to PDF, DOCX, or EPUB right now without installing anything, especially for non-Latin scripts.</p>
+
+  <div class="inlineconv annot optc" data-label="OPTION C — INLINE MINI-CONVERTER" onclick="fakeConvert(this,'en')">
+    <div class="big">⬇ Don't take our word for it — drop your .md here</div>
+    <span class="fmt">→ PDF</span><span class="fmt">→ Word</span><span class="fmt">→ PNG</span><span class="fmt">→ EPUB</span><span class="fmt">→ HTML</span>
+    <div class="state">Converts in seconds · nothing stored · no signup <em>(click to preview the interaction)</em></div>
+  </div>
+
+  <h2>Pandoc</h2>
+  <p>A command-line universal document converter — the gold standard for batch and pipeline use, converting between 30+ formats. PDF output requires a LaTeX install (~1.5GB via TeX Live on macOS), and the default engine fails on CJK: you must pass <code>--pdf-engine=xelatex -V mainfont="Noto Sans CJK SC"</code> with the fonts installed. <strong>Best for:</strong> engineers scripting batch conversion, academic publishing, CLI-comfortable writers.</p>
+
+  <h2>Dillinger</h2>
+  <p>A browser Markdown editor with live preview; the hosted version is ad-supported and can sync to Dropbox/Drive/GitHub. PDF export inherits system fonts, so CJK that looks fine in preview can still come out as tofu. <strong>Best for:</strong> one-off edits and exports of Latin-script documents.</p>
+
+  <h2>StackEdit</h2>
+  <p>Browser editor with cloud sync and MathJax math. PDF goes through the browser print pipeline with limited styling control; fonts depend on the system. <strong>Best for:</strong> writers who need cloud sync and math support.</p>
+
+  <h2>Markdown PDF (VS Code extension)</h2>
+  <p>Exports the current VS Code file to PDF/HTML/PNG/JPEG; first run downloads Chromium (~170MB). Uses Chromium's font stack — fine when CJK fonts are installed, configurable via CSS <code>@font-face</code>. <strong>Best for:</strong> developers already living in VS Code.</p>
+
+  <h2>md-to-pdf (npm)</h2>
+  <p>A Node.js CLI/library that renders Markdown to PDF through Puppeteer — built for CI/CD pipelines, themeable via CSS. Needs Node + Chromium. <strong>Best for:</strong> engineering teams generating PDFs from docs in CI.</p>
+
+  <h2>Typora</h2>
+  <p>A polished desktop WYSIWYG editor (one-time purchase). Beautiful output, no ads or telemetry, desktop only. CJK handling depends on the theme's font stack. <strong>Best for:</strong> solo writers who want offline polish and don't mind paying.</p>
+
+  <h2>Online2PDF</h2>
+  <p>A generic web file converter that handles Markdown incidentally. Files are uploaded to a server (privacy risk for confidential docs), rendering of tables/task lists is inconsistent. <strong>Best for:</strong> mixed-format batch conversion where Markdown is a side case.</p>
+
+  <h2>How to choose</h2>
+  <ul class="choose">
+    <li><strong>Convert a file to PDF/DOCX/EPUB right now, in the browser, no signup — especially CJK/Devanagari</strong> → <a class="inline" href="#">Markdown Free</a></li>
+    <li><strong>CLI-comfortable, LaTeX installed, scripted pipeline</strong> → Pandoc</li>
+    <li><strong>One-keystroke export inside VS Code</strong> → Markdown PDF (VS Code extension)</li>
+    <li><strong>CI/CD pipeline producing PDFs</strong> → md-to-pdf or Pandoc</li>
+    <li><strong>Polished offline WYSIWYG, paid is fine</strong> → Typora</li>
+    <li><strong>Cloud-synced Markdown with math</strong> → StackEdit</li>
+    <li><strong>One-off Latin-script edits</strong> → Dillinger or StackEdit</li>
+  </ul>
+
+  <div class="cta annot ship" data-label="SHIPPED — BOTTOM CTA">
+    <a class="btn" href="#">Convert your Markdown now — free, in the browser →</a>
+    <p class="sub">PDF · Word · Image · EPUB — no signup</p>
+  </div>
+
+  <h2>Frequently asked questions</h2>
+  <div class="faqi"><h3>Why does my Chinese/Japanese text become □□□ boxes in the PDF?</h3><p>Most pipelines fall back to Latin-only fonts. Fix: embed a CJK-capable font in the pipeline (Markdown Free does automatically), or configure it explicitly (Pandoc: <code>xelatex + mainfont</code>).</p></div>
+  <div class="faqi"><h3>Is there a free Markdown to PDF converter without ads?</h3><p>Yes — Markdown Free (no ads, tracking, or signup), Pandoc (CLI), and the VS Code Markdown PDF extension are all free and ad-free.</p></div>
+  <p class="ellipsis">… 5 more FAQs continue as on the live page …</p>
+
+  <h2>Disclosure</h2>
+  <p>This article is published by the team behind <a class="inline" href="#">Markdown Free</a>, one of the tools compared above. We tried to be specific about cases where other tools win. Competitor links use <code>rel="nofollow"</code>.</p>
+</div>
+
+<!-- ============================== CHINESE ============================== -->
+<div class="canvas" id="page-zh" hidden lang="zh-Hans">
+  <h1>Markdown 转 PDF 工具对比 2026</h1>
+  <p class="pubmeta">发布于 2026-05-09 ・ 下次审阅 2026-11-09 ・ Markdown Free 团队</p>
+  <p class="lead">挑一个 Markdown 转 PDF 的工具，听起来像小事——直到你真的要用。然后你得在 1.5GB 的 LaTeX 安装（Pandoc）、付费桌面应用（Typora）、带广告的浏览器编辑器（Dillinger）和需要自己写脚本的方案（md-to-pdf）之间做选择。英文文档大多都能跑，但加入中文之后就开始翻车。"最好"的分水岭，正是中文是否会变成豆腐。</p>
+  <p><strong>本文对比 2026 年的 8 款主流工具。</strong>结论：浏览器中处理中文不出问题，选 <a class="inline" href="#">Markdown Free</a>；脚本批量转换，选 Pandoc；不介意付费、要离线打磨写作环境，选 Typora。</p>
+
+  <div class="cta annot ship" data-label="已上线 — 顶部 CTA（长图优先）">
+    <a class="btn" href="#">把 Markdown 转成长图（PNG）— 免费、无需注册 →</a>
+    <p class="sub">也支持 PDF、Word、EPUB ・ 微信里长图可直接分享</p>
+  </div>
+
+  <h2>一览对比</h2>
+  <div class="tblwrap annot optd" data-label="OPTION D — 表内 CTA">
+    <table>
+      <thead><tr><th>工具</th><th>最适合</th><th>价格</th><th>中文支持</th><th>输出格式</th><th>安装</th><th></th></tr></thead>
+      <tbody>
+        <tr class="ours"><td>Markdown Free</td><td>浏览器，中文不乱码</td><td>免费</td><td>完全支持・嵌入 Noto 字体・无需配置</td><td>PDF, DOCX, PNG, EPUB, HTML, TXT</td><td>无</td><td><a class="tinybtn" href="#">转长图 →</a></td></tr>
+        <tr class="alt"><td>Pandoc</td><td>脚本批处理</td><td>免费</td><td>需配置：<code>xelatex + mainfont</code></td><td>30+ 格式</td><td>LaTeX（约 1.5GB）</td><td></td></tr>
+        <tr><td>Dillinger</td><td>英文快速编辑</td><td>免费、有广告</td><td>依赖系统字体</td><td>PDF, HTML, MD</td><td>无</td><td></td></tr>
+        <tr class="alt"><td>StackEdit</td><td>浏览器+网盘同步</td><td>免费</td><td>依赖系统字体</td><td>PDF, HTML, MD</td><td>无</td><td></td></tr>
+        <tr><td>Markdown PDF (VS Code)</td><td>VS Code 工作流</td><td>免费</td><td>系统字体，可用 CSS 配置</td><td>PDF, HTML, PNG, JPEG</td><td>VS Code + Chromium</td><td></td></tr>
+        <tr class="alt"><td>md-to-pdf (npm)</td><td>构建流水线</td><td>免费</td><td>通过 CSS 与 Puppeteer 配置</td><td>PDF</td><td>Node.js + Chromium</td><td></td></tr>
+        <tr><td>Typora</td><td>离线打磨写作</td><td>付费（一次性）</td><td>系统字体，主题相关</td><td>PDF, HTML, DOCX</td><td>桌面应用</td><td></td></tr>
+        <tr class="alt"><td>Online2PDF</td><td>通用文件转换</td><td>免费、有广告</td><td>有限，非 Markdown 原生</td><td>PDF</td><td>无</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Markdown Free</h2>
+  <p>HTML/TXT/DOCX 输出在浏览器端完成，PDF 在 serverless 内存中生成后立刻丢弃。设计原则："30 秒能完成的事，不要塞注册和广告。"</p>
+  <p><strong>中文处理：</strong>把 Noto Sans CJK SC 直接嵌入 PDF 渲染管线，无字体参数、无安装、无豆腐。</p>
+  <p><strong>优点：</strong>无注册、无追踪 cookie、隐私友好的分析、UI 支持 10 种语言、AI 生成的 Markdown 转公司 Word 文档时 DOCX 输出强劲。<br><strong>缺点：</strong>单文件大小有上限、不支持离线、不支持 LaTeX/MathJax 数学、没有批处理、PDF 样式不可定制。<br><strong>最适合：</strong>需要现在就在浏览器把 Markdown 转成 PDF/DOCX/EPUB 的人，特别是含中文的文档。</p>
+
+  <div class="inlineconv annot optc" data-label="OPTION C — 页内迷你转换器" onclick="fakeConvert(this,'zh')">
+    <div class="big">⬇ 别只看我们怎么说 — 把你的 .md 拖到这里试试</div>
+    <span class="fmt">→ 长图 PNG</span><span class="fmt">→ PDF</span><span class="fmt">→ Word</span><span class="fmt">→ EPUB</span><span class="fmt">→ HTML</span>
+    <div class="state">几秒完成 ・ 不存储文件 ・ 无需注册 <em>（点击预览交互）</em></div>
+  </div>
+
+  <h2>Pandoc</h2>
+  <p>命令行通用文档转换器，可在 30+ 种格式间互转，脚本批处理的事实标准。PDF 输出需安装 LaTeX（约 1.5GB），且默认引擎不支持中文——必须 <code>--pdf-engine=xelatex -V mainfont="Noto Sans CJK SC"</code> 并安装对应字体。<strong>最适合：</strong>用脚本批量转换的工程师、学术出版。</p>
+
+  <h2>Dillinger</h2>
+  <p>带实时预览的浏览器编辑器，托管版有广告，可连 Dropbox/Google Drive/GitHub。PDF 使用系统字体，预览正常、导出变豆腐的情况并不少见。<strong>最适合：</strong>纯英文文档的临时编辑。</p>
+
+  <h2>StackEdit</h2>
+  <p>支持云盘同步和 MathJax 数学公式的浏览器编辑器。PDF 走浏览器打印通道，样式自由度低，中文依赖系统字体。<strong>最适合：</strong>需要云同步与数学公式的写作者。</p>
+
+  <h2>Markdown PDF（VS Code 扩展）</h2>
+  <p>把当前 Markdown 文件导出为 PDF/HTML/PNG/JPEG，首次使用下载 Chromium（约 170MB）。系统有中文字体即可正常显示，可用 CSS 嵌字体。<strong>最适合：</strong>本来就在 VS Code 里工作的开发者。</p>
+
+  <h2>md-to-pdf（npm）</h2>
+  <p>用 Puppeteer 把 Markdown 转 PDF 的 Node.js CLI，专为构建流水线设计，可在 CSS 中引入 Noto 字体稳定渲染中文。<strong>最适合：</strong>CI/CD 中从文档生成 PDF 的工程团队。</p>
+
+  <h2>Typora</h2>
+  <p>桌面 WYSIWYG 编辑器，一次性买断。输出精致、无广告无遥测，仅桌面。中文表现取决于主题字体栈。<strong>最适合：</strong>独立写作、不介意付费的人。</p>
+
+  <h2>Online2PDF</h2>
+  <p>通用网页转换器，Markdown 只是顺带支持。文件上传到服务器（机密文档有风险），表格/任务列表渲染不稳定。<strong>最适合：</strong>混合格式批量转换的一次性场景。</p>
+
+  <h2>怎么选（按场景）</h2>
+  <ul class="choose">
+    <li><strong>现在就要在浏览器里转 PDF/DOCX/EPUB，免注册，特别是含中文</strong> → <a class="inline" href="#">Markdown Free</a></li>
+    <li><strong>命令行熟手，要脚本化批量</strong> → Pandoc</li>
+    <li><strong>VS Code 工作流，一键导出</strong> → Markdown PDF（VS Code 扩展）</li>
+    <li><strong>CI/CD 中从文档生成 PDF</strong> → md-to-pdf 或 Pandoc</li>
+    <li><strong>离线打磨写作环境，付费可接受</strong> → Typora</li>
+    <li><strong>需要云同步与数学公式</strong> → StackEdit</li>
+    <li><strong>纯英文文档的一次性编辑</strong> → Dillinger 或 StackEdit</li>
+  </ul>
+
+  <div class="cta annot ship" data-label="已上线 — 底部 CTA">
+    <a class="btn" href="#">打开 Markdown Free →</a>
+    <p class="sub">无需安装、无需注册、无中文乱码</p>
+  </div>
+
+  <h2>常见问题</h2>
+  <div class="faqi"><h3>为什么我的中文在 PDF 里变成 □□□（豆腐方块）？</h3><p>大多数流水线会回退到纯西文字体。解决办法：在渲染管线中嵌入中文字体（Markdown Free 自动处理），或给工具显式指定字体（Pandoc：<code>xelatex + mainfont</code>）。</p></div>
+  <div class="faqi"><h3>有没有免费、无广告的 Markdown 转 PDF 工具？</h3><p>有。Markdown Free（无广告、无追踪、无注册）、Pandoc（命令行）、VS Code 的 Markdown PDF 扩展都免费且无广告。</p></div>
+  <p class="ellipsis">… 其余 5 条常见问题与线上页面一致 …</p>
+
+  <h2>利益声明</h2>
+  <p>本文由对比表中出现的 <a class="inline" href="#">Markdown Free</a> 团队撰写。我们尽量把其他工具更适合的场景写明。外部链接均加 <code>rel="nofollow"</code>。</p>
+</div>
+
+<div class="footer-note" id="note-en">
+  <strong>Reading this mockup:</strong> green-badged blocks are already live (baseline). <strong>Option D</strong> adds one button in the
+  most-read element (XS effort). <strong>Option C</strong> adds a working drop-zone at the exact moment the reader finishes our review
+  (M effort — wires into the existing upload pipeline; on the real page it converts in place or hands the file to the converter).
+  Both are additive and measurable separately via <code>comparison_cta_click</code>. They also combine well: D catches table-scanners, C catches readers.
+</div>
+<div class="footer-note" id="note-zh" hidden>
+  <strong>如何看这个稿：</strong>绿色标注的块已经上线（作为基线）。<strong>Option D</strong> 在读者最常看的对比表里加一个按钮（工作量极小）。
+  <strong>Option C</strong> 在读者刚读完我们的评测时给出可用的拖放转换区（工作量中等——复用现有上传管线）。中文版按钮均以"长图"为先
+  （微信 webview 里下载不便，长图可直接分享）。两个方案都是纯增量、可分别用 <code>comparison_cta_click</code> 度量，也可以同时上：D 抓扫表的人，C 抓读正文的人。
+</div>
+
+<script>
+function setLang(l) {
+  document.getElementById('page-en').hidden = l !== 'en';
+  document.getElementById('page-zh').hidden = l !== 'zh';
+  document.getElementById('note-en').hidden = l !== 'en';
+  document.getElementById('note-zh').hidden = l !== 'zh';
+  document.getElementById('btn-en').classList.toggle('active', l === 'en');
+  document.getElementById('btn-zh').classList.toggle('active', l === 'zh');
+  window.scrollTo(0, 0);
+}
+function fakeConvert(el, lang) {
+  const s = el.querySelector('.state');
+  const steps = lang === 'zh'
+    ? ['⏳ 正在转换 sample.md …', '✅ 已完成 — sample.png 已下载（0.8 秒）']
+    : ['⏳ Converting sample.md …', '✅ Done — sample.pdf downloaded (0.8s)'];
+  s.textContent = steps[0];
+  setTimeout(() => { s.textContent = steps[1]; }, 800);
+  setTimeout(() => { s.innerHTML = lang === 'zh'
+    ? '几秒完成 ・ 不存储文件 ・ 无需注册 <em>（点击预览交互）</em>'
+    : 'Converts in seconds · nothing stored · no signup <em>(click to preview the interaction)</em>'; }, 3500);
+}
+</script>
+</body>
+</html>
