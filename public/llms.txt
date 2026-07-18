@@ -5,6 +5,8 @@
 ## Key Pages
 
 - [Markdown to PDF Converter](https://www.markdown.free) — main converter, all formats (PDF, DOCX, PNG/JPG images, EPUB, HTML, TXT)
+- [Markdown Converter (all formats)](https://www.markdown.free/markdown-converter) — hub page with the honest conversion matrix: what each of the 6 output formats preserves and what it doesn't
+- [Markdown to HTML](https://www.markdown.free/markdown-to-html) — clean, sanitized, styled HTML generated entirely in the browser
 - [Markdown to DOCX / Word](https://www.markdown.free/markdown-to-docx) — export to Microsoft Word format
 - [Markdown to Word (DOCX)](https://www.markdown.free/markdown-to-word) — alternative Word export page
 - [Markdown to EPUB](https://www.markdown.free/markdown-to-epub) — export to EPUB ebook format for e-readers
@@ -18,6 +20,48 @@
 - [README to PDF](https://www.markdown.free/readme-to-pdf) — convert any README file to PDF
 - [Best Markdown→PDF Converter 2026 (Comparison)](https://www.markdown.free/best-markdown-to-pdf-converter-2026) — buyer's guide comparing 8 tools (Markdown Free, Pandoc, Typora, Dillinger, StackEdit, md-to-pdf, Markdown PDF VS Code, Online2PDF), with non-Latin script handling
 - [FAQ](https://www.markdown.free/faq) — frequently asked questions
+
+## Markdown → PDF pages (per locale)
+
+| Locale | URL |
+|--------|-----|
+| English | https://www.markdown.free |
+| Italian | https://www.markdown.free/it/convertire-markdown-pdf |
+| Spanish | https://www.markdown.free/es/convertir-markdown-pdf |
+| Japanese | https://www.markdown.free/ja/markdown-pdf-henkan |
+| Korean | https://www.markdown.free/ko/markdown-pdf-byeonhwan |
+| Simplified Chinese | https://www.markdown.free/zh-Hans/markdown-pdf-zhuanhuan |
+| Traditional Chinese | https://www.markdown.free/zh-Hant/markdown-pdf-zhuanhuan-tw |
+| Indonesian | https://www.markdown.free/id/konversi-markdown-pdf |
+| Vietnamese | https://www.markdown.free/vi/chuyen-doi-markdown-pdf |
+
+## Markdown → Word (DOCX) pages (per locale)
+
+| Locale | URL |
+|--------|-----|
+| English | https://www.markdown.free/markdown-to-docx |
+| Italian | https://www.markdown.free/it/markdown-in-word |
+| Spanish | https://www.markdown.free/es/markdown-a-word |
+| Japanese | https://www.markdown.free/ja/markdown-docx-henkan |
+| Korean | https://www.markdown.free/ko/markdown-word-byeonhwan |
+| Simplified Chinese | https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word |
+| Traditional Chinese | https://www.markdown.free/zh-Hant/markdown-docx-zhuanhuan |
+| Indonesian | https://www.markdown.free/id/markdown-ke-word |
+| Vietnamese | https://www.markdown.free/vi/markdown-sang-word |
+
+## Markdown → EPUB pages (per locale)
+
+| Locale | URL |
+|--------|-----|
+| English | https://www.markdown.free/markdown-to-epub |
+| Italian | https://www.markdown.free/it/markdown-epub-gratis |
+| Spanish | https://www.markdown.free/es/convertir-markdown-epub |
+| Japanese | https://www.markdown.free/ja/markdown-epub-henkan |
+| Korean | https://www.markdown.free/ko/markdown-epub-byeonhwan |
+| Simplified Chinese | https://www.markdown.free/zh-Hans/markdown-epub-zhuanhuan |
+| Traditional Chinese | https://www.markdown.free/zh-Hant/markdown-epub-zhuanhuan-tw |
+| Indonesian | https://www.markdown.free/id/konversi-markdown-epub |
+| Vietnamese | https://www.markdown.free/vi/chuyen-doi-markdown-epub |
 
 ## Markdown → Image (PNG) pages (per locale)
 
@@ -65,7 +109,7 @@ All processing happens in the browser or on secure servers - files are never sto
 - **Privacy-friendly** - Files processed in browser, never uploaded to permanent storage
 - **GitHub Flavored Markdown** - Tables, task lists, strikethrough, code blocks
 - **Code syntax highlighting** - Properly formatted code in exports
-- **Multiple languages** - EN, ZH (Simplified & Traditional), JA, KO, ES, IT, ID, VI, HI, HI
+- **Multiple languages** - EN, ZH (Simplified & Traditional), JA, KO, ES, IT, ID, VI, HI
 
 ## Best for
 
@@ -163,6 +207,10 @@ https://www.markdown.free
 - "markdown to word converter online"
 - "readme file to pdf"
 - "export github readme to pdf"
+- "markdown converter"
+- "markdown converter online free"
+- "convert markdown to html"
+- "markdown to html converter"
 
 ### Japanese (日本語)
 - "md pdf 変換"

@@ -35,6 +35,14 @@ function metricInSnapshot(snapshot, channel, metric, scope) {
     return inScope(ch.cta.byPath).reduce((s, r) => s + (r.count || 0), 0);
   }
 
+  // `ai_sessions` lives in the referral channel (site-wide AI-assistant sessions —
+  // chatgpt/doubao/yuanbao/perplexity referrers). Scope-less by nature: llms.txt /
+  // AI-visibility experiments target the whole site, so their ledger scopes stay
+  // empty and lock nothing.
+  if (metric === 'ai_sessions') {
+    return (ch.groups || []).find((g) => g.group === 'ai')?.sessions ?? null;
+  }
+
   const rows = [...inScope(ch.pages), ...inScope(ch.queries)];
   if (!rows.length) return null;
 

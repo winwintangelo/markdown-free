@@ -149,6 +149,23 @@ export function localeOfPath(p) {
 }
 export const isCJKLocale = (loc) => ['ja', 'ko', 'zh-Hans', 'zh-Hant', 'zh'].includes(loc);
 
+// Script-based CJK language of a raw key (query text, not a path). localeOfPath can
+// only read path prefixes, so a Chinese-language QUERY like "markdown转word" resolves
+// to locale 'en' — this detects the script directly. Han-only text is ambiguous
+// between zh and ja kanji; we call it 'zh' (kanji-only ja queries are rare).
+export function cjkLangOf(s) {
+  const t = String(s || '');
+  if (/[぀-ヿ]/.test(t)) return 'ja';   // hiragana / katakana
+  if (/[가-힯]/.test(t)) return 'ko';   // hangul
+  if (/[㐀-鿿]/.test(t)) return 'zh';   // han
+  return null;
+}
+
+// CJK-audience countries (for the audience-based moat dimension — a CN user
+// converting on an EN page is still a CJK-audience conversion).
+const _CJK_COUNTRIES = new Set(['CN', 'TW', 'HK', 'MO', 'JP', 'KR']);
+export const isCJKCountry = (c) => _CJK_COUNTRIES.has(String(c || '').toUpperCase());
+
 // Canonical key for cross-referencing a signal/candidate key against experiment &
 // decline scopes. URLs → pathname (trailing slash trimmed, so full-URL and path forms
 // match); everything else (query strings) → trimmed lowercase. Used by the experiment

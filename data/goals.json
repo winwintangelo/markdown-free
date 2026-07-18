@@ -1,7 +1,7 @@
 {
   "version": 1,
   "period": "2026-H2",
-  "note": "Strategic goals steer the Opportunity Engine (growth-impl.md §9). Each goal binds to a metric the loop tracks, plus optional topics/locales. Human-set quarterly — EDIT THESE to your real objectives; the ones below are starters derived from the 2026-07 data (AI referrals real, CN market, conversion).",
+  "note": "Strategic goals steer the Opportunity Engine (growth-impl.md §9). Each goal binds to a metric the loop tracks, plus optional topics/locales/countries (countries match audience-country signals like country:CN). Human-set quarterly. 2026-07-18: cn-market broadened to cjk-market per user direction — the H2 objective is attracting more CJK users (CN/TW/HK/JP/KR), measured by CJK-AUDIENCE conversions (events.byAudience), not page-locale ones.",
   "goals": [
     {
       "id": "ai-referrals",
@@ -12,12 +12,13 @@
       "locales": []
     },
     {
-      "id": "cn-market",
-      "title": "Expand the Chinese market",
-      "metric": "bing/baidu CN impressions",
+      "id": "cjk-market",
+      "title": "Attract more CJK users (CN/TW/HK/JP/KR)",
+      "metric": "events.byAudience cjk conversions",
       "target": "+30%",
       "topics": ["word", "pdf", "epub", "image"],
-      "locales": ["zh-Hans", "zh-Hant"]
+      "locales": ["zh-Hans", "zh-Hant", "ja", "ko"],
+      "countries": ["CN", "TW", "HK", "MO", "JP", "KR"]
     },
     {
       "id": "conversion",

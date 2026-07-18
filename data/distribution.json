@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "note": "Human-in-the-loop distribution queue — the loop proposes/tracks, a HUMAN posts. Edit status/postedUrl/notes freely; refresh() preserves them.",
+  "items": [
+    {
+      "id": "wechat-zh-changtu",
+      "market": "CN",
+      "channel": "WeChat 公众号 / 小红书 / 知乎专栏",
+      "title": "Markdown 一键转长图 — 公众号/小红书排版 workflow post",
+      "asset": "docs/posts/wechat-zh-markdown-changtu.md",
+      "targets": [
+        "/zh-Hans/markdown-zhuan-tupian",
+        "/zh-Hans/markdown-zhuanhuan-word",
+        "/zh-Hans/markdown-pdf-zhuanhuan"
+      ],
+      "angle": "CN is the #1 audience and 100% referrer-less (WeChat webviews / AI chats) — 长图 shares natively where downloads break. Add real screenshots before posting.",
+      "status": "drafted",
+      "added": "2026-07-18",
+      "updated": "2026-07-18",
+      "postedUrl": null,
+      "notes": null,
+      "lockHold": {
+        "until": "2026-08-06",
+        "held": [
+          {
+            "target": "/zh-Hans/markdown-zhuanhuan-word",
+            "expId": "cjk-zhuanhuan-word-epub",
+            "measureOn": "2026-08-06"
+          }
+        ]
+      }
+    },
+    {
+      "id": "qiita-ja-henkan",
+      "market": "JP",
+      "channel": "Qiita",
+      "title": "Markdown を PDF/Word/画像に変換 — 文字化けなし how-to",
+      "asset": "docs/posts/qiita-ja-markdown-henkan.md",
+      "targets": [
+        "/ja/markdown-pdf-henkan",
+        "/ja/markdown-word-henkan",
+        "/ja/markdown-gazou-henkan"
+      ],
+      "angle": "JP is the top Google-channel rescue market; Qiita ranks fast and AI assistants cite it. Add screenshots before posting.",
+      "status": "drafted",
+      "added": "2026-07-18",
+      "updated": "2026-07-18",
+      "postedUrl": null,
+      "notes": null,
+      "lockHold": {
+        "until": "2026-08-08",
+        "held": [
+          {
+            "target": "/ja/markdown-word-henkan",
+            "expId": "word-cluster-sweep",
+            "measureOn": "2026-08-08"
+          }
+        ]
+      }
+    },
+    {
+      "id": "velog-ko-byeonhwan",
+      "market": "KR",
+      "channel": "velog / Tistory / OKKY",
+      "title": "마크다운 PDF·Word·이미지 변환 — 한글 안 깨짐 how-to",
+      "asset": "docs/posts/velog-ko-markdown-byeonhwan.md",
+      "targets": [
+        "/ko/markdown-pdf-byeonhwan",
+        "/ko/markdown-word-byeonhwan",
+        "/ko/markdown-imiji-byeonhwan"
+      ],
+      "angle": "한글 깨짐 (tofu) pain + image hook. Add screenshots before posting.",
+      "status": "drafted",
+      "added": "2026-07-18",
+      "updated": "2026-07-18",
+      "postedUrl": null,
+      "notes": null,
+      "lockHold": {
+        "until": "2026-08-08",
+        "held": [
+          {
+            "target": "/ko/markdown-word-byeonhwan",
+            "expId": "word-cluster-sweep",
+            "measureOn": "2026-08-08"
+          }
+        ]
+      }
+    },
+    {
+      "id": "zhihu-answers-zh",
+      "market": "CN",
+      "channel": "知乎 answers",
+      "title": "Answer live 知乎 questions on markdown转word/转pdf/转长图",
+      "asset": null,
+      "targets": [
+        "/zh-Hans/markdown-zhuan-tupian",
+        "/zh-Hans"
+      ],
+      "angle": "Genuinely helpful step-by-step answers with ONE link — Chinese AI assistants train on 知乎, so answers compound into AI-chat visibility (doubao/yuanbao already refer users).",
+      "status": "proposed",
+      "added": "2026-07-18",
+      "updated": "2026-07-18",
+      "postedUrl": null,
+      "notes": null,
+      "lockHold": {
+        "until": "2026-08-08",
+        "held": [
+          {
+            "target": "/zh-Hans",
+            "expId": "server-side-html-lang",
+            "measureOn": "2026-08-08"
+          }
+        ]
+      }
+    }
+  ]
+}

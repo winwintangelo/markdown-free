@@ -5,11 +5,19 @@
 //
 //   node scripts/growth/discover.mjs   (or: npm run growth:discover)
 
-import { SnapshotStore, topicOf, localeOfPath, isMain } from './lib.mjs';
+import { SnapshotStore, topicOf, localeOfPath, pathOf, isMain } from './lib.mjs';
 import { SignalWarehouse } from './signals.mjs';
 import { T } from './analyze.mjs';
 
-const keyScope = (key) => (/^https?:\/\//.test(key) ? { pages: [key] } : { queries: [key] });
+const isPageKey = (key) => /^https?:\/\//.test(key) || String(key).startsWith('/');
+const keyScope = (key) => (isPageKey(key) ? { pages: [key] } : { queries: [key] });
+
+// Floors for the audience channels (vercel pageviews / events country conversions).
+// Deliberately lower than the search IMPRESSIONS_FLOOR: these channels are the ONLY
+// visibility into the referrer-less CJK/CN audience (GSC misses China entirely, Bing
+// is partial), so a lower bar is how the loop stops optimizing where the light is.
+const AUDIENCE_PV_FLOOR = 10;
+const COUNTRY_CONV_FLOOR = 10;
 
 export function runDiscover() {
   const snap = SnapshotStore.latest();
@@ -48,8 +56,50 @@ export function runDiscover() {
     }
   }
 
+  // Audience signals from the vercel channel — the ONLY complete view of the
+  // referrer-less traffic (AI chats + WeChat/app webviews ≈ 2/3 of the site; the CN
+  // audience is invisible to GSC and partial on Bing). A page already seen by a search
+  // console gains vercel as a corroborating source (joined via pathOf, since search
+  // channels key by full URL and vercel by bare path); a vercel-only page becomes its
+  // own audience_page signal.
+  const byPath = new Map(); // pathOf(page key) → obs, for cross-channel joining
+  for (const o of obs.values()) if (isPageKey(o.key)) byPath.set(pathOf(o.key), o);
+  for (const r of snap.channels.vercel?.pages || []) {
+    if ((r.pageviews || 0) < AUDIENCE_PV_FLOOR) continue;
+    const source = {
+      channel: 'vercel', kind: 'audience_page', metric: 'pageviews',
+      strength: r.pageviews, weight: 0.6,
+      detail: `${r.pageviews} pv · ${r.visitors ?? '?'} visitors (incl. referrer-less)`,
+    };
+    const existing = byPath.get(pathOf(r.key));
+    if (existing) {
+      existing.sources.push(source);
+      existing.strength = Math.max(existing.strength, source.strength);
+    } else {
+      add(r.key, source);
+      byPath.set(pathOf(r.key), obs.get(r.key));
+    }
+  }
+
+  // Converting countries from the events channel (site-wide — no per-page country dim
+  // on the Vercel events API). CN converting 145× from 22 visitors is a market signal
+  // no search console can surface; keyed `country:CN` with the country in target.scope
+  // so goal alignment (cjk-market countries) can match it.
+  for (const r of snap.channels.events?.byCountry || []) {
+    if ((r.count || 0) < COUNTRY_CONV_FLOOR) continue;
+    const key = `country:${r.key}`;
+    obs.set(key, {
+      id: `sig:${key}`, key, topic: 'market', strength: r.count,
+      sources: [{ channel: 'events', kind: 'converting_country', metric: 'conversions',
+        strength: r.count, weight: 1.0,
+        detail: `${r.count} conversions · ${r.visitors ?? '?'} visitors (${r.key})` }],
+      target: { scope: { country: r.key }, channel: 'events', metric: 'conversions' },
+    });
+  }
+
   // Own-funnel corroboration: attach each signal's locale conversions as a high-weight source.
   for (const o of obs.values()) {
+    if (o.target?.scope?.country) continue; // country signals ARE the funnel — don't self-corroborate
     const loc = localeOfPath(o.key);
     const conv = localeConv[loc] || 0;
     if (conv > 0) o.sources.push({ channel: 'events', kind: 'converting_locale', metric: 'conversions', strength: conv, weight: 1.0, detail: `${loc} converts (${conv})` });

@@ -13,7 +13,7 @@
 // (pdf/docx/png), which is a custom property → needs the first-party /api/ev sink to
 // break out (growth-impl.md §18 #2). Everything else works today.
 
-import { isMain } from './lib.mjs';
+import { isMain, isCJKCountry } from './lib.mjs';
 import { vercelConfig, vercelCall } from './vercel.mjs';
 
 const LOCALES = new Set(['it', 'es', 'ja', 'ko', 'zh-Hans', 'zh-Hant', 'id', 'vi', 'hi']);
@@ -58,6 +58,14 @@ export async function collect() {
   const byScript = Object.entries(scriptTotals).map(([key, count]) => ({ key, count }));
   const byCountry = (await eventBy('convert_success', 'country', cfg).catch(() => [])).sort((a, b) => b.count - a.count);
 
+  // The AUDIENCE-based moat split. byScript (above) counts page LOCALE — a CN user
+  // converting on an EN page counts as "latin", which undercounts the Chinese audience
+  // ~2× (2026-07: CN+TW+HK byCountry 177 vs zh-locale 80). byAudience counts the
+  // user's country instead; this is the number the cjk-market goal is steered by.
+  const audienceTotals = { cjk: 0, other: 0 };
+  for (const r of byCountry) audienceTotals[isCJKCountry(r.key) ? 'cjk' : 'other'] += r.count;
+  const byAudience = Object.entries(audienceTotals).map(([key, count]) => ({ key, count }));
+
   // by-type: per-format events (conv_<format>) — Vercel groups by eventName (not by custom
   // props), so these ARE queryable once src/lib/analytics.ts's conv_<format> event deploys + accrues.
   let byType = [];
@@ -89,17 +97,18 @@ export async function collect() {
     channel: 'events',
     dateRange: { start: cfg.since, end: cfg.until },
     totals: { conversions: cs.count, uploadStarts: us.count, visitors: cs.visitors },
-    funnel, byLocale, byScript, byCountry, byType, cta,
-    note: 'by-type from conv_<format> events (deploy-gated — empty until analytics.ts ships); by-script from requestPath locale prefix; cta from comparison_cta_click by requestPath (deploy-gated).',
+    funnel, byLocale, byScript, byAudience, byCountry, byType, cta,
+    note: 'by-type from conv_<format> events (deploy-gated — empty until analytics.ts ships); by-script from requestPath locale prefix (page language); by-audience from country (who the user is — the moat KPI); cta from comparison_cta_click by requestPath (deploy-gated).',
   };
 }
 
 export async function runCli() {
   console.log('📊 Conversion events (Vercel custom events)');
   try {
-    const { totals, funnel, byScript, byLocale, byCountry, byType } = await collect();
+    const { totals, funnel, byScript, byAudience, byLocale, byCountry, byType } = await collect();
     console.log(`   conversions ${totals.conversions} · upload_start ${funnel.upload_start} · abandonment ${funnel.abandonment ?? 'n/a'}`);
-    console.log(`   by script:  ${byScript.map((r) => `${r.key}=${r.count}`).join(' · ') || '(none)'}`);
+    console.log(`   by script:  ${byScript.map((r) => `${r.key}=${r.count}`).join(' · ') || '(none)'} (page locale)`);
+    console.log(`   by audience:${byAudience.map((r) => ` ${r.key}=${r.count}`).join(' ·') || ' (none)'} (user country — moat KPI)`);
     console.log(`   by locale:  ${byLocale.slice(0, 8).map((r) => `${r.key}=${r.count}`).join(' · ') || '(none)'}`);
     console.log(`   by country: ${byCountry.slice(0, 8).map((r) => `${r.key}=${r.count}`).join(' · ') || '(none)'}`);
     console.log(`   by type:    ${byType.map((r) => `${r.key}=${r.count}`).join(' · ') || '(none yet — deploys with the conv_<format> events)'}`);

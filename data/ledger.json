@@ -361,7 +361,41 @@
         "guardrails_held": null,
         "note": ""
       },
-      "note": "First experiment on the NEW events/cta_clicks metric (measure.mjs pathOf-normalized scopes + events.mjs comparison_cta_click byPath — both shipped with this change). Auto-verdict measures adoption only; at measure time ALSO compute CTA-CTR manually = cta_clicks / vercel pageviews per page (cross-channel guardrails unsupported), and check conv funnel didn't regress. Content deliberately untouched (EN page surging — additive CTA blocks only; title changes remain human-declined). Locks both comparison pages. STAMP commit AFTER deploy. VERDICT ONLY VALID ONCE DEPLOYED. ITERATION C (2026-07-16, human-approved from mockup): InlineConverter embedded after the Markdown Free section on BOTH pages — drop-zone + the real ExportRow (full reuse: conversions, errors, funnel events). comparison_cta_click gains position=inline (fires on file LOAD = engagement); on-page conversions now attribute to these pages via convert_success requestPath. Treatment = top/bottom CTAs + inline converter combined; position prop separates blocks at analysis time."
+      "note": "First experiment on the NEW events/cta_clicks metric (measure.mjs pathOf-normalized scopes + events.mjs comparison_cta_click byPath — both shipped with this change). Auto-verdict measures adoption only; at measure time ALSO compute CTA-CTR manually = cta_clicks / vercel pageviews per page (cross-channel guardrails unsupported), and check conv funnel didn't regress. Content deliberately untouched (EN page surging — additive CTA blocks only; title changes remain human-declined). Locks both comparison pages. STAMP commit AFTER deploy. VERDICT ONLY VALID ONCE DEPLOYED. ITERATION C (2026-07-16, human-approved from mockup, commit 8a784f3): InlineConverter embedded after the Markdown Free section on BOTH pages — drop-zone + the real ExportRow (full reuse: conversions, errors, funnel events). comparison_cta_click gains position=inline (fires on file LOAD = engagement); on-page conversions now attribute to these pages via convert_success requestPath. Treatment = top/bottom CTAs + inline converter combined; position prop separates blocks at analysis time."
+    },
+    {
+      "id": "llms-cjk-refresh-2026-07-18",
+      "title": "llms.txt refresh: converter-family + per-locale word/pdf/epub tables (CJK AI-visibility)",
+      "hypothesis": "Chinese AI assistants (doubao 5 + yuanbao 3 = ~half of the 17 AI-referral sessions) and ChatGPT already recommend the site; a fresher llms.txt — adding the new /markdown-converter + /markdown-to-html pages and complete per-locale Word/PDF/EPUB URL tables so assistants can deep-link the RIGHT localized page — lifts AI-assistant referral sessions.",
+      "topic": "ai-visibility",
+      "channel": "referral",
+      "target_metric": "ai_sessions",
+      "guardrail_metrics": [],
+      "target_scope": {
+        "pages": [],
+        "queries": [],
+        "country": null,
+        "note": "Site-wide by nature (llms.txt) — empty scope deliberately locks NO pages/queries."
+      },
+      "control_scope": null,
+      "shipped_date": "2026-07-18",
+      "commit": null,
+      "baseline": {
+        "window_days": 28,
+        "mean": 17,
+        "as_of": "2026-07-16",
+        "note": "AI-referral sessions from the 2026-07-16 snapshot referral channel (chatgpt 6, doubao 5, yuanbao 3, perplexity 2, +1)."
+      },
+      "measure_on": "2026-08-15",
+      "status": "shipped",
+      "outcome": {
+        "treated_delta": null,
+        "control_delta": null,
+        "did": null,
+        "guardrails_held": null,
+        "note": ""
+      },
+      "note": "First experiment on the NEW referral/ai_sessions metric (measure.mjs). Adoption-style single-cohort read — AI-assistant recommendation cycles are slow/noisy, so treat the auto-verdict as directional; at measure time also eyeball referral.hosts for NEW Chinese assistants (kimi/deepseek/chatglm) appearing at all. robots.txt already allowed all AI crawlers incl. Bytespider (no change shipped there). STAMP commit AFTER deploy. VERDICT ONLY VALID ONCE DEPLOYED."
     }
   ]
 }

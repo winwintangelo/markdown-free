@@ -49,7 +49,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Hot",
       "trend": [
         {
@@ -70,10 +70,6 @@
         },
         {
           "date": "2026-07-13",
-          "strength": 541
-        },
-        {
-          "date": "2026-07-13",
           "strength": 40
         },
         {
@@ -98,6 +94,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 541
+        },
+        {
+          "date": "2026-07-18",
           "strength": 541
         }
       ],
@@ -146,7 +146,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -187,6 +187,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 71
+        },
+        {
+          "date": "2026-07-18",
           "strength": 71
         }
       ],
@@ -235,7 +239,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -276,6 +280,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 70
+        },
+        {
+          "date": "2026-07-18",
           "strength": 70
         }
       ],
@@ -324,7 +332,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -365,6 +373,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 33
+        },
+        {
+          "date": "2026-07-18",
           "strength": 33
         }
       ],
@@ -429,7 +441,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -450,10 +462,6 @@
         },
         {
           "date": "2026-07-13",
-          "strength": 151
-        },
-        {
-          "date": "2026-07-13",
           "strength": 40
         },
         {
@@ -478,6 +486,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 151
+        },
+        {
+          "date": "2026-07-18",
           "strength": 151
         }
       ],
@@ -534,7 +546,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -575,6 +587,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 110
+        },
+        {
+          "date": "2026-07-18",
           "strength": 110
         }
       ],
@@ -631,7 +647,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -652,10 +668,6 @@
         },
         {
           "date": "2026-07-13",
-          "strength": 50
-        },
-        {
-          "date": "2026-07-13",
           "strength": 20
         },
         {
@@ -680,6 +692,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 50
+        },
+        {
+          "date": "2026-07-18",
           "strength": 50
         }
       ],
@@ -733,10 +749,18 @@
           "strength": 345,
           "weight": 1,
           "detail": "en converts (345)"
+        },
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 161,
+          "weight": 0.6,
+          "detail": "161 pv · 125 visitors (incl. referrer-less)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Hot",
       "trend": [
         {
@@ -778,11 +802,15 @@
         {
           "date": "2026-07-16",
           "strength": 1340
+        },
+        {
+          "date": "2026-07-18",
+          "strength": 1340
         }
       ],
       "confidence": {
-        "score": 0.9,
-        "quality": 0.8,
+        "score": 0.89,
+        "quality": 0.75,
         "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
@@ -830,10 +858,18 @@
           "strength": 43,
           "weight": 0.7,
           "detail": "pos 13.42 · 43 imp"
+        },
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 343,
+          "weight": 0.6,
+          "detail": "343 pv · 280 visitors (incl. referrer-less)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Hot",
       "trend": [
         {
@@ -875,11 +911,15 @@
         {
           "date": "2026-07-16",
           "strength": 466
+        },
+        {
+          "date": "2026-07-18",
+          "strength": 466
         }
       ],
       "confidence": {
-        "score": 0.885,
-        "quality": 0.8,
+        "score": 0.875,
+        "quality": 0.75,
         "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
@@ -919,10 +959,18 @@
           "strength": 71,
           "weight": 1,
           "detail": "zh-Hans converts (71)"
+        },
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 37,
+          "weight": 0.6,
+          "detail": "37 pv · 32 visitors (incl. referrer-less)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Hot",
       "trend": [
         {
@@ -964,12 +1012,16 @@
         {
           "date": "2026-07-16",
           "strength": 547
+        },
+        {
+          "date": "2026-07-18",
+          "strength": 547
         }
       ],
       "confidence": {
-        "score": 0.81,
-        "quality": 0.85,
-        "quantity": 0.67,
+        "score": 0.893,
+        "quality": 0.77,
+        "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
         "prior": 0.6
@@ -1048,10 +1100,10 @@
         }
       ],
       "confidence": {
-        "score": 0.789,
+        "score": 0.774,
         "quality": 0.85,
         "quantity": 0.67,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 1,
         "prior": 0.6
       },
@@ -1089,10 +1141,18 @@
           "strength": 345,
           "weight": 1,
           "detail": "en converts (345)"
+        },
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 12,
+          "weight": 0.6,
+          "detail": "12 pv · 10 visitors (incl. referrer-less)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -1134,12 +1194,16 @@
         {
           "date": "2026-07-16",
           "strength": 205
+        },
+        {
+          "date": "2026-07-18",
+          "strength": 205
         }
       ],
       "confidence": {
-        "score": 0.81,
-        "quality": 0.85,
-        "quantity": 0.67,
+        "score": 0.893,
+        "quality": 0.77,
+        "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
         "prior": 0.6
@@ -1189,7 +1253,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Hot",
       "trend": [
         {
@@ -1230,6 +1294,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 374
+        },
+        {
+          "date": "2026-07-18",
           "strength": 374
         }
       ],
@@ -1286,7 +1354,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -1327,6 +1395,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 203
+        },
+        {
+          "date": "2026-07-18",
           "strength": 203
         }
       ],
@@ -1372,10 +1444,18 @@
           "strength": 345,
           "weight": 1,
           "detail": "en converts (345)"
+        },
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 12,
+          "weight": 0.6,
+          "detail": "12 pv · 11 visitors (incl. referrer-less)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -1417,12 +1497,16 @@
         {
           "date": "2026-07-16",
           "strength": 168
+        },
+        {
+          "date": "2026-07-18",
+          "strength": 168
         }
       ],
       "confidence": {
-        "score": 0.81,
-        "quality": 0.85,
-        "quantity": 0.67,
+        "score": 0.893,
+        "quality": 0.77,
+        "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
         "prior": 0.6
@@ -1464,7 +1548,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -1505,6 +1589,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 123
+        },
+        {
+          "date": "2026-07-18",
           "strength": 123
         }
       ],
@@ -1550,10 +1638,18 @@
           "strength": 71,
           "weight": 1,
           "detail": "zh-Hans converts (71)"
+        },
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 70,
+          "weight": 0.6,
+          "detail": "70 pv · 57 visitors (incl. referrer-less)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -1595,12 +1691,16 @@
         {
           "date": "2026-07-16",
           "strength": 69
+        },
+        {
+          "date": "2026-07-18",
+          "strength": 70
         }
       ],
       "confidence": {
-        "score": 0.795,
-        "quality": 0.85,
-        "quantity": 0.67,
+        "score": 0.878,
+        "quality": 0.77,
+        "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
         "prior": 0.5
@@ -1617,7 +1717,7 @@
         "channel": "bing",
         "metric": "position"
       },
-      "strength": 69
+      "strength": 70
     },
     {
       "id": "sig:https://www.markdown.free/markdown-to-epub",
@@ -1642,7 +1742,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -1683,6 +1783,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 41
+        },
+        {
+          "date": "2026-07-18",
           "strength": 41
         }
       ],
@@ -1747,7 +1851,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -1788,6 +1892,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 168
+        },
+        {
+          "date": "2026-07-18",
           "strength": 168
         }
       ],
@@ -1852,7 +1960,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -1893,6 +2001,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 108
+        },
+        {
+          "date": "2026-07-18",
           "strength": 108
         }
       ],
@@ -1949,7 +2061,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -1990,6 +2102,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 122
+        },
+        {
+          "date": "2026-07-18",
           "strength": 122
         }
       ],
@@ -2038,7 +2154,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -2079,6 +2195,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 33
+        },
+        {
+          "date": "2026-07-18",
           "strength": 33
         }
       ],
@@ -2127,7 +2247,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -2168,6 +2288,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 58
+        },
+        {
+          "date": "2026-07-18",
           "strength": 58
         }
       ],
@@ -2232,13 +2356,9 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Hot",
       "trend": [
-        {
-          "date": "2026-07-13",
-          "strength": 261
-        },
         {
           "date": "2026-07-13",
           "strength": 274
@@ -2281,6 +2401,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 326
+        },
+        {
+          "date": "2026-07-18",
           "strength": 326
         }
       ],
@@ -2329,7 +2453,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -2370,6 +2494,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 93
+        },
+        {
+          "date": "2026-07-18",
           "strength": 93
         }
       ],
@@ -2418,7 +2546,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -2459,6 +2587,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 46
+        },
+        {
+          "date": "2026-07-18",
           "strength": 46
         }
       ],
@@ -2504,10 +2636,18 @@
           "strength": 43,
           "weight": 1,
           "detail": "id converts (43)"
+        },
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 34,
+          "weight": 0.6,
+          "detail": "34 pv · 27 visitors (incl. referrer-less)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Hot",
       "trend": [
         {
@@ -2549,12 +2689,16 @@
         {
           "date": "2026-07-16",
           "strength": 1039
+        },
+        {
+          "date": "2026-07-18",
+          "strength": 1039
         }
       ],
       "confidence": {
-        "score": 0.81,
-        "quality": 0.85,
-        "quantity": 0.67,
+        "score": 0.893,
+        "quality": 0.77,
+        "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
         "prior": 0.6
@@ -2593,10 +2737,18 @@
           "strength": 31,
           "weight": 1,
           "detail": "es converts (31)"
+        },
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 25,
+          "weight": 0.6,
+          "detail": "25 pv · 18 visitors (incl. referrer-less)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -2638,12 +2790,16 @@
         {
           "date": "2026-07-16",
           "strength": 160
+        },
+        {
+          "date": "2026-07-18",
+          "strength": 160
         }
       ],
       "confidence": {
-        "score": 0.81,
-        "quality": 0.85,
-        "quantity": 0.67,
+        "score": 0.893,
+        "quality": 0.77,
+        "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
         "prior": 0.6
@@ -2685,7 +2841,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -2726,6 +2882,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 147
+        },
+        {
+          "date": "2026-07-18",
           "strength": 147
         }
       ],
@@ -2771,10 +2931,18 @@
           "strength": 5,
           "weight": 1,
           "detail": "vi converts (5)"
+        },
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 10,
+          "weight": 0.6,
+          "detail": "10 pv · 8 visitors (incl. referrer-less)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -2816,12 +2984,16 @@
         {
           "date": "2026-07-16",
           "strength": 171
+        },
+        {
+          "date": "2026-07-18",
+          "strength": 171
         }
       ],
       "confidence": {
-        "score": 0.795,
-        "quality": 0.85,
-        "quantity": 0.67,
+        "score": 0.878,
+        "quality": 0.77,
+        "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
         "prior": 0.5
@@ -2860,10 +3032,18 @@
           "strength": 9,
           "weight": 1,
           "detail": "zh-Hant converts (9)"
+        },
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 24,
+          "weight": 0.6,
+          "detail": "24 pv · 18 visitors (incl. referrer-less)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -2905,12 +3085,16 @@
         {
           "date": "2026-07-16",
           "strength": 93
+        },
+        {
+          "date": "2026-07-18",
+          "strength": 93
         }
       ],
       "confidence": {
-        "score": 0.795,
-        "quality": 0.85,
-        "quantity": 0.67,
+        "score": 0.878,
+        "quality": 0.77,
+        "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
         "prior": 0.5
@@ -2952,7 +3136,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -2993,6 +3177,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 139
+        },
+        {
+          "date": "2026-07-18",
           "strength": 139
         }
       ],
@@ -3046,10 +3234,18 @@
           "strength": 345,
           "weight": 1,
           "detail": "en converts (345)"
+        },
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 39,
+          "weight": 0.6,
+          "detail": "39 pv · 39 visitors (incl. referrer-less)"
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Hot",
       "trend": [
         {
@@ -3091,12 +3287,16 @@
         {
           "date": "2026-07-16",
           "strength": 562
+        },
+        {
+          "date": "2026-07-18",
+          "strength": 562
         }
       ],
       "confidence": {
-        "score": 0.777,
-        "quality": 0.8,
-        "quantity": 0.67,
+        "score": 0.868,
+        "quality": 0.75,
+        "quantity": 1,
         "recency": 1,
         "ownFunnel": 1,
         "prior": 0.45
@@ -3130,7 +3330,7 @@
         }
       ],
       "firstSeen": "2026-07-13",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Cooling",
       "trend": [
         {
@@ -3171,6 +3371,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 17
+        },
+        {
+          "date": "2026-07-18",
           "strength": 17
         }
       ],
@@ -3229,10 +3433,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -3286,10 +3490,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -3343,10 +3547,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -3400,10 +3604,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -3457,10 +3661,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -3514,10 +3718,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -3563,10 +3767,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -3620,10 +3824,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -3677,10 +3881,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -3734,10 +3938,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -3791,10 +3995,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -3840,10 +4044,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -3897,10 +4101,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -3954,10 +4158,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4011,10 +4215,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4068,10 +4272,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4117,10 +4321,10 @@
         }
       ],
       "confidence": {
-        "score": 0.419,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4174,10 +4378,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4231,10 +4435,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4280,10 +4484,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -4337,10 +4541,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4394,10 +4598,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4451,10 +4655,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4508,10 +4712,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4565,10 +4769,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4622,10 +4826,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4679,10 +4883,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4736,10 +4940,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4793,10 +4997,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4850,10 +5054,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4899,10 +5103,10 @@
         }
       ],
       "confidence": {
-        "score": 0.419,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -4956,10 +5160,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -5005,10 +5209,10 @@
         }
       ],
       "confidence": {
-        "score": 0.419,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -5054,10 +5258,10 @@
         }
       ],
       "confidence": {
-        "score": 0.419,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -5111,10 +5315,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -5168,10 +5372,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -5225,10 +5429,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -5282,10 +5486,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5339,10 +5543,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5396,10 +5600,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5453,10 +5657,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5502,10 +5706,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5559,10 +5763,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5616,10 +5820,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5665,10 +5869,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5714,10 +5918,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5763,10 +5967,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5820,10 +6024,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5877,10 +6081,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5926,10 +6130,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -5983,10 +6187,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6040,10 +6244,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6097,10 +6301,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6154,10 +6358,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6211,10 +6415,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6268,10 +6472,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6325,10 +6529,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6374,10 +6578,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6431,10 +6635,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6488,10 +6692,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6537,10 +6741,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6586,10 +6790,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6643,10 +6847,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6700,10 +6904,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -6757,10 +6961,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -6814,10 +7018,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -6871,10 +7075,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6928,10 +7132,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -6985,10 +7189,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -7042,10 +7246,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -7091,10 +7295,10 @@
         }
       ],
       "confidence": {
-        "score": 0.419,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7140,10 +7344,10 @@
         }
       ],
       "confidence": {
-        "score": 0.419,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7189,10 +7393,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -7246,10 +7450,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -7303,10 +7507,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7360,10 +7564,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7417,10 +7621,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7474,10 +7678,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7531,10 +7735,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7588,10 +7792,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7645,10 +7849,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7702,10 +7906,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7759,10 +7963,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7808,10 +8012,10 @@
         }
       ],
       "confidence": {
-        "score": 0.419,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7865,10 +8069,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7914,10 +8118,10 @@
         }
       ],
       "confidence": {
-        "score": 0.419,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -7963,10 +8167,10 @@
         }
       ],
       "confidence": {
-        "score": 0.419,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8020,10 +8224,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8077,10 +8281,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8134,10 +8338,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8191,10 +8395,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8248,10 +8452,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8297,10 +8501,10 @@
         }
       ],
       "confidence": {
-        "score": 0.419,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8346,10 +8550,10 @@
         }
       ],
       "confidence": {
-        "score": 0.419,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8403,10 +8607,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8460,10 +8664,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8517,10 +8721,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8574,10 +8778,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8631,10 +8835,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8688,10 +8892,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8745,10 +8949,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8802,10 +9006,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -8859,10 +9063,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8916,10 +9120,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -8965,10 +9169,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9022,10 +9226,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9079,10 +9283,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9136,10 +9340,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9189,10 +9393,10 @@
         }
       ],
       "confidence": {
-        "score": 0.418,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.95,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9238,10 +9442,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9287,10 +9491,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9344,10 +9548,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9401,10 +9605,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9458,10 +9662,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9515,10 +9719,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9572,10 +9776,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9629,10 +9833,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -9686,10 +9890,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9743,10 +9947,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9800,10 +10004,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9857,10 +10061,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9914,10 +10118,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -9971,10 +10175,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -10028,10 +10232,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -10081,10 +10285,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -10130,10 +10334,10 @@
         }
       ],
       "confidence": {
-        "score": 0.419,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -10187,10 +10391,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -10244,10 +10448,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -10293,10 +10497,10 @@
         }
       ],
       "confidence": {
-        "score": 0.404,
+        "score": 0.389,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -10350,10 +10554,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -10407,10 +10611,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -10464,10 +10668,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -10521,10 +10725,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -10578,10 +10782,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -10627,10 +10831,10 @@
         }
       ],
       "confidence": {
-        "score": 0.419,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.86,
+        "recency": 0.76,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -10684,10 +10888,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -10741,10 +10945,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -10798,10 +11002,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -10855,10 +11059,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -10908,10 +11112,10 @@
         }
       ],
       "confidence": {
-        "score": 0.418,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.95,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -10965,10 +11169,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -11018,10 +11222,10 @@
         }
       ],
       "confidence": {
-        "score": 0.418,
+        "score": 0.404,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.95,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -11075,10 +11279,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -11132,10 +11336,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -11189,10 +11393,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -11246,10 +11450,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -11303,10 +11507,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -11360,10 +11564,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -11409,10 +11613,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -11458,10 +11662,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -11507,10 +11711,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -11556,10 +11760,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -11605,10 +11809,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -11654,10 +11858,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -11703,10 +11907,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -11752,10 +11956,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -11801,10 +12005,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -11850,10 +12054,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -11899,10 +12103,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -11948,10 +12152,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -11997,10 +12201,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -12046,10 +12250,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -12095,10 +12299,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -12144,10 +12348,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -12193,10 +12397,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -12242,10 +12446,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -12291,10 +12495,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -12340,10 +12544,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -12389,10 +12593,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -12438,10 +12642,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -12487,10 +12691,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -12536,10 +12740,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -12585,10 +12789,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -12634,10 +12838,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -12683,10 +12887,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -12732,10 +12936,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -12781,10 +12985,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -12830,10 +13034,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -12879,10 +13083,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -12928,10 +13132,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -12977,10 +13181,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13026,10 +13230,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13075,10 +13279,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13124,10 +13328,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13169,10 +13373,10 @@
         }
       ],
       "confidence": {
-        "score": 0.433,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.95,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13218,10 +13422,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -13267,10 +13471,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -13316,10 +13520,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -13365,10 +13569,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -13410,10 +13614,10 @@
         }
       ],
       "confidence": {
-        "score": 0.433,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.95,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13459,10 +13663,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13508,10 +13712,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -13557,10 +13761,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13606,10 +13810,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13655,10 +13859,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13704,10 +13908,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13753,10 +13957,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13802,10 +14006,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13851,10 +14055,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13900,10 +14104,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13949,10 +14153,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -13998,10 +14202,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14047,10 +14251,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14096,10 +14300,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14145,10 +14349,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14194,10 +14398,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14243,10 +14447,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14292,10 +14496,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -14341,10 +14545,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -14390,10 +14594,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14439,10 +14643,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14488,10 +14692,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14537,10 +14741,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14586,10 +14790,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14635,10 +14839,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14684,10 +14888,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -14733,10 +14937,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14782,10 +14986,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14831,10 +15035,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14880,10 +15084,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14929,10 +15133,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -14978,10 +15182,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15027,10 +15231,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15076,10 +15280,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15121,10 +15325,10 @@
         }
       ],
       "confidence": {
-        "score": 0.433,
+        "score": 0.419,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 0.95,
+        "recency": 0.86,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15170,10 +15374,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15219,10 +15423,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15268,10 +15472,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15317,10 +15521,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15366,10 +15570,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15415,10 +15619,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15464,10 +15668,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15513,10 +15717,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15562,10 +15766,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15611,10 +15815,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15660,10 +15864,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15709,10 +15913,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15758,10 +15962,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15807,10 +16011,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15856,10 +16060,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15905,10 +16109,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -15954,10 +16158,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16003,10 +16207,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16052,10 +16256,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16101,10 +16305,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16150,10 +16354,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16199,10 +16403,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16248,10 +16452,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16297,10 +16501,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16346,10 +16550,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16395,10 +16599,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16444,10 +16648,10 @@
         }
       ],
       "confidence": {
-        "score": 0.417,
+        "score": 0.403,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.45
       },
@@ -16493,10 +16697,10 @@
         }
       ],
       "confidence": {
-        "score": 0.417,
+        "score": 0.403,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.45
       },
@@ -16542,10 +16746,10 @@
         }
       ],
       "confidence": {
-        "score": 0.417,
+        "score": 0.403,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.45
       },
@@ -16591,10 +16795,10 @@
         }
       ],
       "confidence": {
-        "score": 0.417,
+        "score": 0.403,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.45
       },
@@ -16640,10 +16844,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -16689,10 +16893,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -16738,10 +16942,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16787,10 +16991,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16836,10 +17040,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16885,10 +17089,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16934,10 +17138,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -16983,10 +17187,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -17032,10 +17236,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -17081,10 +17285,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -17125,7 +17329,7 @@
         }
       ],
       "firstSeen": "2026-07-15",
-      "lastSeen": "2026-07-16",
+      "lastSeen": "2026-07-18",
       "stage": "Growing",
       "trend": [
         {
@@ -17134,6 +17338,10 @@
         },
         {
           "date": "2026-07-16",
+          "strength": 67
+        },
+        {
+          "date": "2026-07-18",
           "strength": 67
         }
       ],
@@ -17183,10 +17391,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -17228,10 +17436,10 @@
         }
       ],
       "confidence": {
-        "score": 0.425,
+        "score": 0.411,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.5
       },
@@ -17273,10 +17481,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -17318,10 +17526,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -17363,10 +17571,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -17408,10 +17616,10 @@
         }
       ],
       "confidence": {
-        "score": 0.44,
+        "score": 0.426,
         "quality": 0.5,
         "quantity": 0.33,
-        "recency": 1,
+        "recency": 0.9,
         "ownFunnel": 0,
         "prior": 0.6
       },
@@ -17452,11 +17660,15 @@
         }
       ],
       "firstSeen": "2026-07-16",
-      "lastSeen": "2026-07-16",
-      "stage": "New",
+      "lastSeen": "2026-07-18",
+      "stage": "Growing",
       "trend": [
         {
           "date": "2026-07-16",
+          "strength": 31
+        },
+        {
+          "date": "2026-07-18",
           "strength": 31
         }
       ],
@@ -17479,6 +17691,711 @@
         },
         "channel": "gsc",
         "metric": "position"
+      }
+    },
+    {
+      "id": "sig:/es",
+      "key": "/es",
+      "topic": "other",
+      "strength": 57,
+      "sources": [
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 57,
+          "weight": 0.6,
+          "detail": "57 pv · 45 visitors (incl. referrer-less)"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 31,
+          "weight": 1,
+          "detail": "es converts (31)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 57
+        }
+      ],
+      "confidence": {
+        "score": 0.785,
+        "quality": 0.8,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "/es"
+          ]
+        },
+        "channel": "vercel",
+        "metric": "pageviews"
+      }
+    },
+    {
+      "id": "sig:/id",
+      "key": "/id",
+      "topic": "other",
+      "strength": 40,
+      "sources": [
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 40,
+          "weight": 0.6,
+          "detail": "40 pv · 28 visitors (incl. referrer-less)"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 43,
+          "weight": 1,
+          "detail": "id converts (43)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 40
+        }
+      ],
+      "confidence": {
+        "score": 0.785,
+        "quality": 0.8,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "/id"
+          ]
+        },
+        "channel": "vercel",
+        "metric": "pageviews"
+      }
+    },
+    {
+      "id": "sig:/claude-artifacts-to-pdf",
+      "key": "/claude-artifacts-to-pdf",
+      "topic": "pdf",
+      "strength": 30,
+      "sources": [
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 30,
+          "weight": 0.6,
+          "detail": "30 pv · 21 visitors (incl. referrer-less)"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 345,
+          "weight": 1,
+          "detail": "en converts (345)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 30
+        }
+      ],
+      "confidence": {
+        "score": 0.8,
+        "quality": 0.8,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "/claude-artifacts-to-pdf"
+          ]
+        },
+        "channel": "vercel",
+        "metric": "pageviews"
+      }
+    },
+    {
+      "id": "sig:/zh-Hans/markdown-pdf-zhuanhuan",
+      "key": "/zh-Hans/markdown-pdf-zhuanhuan",
+      "topic": "pdf",
+      "strength": 17,
+      "sources": [
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 17,
+          "weight": 0.6,
+          "detail": "17 pv · 14 visitors (incl. referrer-less)"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 71,
+          "weight": 1,
+          "detail": "zh-Hans converts (71)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 17
+        }
+      ],
+      "confidence": {
+        "score": 0.8,
+        "quality": 0.8,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "/zh-Hans/markdown-pdf-zhuanhuan"
+          ]
+        },
+        "channel": "vercel",
+        "metric": "pageviews"
+      }
+    },
+    {
+      "id": "sig:/zh-Hans/readme-pdf-zhuanhuan",
+      "key": "/zh-Hans/readme-pdf-zhuanhuan",
+      "topic": "readme",
+      "strength": 16,
+      "sources": [
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 16,
+          "weight": 0.6,
+          "detail": "16 pv · 15 visitors (incl. referrer-less)"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 71,
+          "weight": 1,
+          "detail": "zh-Hans converts (71)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 16
+        }
+      ],
+      "confidence": {
+        "score": 0.8,
+        "quality": 0.8,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.6
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "/zh-Hans/readme-pdf-zhuanhuan"
+          ]
+        },
+        "channel": "vercel",
+        "metric": "pageviews"
+      }
+    },
+    {
+      "id": "sig:/zh-Hans/markdown-zhuanhuanqi-bijiao",
+      "key": "/zh-Hans/markdown-zhuanhuanqi-bijiao",
+      "topic": "other",
+      "strength": 14,
+      "sources": [
+        {
+          "channel": "vercel",
+          "kind": "audience_page",
+          "metric": "pageviews",
+          "strength": 14,
+          "weight": 0.6,
+          "detail": "14 pv · 14 visitors (incl. referrer-less)"
+        },
+        {
+          "channel": "events",
+          "kind": "converting_locale",
+          "metric": "conversions",
+          "strength": 71,
+          "weight": 1,
+          "detail": "zh-Hans converts (71)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 14
+        }
+      ],
+      "confidence": {
+        "score": 0.785,
+        "quality": 0.8,
+        "quantity": 0.67,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "pages": [
+            "/zh-Hans/markdown-zhuanhuanqi-bijiao"
+          ]
+        },
+        "channel": "vercel",
+        "metric": "pageviews"
+      }
+    },
+    {
+      "id": "sig:country:CN",
+      "key": "country:CN",
+      "topic": "market",
+      "strength": 145,
+      "sources": [
+        {
+          "channel": "events",
+          "kind": "converting_country",
+          "metric": "conversions",
+          "strength": 145,
+          "weight": 1,
+          "detail": "145 conversions · 22 visitors (CN)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 145
+        }
+      ],
+      "confidence": {
+        "score": 0.725,
+        "quality": 1,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "country": "CN"
+        },
+        "channel": "events",
+        "metric": "conversions"
+      }
+    },
+    {
+      "id": "sig:country:IN",
+      "key": "country:IN",
+      "topic": "market",
+      "strength": 117,
+      "sources": [
+        {
+          "channel": "events",
+          "kind": "converting_country",
+          "metric": "conversions",
+          "strength": 117,
+          "weight": 1,
+          "detail": "117 conversions · 46 visitors (IN)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 117
+        }
+      ],
+      "confidence": {
+        "score": 0.725,
+        "quality": 1,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "country": "IN"
+        },
+        "channel": "events",
+        "metric": "conversions"
+      }
+    },
+    {
+      "id": "sig:country:ID",
+      "key": "country:ID",
+      "topic": "market",
+      "strength": 44,
+      "sources": [
+        {
+          "channel": "events",
+          "kind": "converting_country",
+          "metric": "conversions",
+          "strength": 44,
+          "weight": 1,
+          "detail": "44 conversions · 24 visitors (ID)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 44
+        }
+      ],
+      "confidence": {
+        "score": 0.725,
+        "quality": 1,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "country": "ID"
+        },
+        "channel": "events",
+        "metric": "conversions"
+      }
+    },
+    {
+      "id": "sig:country:US",
+      "key": "country:US",
+      "topic": "market",
+      "strength": 33,
+      "sources": [
+        {
+          "channel": "events",
+          "kind": "converting_country",
+          "metric": "conversions",
+          "strength": 33,
+          "weight": 1,
+          "detail": "33 conversions · 17 visitors (US)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 33
+        }
+      ],
+      "confidence": {
+        "score": 0.725,
+        "quality": 1,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "country": "US"
+        },
+        "channel": "events",
+        "metric": "conversions"
+      }
+    },
+    {
+      "id": "sig:country:HK",
+      "key": "country:HK",
+      "topic": "market",
+      "strength": 22,
+      "sources": [
+        {
+          "channel": "events",
+          "kind": "converting_country",
+          "metric": "conversions",
+          "strength": 22,
+          "weight": 1,
+          "detail": "22 conversions · 14 visitors (HK)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 22
+        }
+      ],
+      "confidence": {
+        "score": 0.725,
+        "quality": 1,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "country": "HK"
+        },
+        "channel": "events",
+        "metric": "conversions"
+      }
+    },
+    {
+      "id": "sig:country:ES",
+      "key": "country:ES",
+      "topic": "market",
+      "strength": 14,
+      "sources": [
+        {
+          "channel": "events",
+          "kind": "converting_country",
+          "metric": "conversions",
+          "strength": 14,
+          "weight": 1,
+          "detail": "14 conversions · 8 visitors (ES)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 14
+        }
+      ],
+      "confidence": {
+        "score": 0.725,
+        "quality": 1,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "country": "ES"
+        },
+        "channel": "events",
+        "metric": "conversions"
+      }
+    },
+    {
+      "id": "sig:country:SG",
+      "key": "country:SG",
+      "topic": "market",
+      "strength": 14,
+      "sources": [
+        {
+          "channel": "events",
+          "kind": "converting_country",
+          "metric": "conversions",
+          "strength": 14,
+          "weight": 1,
+          "detail": "14 conversions · 7 visitors (SG)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 14
+        }
+      ],
+      "confidence": {
+        "score": 0.725,
+        "quality": 1,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "country": "SG"
+        },
+        "channel": "events",
+        "metric": "conversions"
+      }
+    },
+    {
+      "id": "sig:country:JP",
+      "key": "country:JP",
+      "topic": "market",
+      "strength": 11,
+      "sources": [
+        {
+          "channel": "events",
+          "kind": "converting_country",
+          "metric": "conversions",
+          "strength": 11,
+          "weight": 1,
+          "detail": "11 conversions · 6 visitors (JP)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 11
+        }
+      ],
+      "confidence": {
+        "score": 0.725,
+        "quality": 1,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "country": "JP"
+        },
+        "channel": "events",
+        "metric": "conversions"
+      }
+    },
+    {
+      "id": "sig:country:TW",
+      "key": "country:TW",
+      "topic": "market",
+      "strength": 10,
+      "sources": [
+        {
+          "channel": "events",
+          "kind": "converting_country",
+          "metric": "conversions",
+          "strength": 10,
+          "weight": 1,
+          "detail": "10 conversions · 7 visitors (TW)"
+        }
+      ],
+      "firstSeen": "2026-07-18",
+      "lastSeen": "2026-07-18",
+      "stage": "New",
+      "trend": [
+        {
+          "date": "2026-07-18",
+          "strength": 10
+        }
+      ],
+      "confidence": {
+        "score": 0.725,
+        "quality": 1,
+        "quantity": 0.33,
+        "recency": 1,
+        "ownFunnel": 1,
+        "prior": 0.5
+      },
+      "seasonal": false,
+      "graduated": true,
+      "graduatedTo": null,
+      "target": {
+        "scope": {
+          "country": "TW"
+        },
+        "channel": "events",
+        "metric": "conversions"
       }
     }
   ]

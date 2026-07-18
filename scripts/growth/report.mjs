@@ -32,7 +32,7 @@ const arrow = (dl) => (dl == null ? '' : dl.flat ? '→' : dl.up ? '▲' : '▼'
 const dstr = (dl) => (dl == null ? '—' : `${arrow(dl)} ${dl.d >= 0 ? '+' : ''}${dl.d}${dl.pct != null ? ` (${dl.pct >= 0 ? '+' : ''}${dl.pct}%)` : ''}`);
 
 // ---- assemble the report model from cycle data ----
-export function buildModel({ snapshot, measured = [], analysis = {}, discovery = {}, proposal = {}, prev = null, market = {}, seo = null }) {
+export function buildModel({ snapshot, measured = [], analysis = {}, discovery = {}, proposal = {}, prev = null, market = {}, seo = null, distribution = null }) {
   const searchChannels = ['bing', 'gsc', 'baidu'].filter((c) => snapshot.channels[c]);
   const numbers = searchChannels.map((c) => {
     const cur = searchTotals(snapshot.channels[c]);
@@ -67,6 +67,7 @@ export function buildModel({ snapshot, measured = [], analysis = {}, discovery =
     gaps: (market.gaps || []).slice(0, 12),
     themes,
     seo: seo ? { checked: seo.checked, scope: seo.scope, ok: seo.ok, errors: seo.errors || [], warnCount: (seo.warns || []).length } : null,
+    distribution: distribution?.items?.length ? distribution : null,
   };
 }
 
@@ -81,7 +82,10 @@ export function toMarkdown(m) {
   L.push('| Channel | Clicks | Impressions | CTR | Avg pos |');
   L.push('|---|--:|--:|--:|--:|');
   m.numbers.forEach((n) => L.push(`| ${n.channel} | ${n.clicks} | ${n.impressions} | ${n.ctr}% | ${n.pos ?? '—'} |`));
-  if (m.ev) L.push(`\n**Conversions:** ${m.ev.totals.conversions} (cjk ${m.ev.byScript.find((s) => s.key === 'cjk')?.count ?? 0} / latin ${m.ev.byScript.find((s) => s.key === 'latin')?.count ?? 0}) · funnel ${m.ev.funnel.upload_start}→${m.ev.funnel.convert_success} (abandon ${Math.round((m.ev.funnel.abandonment ?? 0) * 100)}%)`);
+  if (m.ev) {
+    const aud = m.ev.byAudience?.find((s) => s.key === 'cjk')?.count;
+    L.push(`\n**Conversions:** ${m.ev.totals.conversions} (cjk pages ${m.ev.byScript.find((s) => s.key === 'cjk')?.count ?? 0} / latin ${m.ev.byScript.find((s) => s.key === 'latin')?.count ?? 0}${aud != null ? ` · **CJK audience ${aud}** by country` : ''}) · funnel ${m.ev.funnel.upload_start}→${m.ev.funnel.convert_success} (abandon ${Math.round((m.ev.funnel.abandonment ?? 0) * 100)}%)`);
+  }
   L.push('');
   L.push(`## 📈 Trends${m.prevDate ? ` (vs ${m.prevDate})` : ''}`);
   if (!m.trends.length) L.push('_baseline — no prior snapshot to compare_');
@@ -120,6 +124,15 @@ export function toMarkdown(m) {
     exp.forEach((s) => L.push(`> - 🔒 \`${s.key}\` — exp \`${s.expId}\` (${s.role}) → measures ${s.measureOn}`));
     dec.forEach((s) => L.push(`> - 🚫 \`${s.key}\` — declined: ${(s.reason || '').slice(0, 110)}${(s.reason || '').length > 110 ? '…' : ''}`));
   }
+  if (m.distribution) {
+    L.push('');
+    L.push('## 📣 Distribution queue (human posts — the loop never auto-posts)');
+    m.distribution.items.forEach((x) => {
+      const icon = { proposed: '💡', drafted: '📝', posted: '🚀', measured: '📏' }[x.status] || '·';
+      L.push(`- ${icon} **[${x.market}]** ${x.title} — ${x.channel} · _${x.status}_${x.asset ? ` · draft \`${x.asset}\`` : ''}${x.postedUrl ? ` · ${x.postedUrl}` : ''}`);
+      if (x.lockHold) L.push(`   ⏸ hold until ${x.lockHold.until}: ${x.lockHold.held.map((h) => `\`${h.target}\``).join(', ')} under experiment — drop those links or wait`);
+    });
+  }
   if (m.seo) {
     L.push('');
     L.push('## 🔎 SEO hygiene');
@@ -150,10 +163,17 @@ export function toHtml(m) {
     ? `<li><span class="gate">🔒</span> <span class="bucket">locked</span> <code>${esc(s.key)}</code><div class="why">under experiment <code>${esc(s.expId)}</code> (${esc(s.role)}) · measures ${esc(s.measureOn)}</div></li>`
     : `<li><span class="gate">🚫</span> <span class="bucket">declined</span> <code>${esc(s.key)}</code><div class="why">${esc((s.reason || '').slice(0, 140))}</div></li>`).join('');
   const supCard = m.suppressed.length ? `<div class="card"><h2>🔒 Suppressed <span class="meta">${m.suppressed.length} held back — protect measurement / prior judgment</span></h2><ul>${supRows}</ul></div>` : '';
+  const distRows = (m.distribution?.items || []).map((x) => {
+    const icon = { proposed: '💡', drafted: '📝', posted: '🚀', measured: '📏' }[x.status] || '·';
+    const hold = x.lockHold ? `<div class="why">⏸ hold until ${esc(x.lockHold.until)}: ${x.lockHold.held.map((h) => `<code>${esc(h.target)}</code>`).join(', ')} under experiment</div>` : '';
+    return `<li><span class="gate">${icon}</span> <span class="bucket">${esc(x.market)}</span> ${esc(x.title)} <span class="meta">${esc(x.channel)} · ${esc(x.status)}</span>${x.asset ? `<div class="why">draft <code>${esc(x.asset)}</code></div>` : ''}${hold}</li>`;
+  }).join('');
+  const distCard = m.distribution ? `<div class="card"><h2>📣 Distribution queue <span class="meta">human posts — the loop never auto-posts</span></h2><ul>${distRows}</ul></div>` : '';
   const seoCard = m.seo ? `<div class="card"><h2>🔎 SEO hygiene <span class="meta">${m.seo.checked} pages · ${esc(m.seo.scope)}</span></h2>${m.seo.ok
     ? `<p class="conv">✅ no errors · ${m.seo.warnCount} warning(s)</p>`
     : `<p class="conv">❌ ${m.seo.errors.length} error(s) · ${m.seo.warnCount} warning(s)</p><ul>${m.seo.errors.slice(0, 12).map((e) => `<li><span class="gate">❌</span> <code>${esc(e.path)}</code><div class="why">[${esc(e.code)}] ${esc(e.msg)}</div></li>`).join('')}</ul>`}</div>` : '';
-  const conv = m.ev ? `<p class="conv"><b>${m.ev.totals.conversions}</b> conversions · cjk ${m.ev.byScript.find((s) => s.key === 'cjk')?.count ?? 0} / latin ${m.ev.byScript.find((s) => s.key === 'latin')?.count ?? 0} · funnel ${m.ev.funnel.upload_start}→${m.ev.funnel.convert_success} (abandon ${Math.round((m.ev.funnel.abandonment ?? 0) * 100)}%)</p>` : '';
+  const cjkAud = m.ev?.byAudience?.find((s) => s.key === 'cjk')?.count;
+  const conv = m.ev ? `<p class="conv"><b>${m.ev.totals.conversions}</b> conversions · cjk pages ${m.ev.byScript.find((s) => s.key === 'cjk')?.count ?? 0} / latin ${m.ev.byScript.find((s) => s.key === 'latin')?.count ?? 0}${cjkAud != null ? ` · <b>CJK audience ${cjkAud}</b> by country` : ''} · funnel ${m.ev.funnel.upload_start}→${m.ev.funnel.convert_success} (abandon ${Math.round((m.ev.funnel.abandonment ?? 0) * 100)}%)</p>` : '';
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Growth report ${esc(m.date)}</title>
 <style>
 :root{--bg:#f6f8fa;--card:#fff;--ink:#1a2330;--soft:#5a6675;--rule:#e3e8ee;--accent:#0f766e;--up:#2f8a54;--down:#c0392b;--gate-g:#2f8a54;--gate-a:#b7791f}
@@ -180,6 +200,7 @@ code{background:var(--bg);padding:.05em .35em;border-radius:5px;font-size:.85em;
 <div class="card"><h2>⚠️ Issues</h2><ul>${issueRows}</ul></div>
 ${seoCard}
 <div class="card"><h2>💡 Proposed actions <span class="meta">${m.totalCandidates} candidates · top ${m.slate.length}</span></h2><ul>${slateRows}</ul></div>
+${distCard}
 ${supCard}
 <div class="meta">Generated by the growth loop. Run <code>/growth-loop</code> to refine + implement 🟢 items.</div>
 </div></body></html>`;
@@ -211,7 +232,9 @@ async function main() {
   const discovery = { graduated: grad.length, graduatedSignals: grad };
   const market = readJson(path.join(DATA_DIR(), 'market.json'), { gaps: [] });
   const seo = readJson(path.join(DATA_DIR(), 'seo-audit.json'), null);
-  const { mdPath, htmlPath } = generateReport({ snapshot, prev, analysis, proposal, discovery, measured: [], market, seo });
+  const distDoc = readJson(path.join(DATA_DIR(), 'distribution.json'), null);
+  const distribution = distDoc?.items?.length ? { items: distDoc.items.filter((x) => x.status !== 'dropped') } : null;
+  const { mdPath, htmlPath } = generateReport({ snapshot, prev, analysis, proposal, discovery, measured: [], market, seo, distribution });
   console.log(`📝 report written:\n   ${mdPath}\n   ${htmlPath}`);
 }
 

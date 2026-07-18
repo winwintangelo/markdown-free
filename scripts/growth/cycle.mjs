@@ -24,8 +24,9 @@ import { runPropose, proposalMd } from './propose.mjs';
 import { generateReport } from './report.mjs';
 import { runMarket } from './market/autocomplete.mjs';
 import { runSeoAudit } from './seo-audit.mjs';
+import { refreshQueue } from './distribution.mjs';
 
-function buildDigest(snapshot, measured, analysis, discovery, proposal, seo = null) {
+function buildDigest(snapshot, measured, analysis, discovery, proposal, seo = null, distribution = null) {
   const h = snapshot.meta?.health || {};
   const ok = Object.keys(snapshot.channels).join(', ') || 'none';
   const skipped = Object.keys(snapshot.errors).join(', ');
@@ -69,6 +70,10 @@ function buildDigest(snapshot, measured, analysis, discovery, proposal, seo = nu
   }
   lines.push(proposalMd(proposal));
   lines.push('');
+  if (distribution?.pending) {
+    lines.push(`**📣 Distribution queue:** ${distribution.pending} item(s) awaiting a human post (${Object.entries(distribution.counts).map(([k, v]) => `${k} ${v}`).join(' · ')}) — \`npm run growth:distribution\``);
+    lines.push('');
+  }
   if (seo) {
     lines.push(seo.ok
       ? `**SEO hygiene:** ✅ ${seo.checked} pages clean (${seo.scope})${seo.warns?.length ? ` · ${seo.warns.length} warning(s)` : ''}`
@@ -122,12 +127,14 @@ export async function runCycle() {
   const proposal = runPropose();     // graduated signals → ranked portfolio
   let seo = null;
   try { seo = await runSeoAudit(); } catch { /* SEO audit is best-effort (external fetch) */ }
-  const digest = buildDigest(snapshot, measured, analysis, discovery, proposal, seo);
+  let distribution = null;
+  try { distribution = refreshQueue(); } catch { /* queue is advisory — never fail the cycle */ }
+  const digest = buildDigest(snapshot, measured, analysis, discovery, proposal, seo, distribution);
   prependToLog(digest);
 
   // Per-cycle report: data/reports/<date>.{md,html} (numbers · trends · discoveries · issues · actions).
   const prev = SnapshotStore.recent(2)[1] || null;
-  const report = generateReport({ snapshot, measured, analysis, discovery, proposal, prev, market, seo });
+  const report = generateReport({ snapshot, measured, analysis, discovery, proposal, prev, market, seo, distribution });
 
   const regs = analysis.ok ? (analysis.regressions?.length || 0) : 0;
   const seoErrs = seo ? seo.errors.length : 0;
