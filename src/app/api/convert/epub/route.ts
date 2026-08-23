@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { markdownToHtml } from "@/lib/markdown";
 import { proxyImagesInHtml } from "@/lib/image-proxy";
 import epub from "epub-gen-memory";
+import { buildContentDisposition, deriveOutputFilename } from "@/lib/safe-output";
 
 // Maximum content size (1MB)
 const MAX_CONTENT_SIZE = 1 * 1024 * 1024;
@@ -150,10 +151,11 @@ export async function POST(request: NextRequest) {
     // Step 4: Split into chapters
     const chapters = splitIntoChapters(htmlContent);
 
-    // Step 5: Derive title from filename or first heading
-    const title = filename
-      ? filename.replace(/\.(md|markdown|txt)$/i, "")
-      : "Document";
+    // Step 5: Derive title from filename (non-string values fall back)
+    const title =
+      typeof filename === "string" && filename.trim() !== ""
+        ? filename.replace(/\.(md|markdown|txt)$/i, "")
+        : "Document";
 
     // Step 6: Generate EPUB with timeout
     const epubPromise = epub(
@@ -177,13 +179,8 @@ export async function POST(request: NextRequest) {
 
     const epubBuffer = await Promise.race([epubPromise, timeoutPromise]);
 
-    // Generate filename
-    const outputFilename = filename
-      ? filename.replace(/\.(md|markdown|txt)$/i, ".epub")
-      : "document.epub";
-
-    const safeFilename = outputFilename.replace(/[^\x00-\x7F]/g, "-");
-    const encodedFilename = encodeURIComponent(outputFilename);
+    // Generate filename (header-safe via buildContentDisposition below)
+    const outputFilename = deriveOutputFilename(filename, "epub");
 
     console.log(
       `[EPUB] Generated in ${Date.now() - requestStart}ms, ` +
@@ -194,7 +191,7 @@ export async function POST(request: NextRequest) {
       status: 200,
       headers: {
         "Content-Type": "application/epub+zip",
-        "Content-Disposition": `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
+        "Content-Disposition": buildContentDisposition(outputFilename),
         "Content-Length": epubBuffer.length.toString(),
       },
     });

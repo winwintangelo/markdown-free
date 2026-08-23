@@ -47,6 +47,13 @@ const IMG_PROXY_RATE_LIMIT = {
   maxRequests: IS_PRODUCTION ? 60 : 200,
 };
 
+// DOCX/EPUB conversion: cheaper than PDF (no Chromium) but still expensive —
+// each request can trigger up to 20 outbound image fetches via the proxy.
+const DOC_CONVERT_RATE_LIMIT = {
+  windowMs: 60 * 1000,
+  maxRequests: IS_PRODUCTION ? 30 : 200,
+};
+
 // Allowed origins for API requests
 const ALLOWED_ORIGINS = [
   "https://www.markdown.free",
@@ -195,6 +202,52 @@ export function middleware(request: NextRequest) {
     // Add rate limit headers to response
     const response = NextResponse.next();
     response.headers.set("X-RateLimit-Limit", RATE_LIMIT.maxRequests.toString());
+    response.headers.set("X-RateLimit-Remaining", remaining.toString());
+    return response;
+  }
+
+  // Rate limiting for DOCX/EPUB conversion (each request can fan out into
+  // up to 20 outbound image fetches — must not be unmetered)
+  if (
+    request.nextUrl.pathname === "/api/convert/docx" ||
+    request.nextUrl.pathname === "/api/convert/epub"
+  ) {
+    if (Math.random() < 0.01) {
+      cleanupRateLimits();
+    }
+
+    const ip = getClientIp(request);
+    const route = request.nextUrl.pathname.split("/").pop();
+
+    // Per-route bucket so one format can't starve another
+    const { allowed, remaining } = checkRateLimit(
+      `${route}:${ip}`,
+      DOC_CONVERT_RATE_LIMIT
+    );
+
+    if (!allowed) {
+      console.log(`[Security] ${route} rate limit exceeded for IP: ${ip}`);
+      return NextResponse.json(
+        {
+          error: "RATE_LIMITED",
+          message: "Too many requests. Please wait a minute before trying again.",
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": "60",
+            "X-RateLimit-Limit": DOC_CONVERT_RATE_LIMIT.maxRequests.toString(),
+            "X-RateLimit-Remaining": "0",
+          },
+        }
+      );
+    }
+
+    const response = NextResponse.next();
+    response.headers.set(
+      "X-RateLimit-Limit",
+      DOC_CONVERT_RATE_LIMIT.maxRequests.toString()
+    );
     response.headers.set("X-RateLimit-Remaining", remaining.toString());
     return response;
   }

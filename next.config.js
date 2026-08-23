@@ -83,9 +83,13 @@ const nextConfig = {
             "font-src 'self' https://fonts.gstatic.com",
             "img-src 'self' data: blob:",
             "connect-src 'self' https://*.vercel-insights.com",
+            "object-src 'none'",
             "frame-ancestors 'none'",
             "base-uri 'self'",
             "form-action 'self'",
+            // NOTE: no upgrade-insecure-requests — HSTS covers the upgrade
+            // story, and WebKit applies the directive to http://localhost,
+            // which breaks e2e runs against a local prod build.
           ].join("; "),
         }
       );

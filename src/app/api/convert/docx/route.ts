@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { markdownToHtml } from "@/lib/markdown";
 import { proxyImagesInHtml } from "@/lib/image-proxy";
 import HTMLtoDOCX from "html-to-docx";
+import {
+  buildContentDisposition,
+  deriveOutputFilename,
+  escapeHtml,
+} from "@/lib/safe-output";
 
 // Polyfill for html-to-docx bug: library uses console.warning instead of console.warn
 // See: https://github.com/privateOmega/html-to-docx/issues
@@ -156,7 +161,7 @@ async function markdownToDocx(markdown: string, title?: string): Promise<Buffer>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>${title || "Document"}</title>
+  <title>${escapeHtml(title || "Document")}</title>
   <style>${DOCX_STYLES}</style>
 </head>
 <body>
@@ -193,10 +198,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { markdown, filename } = body;
 
+    // SECURITY: Log metadata only, never log user content (PII risk)
     debugLog("Request", `[${requestId}] Request body parsed`, {
       filename,
       markdownLength: markdown?.length,
-      markdownPreview: markdown?.substring(0, 100),
     });
 
     // Validate content
@@ -226,7 +231,11 @@ export async function POST(request: NextRequest) {
     debugLog("DOCX", `[${requestId}] Starting DOCX generation...`);
     const docxStart = Date.now();
 
-    const docxPromise = markdownToDocx(markdown, filename?.replace(/\.(md|markdown|txt)$/i, ""));
+    const docTitle =
+      typeof filename === "string"
+        ? filename.replace(/\.(md|markdown|txt)$/i, "")
+        : undefined;
+    const docxPromise = markdownToDocx(markdown, docTitle);
     const timeoutPromise = new Promise<never>((_, reject) => {
       setTimeout(() => reject(new Error("DOCX generation timeout")), DOCX_TIMEOUT);
     });
@@ -238,14 +247,8 @@ export async function POST(request: NextRequest) {
       docxSize: docxBuffer.length,
     });
 
-    // Generate filename
-    const outputFilename = filename
-      ? filename.replace(/\.(md|markdown|txt)$/i, ".docx")
-      : "document.docx";
-
-    // Create ASCII-safe filename for Content-Disposition header
-    const safeFilename = outputFilename.replace(/[^\x00-\x7F]/g, "-");
-    const encodedFilename = encodeURIComponent(outputFilename);
+    // Generate filename (header-safe via buildContentDisposition below)
+    const outputFilename = deriveOutputFilename(filename, "docx");
 
     const totalDuration = Date.now() - requestStart;
     debugLog("Request", `[${requestId}] DOCX generation completed successfully`, {
@@ -259,7 +262,7 @@ export async function POST(request: NextRequest) {
       status: 200,
       headers: {
         "Content-Type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "Content-Disposition": `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
+        "Content-Disposition": buildContentDisposition(outputFilename),
         "Content-Length": docxBuffer.length.toString(),
       },
     });

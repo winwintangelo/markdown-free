@@ -20,14 +20,17 @@ test.describe("Production - Health Check", () => {
     expect(response?.status()).toBe(200);
   });
 
-  test("PDF API debug endpoint returns healthy status", async ({ request }) => {
+  test("PDF API health endpoint returns healthy status without leaking internals", async ({ request }) => {
     const response = await request.get("/api/convert/pdf");
     expect(response.status()).toBe(200);
-    
+
     const data = await response.json();
-    expect(data.environment.VERCEL_ENV).toBe("production");
-    expect(data.chromium.status).toBe("ok");
-    expect(data.chromium.executablePath).toBeTruthy();
+    expect(data.status).toBe("ok");
+    expect(data.chromium).toBe("ok");
+    // SECURITY: production must not expose env vars, paths, or config
+    expect(data.environment).toBeUndefined();
+    expect(data.config).toBeUndefined();
+    expect(data.cache).toBeUndefined();
   });
 });
 

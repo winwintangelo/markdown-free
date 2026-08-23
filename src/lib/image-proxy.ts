@@ -622,7 +622,15 @@ export async function proxyImagesInHtml(html: string): Promise<string> {
   urlMap.forEach((imageData, url) => {
     if (imageData) {
       const escapedUrl = url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      result = result.replace(new RegExp(escapedUrl, "g"), imageData.data);
+      // Only rewrite the URL where it appears as a src attribute value —
+      // a bare-string replace would also rewrite hrefs and visible text
+      // (e.g. the same URL quoted in a code block). Function replacer avoids
+      // `$`-pattern interpretation in the replacement string.
+      const srcAttrRegex = new RegExp(`(src=["'])${escapedUrl}(["'])`, "g");
+      result = result.replace(
+        srcAttrRegex,
+        (_match, prefix, suffix) => `${prefix}${imageData.data}${suffix}`
+      );
       console.log(`[ImageProxy] Replaced: ${url.substring(0, 50)}...`);
     } else {
       console.log(`[ImageProxy] Kept original (failed to fetch): ${url.substring(0, 50)}...`);

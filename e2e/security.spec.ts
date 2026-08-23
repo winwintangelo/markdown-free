@@ -606,3 +606,95 @@ test.describe("API Security - Origin Validation", () => {
     expect(response.status()).not.toBe(403);
   });
 });
+
+test.describe("API Security - Filename hardening", () => {
+  test("DOCX API neutralizes quote/CRLF filename header injection", async ({
+    request,
+  }) => {
+    const response = await request.post("/api/convert/docx", {
+      headers: {
+        "Content-Type": "application/json",
+        Origin: "http://localhost:3000",
+      },
+      data: {
+        markdown: "# Test",
+        filename: 'evil"\r\nX-Injected: yes\r\n.md',
+      },
+    });
+
+    expect(response.ok()).toBe(true);
+
+    const contentDisposition = response.headers()["content-disposition"];
+    expect(contentDisposition).toBeTruthy();
+    // Control characters and raw quotes must not survive into the header
+    expect(contentDisposition).not.toContain("\r");
+    expect(contentDisposition).not.toContain("\n");
+    expect(contentDisposition).not.toContain('evil"');
+    // The injected header must not exist on the response
+    expect(response.headers()["x-injected"]).toBeUndefined();
+  });
+
+  test("DOCX API tolerates a non-string filename", async ({ request }) => {
+    const response = await request.post("/api/convert/docx", {
+      headers: {
+        "Content-Type": "application/json",
+        Origin: "http://localhost:3000",
+      },
+      data: {
+        markdown: "# Test",
+        filename: { not: "a string" },
+      },
+    });
+
+    expect(response.ok()).toBe(true);
+    const contentDisposition = response.headers()["content-disposition"];
+    expect(contentDisposition).toContain('filename="document.docx"');
+  });
+
+  test("EPUB API tolerates a non-string filename", async ({ request }) => {
+    const response = await request.post("/api/convert/epub", {
+      headers: {
+        "Content-Type": "application/json",
+        Origin: "http://localhost:3000",
+      },
+      data: {
+        markdown: "# Test\n\nBody",
+        filename: 12345,
+      },
+    });
+
+    expect(response.ok()).toBe(true);
+    const contentDisposition = response.headers()["content-disposition"];
+    expect(contentDisposition).toContain('filename="document.epub"');
+  });
+});
+
+test.describe("API Security - DOCX/EPUB rate limiting", () => {
+  test("DOCX API responses include rate limit headers", async ({ request }) => {
+    const response = await request.post("/api/convert/docx", {
+      headers: {
+        "Content-Type": "application/json",
+        Origin: "http://localhost:3000",
+      },
+      data: { markdown: "# Rate limit check", filename: "rl.md" },
+    });
+
+    expect(response.ok()).toBe(true);
+    expect(response.headers()["x-ratelimit-limit"]).toBeTruthy();
+    expect(response.headers()["x-ratelimit-remaining"]).toBeTruthy();
+  });
+
+  test("EPUB API responses include rate limit headers", async ({ request }) => {
+    const response = await request.post("/api/convert/epub", {
+      headers: {
+        "Content-Type": "application/json",
+        Origin: "http://localhost:3000",
+      },
+      data: { markdown: "# Rate limit check\n\nBody", filename: "rl.md" },
+    });
+
+    expect(response.ok()).toBe(true);
+    expect(response.headers()["x-ratelimit-limit"]).toBeTruthy();
+    expect(response.headers()["x-ratelimit-remaining"]).toBeTruthy();
+  });
+});

@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { markdownToHtml } from "@/lib/markdown";
 import { proxyImagesInHtml } from "@/lib/image-proxy";
+import { buildContentDisposition, deriveOutputFilename } from "@/lib/safe-output";
 
 // Maximum content size (1MB - reduced from 5MB for security)
 // This prevents memory exhaustion attacks while still allowing reasonable documents
@@ -578,22 +579,14 @@ export async function POST(request: NextRequest) {
     browser = null;
     debugLog("Browser", `[${requestId}] Browser closed`);
 
-    // Generate filename
-    const outputFilename = filename
-      ? filename.replace(/\.(md|markdown|txt)$/i, ".pdf")
-      : "document.pdf";
-
-    // Create ASCII-safe filename for Content-Disposition header
-    // Replace non-ASCII characters with hyphens to avoid ByteString errors
-    const safeFilename = outputFilename.replace(/[^\x00-\x7F]/g, "-");
-    // Also encode the full filename for RFC 5987 compliant clients
-    const encodedFilename = encodeURIComponent(outputFilename);
+    // Generate filename (header-safe: control chars, quotes, and backslashes
+    // can't reach the Content-Disposition quoted-string)
+    const outputFilename = deriveOutputFilename(filename, "pdf");
 
     const totalDuration = Date.now() - requestStart;
     debugLog("Request", `[${requestId}] PDF generation completed successfully`, {
       totalDurationMs: totalDuration,
       outputFilename,
-      safeFilename,
       pdfSize: pdfBuffer.length,
     });
 
@@ -603,7 +596,7 @@ export async function POST(request: NextRequest) {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename="${safeFilename}"; filename*=UTF-8''${encodedFilename}`,
+        "Content-Disposition": buildContentDisposition(outputFilename),
         "Content-Length": pdfBuffer.length.toString(),
       },
     });
@@ -665,10 +658,27 @@ export async function POST(request: NextRequest) {
 }
 
 /**
- * GET handler for debugging - returns environment info and Chromium status
+ * GET handler - health check / debugging
  * Access via: /api/convert/pdf (GET request)
+ *
+ * SECURITY: full debug output (env vars, filesystem paths, config, error
+ * stacks) is for local development only. In production this is a bare
+ * health check so the endpoint can't be used for reconnaissance.
  */
 export async function GET() {
+  if (process.env.NODE_ENV === "production") {
+    let chromium = "skipped";
+    if (process.env.VERCEL_ENV) {
+      try {
+        await getChromiumPath();
+        chromium = "ok";
+      } catch {
+        chromium = "error";
+      }
+    }
+    return NextResponse.json({ status: "ok", chromium });
+  }
+
   const startTime = Date.now();
   const debugInfo: Record<string, any> = {
     timestamp: new Date().toISOString(),
