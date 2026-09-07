@@ -96,9 +96,13 @@ export default function PrivacyPage() {
 
           <h2>Third parties</h2>
           <p>
-            We do not share any data with third parties. The PDF generation runs
-            on our own serverless infrastructure (Vercel). No external services
-            see your content.
+            We do not share your documents with anyone. Two service providers
+            process limited data on our behalf: <strong>Umami Cloud</strong>{" "}
+            (cookieless analytics — aggregate counts only, never your content)
+            and <strong>Resend</strong> (delivers feedback-form messages, and
+            the reply email you optionally include, to our inbox). The PDF
+            generation runs on our own serverless infrastructure (Vercel). No
+            external service sees your content.
           </p>
 
           <h2>Security</h2>

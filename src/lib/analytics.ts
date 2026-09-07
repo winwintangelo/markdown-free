@@ -283,21 +283,21 @@ export function trackFeedbackClick(): void {
 }
 
 /**
- * Track feedback form submission with content
- * Note: Umami stores event data, making this a simple way to collect feedback
- * without needing a separate backend/database.
+ * Track a feedback-form submission — counts only.
+ *
+ * The message text and any email go to the first-party /api/feedback endpoint
+ * (src/app/api/feedback/route.ts), never to analytics: the privacy policy
+ * promises no personal information reaches the analytics provider.
  */
 export function trackFeedbackSubmit(data: {
-  feedback: string;
-  email?: string;
   feedbackLength: string;
   hasEmail: string;
+  delivered: string;
 }): void {
   trackEvent("feedback_submit", {
-    feedback: data.feedback,
-    email: data.email || "",
     feedback_length: data.feedbackLength,
     has_email: data.hasEmail,
+    delivered: data.delivered,
   });
 }
 
@@ -521,13 +521,15 @@ export function trackFeedbackPositive(format: string): void {
 }
 
 /**
- * Track a thumbs-down (negative) post-conversion feedback, with selected categories and optional comment
+ * Track a thumbs-down (negative) post-conversion feedback with the selected
+ * categories. Free-text comments never reach analytics — they go to the
+ * first-party /api/feedback endpoint (see sendFeedback in lib/feedback-client.ts).
  */
-export function trackFeedbackNegative(format: string, categories: string[], comment?: string): void {
+export function trackFeedbackNegative(format: string, categories: string[], hasComment = false): void {
   trackEvent("feedback_negative", {
     format,
     ...(categories.length > 0 ? { categories: categories.join(",") } : {}),
-    ...(comment ? { comment: comment.substring(0, 500) } : {}),
+    has_comment: hasComment ? "yes" : "no",
   });
 }
 

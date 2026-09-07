@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./e2e",
-  testMatch: ["app.spec.ts", "i18n.spec.ts", "filename.spec.ts", "multilingual.spec.ts", "security.spec.ts", "word-pages.spec.ts", "share.spec.ts", "mobile.spec.ts", "clipboard.spec.ts", "related-tools.spec.ts", "image-export.spec.ts", "img-proxy.spec.ts", "comparison-inline.spec.ts"], // Local tests (use production config for production.spec.ts)
+  testMatch: ["app.spec.ts", "i18n.spec.ts", "filename.spec.ts", "multilingual.spec.ts", "security.spec.ts", "word-pages.spec.ts", "share.spec.ts", "mobile.spec.ts", "clipboard.spec.ts", "related-tools.spec.ts", "image-export.spec.ts", "img-proxy.spec.ts", "comparison-inline.spec.ts", "feedback.spec.ts", "static-rendering.spec.ts"], // Local tests (use production config for production.spec.ts)
   outputDir: "./tmp/test-results",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -28,7 +28,13 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "npm run dev",
+    // CI (and any authoritative run) tests the PRODUCTION build: `next dev` compiles
+    // routes on demand and produces false timeouts under parallel workers. CI runs
+    // `npm run build` first (see .github/workflows/ci.yml). Locally, start
+    // `E2E_RELAXED_RATE_LIMITS=1 npm run start` yourself and Playwright reuses it
+    // (the flag lifts the per-IP API budgets the parallel suite would trip;
+    // origin validation stays strict — see src/middleware.ts).
+    command: process.env.CI ? "E2E_RELAXED_RATE_LIMITS=1 npm run start" : "npm run dev",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,

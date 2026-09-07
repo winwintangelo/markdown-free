@@ -197,7 +197,6 @@ table {
 th, td {
   border: 1px solid #e2e8f0;
   padding: 0.5rem 0.75rem;
-  text-align: left;
 }
 th {
   background-color: #f8fafc;

@@ -106,7 +106,7 @@ pre { font-family: "Courier New", Courier, monospace; font-size: 0.85em; backgro
 pre code { background-color: transparent; padding: 0; }
 blockquote { border-left: 3px solid #ccc; margin: 1em 0; padding-left: 1em; color: #666; font-style: italic; }
 table { border-collapse: collapse; width: 100%; margin: 1em 0; }
-th, td { border: 1px solid #ccc; padding: 0.5em; text-align: left; }
+th, td { border: 1px solid #ccc; padding: 0.5em; }
 th { background-color: #f0f0f0; font-weight: bold; }
 hr { border: none; border-top: 1px solid #ccc; margin: 1.5em 0; }
 a { color: #0563C1; text-decoration: underline; }

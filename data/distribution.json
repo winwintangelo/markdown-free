@@ -19,16 +19,7 @@
       "updated": "2026-07-18",
       "postedUrl": null,
       "notes": null,
-      "lockHold": {
-        "until": "2026-08-06",
-        "held": [
-          {
-            "target": "/zh-Hans/markdown-zhuanhuan-word",
-            "expId": "cjk-zhuanhuan-word-epub",
-            "measureOn": "2026-08-06"
-          }
-        ]
-      }
+      "lockHold": null
     },
     {
       "id": "qiita-ja-henkan",
@@ -47,16 +38,7 @@
       "updated": "2026-07-18",
       "postedUrl": null,
       "notes": null,
-      "lockHold": {
-        "until": "2026-08-08",
-        "held": [
-          {
-            "target": "/ja/markdown-word-henkan",
-            "expId": "word-cluster-sweep",
-            "measureOn": "2026-08-08"
-          }
-        ]
-      }
+      "lockHold": null
     },
     {
       "id": "velog-ko-byeonhwan",
@@ -75,16 +57,7 @@
       "updated": "2026-07-18",
       "postedUrl": null,
       "notes": null,
-      "lockHold": {
-        "until": "2026-08-08",
-        "held": [
-          {
-            "target": "/ko/markdown-word-byeonhwan",
-            "expId": "word-cluster-sweep",
-            "measureOn": "2026-08-08"
-          }
-        ]
-      }
+      "lockHold": null
     },
     {
       "id": "zhihu-answers-zh",
@@ -102,16 +75,7 @@
       "updated": "2026-07-18",
       "postedUrl": null,
       "notes": null,
-      "lockHold": {
-        "until": "2026-08-08",
-        "held": [
-          {
-            "target": "/zh-Hans",
-            "expId": "server-side-html-lang",
-            "measureOn": "2026-08-08"
-          }
-        ]
-      }
+      "lockHold": null
     }
   ]
 }

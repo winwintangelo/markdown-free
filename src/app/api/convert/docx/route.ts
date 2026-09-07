@@ -124,7 +124,7 @@ pre { font-family: Consolas, Monaco, monospace; font-size: 10pt; background-colo
 pre code { background-color: transparent; padding: 0; }
 blockquote { border-left: 3pt solid #cccccc; margin: 12pt 0; padding-left: 12pt; color: #666666; font-style: italic; }
 table { border-collapse: collapse; width: 100%; margin: 12pt 0; }
-th, td { border: 1pt solid #cccccc; padding: 6pt 8pt; text-align: left; }
+th, td { border: 1pt solid #cccccc; padding: 6pt 8pt; }
 th { background-color: #f0f0f0; font-weight: bold; }
 hr { border: none; border-top: 1pt solid #cccccc; margin: 18pt 0; }
 a { color: #0563C1; text-decoration: underline; }

@@ -5,6 +5,66 @@ Human-readable digest, appended by the `propose`/`summarize` stages each cycle
 
 ---
 
+## 2026-09-07 — automated cycle
+
+**Channels:** bing, gsc, vercel, events, referral · _skipped: baidu_ · 14906ms
+
+**Measured (10):**
+- [inconclusive] md-to-png-cluster — baseline not backfilled (pre-loop ship) — backfill from search-API history in P1
+- [inconclusive] cjk-zhuanhuan-word-epub — baseline not backfilled (pre-loop ship) — backfill from search-API history in P1
+- [inconclusive] word-cluster-sweep — baseline not backfilled (pre-loop ship) — backfill from search-API history in P1
+- [inconclusive] og-image-relatedtools-faq — baseline not backfilled (pre-loop ship) — backfill from search-API history in P1
+- [inconclusive] server-side-html-lang — baseline not backfilled (pre-loop ship) — backfill from search-API history in P1
+- [lost] word-title-meta-ctr-2026-07-13 — ctr -0.7 (DiD) vs baseline 0.82
+- [inconclusive] obsidian-title-meta-ctr-2026-07-15 — ctr +0.09 (DiD) vs baseline 1.95
+- [won] converter-hub-html-2026-07-16 — impressions +3 vs baseline 0
+- [won] comparison-cta-2026-07-16 — cta_clicks +31 vs baseline 0
+- [won] llms-cjk-refresh-2026-07-18 — ai_sessions +6.2 vs baseline 17
+
+**⚠ Regressions (5):**
+- position_drop [gsc] markdown to word — 27.4 → 37.1
+- position_drop [gsc] https://www.markdown.free/ — 13.42 → 19.56
+- clicks_drop [gsc] https://www.markdown.free/es/convertir-readme-pdf — 11 → 5
+- position_drop [gsc] https://www.markdown.free/zh-Hant — 12.12 → 22.83
+- position_drop [gsc] https://www.markdown.free/markdown-to-docx — 30.41 → 49.68
+
+**Signals:** 84 mined · 392 in warehouse · **83 graduated** (confidence ≥ threshold)
+
+**Opportunity Engine:** 83 graduated signals → 83 candidates · top 10 (portfolio-balanced):
+1. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word`
+   _3 sources · converts in-funnel · impact 1.00 · advances 'cjk-market' · CJK (moat) · score 3.367 · goal:cjk-market_
+   ↳ KB(word): CJK word-conversion demand (转word) skews to Bing, not Google
+2. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `markdown转word`
+   _3 sources · converts in-funnel · impact 1.00 · advances 'cjk-market' · CJK (moat) · score 3.34 · goal:cjk-market_
+   ↳ KB(word): CJK word-conversion demand (转word) skews to Bing, not Google
+3. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/zh-Hans`
+   _3 sources · converts in-funnel · impact 1.00 · advances 'cjk-market' · CJK (moat) · score 3.098 · goal:cjk-market_
+4. 🟢 **[quick_win]** Nudge on-page (internal links, depth) to break into page 1 — `https://www.markdown.free/zh-Hans/markdown-pdf-zhuanhuan`
+   _3 sources · converts in-funnel · impact 0.80 · advances 'cjk-market' · CJK (moat) · score 2.719 · goal:cjk-market_
+   ↳ KB(pdf): readme→pdf is the top Google intent; /claude-artifacts-to-pdf is a Bing star (~12.5% CTR)
+5. 🟢 **[quick_win]** Rewrite title/meta to lift CTR — `https://www.markdown.free/id/markdown-ke-word`
+   _5 sources · converts in-funnel · impact 1.00 · score 2.496_
+   ↳ KB(word): CJK word-conversion demand (转word) skews to Bing, not Google
+6. 🟡 **[strategic_bet]** Lean into this converting market (locale depth, AI visibility, distribution queue) — `country:CN`
+   _1 sources · converts in-funnel · impact 1.00 · advances 'cjk-market' · CJK (moat) · score 1.753 · goal:cjk-market_
+7. 🟡 **[strategic_bet]** Lean into this converting market (locale depth, AI visibility, distribution queue) — `country:JP`
+   _1 sources · converts in-funnel · impact 1.00 · advances 'cjk-market' · CJK (moat) · score 1.753 · goal:cjk-market_
+8. 🟡 **[strategic_bet]** Lean into this converting market (locale depth, AI visibility, distribution queue) — `country:US`
+   _1 sources · converts in-funnel · impact 0.68 · advances 'conversion' · score 1.029 · goal:conversion_
+9. 🟢 **[maintenance]** Fix regression: position_drop (30.41→49.68) — `https://www.markdown.free/markdown-to-docx`
+   _regression on gsc · score 1_
+10. 🟢 **[maintenance]** Fix regression: position_drop (12.12→22.83) — `https://www.markdown.free/zh-Hant`
+   _regression on gsc · score 1_
+
+🔒 _1 candidate(s) suppressed: 1 human-declined._
+   🚫 `https://www.markdown.free/best-markdown-to-pdf-converter-2026` — declined: Rank/authority problem, not a snippet failure (pos ~10, 0% CTR, Google-only). SME-reviewed…
+
+**📣 Distribution queue:** 4 item(s) awaiting a human post (drafted 3 · proposed 1) — `npm run growth:distribution`
+
+**SEO hygiene:** ✅ 10 pages clean (core) · 6 warning(s)
+
+**Next:** review the portfolio above; run `/growth-loop` to refine with judgment + implement 🟢 items.
+
 ## 2026-07-16 — manual action (title hygiene + lock-leak fix)
 
 **🔧 Loop-integrity fix.** `word-cluster-sweep`'s 6 non-EN targets were seeded in the

@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { X, Send, Loader2, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackFeedbackSubmit } from "@/lib/analytics";
+import { sendFeedback } from "@/lib/feedback-client";
 import type { Dictionary } from "@/i18n";
 
 interface FeedbackModalProps {
@@ -87,17 +88,23 @@ export function FeedbackModal({ isOpen, onClose, dict = defaultDict as unknown a
       setIsSubmitting(true);
 
       try {
-        // Track the feedback submission with Umami
-        // Include feedback content and email (if provided) in the event data
-        trackFeedbackSubmit({
-          feedback: feedback.trim().substring(0, 500), // Limit to 500 chars for analytics
+        // The message and optional email go to the first-party endpoint only
+        // (delivered to the owner's inbox). Analytics receives counts, never content.
+        const result = await sendFeedback({
+          message: feedback.trim(),
           email: email.trim() || undefined,
+          source: "modal",
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+        });
+        if (!result.ok) {
+          throw new Error("Feedback delivery failed");
+        }
+
+        trackFeedbackSubmit({
           feedbackLength: feedback.trim().length.toString(),
           hasEmail: email.trim() ? "yes" : "no",
+          delivered: result.delivered ? "yes" : "no",
         });
-
-        // Simulate a small delay for UX
-        await new Promise((resolve) => setTimeout(resolve, 300));
 
         setIsSubmitted(true);
 

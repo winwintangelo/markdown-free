@@ -284,6 +284,9 @@ test.describe("Server-side filename encoding", () => {
 
     for (const tc of testCases) {
       const response = await request.post("/api/convert/docx", {
+        // Production middleware rejects origin-less POSTs; this test is about
+        // the Content-Disposition header, so identify as the site itself.
+        headers: { Origin: "http://localhost:3000" },
         data: {
           markdown: "# Test",
           filename: tc.input,
@@ -312,6 +315,7 @@ test.describe("Server-side filename encoding", () => {
 
     for (const tc of testCases) {
       const response = await request.post("/api/convert/pdf", {
+        headers: { Origin: "http://localhost:3000" },
         data: {
           markdown: "# Test",
           filename: tc.input,

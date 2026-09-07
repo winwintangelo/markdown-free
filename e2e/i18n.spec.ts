@@ -21,7 +21,7 @@ test.describe("Markdown Free - Internationalization", () => {
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown a PDF");
       await expect(page.getByText("Gratis • Senza account")).toBeVisible();
 
-      // Check HTML lang attribute (set client-side by HtmlLangUpdater after hydration)
+      // Check HTML lang attribute (rendered server-side by the [locale] root layout)
       await expect(page.locator("html")).toHaveAttribute("lang", "it");
     });
 
@@ -32,7 +32,7 @@ test.describe("Markdown Free - Internationalization", () => {
       await expect(page.getByRole("heading", { level: 1 })).toContainText("Markdown a PDF");
       await expect(page.getByText("Gratis • Sin cuenta")).toBeVisible();
 
-      // Check HTML lang attribute (set client-side after hydration)
+      // Check HTML lang attribute (rendered server-side by the [locale] root layout)
       await expect(page.locator("html")).toHaveAttribute("lang", "es");
     });
 

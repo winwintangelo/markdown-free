@@ -1,23 +1,36 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { HtmlLangUpdater } from "@/components/html-lang-updater";
+import { RootShell } from "@/components/root-shell";
 import { LanguageBanner } from "@/components/language-banner";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { ConverterProvider } from "@/hooks/use-converter";
-import { 
-  locales, 
-  isValidLocale, 
-  localeMetadata, 
+import { localeAlternates, siteUrl, siteViewport } from "@/lib/site-metadata";
+import {
+  locales,
+  isValidLocale,
+  localeMetadata,
   getDictionary,
-  type Locale 
+  type Locale,
 } from "@/i18n";
+import "../globals.css";
 
-const siteUrl = "https://www.markdown.free";
+/**
+ * Root layout for prefixed locale pages (/it, /ja/…, /zh-Hans/…).
+ *
+ * This is one of two root layouts — see src/lib/site-metadata.ts. `lang` comes
+ * from the static route param, so every locale page prerenders with the correct
+ * server-side <html lang> (no request headers, no client-side patching).
+ */
 
-// Generate static params for all locales
+// Prerender every locale. Unknown first segments (/xx, /wp-admin, …) fall
+// through to notFound() below — an explicit 404 rather than
+// `dynamicParams = false`, which 404s too but logs an internal
+// NoFallbackError for every bot probe.
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
+
+export const viewport: Viewport = siteViewport;
 
 // Generate metadata for each locale
 export async function generateMetadata({
@@ -39,19 +52,7 @@ export async function generateMetadata({
     metadataBase: new URL(siteUrl),
     alternates: {
       canonical: locale === "en" ? "/" : `/${locale}`,
-      languages: {
-        "en": "/",
-        "it": "/it",
-        "es": "/es",
-        "ja": "/ja",
-        "ko": "/ko",
-        "zh-Hans": "/zh-Hans",
-        "zh-Hant": "/zh-Hant",
-        "id": "/id",
-        "vi": "/vi",
-        "hi": "/hi",
-        "x-default": "/",
-      },
+      languages: localeAlternates,
     },
     openGraph: {
       type: "website",
@@ -93,7 +94,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function LocaleLayout({
+export default async function LocaleRootLayout({
   children,
   params,
 }: {
@@ -101,29 +102,22 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: localeParam } = await params;
-  
-  // Validate locale
   if (!isValidLocale(localeParam)) {
     notFound();
   }
-  
-  const locale = localeParam as Locale;
+  const locale: Locale = localeParam;
   const dict = getDictionary(locale);
 
-  // This is a nested layout - it inherits html/body from root layout
-  // We provide locale-specific components here
-  // <html lang> is set server-side by the root layout via the x-locale header
-  // (correct initial HTML for crawlers); HtmlLangUpdater keeps it in sync during
-  // client-side (soft) navigation, where the root layout does not re-render.
-  // LocaleTracker sends locale-aware pageview events to Umami
   // Note: Header is NOT included here - pages that need it (homepage, about, privacy) add it themselves
   // Intent/landing pages intentionally skip the header for a focused experience
+  // LocaleTracker sends locale-aware pageview events to Umami
   return (
-    <ConverterProvider>
-      <HtmlLangUpdater locale={locale} />
-      <LocaleTracker locale={locale} />
-      {children}
-      <LanguageBanner currentLocale={locale} dict={dict} />
-    </ConverterProvider>
+    <RootShell lang={localeMetadata[locale].htmlLang}>
+      <ConverterProvider>
+        <LocaleTracker locale={locale} />
+        {children}
+        <LanguageBanner currentLocale={locale} dict={dict} />
+      </ConverterProvider>
+    </RootShell>
   );
 }

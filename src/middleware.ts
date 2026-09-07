@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getLocaleFromPath } from "@/i18n/config";
 
 /**
  * Security Middleware
@@ -35,23 +34,36 @@ import { getLocaleFromPath } from "@/i18n/config";
 // In development/test, use higher limits to avoid blocking parallel tests
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
+// The e2e suite runs against a PRODUCTION build (`next start`) and fires dozens
+// of API conversions per minute from one IP, which trips the per-IP budgets
+// below. Setting E2E_RELAXED_RATE_LIMITS=1 on the server under test switches to
+// the dev budgets; origin validation stays strict. Never set this on Vercel.
+const STRICT_LIMITS = IS_PRODUCTION && process.env.E2E_RELAXED_RATE_LIMITS !== "1";
+
 const RATE_LIMIT = {
   windowMs: 60 * 1000, // 1 minute window
-  maxRequests: IS_PRODUCTION ? 15 : 100, // 15/min in prod, 100/min in dev/test
+  maxRequests: STRICT_LIMITS ? 15 : 100, // 15/min in prod, 100/min in dev/test
 };
 
 // Image proxy gets its own, higher budget: a single image export can
 // legitimately fall back to the proxy for up to 20 images in one document.
 const IMG_PROXY_RATE_LIMIT = {
   windowMs: 60 * 1000,
-  maxRequests: IS_PRODUCTION ? 60 : 200,
+  maxRequests: STRICT_LIMITS ? 60 : 200,
 };
 
 // DOCX/EPUB conversion: cheaper than PDF (no Chromium) but still expensive —
 // each request can trigger up to 20 outbound image fetches via the proxy.
 const DOC_CONVERT_RATE_LIMIT = {
   windowMs: 60 * 1000,
-  maxRequests: IS_PRODUCTION ? 30 : 200,
+  maxRequests: STRICT_LIMITS ? 30 : 200,
+};
+
+// Feedback endpoint: each accepted message becomes an email, so keep the
+// per-IP budget tiny — a human sends a handful at most.
+const FEEDBACK_RATE_LIMIT = {
+  windowMs: 60 * 1000,
+  maxRequests: STRICT_LIMITS ? 10 : 100,
 };
 
 // Allowed origins for API requests
@@ -141,16 +153,9 @@ function validateOrigin(request: NextRequest): boolean {
 }
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
-  // Page (non-API) routes: stamp the resolved locale on the request so the root
-  // layout can render <html lang> server-side. Crawlers (especially Bing, our
-  // largest channel) don't execute the old client-side lang patch.
-  if (!pathname.startsWith("/api/")) {
-    const requestHeaders = new Headers(request.headers);
-    requestHeaders.set("x-locale", getLocaleFromPath(pathname));
-    return NextResponse.next({ request: { headers: requestHeaders } });
-  }
+  // Only /api/* reaches this middleware (see `config.matcher`). Page routes are
+  // fully static: <html lang> is rendered by the two root layouts, so no
+  // request-time locale stamping is needed (build plan Phase −1, "Option B").
 
   // Skip OPTIONS requests (CORS preflight)
   if (request.method === "OPTIONS") {
@@ -287,16 +292,34 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
+  // Rate limiting for the first-party feedback endpoint (every accepted
+  // message is forwarded as an email)
+  if (request.nextUrl.pathname === "/api/feedback") {
+    if (Math.random() < 0.01) {
+      cleanupRateLimits();
+    }
+
+    const ip = getClientIp(request);
+    const { allowed } = checkRateLimit(`feedback:${ip}`, FEEDBACK_RATE_LIMIT);
+
+    if (!allowed) {
+      console.log(`[Security] Feedback rate limit exceeded for IP: ${ip}`);
+      return NextResponse.json(
+        {
+          error: "RATE_LIMITED",
+          message: "Too many messages. Please wait a minute before trying again.",
+        },
+        { status: 429, headers: { "Retry-After": "60" } }
+      );
+    }
+  }
+
   return NextResponse.next();
 }
 
 // Configure which routes use this middleware
 export const config = {
-  matcher: [
-    "/api/:path*",
-    // Page routes (for the x-locale header). Exclude static assets, files with
-    // an extension (sitemap.xml, og-image.png, robots.txt…), _next, and the
-    // Umami /ingest proxy.
-    "/((?!_next/static|_next/image|favicon\\.ico|ingest/|.*\\.[\\w]+$).*)",
-  ],
+  // API routes only. Page routes must NOT pass through middleware: they are
+  // statically prerendered and edge-cached, and nothing here applies to them.
+  matcher: ["/api/:path*"],
 };

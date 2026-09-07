@@ -19,7 +19,7 @@ Markdown Free is a web-based Markdown viewer and converter. Users upload/paste M
 
 ### PDF Generation Notes
 - Cold starts may take 5-10s on first request
-- 5MB max file size enforced client-side
+- 1MB max file size enforced client-side and server-side (all convert routes)
 - Configured in `vercel.json` with 1024MB memory and 30s timeout
 - Uses `@sparticuz/chromium-min` for smaller Lambda size
 

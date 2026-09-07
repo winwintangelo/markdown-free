@@ -1929,10 +1929,11 @@ test.describe("Markdown Free - Analytics Integration", () => {
     await page.goto("/privacy");
     
     // Privacy page should mention Umami Cloud
-    await expect(page.getByText("Umami Cloud")).toBeVisible();
+    // "Umami Cloud" now appears in both the Analytics and Third-parties sections
+    await expect(page.getByText("Umami Cloud").first()).toBeVisible();
     
     // Should explain it's cookieless
-    await expect(page.getByText(/cookieless/i)).toBeVisible();
+    await expect(page.getByText(/cookieless/i).first()).toBeVisible();
     
     // Should clarify we don't send content
     await expect(page.getByText(/do not send your Markdown content/i)).toBeVisible();

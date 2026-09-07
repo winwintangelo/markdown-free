@@ -26,13 +26,13 @@
         "as_of": "2026-07-04"
       },
       "measure_on": "2026-08-01",
-      "status": "shipped",
+      "status": "inconclusive",
       "outcome": {
         "treated_delta": null,
         "control_delta": null,
         "did": null,
         "guardrails_held": null,
-        "note": ""
+        "note": "baseline not backfilled (pre-loop ship) — backfill from search-API history in P1"
       }
     },
     {
@@ -64,13 +64,13 @@
         "as_of": "2026-07-09"
       },
       "measure_on": "2026-08-06",
-      "status": "shipped",
+      "status": "inconclusive",
       "outcome": {
         "treated_delta": null,
         "control_delta": null,
         "did": null,
         "guardrails_held": null,
-        "note": ""
+        "note": "baseline not backfilled (pre-loop ship) — backfill from search-API history in P1"
       }
     },
     {
@@ -106,13 +106,13 @@
         "as_of": "2026-07-11"
       },
       "measure_on": "2026-08-08",
-      "status": "shipped",
+      "status": "inconclusive",
       "outcome": {
         "treated_delta": null,
         "control_delta": null,
         "did": null,
         "guardrails_held": null,
-        "note": ""
+        "note": "baseline not backfilled (pre-loop ship) — backfill from search-API history in P1"
       }
     },
     {
@@ -144,13 +144,13 @@
         "as_of": "2026-07-11"
       },
       "measure_on": "2026-08-08",
-      "status": "shipped",
+      "status": "inconclusive",
       "outcome": {
         "treated_delta": null,
         "control_delta": null,
         "did": null,
         "guardrails_held": null,
-        "note": ""
+        "note": "baseline not backfilled (pre-loop ship) — backfill from search-API history in P1"
       }
     },
     {
@@ -180,13 +180,13 @@
         "as_of": "2026-07-11"
       },
       "measure_on": "2026-08-08",
-      "status": "shipped",
+      "status": "inconclusive",
       "outcome": {
         "treated_delta": null,
         "control_delta": null,
         "did": null,
         "guardrails_held": null,
-        "note": ""
+        "note": "baseline not backfilled (pre-loop ship) — backfill from search-API history in P1"
       }
     },
     {
@@ -227,13 +227,13 @@
         "position": 8.61
       },
       "measure_on": "2026-08-10",
-      "status": "shipped",
+      "status": "lost",
       "outcome": {
-        "treated_delta": null,
-        "control_delta": null,
-        "did": null,
-        "guardrails_held": null,
-        "note": ""
+        "treated_delta": 0.01,
+        "control_delta": 0.71,
+        "did": -0.7,
+        "guardrails_held": true,
+        "note": "ctr -0.7 (DiD) vs baseline 0.82"
       },
       "note": "DiD vs /readme-to-pdf (untouched control) — removes site-wide shocks; parallel-trends assumed between two EN SEO pages. Bing only (GSC impressions too thin here). VERDICT ONLY VALID ONCE MERGED + DEPLOYED — the title/meta must be live for CTR to move."
     },
@@ -275,13 +275,13 @@
         "position": 5.96
       },
       "measure_on": "2026-08-12",
-      "status": "shipped",
+      "status": "inconclusive",
       "outcome": {
-        "treated_delta": null,
-        "control_delta": null,
-        "did": null,
-        "guardrails_held": null,
-        "note": ""
+        "treated_delta": 0.08,
+        "control_delta": -0.01,
+        "did": 0.09,
+        "guardrails_held": false,
+        "note": "ctr +0.09 (DiD) vs baseline 1.95"
       },
       "note": "DiD vs /claude-artifacts-to-pdf (untouched, high-volume Bing control — 316 impr → low-variance trend estimate; different CTR level is fine for DiD, which compares deltas). Parallel-trends caveat: control is a Bing 'star', watch its own trajectory. Bing only (page thin/absent on GSC). VERDICT ONLY VALID ONCE MERGED + DEPLOYED."
     },
@@ -317,13 +317,13 @@
         "note": "New URLs — true zero baseline (no impressions possible before the pages exist)."
       },
       "measure_on": "2026-08-13",
-      "status": "shipped",
+      "status": "won",
       "outcome": {
-        "treated_delta": null,
+        "treated_delta": 3,
         "control_delta": null,
         "did": null,
-        "guardrails_held": null,
-        "note": ""
+        "guardrails_held": true,
+        "note": "impressions +3 vs baseline 0"
       },
       "note": "New-page pattern (like md-to-png-cluster): control_scope null, baseline 0. SERP recon 2026-07-16: top 'free' multi-format hub (markdownconverter.pro) actually requires signup + credit packs — our information gain is honest breadth (6 formats incl. EPUB/image nobody in the SERP has) + genuinely-free. Internal links from /markdown-to-pdf-online-free + /markdown-to-docx only (TOOL_LINKS footer slot deliberately DEFERRED until in-flight experiments measure ~2026-08-12, to avoid touching locked pages). STAMP commit AFTER deploy. VERDICT ONLY VALID ONCE MERGED + DEPLOYED."
     },
@@ -353,13 +353,13 @@
         "note": "New instrumentation — comparison_cta_click cannot exist before this ships (adoption-style baseline, like new-page experiments)."
       },
       "measure_on": "2026-08-13",
-      "status": "shipped",
+      "status": "won",
       "outcome": {
-        "treated_delta": null,
+        "treated_delta": 31,
         "control_delta": null,
         "did": null,
-        "guardrails_held": null,
-        "note": ""
+        "guardrails_held": true,
+        "note": "cta_clicks +31 vs baseline 0"
       },
       "note": "First experiment on the NEW events/cta_clicks metric (measure.mjs pathOf-normalized scopes + events.mjs comparison_cta_click byPath — both shipped with this change). Auto-verdict measures adoption only; at measure time ALSO compute CTA-CTR manually = cta_clicks / vercel pageviews per page (cross-channel guardrails unsupported), and check conv funnel didn't regress. Content deliberately untouched (EN page surging — additive CTA blocks only; title changes remain human-declined). Locks both comparison pages. STAMP commit AFTER deploy. VERDICT ONLY VALID ONCE DEPLOYED. ITERATION C (2026-07-16, human-approved from mockup, commit 8a784f3): InlineConverter embedded after the Markdown Free section on BOTH pages — drop-zone + the real ExportRow (full reuse: conversions, errors, funnel events). comparison_cta_click gains position=inline (fires on file LOAD = engagement); on-page conversions now attribute to these pages via convert_success requestPath. Treatment = top/bottom CTAs + inline converter combined; position prop separates blocks at analysis time."
     },
@@ -379,7 +379,7 @@
       },
       "control_scope": null,
       "shipped_date": "2026-07-18",
-      "commit": null,
+      "commit": "ab44be3",
       "baseline": {
         "window_days": 28,
         "mean": 17,
@@ -387,13 +387,13 @@
         "note": "AI-referral sessions from the 2026-07-16 snapshot referral channel (chatgpt 6, doubao 5, yuanbao 3, perplexity 2, +1)."
       },
       "measure_on": "2026-08-15",
-      "status": "shipped",
+      "status": "won",
       "outcome": {
-        "treated_delta": null,
+        "treated_delta": 6.2,
         "control_delta": null,
         "did": null,
-        "guardrails_held": null,
-        "note": ""
+        "guardrails_held": true,
+        "note": "ai_sessions +6.2 vs baseline 17"
       },
       "note": "First experiment on the NEW referral/ai_sessions metric (measure.mjs). Adoption-style single-cohort read — AI-assistant recommendation cycles are slow/noisy, so treat the auto-verdict as directional; at measure time also eyeball referral.hosts for NEW Chinese assistants (kimi/deepseek/chatglm) appearing at all. robots.txt already allowed all AI crawlers incl. Bytespider (no change shipped there). STAMP commit AFTER deploy. VERDICT ONLY VALID ONCE DEPLOYED."
     }

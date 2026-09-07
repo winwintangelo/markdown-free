@@ -1,15 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { headers } from "next/headers";
-import Script from "next/script";
-import { Analytics } from "@vercel/analytics/react";
-import { RouteHistoryTracker } from "@/components/route-history-tracker";
-import { isValidLocale, defaultLocale } from "@/i18n/config";
-import "./globals.css";
+import { RootShell } from "@/components/root-shell";
+import { localeAlternates, siteUrl, siteViewport } from "@/lib/site-metadata";
+import "../globals.css";
 
-// Umami Analytics configuration (proxied via /ingest to bypass adblockers)
-const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
-
-const siteUrl = "https://www.markdown.free";
+/**
+ * Root layout for the English site (URL root, no locale prefix).
+ *
+ * This is one of two root layouts — see src/lib/site-metadata.ts. It renders
+ * <html lang="en"> statically; the [locale] root layout handles the rest.
+ */
 
 export const metadata: Metadata = {
   // Kept ≤65 chars so Google doesn't truncate it in the SERP (was 99 chars → cut off
@@ -26,19 +25,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
-    languages: {
-      "en": "/",
-      "it": "/it",
-      "es": "/es",
-      "ja": "/ja",
-      "ko": "/ko",
-      "zh-Hans": "/zh-Hans",
-      "zh-Hant": "/zh-Hant",
-      "id": "/id",
-      "vi": "/vi",
-      "hi": "/hi",
-      "x-default": "/",
-    },
+    languages: localeAlternates,
   },
   openGraph: {
     type: "website",
@@ -81,44 +68,12 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
-  ],
-};
+export const viewport: Viewport = siteViewport;
 
-export default async function RootLayout({
+export default function EnglishRootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // The locale is stamped on the request by middleware (see src/middleware.ts).
-  const headerLocale = (await headers()).get("x-locale");
-  const lang = headerLocale && isValidLocale(headerLocale) ? headerLocale : defaultLocale;
-  return (
-    <html lang={lang}>
-      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
-        <RouteHistoryTracker />
-        {children}
-        {/* Vercel Web Analytics: only render on Vercel deploys.
-            Locally (`next start` outside Vercel) the /_vercel/insights/script.js
-            endpoint is not served, so the package logs a 404. */}
-        {process.env.NEXT_PUBLIC_VERCEL_ENV && <Analytics debug={false} />}
-        {/* Umami Analytics - Privacy-friendly, cookieless, proxied via /ingest */}
-        {umamiWebsiteId && (
-          <Script
-            src="/ingest/script.js"
-            data-website-id={umamiWebsiteId}
-            data-host-url="/ingest"
-            data-domains="www.markdown.free"
-            strategy="afterInteractive"
-          />
-        )}
-      </body>
-    </html>
-  );
+  return <RootShell lang="en">{children}</RootShell>;
 }

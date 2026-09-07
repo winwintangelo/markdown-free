@@ -3,44 +3,150 @@
   "note": "Knowledge Base (growth-impl.md §7.3): validated learning as a topic graph. Learnings cite evidence experiments; confidence_prior seeds new signals on that topic; related enables adjacency (wins branch, losses prune). Seeded with prior knowledge from the 2026 market analysis; learn.mjs appends verdicts as experiments resolve.",
   "topics": {
     "word": {
-      "signals": [], "experiments": [],
-      "learnings": [
-        { "claim": "CJK word-conversion demand (转word) skews to Bing, not Google", "evidence": ["market-analysis"], "confidence": 0.7 }
+      "signals": [],
+      "experiments": [
+        "word-title-meta-ctr-2026-07-13"
       ],
-      "confidence_prior": 0.6, "related": ["pdf", "comparison"]
+      "learnings": [
+        {
+          "claim": "CJK word-conversion demand (转word) skews to Bing, not Google",
+          "evidence": [
+            "market-analysis"
+          ],
+          "confidence": 0.7
+        },
+        {
+          "claim": "Rewrite /markdown-to-word title + meta for CTR (formatting-fidelity hook) — did NOT work (ctr -0.7 (DiD) vs baseline 0.82)",
+          "evidence": [
+            "word-title-meta-ctr-2026-07-13"
+          ],
+          "confidence": 0.6
+        }
+      ],
+      "confidence_prior": 0.55,
+      "related": [
+        "pdf",
+        "comparison"
+      ]
     },
     "pdf": {
-      "signals": [], "experiments": [],
+      "signals": [],
+      "experiments": [],
       "learnings": [
-        { "claim": "readme→pdf is the top Google intent; /claude-artifacts-to-pdf is a Bing star (~12.5% CTR)", "evidence": ["market-analysis"], "confidence": 0.7 }
+        {
+          "claim": "readme→pdf is the top Google intent; /claude-artifacts-to-pdf is a Bing star (~12.5% CTR)",
+          "evidence": [
+            "market-analysis"
+          ],
+          "confidence": 0.7
+        }
       ],
-      "confidence_prior": 0.6, "related": ["readme", "comparison"]
+      "confidence_prior": 0.6,
+      "related": [
+        "readme",
+        "comparison"
+      ]
     },
     "epub": {
-      "signals": [], "experiments": [], "learnings": [],
-      "confidence_prior": 0.5, "related": ["word"]
+      "signals": [],
+      "experiments": [],
+      "learnings": [],
+      "confidence_prior": 0.5,
+      "related": [
+        "word"
+      ]
     },
     "image": {
-      "signals": [], "experiments": [],
+      "signals": [],
+      "experiments": [],
       "learnings": [
-        { "claim": "Markdown→image (长图) opens the WeChat 公众号 wedge for CJK", "evidence": ["image-export-feature"], "confidence": 0.55 }
+        {
+          "claim": "Markdown→image (长图) opens the WeChat 公众号 wedge for CJK",
+          "evidence": [
+            "image-export-feature"
+          ],
+          "confidence": 0.55
+        }
       ],
-      "confidence_prior": 0.5, "related": []
+      "confidence_prior": 0.5,
+      "related": []
     },
     "readme": {
-      "signals": [], "experiments": [], "learnings": [],
-      "confidence_prior": 0.6, "related": ["pdf"]
+      "signals": [],
+      "experiments": [],
+      "learnings": [],
+      "confidence_prior": 0.6,
+      "related": [
+        "pdf"
+      ]
     },
     "comparison": {
-      "signals": [], "experiments": [], "learnings": [],
-      "confidence_prior": 0.45, "related": ["pdf", "word"]
+      "signals": [],
+      "experiments": [],
+      "learnings": [],
+      "confidence_prior": 0.45,
+      "related": [
+        "pdf",
+        "word"
+      ]
     },
     "ai-visibility": {
-      "signals": [], "experiments": [],
-      "learnings": [
-        { "claim": "ChatGPT & Doubao send real referral traffic; AI is a distinct acquisition channel", "evidence": ["referral-2026-07"], "confidence": 0.6 }
+      "signals": [],
+      "experiments": [
+        "llms-cjk-refresh-2026-07-18"
       ],
-      "confidence_prior": 0.5, "related": []
+      "learnings": [
+        {
+          "claim": "ChatGPT & Doubao send real referral traffic; AI is a distinct acquisition channel",
+          "evidence": [
+            "referral-2026-07"
+          ],
+          "confidence": 0.6
+        },
+        {
+          "claim": "llms.txt refresh: converter-family + per-locale word/pdf/epub tables (CJK AI-visibility) — WORKED (ai_sessions +6.2 vs baseline 17)",
+          "evidence": [
+            "llms-cjk-refresh-2026-07-18"
+          ],
+          "confidence": 0.7
+        }
+      ],
+      "confidence_prior": 0.55,
+      "related": []
+    },
+    "converter-family": {
+      "signals": [],
+      "experiments": [
+        "converter-hub-html-2026-07-16"
+      ],
+      "learnings": [
+        {
+          "claim": "New pages: /markdown-converter hub + /markdown-to-html spoke — WORKED (impressions +3 vs baseline 0)",
+          "evidence": [
+            "converter-hub-html-2026-07-16"
+          ],
+          "confidence": 0.7
+        }
+      ],
+      "confidence_prior": 0.55,
+      "related": []
+    },
+    "comparison-conversion": {
+      "signals": [],
+      "experiments": [
+        "comparison-cta-2026-07-16"
+      ],
+      "learnings": [
+        {
+          "claim": "Instrumented CTAs on both comparison pages (EN converter-first, zh PNG-first) — WORKED (cta_clicks +31 vs baseline 0)",
+          "evidence": [
+            "comparison-cta-2026-07-16"
+          ],
+          "confidence": 0.7
+        }
+      ],
+      "confidence_prior": 0.55,
+      "related": []
     }
   }
 }

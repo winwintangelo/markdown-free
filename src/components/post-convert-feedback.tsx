@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { ThumbsUp, ThumbsDown, Send, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackFeedbackPositive, trackFeedbackNegative, trackFeedbackSkipped } from "@/lib/analytics";
+import { sendFeedback } from "@/lib/feedback-client";
 import type { Dictionary } from "@/i18n";
 
 type FeedbackPhase = "prompt" | "celebrating" | "form" | "submitted";
@@ -88,7 +89,21 @@ export function PostConvertFeedback({ format, dict, onDismiss }: PostConvertFeed
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      trackFeedbackNegative(format, selectedCategories, comment.trim() || undefined);
+      const text = comment.trim();
+      // Analytics gets format + categories + whether a comment existed; the
+      // comment text itself goes only to the first-party feedback endpoint.
+      trackFeedbackNegative(format, selectedCategories, text.length > 0);
+      if (text) {
+        void sendFeedback({
+          message: text,
+          source: "post_convert",
+          format,
+          categories: selectedCategories,
+          page: typeof window !== "undefined" ? window.location.pathname : undefined,
+        }).catch(() => {
+          // Best-effort: the thank-you UI does not depend on delivery.
+        });
+      }
       setPhase("submitted");
       scheduleDismiss(2500);
     },
