@@ -3,7 +3,11 @@ const path = require("path");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   outputFileTracingRoot: path.join(__dirname),
-  serverExternalPackages: ["epub-gen-memory"],
+  // The PDF route inlines the KaTeX stylesheet + fonts (read from node_modules
+  // at runtime, see src/lib/katex-server.ts); make sure they ship in the bundle.
+  outputFileTracingIncludes: {
+    "/api/convert/pdf": ["./node_modules/katex/dist/katex.min.css", "./node_modules/katex/dist/fonts/*.woff2"],
+  },
   // Pages prerender statically (two root layouts, see src/lib/site-metadata.ts), so
   // metadata renders in <head> for every crawler without the old `htmlLimitedBots`
   // workaround that the headers()-driven dynamic rendering needed.

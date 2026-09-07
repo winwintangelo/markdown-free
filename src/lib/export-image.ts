@@ -26,6 +26,12 @@ export interface ImageExportOptions {
    * even a 1x canvas cannot hold the document as one image.
    */
   onLongDocument?: (pages: number, canSingle: boolean) => Promise<"single" | "split" | "cancel">;
+  /**
+   * @font-face CSS (fonts as data URIs) to embed in the rasterized clone.
+   * Used for KaTeX when the document has formulas; the export stylesheet's
+   * own system font stack needs nothing.
+   */
+  fontEmbedCSS?: string;
 }
 
 export type ImageExportWarning =
@@ -339,14 +345,18 @@ async function encodeCanvas(
 async function renderNodeToCanvas(
   htmlToImage: HtmlToImage,
   node: HTMLElement,
-  pixelRatio: number
+  pixelRatio: number,
+  fontEmbedCSS?: string
 ): Promise<HTMLCanvasElement> {
   return htmlToImage.toCanvas(node, {
     pixelRatio,
     backgroundColor: "#ffffff",
     // The export stylesheet pins an explicit system font stack, so skip
     // html-to-image's webfont embedding pass (slow; can throw on Safari).
+    // When the document has formulas, the KaTeX @font-face rules are passed
+    // in explicitly instead (html-to-image honours fontEmbedCSS over skipFonts).
     skipFonts: true,
+    ...(fontEmbedCSS ? { fontEmbedCSS } : {}),
   });
 }
 
@@ -363,7 +373,8 @@ async function renderPage(
   width: number,
   pixelRatio: number,
   format: "png" | "jpg",
-  quality: number
+  quality: number,
+  fontEmbedCSS?: string
 ): Promise<Blob> {
   const { host, article } = buildHost(width);
   for (const el of blocks) {
@@ -372,7 +383,7 @@ async function renderPage(
   document.body.appendChild(host);
   try {
     await doubleRaf();
-    const canvas = await renderNodeToCanvas(htmlToImage, article, pixelRatio);
+    const canvas = await renderNodeToCanvas(htmlToImage, article, pixelRatio, fontEmbedCSS);
     const blob = await encodeCanvas(canvas, format, quality);
     canvas.width = canvas.height = 0;
     return blob;
@@ -394,7 +405,8 @@ async function renderOversizedBlock(
   requestedRatio: number,
   partCssHeight: number,
   format: "png" | "jpg",
-  quality: number
+  quality: number,
+  fontEmbedCSS?: string
 ): Promise<Blob[]> {
   const { host, article } = buildHost(width);
   article.appendChild(block.cloneNode(true));
@@ -409,7 +421,7 @@ async function renderOversizedBlock(
       throw new ImageTooLargeError();
     }
 
-    const canvas = await renderNodeToCanvas(htmlToImage, article, ratio);
+    const canvas = await renderNodeToCanvas(htmlToImage, article, ratio, fontEmbedCSS);
     const sliceHeight = Math.floor(partCssHeight * ratio);
     const blobs: Blob[] = [];
 
@@ -510,7 +522,7 @@ export async function exportToImage(
 
     if (partHeight === null) {
       onProgress?.(1, 1);
-      const canvas = await renderNodeToCanvas(htmlToImage, article, ratio);
+      const canvas = await renderNodeToCanvas(htmlToImage, article, ratio, opts.fontEmbedCSS);
       const blob = await encodeCanvas(canvas, opts.format, quality);
       canvas.width = canvas.height = 0;
       return { blobs: [blob], warnings, pixelRatio: ratio };
@@ -536,7 +548,8 @@ export async function exportToImage(
             ratio,
             partHeight,
             opts.format,
-            quality
+            quality,
+            opts.fontEmbedCSS
           ))
         );
         if (!warnings.some((w) => w.code === "block_sliced")) {
@@ -550,7 +563,8 @@ export async function exportToImage(
             opts.width,
             ratio,
             opts.format,
-            quality
+            quality,
+            opts.fontEmbedCSS
           )
         );
       }

@@ -167,7 +167,7 @@ export default async function MarkdownByeonhwanBigyoPage({
           <h2>Markdown Free</h2>
           <p>HTML/TXT/DOCX 출력은 완전히 클라이언트 사이드에서 동작하고, PDF만 서버리스 메모리에서 생성한 후 즉시 폐기하는 브라우저 기반 변환기. &quot;30초면 끝나는 작업에 가입과 광고를 끼워 넣지 않는다&quot;는 원칙으로 만들어졌습니다.</p>
           <p><strong>한글 처리:</strong> Noto Sans CJK KR을 PDF 렌더링 파이프라인에 직접 임베드하므로 글자 깨짐이 없습니다. 폰트 플래그도 설치도 필요 없습니다.</p>
-          <p><strong>강점:</strong> 가입 없음, 추적 쿠키 없음, 프라이버시 친화적 분석, UI 10개 언어 지원, AI가 만든 마크다운을 회사 워드 문서로 옮길 때 강한 DOCX 출력.<br /><strong>약점:</strong> 한 파일 5MB 제한, 오프라인 모드 없음(브라우저 필요), LaTeX/MathJax 수식 미지원, 일괄 처리 없음, PDF 스타일 커스터마이징 불가.<br /><strong>잘 맞는 사람:</strong> 지금 당장 브라우저에서 마크다운을 PDF/DOCX/EPUB로 바꿔야 하는 사람, 특히 한글 문서를 다루는 사람.</p>
+          <p><strong>강점:</strong> 가입 없음, 추적 쿠키 없음, 프라이버시 친화적 분석, UI 10개 언어 지원, AI가 만든 마크다운을 회사 워드 문서로 옮길 때 강한 DOCX 출력, LaTeX 수식과 Mermaid 다이어그램을 모든 형식에서 렌더링.<br /><strong>약점:</strong> 한 파일 1MB 제한, 오프라인 모드 없음(브라우저 필요), 일괄 처리 없음, PDF 스타일 커스터마이징 불가, Word 내 수식은 아직 편집 불가.<br /><strong>잘 맞는 사람:</strong> 지금 당장 브라우저에서 마크다운을 PDF/DOCX/EPUB로 바꿔야 하는 사람, 특히 한글 문서를 다루는 사람.</p>
           <p><Link href="/ko" className="text-emerald-700 hover:text-emerald-800 hover:underline">markdown.free/ko</Link> (바로 <Link href="/ko/markdown-word-byeonhwan" className="text-emerald-700 hover:text-emerald-800 hover:underline">마크다운→워드 변환</Link>이나 <Link href="/ko/readme-pdf-byeonhwan" className="text-emerald-700 hover:text-emerald-800 hover:underline">README→PDF 변환</Link>으로 이동 가능)</p>
 
           <h2>Pandoc</h2>

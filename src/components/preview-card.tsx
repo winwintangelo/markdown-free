@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { markdownToHtml } from "@/lib/markdown";
+import { prepareMarkdown } from "@/lib/prepare-markdown";
+import { ensureKatexStylesheet, htmlHasMath } from "@/lib/katex-assets";
 import { useConverter } from "@/hooks/use-converter";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -49,16 +51,26 @@ export function PreviewCard({ locale: _locale, dict = defaultDict as unknown as 
     }
 
     setIsRendering(true);
-    markdownToHtml(state.content.content)
-      .then((html) => {
+    let cancelled = false;
+    // Mermaid fences are pre-rendered into images first; formulas render in
+    // the shared pipeline and pull the KaTeX stylesheet in on first use.
+    prepareMarkdown(state.content.content)
+      .then((prepared) => markdownToHtml(prepared.markdown))
+      .then(async (html) => {
+        if (htmlHasMath(html)) await ensureKatexStylesheet();
+        if (cancelled) return;
         setRenderedHtml(html);
         setIsRendering(false);
       })
       .catch((error) => {
+        if (cancelled) return;
         console.error("Markdown rendering error:", error);
         setRenderedHtml("<p>Error rendering markdown</p>");
         setIsRendering(false);
       });
+    return () => {
+      cancelled = true;
+    };
   }, [state.content]);
 
   // Determine badge content

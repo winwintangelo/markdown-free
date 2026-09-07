@@ -35,7 +35,9 @@
     "clearAll": "清除全部",
     "permissionDenied": "浏览器阻止了粘贴 — 请使用下方的文本框",
     "emptyClipboard": "没有可粘贴的内容 — 请先复制一些Markdown",
-    "nonTextContent": "仅支持文本/Markdown"
+    "nonTextContent": "仅支持文本/Markdown",
+    "cleanedNotice": "已清理 {n} 行聊天界面残留",
+    "detectedSource": "看起来来自 {source}"
   },
   "export": {
     "toPdf": "转PDF",
@@ -68,7 +70,8 @@
     "downloadZip": "下载ZIP",
     "imageLongDoc": "检测到长文档（约 {n} 页）。要如何导出？",
     "imageLongSingleHint": "一张长图 — 便于分享",
-    "imageLongSplitHint": "分段图片ZIP — 超长文档更清晰"
+    "imageLongSplitHint": "分段图片ZIP — 超长文档更清晰",
+    "toXlsx": "转 Excel (XLSX)"
   },
   "preview": {
     "title": "预览",
@@ -96,7 +99,8 @@
     "pdfError": "出现问题。请重试。",
     "networkError": "连接中断。请检查您的网络连接并重试。",
     "tryAgain": "重试",
-    "dismiss": "关闭"
+    "dismiss": "关闭",
+    "noTables": "此文档中没有表格。导出 Excel 需要至少一个 Markdown 表格。"
   },
   "header": {
     "about": "关于",

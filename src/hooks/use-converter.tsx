@@ -61,6 +61,8 @@ function appReducer(state: AppState, action: AppAction): AppState {
           filename: null,
           content: action.content,
           size: new Blob([action.content]).size,
+          sourceChatbot: action.sourceChatbot ?? null,
+          cleanedLines: action.cleanedLines ?? 0,
         },
         status: "ready",
         error: null,

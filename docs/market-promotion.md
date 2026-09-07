@@ -122,7 +122,7 @@ Search the following queries on **X (Twitter)** and **GitHub Issues**:
 
 The same 8 tools across all 10 articles. Locale-native descriptions, identical fact set:
 
-1. **Markdown Free** — `https://www.markdown.free` — browser-based, no signup, CJK-correct via embedded fonts, exports PDF/DOCX(Word)/PNG-JPG(image)/EPUB/HTML/TXT. Client-side image export (长图) needs no upload. **Weaknesses:** 5MB file cap, no offline mode, no LaTeX/math rendering.
+1. **Markdown Free** — `https://www.markdown.free` — browser-based, no signup, CJK-correct via embedded fonts, exports PDF/DOCX(Word)/PNG-JPG(image)/EPUB/HTML/TXT. Client-side image export (长图) needs no upload. **Weaknesses:** 1MB file cap, no offline mode, equations in Word are LaTeX source (not editable) until Phase 0b. (LaTeX math + Mermaid render in every format since 2026-09.)
 2. **Pandoc** — `https://pandoc.org` — CLI universal converter. **Weakness:** PDF requires LaTeX install + `--pdf-engine=xelatex -V mainfont="Noto Sans CJK JP"` (or equivalent) for CJK.
 3. **Dillinger** — `https://dillinger.io` — browser editor with PDF export.
 4. **StackEdit** — `https://stackedit.io` — browser editor, Google Drive sync, MathJax.

@@ -35,7 +35,9 @@
     "clearAll": "Cancella tutto",
     "permissionDenied": "Incolla bloccato dal browser — usa la casella di testo qui sotto",
     "emptyClipboard": "Niente da incollare — copia prima del markdown",
-    "nonTextContent": "Supportato solo testo/markdown"
+    "nonTextContent": "Supportato solo testo/markdown",
+    "cleanedNotice": "Rimosse {n} righe di residui della chat",
+    "detectedSource": "Sembra provenire da {source}"
   },
   "export": {
     "toPdf": "In PDF",
@@ -68,7 +70,8 @@
     "downloadZip": "Scarica come ZIP",
     "imageLongDoc": "Documento lungo ({n} pagine). Come vuoi esportarlo?",
     "imageLongSingleHint": "Un'unica immagine lunga — facile da condividere",
-    "imageLongSplitHint": "ZIP di immagini a schermo — più nitide per documenti molto lunghi"
+    "imageLongSplitHint": "ZIP di immagini a schermo — più nitide per documenti molto lunghi",
+    "toXlsx": "In Excel (XLSX)"
   },
   "preview": {
     "title": "Anteprima",
@@ -96,7 +99,8 @@
     "pdfError": "Qualcosa è andato storto. Riprova.",
     "networkError": "Connessione persa. Controlla la tua connessione internet e riprova.",
     "tryAgain": "Riprova",
-    "dismiss": "Chiudi"
+    "dismiss": "Chiudi",
+    "noTables": "Nessuna tabella trovata in questo documento. L'esportazione Excel richiede almeno una tabella Markdown."
   },
   "header": {
     "about": "Chi Siamo",

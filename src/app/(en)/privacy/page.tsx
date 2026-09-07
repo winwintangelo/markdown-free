@@ -47,17 +47,21 @@ export default function PrivacyPage() {
 
           <h2>How files are processed</h2>
 
-          <h3>Preview, HTML & TXT export</h3>
+          <h3>Preview, HTML, TXT, image, EPUB and Excel export</h3>
           <p>
-            When you upload a file for preview or export to HTML/TXT, everything
-            happens entirely in your browser. Your file never leaves your device.
-            We use client-side JavaScript to parse and render the Markdown.
+            When you upload a file for preview or export to HTML, TXT, PNG/JPG
+            images, EPUB or Excel, everything happens entirely in your browser.
+            Your file never leaves your device. We use client-side JavaScript
+            to parse and render the Markdown. Remote images referenced by your
+            document may be fetched through our image proxy so they can be
+            embedded; the proxy sees the image URL, not your text.
           </p>
 
-          <h3>PDF export</h3>
+          <h3>PDF and Word (DOCX) export</h3>
           <p>
-            For PDF generation, your Markdown content is sent to our server,
-            converted to PDF, and immediately returned to you. The content is:
+            For PDF and Word (DOCX) generation, your Markdown content is sent to
+            our server, converted, and immediately returned to you. The content
+            is:
           </p>
           <ul>
             <li>Processed in memory only</li>
@@ -124,7 +128,7 @@ export default function PrivacyPage() {
             If we make changes to this privacy policy, we&apos;ll update the date
             below. Significant changes will be noted on the homepage.
           </p>
-          <p className="text-sm text-slate-500">Last updated: December 2024</p>
+          <p className="text-sm text-slate-500">Last updated: September 2026</p>
 
           <h2>Contact</h2>
           <p>

@@ -35,7 +35,9 @@
     "clearAll": "すべてクリア",
     "permissionDenied": "ブラウザにより貼り付けがブロックされました — 下のテキストボックスをご利用ください",
     "emptyClipboard": "貼り付けるものがありません — まずMarkdownをコピーしてください",
-    "nonTextContent": "テキスト/Markdownのみ対応"
+    "nonTextContent": "テキスト/Markdownのみ対応",
+    "cleanedNotice": "チャットの不要な行を {n} 行削除しました",
+    "detectedSource": "{source} からのコピーのようです"
   },
   "export": {
     "toPdf": "PDFへ",
@@ -68,7 +70,8 @@
     "downloadZip": "ZIPでダウンロード",
     "imageLongDoc": "長い文書です（{n}ページ相当）。どのように書き出しますか？",
     "imageLongSingleHint": "1枚の縦長画像 — 共有しやすい",
-    "imageLongSplitHint": "画面サイズの画像のZIP — 長い文書でも鮮明"
+    "imageLongSplitHint": "画面サイズの画像のZIP — 長い文書でも鮮明",
+    "toXlsx": "Excel (XLSX) へ"
   },
   "preview": {
     "title": "プレビュー",
@@ -96,7 +99,8 @@
     "pdfError": "エラーが発生しました。もう一度お試しください。",
     "networkError": "接続が切断されました。インターネット接続を確認して、もう一度お試しください。",
     "tryAgain": "再試行",
-    "dismiss": "閉じる"
+    "dismiss": "閉じる",
+    "noTables": "この文書に表が見つかりません。Excel 書き出しには Markdown の表が1つ以上必要です。"
   },
   "header": {
     "about": "概要",

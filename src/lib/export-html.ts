@@ -121,7 +121,7 @@ img {
 /**
  * Generate HTML template with embedded styles
  */
-function generateHtmlTemplate(title: string, content: string): string {
+function generateHtmlTemplate(title: string, content: string, extraCss = ""): string {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -130,7 +130,7 @@ function generateHtmlTemplate(title: string, content: string): string {
   <title>${escapeHtml(title)}</title>
   <style>
 ${EMBEDDED_STYLES}
-  </style>
+  </style>${extraCss ? `\n  <style>\n${extraCss}\n  </style>` : ""}
 </head>
 <body>
   <article class="markdown-body">
@@ -157,14 +157,16 @@ function escapeHtml(text: string): string {
  */
 export function exportHtml(
   renderedHtml: string,
-  originalFilename: string | null
+  originalFilename: string | null,
+  options: { extraCss?: string } = {}
 ): void {
   const filename = generateFilename(originalFilename, "html");
   const title = originalFilename
     ? originalFilename.replace(/\.(md|markdown|txt)$/i, "")
     : "Markdown Document";
-  
-  const fullHtml = generateHtmlTemplate(title, renderedHtml);
+
+  // extraCss carries the KaTeX stylesheet when the document has formulas
+  const fullHtml = generateHtmlTemplate(title, renderedHtml, options.extraCss);
   downloadFile(fullHtml, filename, "text/html;charset=utf-8");
 }
 

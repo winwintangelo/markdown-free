@@ -52,7 +52,7 @@ const IMG_PROXY_RATE_LIMIT = {
   maxRequests: STRICT_LIMITS ? 60 : 200,
 };
 
-// DOCX/EPUB conversion: cheaper than PDF (no Chromium) but still expensive —
+// DOCX conversion: cheaper than PDF (no Chromium) but still expensive —
 // each request can trigger up to 20 outbound image fetches via the proxy.
 const DOC_CONVERT_RATE_LIMIT = {
   windowMs: 60 * 1000,
@@ -211,12 +211,9 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  // Rate limiting for DOCX/EPUB conversion (each request can fan out into
-  // up to 20 outbound image fetches — must not be unmetered)
-  if (
-    request.nextUrl.pathname === "/api/convert/docx" ||
-    request.nextUrl.pathname === "/api/convert/epub"
-  ) {
+  // Rate limiting for DOCX conversion (each request can fan out into up to 20
+  // outbound image fetches — must not be unmetered). EPUB moved client-side.
+  if (request.nextUrl.pathname === "/api/convert/docx") {
     if (Math.random() < 0.01) {
       cleanupRateLimits();
     }

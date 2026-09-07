@@ -35,7 +35,9 @@
     "clearAll": "Hapus semua",
     "permissionDenied": "Tempel diblokir browser — gunakan kotak teks di bawah",
     "emptyClipboard": "Tidak ada yang ditempel — salin markdown terlebih dahulu",
-    "nonTextContent": "Hanya teks/markdown yang didukung"
+    "nonTextContent": "Hanya teks/markdown yang didukung",
+    "cleanedNotice": "Membersihkan {n} baris sisa obrolan",
+    "detectedSource": "Sepertinya berasal dari {source}"
   },
   "export": {
     "toPdf": "Ke PDF",
@@ -68,7 +70,8 @@
     "downloadZip": "Unduh sebagai ZIP",
     "imageLongDoc": "Dokumen panjang ({n} halaman). Bagaimana Anda ingin mengekspornya?",
     "imageLongSingleHint": "Satu gambar panjang — mudah dibagikan",
-    "imageLongSplitHint": "ZIP berisi gambar seukuran layar — lebih tajam untuk dokumen panjang"
+    "imageLongSplitHint": "ZIP berisi gambar seukuran layar — lebih tajam untuk dokumen panjang",
+    "toXlsx": "Ke Excel (XLSX)"
   },
   "preview": {
     "title": "Pratinjau",
@@ -96,7 +99,8 @@
     "pdfError": "Terjadi kesalahan. Silakan coba lagi.",
     "networkError": "Koneksi terputus. Silakan periksa internet Anda dan coba lagi.",
     "tryAgain": "Coba Lagi",
-    "dismiss": "Tutup"
+    "dismiss": "Tutup",
+    "noTables": "Tidak ada tabel dalam dokumen ini. Ekspor Excel memerlukan setidaknya satu tabel Markdown."
   },
   "header": {
     "about": "Tentang",

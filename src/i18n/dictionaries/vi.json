@@ -35,7 +35,9 @@
     "clearAll": "Xóa tất cả",
     "permissionDenied": "Trình duyệt chặn dán — dùng ô văn bản bên dưới",
     "emptyClipboard": "Không có gì để dán — hãy sao chép markdown trước",
-    "nonTextContent": "Chỉ hỗ trợ văn bản/markdown"
+    "nonTextContent": "Chỉ hỗ trợ văn bản/markdown",
+    "cleanedNotice": "Đã dọn {n} dòng rác từ cuộc trò chuyện",
+    "detectedSource": "Có vẻ như được sao chép từ {source}"
   },
   "export": {
     "toPdf": "Sang PDF",
@@ -68,7 +70,8 @@
     "downloadZip": "Tải xuống dạng ZIP",
     "imageLongDoc": "Tài liệu dài ({n} trang). Bạn muốn xuất như thế nào?",
     "imageLongSingleHint": "Một ảnh dài — dễ chia sẻ",
-    "imageLongSplitHint": "ZIP gồm các ảnh vừa màn hình — sắc nét hơn cho tài liệu rất dài"
+    "imageLongSplitHint": "ZIP gồm các ảnh vừa màn hình — sắc nét hơn cho tài liệu rất dài",
+    "toXlsx": "Sang Excel (XLSX)"
   },
   "preview": {
     "title": "Xem trước",
@@ -96,7 +99,8 @@
     "pdfError": "Đã xảy ra lỗi. Vui lòng thử lại.",
     "networkError": "Mất kết nối. Vui lòng kiểm tra internet của bạn và thử lại.",
     "tryAgain": "Thử lại",
-    "dismiss": "Đóng"
+    "dismiss": "Đóng",
+    "noTables": "Không tìm thấy bảng nào trong tài liệu này. Xuất Excel cần ít nhất một bảng Markdown."
   },
   "header": {
     "about": "Giới thiệu",

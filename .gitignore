@@ -45,6 +45,9 @@ vercel.json
 # Chromium binary (generated during build)
 public/chromium-pack.tar
 
+# KaTeX stylesheet + fonts (copied from node_modules by scripts/postinstall.mjs)
+public/katex/
+
 # Temporary files (test results, reports, drafts)
 tmp/
 

@@ -35,7 +35,9 @@
     "clearAll": "清除全部",
     "permissionDenied": "瀏覽器阻止了貼上 — 請使用下方的文字框",
     "emptyClipboard": "沒有可貼上的內容 — 請先複製一些Markdown",
-    "nonTextContent": "僅支援文字/Markdown"
+    "nonTextContent": "僅支援文字/Markdown",
+    "cleanedNotice": "已清理 {n} 行聊天介面殘留",
+    "detectedSource": "看起來來自 {source}"
   },
   "export": {
     "toPdf": "轉PDF",
@@ -68,7 +70,8 @@
     "downloadZip": "下載ZIP",
     "imageLongDoc": "偵測到長文件（約 {n} 頁）。要如何匯出？",
     "imageLongSingleHint": "一張長圖 — 便於分享",
-    "imageLongSplitHint": "分段圖片ZIP — 超長文件更清晰"
+    "imageLongSplitHint": "分段圖片ZIP — 超長文件更清晰",
+    "toXlsx": "轉 Excel (XLSX)"
   },
   "preview": {
     "title": "預覽",
@@ -96,7 +99,8 @@
     "pdfError": "出現問題。請重試。",
     "networkError": "連線中斷。請檢查您的網路連線並重試。",
     "tryAgain": "重試",
-    "dismiss": "關閉"
+    "dismiss": "關閉",
+    "noTables": "此文件中沒有表格。匯出 Excel 需要至少一個 Markdown 表格。"
   },
   "header": {
     "about": "關於",

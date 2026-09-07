@@ -10,9 +10,13 @@ import { exportPdf, PdfExportResult } from "@/lib/export-pdf";
 import { generatePdfBlob } from "@/lib/export-pdf";
 import { exportDocx, DocxExportResult } from "@/lib/export-docx";
 import { exportEpub, EpubExportResult } from "@/lib/export-epub";
+import { exportXlsx } from "@/lib/export-xlsx";
 import { downloadBlob } from "@/lib/download";
 import { generateDocxBlob } from "@/lib/export-docx";
+import { getPdfPreferences } from "@/lib/export-pdf";
 import { markdownToHtml } from "@/lib/markdown";
+import { prepareMarkdown } from "@/lib/prepare-markdown";
+import { ensureKatexStylesheet, getKatexCssForHtmlExport, htmlHasMath } from "@/lib/katex-assets";
 import {
   trackConvertSuccess,
   trackConvertError,
@@ -34,8 +38,14 @@ import type { Locale, Dictionary } from "@/i18n";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useWebShare } from "@/hooks/use-web-share";
 
-type ExportFormat = "pdf" | "txt" | "html" | "docx" | "epub" | "png" | "jpg";
+type ExportFormat = "pdf" | "txt" | "html" | "docx" | "epub" | "png" | "jpg" | "xlsx";
 type ImageFormat = "png" | "jpg";
+
+/** Pre-render diagrams (SVG) then run the shared pipeline — the browser-side render path. */
+async function renderPrepared(markdown: string): Promise<string> {
+  const prepared = await prepareMarkdown(markdown);
+  return markdownToHtml(prepared.markdown);
+}
 
 interface ExportError {
   format: ExportFormat;
@@ -57,6 +67,7 @@ const defaultDict = {
     toHtml: "To HTML",
     toDocx: "To Word (DOCX)",
     toEpub: "To EPUB",
+    toXlsx: "To Excel (XLSX)",
     privacy: "Files are processed temporarily for conversion and not stored.",
     generating: "Generating PDF...",
     generatingDocx: "Generating DOCX...",
@@ -75,6 +86,7 @@ const defaultDict = {
   errors: {
     pdfTimeout: "PDF generation timed out. Please try again.",
     pdfError: "Something went wrong. Please try again.",
+    noTables: "No tables found in this document. Excel export needs at least one Markdown table.",
     tryAgain: "Try Again"
   }
 };
@@ -169,13 +181,38 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     return () => document.removeEventListener("mousedown", handleClick);
   }, [moreMenuOpen]);
 
-  // Pre-render HTML when content changes (for HTML export)
+  // Document facts for analytics (booleans + a closed enum, never content)
+  const docFactsRef = useRef<{ hasMath: boolean; hasMermaid: boolean }>({ hasMath: false, hasMermaid: false });
+  const analyticsExtras = useCallback(
+    () => ({
+      source_chatbot: state.content?.sourceChatbot ?? "none",
+      has_math: docFactsRef.current.hasMath ? "yes" : "no",
+      has_mermaid: docFactsRef.current.hasMermaid ? "yes" : "no",
+    }),
+    [state.content]
+  );
+
+  // Pre-render HTML when content changes (for HTML / image / Excel export).
+  // Diagrams are pre-rendered as SVG here; PDF and DOCX re-prepare with PNG.
   useEffect(() => {
-    if (state.content) {
-      markdownToHtml(state.content.content).then(setRenderedHtml);
-    } else {
+    if (!state.content) {
       setRenderedHtml("");
+      return;
     }
+    let cancelled = false;
+    prepareMarkdown(state.content.content)
+      .then(async (prepared) => {
+        docFactsRef.current = { hasMath: prepared.hasMath, hasMermaid: prepared.hasMermaid };
+        const html = await markdownToHtml(prepared.markdown);
+        if (htmlHasMath(html)) await ensureKatexStylesheet();
+        if (!cancelled) setRenderedHtml(html);
+      })
+      .catch(() => {
+        if (!cancelled) setRenderedHtml("");
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [state.content]);
 
   // Pre-generate PDF and DOCX blobs when content loads (mobile share only)
@@ -192,12 +229,14 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     preGenControllerRef.current = controller;
     cachedBlobsRef.current = {};
 
-    const content = state.content.content;
     const filename = state.content.filename;
+    // Diagrams must be pre-rendered (as PNG) before the server sees the document
+    const preparedContent = prepareMarkdown(state.content.content, { raster: true }).then((p) => p.markdown);
 
     // Pre-generate only formats that can be shared (no point caching unshareable formats)
     if (canSharePdf) {
-      generatePdfBlob(content, filename, controller.signal)
+      preparedContent
+        .then((content) => generatePdfBlob(content, filename, controller.signal, getPdfPreferences(locale)))
         .then((result) => {
           if (!controller.signal.aborted && result.success && result.blob && result.filename) {
             cachedBlobsRef.current.pdf = { blob: result.blob, filename: result.filename };
@@ -207,7 +246,8 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     }
 
     if (canShareDocx) {
-      generateDocxBlob(content, filename, controller.signal)
+      preparedContent
+        .then((content) => generateDocxBlob(content, filename, controller.signal))
         .then((result) => {
           if (!controller.signal.aborted && result.success && result.blob && result.filename) {
             cachedBlobsRef.current.docx = { blob: result.blob, filename: result.filename };
@@ -217,7 +257,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     }
 
     return () => controller.abort();
-  }, [showShareUI, canSharePdf, canShareDocx, state.content]);
+  }, [showShareUI, canSharePdf, canShareDocx, state.content, locale]);
 
   // Cleanup abort controller on unmount
   useEffect(() => {
@@ -305,27 +345,30 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       try {
         if (format === "txt") {
           exportTxt(state.content.content, state.content.filename);
-          trackConvertSuccess(format as AnalyticsExportFormat, source);
+          trackConvertSuccess(format as AnalyticsExportFormat, source, analyticsExtras());
           trackLocaleConversion(locale as SupportedLocale, format);
           setLastSuccessFormat(format);
         } else if (format === "html") {
-          const html = renderedHtml || (await markdownToHtml(state.content.content));
-          exportHtml(html, state.content.filename);
-          trackConvertSuccess(format as AnalyticsExportFormat, source);
+          const html = renderedHtml || (await renderPrepared(state.content.content));
+          const extraCss = htmlHasMath(html) ? await getKatexCssForHtmlExport() : "";
+          exportHtml(html, state.content.filename, { extraCss });
+          trackConvertSuccess(format as AnalyticsExportFormat, source, analyticsExtras());
           trackLocaleConversion(locale as SupportedLocale, format);
           setLastSuccessFormat(format);
         } else if (format === "pdf") {
           // Create abort controller for PDF request
           abortControllerRef.current = new AbortController();
 
+          const prepared = await prepareMarkdown(state.content.content, { raster: true });
           const result: PdfExportResult = await exportPdf(
-            state.content.content,
+            prepared.markdown,
             state.content.filename,
-            abortControllerRef.current.signal
+            abortControllerRef.current.signal,
+            getPdfPreferences(locale)
           );
 
           if (result.success) {
-            trackConvertSuccess(format as AnalyticsExportFormat, source);
+            trackConvertSuccess(format as AnalyticsExportFormat, source, analyticsExtras());
             trackLocaleConversion(locale as SupportedLocale, format);
             setLastSuccessFormat(format);
           } else if (result.error) {
@@ -341,14 +384,15 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           // Create abort controller for DOCX request
           abortControllerRef.current = new AbortController();
 
+          const prepared = await prepareMarkdown(state.content.content, { raster: true });
           const result: DocxExportResult = await exportDocx(
-            state.content.content,
+            prepared.markdown,
             state.content.filename,
             abortControllerRef.current.signal
           );
 
           if (result.success) {
-            trackConvertSuccess(format as AnalyticsExportFormat, source);
+            trackConvertSuccess(format as AnalyticsExportFormat, source, analyticsExtras());
             trackLocaleConversion(locale as SupportedLocale, format);
             setLastSuccessFormat(format);
           } else if (result.error) {
@@ -363,14 +407,16 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         } else if (format === "epub") {
           abortControllerRef.current = new AbortController();
 
+          const prepared = await prepareMarkdown(state.content.content);
           const result: EpubExportResult = await exportEpub(
-            state.content.content,
+            prepared.markdown,
             state.content.filename,
-            abortControllerRef.current.signal
+            abortControllerRef.current.signal,
+            { language: locale }
           );
 
           if (result.success) {
-            trackConvertSuccess(format as AnalyticsExportFormat, source);
+            trackConvertSuccess(format as AnalyticsExportFormat, source, analyticsExtras());
             trackLocaleConversion(locale as SupportedLocale, format);
             setLastSuccessFormat(format);
           } else if (result.error) {
@@ -380,6 +426,31 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
               code: result.error.code,
               message: result.error.message,
               retryable: result.error.retryable,
+            });
+          }
+        } else if (format === "xlsx") {
+          // Every table in the document → one worksheet; built in the browser
+          const html = renderedHtml || (await renderPrepared(state.content.content));
+          const result = await exportXlsx(html, state.content.filename);
+          if (result.success) {
+            trackConvertSuccess(format as AnalyticsExportFormat, source, {
+              ...analyticsExtras(),
+              tables: String(result.tables),
+            });
+            trackLocaleConversion(locale as SupportedLocale, format);
+            setLastSuccessFormat(format);
+          } else if (result.error) {
+            if (result.error.code !== "NO_TABLES") {
+              trackConvertError(format as AnalyticsExportFormat, "unknown");
+            }
+            setError({
+              format: "xlsx",
+              code: result.error.code,
+              message:
+                result.error.code === "NO_TABLES"
+                  ? dict.errors.noTables || defaultDict.errors.noTables
+                  : result.error.message,
+              retryable: false,
             });
           }
         }
@@ -432,7 +503,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           if (err instanceof Error && err.name === "AbortError") return; // user cancelled
           // Share API rejected — fall back to download (user still gets the file)
           downloadBlob(cached.blob, cached.filename);
-          trackConvertSuccess(format as AnalyticsExportFormat, source);
+          trackConvertSuccess(format as AnalyticsExportFormat, source, analyticsExtras());
           trackLocaleConversion(locale as SupportedLocale, format);
           setLastSuccessFormat(format);
           return;
@@ -449,9 +520,10 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       try {
         abortControllerRef.current = new AbortController();
 
+        const prepared = await prepareMarkdown(state.content.content, { raster: true });
         const result = format === "pdf"
-          ? await generatePdfBlob(state.content.content, state.content.filename, abortControllerRef.current.signal)
-          : await generateDocxBlob(state.content.content, state.content.filename, abortControllerRef.current.signal);
+          ? await generatePdfBlob(prepared.markdown, state.content.filename, abortControllerRef.current.signal, getPdfPreferences(locale))
+          : await generateDocxBlob(prepared.markdown, state.content.filename, abortControllerRef.current.signal);
 
         if (result.success && result.blob && result.filename) {
           // Cache for next time
@@ -754,6 +826,15 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                   >
                     {dict.export.toEpub || defaultDict.export.toEpub}
                   </button>
+                  <button
+                    type="button"
+                    disabled={isLoading}
+                    onClick={() => { handleExport("xlsx"); setMoreMenuOpen(false); }}
+                    data-testid="save-xlsx-button"
+                    className="flex w-full items-center px-4 py-2 text-xs text-slate-600 transition hover:bg-slate-50"
+                  >
+                    {dict.export.toXlsx || defaultDict.export.toXlsx}
+                  </button>
                   <div className="my-1 border-t border-slate-100" />
                   {(["png", "jpg"] as ImageFormat[]).map((format) => (
                     <button
@@ -879,6 +960,15 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                       className="flex w-full items-center px-4 py-2 text-xs text-slate-600 transition hover:bg-slate-50"
                     >
                       {dict.export.toEpub || defaultDict.export.toEpub}
+                    </button>
+                    <button
+                      type="button"
+                      disabled={isLoading}
+                      onClick={() => { handleExport("xlsx"); setMoreMenuOpen(false); }}
+                      data-testid="menu-to-xlsx"
+                      className="flex w-full items-center px-4 py-2 text-xs text-slate-600 transition hover:bg-slate-50"
+                    >
+                      {dict.export.toXlsx || defaultDict.export.toXlsx}
                     </button>
                     <button
                       type="button"

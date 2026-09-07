@@ -651,25 +651,17 @@ test.describe("API Security - Filename hardening", () => {
     expect(contentDisposition).toContain('filename="document.docx"');
   });
 
-  test("EPUB API tolerates a non-string filename", async ({ request }) => {
+  // EPUB is generated in the browser since build plan Phase 0a — no API route.
+  test("EPUB API route no longer exists", async ({ request }) => {
     const response = await request.post("/api/convert/epub", {
-      headers: {
-        "Content-Type": "application/json",
-        Origin: "http://localhost:3000",
-      },
-      data: {
-        markdown: "# Test\n\nBody",
-        filename: 12345,
-      },
+      headers: { "Content-Type": "application/json", Origin: "http://localhost:3000" },
+      data: { markdown: "# Test", filename: "x.md" },
     });
-
-    expect(response.ok()).toBe(true);
-    const contentDisposition = response.headers()["content-disposition"];
-    expect(contentDisposition).toContain('filename="document.epub"');
+    expect(response.status()).toBe(404);
   });
 });
 
-test.describe("API Security - DOCX/EPUB rate limiting", () => {
+test.describe("API Security - DOCX rate limiting", () => {
   test("DOCX API responses include rate limit headers", async ({ request }) => {
     const response = await request.post("/api/convert/docx", {
       headers: {
@@ -684,17 +676,4 @@ test.describe("API Security - DOCX/EPUB rate limiting", () => {
     expect(response.headers()["x-ratelimit-remaining"]).toBeTruthy();
   });
 
-  test("EPUB API responses include rate limit headers", async ({ request }) => {
-    const response = await request.post("/api/convert/epub", {
-      headers: {
-        "Content-Type": "application/json",
-        Origin: "http://localhost:3000",
-      },
-      data: { markdown: "# Rate limit check\n\nBody", filename: "rl.md" },
-    });
-
-    expect(response.ok()).toBe(true);
-    expect(response.headers()["x-ratelimit-limit"]).toBeTruthy();
-    expect(response.headers()["x-ratelimit-remaining"]).toBeTruthy();
-  });
 });

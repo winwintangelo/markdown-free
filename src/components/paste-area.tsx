@@ -8,6 +8,8 @@ import { trackUploadStart, trackSampleClick, trackUploadStart as trackUploadStar
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 import { MAX_FILE_SIZE } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { cleanPastedMarkdown, CHATBOT_LABELS } from "@/lib/paste-cleanup";
+import type { ChatbotSource } from "@/types";
 import type { Locale, Dictionary } from "@/i18n";
 
 interface PasteAreaProps {
@@ -35,6 +37,8 @@ const defaultDict = {
     permissionDenied: "Paste blocked by browser — use the text box below",
     emptyClipboard: "Nothing to paste — copy some markdown first",
     nonTextContent: "Only text/markdown is supported",
+    cleanedNotice: "Cleaned up {n} lines of chat clutter",
+    detectedSource: "Looks like it came from {source}",
   },
   upload: {
     chooseFile: "choose file",
@@ -65,6 +69,10 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
   // Mobile-specific state
   const [mobileState, setMobileState] = useState<MobileState>("button");
   const [clipboardError, setClipboardError] = useState<string | null>(null);
+
+  // Paste cleanup: what the last paste stripped, and where it looked like it came from
+  const [cleanup, setCleanup] = useState<{ removed: number; source: ChatbotSource | null } | null>(null);
+  const cleanupMetaRef = useRef<{ sourceChatbot: ChatbotSource | null; cleanedLines: number } | null>(null);
   const [shakeButton, setShakeButton] = useState(false);
   const [canUseClipboard, setCanUseClipboard] = useState(false);
 
@@ -93,6 +101,8 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
     permissionDenied: d.paste?.permissionDenied || defaultDict.paste.permissionDenied,
     emptyClipboard: d.paste?.emptyClipboard || defaultDict.paste.emptyClipboard,
     nonTextContent: d.paste?.nonTextContent || defaultDict.paste.nonTextContent,
+    cleanedNotice: d.paste?.cleanedNotice || defaultDict.paste.cleanedNotice,
+    detectedSource: d.paste?.detectedSource || defaultDict.paste.detectedSource,
     chooseFile: d.upload?.chooseFile || defaultDict.upload.chooseFile,
     trySample: d.upload?.trySample || defaultDict.upload.trySample,
   };
@@ -121,14 +131,23 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
     } else {
       setLocalValue("");
       setIsTruncated(false);
+      setCleanup(null);
+      cleanupMetaRef.current = null;
       hasTrackedPasteRef.current = false;
     }
   }, [state.content]);
 
-  // Textarea change handler (shared between desktop and mobile edit mode)
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      let value = e.target.value;
+  // Apply a new textarea value: truncate to 1 MB, debounce the dispatch.
+  // `meta` carries the paste-cleanup facts; without it the last known facts
+  // stay attached while the user keeps editing the same paste.
+  const applyValue = useCallback(
+    (raw: string, meta?: { sourceChatbot: ChatbotSource | null; cleanedLines: number }) => {
+      let value = raw;
+      if (meta) cleanupMetaRef.current = meta;
+      if (!value.trim()) {
+        cleanupMetaRef.current = null;
+        setCleanup(null);
+      }
       const contentSize = new Blob([value]).size;
 
       if (contentSize > MAX_FILE_SIZE) {
@@ -157,11 +176,47 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
           hasTrackedPasteRef.current = true;
         }
         if (!value.trim()) hasTrackedPasteRef.current = false;
-        dispatch({ type: "LOAD_PASTE", content: value });
+        dispatch({ type: "LOAD_PASTE", content: value, ...(cleanupMetaRef.current ?? {}) });
       }, 250);
     },
     [dispatch]
   );
+
+  // Textarea change handler (shared between desktop and mobile edit mode)
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      applyValue(e.target.value);
+    },
+    [applyValue]
+  );
+
+  // Paste event: strip chat-UI residue (copy buttons, role labels, <think>
+  // blocks, citation glyphs) before it lands in the textarea, and remember
+  // which chatbot it looked like it came from.
+  const handlePaste = useCallback(
+    (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+      const text = e.clipboardData.getData("text/plain");
+      if (!text) return;
+      const result = cleanPastedMarkdown(text);
+      if (!result.changed && !result.source) return;
+      e.preventDefault();
+      const el = e.currentTarget;
+      const next = el.value.slice(0, el.selectionStart) + result.text + el.value.slice(el.selectionEnd);
+      setCleanup({ removed: result.removedLines, source: result.source });
+      applyValue(next, { sourceChatbot: result.source, cleanedLines: result.removedLines });
+    },
+    [applyValue]
+  );
+
+  const cleanupNotice =
+    cleanup && (cleanup.removed > 0 || cleanup.source)
+      ? [
+          cleanup.removed > 0 ? t.cleanedNotice.replace("{n}", String(cleanup.removed)) : null,
+          cleanup.source ? t.detectedSource.replace("{source}", CHATBOT_LABELS[cleanup.source]) : null,
+        ]
+          .filter(Boolean)
+          .join(" · ")
+      : null;
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -203,11 +258,15 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
         setTimeout(() => setShakeButton(false), 500);
         return;
       }
-      // Load content
+      // Load content (after stripping chat-UI residue)
+      const cleaned = cleanPastedMarkdown(text);
       trackUploadStart("paste");
       hasTrackedPasteRef.current = true;
-      setLocalValue(text);
-      dispatch({ type: "LOAD_PASTE", content: text });
+      setLocalValue(cleaned.text);
+      const meta = { sourceChatbot: cleaned.source, cleanedLines: cleaned.removedLines };
+      cleanupMetaRef.current = meta;
+      setCleanup(cleaned.changed || cleaned.source ? { removed: cleaned.removedLines, source: cleaned.source } : null);
+      dispatch({ type: "LOAD_PASTE", content: cleaned.text, ...meta });
       setMobileState("pasted");
     } catch (err) {
       if (err instanceof Error && (err.name === "NotAllowedError" || err.message.includes("permission"))) {
@@ -225,6 +284,8 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
     dispatch({ type: "LOAD_PASTE", content: "" });
     setMobileState("button");
     setClipboardError(null);
+    setCleanup(null);
+    cleanupMetaRef.current = null;
     hasTrackedPasteRef.current = false;
   }, [dispatch]);
 
@@ -248,6 +309,7 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
           id="paste-input"
           value={localValue}
           onChange={handleChange}
+          onPaste={handlePaste}
           placeholder={dict.paste.placeholder}
           className={`h-40 w-full resize-y rounded-lg border px-3 py-2 text-sm font-mono text-slate-800 outline-none transition-colors ${
             isTruncated
@@ -258,6 +320,10 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
         {isTruncated ? (
           <p className="mt-2 text-[11px] text-amber-600 font-medium">
             {tooLargeMessage}
+          </p>
+        ) : cleanupNotice ? (
+          <p className="mt-2 text-[11px] font-medium text-emerald-700" data-testid="paste-cleanup-notice">
+            {cleanupNotice}
           </p>
         ) : (
           <p className="mt-2 text-[11px] text-slate-500">
@@ -374,6 +440,11 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
               ~{pageCount} {pageCount === 1 ? t.page : t.pages}
             </span>
           </div>
+          {cleanupNotice && (
+            <p className="mt-1.5 text-center text-[11px] font-medium text-emerald-700" data-testid="paste-cleanup-notice">
+              {cleanupNotice}
+            </p>
+          )}
           {/* Utility links */}
           <div className="mt-1.5 flex items-center justify-center gap-3 text-[11px]">
             <button
@@ -413,6 +484,7 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
             id="paste-input"
             value={localValue}
             onChange={handleChange}
+            onPaste={handlePaste}
             placeholder={dict.paste.placeholder}
             autoFocus
             className={`h-52 w-full resize-y rounded-xl border-2 px-3 py-2 text-sm font-mono text-slate-800 outline-none transition-colors ${
@@ -423,6 +495,9 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
           />
           {isTruncated && (
             <p className="mt-1 text-[11px] font-medium text-amber-600">{tooLargeMessage}</p>
+          )}
+          {!isTruncated && cleanupNotice && (
+            <p className="mt-1 text-[11px] font-medium text-emerald-700" data-testid="paste-cleanup-notice">{cleanupNotice}</p>
           )}
           <div className="mt-1.5 flex items-center justify-center gap-3 text-[11px]">
             {localValue.trim() && (

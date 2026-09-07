@@ -100,7 +100,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           <h2>Markdown Free</h2>
           <p>HTML/TXT/DOCX 输出在浏览器端完成，PDF 在 serverless 内存中生成后立刻丢弃。设计原则：&quot;30 秒能完成的事，不要塞注册和广告。&quot;</p>
           <p><strong>中文处理：</strong>把 Noto Sans CJK SC 直接嵌入 PDF 渲染管线，无字体参数、无安装、无豆腐。</p>
-          <p><strong>优点：</strong>无注册、无追踪 cookie、隐私友好的分析、UI 支持 10 种语言、AI 生成的 Markdown 转公司 Word 文档时 DOCX 输出强劲。<br /><strong>缺点：</strong>单文件 5MB 上限、不支持离线（需要浏览器）、不支持 LaTeX/MathJax 数学、没有批处理、PDF 样式不可定制。<br /><strong>最适合：</strong>需要现在就在浏览器把 Markdown 转成 PDF/DOCX/EPUB 的人，特别是含中文的文档。</p>
+          <p><strong>优点：</strong>无注册、无追踪 cookie、隐私友好的分析、UI 支持 10 种语言、AI 生成的 Markdown 转公司 Word 文档时 DOCX 输出强劲、LaTeX 公式与 Mermaid 图表在所有格式中都能渲染。<br /><strong>缺点：</strong>单文件 1MB 上限、不支持离线（需要浏览器）、没有批处理、PDF 样式不可定制、Word 中的公式暂不可编辑。<br /><strong>最适合：</strong>需要现在就在浏览器把 Markdown 转成 PDF/DOCX/EPUB 的人，特别是含中文的文档。</p>
           <p><Link href="/zh-Hans" className="text-emerald-700 hover:text-emerald-800 hover:underline">markdown.free/zh-Hans</Link>（也可直接打开 <Link href="/zh-Hans/markdown-zhuanhuan-word" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown 转 Word</Link> 或 <Link href="/zh-Hans/readme-pdf-zhuanhuan" className="text-emerald-700 hover:text-emerald-800 hover:underline">README 转 PDF</Link>）</p>
 
           {/* 页内迷你转换器 — exp comparison-cta-2026-07-16 iteration C（长图优先文案，转换按钮为完整导出行） */}

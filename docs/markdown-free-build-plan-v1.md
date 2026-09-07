@@ -127,11 +127,11 @@ Decided 2026-09-06: split. 0a is what every format gains from the shared Markdow
 | Item | Scope | Effort |
 |---|---|---|
 | Benchmark corpus | 20 documents in `test-fixtures/benchmark/`: LaTeX-heavy, merged HTML tables, GFM aligned tables, Mermaid, code, mixed CJK/JP/KR/Latin, DeepSeek `<think>` residue, ChatGPT/Kimi/豆包 paste residue. Playwright fidelity suite renders each through all formats and diffs against golden files. Score vs Pandoc and DS随心转 by hand once. | S |
-| Math + Mermaid | `remark-math` + KaTeX/Temml → MathML/SVG in the shared pipeline, so HTML, PDF, PNG and EPUB render formulas; DOCX gets formulas as images until 0b. Mermaid: lazy-loaded client render → SVG/PNG embedded in every format (the bundle is multi-MB; load only when a ` ```mermaid ` fence is present). | S–M |
+| Math + Mermaid | `remark-math` + KaTeX in the shared pipeline (with `\(…\)` / `\[…\]` normalized to `$…$` / `$$…$$` first — the delimiters AI chats emit), so HTML, PDF, PNG and EPUB render formulas; DOCX keeps formulas as LaTeX source until 0b (html-to-docx cannot take images generated client-side without changing its input contract). Mermaid: lazy-loaded client render → SVG (browser targets) / PNG (server targets) embedded in every format (the bundle is multi-MB; load only when a ` ```mermaid ` fence is present). | S–M |
 | EPUB client-side | Move EPUB off the server (JSZip is already a dependency); delete the route and its rate-limit bucket; update the privacy page and `llms.txt`. | S |
 | Fidelity suite in CI | The corpus renders through every format on each PR: golden-file diffs for HTML and PNG, structural checks for PDF, EPUB and DOCX. | S |
 | Paste cleanup | Strip "Copy code", role labels, `<think>`, citation markers, chat-UI residue; detect source chatbot (closed enum: chatgpt, claude, gemini, deepseek, kimi, doubao, other). Client-side, before render. | S |
-| Locale-native output | Serif option (Mincho / Batang / 宋体) and Letter vs A4 by locale for PDF, EPUB and image; bundled CJK subset font for image export. DOCX `eastAsia` fonts move to 0b. | S |
+| Locale-native output | PDF: Letter vs A4 by locale (browser region on the English site, or `?paper=`), serif stack (Noto Serif + CJK faces) via `?font=serif` — the hook Phase 1 preset pages use. EPUB already serif. A bundled CJK font for image export was dropped: subsetting arbitrary text client-side needs a font engine and full Noto CJK is 15 MB+; image export keeps using device fonts. DOCX `eastAsia` fonts move to 0b. | S |
 | Table → Excel | Client-side XLSX (SheetJS or a minimal writer over JSZip). Free, no paywall — it's SEO bait. | S |
 | Honest matrix update | `/markdown-converter` + the 10 comparison pages get the new rows (math, Mermaid) once true; merged cells in 0b. | S |
 

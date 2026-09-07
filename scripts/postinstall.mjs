@@ -6,7 +6,33 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = dirname(__dirname);
 
+/**
+ * Copy the KaTeX stylesheet + woff2 fonts into public/katex/ so the browser
+ * loads them on demand (preview, HTML/EPUB/image exports). Gitignored;
+ * regenerated on every install. The PDF route reads the same files straight
+ * from node_modules (see src/lib/katex-server.ts).
+ */
+function copyKatexAssets() {
+  const src = resolve(projectRoot, "node_modules/katex/dist");
+  const dest = resolve(projectRoot, "public/katex");
+  if (!existsSync(join(src, "katex.min.css"))) {
+    console.log("⚠️  katex/dist not found, skipping KaTeX asset copy");
+    return;
+  }
+  execSync(
+    `mkdir -p "${join(dest, "fonts")}" && cp "${join(src, "katex.min.css")}" "${dest}/" && cp "${join(src, "fonts")}"/*.woff2 "${join(dest, "fonts")}/"`,
+    { stdio: "inherit", cwd: projectRoot }
+  );
+  console.log("✅ KaTeX assets copied to public/katex/");
+}
+
 async function main() {
+  try {
+    copyKatexAssets();
+  } catch (error) {
+    console.error("⚠️  KaTeX asset copy failed (formulas will render unstyled):", error.message);
+  }
+
   try {
     console.log("📦 Starting postinstall script...");
 

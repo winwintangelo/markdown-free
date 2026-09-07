@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { markdownToHtml } from "@/lib/markdown";
 import { proxyImagesInHtml } from "@/lib/image-proxy";
 import { buildContentDisposition, deriveOutputFilename } from "@/lib/safe-output";
+import { getKatexInlineCss, htmlHasMath } from "@/lib/katex-server";
 
 // Maximum content size (1MB - reduced from 5MB for security)
 // This prevents memory exhaustion attacks while still allowing reasonable documents
@@ -217,21 +218,49 @@ img {
 }
 `.trim();
 
+type PdfPageSize = "A4" | "Letter";
+type PdfFontStyle = "sans" | "serif";
+
+interface PdfRenderOptions {
+  pageSize: PdfPageSize;
+  fontStyle: PdfFontStyle;
+  /** KaTeX stylesheet with embedded fonts; "" when the document has no math */
+  katexCss: string;
+}
+
+// Google Fonts families per typeface style (CJK faces included)
+const SANS_FAMILIES =
+  "family=Noto+Sans:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700";
+const SERIF_FAMILIES =
+  "family=Noto+Serif:wght@400;600;700&family=Noto+Serif+JP:wght@400;600;700&family=Noto+Serif+KR:wght@400;600;700&family=Noto+Serif+SC:wght@400;600;700&family=Noto+Serif+TC:wght@400;600;700";
+const SERIF_STACK =
+  "'Noto Serif', 'Noto Serif JP', 'Noto Serif KR', 'Noto Serif SC', 'Noto Serif TC', 'Noto Color Emoji', Georgia, 'Times New Roman', serif";
+
+// Viewport in CSS px at 96 DPI: A4 210×297 mm, Letter 8.5×11 in
+const PAGE_VIEWPORT: Record<PdfPageSize, { width: number; height: number }> = {
+  A4: { width: 794, height: 1123 },
+  Letter: { width: 816, height: 1056 },
+};
+
 /**
  * Generate HTML template for PDF
  * Includes Google Noto fonts for multilingual support (CJK, Vietnamese, etc.)
  */
-function generatePdfHtml(content: string): string {
+function generatePdfHtml(content: string, options: PdfRenderOptions): string {
+  const families = options.fontStyle === "serif" ? SERIF_FAMILIES : SANS_FAMILIES;
+  const fontOverride = options.fontStyle === "serif" ? `body { font-family: ${SERIF_STACK}; }` : "";
+  const katexStyle = options.katexCss ? `\n  <style>\n${options.katexCss}\n  </style>` : "";
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700&family=Noto+Sans+TC:wght@400;600;700&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?${families}&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
   <style>
 ${PDF_STYLES}
-  </style>
+${fontOverride}
+  </style>${katexStyle}
 </head>
 <body>
   <article>
@@ -342,6 +371,9 @@ export async function POST(request: NextRequest) {
     debugLog("Request", `[${requestId}] Parsing request body...`);
     const body = await request.json();
     const { markdown, filename } = body;
+    // Locale-native output options (build plan Phase 0a); anything else → defaults
+    const pageSize: PdfPageSize = body.pageSize === "Letter" ? "Letter" : "A4";
+    const fontStyle: PdfFontStyle = body.fontStyle === "serif" ? "serif" : "sans";
 
     // SECURITY: Log metadata only, never log user content (PII risk)
     debugLog("Request", `[${requestId}] Request body parsed`, {
@@ -408,7 +440,10 @@ export async function POST(request: NextRequest) {
       durationMs: Date.now() - imageProxyStart,
     });
 
-    const fullHtml = generatePdfHtml(renderedHtml);
+    // Formulas: inline the KaTeX stylesheet (fonts embedded as data URIs — the
+    // page runs with JS off and every external request blocked)
+    const katexCss = htmlHasMath(renderedHtml) ? await getKatexInlineCss() : "";
+    const fullHtml = generatePdfHtml(renderedHtml, { pageSize, fontStyle, katexCss });
     debugLog("Markdown", `[${requestId}] Markdown converted`, {
       durationMs: Date.now() - markdownStart,
       htmlLength: fullHtml.length,
@@ -468,8 +503,9 @@ export async function POST(request: NextRequest) {
 
       // Allow data URIs (inline content - already validated by image proxy)
       if (url.startsWith("data:")) {
-        // Only allow data:image/* URIs
-        if (url.startsWith("data:image/")) {
+        // Only allow data:image/* (embedded images) and data:font/* (KaTeX fonts
+        // inlined by katex-server.ts) URIs
+        if (url.startsWith("data:image/") || url.startsWith("data:font/")) {
           request.continue();
         } else {
           debugLog("Security", `[${requestId}] Blocking non-image data URI`);
@@ -505,8 +541,8 @@ export async function POST(request: NextRequest) {
     // A4: 210mm × 297mm = 794px × 1123px at 96 DPI
     debugLog("Page", `[${requestId}] Setting viewport...`);
     await page.setViewport({
-      width: 794,
-      height: 1123,
+      width: PAGE_VIEWPORT[pageSize].width,
+      height: PAGE_VIEWPORT[pageSize].height,
       deviceScaleFactor: 2, // Higher quality
     });
 
@@ -553,7 +589,7 @@ export async function POST(request: NextRequest) {
     debugLog("PDF", `[${requestId}] Generating PDF...`);
     const pdfStart = Date.now();
     const pdfBuffer = await page.pdf({
-      format: "A4",
+      format: pageSize,
       margin: {
         top: "20mm",
         right: "20mm",

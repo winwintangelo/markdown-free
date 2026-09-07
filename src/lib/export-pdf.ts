@@ -20,13 +20,49 @@ export interface PdfGenerateResult {
   };
 }
 
+export type PdfPageSize = "A4" | "Letter";
+export type PdfFontStyle = "sans" | "serif";
+
+export interface PdfOptions {
+  /** Paper size; defaults to the locale-aware choice from getPdfPreferences() */
+  pageSize?: PdfPageSize;
+  /** Body typeface family (serif = Noto Serif incl. CJK faces) */
+  fontStyle?: PdfFontStyle;
+}
+
+/**
+ * Locale-native defaults (build plan Phase 0a): Letter for readers whose
+ * browser reports a Letter-paper region (US, Canada, Philippines) on the
+ * English site, A4 everywhere else. `?font=serif` in the URL selects the serif
+ * stack — the hook template-preset pages use.
+ */
+export function getPdfPreferences(locale: string): Required<PdfOptions> {
+  let pageSize: PdfPageSize = "A4";
+  let fontStyle: PdfFontStyle = "sans";
+  if (typeof window !== "undefined") {
+    const lang = (navigator.language || "").toLowerCase();
+    if (locale === "en" && /^(en-us|en-ca|en-ph|es-us)$/.test(lang)) pageSize = "Letter";
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const size = params.get("paper");
+      if (size && /^letter$/i.test(size)) pageSize = "Letter";
+      if (size && /^a4$/i.test(size)) pageSize = "A4";
+      if (/^serif$/i.test(params.get("font") || "")) fontStyle = "serif";
+    } catch {
+      // URL access can fail in exotic embedding contexts; keep defaults
+    }
+  }
+  return { pageSize, fontStyle };
+}
+
 /**
  * Generate PDF blob without downloading
  */
 export async function generatePdfBlob(
   markdown: string,
   originalFilename: string | null,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  options: PdfOptions = {}
 ): Promise<PdfGenerateResult> {
   try {
     const response = await fetch("/api/convert/pdf", {
@@ -37,6 +73,8 @@ export async function generatePdfBlob(
       body: JSON.stringify({
         markdown,
         filename: originalFilename,
+        ...(options.pageSize ? { pageSize: options.pageSize } : {}),
+        ...(options.fontStyle ? { fontStyle: options.fontStyle } : {}),
       }),
       signal,
     });
@@ -131,9 +169,10 @@ export async function generatePdfBlob(
 export async function exportPdf(
   markdown: string,
   originalFilename: string | null,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  options: PdfOptions = {}
 ): Promise<PdfExportResult> {
-  const result = await generatePdfBlob(markdown, originalFilename, signal);
+  const result = await generatePdfBlob(markdown, originalFilename, signal, options);
 
   if (result.success && result.blob && result.filename) {
     const url = URL.createObjectURL(result.blob);

@@ -35,7 +35,9 @@
     "clearAll": "Clear all",
     "permissionDenied": "Paste blocked by browser — use the text box below",
     "emptyClipboard": "Nothing to paste — copy some markdown first",
-    "nonTextContent": "Only text/markdown is supported"
+    "nonTextContent": "Only text/markdown is supported",
+    "cleanedNotice": "Cleaned up {n} lines of chat clutter",
+    "detectedSource": "Looks like it came from {source}"
   },
   "export": {
     "toPdf": "To PDF",
@@ -68,7 +70,8 @@
     "downloadZip": "Download as ZIP",
     "imageLongDoc": "Long document ({n} pages). How would you like to export it?",
     "imageLongSingleHint": "One tall image — easy to share",
-    "imageLongSplitHint": "ZIP of screen-sized images — sharper for very long documents"
+    "imageLongSplitHint": "ZIP of screen-sized images — sharper for very long documents",
+    "toXlsx": "To Excel (XLSX)"
   },
   "preview": {
     "title": "Preview",
@@ -96,7 +99,8 @@
     "pdfError": "Something went wrong. Please try again.",
     "networkError": "Connection lost. Please check your internet and try again.",
     "tryAgain": "Try Again",
-    "dismiss": "Dismiss"
+    "dismiss": "Dismiss",
+    "noTables": "No tables found in this document. Excel export needs at least one Markdown table."
   },
   "header": {
     "about": "About",

@@ -68,7 +68,7 @@ export function trackEvent(
 // =============================================================================
 
 export type UploadSource = "file" | "paste" | "sample";
-export type ExportFormat = "pdf" | "txt" | "html" | "docx" | "epub" | "png" | "jpg";
+export type ExportFormat = "pdf" | "txt" | "html" | "docx" | "epub" | "png" | "jpg" | "xlsx";
 
 // Error categories for "Failure Lens" tracking
 export type ErrorCategory = "user_error" | "system_error";

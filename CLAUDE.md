@@ -12,8 +12,22 @@ Markdown Free is a web-based Markdown viewer and converter. Users upload/paste M
 
 ### Key Architectural Decisions
 
-1. **Client-side processing for HTML/TXT:** These exports happen entirely in the browser for instant downloads
-2. **Server-side PDF generation:** Uses Puppeteer on Vercel serverless functions (1024MB memory, 30s timeout)
+1. **Client-side processing for HTML/TXT/PNG/JPG/EPUB/XLSX:** These exports happen entirely in the browser. Mermaid fences are pre-rendered client-side into embedded images (`src/lib/diagrams.ts`) before ANY format is produced; math renders with KaTeX inside the shared pipeline (`src/lib/markdown.ts`), with `\(…\)`/`\[…\]` normalized to `$…# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Markdown Free is a web-based Markdown viewer and converter. Users upload/paste Markdown files, preview them, then export to PDF, HTML, or TXT. The core principle is "upload-first, not editor-first" with a target experience of under 30 seconds to complete a task.
+
+**Live site:** https://www.markdown.free
+
+## Architecture
+
+### Key Architectural Decisions
+
+/`$…$` first
+2. **Server-side PDF generation:** Uses Puppeteer on Vercel serverless functions (1024MB memory, 30s timeout); KaTeX CSS + fonts are inlined from node_modules (`src/lib/katex-server.ts`). DOCX is also server-side (html-to-docx) and keeps formulas as LaTeX source until editable OMML lands (plan Phase 0b)
 3. **XSS prevention:** All Markdown goes through rehype-sanitize using GitHub's schema
 4. **i18n:** Uses Next.js dynamic routes with `[locale]` parameter; English is default (no prefix)
 

@@ -122,7 +122,17 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
           const { exportToImage } = await import("@/lib/export-image");
           const html =
             renderedHtml ||
-            (await (await import("@/lib/markdown")).markdownToHtml(markdown));
+            (await (await import("@/lib/markdown")).markdownToHtml(
+              (await (await import("@/lib/prepare-markdown")).prepareMarkdown(markdown)).markdown
+            ));
+
+          // Formulas: the rasterizer cannot reach the page's webfonts, so hand
+          // it the KaTeX stylesheet with the fonts embedded
+          let fontEmbedCSS: string | undefined;
+          if (html.includes('class="katex')) {
+            const { getKatexCssWithEmbeddedFonts } = await import("@/lib/katex-assets");
+            fontEmbedCSS = (await getKatexCssWithEmbeddedFonts()) || undefined;
+          }
 
           // Device-aware defaults: phone-sized viewports → 1080px (长图 /
           // social width), desktop → 800px; sharpness from devicePixelRatio
@@ -136,6 +146,7 @@ export const ImageExportPanel = forwardRef<ImageExportPanelHandle, ImageExportPa
               pixelRatio,
               quality: JPG_QUALITY,
               splitMode: "auto",
+              fontEmbedCSS,
               onLongDocument: (pages, canSingle) =>
                 new Promise((resolve) => setLongDocPrompt({ pages, canSingle, resolve })),
             },

@@ -1,0 +1,6 @@
+# Wide table
+
+| Col1 | Col2 | Col3 | Col4 | Col5 | Col6 | Col7 | Col8 | Col9 | Col10 | Col11 | Col12 |
+|------|------|------|------|------|------|------|------|------|-------|-------|-------|
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+| lorem ipsum | dolor sit | amet consectetur | adipiscing | elit sed | do eiusmod | tempor | incididunt | ut labore | et dolore | magna | aliqua |

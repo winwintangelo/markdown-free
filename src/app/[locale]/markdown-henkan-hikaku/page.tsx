@@ -168,7 +168,7 @@ export default async function MarkdownHenkanHikakuPage({
           <h2>Markdown Free</h2>
           <p>HTML/TXT/DOCX出力は完全クライアントサイド、PDF生成のみサーバーレスのメモリ上で行い処理後すぐに破棄するブラウザ型コンバーター。「30秒で終わる作業に登録や広告を挟まない」という方針で開発されています。</p>
           <p><strong>日本語の扱い：</strong>Noto Sans CJK JPをレンダリングパイプラインに直接埋め込んでおり、文字化けや豆腐は発生しません。設定もインストールも不要です。</p>
-          <p><strong>強み：</strong>登録不要、追跡クッキーなし、プライバシー重視の解析、UIは10言語対応、AIが生成したMarkdownを社内文書のWordに変換する用途に強いDOCX出力。<br /><strong>弱み：</strong>1ファイル5MB上限、オフライン非対応（ブラウザ必須）、LaTeX/MathJax数式非対応、バッチ処理なし、PDFスタイルのカスタマイズ不可。<br /><strong>適している人：</strong>今すぐブラウザでPDF/DOCX/EPUBに変換したい人、特に日本語ドキュメントを扱う人。</p>
+          <p><strong>強み：</strong>登録不要、追跡クッキーなし、プライバシー重視の解析、UIは10言語対応、AIが生成したMarkdownを社内文書のWordに変換する用途に強いDOCX出力、LaTeX数式とMermaid図を全形式でレンダリング。<br /><strong>弱み：</strong>1ファイル1MB上限、オフライン非対応（ブラウザ必須）、バッチ処理なし、PDFスタイルのカスタマイズ不可、Word内の数式はまだ編集不可。<br /><strong>適している人：</strong>今すぐブラウザでPDF/DOCX/EPUBに変換したい人、特に日本語ドキュメントを扱う人。</p>
           <p><Link href="/ja" className="text-emerald-700 hover:text-emerald-800 hover:underline">markdown.free/ja</Link>（直接<Link href="/ja/markdown-docx-henkan" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown→DOCX変換</Link>や<Link href="/ja/readme-pdf-henkan" className="text-emerald-700 hover:text-emerald-800 hover:underline">README→PDF変換</Link>から開くこともできます）</p>
 
           <h2>Pandoc</h2>

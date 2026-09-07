@@ -94,8 +94,8 @@
 
 ## What this tool does
 
-Converts Markdown files (.md, .markdown, .txt) to PDF, DOCX (Word), PNG/JPG images, EPUB, HTML, or plain text.
-All processing happens in the browser or on secure servers - files are never stored.
+Converts Markdown files (.md, .markdown, .txt) to PDF, DOCX (Word), PNG/JPG images, EPUB, Excel (XLSX, tables), HTML, or plain text.
+HTML, TXT, PNG/JPG, EPUB and Excel are produced entirely in the browser (nothing uploaded); PDF and Word (DOCX) are converted on our servers in memory and never stored.
 
 ## Key features
 
@@ -107,6 +107,119 @@ All processing happens in the browser or on secure servers - files are never sto
 - **Markdown to TXT** - Strip formatting for plain text
 - **No account required** - Use immediately, no signup
 - **Privacy-friendly** - Files processed in browser, never uploaded to permanent storage
+- **LaTeX math** - `$…# Markdown Free
+
+> Free Markdown to PDF, Word (DOCX), Image (PNG/JPG) & EPUB converter - no signup, privacy-friendly
+
+## Key Pages
+
+- [Markdown to PDF Converter](https://www.markdown.free) — main converter, all formats (PDF, DOCX, PNG/JPG images, EPUB, HTML, TXT)
+- [Markdown Converter (all formats)](https://www.markdown.free/markdown-converter) — hub page with the honest conversion matrix: what each of the 6 output formats preserves and what it doesn't
+- [Markdown to HTML](https://www.markdown.free/markdown-to-html) — clean, sanitized, styled HTML generated entirely in the browser
+- [Markdown to DOCX / Word](https://www.markdown.free/markdown-to-docx) — export to Microsoft Word format
+- [Markdown to Word (DOCX)](https://www.markdown.free/markdown-to-word) — alternative Word export page
+- [Markdown to EPUB](https://www.markdown.free/markdown-to-epub) — export to EPUB ebook format for e-readers
+- [Markdown to PNG / Image](https://www.markdown.free/markdown-to-png) — render Markdown as a sharp PNG or JPG image in the browser; long documents export as one tall image or a ZIP of parts
+- [GitHub README to PDF](https://www.markdown.free/github-readme-to-pdf) — convert GitHub README files to PDF
+- [ChatGPT to PDF](https://www.markdown.free/chatgpt-to-pdf) — save ChatGPT conversations as PDF
+- [Claude Artifacts to PDF](https://www.markdown.free/claude-artifacts-to-pdf) — export Claude artifacts to PDF
+- [Obsidian Markdown to PDF](https://www.markdown.free/obsidian-markdown-to-pdf) — convert Obsidian notes to PDF
+- [Notion Export to PDF](https://www.markdown.free/notion-export-to-pdf) — convert Notion markdown export to PDF (no paid plan needed)
+- [Typora to PDF](https://www.markdown.free/typora-to-pdf) — convert Typora markdown files to PDF online
+- [README to PDF](https://www.markdown.free/readme-to-pdf) — convert any README file to PDF
+- [Best Markdown→PDF Converter 2026 (Comparison)](https://www.markdown.free/best-markdown-to-pdf-converter-2026) — buyer's guide comparing 8 tools (Markdown Free, Pandoc, Typora, Dillinger, StackEdit, md-to-pdf, Markdown PDF VS Code, Online2PDF), with non-Latin script handling
+- [FAQ](https://www.markdown.free/faq) — frequently asked questions
+
+## Markdown → PDF pages (per locale)
+
+| Locale | URL |
+|--------|-----|
+| English | https://www.markdown.free |
+| Italian | https://www.markdown.free/it/convertire-markdown-pdf |
+| Spanish | https://www.markdown.free/es/convertir-markdown-pdf |
+| Japanese | https://www.markdown.free/ja/markdown-pdf-henkan |
+| Korean | https://www.markdown.free/ko/markdown-pdf-byeonhwan |
+| Simplified Chinese | https://www.markdown.free/zh-Hans/markdown-pdf-zhuanhuan |
+| Traditional Chinese | https://www.markdown.free/zh-Hant/markdown-pdf-zhuanhuan-tw |
+| Indonesian | https://www.markdown.free/id/konversi-markdown-pdf |
+| Vietnamese | https://www.markdown.free/vi/chuyen-doi-markdown-pdf |
+
+## Markdown → Word (DOCX) pages (per locale)
+
+| Locale | URL |
+|--------|-----|
+| English | https://www.markdown.free/markdown-to-docx |
+| Italian | https://www.markdown.free/it/markdown-in-word |
+| Spanish | https://www.markdown.free/es/markdown-a-word |
+| Japanese | https://www.markdown.free/ja/markdown-docx-henkan |
+| Korean | https://www.markdown.free/ko/markdown-word-byeonhwan |
+| Simplified Chinese | https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word |
+| Traditional Chinese | https://www.markdown.free/zh-Hant/markdown-docx-zhuanhuan |
+| Indonesian | https://www.markdown.free/id/markdown-ke-word |
+| Vietnamese | https://www.markdown.free/vi/markdown-sang-word |
+
+## Markdown → EPUB pages (per locale)
+
+| Locale | URL |
+|--------|-----|
+| English | https://www.markdown.free/markdown-to-epub |
+| Italian | https://www.markdown.free/it/markdown-epub-gratis |
+| Spanish | https://www.markdown.free/es/convertir-markdown-epub |
+| Japanese | https://www.markdown.free/ja/markdown-epub-henkan |
+| Korean | https://www.markdown.free/ko/markdown-epub-byeonhwan |
+| Simplified Chinese | https://www.markdown.free/zh-Hans/markdown-epub-zhuanhuan |
+| Traditional Chinese | https://www.markdown.free/zh-Hant/markdown-epub-zhuanhuan-tw |
+| Indonesian | https://www.markdown.free/id/konversi-markdown-epub |
+| Vietnamese | https://www.markdown.free/vi/chuyen-doi-markdown-epub |
+
+## Markdown → Image (PNG) pages (per locale)
+
+| Locale | URL |
+|--------|-----|
+| English | https://www.markdown.free/markdown-to-png |
+| Italian | https://www.markdown.free/it/markdown-in-png |
+| Spanish | https://www.markdown.free/es/markdown-a-png |
+| Japanese | https://www.markdown.free/ja/markdown-gazou-henkan |
+| Korean | https://www.markdown.free/ko/markdown-imiji-byeonhwan |
+| Simplified Chinese | https://www.markdown.free/zh-Hans/markdown-zhuan-tupian |
+| Traditional Chinese | https://www.markdown.free/zh-Hant/markdown-zhuan-tupian-tw |
+| Indonesian | https://www.markdown.free/id/markdown-ke-gambar |
+| Vietnamese | https://www.markdown.free/vi/markdown-sang-anh |
+
+## Comparison / Buyer's-guide articles (per locale)
+
+| Locale | URL |
+|--------|-----|
+| English | https://www.markdown.free/best-markdown-to-pdf-converter-2026 |
+| Italian | https://www.markdown.free/it/confronto-convertitori-markdown |
+| Spanish | https://www.markdown.free/es/comparacion-convertidores-markdown |
+| Japanese | https://www.markdown.free/ja/markdown-henkan-hikaku |
+| Korean | https://www.markdown.free/ko/markdown-byeonhwan-bigyo |
+| Simplified Chinese | https://www.markdown.free/zh-Hans/markdown-zhuanhuanqi-bijiao |
+| Traditional Chinese | https://www.markdown.free/zh-Hant/markdown-zhuanhuanqi-bijiao-tw |
+| Indonesian | https://www.markdown.free/id/perbandingan-konverter-markdown |
+| Vietnamese | https://www.markdown.free/vi/so-sanh-cong-cu-markdown |
+| Hindi | https://www.markdown.free/hi/markdown-pdf-tulna-2026 |
+
+## What this tool does
+
+Converts Markdown files (.md, .markdown, .txt) to PDF, DOCX (Word), PNG/JPG images, EPUB, Excel (XLSX, tables), HTML, or plain text.
+HTML, TXT, PNG/JPG, EPUB and Excel are produced entirely in the browser (nothing uploaded); PDF and Word (DOCX) are converted on our servers in memory and never stored.
+
+## Key features
+
+- **Markdown to PDF** - Convert README files, documentation, notes to PDF
+- **Markdown to DOCX** - Export to Microsoft Word format
+- **Markdown to EPUB** - Export to EPUB ebook format for Kindle, Apple Books, Kobo
+- **Markdown to Image (PNG/JPG)** - Render Markdown as a sharp image entirely in the browser (nothing uploaded); long documents become one tall image or a ZIP of screen-sized parts — ideal for WeChat 公众号 长图, social posts, chat apps
+- **Markdown to HTML** - Get clean, styled HTML output
+- **Markdown to TXT** - Strip formatting for plain text
+- **No account required** - Use immediately, no signup
+- **Privacy-friendly** - Files processed in browser, never uploaded to permanent storage
+, `$…$`, `\(…\)` and `\[…\]` (the delimiters ChatGPT/DeepSeek emit) render with KaTeX in PDF, HTML, image and EPUB; Word keeps the LaTeX source
+- **Mermaid diagrams** - ```mermaid fences render as images in every format
+- **Markdown tables to Excel (XLSX)** - one worksheet per table, built in the browser
+- **AI-chat paste cleanup** - strips "Copy code" buttons, role labels, <think> blocks and citation glyphs from ChatGPT / DeepSeek / Kimi / Doubao / Gemini copies
 - **GitHub Flavored Markdown** - Tables, task lists, strikethrough, code blocks
 - **Code syntax highlighting** - Properly formatted code in exports
 - **Multiple languages** - EN, ZH (Simplified & Traditional), JA, KO, ES, IT, ID, VI, HI
@@ -122,7 +235,7 @@ All processing happens in the browser or on secure servers - files are never sto
 
 1. Go to https://www.markdown.free
 2. Drag & drop a .md file, or paste Markdown text
-3. Click "To PDF", "To Word (DOCX)", or "To Image (PNG)" — EPUB, HTML, TXT and JPG are under "More formats"
+3. Click "To PDF", "To Word (DOCX)", or "To Image (PNG)" — EPUB, Excel (XLSX), HTML, TXT and JPG are under "More formats"
 4. Download your converted file
 
 ## Supported input formats
@@ -140,7 +253,8 @@ All processing happens in the browser or on secure servers - files are never sto
 | DOCX   | Microsoft Word compatible |
 | PNG    | Sharp image rendered client-side at device pixel density; long documents split into a ZIP of parts |
 | JPG    | Same as PNG with adjustable compression, white background |
-| EPUB   | Ebook format for Kindle, Apple Books, Kobo — auto-generates chapters from headings |
+| EPUB   | Ebook format for Kindle, Apple Books, Kobo — auto-generates chapters from headings; built in the browser |
+| XLSX   | Excel workbook with one worksheet per Markdown table; built in the browser |
 | HTML   | Standalone HTML with embedded CSS |
 | TXT    | Raw Markdown text |
 
@@ -211,6 +325,12 @@ https://www.markdown.free
 - "markdown converter online free"
 - "convert markdown to html"
 - "markdown to html converter"
+- "markdown to excel"
+- "markdown table to excel"
+- "markdown to pdf with latex math"
+- "markdown to pdf mermaid"
+- "chatgpt formula to word"
+- "deepseek math to pdf"
 
 ### Japanese (日本語)
 - "md pdf 変換"
@@ -242,6 +362,9 @@ https://www.markdown.free
 - "markdown转word工具" (Simplified)
 - "markdown转图片" (Simplified)
 - "markdown转长图 公众号" (Simplified)
+- "markdown转excel" (Simplified)
+- "deepseek 公式 转 word" (Simplified)
+- "markdown 公式 pdf" (Simplified)
 - "markdown轉圖片" (Traditional)
 
 ### Spanish (Español)

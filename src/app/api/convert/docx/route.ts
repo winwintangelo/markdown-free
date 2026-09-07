@@ -140,7 +140,7 @@ em { font-style: italic; }
  */
 async function markdownToDocx(markdown: string, title?: string): Promise<Buffer> {
   // Step 1: Convert markdown to HTML
-  let htmlContent = await markdownToHtml(markdown);
+  let htmlContent = await markdownToHtml(markdown, { renderMath: false }); // LaTeX stays as source until Phase 0b (OMML)
 
   // Step 2: SECURITY - Proxy external images to prevent SSRF
   // Converts safe external images to base64 data URIs
