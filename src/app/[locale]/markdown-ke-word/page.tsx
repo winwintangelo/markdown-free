@@ -58,7 +58,7 @@ const faq = [
   { q: "Apa perbedaan antara Word dan DOCX?", a: "DOCX adalah format file standar yang digunakan Microsoft Word sejak 2007. Saat kami menyebut \"dokumen Word\", yang dimaksud adalah file .docx yang dapat dibuka di Word, Google Docs, dan LibreOffice." },
   { q: "Apakah file Markdown saya disimpan di server Anda?", a: "Tidak. File Anda diproses sementara di memori dan langsung dihapus setelah konversi. Kami tidak menyimpan konten Anda." },
   { q: "Apakah format tabel, blok kode, dan checklist dipertahankan saat konversi ke Word?", a: "Ya. Tabel, blok kode, heading, daftar berurutan/tidak berurutan, dan checklist GFM dipertahankan sebagai gaya Word yang tepat." },
-  { q: "Berapa ukuran file maksimum untuk konversi Markdown ke Word?", a: "Saat ini batasnya 5MB per file, mencakup hampir semua dokumen Markdown nyata (~750.000 kata)." },
+  { q: "Berapa ukuran file maksimum untuk konversi Markdown ke Word?", a: "Saat ini batasnya 1MB per file, mencakup hampir semua dokumen Markdown nyata (~150.000 kata)." },
   { q: "Apakah konverter Markdown ke .docx ini berfungsi tanpa instalasi?", a: "Ya. Markdown Free berjalan sepenuhnya di browser — tidak perlu instalasi, plugin, atau ekstensi." },
 ];
 

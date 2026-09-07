@@ -161,7 +161,7 @@ export default function NoWatermarkPage() {
 
           <h3>What&apos;s the file size limit?</h3>
           <p>
-            Files up to 5MB are supported, which covers virtually all Markdown documents.
+            Files up to 1MB are supported, which covers virtually all Markdown documents.
           </p>
 
           {/* Second CTA */}

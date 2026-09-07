@@ -180,7 +180,7 @@ export default function OnlineFreePage() {
 
           <h3>What&apos;s the file size limit?</h3>
           <p>
-            Files up to 5MB are supported.
+            Files up to 1MB are supported.
           </p>
 
           <h3>Does it work on mobile?</h3>

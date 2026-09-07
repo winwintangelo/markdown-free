@@ -171,7 +171,7 @@ export default async function XueshuBijiPdfPage({
 
         <h3>可以處理很長的筆記嗎？</h3>
         <p>
-          可以！我們支援最大5MB的檔案，足以處理數百頁的筆記內容。
+          可以！我們支援最大1MB的檔案，足以處理數百頁的筆記內容。
           PDF會自動分頁，保持良好的閱讀體驗。
         </p>
 

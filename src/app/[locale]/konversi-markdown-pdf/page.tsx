@@ -56,7 +56,7 @@ const faq = [
   { q: "Bisa konversi Markdown ke PDF tanpa daftar?", a: "Bisa. Markdown Free tidak memerlukan akun atau pendaftaran. File diproses di browser (HTML/TXT) atau di memori serverless (PDF/DOCX/EPUB) dan tidak pernah disimpan." },
   { q: "Bisa konversi GitHub README.md ke PDF?", a: "Bisa. Buka README.md di repository GitHub, klik \"Raw\" dan simpan filenya, lalu unggah ke Markdown Free dan ekspor ke PDF. CHANGELOG.md, CONTRIBUTING.md dan file .md lain juga didukung." },
   { q: "Apakah file Markdown saya disimpan di server?", a: "Tidak. PDF dibuat di memori serverless dan langsung dihapus. Ekspor HTML dan TXT diproses sepenuhnya di browser dan tidak pernah meninggalkan komputer Anda." },
-  { q: "Berapa ukuran file maksimum untuk konversi Markdown ke PDF?", a: "Saat ini 5MB per file, mencakup hampir semua dokumen Markdown nyata (~750.000 kata)." },
+  { q: "Berapa ukuran file maksimum untuk konversi Markdown ke PDF?", a: "Saat ini 1MB per file, mencakup hampir semua dokumen Markdown nyata (~150.000 kata)." },
   { q: "Apakah format tabel, blok kode, dan checklist dipertahankan di PDF?", a: "Ya. Semua fitur GFM — tabel, blok kode (dengan syntax highlighting), checklist, daftar, strikethrough, autolink — dipertahankan dengan benar di output PDF." },
   { q: "Apakah tool ini berfungsi tanpa instalasi?", a: "Ya. Markdown Free berjalan sepenuhnya di browser — tidak perlu instalasi, plugin, atau ekstensi." },
 ];

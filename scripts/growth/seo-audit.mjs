@@ -101,8 +101,13 @@ async function sitemapPaths() {
     const r = await fetch(`${SITE}/sitemap.xml`, { signal: AbortSignal.timeout(15000) });
     if (!r.ok) return [];
     const xml = await r.text();
+    // Strip ANY origin, not just SITE: the sitemap always carries production
+    // URLs, so a run against a local build (SEO_SITE=http://localhost:3000)
+    // must still reduce them to paths.
     return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
-      .map((m) => m[1].replace(SITE, '') || '/')
+      .map((m) => {
+        try { return new URL(m[1]).pathname || '/'; } catch { return m[1].replace(SITE, '') || '/'; }
+      })
       .filter((p) => !/\.(xml|txt|png|jpg|svg|ico)$/i.test(p));
   } catch { return []; }
 }

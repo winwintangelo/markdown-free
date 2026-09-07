@@ -32,7 +32,7 @@ const faq = [
   { q: "把 Markdown 轉 DOCX（Word）會失去格式嗎？", a: "不會。Markdown Free、Pandoc 與 Typora 都能輸出保留標題、程式碼區塊、表格與待辦清單的 DOCX。Pandoc 最完整；Markdown Free 是瀏覽器中最快的。" },
   { q: "2026 年 Pandoc 仍是最佳選擇嗎？", a: "在腳本批次處理場景，Pandoc 仍是最強的 Markdown 轉換器；但對不想安裝 LaTeX（約 1.5GB）的非技術使用者，Markdown Free 等瀏覽器工具能在零安裝成本下提供相近的 PDF 品質。" },
   { q: "處理機密文件時，哪款轉換器最安全？", a: "本機執行的工具（Pandoc、Typora、VS Code 的 Markdown PDF、md-to-pdf）會把檔案留在自己的電腦上。瀏覽器工具中，Markdown Free 在用戶端處理 HTML/TXT/DOCX，PDF 在 serverless 記憶體中產生後立即丟棄；上傳到伺服器的工具（Online2PDF）隱私風險最高。" },
-  { q: "Markdown Free 有檔案大小限制嗎？", a: "有。目前單檔 5MB。5MB 的 Markdown 約等於 75 萬字，幾乎涵蓋所有真實文件。需要更大檔案時，命令列 Pandoc 沒有內建大小限制。" },
+  { q: "Markdown Free 有檔案大小限制嗎？", a: "有。目前單檔 1MB。1MB 的 Markdown 約等於 75 萬字，幾乎涵蓋所有真實文件。需要更大檔案時，命令列 Pandoc 沒有內建大小限制。" },
 ];
 
 const articleJsonLd = { "@context": "https://schema.org", "@type": "Article", inLanguage: "zh-Hant", headline: "Markdown 轉 PDF 工具比較 2026", description: "Markdown 轉 PDF 工具 8 款的誠實比較。", datePublished: PUBLISH_DATE, dateModified: PUBLISH_DATE, author: { "@type": "Organization", name: "Markdown Free team", url: "https://www.markdown.free/zh-Hant/about" }, publisher: { "@type": "Organization", name: "Markdown Free", url: "https://www.markdown.free" }, mainEntityOfPage: { "@type": "WebPage", "@id": "https://www.markdown.free/zh-Hant/markdown-zhuanhuanqi-bijiao-tw" } };

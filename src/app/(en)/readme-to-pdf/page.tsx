@@ -42,7 +42,7 @@ const faq = [
   { q: "Can I convert README.md to PDF without signing up?", a: "Yes. Markdown Free does not require an account. Files are processed in your browser (HTML/TXT) or in serverless memory (PDF/DOCX/EPUB) and never stored." },
   { q: "Are images from my README included in the PDF?", a: "Yes for absolute URLs (https://...). Relative image paths from a repo (./images/foo.png) won't resolve outside GitHub — replace them with the raw.githubusercontent.com URL before converting." },
   { q: "Can I convert CHANGELOG.md, CONTRIBUTING.md, or other Markdown files?", a: "Yes. Any .md or .markdown file works — README.md, CHANGELOG.md, CONTRIBUTING.md, /docs files, all of them." },
-  { q: "Is there a file size limit for README to PDF conversion?", a: "Yes — 5MB per file, which covers virtually every real-world README and documentation file (~750,000 words of plain Markdown)." },
+  { q: "Is there a file size limit for README to PDF conversion?", a: "Yes — 1MB per file, which covers virtually every real-world README and documentation file (~150,000 words of plain Markdown)." },
   { q: "Are my README files stored on your servers?", a: "No. PDFs are generated in serverless memory and discarded immediately. HTML and TXT exports are processed entirely in your browser and never leave your machine." },
 ];
 

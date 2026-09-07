@@ -1,0 +1,69 @@
+{
+  "_comment": "Phase 1 long-tail intent pages (build plan §5 Phase 1, §8). One entry per page; the prose lives in the per-locale .ts files next to this file, keyed by locale + slug. scripts/generate-intent-pages.mjs writes the route stubs from this manifest; src/content/intent-pages/index.ts validates that every entry has content. `group` = hreflang group (translated siblings). `external` lets an existing hand-written page join a group.",
+  "externalGroupMembers": {
+    "claude-artifacts-pdf": { "en": "/claude-artifacts-to-pdf" }
+  },
+  "pages": [
+    { "group": "chatgpt-math-word", "locale": "en", "slug": "chatgpt-formulas-to-word", "family": "math", "sample": "math", "related": "docx" },
+    { "group": "chatgpt-math-word", "locale": "zh-Hans", "slug": "chatgpt-gongshi-word", "family": "math", "sample": "math", "related": "docx" },
+    { "group": "chatgpt-math-word", "locale": "zh-Hant", "slug": "chatgpt-gongshi-word-tw", "family": "math", "sample": "math", "related": "docx" },
+    { "group": "chatgpt-math-word", "locale": "ja", "slug": "chatgpt-suushiki-word", "family": "math", "sample": "math", "related": "docx" },
+    { "group": "chatgpt-math-word", "locale": "ko", "slug": "chatgpt-susik-word", "family": "math", "sample": "math", "related": "docx" },
+
+    { "group": "deepseek-math-word", "locale": "en", "slug": "deepseek-formulas-to-word", "family": "math", "sample": "chat", "related": "docx" },
+    { "group": "deepseek-math-word", "locale": "zh-Hans", "slug": "deepseek-gongshi-word", "family": "math", "sample": "chat", "related": "docx" },
+    { "group": "deepseek-math-word", "locale": "zh-Hant", "slug": "deepseek-gongshi-word-tw", "family": "math", "sample": "chat", "related": "docx" },
+    { "group": "deepseek-math-word", "locale": "ja", "slug": "deepseek-suushiki-word", "family": "math", "sample": "chat", "related": "docx" },
+    { "group": "deepseek-math-word", "locale": "ko", "slug": "deepseek-susik-word", "family": "math", "sample": "chat", "related": "docx" },
+
+    { "group": "ai-table-excel", "locale": "en", "slug": "chatgpt-table-to-excel", "family": "table", "sample": "table", "related": "docx" },
+    { "group": "ai-table-excel", "locale": "zh-Hans", "slug": "chatgpt-biaoge-excel", "family": "table", "sample": "table", "related": "docx" },
+    { "group": "ai-table-excel", "locale": "zh-Hant", "slug": "chatgpt-biaoge-excel-tw", "family": "table", "sample": "table", "related": "docx" },
+    { "group": "ai-table-excel", "locale": "ja", "slug": "chatgpt-hyou-excel", "family": "table", "sample": "table", "related": "docx" },
+    { "group": "ai-table-excel", "locale": "ko", "slug": "chatgpt-pyo-excel", "family": "table", "sample": "table", "related": "docx" },
+
+    { "group": "ai-table-word", "locale": "en", "slug": "ai-table-to-word", "family": "table", "sample": "table", "related": "docx" },
+    { "group": "ai-table-word", "locale": "zh-Hans", "slug": "kimi-biaoge-word", "family": "table", "sample": "table", "related": "docx" },
+    { "group": "ai-table-word", "locale": "zh-Hant", "slug": "ai-biaoge-word-tw", "family": "table", "sample": "table", "related": "docx" },
+    { "group": "ai-table-word", "locale": "ja", "slug": "ai-hyou-word", "family": "table", "sample": "table", "related": "docx" },
+    { "group": "ai-table-word", "locale": "ko", "slug": "ai-pyo-word", "family": "table", "sample": "table", "related": "docx" },
+
+    { "group": "markdown-latex-pdf", "locale": "en", "slug": "markdown-to-pdf-with-latex-math", "family": "generic", "sample": "math", "related": "pdf" },
+    { "group": "markdown-latex-pdf", "locale": "zh-Hans", "slug": "markdown-gongshi-pdf", "family": "generic", "sample": "math", "related": "pdf" },
+    { "group": "markdown-latex-pdf", "locale": "zh-Hant", "slug": "markdown-gongshi-pdf-tw", "family": "generic", "sample": "math", "related": "pdf" },
+    { "group": "markdown-latex-pdf", "locale": "ja", "slug": "markdown-suushiki-pdf", "family": "generic", "sample": "math", "related": "pdf" },
+    { "group": "markdown-latex-pdf", "locale": "ko", "slug": "markdown-susik-pdf", "family": "generic", "sample": "math", "related": "pdf" },
+
+    { "group": "markdown-mermaid-pdf", "locale": "en", "slug": "markdown-to-pdf-with-mermaid", "family": "generic", "sample": "mermaid", "related": "pdf" },
+    { "group": "markdown-mermaid-pdf", "locale": "zh-Hans", "slug": "markdown-mermaid-pdf", "family": "generic", "sample": "mermaid", "related": "pdf" },
+    { "group": "markdown-mermaid-pdf", "locale": "zh-Hant", "slug": "markdown-mermaid-pdf-tw", "family": "generic", "sample": "mermaid", "related": "pdf" },
+    { "group": "markdown-mermaid-pdf", "locale": "ja", "slug": "markdown-mermaid-pdf-henkan", "family": "generic", "sample": "mermaid", "related": "pdf" },
+    { "group": "markdown-mermaid-pdf", "locale": "ko", "slug": "markdown-mermaid-pdf-byeonhwan", "family": "generic", "sample": "mermaid", "related": "pdf" },
+
+    { "group": "markdown-table-excel", "locale": "en", "slug": "markdown-table-to-excel", "family": "generic", "sample": "table", "related": "docx" },
+    { "group": "markdown-table-excel", "locale": "zh-Hans", "slug": "markdown-zhuan-excel", "family": "generic", "sample": "table", "related": "docx" },
+    { "group": "markdown-table-excel", "locale": "zh-Hant", "slug": "markdown-zhuan-excel-tw", "family": "generic", "sample": "table", "related": "docx" },
+    { "group": "markdown-table-excel", "locale": "ja", "slug": "markdown-excel-henkan", "family": "generic", "sample": "table", "related": "docx" },
+    { "group": "markdown-table-excel", "locale": "ko", "slug": "markdown-excel-byeonhwan", "family": "generic", "sample": "table", "related": "docx" },
+
+    { "group": "deepseek-word", "locale": "en", "slug": "deepseek-to-word", "family": "source", "sample": "chat", "related": "docx" },
+    { "group": "deepseek-word", "locale": "zh-Hans", "slug": "deepseek-zhuan-word", "family": "source", "sample": "chat", "related": "docx" },
+    { "group": "deepseek-word", "locale": "zh-Hant", "slug": "deepseek-zhuan-word-tw", "family": "source", "sample": "chat", "related": "docx" },
+    { "group": "deepseek-word", "locale": "ja", "slug": "deepseek-word-henkan", "family": "source", "sample": "chat", "related": "docx" },
+    { "group": "deepseek-word", "locale": "ko", "slug": "deepseek-word-byeonhwan", "family": "source", "sample": "chat", "related": "docx" },
+
+    { "group": "claude-artifacts-pdf", "locale": "zh-Hans", "slug": "claude-artifacts-pdf", "family": "source", "sample": "chat", "related": "pdf" },
+    { "group": "claude-artifacts-pdf", "locale": "zh-Hant", "slug": "claude-artifacts-pdf-tw", "family": "source", "sample": "chat", "related": "pdf" },
+    { "group": "claude-artifacts-pdf", "locale": "ja", "slug": "claude-artifacts-pdf", "family": "source", "sample": "chat", "related": "pdf" },
+    { "group": "claude-artifacts-pdf", "locale": "ko", "slug": "claude-artifacts-pdf", "family": "source", "sample": "chat", "related": "pdf" },
+
+    { "group": "gemini-word", "locale": "en", "slug": "gemini-to-word", "family": "source", "sample": "chat", "related": "docx" },
+    { "group": "gemini-word", "locale": "zh-Hans", "slug": "gemini-zhuan-word", "family": "source", "sample": "chat", "related": "docx" },
+    { "group": "gemini-word", "locale": "zh-Hant", "slug": "gemini-zhuan-word-tw", "family": "source", "sample": "chat", "related": "docx" },
+    { "group": "gemini-word", "locale": "ja", "slug": "gemini-word-henkan", "family": "source", "sample": "chat", "related": "docx" },
+    { "group": "gemini-word", "locale": "ko", "slug": "gemini-word-byeonhwan", "family": "source", "sample": "chat", "related": "docx" },
+
+    { "group": "kimi-word", "locale": "zh-Hans", "slug": "kimi-zhuan-word", "family": "source", "sample": "chat", "related": "docx" },
+    { "group": "doubao-word", "locale": "zh-Hans", "slug": "doubao-zhuan-word", "family": "source", "sample": "chat", "related": "docx" }
+  ]
+}

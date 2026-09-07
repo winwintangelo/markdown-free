@@ -57,7 +57,7 @@ const faq = [
   { q: "Có thể chuyển đổi Markdown sang PDF mà không cần đăng ký không?", a: "Được. Markdown Free không yêu cầu tài khoản. File được xử lý trong trình duyệt (HTML/TXT) hoặc trong bộ nhớ serverless (PDF/DOCX/EPUB) và không bao giờ được lưu trữ." },
   { q: "Dấu tiếng Việt có hiển thị đúng trong PDF không?", a: "Có. Markdown Free nhúng font hỗ trợ đầy đủ Unicode trong pipeline render PDF, nên dấu tiếng Việt, ký tự Hán-Nôm, và các ngôn ngữ khác (Hàn, Nhật, Trung) đều hiển thị chính xác mà không bị □□□ hoặc thiếu dấu." },
   { q: "Có thể chuyển đổi GitHub README.md sang PDF không?", a: "Có. Mở README.md trong repository GitHub, nhấn nút \"Raw\" và lưu file, sau đó tải lên Markdown Free và xuất PDF. CHANGELOG.md, CONTRIBUTING.md và bất kỳ file .md nào cũng được hỗ trợ." },
-  { q: "Giới hạn kích thước file là bao nhiêu?", a: "Hiện tại 5MB mỗi file, đủ cho hầu hết tài liệu Markdown thực tế (~750.000 từ Markdown thuần)." },
+  { q: "Giới hạn kích thước file là bao nhiêu?", a: "Hiện tại 1MB mỗi file, đủ cho hầu hết tài liệu Markdown thực tế (~150.000 từ Markdown thuần)." },
   { q: "File Markdown của tôi có được lưu trên máy chủ không?", a: "Không. PDF được tạo trong bộ nhớ serverless và bị loại bỏ ngay lập tức. Xuất HTML và TXT được xử lý hoàn toàn trong trình duyệt và không bao giờ rời khỏi máy của bạn." },
   { q: "Bảng, khối mã, checklist GFM có được giữ nguyên trong PDF không?", a: "Có. Tất cả các tính năng GFM — bảng, danh sách công việc, khối mã (với syntax highlighting), gạch ngang, autolink — đều được bảo toàn chính xác trong PDF." },
 ];

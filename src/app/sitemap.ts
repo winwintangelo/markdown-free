@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { intentSitemapEntries } from "@/content/intent-pages";
 
 /**
  * Dynamic sitemap (replaces the hand-maintained public/sitemap.xml).
@@ -109,6 +110,19 @@ const standalone = plain([
   "/zh-Hant/huiyi-jilu-pdf", "/zh-Hant/jishu-biji-pdf", "/zh-Hant/xueshu-biji-pdf",
 ]);
 
+/** Phase 1 long-tail intent pages (data-driven; see src/content/intent-pages). */
+function intentPages(): MetadataRoute.Sitemap {
+  const { groups, standalone } = intentSitemapEntries();
+  const out: MetadataRoute.Sitemap = [];
+  for (const g of groups) {
+    const languages: Record<string, string> = {};
+    for (const [locale, p] of Object.entries(g.languages)) languages[locale] = abs(p);
+    for (const p of g.paths) out.push({ url: abs(p), lastModified, alternates: { languages } });
+  }
+  out.push(...plain(standalone));
+  return out;
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...homepages,
@@ -119,5 +133,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...image,
     ...comparison,
     ...standalone,
+    ...intentPages(),
   ];
 }

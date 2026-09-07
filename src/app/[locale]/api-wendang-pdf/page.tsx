@@ -211,7 +211,7 @@ Authorization: Bearer <access_token>
 
         <h3>可以處理很長的API文件嗎？</h3>
         <p>
-          可以！支援最大5MB的檔案，足以處理完整的API參考文件。
+          可以！支援最大1MB的檔案，足以處理完整的API參考文件。
           PDF會自動分頁，保持良好的閱讀體驗。
         </p>
 

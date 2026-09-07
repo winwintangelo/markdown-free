@@ -55,7 +55,7 @@ const faq = [
   { q: "繁體中文的 README 在轉 PDF 後會出現亂碼或字型豆腐嗎？", a: "不會。Markdown Free 在 PDF 渲染管線中內嵌 Noto Sans CJK 字型，繁體中文、簡體中文、日文、韓文都能正確顯示，不會出現□□□豆腐字。" },
   { q: "可以轉換 README 以外的 GitHub Markdown 檔案嗎？", a: "可以。CHANGELOG.md、CONTRIBUTING.md、docs/ 資料夾下的任何 .md 檔案、甚至 GitHub Wiki 匯出的 .md 都能直接轉換。" },
   { q: "GitHub README 中的圖片會包含在 PDF 裡嗎？", a: "絕對網址（https://...）的圖片會包含在 PDF 中。儲存庫相對路徑（例如 ./images/foo.png）在 GitHub 之外無法解析——請改用 raw.githubusercontent.com 的完整網址。" },
-  { q: "GitHub 文件轉 PDF 有檔案大小限制嗎？", a: "目前每個檔案的上限是 5MB，足以涵蓋幾乎所有真實世界的 README 與技術文件（約 75 萬字）。" },
+  { q: "GitHub 文件轉 PDF 有檔案大小限制嗎？", a: "目前每個檔案的上限是 1MB，足以涵蓋幾乎所有真實世界的 README 與技術文件（約 75 萬字）。" },
   { q: "我的 GitHub 文件會被儲存在你們的伺服器嗎？", a: "不會。PDF 在無伺服器記憶體中產生，完成後立即丟棄；HTML 與 TXT 匯出完全在瀏覽器中處理，不會離開你的電腦。" },
 ];
 

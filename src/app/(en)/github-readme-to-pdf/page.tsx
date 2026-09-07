@@ -39,7 +39,7 @@ const faq = [
   { q: "Do GitHub images and badges appear in the PDF?", a: "Yes for any image with an absolute URL — that includes shields.io badges, raw.githubusercontent.com images, and externally hosted assets. Relative repo paths (./images/foo.png) won't resolve outside GitHub; replace them with the raw.githubusercontent.com URL before converting." },
   { q: "Can I convert CHANGELOG.md, CONTRIBUTING.md, or LICENSE files too?", a: "Yes. Any .md or .markdown file works — README.md, CHANGELOG.md, CONTRIBUTING.md, /docs files, even GitHub Wiki .md exports." },
   { q: "Does it work for private repos or GitHub Enterprise?", a: "Markdown Free never connects to GitHub directly — it just converts a .md file you upload. So it works for any repo (public, private, GHE) as long as you can save the README.md to your machine." },
-  { q: "Is there a file size limit?", a: "Yes — 5MB per file, which covers virtually every real-world README and documentation file (~750,000 words of plain Markdown)." },
+  { q: "Is there a file size limit?", a: "Yes — 1MB per file, which covers virtually every real-world README and documentation file (~150,000 words of plain Markdown)." },
   { q: "Are my README files stored on your servers?", a: "No. PDFs are generated in serverless memory and discarded immediately. HTML and TXT exports are processed entirely in your browser and never leave your machine." },
 ];
 

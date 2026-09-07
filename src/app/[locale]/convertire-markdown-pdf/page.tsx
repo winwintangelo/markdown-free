@@ -56,7 +56,7 @@ const faq = [
   { q: "Posso convertire Markdown in PDF senza registrarmi?", a: "Sì. Markdown Free non richiede un account. I file vengono elaborati nel tuo browser (HTML/TXT) o in memoria serverless (PDF/DOCX/EPUB) e non vengono mai memorizzati." },
   { q: "Posso convertire un README.md di GitHub in PDF?", a: "Sì. Apri il README.md nel repository GitHub, clicca \"Raw\" e salva il file, poi caricalo su Markdown Free ed esporta in PDF. Funziona anche per CHANGELOG.md, CONTRIBUTING.md e qualsiasi file .md." },
   { q: "I miei file Markdown vengono salvati sui vostri server?", a: "No. I PDF vengono generati in memoria serverless e scartati immediatamente. Le esportazioni HTML e TXT vengono elaborate completamente nel browser e non lasciano mai il tuo computer." },
-  { q: "Qual è il limite di dimensione del file?", a: "Attualmente 5MB per file, sufficiente per praticamente qualsiasi documento Markdown reale (~750.000 parole di Markdown semplice)." },
+  { q: "Qual è il limite di dimensione del file?", a: "Attualmente 1MB per file, sufficiente per praticamente qualsiasi documento Markdown reale (~150.000 parole di Markdown semplice)." },
   { q: "Le tabelle, i blocchi di codice e le checklist GFM vengono mantenuti nel PDF?", a: "Sì. Tutte le funzionalità GFM — tabelle, blocchi di codice (con evidenziazione della sintassi), checklist, strikethrough, autolink — vengono preservate correttamente nell'output PDF." },
   { q: "Funziona senza installazione?", a: "Sì. Markdown Free funziona interamente nel browser — nessuna installazione, plugin o estensione richiesti." },
 ];

@@ -90,7 +90,7 @@ export default function AboutPage() {
               then immediately discarded
             </li>
             <li>
-              <strong>File size limit:</strong> Up to 5 MB per file
+              <strong>File size limit:</strong> Up to 1 MB per file
             </li>
             <li>
               <strong>Supported formats:</strong> GitHub Flavored Markdown (GFM)

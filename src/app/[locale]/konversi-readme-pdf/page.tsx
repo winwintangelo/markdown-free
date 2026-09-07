@@ -57,7 +57,7 @@ const faq = [
   { q: "Bisakah saya mengonversi README.md ke PDF tanpa mendaftar?", a: "Bisa. Markdown Free tidak memerlukan akun. File diproses di browser (HTML/TXT) atau di memori serverless (PDF/DOCX/EPUB) dan tidak pernah disimpan." },
   { q: "Apakah gambar dari README saya akan ikut ke PDF?", a: "Ya untuk URL absolut (https://...). Path relatif dari repository (./images/foo.png) tidak terselesaikan di luar GitHub — ganti dengan URL raw.githubusercontent.com sebelum konversi." },
   { q: "Bisa konversi CHANGELOG.md, CONTRIBUTING.md, atau file Markdown lain?", a: "Bisa. File .md atau .markdown apa pun bisa: README.md, CHANGELOG.md, CONTRIBUTING.md, dokumentasi di /docs, semuanya." },
-  { q: "Apakah ada batas ukuran file untuk konversi README ke PDF?", a: "Ya — 5MB per file, mencakup hampir semua README dan dokumentasi nyata (~750.000 kata Markdown polos)." },
+  { q: "Apakah ada batas ukuran file untuk konversi README ke PDF?", a: "Ya — 1MB per file, mencakup hampir semua README dan dokumentasi nyata (~150.000 kata Markdown polos)." },
   { q: "Apakah file README saya disimpan di server Anda?", a: "Tidak. PDF dibuat di memori serverless dan langsung dihapus. Ekspor HTML dan TXT diproses sepenuhnya di browser dan tidak pernah meninggalkan komputer Anda." },
 ];
 

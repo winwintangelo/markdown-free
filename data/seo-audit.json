@@ -1,34 +1,16 @@
 {
-  "generatedAt": "2026-09-07T01:14:45.939Z",
-  "site": "https://www.markdown.free",
-  "scope": "core",
-  "checked": 10,
+  "generatedAt": "2026-09-07T21:44:28.226Z",
+  "site": "http://localhost:3000",
+  "scope": "full",
+  "checked": 154,
   "ok": true,
   "errors": [],
   "warns": [
     {
-      "path": "/markdown-to-word",
+      "path": "/it",
       "sev": "warn",
       "code": "title-length",
-      "msg": "title 77 chars (aim 15–65)"
-    },
-    {
-      "path": "/readme-to-pdf",
-      "sev": "warn",
-      "code": "desc-length",
-      "msg": "description 204 chars (aim 50–165)"
-    },
-    {
-      "path": "/obsidian-markdown-to-pdf",
-      "sev": "warn",
-      "code": "title-length",
-      "msg": "title 73 chars (aim 15–65)"
-    },
-    {
-      "path": "/markdown-to-png",
-      "sev": "warn",
-      "code": "title-length",
-      "msg": "title 74 chars (aim 15–65)"
+      "msg": "title 113 chars (aim 15–65)"
     },
     {
       "path": "/ja",
@@ -37,10 +19,310 @@
       "msg": "title 69 chars (aim 15–65)"
     },
     {
+      "path": "/ko",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 69 chars (aim 15–65)"
+    },
+    {
+      "path": "/id",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 97 chars (aim 15–65)"
+    },
+    {
+      "path": "/vi",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 106 chars (aim 15–65)"
+    },
+    {
+      "path": "/hi",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 87 chars (aim 15–65)"
+    },
+    {
+      "path": "/hi",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 177 chars (aim 50–165)"
+    },
+    {
+      "path": "/id/faq",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 168 chars (aim 50–165)"
+    },
+    {
+      "path": "/vi/faq",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 186 chars (aim 50–165)"
+    },
+    {
+      "path": "/hi/faq",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 180 chars (aim 50–165)"
+    },
+    {
+      "path": "/readme-to-pdf",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 204 chars (aim 50–165)"
+    },
+    {
+      "path": "/es/convertir-readme-pdf",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 78 chars (aim 15–65)"
+    },
+    {
+      "path": "/es/convertir-readme-pdf",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 245 chars (aim 50–165)"
+    },
+    {
+      "path": "/id/konversi-readme-pdf",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 78 chars (aim 15–65)"
+    },
+    {
+      "path": "/id/konversi-readme-pdf",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 214 chars (aim 50–165)"
+    },
+    {
+      "path": "/markdown-to-word",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 77 chars (aim 15–65)"
+    },
+    {
       "path": "/es/markdown-a-word",
       "sev": "warn",
       "code": "desc-length",
       "msg": "description 169 chars (aim 50–165)"
+    },
+    {
+      "path": "/it/markdown-in-word",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 78 chars (aim 15–65)"
+    },
+    {
+      "path": "/it/markdown-in-word",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 179 chars (aim 50–165)"
+    },
+    {
+      "path": "/id/markdown-ke-word",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 70 chars (aim 15–65)"
+    },
+    {
+      "path": "/id/markdown-ke-word",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 191 chars (aim 50–165)"
+    },
+    {
+      "path": "/vi/markdown-sang-word",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 71 chars (aim 15–65)"
+    },
+    {
+      "path": "/vi/markdown-sang-word",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 169 chars (aim 50–165)"
+    },
+    {
+      "path": "/markdown-to-epub",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 69 chars (aim 15–65)"
+    },
+    {
+      "path": "/es/convertir-markdown-epub",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 174 chars (aim 50–165)"
+    },
+    {
+      "path": "/it/markdown-epub-gratis",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 168 chars (aim 50–165)"
+    },
+    {
+      "path": "/markdown-to-png",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 74 chars (aim 15–65)"
+    },
+    {
+      "path": "/es/markdown-a-png",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 79 chars (aim 15–65)"
+    },
+    {
+      "path": "/es/markdown-a-png",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 194 chars (aim 50–165)"
+    },
+    {
+      "path": "/it/markdown-in-png",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 90 chars (aim 15–65)"
+    },
+    {
+      "path": "/it/markdown-in-png",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 217 chars (aim 50–165)"
+    },
+    {
+      "path": "/id/markdown-ke-gambar",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 78 chars (aim 15–65)"
+    },
+    {
+      "path": "/id/markdown-ke-gambar",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 198 chars (aim 50–165)"
+    },
+    {
+      "path": "/vi/markdown-sang-anh",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 88 chars (aim 15–65)"
+    },
+    {
+      "path": "/vi/markdown-sang-anh",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 181 chars (aim 50–165)"
+    },
+    {
+      "path": "/it/confronto-convertitori-markdown",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 66 chars (aim 15–65)"
+    },
+    {
+      "path": "/it/confronto-convertitori-markdown",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 173 chars (aim 50–165)"
+    },
+    {
+      "path": "/vi/so-sanh-cong-cu-markdown",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 71 chars (aim 15–65)"
+    },
+    {
+      "path": "/vi/so-sanh-cong-cu-markdown",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 169 chars (aim 50–165)"
+    },
+    {
+      "path": "/hi/markdown-pdf-tulna-2026",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 69 chars (aim 15–65)"
+    },
+    {
+      "path": "/es/convertir-markdown-pdf",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 77 chars (aim 15–65)"
+    },
+    {
+      "path": "/es/convertir-markdown-pdf",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 218 chars (aim 50–165)"
+    },
+    {
+      "path": "/it/convertire-markdown-pdf",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 86 chars (aim 15–65)"
+    },
+    {
+      "path": "/it/convertire-markdown-pdf",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 227 chars (aim 50–165)"
+    },
+    {
+      "path": "/id/konversi-markdown-pdf",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 78 chars (aim 15–65)"
+    },
+    {
+      "path": "/id/konversi-markdown-pdf",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 190 chars (aim 50–165)"
+    },
+    {
+      "path": "/vi/chuyen-doi-markdown-pdf",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 77 chars (aim 15–65)"
+    },
+    {
+      "path": "/vi/chuyen-doi-markdown-pdf",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 241 chars (aim 50–165)"
+    },
+    {
+      "path": "/markdown-to-docx",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 76 chars (aim 15–65)"
+    },
+    {
+      "path": "/github-readme-to-pdf",
+      "sev": "warn",
+      "code": "desc-length",
+      "msg": "description 218 chars (aim 50–165)"
+    },
+    {
+      "path": "/chatgpt-to-pdf",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 67 chars (aim 15–65)"
+    },
+    {
+      "path": "/claude-artifacts-to-pdf",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 68 chars (aim 15–65)"
+    },
+    {
+      "path": "/obsidian-markdown-to-pdf",
+      "sev": "warn",
+      "code": "title-length",
+      "msg": "title 73 chars (aim 15–65)"
     }
   ],
   "infos": []

@@ -396,6 +396,99 @@
         "note": "ai_sessions +6.2 vs baseline 17"
       },
       "note": "First experiment on the NEW referral/ai_sessions metric (measure.mjs). Adoption-style single-cohort read — AI-assistant recommendation cycles are slow/noisy, so treat the auto-verdict as directional; at measure time also eyeball referral.hosts for NEW Chinese assistants (kimi/deepseek/chatglm) appearing at all. robots.txt already allowed all AI crawlers incl. Bytespider (no change shipped there). STAMP commit AFTER deploy. VERDICT ONLY VALID ONCE DEPLOYED."
+    },
+    {
+      "id": "intent-pages-phase1-2026-09-07",
+      "title": "Phase 1: 51 long-tail intent pages (AI-chat → Word/PDF/Excel, LaTeX, Mermaid) in EN/zh-Hans/zh-Hant/ja/ko",
+      "hypothesis": "The Phase 0a fidelity work (KaTeX math, Mermaid, Excel, paste cleanup) created answers to queries we rank nowhere for: 'chatgpt 公式 复制 word 乱码', 'markdown pdf latex', 'markdown pdf mermaid', 'markdown table to excel', '{chatbot} to word'. 51 data-driven pages — each with the honest per-format answer, a live demo that renders the exact failing case, FAQPage schema and reciprocal hreflang across 5 locales — should earn impressions on those long-tail queries within one crawl+index cycle. Long-tail first (SME review, docs/issue-best-markdown-to-pdf-converter-2026.md §4): 50 easy intents rather than one hard head term.",
+      "topic": "long-tail",
+      "channel": "gsc",
+      "target_metric": "impressions",
+      "guardrail_metrics": [
+        "position"
+      ],
+      "target_scope": {
+        "pages": [
+          "https://www.markdown.free/chatgpt-formulas-to-word",
+          "https://www.markdown.free/zh-Hans/chatgpt-gongshi-word",
+          "https://www.markdown.free/zh-Hant/chatgpt-gongshi-word-tw",
+          "https://www.markdown.free/ja/chatgpt-suushiki-word",
+          "https://www.markdown.free/ko/chatgpt-susik-word",
+          "https://www.markdown.free/deepseek-formulas-to-word",
+          "https://www.markdown.free/zh-Hans/deepseek-gongshi-word",
+          "https://www.markdown.free/zh-Hant/deepseek-gongshi-word-tw",
+          "https://www.markdown.free/ja/deepseek-suushiki-word",
+          "https://www.markdown.free/ko/deepseek-susik-word",
+          "https://www.markdown.free/chatgpt-table-to-excel",
+          "https://www.markdown.free/zh-Hans/chatgpt-biaoge-excel",
+          "https://www.markdown.free/zh-Hant/chatgpt-biaoge-excel-tw",
+          "https://www.markdown.free/ja/chatgpt-hyou-excel",
+          "https://www.markdown.free/ko/chatgpt-pyo-excel",
+          "https://www.markdown.free/ai-table-to-word",
+          "https://www.markdown.free/zh-Hans/kimi-biaoge-word",
+          "https://www.markdown.free/zh-Hant/ai-biaoge-word-tw",
+          "https://www.markdown.free/ja/ai-hyou-word",
+          "https://www.markdown.free/ko/ai-pyo-word",
+          "https://www.markdown.free/markdown-to-pdf-with-latex-math",
+          "https://www.markdown.free/zh-Hans/markdown-gongshi-pdf",
+          "https://www.markdown.free/zh-Hant/markdown-gongshi-pdf-tw",
+          "https://www.markdown.free/ja/markdown-suushiki-pdf",
+          "https://www.markdown.free/ko/markdown-susik-pdf",
+          "https://www.markdown.free/markdown-to-pdf-with-mermaid",
+          "https://www.markdown.free/zh-Hans/markdown-mermaid-pdf",
+          "https://www.markdown.free/zh-Hant/markdown-mermaid-pdf-tw",
+          "https://www.markdown.free/ja/markdown-mermaid-pdf-henkan",
+          "https://www.markdown.free/ko/markdown-mermaid-pdf-byeonhwan",
+          "https://www.markdown.free/markdown-table-to-excel",
+          "https://www.markdown.free/zh-Hans/markdown-zhuan-excel",
+          "https://www.markdown.free/zh-Hant/markdown-zhuan-excel-tw",
+          "https://www.markdown.free/ja/markdown-excel-henkan",
+          "https://www.markdown.free/ko/markdown-excel-byeonhwan",
+          "https://www.markdown.free/deepseek-to-word",
+          "https://www.markdown.free/zh-Hans/deepseek-zhuan-word",
+          "https://www.markdown.free/zh-Hant/deepseek-zhuan-word-tw",
+          "https://www.markdown.free/ja/deepseek-word-henkan",
+          "https://www.markdown.free/ko/deepseek-word-byeonhwan",
+          "https://www.markdown.free/zh-Hans/claude-artifacts-pdf",
+          "https://www.markdown.free/zh-Hant/claude-artifacts-pdf-tw",
+          "https://www.markdown.free/ja/claude-artifacts-pdf",
+          "https://www.markdown.free/ko/claude-artifacts-pdf",
+          "https://www.markdown.free/gemini-to-word",
+          "https://www.markdown.free/zh-Hans/gemini-zhuan-word",
+          "https://www.markdown.free/zh-Hant/gemini-zhuan-word-tw",
+          "https://www.markdown.free/ja/gemini-word-henkan",
+          "https://www.markdown.free/ko/gemini-word-byeonhwan",
+          "https://www.markdown.free/zh-Hans/kimi-zhuan-word",
+          "https://www.markdown.free/zh-Hans/doubao-zhuan-word"
+        ],
+        "queries": [],
+        "country": null,
+        "note": "The 51 generated intent pages only. Existing pages are the control."
+      },
+      "control_scope": {
+        "pages": [
+          "https://www.markdown.free/markdown-to-word",
+          "https://www.markdown.free/readme-to-pdf",
+          "https://www.markdown.free/markdown-to-png",
+          "https://www.markdown.free/zh-Hans/markdown-zhuanhuan-word",
+          "https://www.markdown.free/ja/markdown-pdf-henkan"
+        ],
+        "queries": [],
+        "country": null,
+        "note": "Established intent pages — isolate site-wide seasonality/algo movement from the new cluster's own gain."
+      },
+      "shipped_date": "2026-09-07",
+      "commit": null,
+      "baseline": {
+        "window_days": 28,
+        "mean": 0,
+        "as_of": "2026-09-07",
+        "note": "New URLs — zero impressions by construction. The read is adoption-style (did the cluster get indexed and earn impressions), not a difference-in-differences on an existing base; the control scope guards against reading a site-wide swing as a win."
+      },
+      "measure_on": "2026-11-07",
+      "status": "shipped",
+      "outcome": null,
+      "note": "GATE (build plan §5 Phase 1): ≥30 of 51 pages indexed on Bing AND Google within 60 days, plus conversions/month ≥2× the Phase −1 baseline (events.conversions) and CJK-audience conversions up (goal cjk-market). Two months (not the usual 28 days) because crawl→index→rank on brand-new URLs is the binding lag. ALSO CHECK AT MEASURE TIME: (1) Bing Webmaster separately — CN/CJK demand skews to Bing and GSC structurally undercounts it; (2) whether Google treats the cluster as scaled content (sudden de-indexing of the whole group is the failure signal, not slow ranking); (3) the demo's engagement events (comparison_cta_click position=inline) to see whether readers actually convert on the page. STAMP commit AFTER deploy; run `npm run indexnow:new` on deploy — NEW_PAGES already lists all 51. VERDICT ONLY VALID ONCE DEPLOYED."
     }
   ]
 }

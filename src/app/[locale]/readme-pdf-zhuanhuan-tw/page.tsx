@@ -14,7 +14,7 @@ const faq = [
   { q: "可以不註冊就把 Markdown 轉成 PDF 嗎？", a: "可以。Markdown Free 不需要帳號，所有檔案都在瀏覽器或無伺服器記憶體中處理，處理完立即丟棄。" },
   { q: "繁體中文的 Markdown 轉成 PDF 後會出現亂碼嗎？", a: "不會。Markdown Free 在 PDF 渲染管線中內嵌 Noto Sans CJK 字型，繁體中文、簡體中文、日文、韓文都能正確顯示，不會出現□□□豆腐字。" },
   { q: "Markdown 中的圖片會包含在 PDF 裡嗎？", a: "絕對網址（https://...）的圖片會包含在 PDF 中。儲存庫相對路徑（例如 ./images/foo.png）在 GitHub 之外無法解析——請改用 raw.githubusercontent.com 的完整網址。" },
-  { q: "Markdown 轉 PDF 有檔案大小限制嗎？", a: "目前每個檔案的上限是 5MB，足以涵蓋幾乎所有真實世界的 README 與 Markdown 文件（約 75 萬字）。" },
+  { q: "Markdown 轉 PDF 有檔案大小限制嗎？", a: "目前每個檔案的上限是 1MB，足以涵蓋幾乎所有真實世界的 README 與 Markdown 文件（約 75 萬字）。" },
   { q: "我的 Markdown 檔案會被儲存在你們的伺服器嗎？", a: "不會。PDF 在無伺服器記憶體中產生，完成後立即丟棄；HTML 與 TXT 匯出完全在瀏覽器中處理，不會離開你的電腦。" },
 ];
 

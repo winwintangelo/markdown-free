@@ -67,7 +67,7 @@ const faq = [
   },
   {
     q: "Does Markdown Free have a file size limit?",
-    a: "Yes — currently 5MB per file. A 5MB Markdown file is roughly 750,000 words, which covers virtually all real-world documents. If you need to convert larger files, Pandoc on the command line has no built-in size limit.",
+    a: "Yes — currently 1MB per file. A 1MB Markdown file is roughly 150,000 words, which covers virtually all real-world documents. If you need to convert larger files, Pandoc on the command line has no built-in size limit.",
   },
 ];
 

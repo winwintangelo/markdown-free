@@ -43,6 +43,11 @@ jobs:
       - name: Typecheck
         run: npx tsc --noEmit
 
+      - name: Intent-page stubs match the manifest
+        # The route files are generated from src/content/intent-pages/manifest.json;
+        # this fails if someone edits the manifest without re-running the generator.
+        run: node scripts/generate-intent-pages.mjs --check
+
       - name: Build (production)
         run: npm run build
 

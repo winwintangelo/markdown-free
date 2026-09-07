@@ -58,7 +58,7 @@ const faq = [
   { q: "可以不註冊就把 Markdown 轉成 PDF 嗎？", a: "可以。Markdown Free 不需要帳號，所有檔案都在瀏覽器或無伺服器記憶體中處理，處理完立即丟棄。" },
   { q: "繁體中文的 Markdown 轉成 PDF 後會出現亂碼嗎？", a: "不會。Markdown Free 在 PDF 渲染管線中內嵌 Noto Sans CJK 字型，繁體中文、簡體中文、日文、韓文都能正確顯示，不會出現□□□豆腐字。" },
   { q: "可以轉換 GitHub README.md 嗎？", a: "可以。在 GitHub 儲存庫打開 README.md，點擊「Raw」儲存檔案，然後上傳到 Markdown Free 即可匯出 PDF。CHANGELOG.md、CONTRIBUTING.md 等任何 .md 檔案都支援。" },
-  { q: "Markdown 轉 PDF 有檔案大小限制嗎？", a: "目前每個檔案的上限是 5MB，足以涵蓋幾乎所有真實世界的 Markdown 文件（約 75 萬字）。" },
+  { q: "Markdown 轉 PDF 有檔案大小限制嗎？", a: "目前每個檔案的上限是 1MB，足以涵蓋幾乎所有真實世界的 Markdown 文件（約 75 萬字）。" },
   { q: "我的 Markdown 檔案會被儲存在你們的伺服器嗎？", a: "不會。PDF 在無伺服器記憶體中產生，完成後立即丟棄；HTML 與 TXT 匯出完全在瀏覽器中處理，不會離開你的電腦。" },
   { q: "GFM 的表格、清單、程式碼區塊在 PDF 裡會保留嗎？", a: "會。表格、任務清單、程式碼區塊（含語法高亮）、刪除線、自動連結等 GFM 特性都會在 PDF 中正確保留。" },
 ];

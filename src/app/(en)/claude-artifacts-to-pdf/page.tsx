@@ -4,6 +4,7 @@ import { Footer } from "@/components/footer";
 import { ConverterProvider } from "@/hooks/use-converter";
 import { LocaleTracker } from "@/components/locale-tracker";
 import { getDictionary } from "@/i18n";
+import { intentGroupAlternates } from "@/content/intent-pages";
 
 export const metadata: Metadata = {
   title: "Convert Claude Artifacts to PDF | Export Claude Code | Markdown Free",
@@ -20,6 +21,8 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/claude-artifacts-to-pdf",
+    // zh-Hans / zh-Hant / ja / ko siblings are Phase 1 intent pages (this page is the group's EN member)
+    languages: intentGroupAlternates("claude-artifacts-pdf"),
   },
   openGraph: {
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Markdown Free — Convert Markdown to PDF, Word (DOCX), Image (PNG), EPUB" }],

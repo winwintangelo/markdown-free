@@ -85,7 +85,7 @@ const extendedFaq = [
   {
     question: "What's the maximum file size I can upload?",
     answer:
-      "The maximum file size is 5MB. This is more than enough for most Markdown documents, README files, and documentation. If you have a larger file, consider splitting it into smaller sections.",
+      "The maximum file size is 1MB. This is more than enough for most Markdown documents, README files, and documentation. If you have a larger file, consider splitting it into smaller sections.",
   },
   {
     question: "Can I use this on mobile devices?",

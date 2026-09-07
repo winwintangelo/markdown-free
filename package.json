@@ -41,7 +41,9 @@
     "validate:traffic": "node scripts/validate-production.mjs --simulate-traffic --verbose",
     "indexnow": "node scripts/indexnow-submit.mjs",
     "indexnow:new": "node scripts/indexnow-submit.mjs --new",
-    "indexnow:all": "node scripts/indexnow-submit.mjs --all"
+    "indexnow:all": "node scripts/indexnow-submit.mjs --all",
+    "intent:pages": "node scripts/generate-intent-pages.mjs",
+    "intent:check": "node scripts/generate-intent-pages.mjs --check"
   },
   "dependencies": {
     "@sparticuz/chromium-min": "^141.0.0",

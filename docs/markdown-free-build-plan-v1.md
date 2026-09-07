@@ -152,14 +152,14 @@ Gate: matches Pandoc on formulas in DOCX (editable OMML) across the corpus; DOCX
 
 | Item | Scope | Effort |
 |---|---|---|
-| Page generator | JSON matrix (source × destination × failure × locale) → `generateStaticParams` pages with locale-specific titles, FAQ schema, RelatedTools, hreflang groups in `sitemap.ts`. Replaces hand-written `page.tsx` for new pages only; existing pages untouched (experiment locks). | M |
-| 50 long-tail pages | Formula breakage + table breakage + source→destination, prioritized by Bing WMT + GSC gaps and the SME starter set (`markdown pdf latex`, `markdown pdf mermaid`, `markdown pdf page break`, …). zh-Hans, zh-Hant, JA, KO, EN. Each page shows a live benchmark row from Phase 0a. | M |
-| Template-preset pages | Free presets (APA, GB/T 7714 refs, 学校通用, 会社報告書) as landing pages that apply export settings via URL param. Requires the settings model from Phase 0's locale-native item. | S |
-| Distribution | Post the three drafted pieces in `data/distribution.json` (WeChat 长图, Qiita, Velog) + 知乎 answers. IndexNow on every new page. | S |
+| Page generator | ✅ **Shipped.** `src/content/intent-pages/` is the source of truth (manifest + per-locale prose, validated at import); `scripts/generate-intent-pages.mjs` writes the route stubs (`--check` mode for CI); `src/components/intent-page.tsx` renders them with FAQ schema, RelatedTools and hreflang; `sitemap.ts` and the IndexNow list read the same data. Existing hand-written pages untouched (the generator refuses to overwrite them). | M |
+| 50 long-tail pages | ✅ **Shipped: 51 pages**, 10 reciprocal hreflang groups across EN / zh-Hans / zh-Hant / JA / KO. Families: AI-chat formulas → Word (ChatGPT, DeepSeek), AI tables → Excel and → Word, `markdown pdf latex`, `markdown pdf mermaid`, `markdown table to excel`, and source → Word (DeepSeek, Gemini, Kimi, 豆包, Claude artifacts). Instead of a static benchmark row each page carries a **live demo**: the inline converter plus a one-tap sample that renders the exact failing case (formula, table, diagram, chat answer) on the page. | M |
+| Template-preset pages | ⏸ **Not started — scope was wrong.** A preset is not paper size + typeface (which `?paper=` / `?font=` already do): APA 7 and GB/T 7714 need margins, line spacing, heading numbering and a citation style, i.e. a real settings model and per-preset stylesheets. Reassess as its own item after the Phase 1 gate reads. | M (was S) |
+| Distribution | ⏸ **Human step, post-deploy.** The three drafted pieces in `data/distribution.json` (WeChat 长图, Qiita, Velog) + 知乎 answers, then `npm run indexnow:new` — `NEW_PAGES` already lists all 51 URLs. | S |
 | ~~Locale landings~~ | Exist for all 10 locales. | — |
 | ~~Apex analytics~~ | Exists. | — |
 
-Gate: ≥ 30 of 50 pages indexed by Bing and Google within 60 days; conversions/month ≥ 2× the Phase −1 baseline (loop metric `events.conversions`); CJK-audience conversions up (loop goal `cjk-market`).
+Gate: ≥ 30 of 51 pages indexed by Bing and Google within 60 days; conversions/month ≥ 2× the Phase −1 baseline (loop metric `events.conversions`); CJK-audience conversions up (loop goal `cjk-market`). Registered as ledger experiment `intent-pages-phase1-2026-09-07`, measuring 2026-11-07 — deliberately 60 days, not the usual 28, because crawl → index → rank on brand-new URLs is the binding lag. Watch for the scaled-content failure mode: sudden de-indexing of the whole cluster, not slow ranking.
 
 ### Phase 1.5 — Demand probe (new, gates Phase 2)
 
