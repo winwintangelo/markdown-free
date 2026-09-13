@@ -3,7 +3,7 @@ import type { IntentPageContent } from "./types";
 /**
  * 简体中文长尾意图页（build plan Phase 1）。按 slug 索引。
  * 每页如实说明各格式的结果：PDF/HTML/图片/EPUB 中公式用 KaTeX 排版；
- * Word 暂时保留 LaTeX 源码（可编辑公式在路线图上，Phase 0b）。
+ * Word 中公式为清晰图片，LaTeX 源码在替代文字里（可编辑公式在路线图上，Phase 0b）。
  */
 
 const FAQ_HEADING = "常见问题";
@@ -16,7 +16,7 @@ const demo = (sampleLabel: string, note: string) => ({
   note,
 });
 
-const WORD_HONESTY = "在 Word 中，公式以 LaTeX 源码（代码样式）保留，内容不会丢失，可直接粘贴进 Word 自带的公式编辑器；可编辑的 Word 公式已在开发路线图上。";
+const WORD_HONESTY = "在 Word 中，每个公式都会变成清晰的图片，效果与预览一致，LaTeX 源码保留在图片的替代文字里；可编辑的 Word 公式已在开发路线图上。";
 
 const PRIVACY = "免费、无需注册、文档不加水印。单文件 1MB 以内；PDF 与 Word 在服务器内存中转换后立即丢弃，其他格式完全在浏览器内完成。";
 
@@ -73,7 +73,7 @@ function mathToWordPage(opts: {
       faq: [
         {
           q: `为什么 ${chatbot} 的公式在 Word 里显示成 \\frac、\\sum？`,
-          a: `因为那是 LaTeX 源码。${chatbot} 在聊天窗口里把它渲染成公式，但剪贴板里只有原始文本。先在这里渲染，就能得到排版好的公式（PDF），或保留 LaTeX 的干净文档（Word）。`,
+          a: `因为那是 LaTeX 源码。${chatbot} 在聊天窗口里把它渲染成公式，但剪贴板里只有原始文本。先在这里渲染，PDF 和 Word 里得到的都是排版好的公式。`,
         },
         {
           q: "需要手动把 \\( 改成 $ 吗？",
@@ -81,7 +81,7 @@ function mathToWordPage(opts: {
         },
         {
           q: "Word 里的公式可以编辑吗？",
-          a: "暂时不能。Word 收到的是 LaTeX 源码文本，内容不丢失；可编辑公式（OMML）在路线图上。PDF、HTML、图片和 EPUB 已经是完整排版。",
+          a: "暂时还不能作为公式编辑。Word 中每个公式是一张清晰的图片，显示和打印都正常，LaTeX 源码保存在图片的替代文字里；可编辑公式（OMML）在路线图上。PDF、HTML、图片和 EPUB 同样是完整排版。",
         },
         { q: "免费吗？需要注册吗？", a: PRIVACY },
         ...(opts.faqExtra ?? []),
@@ -166,7 +166,7 @@ export const zhHans: Record<string, IntentPageContent> = Object.fromEntries([
     chatbot: "ChatGPT",
     slug: "chatgpt-gongshi-word",
     title: "ChatGPT 公式复制到 Word 乱码怎么办",
-    description: "ChatGPT 的数学公式粘贴到 Word 变成 \\frac、\\sum？把回答粘贴到这里：PDF 中公式完整排版，Word 得到保留 LaTeX 的干净文档。免费、无需注册。",
+    description: "ChatGPT 的数学公式粘贴到 Word 变成 \\frac、\\sum？把回答粘贴到这里：PDF 和 Word 中的公式都完整排版。免费、无需注册。",
     keywords: ["chatgpt 公式 复制 word 乱码", "chatgpt 公式 导出 word", "chatgpt 数学公式 word", "chatgpt latex word", "chatgpt 公式 转 pdf", "chatgpt 公式 粘贴 乱码"],
     h1: "ChatGPT 公式复制到 Word 乱码？这样修",
     lead: "复制了一段满是公式的 ChatGPT 回答，Word 里却显示 \\frac{a}{b} 而不是分数？粘贴到这里：公式为 PDF 完整排版，Word 得到保留所有公式的干净文档。",
@@ -178,10 +178,10 @@ export const zhHans: Record<string, IntentPageContent> = Object.fromEntries([
     chatbot: "DeepSeek",
     slug: "deepseek-gongshi-word",
     title: "DeepSeek 公式复制到 Word 乱码怎么办",
-    description: "DeepSeek 回答粘贴到 Word 全是 LaTeX 源码和 <think> 思考块？粘贴到这里：自动去掉推理残留，PDF 中公式完整排版，Word 保留 LaTeX。免费。",
+    description: "DeepSeek 回答粘贴到 Word 全是 LaTeX 源码和 <think> 思考块？粘贴到这里：自动去掉推理残留，PDF 和 Word 中的公式都完整排版。免费。",
     keywords: ["deepseek 公式 复制 word 乱码", "deepseek 公式 导出 word", "deepseek 数学公式 word", "deepseek 转 pdf 公式", "deepseek think 去掉", "deepseek 公式 粘贴"],
     h1: "DeepSeek 公式复制到 Word 乱码？这样修",
-    lead: "DeepSeek 在聊天窗口里公式很漂亮，剪贴板里却是原始的 \\[ … \\] LaTeX，顶上还常带一段 <think> 思考块。粘贴到这里，PDF 得到排版好的公式，Word 得到干净文档。",
+    lead: "DeepSeek 在聊天窗口里公式很漂亮，剪贴板里却是原始的 \\[ … \\] LaTeX，顶上还常带一段 <think> 思考块。粘贴到这里，PDF 和干净的 Word 文档里都是排版好的公式。",
     whyExtra: "DeepSeek 复制的内容还可能包含隐藏的推理块（<think> … </think>）和「已深度思考（用时 12 秒）」一行。粘贴时都会自动去掉，不会进入你的文档。",
     faqExtra: [
       { q: "DeepSeek 的 <think> 思考块能处理吗？", a: "可以。<think> … </think> 块以及「已深度思考」/「Thought for Ns」这类行在粘贴时被去掉，回答本身原样保留。" },
@@ -456,7 +456,7 @@ export const zhHans: Record<string, IntentPageContent> = Object.fromEntries([
           bullets: [
             "标题结构、列表、加粗与斜体。",
             "代码块（等宽样式）、表格、引用。",
-            "LaTeX 公式：PDF、HTML、图片、EPUB 中完整排版；Word 中保留 LaTeX 源码。",
+            "LaTeX 公式：PDF、HTML、图片、EPUB 中完整排版；Word 中以清晰图片呈现（LaTeX 源码保留在替代文字里）。",
             "Mermaid 图表：渲染成图片进入所有格式。",
           ],
         },

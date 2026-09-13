@@ -246,8 +246,9 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     }
 
     if (canShareDocx) {
-      preparedContent
-        .then((content) => generateDocxBlob(content, filename, controller.signal))
+      // Word also needs its formulas as images (html-to-docx has no equation support)
+      prepareMarkdown(state.content.content, { raster: true, mathImages: true })
+        .then((p) => generateDocxBlob(p.markdown, filename, controller.signal))
         .then((result) => {
           if (!controller.signal.aborted && result.success && result.blob && result.filename) {
             cachedBlobsRef.current.docx = { blob: result.blob, filename: result.filename };
@@ -384,7 +385,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           // Create abort controller for DOCX request
           abortControllerRef.current = new AbortController();
 
-          const prepared = await prepareMarkdown(state.content.content, { raster: true });
+          const prepared = await prepareMarkdown(state.content.content, { raster: true, mathImages: true });
           const result: DocxExportResult = await exportDocx(
             prepared.markdown,
             state.content.filename,
@@ -520,7 +521,10 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       try {
         abortControllerRef.current = new AbortController();
 
-        const prepared = await prepareMarkdown(state.content.content, { raster: true });
+        const prepared = await prepareMarkdown(state.content.content, {
+          raster: true,
+          mathImages: format === "docx",
+        });
         const result = format === "pdf"
           ? await generatePdfBlob(prepared.markdown, state.content.filename, abortControllerRef.current.signal, getPdfPreferences(locale))
           : await generateDocxBlob(prepared.markdown, state.content.filename, abortControllerRef.current.signal);

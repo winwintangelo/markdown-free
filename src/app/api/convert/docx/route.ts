@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { markdownToHtml } from "@/lib/markdown";
 import { proxyImagesInHtml } from "@/lib/image-proxy";
+import { finalizeMathImagesInDocx, prepareMathImagesForDocx } from "@/lib/docx-math";
+import { DOCX_MAX_BODY_BYTES } from "@/lib/math-image-marker";
 import HTMLtoDOCX from "html-to-docx";
 import {
   buildContentDisposition,
@@ -14,9 +16,13 @@ if (typeof (console as any).warning !== "function") {
   (console as any).warning = console.warn;
 }
 
-// Maximum content size (1MB)
+// Maximum document size: 1MB of text, embedded images not counted
 // Must match client-side MAX_FILE_SIZE for "fail fast" UX
 const MAX_CONTENT_SIZE = 1 * 1024 * 1024;
+
+// Images the browser embeds (formulas, Mermaid diagrams) count only toward
+// the whole-body cap (DOCX_MAX_BODY_BYTES)
+const EMBEDDED_IMAGE_RE = /data:image\/[a-z0-9.+-]+;base64,[A-Za-z0-9+/=]+/gi;
 
 // DOCX generation timeout (10 seconds)
 const DOCX_TIMEOUT = 10000;
@@ -93,6 +99,36 @@ function sanitizeHtmlForDocx(html: string): string {
   // Remove empty divs
   result = result.replace(/<div>\s*<\/div>/gi, "");
 
+  // An image directly inside a table cell is processed twice by html-to-docx
+  // (an orphan copy lands in word/media) and split from the cell's text into
+  // separate paragraphs. Wrapped in a <p> it stays inline, once.
+  result = result.replace(/<(td|th)(\s[^>]*)?>([\s\S]*?)<\/\1>/gi, (cell, tag: string, attrs = "", body: string) =>
+    body.includes("<img") && !body.trimStart().startsWith("<p>") ? `<${tag}${attrs}><p>${body}</p></${tag}>` : cell
+  );
+
+  // html-to-docx keeps only the text of a <blockquote> and drops its images.
+  // A quote that holds one becomes indented paragraphs (284 twips = 14.2pt,
+  // the indent the library gives quotes).
+  result = result.replace(
+    /<blockquote>((?:(?!<\/?blockquote\b)[\s\S])*?)<\/blockquote>/gi,
+    (quote, body: string) =>
+      body.includes("<img")
+        ? body.replace(/<p(?:\s+style="([^"]*)")?>/gi, (_p, style?: string) =>
+            `<p style="margin-left:14.2pt${style ? `;${style}` : ""}">`
+          )
+        : quote
+  );
+
+  // html-to-docx renders only the FIRST paragraph of a list item and silently
+  // drops the rest (text and images). Join a list item's leading paragraphs
+  // into one, separated by line breaks.
+  const joinParagraphs = /(<li(?:\s[^>]*)?>\s*<p(?:\s[^>]*)?>(?:(?!<\/p>)[\s\S])*)<\/p>\s*<p(?:\s[^>]*)?>/gi;
+  let joined: string;
+  do {
+    joined = result;
+    result = result.replace(joinParagraphs, "$1<br>");
+  } while (result !== joined);
+
   // Normalize multiple whitespace/newlines
   result = result.replace(/\n\s*\n/g, "\n");
 
@@ -139,8 +175,9 @@ em { font-style: italic; }
  * This produces more compatible Word documents with secure image handling
  */
 async function markdownToDocx(markdown: string, title?: string): Promise<Buffer> {
-  // Step 1: Convert markdown to HTML
-  let htmlContent = await markdownToHtml(markdown, { renderMath: false }); // LaTeX stays as source until Phase 0b (OMML)
+  // Step 1: Convert markdown to HTML. The browser has already replaced every
+  // formula with an image; any it could not render stays as LaTeX source
+  let htmlContent = await markdownToHtml(markdown, { renderMath: false });
 
   // Step 2: SECURITY - Proxy external images to prevent SSRF
   // Converts safe external images to base64 data URIs
@@ -151,11 +188,16 @@ async function markdownToDocx(markdown: string, title?: string): Promise<Buffer>
   // This prevents html-to-docx from attempting downloads or crashing on malformed tags
   htmlContent = replaceNonEmbeddedImages(htmlContent);
 
-  // Step 4: Sanitize HTML for html-to-docx compatibility
+  // Step 4: Formulas arrive as PNGs rendered in the browser (math-images.ts):
+  // give them their size, centre display formulas, index them for step 7
+  const math = prepareMathImagesForDocx(htmlContent);
+  htmlContent = math.html;
+
+  // Step 5: Sanitize HTML for html-to-docx compatibility
   // (removes comments, empty elements, etc. that can crash the library)
   htmlContent = sanitizeHtmlForDocx(htmlContent);
 
-  // Step 5: Wrap in full HTML document with styles
+  // Step 6: Wrap in full HTML document with styles
   const fullHtml = `
 <!DOCTYPE html>
 <html>
@@ -170,7 +212,8 @@ async function markdownToDocx(markdown: string, title?: string): Promise<Buffer>
 </html>
 `;
 
-  // Step 6: Convert HTML to DOCX
+  // Step 7: Convert HTML to DOCX, then give the formula pictures their alt
+  // text (the LaTeX) and sit inline ones on the text baseline
   const docxBuffer = await HTMLtoDOCX(fullHtml, null, {
     table: { row: { cantSplit: true } },
     footer: false,
@@ -180,7 +223,7 @@ async function markdownToDocx(markdown: string, title?: string): Promise<Buffer>
     fontSize: 22, // 22 half-points = 11pt
   });
 
-  return docxBuffer as Buffer;
+  return finalizeMathImagesInDocx(docxBuffer as Buffer, math.index);
 }
 
 export async function POST(request: NextRequest) {
@@ -214,11 +257,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check content size
+    // Check content size: the document text is capped like the upload; the
+    // images embedded in the browser only count toward the body cap
     const contentSize = Buffer.byteLength(markdown, "utf-8");
-    debugLog("Request", `[${requestId}] Content size: ${contentSize} bytes`);
+    const textSize = Buffer.byteLength(markdown.replace(EMBEDDED_IMAGE_RE, ""), "utf-8");
+    debugLog("Request", `[${requestId}] Content size: ${contentSize} bytes (text ${textSize})`);
 
-    if (contentSize > MAX_CONTENT_SIZE) {
+    if (textSize > MAX_CONTENT_SIZE || contentSize > DOCX_MAX_BODY_BYTES) {
       debugLog("Request", `[${requestId}] Content too large`);
       return errorResponse(
         "CONTENT_TOO_LARGE",

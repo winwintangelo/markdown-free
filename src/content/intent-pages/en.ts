@@ -5,8 +5,8 @@ import type { IntentPageContent } from "./types";
  * Keyed by slug; the manifest decides which pages exist and how they group.
  *
  * Every page states honestly what each format gets: formulas render with
- * KaTeX in PDF/HTML/image/EPUB, Word receives the LaTeX source as text until
- * editable equations ship (Phase 0b).
+ * KaTeX in PDF/HTML/image/EPUB, and as images in Word (LaTeX source in the alt
+ * text) until editable equations ship (Phase 0b).
  */
 
 const FAQ_HEADING = "Frequently asked questions";
@@ -20,7 +20,7 @@ const demo = (sampleLabel: string, note: string) => ({
 });
 
 const WORD_HONESTY =
-  "In Word the formula is kept as its LaTeX source in a code style, so nothing is lost and you can paste it into Word's own equation editor; editable Word equations are on the roadmap.";
+  "In Word each formula becomes a sharp image that looks just like the preview, with its LaTeX source kept as the image's alt text; editable Word equations are on the roadmap.";
 
 function mathToWordPage(opts: {
   chatbot: string;
@@ -75,7 +75,7 @@ function mathToWordPage(opts: {
       faq: [
         {
           q: `Why do ${chatbot}'s formulas show as \\frac and \\sum in Word?`,
-          a: `Because they are LaTeX source. ${chatbot} renders it in the chat window, but the clipboard carries the raw text. Rendering it here first turns it into typeset math (PDF) or a clean document with the LaTeX preserved (Word).`,
+          a: `Because they are LaTeX source. ${chatbot} renders it in the chat window, but the clipboard carries the raw text. Rendering it here first turns it into typeset math, in PDF and in Word alike.`,
         },
         {
           q: "Do I need to change $ or \\( delimiters?",
@@ -83,7 +83,7 @@ function mathToWordPage(opts: {
         },
         {
           q: "Will the equations be editable in Word?",
-          a: "Not yet. Word receives the LaTeX source as text so nothing is lost; editable equations (OMML) are on the roadmap. PDF, HTML, image and EPUB output is fully typeset today.",
+          a: "Not as equations yet. In Word each formula is a sharp image that looks right and prints cleanly, with its LaTeX source in the image's alt text; editable equations (OMML) are on the roadmap. PDF, HTML, image and EPUB output is fully typeset too.",
         },
         {
           q: "Is this free? Do I need an account?",
@@ -175,7 +175,7 @@ export const en: Record<string, IntentPageContent> = Object.fromEntries([
     slug: "chatgpt-formulas-to-word",
     title: "ChatGPT Formulas to Word: Fix Broken LaTeX Math",
     description:
-      "ChatGPT math pastes into Word as \\frac and \\sum? Paste the answer here for typeset formulas in PDF and a clean Word document that keeps the LaTeX. Free.",
+      "ChatGPT math pastes into Word as \\frac and \\sum? Paste the answer here for typeset formulas in both PDF and Word. Free.",
     keywords: ["chatgpt formulas to word", "chatgpt math to word", "chatgpt latex to word", "chatgpt equation word broken", "chatgpt math to pdf", "copy chatgpt formula"],
     h1: "ChatGPT formulas to Word — without the broken LaTeX",
     lead: "Copied a ChatGPT answer full of equations and Word shows \\frac{a}{b} instead of a fraction? Paste it here: the math is typeset for PDF, and Word gets a clean document with every formula preserved.",
@@ -191,10 +191,10 @@ export const en: Record<string, IntentPageContent> = Object.fromEntries([
     slug: "deepseek-formulas-to-word",
     title: "DeepSeek Formulas to Word: Fix Math Paste",
     description:
-      "DeepSeek answers paste into Word with raw LaTeX and <think> blocks? Paste here: residue is removed, formulas typeset for PDF, Word keeps the LaTeX. Free.",
+      "DeepSeek answers paste into Word with raw LaTeX and <think> blocks? Paste here: residue is removed and formulas are typeset in PDF and Word. Free.",
     keywords: ["deepseek formulas to word", "deepseek math to word", "deepseek latex word", "deepseek to pdf math", "deepseek think block", "deepseek copy formula"],
     h1: "DeepSeek formulas to Word and PDF",
-    lead: "DeepSeek writes beautiful math in the chat and raw \\[ … \\] LaTeX on the clipboard, often with a <think> block on top. Paste it here to get typeset formulas in PDF and a clean Word document.",
+    lead: "DeepSeek writes beautiful math in the chat and raw \\[ … \\] LaTeX on the clipboard, often with a <think> block on top. Paste it here to get typeset formulas in PDF and in a clean Word document.",
     whyExtra:
       "DeepSeek copies can also include the hidden reasoning block (<think> … </think>) and a \"Thought for 12s\" line. Both are removed on paste so they never end up in your document.",
     faqExtra: [

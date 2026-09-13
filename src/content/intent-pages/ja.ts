@@ -3,7 +3,7 @@ import type { IntentPageContent } from "./types";
 /**
  * 日本語ロングテール意図ページ（build plan Phase 1）。slug をキーにする。
  * 各形式の結果を正直に説明：PDF/HTML/画像/EPUB では KaTeX で数式を組版、
- * Word は当面 LaTeX ソースを保持（編集可能な数式はロードマップ上、Phase 0b）。
+ * Word では数式を鮮明な画像にし、LaTeX ソースは代替テキストに保持（編集可能な数式はロードマップ上、Phase 0b）。
  */
 
 const FAQ_HEADING = "よくある質問";
@@ -16,7 +16,7 @@ const demo = (sampleLabel: string, note: string) => ({
   note,
 });
 
-const WORD_HONESTY = "Word では数式を LaTeX ソース（コード書式）のまま保持するため内容は失われず、Word の数式エディターにそのまま貼り付けられます。編集可能な Word 数式はロードマップ上にあります。";
+const WORD_HONESTY = "Word では各数式がプレビューと同じ見た目の鮮明な画像になり、LaTeX ソースは画像の代替テキストに残ります。編集可能な Word 数式はロードマップ上にあります。";
 
 const PRIVACY = "無料・登録不要・文書に透かしなし。1 ファイル 1MB まで。PDF と Word はサーバーのメモリ上で変換して即時破棄、その他の形式はすべてブラウザ内で完結します。";
 
@@ -73,7 +73,7 @@ function mathToWordPage(opts: {
       faq: [
         {
           q: `${chatbot} の数式が Word で \\frac や \\sum と表示されるのはなぜ？`,
-          a: `LaTeX ソースだからです。${chatbot} はチャット画面ではレンダリングしますが、クリップボードには生のテキストしか入りません。ここで先にレンダリングすれば、組版済みの数式（PDF）や LaTeX を保持したきれいな文書（Word）になります。`,
+          a: `LaTeX ソースだからです。${chatbot} はチャット画面ではレンダリングしますが、クリップボードには生のテキストしか入りません。ここで先にレンダリングすれば、PDF でも Word でも組版済みの数式になります。`,
         },
         {
           q: "\\( を $ に書き換える必要はありますか？",
@@ -81,7 +81,7 @@ function mathToWordPage(opts: {
         },
         {
           q: "Word で数式を編集できますか？",
-          a: "まだできません。Word には LaTeX ソースがテキストとして渡るので内容は失われません。編集可能な数式（OMML）はロードマップ上です。PDF・HTML・画像・EPUB はすでに完全に組版されます。",
+          a: "数式としての編集はまだできません。Word では各数式が鮮明な画像になり、表示も印刷もきれいで、LaTeX ソースは画像の代替テキストに残ります。編集可能な数式（OMML）はロードマップ上です。PDF・HTML・画像・EPUB も完全に組版されます。",
         },
         { q: "無料ですか？登録は必要？", a: PRIVACY },
         ...(opts.faqExtra ?? []),
@@ -160,7 +160,7 @@ export const ja: Record<string, IntentPageContent> = Object.fromEntries([
     chatbot: "ChatGPT",
     slug: "chatgpt-suushiki-word",
     title: "ChatGPT の数式を Word に貼ると崩れる時の直し方",
-    description: "ChatGPT の数式が Word で \\frac や \\sum のまま？回答をここに貼れば、PDF では数式を組版、Word には LaTeX を保持したきれいな文書を出力。無料・登録不要。",
+    description: "ChatGPT の数式が Word で \\frac や \\sum のまま？回答をここに貼れば、PDF でも Word でも数式をきれいに組版。無料・登録不要。",
     keywords: ["chatgpt 数式 word 貼り付け", "chatgpt 数式 word 崩れる", "chatgpt 数式 コピー", "chatgpt latex word", "chatgpt 数式 pdf", "chatgpt 数式 エクスポート"],
     h1: "ChatGPT の数式を Word へ — LaTeX が崩れない方法",
     lead: "数式だらけの ChatGPT の回答をコピーしたら、Word には分数ではなく \\frac{a}{b} が並んだ？ここに貼れば、PDF は組版済みの数式に、Word はすべての数式を保持したきれいな文書になります。",
@@ -172,10 +172,10 @@ export const ja: Record<string, IntentPageContent> = Object.fromEntries([
     chatbot: "DeepSeek",
     slug: "deepseek-suushiki-word",
     title: "DeepSeek の数式を Word・PDF へ：貼り付けの崩れを直す",
-    description: "DeepSeek の回答を Word に貼ると LaTeX ソースと <think> ブロックだらけ？ここに貼れば推論の残骸を除去し、PDF では数式を組版、Word は LaTeX を保持。無料。",
+    description: "DeepSeek の回答を Word に貼ると LaTeX ソースと <think> ブロックだらけ？ここに貼れば推論の残骸を除去し、PDF でも Word でも数式を組版。無料。",
     keywords: ["deepseek 数式 word", "deepseek 数式 貼り付け 崩れる", "deepseek latex word", "deepseek pdf 数式", "deepseek think 削除", "deepseek 数式 コピー"],
     h1: "DeepSeek の数式を Word と PDF へ",
-    lead: "DeepSeek はチャット画面では美しい数式を表示しますが、クリップボードには生の \\[ … \\] LaTeX が入り、先頭に <think> ブロックが付くことも。ここに貼れば PDF は組版済みの数式、Word はきれいな文書になります。",
+    lead: "DeepSeek はチャット画面では美しい数式を表示しますが、クリップボードには生の \\[ … \\] LaTeX が入り、先頭に <think> ブロックが付くことも。ここに貼れば、PDF でもきれいな Word 文書でも数式が組版されます。",
     whyExtra: "DeepSeek のコピーには非表示の推論ブロック（<think> … </think>）と「已深度思考（用时 12 秒）」の行が含まれることがあります。どちらも貼り付け時に除去され、文書には入りません。",
     faqExtra: [
       { q: "DeepSeek の <think> 推論ブロックは処理されますか？", a: "はい。<think> … </think> ブロックと「已深度思考」/「Thought for Ns」の行は貼り付け時に除去され、回答本文はそのまま残ります。" },
@@ -450,7 +450,7 @@ export const ja: Record<string, IntentPageContent> = Object.fromEntries([
           bullets: [
             "見出し構造、リスト、太字と斜体。",
             "コードブロック（等幅スタイル）、表、引用。",
-            "LaTeX 数式：PDF・HTML・画像・EPUB で完全に組版、Word では LaTeX ソースを保持。",
+            "LaTeX 数式：PDF・HTML・画像・EPUB で完全に組版、Word では鮮明な画像として表示（LaTeX ソースは代替テキストに保持）。",
             "Mermaid 図：画像としてレンダリングされ、すべての形式に入ります。",
           ],
         },

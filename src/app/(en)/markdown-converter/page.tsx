@@ -224,7 +224,7 @@ export default function MarkdownConverterPage() {
                 <li>&#10003; Task-list checkboxes</li>
                 <li>&#10003; Blockquotes</li>
                 <li>&#10003; Images with absolute URLs</li>
-                <li>&#10003; LaTeX math ($…$, $$…$$, \(…\), \[…\]) — rendered with KaTeX in PDF, HTML, image and EPUB; Word keeps the LaTeX source</li>
+                <li>&#10003; LaTeX math ($…$, $$…$$, \(…\), \[…\]) — rendered with KaTeX in PDF, HTML, image and EPUB; in Word as sharp images with the LaTeX in their alt text</li>
                 <li>&#10003; Mermaid diagrams — rendered as images in every format</li>
                 <li>&#10003; Tables → Excel (XLSX), one worksheet per table</li>
               </ul>
@@ -232,7 +232,7 @@ export default function MarkdownConverterPage() {
             <div>
               <h3 className="mb-2 font-medium text-slate-900">Not supported (yet) — so you know upfront</h3>
               <ul className="space-y-2 text-sm text-slate-600">
-                <li>&#9888;&#65039; Editable equations in Word — the LaTeX source is kept as text for now</li>
+                <li>&#9888;&#65039; Editable equations in Word — formulas are images for now (the LaTeX source is in their alt text)</li>
                 <li>&#9888;&#65039; HTML tables with merged cells (rowspan/colspan) — dropped; use GFM tables</li>
                 <li>&#9888;&#65039; Obsidian [[wikilinks]] — rendered as plain text</li>
                 <li>&#9888;&#65039; Local relative image paths — use absolute URLs</li>

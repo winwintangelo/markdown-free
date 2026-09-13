@@ -3,7 +3,7 @@ import type { IntentPageContent } from "./types";
 /**
  * 한국어 롱테일 인텐트 페이지 (build plan Phase 1). slug 기준.
  * 형식별 결과를 솔직하게 설명: PDF/HTML/이미지/EPUB은 KaTeX로 수식 조판,
- * Word는 당분간 LaTeX 원본을 유지 (편집 가능한 수식은 로드맵, Phase 0b).
+ * Word에서는 수식을 선명한 이미지로, LaTeX 원본은 대체 텍스트에 보존 (편집 가능한 수식은 로드맵, Phase 0b).
  */
 
 const FAQ_HEADING = "자주 묻는 질문";
@@ -16,7 +16,7 @@ const demo = (sampleLabel: string, note: string) => ({
   note,
 });
 
-const WORD_HONESTY = "Word에서는 수식이 LaTeX 원본(코드 서식)으로 유지되어 내용이 사라지지 않고, Word의 수식 편집기에 그대로 붙여 넣을 수 있습니다. 편집 가능한 Word 수식은 로드맵에 있습니다.";
+const WORD_HONESTY = "Word에서는 각 수식이 미리보기와 똑같은 선명한 이미지로 들어가고, LaTeX 원본은 이미지의 대체 텍스트에 보존됩니다. 편집 가능한 Word 수식은 로드맵에 있습니다.";
 
 const PRIVACY = "무료, 가입 불필요, 문서에 워터마크 없음. 파일당 1MB까지. PDF와 Word는 서버 메모리에서 변환 후 즉시 폐기되며, 다른 형식은 모두 브라우저 안에서 처리됩니다.";
 
@@ -73,7 +73,7 @@ function mathToWordPage(opts: {
       faq: [
         {
           q: `${chatbot} 수식이 Word에서 \\frac, \\sum으로 보이는 이유는?`,
-          a: `LaTeX 원본이기 때문입니다. ${chatbot}은 채팅 창에서는 렌더링하지만 클립보드에는 원시 텍스트만 담깁니다. 여기서 먼저 렌더링하면 조판된 수식(PDF) 또는 LaTeX가 보존된 깔끔한 문서(Word)를 얻습니다.`,
+          a: `LaTeX 원본이기 때문입니다. ${chatbot}은 채팅 창에서는 렌더링하지만 클립보드에는 원시 텍스트만 담깁니다. 여기서 먼저 렌더링하면 PDF에서도 Word에서도 조판된 수식을 얻습니다.`,
         },
         {
           q: "\\( 를 $ 로 직접 바꿔야 하나요?",
@@ -81,7 +81,7 @@ function mathToWordPage(opts: {
         },
         {
           q: "Word에서 수식을 편집할 수 있나요?",
-          a: "아직은 아닙니다. Word는 LaTeX 원본을 텍스트로 받으므로 내용은 사라지지 않습니다. 편집 가능한 수식(OMML)은 로드맵에 있습니다. PDF, HTML, 이미지, EPUB은 이미 완전히 조판됩니다.",
+          a: "수식으로 편집하는 것은 아직 안 됩니다. Word에서는 각 수식이 선명한 이미지로 들어가 화면과 인쇄 모두 깔끔하고, LaTeX 원본은 이미지의 대체 텍스트에 보존됩니다. 편집 가능한 수식(OMML)은 로드맵에 있습니다. PDF, HTML, 이미지, EPUB도 완전히 조판됩니다.",
         },
         { q: "무료인가요? 가입이 필요한가요?", a: PRIVACY },
         ...(opts.faqExtra ?? []),
@@ -160,7 +160,7 @@ export const ko: Record<string, IntentPageContent> = Object.fromEntries([
     chatbot: "챗GPT",
     slug: "chatgpt-susik-word",
     title: "챗GPT 수식 워드에 붙여넣으면 깨질 때 해결법",
-    description: "챗GPT 수식이 워드에서 \\frac, \\sum으로 보이나요? 답변을 여기에 붙여 넣으면 PDF에는 조판된 수식, Word에는 LaTeX가 보존된 깔끔한 문서. 무료, 가입 불필요.",
+    description: "챗GPT 수식이 워드에서 \\frac, \\sum으로 보이나요? 답변을 여기에 붙여 넣으면 PDF와 Word 모두 조판된 수식으로. 무료, 가입 불필요.",
     keywords: ["챗gpt 수식 워드", "chatgpt 수식 워드 붙여넣기", "챗gpt 수식 깨짐", "chatgpt latex 워드", "챗gpt 수식 pdf", "챗gpt 수식 복사"],
     h1: "챗GPT 수식을 워드로 — LaTeX 깨짐 없이",
     lead: "수식이 가득한 챗GPT 답변을 복사했더니 워드에 분수 대신 \\frac{a}{b}가 보이나요? 여기에 붙여 넣으세요. PDF는 조판된 수식으로, Word는 모든 수식이 보존된 깔끔한 문서로 나옵니다.",
@@ -172,10 +172,10 @@ export const ko: Record<string, IntentPageContent> = Object.fromEntries([
     chatbot: "DeepSeek",
     slug: "deepseek-susik-word",
     title: "DeepSeek 수식을 워드·PDF로: 붙여넣기 깨짐 해결",
-    description: "DeepSeek 답변이 워드에 LaTeX 원본과 <think> 블록으로 붙나요? 여기에 붙여 넣으면 추론 잔여물을 제거하고, PDF에는 조판된 수식, Word에는 LaTeX 보존. 무료.",
+    description: "DeepSeek 답변이 워드에 LaTeX 원본과 <think> 블록으로 붙나요? 여기에 붙여 넣으면 추론 잔여물을 제거하고, PDF와 Word 모두 수식을 조판. 무료.",
     keywords: ["deepseek 수식 워드", "딥시크 수식 워드", "deepseek latex 워드", "deepseek pdf 수식", "deepseek think 제거", "딥시크 수식 복사"],
     h1: "DeepSeek 수식을 워드와 PDF로",
-    lead: "DeepSeek은 채팅 창에서는 예쁜 수식을 보여 주지만 클립보드에는 원시 \\[ … \\] LaTeX가 담기고, 맨 위에 <think> 블록이 붙기도 합니다. 여기에 붙여 넣으면 PDF는 조판된 수식, Word는 깔끔한 문서가 됩니다.",
+    lead: "DeepSeek은 채팅 창에서는 예쁜 수식을 보여 주지만 클립보드에는 원시 \\[ … \\] LaTeX가 담기고, 맨 위에 <think> 블록이 붙기도 합니다. 여기에 붙여 넣으면 PDF와 깔끔한 Word 문서 모두 조판된 수식이 됩니다.",
     whyExtra: "DeepSeek 복사본에는 숨겨진 추론 블록(<think> … </think>)과 '已深度思考(用时 12 秒)' 줄이 포함될 수 있습니다. 둘 다 붙여 넣을 때 제거되어 문서에 들어가지 않습니다.",
     faqExtra: [
       { q: "DeepSeek의 <think> 추론 블록도 처리되나요?", a: "네. <think> … </think> 블록과 '已深度思考' / 'Thought for Ns' 줄은 붙여 넣을 때 제거되고, 답변 본문은 그대로 유지됩니다." },
@@ -450,7 +450,7 @@ export const ko: Record<string, IntentPageContent> = Object.fromEntries([
           bullets: [
             "제목 구조, 목록, 굵게와 기울임.",
             "코드 블록(고정폭 스타일), 표, 인용.",
-            "LaTeX 수식: PDF, HTML, 이미지, EPUB에서 완전 조판, Word에서는 LaTeX 원본 유지.",
+            "LaTeX 수식: PDF, HTML, 이미지, EPUB에서 완전 조판, Word에서는 선명한 이미지로 표시(LaTeX 원본은 대체 텍스트에 보존).",
             "Mermaid 다이어그램: 이미지로 렌더링되어 모든 형식에 들어갑니다.",
           ],
         },

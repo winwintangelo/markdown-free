@@ -57,6 +57,10 @@ async function download(page: Page, trigger: () => Promise<void>) {
 
 const asLatin1 = (b: Buffer) => b.toString("latin1");
 
+/** Media files in a DOCX (JSZip also lists the folder itself as an entry). */
+const mediaParts = (zip: JSZip) =>
+  Object.keys(zip.files).filter((f) => f.startsWith("word/media/") && !zip.files[f].dir);
+
 test.describe("PDF through the UI", () => {
   test.slow();
 
@@ -147,8 +151,9 @@ test.describe("PDF through the UI", () => {
 test.describe("Word (DOCX) through the UI", () => {
   test.slow();
 
-  test("math is kept as LaTeX source, not KaTeX markup", async ({ page }) => {
+  test("formulas arrive as sized images, with the LaTeX as Word alt text", async ({ page }) => {
     await page.goto("/");
+    const posted = captureConvert(page, "docx");
     await loadFixture(page, "02-math-in-table-and-list.md");
 
     const { buffer, name } = await download(page, () =>
@@ -157,13 +162,130 @@ test.describe("Word (DOCX) through the UI", () => {
     expect(name).toMatch(/\.docx$/);
     expect(buffer.subarray(0, 2).toString()).toBe("PK");
 
+    // The browser replaced all 11 formulas (10 inline, 1 display) with PNGs carrying their box
+    expect(posted).toHaveLength(1);
+    const markers = posted[0].markdown.match(/"mdfree-math:[id]:[\d.]+:[\d.]+:[\d.]+"/g) ?? [];
+    expect(markers.filter((m) => m.startsWith('"mdfree-math:i:')), "inline formulas").toHaveLength(10);
+    expect(markers.filter((m) => m.startsWith('"mdfree-math:d:')), "display formula").toHaveLength(1);
+    expect(posted[0].markdown, "no math delimiters reach the server").not.toMatch(/\$|\\\(/);
+
     const zip = await JSZip.loadAsync(buffer);
     const document = await zip.file("word/document.xml")!.async("string");
-    // Phase 0a decision: DOCX renders with renderMath:false so the source survives
+    expect(mediaParts(zip), "one picture per formula").toHaveLength(11);
+
+    // The source is no longer body text; it survives as each picture's alt text
+    const text = [...document.matchAll(/<w:t[^>]*>([^<]*)<\/w:t>/g)].map((m) => m[1]).join("");
+    expect(text).not.toContain("\\frac");
     expect(document, "no KaTeX markup dumped into the document").not.toContain("katex");
-    expect(document, "LaTeX source preserved").toContain("\\frac");
-    // Structure still converts properly
-    expect(document).toContain("<w:tbl>");
+    expect(document).toContain('descr="\\mu = \\frac{1}{n}\\sum x_i"');
+
+    // Sized to the 11pt text, not left at 3× raster resolution
+    const heights = [...document.matchAll(/<wp:extent cx="\d+" cy="(\d+)"/g)].map((m) => Number(m[1]) / 9525);
+    expect(heights).toHaveLength(11);
+    expect(Math.max(...heights)).toBeLessThan(60);
+
+    // Inline formulas are lowered onto the baseline; a display one is not.
+    // (This display formula is a list item's second paragraph, which the route
+    // joins onto the first so html-to-docx keeps it; centring is covered below.)
+    expect(document).toMatch(/<w:position w:val="-\d+"\/>/);
+    const displayPara = document.split("<w:p>").find((p) => p.includes('descr="\\hat{H}\\psi = E\\psi"'));
+    expect(displayPara, "display formula paragraph").toBeDefined();
+    expect(displayPara).not.toContain("<w:position");
+
+    // Structure still converts properly, formulas included inside table cells
+    const table = document.slice(document.indexOf("<w:tbl>"), document.indexOf("</w:tbl>"));
+    expect(table).toContain("<w:drawing>");
+  });
+
+  test("a formula KaTeX cannot parse stays as LaTeX source", async ({ page }) => {
+    await page.goto("/");
+    const posted = captureConvert(page, "docx");
+    await page.locator('input[type="file"]').setInputFiles({
+      name: "bad-math.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from("# Mixed\n\nGood $x^2 + y^2$ and bad $\\notacommand{z}$ here.\n"),
+    });
+    await expect(page.getByText("Ready to export (uploaded file)")).toBeVisible({ timeout: 15000 });
+
+    const { buffer } = await download(page, () =>
+      page.getByRole("button", { name: /To Word/i }).first().click()
+    );
+
+    expect(posted).toHaveLength(1);
+    expect(posted[0].markdown.match(/"mdfree-math:/g) ?? []).toHaveLength(1);
+    expect(posted[0].markdown).toContain("$\\notacommand{z}$");
+
+    const zip = await JSZip.loadAsync(buffer);
+    const document = await zip.file("word/document.xml")!.async("string");
+    expect(document, "the bad formula is kept as text").toContain("\\notacommand{z}");
+    expect(mediaParts(zip)).toHaveLength(1);
+  });
+
+  test("later paragraphs of a list item and images in quotes survive", async ({ page }) => {
+    // html-to-docx keeps only a list item's first paragraph and drops images
+    // inside a <blockquote>; the route rewrites both shapes before conversion
+    await page.goto("/");
+    await page.locator('input[type="file"]').setInputFiles({
+      name: "loose-list.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.from(
+        "# Steps\n\n1. First paragraph\n\n   Second paragraph text\n\n   $$\n   x^2\n   $$\n\n2. Next item\n\n> Quote with math $a+b$\n"
+      ),
+    });
+    await expect(page.getByText("Ready to export (uploaded file)")).toBeVisible({ timeout: 15000 });
+
+    const { buffer } = await download(page, () =>
+      page.getByRole("button", { name: /To Word/i }).first().click()
+    );
+
+    const zip = await JSZip.loadAsync(buffer);
+    const document = await zip.file("word/document.xml")!.async("string");
+    const text = [...document.matchAll(/<w:t[^>]*>([^<]*)<\/w:t>/g)].map((m) => m[1]).join("|");
+    expect(text).toContain("Second paragraph text");
+    expect(text).toContain("Next item");
+    expect(mediaParts(zip), "display formula in the list item + formula in the quote").toHaveLength(2);
+    const quote = document.split("<w:p>").find((p) => p.includes("Quote with math"));
+    expect(quote).toContain("<w:drawing>");
+    expect(quote).toContain('<w:ind w:left="284"/>');
+  });
+
+  test("a math-heavy mixed document stays under the upload limit", async ({ page }) => {
+    await page.goto("/");
+    const posted = captureConvert(page, "docx");
+    await page
+      .locator('input[type="file"]')
+      .setInputFiles(path.join(__dirname, "..", "test-fixtures", "validation-math-mermaid-tables.md"));
+    await expect(page.getByText("Ready to export (uploaded file)")).toBeVisible({ timeout: 15000 });
+
+    const { buffer } = await download(page, () =>
+      page.getByRole("button", { name: /To Word/i }).first().click()
+    );
+
+    // ~1MB posted, almost all of it images (5 diagrams + 36 formulas): only the
+    // text counts against the 1MB document limit, the images against the 4MB cap
+    const bytes = Buffer.byteLength(posted[0].markdown, "utf-8");
+    const textBytes = Buffer.byteLength(
+      posted[0].markdown.replace(/data:image\/[a-z0-9.+-]+;base64,[A-Za-z0-9+/=]+/gi, ""),
+      "utf-8"
+    );
+    expect(textBytes).toBeLessThan(100 * 1024);
+    expect(bytes).toBeGreaterThan(900 * 1024);
+    expect(bytes).toBeLessThan(4 * 1024 * 1024);
+
+    // Every formula in the fixture (36, per the remark-math parse) became an image
+    expect(posted[0].markdown.match(/"mdfree-math:/g) ?? []).toHaveLength(36);
+    const zip = await JSZip.loadAsync(buffer);
+    const document = await zip.file("word/document.xml")!.async("string");
+    // CJK inside \text{} and formulas glued to CJK text all became pictures
+    expect(document).toContain('descr="P(\\text{雨} \\mid \\text{云})');
+    expect(document).toContain('descr="E=mc^2"');
+    // A top-level display formula gets a centred paragraph of its own
+    const gaussian = document
+      .split("<w:p>")
+      .find((p) => p.includes('descr="\\int_{-\\infty}^{\\infty} e^{-x^2}\\,dx = \\sqrt{\\pi}"'));
+    expect(gaussian, "display formula paragraph").toBeDefined();
+    expect(gaussian).toContain('<w:jc w:val="center"/>');
+    expect(gaussian).not.toContain("<w:position");
   });
 
   test("Mermaid diagram arrives as an embedded image", async ({ page }) => {
@@ -185,6 +307,74 @@ test.describe("Word (DOCX) through the UI", () => {
     const zip = await JSZip.loadAsync(buffer);
     const media = Object.keys(zip.files).filter((f) => f.startsWith("word/media/"));
     expect(media.length, "diagram embedded as a media part").toBeGreaterThan(0);
+  });
+});
+
+test.describe("DOCX formula pictures", () => {
+  test("identical images keep their own alt text and inline/display treatment", async ({ page }) => {
+    // `E=mc^2` and `E = mc^2` can rasterize to the same bytes; the route must
+    // still pair each picture with its own occurrence (matched by hash + order)
+    await page.goto("/");
+    const docx = await page.evaluate(async () => {
+      const png =
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==";
+      const markdown = [
+        `Inline ![E&#61;mc&#94;2](${png} "mdfree-math:i:40:12:3") in text.`,
+        "",
+        `![E &#61; mc&#94;2](${png} "mdfree-math:d:40:12:0")`,
+        "",
+      ].join("\n");
+      const res = await fetch("/api/convert/docx", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ markdown, filename: "same.md" }),
+      });
+      return { status: res.status, bytes: Array.from(new Uint8Array(await res.arrayBuffer())) };
+    });
+    expect(docx.status).toBe(200);
+
+    const zip = await JSZip.loadAsync(Buffer.from(docx.bytes));
+    const document = await zip.file("word/document.xml")!.async("string");
+    const inline = document.split("<w:p>").find((p) => p.includes("Inline"));
+    const display = document.split("<w:p>").find((p) => p.includes('descr="E = mc^2"'));
+    expect(inline).toContain('descr="E=mc^2"');
+    expect(inline, "3px deep → lowered 4.5 half-points, rounded").toContain('<w:position w:val="-5"/>');
+    expect(display).toContain('<w:jc w:val="center"/>');
+    expect(display).not.toContain("<w:position");
+  });
+});
+
+test.describe("DOCX request size", () => {
+  test("embedded images count toward a 4MB body cap, not the 1MB document limit", async ({ page }) => {
+    await page.goto("/");
+    const result = await page.evaluate(async () => {
+      // Noise compresses badly: one 800×600 PNG is ~2.5MB of base64
+      const canvas = document.createElement("canvas");
+      canvas.width = 800;
+      canvas.height = 600;
+      const ctx = canvas.getContext("2d")!;
+      const pixels = ctx.createImageData(800, 600);
+      for (let i = 0; i < pixels.data.length; i++) pixels.data[i] = (Math.random() * 256) | 0;
+      ctx.putImageData(pixels, 0, 0);
+      const uri = canvas.toDataURL("image/png");
+      const post = (markdown: string) =>
+        fetch("/api/convert/docx", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ markdown, filename: "big.md" }),
+        }).then((r) => r.status);
+      const image = `\n![noise](${uri})\n`;
+      return {
+        uriBytes: uri.length,
+        underCap: await post(`# Big${image}`),
+        overCap: await post(`# Too big${image.repeat(2)}`),
+        textOverLimit: await post("x".repeat(1024 * 1024 + 1)),
+      };
+    });
+    expect(result.uriBytes).toBeGreaterThan(1024 * 1024);
+    expect(result.underCap, "over 1MB only because of an image").toBe(200);
+    expect(result.overCap, "over the 4MB body cap").toBe(413);
+    expect(result.textOverLimit, "text is still capped at 1MB").toBe(413);
   });
 });
 

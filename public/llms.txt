@@ -94,7 +94,7 @@
 
 ## Fix & convert guides (AI chats → Word / PDF / Excel, LaTeX math, Mermaid)
 
-Each guide has a live demo with a sample document. Formulas render with KaTeX in PDF/HTML/image/EPUB; Word keeps the LaTeX source.
+Each guide has a live demo with a sample document. Formulas render with KaTeX in PDF/HTML/image/EPUB, and as sharp images in Word (LaTeX source in the alt text).
 
 ### English
 
@@ -286,7 +286,7 @@ HTML, TXT, PNG/JPG, EPUB and Excel are produced entirely in the browser (nothing
 - **Markdown to TXT** - Strip formatting for plain text
 - **No account required** - Use immediately, no signup
 - **Privacy-friendly** - Files processed in browser, never uploaded to permanent storage
-, `$…$`, `\(…\)` and `\[…\]` (the delimiters ChatGPT/DeepSeek emit) render with KaTeX in PDF, HTML, image and EPUB; Word keeps the LaTeX source
+- **LaTeX math** - `$$…$$`, `$…$`, `\(…\)` and `\[…\]` (the delimiters ChatGPT/DeepSeek emit) render with KaTeX in PDF, HTML, image and EPUB, and as sharp images in Word (LaTeX source in the alt text)
 - **Mermaid diagrams** - ```mermaid fences render as images in every format
 - **Markdown tables to Excel (XLSX)** - one worksheet per table, built in the browser
 - **AI-chat paste cleanup** - strips "Copy code" buttons, role labels, <think> blocks and citation glyphs from ChatGPT / DeepSeek / Kimi / Doubao / Gemini copies

@@ -62,8 +62,9 @@ function restrictDataImages() {
   };
 }
 
-// rehype-katex always renders with throwOnError:false (errors show inline in errorColor)
-const katexOptions: KatexOptions = {
+// rehype-katex always renders with throwOnError:false (errors show inline in errorColor).
+// Also used by math-images.ts, so formulas rendered for Word obey the same limits.
+export const katexOptions: KatexOptions = {
   output: "htmlAndMathml",
   errorColor: "#b91c1c",
   strict: "ignore",
@@ -87,7 +88,8 @@ const processor = unified()
  * Same pipeline without KaTeX: math stays as
  * <code class="language-math math-inline|math-display">LaTeX source</code>.
  * Used by the DOCX route (html-to-docx would otherwise dump KaTeX's HTML +
- * MathML as duplicated garbage text) until Phase 0b adds editable OMML.
+ * MathML as duplicated garbage text). The browser sends formulas to Word as
+ * images (math-images.ts), so only ones KaTeX could not parse reach this.
  */
 const sourceMathProcessor = unified()
   .use(remarkParse)
