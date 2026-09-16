@@ -310,6 +310,32 @@ test.describe("Word (DOCX) through the UI", () => {
   });
 });
 
+test.describe("Diagram failures", () => {
+  test("a diagram that cannot parse leaves nothing on the page", async ({ page }) => {
+    // mermaid draws a "Syntax error in text" graphic into the document when a
+    // diagram fails to parse; suppressed, it would pile up under the footer on
+    // every render (preview, then once more per PDF/Word export)
+    await page.goto("/");
+    await page.locator('input[type="file"]').setInputFiles(
+      path.join(__dirname, "..", "test-fixtures", "validation-math-mermaid-tables.md")
+    );
+    await expect(page.getByText("Ready to export (uploaded file)")).toBeVisible({ timeout: 15000 });
+    // Wait for the diagrams that do parse, so the failing one has been tried too
+    await expect(page.locator(".prose").first().locator('img[src^="data:image/svg+xml"]')).toHaveCount(5, {
+      timeout: 30000,
+    });
+    await expect(page.getByText("Syntax error in text")).toHaveCount(0);
+
+    await download(page, () => page.getByRole("button", { name: /To Word/i }).first().click());
+    await expect(page.getByText("Syntax error in text")).toHaveCount(0);
+    // The broken fence stays a code block in the preview (the fixture also
+    // quotes a mermaid fence inside a code block, hence first())
+    await expect(
+      page.locator(".prose").first().locator("pre", { hasText: "flowchart LR" }).first()
+    ).toBeVisible();
+  });
+});
+
 test.describe("DOCX formula pictures", () => {
   test("identical images keep their own alt text and inline/display treatment", async ({ page }) => {
     // `E=mc^2` and `E = mc^2` can rasterize to the same bytes; the route must

@@ -96,6 +96,10 @@ async function loadMermaid(): Promise<MermaidModule> {
       const mermaid = mod.default;
       mermaid.initialize({
         startOnLoad: false,
+        // A diagram that fails to parse must not draw mermaid's "Syntax error
+        // in text" graphic into the page: render() still throws, the fence
+        // stays a code block, and nothing is left behind for the user to see
+        suppressErrorRendering: true,
         // Labels are sanitized; no click handlers or HTML injection from diagrams
         securityLevel: "strict",
         theme: "neutral",
@@ -168,7 +172,16 @@ async function renderOne(code: string, raster: boolean): Promise<string> {
 
   const mermaid = await loadMermaid();
   const id = `mdfree-mermaid-${Date.now()}-${renderCounter++}`;
-  const { svg } = await mermaid.render(id, code);
+  let svg: string;
+  try {
+    ({ svg } = await mermaid.render(id, code));
+  } catch (error) {
+    // Backstop for suppressErrorRendering: mermaid renders into #<id> inside
+    // a #d<id> wrapper, and a failure can leave both attached to the document
+    document.getElementById(id)?.remove();
+    document.getElementById(`d${id}`)?.remove();
+    throw error;
+  }
   const sized = withExplicitSize(svg);
   const svgUri = svgToDataUri(sized.svg);
   const result = raster ? await rasterize(svgUri, sized.width, sized.height) : svgUri;
