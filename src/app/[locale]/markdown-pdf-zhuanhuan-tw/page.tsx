@@ -198,7 +198,7 @@ export default async function MarkdownPdfZhuanhuanTwPage({
         </div>
       </article>
 
-      <Footer locale={locale} dict={dict} />
+      <Footer locale={locale} dict={dict} showToolLinks={false} />
             {/* Related tool suite cross-links */}
         <RelatedTools locale={locale} current="pdf" />
       </main>

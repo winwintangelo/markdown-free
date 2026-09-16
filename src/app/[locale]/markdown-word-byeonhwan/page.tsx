@@ -278,7 +278,7 @@ export default async function MarkdownWordByeonhwanPage({ params }: PageProps) {
         {/* Related tool suite cross-links */}
         <RelatedTools locale={locale} current="docx" />
       </main>
-      <Footer locale={locale} dict={dict} />
+      <Footer locale={locale} dict={dict} showToolLinks={false} />
     </>
   );
 }

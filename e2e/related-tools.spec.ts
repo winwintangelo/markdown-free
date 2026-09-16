@@ -58,3 +58,35 @@ test.describe("Related tools cross-links", () => {
     });
   }
 });
+
+test.describe("The tool suite is listed once per page", () => {
+  test.describe.configure({ retries: 2 });
+  const VISIBLE = { timeout: 30_000 };
+
+  // A page that renders the in-content hub must not ALSO repeat the same six
+  // links in its footer: they sit a few pixels apart and read as a bug.
+  const withHub = [
+    "/",
+    "/markdown-converter",
+    "/ja/markdown-pdf-henkan",
+    "/zh-Hans/markdown-zhuan-tupian",
+    "/markdown-to-pdf-with-mermaid",
+  ];
+  for (const path of withHub) {
+    test(`${path}: hub in content, no tool row in the footer`, async ({ page }) => {
+      await page.goto(path, { waitUntil: "domcontentloaded" });
+      await expect(page.getByTestId("related-tools")).toBeVisible(VISIBLE);
+      await expect(page.locator('footer nav[aria-label="Tools"]')).toHaveCount(0);
+    });
+  }
+
+  // Pages without the hub keep the footer links, which is how the rest of the
+  // site stays crawlable.
+  for (const path of ["/about", "/privacy", "/faq"]) {
+    test(`${path}: no hub, footer keeps the tool row`, async ({ page }) => {
+      await page.goto(path, { waitUntil: "domcontentloaded" });
+      await expect(page.getByTestId("related-tools")).toHaveCount(0);
+      await expect(page.locator('footer nav[aria-label="Tools"]')).toHaveCount(1);
+    });
+  }
+});

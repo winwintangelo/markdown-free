@@ -179,7 +179,7 @@ export default async function MarkdownPdfByeonhwanPage({
         <RelatedTools locale={locale} current="pdf" />
       </article>
 
-      <Footer locale={locale} dict={dict} />
+      <Footer locale={locale} dict={dict} showToolLinks={false} />
     </main>
     </>
   );

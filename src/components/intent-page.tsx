@@ -141,7 +141,7 @@ export function IntentPage({ locale, slug }: { locale: Locale; slug: string }) {
           <RelatedTools locale={locale} current={page.related} />
         </article>
 
-        <Footer locale={locale} dict={dict} />
+        <Footer locale={locale} dict={dict} showToolLinks={false} />
       </main>
     </ConverterProvider>
   );

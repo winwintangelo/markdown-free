@@ -279,7 +279,7 @@ export default async function MarkdownSangWordPage({ params }: PageProps) {
           </p>
         </section>
       </main>
-      <Footer locale={locale} dict={dict} />
+      <Footer locale={locale} dict={dict} showToolLinks={false} />
     </>
   );
 }

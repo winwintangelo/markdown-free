@@ -238,7 +238,7 @@ export default async function MarkdownByeonhwanBigyoPage({
           <RelatedTools locale={locale} current="comparison" />
         </article>
 
-        <Footer locale={locale} dict={dict} />
+        <Footer locale={locale} dict={dict} showToolLinks={false} />
       </main>
     </ConverterProvider>
   );

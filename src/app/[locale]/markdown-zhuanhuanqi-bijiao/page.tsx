@@ -187,7 +187,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
             </ul>
           </div>
         </article>
-        <Footer locale={locale} dict={dict} />
+        <Footer locale={locale} dict={dict} showToolLinks={false} />
               {/* Related tool suite cross-links */}
         <RelatedTools locale={locale} current="comparison" />
       </main>

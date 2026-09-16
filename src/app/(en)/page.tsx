@@ -162,7 +162,7 @@ export default function Home() {
         {/* Footer */}
         <RelatedTools locale="en" current="pdf" />
 
-        <Footer locale="en" dict={dict} />
+        <Footer locale="en" dict={dict} showToolLinks={false} />
       </main>
       <LanguageBanner currentLocale="en" dict={dict} />
     </ConverterProvider>

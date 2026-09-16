@@ -326,7 +326,7 @@ export default function MarkdownConverterPage() {
           </p>
         </section>
       </main>
-      <Footer locale="en" dict={dict} />
+      <Footer locale="en" dict={dict} showToolLinks={false} />
     </ConverterProvider>
   );
 }

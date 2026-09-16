@@ -283,7 +283,7 @@ export default async function MarkdownWordZhuanhuanPage({ params }: PageProps) {
           </p>
         </section>
       </main>
-      <Footer locale={locale} dict={dict} />
+      <Footer locale={locale} dict={dict} showToolLinks={false} />
     </>
   );
 }

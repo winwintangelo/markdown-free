@@ -236,7 +236,7 @@ export default async function MarkdownEpubByeonhwanPage({
         </p>
       </section>
 
-      <Footer locale={locale} dict={dict} />
+      <Footer locale={locale} dict={dict} showToolLinks={false} />
     </main>
   );
 }

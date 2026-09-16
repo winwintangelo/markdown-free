@@ -176,7 +176,7 @@ export default async function MarkdownPdfNoSignupPage({
         <RelatedTools locale={locale} />
       </article>
 
-      <Footer locale={locale} dict={dict} />
+      <Footer locale={locale} dict={dict} showToolLinks={false} />
     </main>
   );
 }

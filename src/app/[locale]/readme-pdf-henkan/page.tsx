@@ -207,7 +207,7 @@ MIT`}</pre>
         <RelatedTools locale={locale} current="readme" />
       </article>
 
-      <Footer locale={locale} dict={dict} />
+      <Footer locale={locale} dict={dict} showToolLinks={false} />
     </main>
   );
 }

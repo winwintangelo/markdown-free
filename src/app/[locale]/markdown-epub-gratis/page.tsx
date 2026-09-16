@@ -249,7 +249,7 @@ export default async function MarkdownEpubGratisPage({
         </p>
       </section>
 
-      <Footer locale={locale} dict={dict} />
+      <Footer locale={locale} dict={dict} showToolLinks={false} />
             {/* Related tool suite cross-links */}
         <RelatedTools locale={locale} current="epub" />
       </main>

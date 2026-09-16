@@ -238,7 +238,7 @@ export default async function MarkdownEpubZhuanhuanTwPage({
         </p>
       </section>
 
-      <Footer locale={locale} dict={dict} />
+      <Footer locale={locale} dict={dict} showToolLinks={false} />
     </main>
   );
 }

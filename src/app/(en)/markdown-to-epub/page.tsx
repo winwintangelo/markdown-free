@@ -243,7 +243,7 @@ export default function MarkdownToEpubPage() {
               {/* Related tool suite cross-links */}
         <RelatedTools locale="en" current="epub" />
       </main>
-      <Footer locale="en" dict={dict} />
+      <Footer locale="en" dict={dict} showToolLinks={false} />
     </ConverterProvider>
   );
 }

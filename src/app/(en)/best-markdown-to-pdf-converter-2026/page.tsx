@@ -673,7 +673,7 @@ export default function BestMarkdownToPdfConverter2026Page() {
           </div>
         </article>
 
-        <Footer locale="en" dict={dict} />
+        <Footer locale="en" dict={dict} showToolLinks={false} />
               {/* Related tool suite cross-links */}
         <RelatedTools locale="en" current="comparison" />
       </main>

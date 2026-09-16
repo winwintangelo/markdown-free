@@ -21,6 +21,7 @@ export function RelatedTools({
 
   return (
     <nav
+      data-testid="related-tools"
       aria-label={RELATED_HEADING[locale]}
       className={`not-prose border-t border-slate-200 pt-8 ${className}`}
     >

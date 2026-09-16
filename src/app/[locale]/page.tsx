@@ -212,7 +212,7 @@ export default async function LocaleHomePage({
         <RelatedTools locale={locale} current="pdf" />
 
         {/* Footer */}
-        <Footer locale={locale} dict={dict} />
+        <Footer locale={locale} dict={dict} showToolLinks={false} />
       </main>
     </>
   );

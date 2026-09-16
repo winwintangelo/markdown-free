@@ -9,6 +9,9 @@ import type { Locale, Dictionary } from "@/i18n";
 interface FooterProps {
   locale?: Locale;
   dict?: Dictionary;
+  /** Render the tool-suite links (default). Pages that render <RelatedTools>
+   * pass false: the same six links directly above the footer read as a bug. */
+  showToolLinks?: boolean;
 }
 
 // Default dictionary values for backward compatibility
@@ -33,7 +36,7 @@ const localeLinks = [
   { code: "hi", label: "हिन्दी", href: "/hi" },
 ] as const;
 
-export function Footer({ locale, dict = defaultDict as Dictionary }: FooterProps) {
+export function Footer({ locale, dict = defaultDict as Dictionary, showToolLinks = true }: FooterProps) {
   const sectionRef = useSectionVisibility("footer");
 
   // Get correct path prefix
@@ -45,7 +48,7 @@ export function Footer({ locale, dict = defaultDict as Dictionary }: FooterProps
   return (
     <footer ref={sectionRef} className="mt-4 flex flex-col items-center gap-2 text-[11px] text-slate-500">
       {/* Tool suite cross-links — internal linking across the converter family */}
-      {toolLinks.length > 1 && (
+      {showToolLinks && toolLinks.length > 1 && (
         <nav aria-label="Tools" className="flex flex-wrap justify-center gap-x-3 gap-y-1">
           {toolLinks.map((t) => (
             <Link

@@ -202,7 +202,7 @@ export default async function MarkdownAPngPage({
         </p>
       </section>
 
-      <Footer locale={locale} dict={dict} />
+      <Footer locale={locale} dict={dict} showToolLinks={false} />
     </main>
   );
 }

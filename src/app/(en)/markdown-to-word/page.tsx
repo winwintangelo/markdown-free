@@ -274,7 +274,7 @@ export default function MarkdownToWordPage() {
           </p>
         </section>
       </main>
-      <Footer locale="en" />
+      <Footer locale="en" showToolLinks={false} />
     </ConverterProvider>
   );
 }
