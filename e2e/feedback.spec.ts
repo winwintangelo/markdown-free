@@ -38,10 +38,16 @@ test.describe("POST /api/feedback", () => {
     });
     // Without RESEND_API_KEY / FEEDBACK_TO_EMAIL the endpoint accepts the
     // message and reports delivered:false; with them configured it delivers.
+    // The suite runs against a server marked as a test target
+    // (E2E_RELAXED_RATE_LIMITS=1), which never delivers — so a configured
+    // local .env cannot turn test runs into real email.
     expect(response.status()).toBe(200);
     const body = await response.json();
     expect(body.ok).toBe(true);
     expect(typeof body.delivered).toBe("boolean");
+    if (process.env.PROD_BUILD || process.env.CI) {
+      expect(body.delivered, "a test-target server must not send mail").toBe(false);
+    }
   });
 
   test("rejects an empty message", async ({ request }) => {

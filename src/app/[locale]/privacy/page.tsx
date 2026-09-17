@@ -130,7 +130,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Third parties",
-      text: "We do not share your documents with anyone. Two service providers process limited data on our behalf: Umami Cloud (cookieless analytics — aggregate counts only, never your content) and Resend (delivers feedback-form messages, and the reply email you optionally include, to our inbox). The PDF generation runs on our own serverless infrastructure (Vercel). No external service sees your content."
+      text: "We do not share your documents with anyone. Two service providers process limited data on our behalf: Umami Cloud (cookieless analytics — aggregate counts only, never your content) and Resend (delivers feedback messages to our inbox). The PDF generation runs on our own serverless infrastructure (Vercel). No external service sees your content."
     },
     security: {
       title: "Security",
@@ -147,7 +147,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "Contact",
-      text: "Questions about privacy? Click the Feedback button in the header to reach us."
+      text: "Questions about privacy? Send them through the feedback box that appears under the export buttons after any conversion."
     }
   },
   it: {
@@ -203,7 +203,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Terze parti",
-      text: "Non condividiamo i tuoi documenti con nessuno. Due fornitori trattano dati limitati per nostro conto: Umami Cloud (analytics senza cookie — solo conteggi aggregati, mai i tuoi contenuti) e Resend (recapita i messaggi del modulo di feedback, e l'email di risposta che scegli di indicare, alla nostra casella). La generazione PDF avviene sulla nostra infrastruttura serverless (Vercel). Nessun servizio esterno vede i tuoi contenuti."
+      text: "Non condividiamo i tuoi documenti con nessuno. Due fornitori trattano dati limitati per nostro conto: Umami Cloud (analytics senza cookie — solo conteggi aggregati, mai i tuoi contenuti) e Resend (recapita i messaggi di feedback alla nostra casella). La generazione PDF avviene sulla nostra infrastruttura serverless (Vercel). Nessun servizio esterno vede i tuoi contenuti."
     },
     security: {
       title: "Sicurezza",
@@ -220,7 +220,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "Contatti",
-      text: "Domande sulla privacy? Clicca il pulsante Feedback nell'intestazione per contattarci."
+      text: "Domande sulla privacy? Inviacele dal riquadro di feedback che compare sotto i pulsanti di esportazione dopo ogni conversione."
     }
   },
   es: {
@@ -276,7 +276,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Terceros",
-      text: "No compartimos tus documentos con nadie. Dos proveedores tratan datos limitados en nuestro nombre: Umami Cloud (analítica sin cookies — solo recuentos agregados, nunca tu contenido) y Resend (entrega los mensajes del formulario de comentarios, y el correo de respuesta que indiques opcionalmente, a nuestra bandeja de entrada). La generación de PDF se ejecuta en nuestra propia infraestructura serverless (Vercel). Ningún servicio externo ve tu contenido."
+      text: "No compartimos tus documentos con nadie. Dos proveedores tratan datos limitados en nuestro nombre: Umami Cloud (analítica sin cookies — solo recuentos agregados, nunca tu contenido) y Resend (entrega los mensajes de comentarios a nuestra bandeja de entrada). La generación de PDF se ejecuta en nuestra propia infraestructura serverless (Vercel). Ningún servicio externo ve tu contenido."
     },
     security: {
       title: "Seguridad",
@@ -293,7 +293,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "Contacto",
-      text: "¿Preguntas sobre privacidad? Haz clic en el botón de Comentarios en el encabezado para contactarnos."
+      text: "¿Preguntas sobre privacidad? Envíanoslas con el cuadro de comentarios que aparece debajo de los botones de exportación después de cada conversión."
     }
   },
   ja: {
@@ -349,7 +349,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "第三者",
-      text: "お客様のドキュメントを第三者と共有することはありません。当社に代わって限定的なデータを処理するサービスが2つあります。Umami Cloud（Cookie不使用のアクセス解析。集計された件数のみで、コンテンツは含まれません）と Resend（フィードバックフォームのメッセージと、任意で入力された返信用メールアドレスを当社の受信箱に届けます）です。PDF生成は自社のサーバーレスインフラ（Vercel）で実行されます。外部サービスがコンテンツを見ることはありません。"
+      text: "お客様のドキュメントを第三者と共有することはありません。当社に代わって限定的なデータを処理するサービスが2つあります。Umami Cloud（Cookie不使用のアクセス解析。集計された件数のみで、コンテンツは含まれません）と Resend（フィードバックのメッセージを当社の受信箱に届けます）です。PDF生成は自社のサーバーレスインフラ（Vercel）で実行されます。外部サービスがコンテンツを見ることはありません。"
     },
     security: {
       title: "セキュリティ",
@@ -366,7 +366,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "お問い合わせ",
-      text: "プライバシーに関するご質問は、ヘッダーのフィードバックボタンからお問い合わせください。"
+      text: "プライバシーに関するご質問は、変換後にエクスポートボタンの下へ表示される入力欄からお送りください。"
     }
   },
   ko: {
@@ -422,7 +422,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "제3자",
-      text: "귀하의 문서를 누구와도 공유하지 않습니다. 두 서비스 제공업체가 당사를 대신해 제한된 데이터를 처리합니다. Umami Cloud(쿠키 없는 분석 — 집계된 수치만, 콘텐츠는 절대 포함되지 않음)와 Resend(피드백 양식 메시지와 선택적으로 입력한 회신 이메일을 당사 받은편지함으로 전달)입니다. PDF 생성은 자체 서버리스 인프라(Vercel)에서 실행됩니다. 외부 서비스가 콘텐츠를 볼 수 없습니다."
+      text: "귀하의 문서를 누구와도 공유하지 않습니다. 두 서비스 제공업체가 당사를 대신해 제한된 데이터를 처리합니다. Umami Cloud(쿠키 없는 분석 — 집계된 수치만, 콘텐츠는 절대 포함되지 않음)와 Resend(피드백 메시지를 당사 받은편지함으로 전달)입니다. PDF 생성은 자체 서버리스 인프라(Vercel)에서 실행됩니다. 외부 서비스가 콘텐츠를 볼 수 없습니다."
     },
     security: {
       title: "보안",
@@ -439,7 +439,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "문의",
-      text: "개인정보 관련 질문이 있으시면 헤더의 피드백 버튼을 클릭해 문의해 주세요."
+      text: "개인정보 관련 질문은 변환 후 내보내기 버튼 아래에 나타나는 피드백 입력창으로 보내 주세요."
     }
   },
   "zh-Hans": {
@@ -495,7 +495,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "第三方",
-      text: "我们不会与任何人共享您的文档。有两家服务提供商代表我们处理有限的数据：Umami Cloud（无 Cookie 的统计分析，仅汇总计数，绝不涉及您的内容）和 Resend（将反馈表单的留言以及您选填的回复邮箱投递到我们的收件箱）。PDF 生成在我们自己的无服务器基础设施（Vercel）上运行。没有外部服务会看到您的内容。"
+      text: "我们不会与任何人共享您的文档。有两家服务提供商代表我们处理有限的数据：Umami Cloud（无 Cookie 的统计分析，仅汇总计数，绝不涉及您的内容）和 Resend（将反馈留言投递到我们的收件箱）。PDF 生成在我们自己的无服务器基础设施（Vercel）上运行。没有外部服务会看到您的内容。"
     },
     security: {
       title: "安全",
@@ -512,7 +512,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "联系方式",
-      text: "对隐私有疑问？点击页眉的反馈按钮联系我们。"
+      text: "对隐私有疑问？请使用每次转换后出现在导出按钮下方的反馈框告诉我们。"
     }
   },
   "zh-Hant": {
@@ -568,7 +568,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "第三方",
-      text: "我們不會與任何人共用您的文件。有兩家服務供應商代表我們處理有限的資料：Umami Cloud（無 Cookie 的統計分析，僅彙總計數，絕不涉及您的內容）和 Resend（將意見回饋表單的留言以及您選填的回覆信箱投遞到我們的收件匣）。PDF 生成在我們自己的無伺服器基礎架構（Vercel）上執行。沒有外部服務會看到您的內容。"
+      text: "我們不會與任何人共用您的文件。有兩家服務供應商代表我們處理有限的資料：Umami Cloud（無 Cookie 的統計分析，僅彙總計數，絕不涉及您的內容）和 Resend（將意見回饋留言投遞到我們的收件匣）。PDF 生成在我們自己的無伺服器基礎架構（Vercel）上執行。沒有外部服務會看到您的內容。"
     },
     security: {
       title: "安全",
@@ -585,7 +585,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "聯絡方式",
-      text: "對隱私有疑問？點擊頁首的回饋按鈕聯絡我們。"
+      text: "對隱私有疑問？請使用每次轉換後出現在匯出按鈕下方的意見回饋框告訴我們。"
     }
   },
   id: {
@@ -641,7 +641,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Pihak ketiga",
-      text: "Kami tidak membagikan dokumen Anda kepada siapa pun. Dua penyedia layanan memproses data terbatas atas nama kami: Umami Cloud (analitik tanpa cookie — hanya hitungan agregat, tidak pernah konten Anda) dan Resend (mengirimkan pesan formulir masukan, beserta email balasan yang Anda cantumkan secara opsional, ke kotak masuk kami). Pembuatan PDF berjalan di infrastruktur serverless kami sendiri (Vercel). Tidak ada layanan eksternal yang melihat konten Anda."
+      text: "Kami tidak membagikan dokumen Anda kepada siapa pun. Dua penyedia layanan memproses data terbatas atas nama kami: Umami Cloud (analitik tanpa cookie — hanya hitungan agregat, tidak pernah konten Anda) dan Resend (mengirimkan pesan masukan ke kotak masuk kami). Pembuatan PDF berjalan di infrastruktur serverless kami sendiri (Vercel). Tidak ada layanan eksternal yang melihat konten Anda."
     },
     security: {
       title: "Keamanan",
@@ -658,7 +658,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "Kontak",
-      text: "Ada pertanyaan tentang privasi? Klik tombol Umpan Balik di header untuk menghubungi kami."
+      text: "Ada pertanyaan tentang privasi? Kirimkan melalui kotak masukan yang muncul di bawah tombol ekspor setelah setiap konversi."
     }
   },
   vi: {
@@ -714,7 +714,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Bên thứ ba",
-      text: "Chúng tôi không chia sẻ tài liệu của bạn với bất kỳ ai. Hai nhà cung cấp dịch vụ xử lý dữ liệu hạn chế thay mặt chúng tôi: Umami Cloud (phân tích không dùng cookie — chỉ số liệu tổng hợp, không bao giờ là nội dung của bạn) và Resend (chuyển tin nhắn từ biểu mẫu góp ý, cùng email trả lời bạn tùy chọn cung cấp, đến hộp thư của chúng tôi). Việc tạo PDF chạy trên cơ sở hạ tầng serverless của chúng tôi (Vercel). Không có dịch vụ bên ngoài nào nhìn thấy nội dung của bạn."
+      text: "Chúng tôi không chia sẻ tài liệu của bạn với bất kỳ ai. Hai nhà cung cấp dịch vụ xử lý dữ liệu hạn chế thay mặt chúng tôi: Umami Cloud (phân tích không dùng cookie — chỉ số liệu tổng hợp, không bao giờ là nội dung của bạn) và Resend (chuyển tin nhắn góp ý đến hộp thư của chúng tôi). Việc tạo PDF chạy trên cơ sở hạ tầng serverless của chúng tôi (Vercel). Không có dịch vụ bên ngoài nào nhìn thấy nội dung của bạn."
     },
     security: {
       title: "Bảo mật",
@@ -731,7 +731,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "Liên hệ",
-      text: "Có câu hỏi về quyền riêng tư? Nhấp vào nút Phản hồi trong tiêu đề để liên hệ với chúng tôi."
+      text: "Có câu hỏi về quyền riêng tư? Hãy gửi qua ô phản hồi xuất hiện bên dưới các nút xuất tệp sau mỗi lần chuyển đổi."
     }
   }
 };

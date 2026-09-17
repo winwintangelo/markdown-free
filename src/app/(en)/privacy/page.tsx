@@ -103,8 +103,8 @@ export default function PrivacyPage() {
             We do not share your documents with anyone. Two service providers
             process limited data on our behalf: <strong>Umami Cloud</strong>{" "}
             (cookieless analytics — aggregate counts only, never your content)
-            and <strong>Resend</strong> (delivers feedback-form messages, and
-            the reply email you optionally include, to our inbox). The PDF
+            and <strong>Resend</strong> (delivers feedback messages to our
+            inbox). The PDF
             generation runs on our own serverless infrastructure (Vercel). No
             external service sees your content.
           </p>
@@ -132,8 +132,8 @@ export default function PrivacyPage() {
 
           <h2>Contact</h2>
           <p>
-            Questions about privacy? Click the Feedback button in the header to
-            reach us.
+            Questions about privacy? Send them through the feedback box that
+            appears under the export buttons after any conversion.
           </p>
         </article>
 

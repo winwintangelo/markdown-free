@@ -112,7 +112,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "Questions or feedback?",
-      text: "We'd love to hear from you! Click the Feedback button in the header to share your thoughts, report issues, or suggest improvements."
+      text: "We'd love to hear from you! After any conversion, a short feedback box appears under the export buttons — use it to share your thoughts, report issues, or suggest improvements."
     }
   },
   it: {
@@ -155,7 +155,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "Domande o feedback?",
-      text: "Ci piacerebbe sentirti! Clicca il pulsante Feedback nell'intestazione per condividere i tuoi pensieri, segnalare problemi o suggerire miglioramenti."
+      text: "Ci piacerebbe sentirti! Dopo ogni conversione compare un breve riquadro sotto i pulsanti di esportazione: usalo per condividere i tuoi pensieri, segnalare problemi o suggerire miglioramenti."
     }
   },
   es: {
@@ -198,7 +198,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "¿Preguntas o comentarios?",
-      text: "¡Nos encantaría saber de ti! Haz clic en el botón de Comentarios en el encabezado para compartir tus pensamientos, reportar problemas o sugerir mejoras."
+      text: "¡Nos encantaría saber de ti! Después de cada conversión aparece un breve cuadro debajo de los botones de exportación: úsalo para compartir tus ideas, reportar problemas o sugerir mejoras."
     }
   },
   ja: {
@@ -241,7 +241,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "ご質問・フィードバック",
-      text: "ご意見をお聞かせください！ヘッダーのフィードバックボタンをクリックして、ご感想、問題の報告、改善提案をお寄せください。"
+      text: "ご意見をお聞かせください！変換後にエクスポートボタンの下へ表示される入力欄から、ご感想、問題の報告、改善提案をお寄せください。"
     }
   },
   ko: {
@@ -284,7 +284,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "질문이나 피드백이 있으신가요?",
-      text: "의견을 듣고 싶습니다! 헤더의 피드백 버튼을 클릭하여 생각을 공유하고, 문제를 보고하거나, 개선 사항을 제안해 주세요."
+      text: "의견을 듣고 싶습니다! 변환이 끝나면 내보내기 버튼 아래에 짧은 입력창이 나타납니다. 거기에서 생각을 공유하고, 문제를 보고하거나, 개선 사항을 제안해 주세요."
     }
   },
   "zh-Hans": {
@@ -327,7 +327,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "有问题或反馈？",
-      text: "我们期待您的意见！点击页眉的反馈按钮，分享您的想法、报告问题或提出改进建议。"
+      text: "我们期待您的意见！每次转换完成后，导出按钮下方会出现一个简短的反馈框，欢迎在那里分享想法、报告问题或提出改进建议。"
     }
   },
   "zh-Hant": {
@@ -370,7 +370,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "有問題或回饋？",
-      text: "我們期待您的意見！點擊頁首的回饋按鈕，分享您的想法、報告問題或提出改進建議。"
+      text: "我們期待您的意見！每次轉換完成後，匯出按鈕下方會出現一個簡短的意見回饋框，歡迎在那裡分享想法、回報問題或提出改進建議。"
     }
   },
   id: {
@@ -413,7 +413,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "Pertanyaan atau masukan?",
-      text: "Kami senang mendengar dari Anda! Klik tombol Umpan Balik di header untuk berbagi pemikiran, melaporkan masalah, atau menyarankan perbaikan."
+      text: "Kami senang mendengar dari Anda! Setelah setiap konversi, muncul kotak masukan singkat di bawah tombol ekspor — gunakan untuk berbagi pemikiran, melaporkan masalah, atau menyarankan perbaikan."
     }
   },
   vi: {
@@ -456,7 +456,7 @@ const content: Partial<Record<Locale, {
     },
     contact: {
       title: "Câu hỏi hoặc phản hồi?",
-      text: "Chúng tôi rất muốn nghe từ bạn! Nhấp vào nút Phản hồi trong tiêu đề để chia sẻ suy nghĩ, báo cáo vấn đề hoặc đề xuất cải tiến."
+      text: "Chúng tôi rất muốn nghe từ bạn! Sau mỗi lần chuyển đổi, một ô phản hồi ngắn hiện ra bên dưới các nút xuất tệp — hãy dùng nó để chia sẻ suy nghĩ, báo cáo vấn đề hoặc đề xuất cải tiến."
     }
   }
 };

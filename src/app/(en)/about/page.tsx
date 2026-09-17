@@ -100,8 +100,9 @@ export default function AboutPage() {
 
           <h2>Questions or feedback?</h2>
           <p>
-            We&apos;d love to hear from you! Click the Feedback button in the
-            header to share your thoughts, report issues, or suggest improvements.
+            We&apos;d love to hear from you! After any conversion, a short
+            feedback box appears under the export buttons — use it to share your
+            thoughts, report issues, or suggest improvements.
           </p>
         </article>
 

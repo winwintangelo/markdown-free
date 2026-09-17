@@ -15,7 +15,8 @@ import { NextRequest, NextResponse } from "next/server";
  *
  * When not configured the endpoint still accepts the message (so the UI keeps
  * working) but reports `delivered: false` and logs a one-line notice without
- * the message content.
+ * the message content. The same happens when E2E_RELAXED_RATE_LIMITS=1 marks
+ * the server as a test target, so test runs never mail the owner.
  *
  * Origin validation and per-IP rate limiting happen in src/middleware.ts.
  */
@@ -80,6 +81,14 @@ export async function POST(request: NextRequest) {
         .filter(Boolean)
         .join(", ")
     : "";
+
+  // A server started for the e2e suite (or for local UI poking) must never
+  // mail the owner's inbox: the suite posts real messages, and every local run
+  // would land in it. Same flag the middleware uses for relaxed rate limits.
+  if (process.env.E2E_RELAXED_RATE_LIMITS === "1") {
+    console.log(`[feedback] test mode — not delivering a ${source} message of ${message.length} chars`);
+    return NextResponse.json({ ok: true, delivered: false });
+  }
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.FEEDBACK_TO_EMAIL;
