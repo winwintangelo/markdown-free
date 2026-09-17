@@ -34,3 +34,10 @@ See `env.example` for required variables:
 - **Local tests:** `e2e/app.spec.ts`, `e2e/i18n.spec.ts` - run against localhost:3000
 - **Production tests:** `e2e/production.spec.ts` - run against live site with `--config=playwright.production.config.ts`
 - Test outputs go to `tmp/` directory
+
+## Editing conventions
+
+- **Change files with the Edit/Write tools, not with shell commands.** Do not use `sed -i`, `perl -pi`, `python` heredocs or similar to rewrite source: the edit then shows up as a reviewable diff instead of a script, and scripted rewrites have silently damaged files in this repo before — a `String.replace` whose replacement contained `` $` `` pasted a copy of the file header into CLAUDE.md and truncated a line in `llms.txt`, and an order-based regex once wrote the Japanese privacy sentence into the Traditional Chinese block.
+- Bash stays the right tool for everything else: reading and searching (`cat`, `grep`, `sed -n`), builds, tests, git, and one-off probe scripts under `tmp/`.
+- Exception: a genuinely mechanical change across many files (for example, adding one prop to 60 call sites). Say so first, then verify with `git diff` and a build before moving on.
+- Scratch files, logs and probe scripts belong in `tmp/` (gitignored), not in a system temp directory.
