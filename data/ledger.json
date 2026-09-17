@@ -477,15 +477,15 @@
         "country": null,
         "note": "Established intent pages — isolate site-wide seasonality/algo movement from the new cluster's own gain."
       },
-      "shipped_date": "2026-09-07",
-      "commit": null,
+      "shipped_date": "2026-09-16",
+      "commit": "ee94b42",
       "baseline": {
         "window_days": 28,
         "mean": 0,
         "as_of": "2026-09-07",
         "note": "New URLs — zero impressions by construction. The read is adoption-style (did the cluster get indexed and earn impressions), not a difference-in-differences on an existing base; the control scope guards against reading a site-wide swing as a win."
       },
-      "measure_on": "2026-11-07",
+      "measure_on": "2026-11-16",
       "status": "shipped",
       "outcome": null,
       "note": "GATE (build plan §5 Phase 1): ≥30 of 51 pages indexed on Bing AND Google within 60 days, plus conversions/month ≥2× the Phase −1 baseline (events.conversions) and CJK-audience conversions up (goal cjk-market). Two months (not the usual 28 days) because crawl→index→rank on brand-new URLs is the binding lag. ALSO CHECK AT MEASURE TIME: (1) Bing Webmaster separately — CN/CJK demand skews to Bing and GSC structurally undercounts it; (2) whether Google treats the cluster as scaled content (sudden de-indexing of the whole group is the failure signal, not slow ranking); (3) the demo's engagement events (comparison_cta_click position=inline) to see whether readers actually convert on the page. STAMP commit AFTER deploy; run `npm run indexnow:new` on deploy — NEW_PAGES already lists all 51. VERDICT ONLY VALID ONCE DEPLOYED."
