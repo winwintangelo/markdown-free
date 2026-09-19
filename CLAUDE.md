@@ -35,6 +35,10 @@ See `env.example` for required variables:
 - **Production tests:** `e2e/production.spec.ts` - run against live site with `--config=playwright.production.config.ts`
 - Test outputs go to `tmp/` directory
 
+## Communication
+
+Follow `.claude/skills/communication-style/SKILL.md` in every reply, commit message, code comment, and document. Summary of the rules: active voice, short sentences, precise details, no filler, no concluding summary unless asked.
+
 ## Editing conventions
 
 - **Change files with the Edit/Write tools, not with shell commands.** Do not use `sed -i`, `perl -pi`, `python` heredocs or similar to rewrite source: the edit then shows up as a reviewable diff instead of a script, and scripted rewrites have silently damaged files in this repo before — a `String.replace` whose replacement contained `` $` `` pasted a copy of the file header into CLAUDE.md and truncated a line in `llms.txt`, and an order-based regex once wrote the Japanese privacy sentence into the Traditional Chinese block.
