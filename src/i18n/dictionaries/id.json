@@ -179,5 +179,34 @@
     "submit": "Kirim",
     "skip": "Lewati",
     "thankYou": "Terima kasih atas masukan Anda"
+  },
+  "featureTeaser": {
+    "teaser": "Fitur baru segera hadir: cadangan pekerjaan Anda, template berdesain profesional, format yang lebih baik, dan lainnya.",
+    "seeMore": "Lihat yang akan datang",
+    "title": "Mana yang akan Anda gunakan?",
+    "lead": "Ketuk yang akan Anda gunakan.",
+    "premium": "Premium",
+    "free": "Gratis",
+    "notifyLead": "Kami akan memberi tahu Anda saat sudah siap.",
+    "emailPlaceholder": "anda@contoh.com",
+    "notify": "Beri tahu saya",
+    "vote": "Hitung suara saya saja, tanpa email",
+    "fine": "Satu email per fitur saat siap. Tanpa akun, tanpa promosi.",
+    "errPick": "Pilih setidaknya satu fitur.",
+    "errEmpty": "Masukkan email agar kami bisa memberi tahu Anda, atau hitung suara saja.",
+    "errBad": "Periksa alamat email.",
+    "errSave": "Gagal menyimpan. Coba lagi.",
+    "thanksMail": "Terima kasih. Kami akan mengirim email saat pilihan Anda siap.",
+    "thanksVote": "Terima kasih. Suara Anda sudah dihitung.",
+    "dismiss": "Tutup",
+    "sending": "Mengirim…",
+    "features": {
+      "backup": "Cadangkan pekerjaan Anda",
+      "templates": "Template berdesain profesional",
+      "formatting": "Kontrol format yang lebih baik",
+      "equations": "Persamaan yang bisa diedit di Word",
+      "merge": "Gabungkan obrolan AI jadi satu dokumen",
+      "share": "Bagikan sebagai tautan"
+    }
   }
 }

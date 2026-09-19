@@ -29,8 +29,9 @@ export default function PrivacyPage() {
           <h2>The short version</h2>
           <ul>
             <li>
-              <strong>No accounts</strong> — We don&apos;t collect any personal
-              information
+              <strong>No accounts</strong> — We collect no personal information,
+              except an email address you choose to leave to hear about new
+              features
             </li>
             <li>
               <strong>No tracking cookies</strong> — We don&apos;t use cookies or
@@ -72,7 +73,7 @@ export default function PrivacyPage() {
 
           <h2>Data we don&apos;t collect</h2>
           <ul>
-            <li>Personal information (names, emails, accounts)</li>
+            <li>Personal information (names, accounts)</li>
             <li>Document content or file contents</li>
             <li>File names or metadata</li>
             <li>Your IP address in logs</li>
@@ -100,11 +101,14 @@ export default function PrivacyPage() {
 
           <h2>Third parties</h2>
           <p>
-            We do not share your documents with anyone. Two service providers
+            We do not share your documents with anyone. Three service providers
             process limited data on our behalf: <strong>Umami Cloud</strong>{" "}
-            (cookieless analytics — aggregate counts only, never your content)
-            and <strong>Resend</strong> (delivers feedback messages to our
-            inbox). The PDF
+            (cookieless analytics — aggregate counts only, never your content),{" "}
+            <strong>Resend</strong> (delivers feedback messages to our inbox)
+            and <strong>Supabase</strong> (stores the email address you leave
+            to hear about upcoming features, with the features you picked, in
+            the United States; we delete it once those features have shipped
+            or after 12 months, whichever comes first). The PDF
             generation runs on our own serverless infrastructure (Vercel). No
             external service sees your content.
           </p>
@@ -119,7 +123,8 @@ export default function PrivacyPage() {
               rendering
             </li>
             <li>
-              <strong>No persistent storage</strong> — Nothing to breach
+              <strong>No document storage</strong> — Your documents are never
+              stored, so there are none to breach
             </li>
           </ul>
 

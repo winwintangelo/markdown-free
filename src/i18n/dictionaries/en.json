@@ -179,5 +179,34 @@
     "submit": "Send",
     "skip": "Skip",
     "thankYou": "Thanks for your feedback"
+  },
+  "featureTeaser": {
+    "teaser": "More features are coming soon: back up your work, professionally designed templates, better formatting, and more.",
+    "seeMore": "See what's coming",
+    "title": "Which of these would you use?",
+    "lead": "Tap the ones you'd use.",
+    "premium": "Premium",
+    "free": "Free",
+    "notifyLead": "We'll notify you when they're ready.",
+    "emailPlaceholder": "you@example.com",
+    "notify": "Notify me",
+    "vote": "Just count my vote, no email",
+    "fine": "One email per feature when it's ready. No account, no marketing.",
+    "errPick": "Select at least one feature.",
+    "errEmpty": "Enter your email so we can notify you, or just count your vote.",
+    "errBad": "Check the email address.",
+    "errSave": "Couldn't save that. Try again.",
+    "thanksMail": "Thanks. We'll email you when your picks are ready.",
+    "thanksVote": "Thanks. Your vote is counted.",
+    "dismiss": "Dismiss",
+    "sending": "Sending…",
+    "features": {
+      "backup": "Back up your work",
+      "templates": "Professionally designed templates",
+      "formatting": "Better formatting controls",
+      "equations": "Editable equations in Word",
+      "merge": "Combine AI chats into one document",
+      "share": "Share as a link"
+    }
   }
 }

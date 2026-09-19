@@ -179,5 +179,34 @@
     "submit": "送出",
     "skip": "略過",
     "thankYou": "感謝您的意見"
+  },
+  "featureTeaser": {
+    "teaser": "更多功能即將推出：作品備份、專業設計範本、更好的排版等。",
+    "seeMore": "看看有什麼",
+    "title": "你會用到哪些？",
+    "lead": "點選你會用到的。",
+    "premium": "進階版",
+    "free": "免費",
+    "notifyLead": "準備好後我們會通知你。",
+    "emailPlaceholder": "你的電子郵件",
+    "notify": "通知我",
+    "vote": "只投票，不留信箱",
+    "fine": "每個功能上線時只寄一封信。免註冊，不寄行銷郵件。",
+    "errPick": "請至少勾選一項。",
+    "errEmpty": "請填寫電子郵件以便通知你，或選擇只投票。",
+    "errBad": "請檢查電子郵件地址。",
+    "errSave": "儲存失敗，請重試。",
+    "thanksMail": "謝謝，功能準備好後會通知你。",
+    "thanksVote": "謝謝，你的投票已記錄。",
+    "dismiss": "關閉",
+    "sending": "傳送中…",
+    "features": {
+      "backup": "備份你的作品",
+      "templates": "專業設計範本",
+      "formatting": "更好的排版控制",
+      "equations": "Word 中可編輯的公式",
+      "merge": "合併多段 AI 對話",
+      "share": "以連結分享"
+    }
   }
 }

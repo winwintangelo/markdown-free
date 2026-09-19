@@ -12,6 +12,7 @@
  */
 
 import { track as vercelTrack } from "@vercel/analytics";
+import type { FeatureKey } from "@/lib/feature-teaser";
 
 declare global {
   interface Window {
@@ -538,4 +539,32 @@ export function trackFeedbackNegative(format: string, categories: string[], hasC
  */
 export function trackFeedbackSkipped(format: string): void {
   trackEvent("feedback_skipped", { format });
+}
+
+// =============================================================================
+// PHASE 1.5 DEMAND PROBE: coming-features teaser (src/lib/feature-teaser.ts)
+// =============================================================================
+
+/** The teaser replaced the thumbs prompt after a conversion. */
+export function trackFeatureTeaserShown(locale: string): void {
+  trackEvent("feature_teaser_shown", { trigger: "post_conversion", locale });
+}
+
+/** The visitor opened the feature chips ("See what's coming"). */
+export function trackFeatureTeaserOpened(): void {
+  trackEvent("feature_teaser_opened");
+}
+
+/**
+ * The visitor submitted picks, with or without an email. One event per picked
+ * feature, because the Vercel events API counts by event name, not property.
+ * The email address never reaches analytics; it goes to /api/notify only.
+ */
+export function trackFeatureInterest(features: FeatureKey[], premiumPicks: number, withEmail: boolean): void {
+  for (const key of features) trackEvent(`feature_interest_${key}`);
+  trackEvent("feature_interest_submitted", {
+    picks: String(features.length),
+    premium_picks: String(premiumPicks),
+    with_email: withEmail ? "yes" : "no",
+  });
 }

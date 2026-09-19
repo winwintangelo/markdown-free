@@ -183,5 +183,34 @@
     "submit": "Invia",
     "skip": "Salta",
     "thankYou": "Grazie per il feedback"
+  },
+  "featureTeaser": {
+    "teaser": "Nuove funzioni in arrivo: backup del tuo lavoro, modelli dal design professionale, formattazione migliore e altro.",
+    "seeMore": "Scopri le novità",
+    "title": "Quali di queste useresti?",
+    "lead": "Tocca quelle che useresti.",
+    "premium": "Premium",
+    "free": "Gratis",
+    "notifyLead": "Ti avviseremo quando saranno pronte.",
+    "emailPlaceholder": "tu@esempio.com",
+    "notify": "Avvisami",
+    "vote": "Conta solo il mio voto, senza email",
+    "fine": "Un'email per funzione quando è pronta. Nessun account, nessun marketing.",
+    "errPick": "Seleziona almeno una funzione.",
+    "errEmpty": "Inserisci la tua email per ricevere l'avviso, oppure conta solo il tuo voto.",
+    "errBad": "Controlla l'indirizzo email.",
+    "errSave": "Non è stato possibile salvare. Riprova.",
+    "thanksMail": "Grazie. Ti scriveremo quando le funzioni scelte saranno pronte.",
+    "thanksVote": "Grazie. Il tuo voto è stato registrato.",
+    "dismiss": "Chiudi",
+    "sending": "Invio…",
+    "features": {
+      "backup": "Backup del tuo lavoro",
+      "templates": "Modelli dal design professionale",
+      "formatting": "Controlli di formattazione migliori",
+      "equations": "Equazioni modificabili in Word",
+      "merge": "Unisci chat AI in un unico documento",
+      "share": "Condividi come link"
+    }
   }
 }

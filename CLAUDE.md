@@ -28,6 +28,7 @@ Markdown Free is a web-based Markdown viewer and converter. Users upload/paste M
 See `env.example` for required variables:
 - `NEXT_PUBLIC_UMAMI_HOST` / `NEXT_PUBLIC_UMAMI_WEBSITE_ID`: Analytics
 - `UMAMI_API_KEY` / `UMAMI_WEBSITE_ID` / `UMAMI_API_HOST`: Report generation
+- `SUPABASE_URL` / `SUPABASE_SECRET_KEY`: "Notify me" signups from the feature teaser (server-only; schema in `supabase/migrations/`)
 
 ## Testing
 

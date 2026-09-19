@@ -104,7 +104,7 @@ Published page: "What leaves your browser, by tier" in EN, zh-Hans, zh-Hant (JA/
 
 Effort: S = days, M = 1–2 weeks, L = 3+ weeks, solo with agents. Each phase ends with a gate registered in `data/ledger.json`; the growth loop returns the verdict. Don't start the next phase on a feeling.
 
-**Reality check on sequencing.** Today's base is ~510 conversions/month; the target in §1 needs ~18,000. Accounts + billing (Phase 2) is 6–8 weeks of work that yields ~1 paying customer/month at today's base. Phases 0a and 1 come first because they grow the base and are themselves the differentiator; Phase 1.5 is a two-day priced probe that decides whether Phase 2 is worth starting. End to end, Phase −1 through Phase 2 is roughly 5–6 months of solo work if every gate passes, with 0b deferred. **Kill criteria:** if the Phase 1.5 probe fails twice, or conversions have not doubled six months after Phase 1 ships, stop the ladder and switch to plan B (§1).
+**Reality check on sequencing.** Today's base is ~510 conversions/month; the target in §1 needs ~18,000. Accounts + billing (Phase 2) is 6–8 weeks of work that yields ~1 paying customer/month at today's base. Phases 0a and 1 come first because they grow the base and are themselves the differentiator; Phase 1.5 is a two-day demand probe (feature teaser, no prices) that decides whether Phase 2 is worth starting. End to end, Phase −1 through Phase 2 is roughly 5–6 months of solo work if every gate passes, with 0b deferred. **Kill criteria:** if the Phase 1.5 probe fails twice, or conversions have not doubled six months after Phase 1 ships, stop the ladder and switch to plan B (§1).
 
 ### Phase −1 — Foundations (new)
 
@@ -163,13 +163,22 @@ Gate: ≥ 30 of 51 pages indexed by Bing and Google within 60 days; conversions/
 
 ### Phase 1.5 — Demand probe (new, gates Phase 2)
 
+**Redesigned 2026-09-19** (built on branch `phase-1.5-feature-teaser`). The owner rejected priced fake doors: a free product that suddenly shows fees reads as a bait-and-switch, and names like "Academic templates" mean nothing to most visitors. The probe now measures interest in named features, split into Premium and Free, with no prices.
+
 | Item | Scope | Effort |
 |---|---|---|
-| Priced fake doors | After a successful conversion, **from a browser's 2nd conversion onward** (a localStorage counter decides; it is never sent): two priced doors, "Save these settings — Plus ¥99/yr · $19/yr" and "Academic templates (APA, GB/T 7714) — ¥9.9", plus "Keep this document" as the unpriced control in the same prompt. First conversions keep today's thumbs prompt. Click opens a one-line "Coming soon — leave your email?" with an optional email field to the first-party feedback endpoint. Events: `signup_prompt_shown`, `signup_intent_clicked` (trigger, priced y/n, price shown), `signup_intent_email`. The probe tests willingness to pay, not curiosity. | S (1–2 days) |
+| Feature teaser | After a successful conversion, **from a browser's 2nd conversion onward, at most once per 7 days** (localStorage counter and timestamp in `src/lib/feature-teaser.ts`; never sent), a one-line teaser replaces the thumbs prompt: "More features are coming soon: back up your work, professionally designed templates, better formatting, and more. *See what's coming*". Once shown, it stays after further conversions in that page session until the visitor dismisses or answers it (people often export a second format right away). Other conversions keep the thumbs prompt. | S |
+| Feature chips | "See what's coming" opens toggle chips in two rows. Premium: back up your work, professionally designed templates, better formatting controls. Free: editable equations in Word, combine AI chats into one document, share as a link. The notify row appears after the first tap: optional email + "Notify me", or "Just count my vote, no email". Component: `src/components/feature-teaser.tsx`; copy in all 10 dictionaries (`featureTeaser`). | S |
+| Notify storage | `POST /api/notify` → Supabase RPC `notify_signup` (table `notify_signups`, one row per lowercase email, features merged on repeat). Server-only secret key; RLS on with no policies. Nothing is emailed at signup. Schema: `supabase/migrations/20260919000000_notify_signups.sql`. Supabase over Resend contacts to avoid vendor lock-in; over Neon because the owner already has an account and the Vercel integration. | S |
+| Anti-spam (invisible) | No mail at signup removes the email-bombing motive. Honeypot field; signups sent < 1.5 s after opening the chips are dropped; features and locale allowlisted; 2 KB body cap; per-IP limit of 10/hour in `src/middleware.ts`; the same `{ok:true}` for stored, duplicate and dropped, so bots learn nothing. No CAPTCHA: Google and Cloudflare challenges are unreliable in mainland China, the largest audience. | S |
+| Privacy | Privacy page (9 locales + `(en)`): Supabase added as the third processor, US region, retention "until the picked features ship or 12 months, whichever comes first". The "no personal information" lines now name the opt-in email exception. | S |
+| ~~Priced fake doors~~ | **Superseded 2026-09-19** by the teaser above. Was: after a successful conversion, **from a browser's 2nd conversion onward** (a localStorage counter decides; it is never sent): two priced doors, "Save these settings — Plus ¥99/yr · $19/yr" and "Academic templates (APA, GB/T 7714) — ¥9.9", plus "Keep this document" as the unpriced control in the same prompt. First conversions keep today's thumbs prompt. Click opens a one-line "Coming soon — leave your email?" with an optional email field to the first-party feedback endpoint. Events: `signup_prompt_shown`, `signup_intent_clicked` (trigger, priced y/n, price shown), `signup_intent_email`. The probe tests willingness to pay, not curiosity. | — |
 | ~~Doc-type chip~~ | **Held (decided 2026-09-12)** pending privacy wording (open item 9). Was: "What kind of document was this?" [AI chat export] [README/docs] [Notes] [Work/school] [Other]. | — |
 | Measure | 4 weeks. | — |
 
-Gate (proposal, set before launch): **priced** `signup_intent_clicked` ≥ 2% of `convert_success`, and ≥ 25 priced clicks/week absolute. The unpriced control is context, not the gate. Below that, stay in Phases 0–1 and re-probe after the next 2× in conversions.
+Owner setup before launch: create the Supabase project (us-east-1, next to the Vercel functions in iad1), connect the Vercel integration (sets `SUPABASE_URL` and `SUPABASE_SECRET_KEY`), run the migration in the SQL editor. The free tier pauses a project after 7 days without requests; add a keep-alive or use Pro before relying on it.
+
+Gate (proposal, confirm before launch): Premium signups with an email (Supabase rows whose `features` include `backup`, `templates` or `formatting`) ≥ 2% of `feature_teaser_shown`, and ≥ 25 Premium picks/week (sum of `feature_interest_backup`, `feature_interest_templates`, `feature_interest_formatting`). Free picks and the `feature_teaser_opened` / `feature_teaser_shown` ratio are context, not the gate. Below that, stay in Phases 0–1 and re-probe after the next 2× in conversions. At the July 2026 base (~130 conversions/week) the absolute bar is out of reach by design: it passes only after Phase 1 grows the base.
 
 ### Phase 2 — Accounts, state, billing
 
@@ -214,7 +223,9 @@ New (apex, same sinks):
 |---|---|---|
 | `convert_success` (+ props) | `source_chatbot`, `has_math`, `has_mermaid`, `has_merged_table` (booleans only) | Fidelity usage, vendor exposure |
 | `doc_type_chip` | type | Doc-type mix; PT-007 demand |
-| `signup_prompt_shown` / `signup_intent_clicked` / `signup_intent_email` | trigger (post-conversion, settings, template, share), priced (y/n), price_shown | Phase 1.5 gate |
+| `feature_teaser_shown` / `feature_teaser_opened` | shown: trigger (post_conversion), locale | Phase 1.5 reach |
+| `feature_interest_<key>` (one event per picked feature: backup, templates, formatting, equations, merge, share) | — | Phase 1.5 gate (Premium keys) |
+| `feature_interest_submitted` | picks, premium_picks, with_email (yes/no); never the address | Phase 1.5 context |
 
 New (app, PostHog via first-party proxy; nothing app-side goes to Umami/Vercel):
 

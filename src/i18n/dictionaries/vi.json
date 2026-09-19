@@ -179,5 +179,34 @@
     "submit": "Gửi",
     "skip": "Bỏ qua",
     "thankYou": "Cảm ơn phản hồi của bạn"
+  },
+  "featureTeaser": {
+    "teaser": "Sắp có thêm tính năng: sao lưu tài liệu, mẫu thiết kế chuyên nghiệp, định dạng tốt hơn và nhiều hơn nữa.",
+    "seeMore": "Xem sắp có gì",
+    "title": "Bạn sẽ dùng tính năng nào?",
+    "lead": "Chạm vào những tính năng bạn sẽ dùng.",
+    "premium": "Premium",
+    "free": "Miễn phí",
+    "notifyLead": "Chúng tôi sẽ báo cho bạn khi sẵn sàng.",
+    "emailPlaceholder": "ban@vidu.com",
+    "notify": "Báo cho tôi",
+    "vote": "Chỉ tính phiếu của tôi, không cần email",
+    "fine": "Mỗi tính năng một email khi sẵn sàng. Không cần tài khoản, không quảng cáo.",
+    "errPick": "Hãy chọn ít nhất một tính năng.",
+    "errEmpty": "Nhập email để nhận thông báo, hoặc chỉ tính phiếu của bạn.",
+    "errBad": "Kiểm tra lại địa chỉ email.",
+    "errSave": "Không lưu được. Hãy thử lại.",
+    "thanksMail": "Cảm ơn. Chúng tôi sẽ gửi email khi các tính năng bạn chọn sẵn sàng.",
+    "thanksVote": "Cảm ơn. Phiếu của bạn đã được ghi nhận.",
+    "dismiss": "Đóng",
+    "sending": "Đang gửi…",
+    "features": {
+      "backup": "Sao lưu tài liệu của bạn",
+      "templates": "Mẫu thiết kế chuyên nghiệp",
+      "formatting": "Tùy chỉnh định dạng tốt hơn",
+      "equations": "Công thức chỉnh sửa được trong Word",
+      "merge": "Gộp các cuộc trò chuyện AI thành một tài liệu",
+      "share": "Chia sẻ bằng liên kết"
+    }
   }
 }

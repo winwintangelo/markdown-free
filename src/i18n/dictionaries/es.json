@@ -183,5 +183,34 @@
     "submit": "Enviar",
     "skip": "Omitir",
     "thankYou": "Gracias por tu opinión"
+  },
+  "featureTeaser": {
+    "teaser": "Pronto habrá más funciones: copia de seguridad de tu trabajo, plantillas de diseño profesional, mejor formato y más.",
+    "seeMore": "Ver qué viene",
+    "title": "¿Cuáles de estas usarías?",
+    "lead": "Toca las que usarías.",
+    "premium": "Premium",
+    "free": "Gratis",
+    "notifyLead": "Te avisaremos cuando estén listas.",
+    "emailPlaceholder": "tu@ejemplo.com",
+    "notify": "Avísame",
+    "vote": "Solo cuenta mi voto, sin email",
+    "fine": "Un email por función cuando esté lista. Sin cuenta, sin publicidad.",
+    "errPick": "Selecciona al menos una función.",
+    "errEmpty": "Escribe tu email para avisarte, o solo cuenta tu voto.",
+    "errBad": "Revisa la dirección de email.",
+    "errSave": "No se pudo guardar. Inténtalo de nuevo.",
+    "thanksMail": "Gracias. Te escribiremos cuando tus elegidas estén listas.",
+    "thanksVote": "Gracias. Tu voto quedó registrado.",
+    "dismiss": "Cerrar",
+    "sending": "Enviando…",
+    "features": {
+      "backup": "Copia de seguridad de tu trabajo",
+      "templates": "Plantillas de diseño profesional",
+      "formatting": "Mejores controles de formato",
+      "equations": "Ecuaciones editables en Word",
+      "merge": "Unir chats de IA en un documento",
+      "share": "Compartir como enlace"
+    }
   }
 }

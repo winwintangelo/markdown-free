@@ -83,7 +83,7 @@ const content: Partial<Record<Locale, {
     shortVersion: {
       title: "The short version",
       items: [
-        { title: "No accounts", text: "We don't collect any personal information" },
+        { title: "No accounts", text: "We collect no personal information, except an email address you choose to leave to hear about new features" },
         { title: "No tracking cookies", text: "We don't use cookies or track your content" },
         { title: "No storage", text: "Your files are never stored on our servers" },
         { title: "HTTPS only", text: "All connections are encrypted" }
@@ -109,7 +109,7 @@ const content: Partial<Record<Locale, {
     noCollect: {
       title: "Data we don't collect",
       items: [
-        "Personal information (names, emails, accounts)",
+        "Personal information (names, accounts)",
         "Document content or file contents",
         "File names or metadata",
         "Your IP address in logs",
@@ -130,14 +130,14 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Third parties",
-      text: "We do not share your documents with anyone. Two service providers process limited data on our behalf: Umami Cloud (cookieless analytics — aggregate counts only, never your content) and Resend (delivers feedback messages to our inbox). The PDF generation runs on our own serverless infrastructure (Vercel). No external service sees your content."
+      text: "We do not share your documents with anyone. Three service providers process limited data on our behalf: Umami Cloud (cookieless analytics — aggregate counts only, never your content), Resend (delivers feedback messages to our inbox) and Supabase (stores the email address you leave to hear about upcoming features, with the features you picked, in the United States; we delete it once those features have shipped or after 12 months, whichever comes first). The PDF generation runs on our own serverless infrastructure (Vercel). No external service sees your content."
     },
     security: {
       title: "Security",
       items: [
         { title: "HTTPS everywhere", text: "All traffic is encrypted" },
         { title: "XSS protection", text: "User content is sanitized before rendering" },
-        { title: "No persistent storage", text: "Nothing to breach" }
+        { title: "No document storage", text: "Your documents are never stored, so there are none to breach" }
       ]
     },
     changes: {
@@ -156,7 +156,7 @@ const content: Partial<Record<Locale, {
     shortVersion: {
       title: "In breve",
       items: [
-        { title: "Nessun account", text: "Non raccogliamo alcuna informazione personale" },
+        { title: "Nessun account", text: "Non raccogliamo informazioni personali, salvo l'email che scegli di lasciare per sapere delle nuove funzioni" },
         { title: "Nessun cookie di tracciamento", text: "Non utilizziamo cookie e non tracciamo i tuoi contenuti" },
         { title: "Nessun salvataggio", text: "I tuoi file non vengono mai salvati sui nostri server" },
         { title: "Solo HTTPS", text: "Tutte le connessioni sono crittografate" }
@@ -182,7 +182,7 @@ const content: Partial<Record<Locale, {
     noCollect: {
       title: "Dati che non raccogliamo",
       items: [
-        "Informazioni personali (nomi, email, account)",
+        "Informazioni personali (nomi, account)",
         "Contenuto dei documenti o dei file",
         "Nomi dei file o metadati",
         "Il tuo indirizzo IP nei log",
@@ -203,14 +203,14 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Terze parti",
-      text: "Non condividiamo i tuoi documenti con nessuno. Due fornitori trattano dati limitati per nostro conto: Umami Cloud (analytics senza cookie — solo conteggi aggregati, mai i tuoi contenuti) e Resend (recapita i messaggi di feedback alla nostra casella). La generazione PDF avviene sulla nostra infrastruttura serverless (Vercel). Nessun servizio esterno vede i tuoi contenuti."
+      text: "Non condividiamo i tuoi documenti con nessuno. Tre fornitori trattano dati limitati per nostro conto: Umami Cloud (analytics senza cookie — solo conteggi aggregati, mai i tuoi contenuti), Resend (recapita i messaggi di feedback alla nostra casella) e Supabase (conserva negli Stati Uniti l'email che lasci per sapere delle nuove funzioni, insieme alle funzioni scelte; la cancelliamo quando quelle funzioni sono disponibili o dopo 12 mesi, se prima). La generazione PDF avviene sulla nostra infrastruttura serverless (Vercel). Nessun servizio esterno vede i tuoi contenuti."
     },
     security: {
       title: "Sicurezza",
       items: [
         { title: "HTTPS ovunque", text: "Tutto il traffico è crittografato" },
         { title: "Protezione XSS", text: "Il contenuto utente viene sanificato prima del rendering" },
-        { title: "Nessun salvataggio persistente", text: "Nulla da violare" }
+        { title: "Nessun salvataggio dei documenti", text: "I tuoi documenti non vengono mai salvati, quindi non c'è nulla da violare" }
       ]
     },
     changes: {
@@ -229,7 +229,7 @@ const content: Partial<Record<Locale, {
     shortVersion: {
       title: "La versión corta",
       items: [
-        { title: "Sin cuentas", text: "No recopilamos información personal" },
+        { title: "Sin cuentas", text: "No recopilamos información personal, salvo el email que decidas dejar para saber de nuevas funciones" },
         { title: "Sin cookies de rastreo", text: "No usamos cookies ni rastreamos tu contenido" },
         { title: "Sin almacenamiento", text: "Tus archivos nunca se guardan en nuestros servidores" },
         { title: "Solo HTTPS", text: "Todas las conexiones están encriptadas" }
@@ -255,7 +255,7 @@ const content: Partial<Record<Locale, {
     noCollect: {
       title: "Datos que no recopilamos",
       items: [
-        "Información personal (nombres, emails, cuentas)",
+        "Información personal (nombres, cuentas)",
         "Contenido de documentos o archivos",
         "Nombres de archivos o metadatos",
         "Tu dirección IP en registros",
@@ -276,14 +276,14 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Terceros",
-      text: "No compartimos tus documentos con nadie. Dos proveedores tratan datos limitados en nuestro nombre: Umami Cloud (analítica sin cookies — solo recuentos agregados, nunca tu contenido) y Resend (entrega los mensajes de comentarios a nuestra bandeja de entrada). La generación de PDF se ejecuta en nuestra propia infraestructura serverless (Vercel). Ningún servicio externo ve tu contenido."
+      text: "No compartimos tus documentos con nadie. Tres proveedores tratan datos limitados en nuestro nombre: Umami Cloud (analítica sin cookies — solo recuentos agregados, nunca tu contenido), Resend (entrega los mensajes de comentarios a nuestra bandeja de entrada) y Supabase (guarda en Estados Unidos el email que dejas para saber de nuevas funciones, junto con las funciones elegidas; lo borramos cuando esas funciones estén disponibles o a los 12 meses, lo que ocurra primero). La generación de PDF se ejecuta en nuestra propia infraestructura serverless (Vercel). Ningún servicio externo ve tu contenido."
     },
     security: {
       title: "Seguridad",
       items: [
         { title: "HTTPS en todas partes", text: "Todo el tráfico está encriptado" },
         { title: "Protección XSS", text: "El contenido del usuario se sanea antes de renderizar" },
-        { title: "Sin almacenamiento persistente", text: "Nada que vulnerar" }
+        { title: "Sin almacenamiento de documentos", text: "Tus documentos nunca se guardan, así que no hay nada que vulnerar" }
       ]
     },
     changes: {
@@ -302,7 +302,7 @@ const content: Partial<Record<Locale, {
     shortVersion: {
       title: "概要",
       items: [
-        { title: "アカウント不要", text: "個人情報を収集しません" },
+        { title: "アカウント不要", text: "個人情報を収集しません（新機能のお知らせ用にご自身で入力されたメールアドレスを除く）" },
         { title: "トラッキングCookieなし", text: "Cookieを使用せず、コンテンツを追跡しません" },
         { title: "保存なし", text: "ファイルはサーバーに保存されません" },
         { title: "HTTPSのみ", text: "すべての接続は暗号化されています" }
@@ -328,7 +328,7 @@ const content: Partial<Record<Locale, {
     noCollect: {
       title: "収集しないデータ",
       items: [
-        "個人情報（名前、メール、アカウント）",
+        "個人情報（名前、アカウント）",
         "ドキュメントやファイルの内容",
         "ファイル名やメタデータ",
         "ログ内のIPアドレス",
@@ -349,14 +349,14 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "第三者",
-      text: "お客様のドキュメントを第三者と共有することはありません。当社に代わって限定的なデータを処理するサービスが2つあります。Umami Cloud（Cookie不使用のアクセス解析。集計された件数のみで、コンテンツは含まれません）と Resend（フィードバックのメッセージを当社の受信箱に届けます）です。PDF生成は自社のサーバーレスインフラ（Vercel）で実行されます。外部サービスがコンテンツを見ることはありません。"
+      text: "お客様のドキュメントを第三者と共有することはありません。当社に代わって限定的なデータを処理するサービスが3つあります。Umami Cloud（Cookie不使用のアクセス解析。集計された件数のみで、コンテンツは含まれません）、Resend（フィードバックのメッセージを当社の受信箱に届けます）、Supabase（新機能のお知らせ用に入力されたメールアドレスと選んだ機能を米国で保管します。該当機能のリリース後、または12か月後のいずれか早い時点で削除します）です。PDF生成は自社のサーバーレスインフラ（Vercel）で実行されます。外部サービスがコンテンツを見ることはありません。"
     },
     security: {
       title: "セキュリティ",
       items: [
         { title: "完全HTTPS", text: "すべてのトラフィックは暗号化" },
         { title: "XSS対策", text: "レンダリング前にユーザーコンテンツをサニタイズ" },
-        { title: "永続的保存なし", text: "漏洩するものがない" }
+        { title: "ドキュメントを保存しない", text: "ドキュメントは一切保存しないため、漏洩するものがない" }
       ]
     },
     changes: {
@@ -375,7 +375,7 @@ const content: Partial<Record<Locale, {
     shortVersion: {
       title: "요약",
       items: [
-        { title: "계정 불필요", text: "개인정보를 수집하지 않습니다" },
+        { title: "계정 불필요", text: "개인정보를 수집하지 않습니다(새 기능 알림을 위해 직접 남긴 이메일 제외)" },
         { title: "추적 쿠키 없음", text: "쿠키를 사용하지 않으며 콘텐츠를 추적하지 않습니다" },
         { title: "저장 안 함", text: "파일이 서버에 저장되지 않습니다" },
         { title: "HTTPS만 사용", text: "모든 연결이 암호화됩니다" }
@@ -401,7 +401,7 @@ const content: Partial<Record<Locale, {
     noCollect: {
       title: "수집하지 않는 데이터",
       items: [
-        "개인정보 (이름, 이메일, 계정)",
+        "개인정보 (이름, 계정)",
         "문서 또는 파일 내용",
         "파일명 또는 메타데이터",
         "로그의 IP 주소",
@@ -422,14 +422,14 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "제3자",
-      text: "귀하의 문서를 누구와도 공유하지 않습니다. 두 서비스 제공업체가 당사를 대신해 제한된 데이터를 처리합니다. Umami Cloud(쿠키 없는 분석 — 집계된 수치만, 콘텐츠는 절대 포함되지 않음)와 Resend(피드백 메시지를 당사 받은편지함으로 전달)입니다. PDF 생성은 자체 서버리스 인프라(Vercel)에서 실행됩니다. 외부 서비스가 콘텐츠를 볼 수 없습니다."
+      text: "귀하의 문서를 누구와도 공유하지 않습니다. 세 서비스 제공업체가 당사를 대신해 제한된 데이터를 처리합니다. Umami Cloud(쿠키 없는 분석 — 집계된 수치만, 콘텐츠는 절대 포함되지 않음), Resend(피드백 메시지를 당사 받은편지함으로 전달), Supabase(새 기능 알림을 위해 남긴 이메일과 선택한 기능을 미국에 보관하며, 해당 기능 출시 후 또는 12개월 후 중 먼저 오는 시점에 삭제)입니다. PDF 생성은 자체 서버리스 인프라(Vercel)에서 실행됩니다. 외부 서비스가 콘텐츠를 볼 수 없습니다."
     },
     security: {
       title: "보안",
       items: [
         { title: "전체 HTTPS", text: "모든 트래픽이 암호화됨" },
         { title: "XSS 보호", text: "렌더링 전에 사용자 콘텐츠를 살균" },
-        { title: "영구 저장 없음", text: "유출될 것이 없음" }
+        { title: "문서 저장 없음", text: "문서를 저장하지 않으므로 유출될 것이 없음" }
       ]
     },
     changes: {
@@ -448,7 +448,7 @@ const content: Partial<Record<Locale, {
     shortVersion: {
       title: "简要版本",
       items: [
-        { title: "无需账户", text: "我们不收集任何个人信息" },
+        { title: "无需账户", text: "我们不收集任何个人信息（您为接收新功能通知而主动留下的邮箱除外）" },
         { title: "无跟踪 Cookie", text: "我们不使用 Cookie，不跟踪您的内容" },
         { title: "不存储", text: "您的文件从不存储在我们的服务器上" },
         { title: "仅 HTTPS", text: "所有连接都经过加密" }
@@ -474,7 +474,7 @@ const content: Partial<Record<Locale, {
     noCollect: {
       title: "我们不收集的数据",
       items: [
-        "个人信息（姓名、邮箱、账户）",
+        "个人信息（姓名、账户）",
         "文档或文件内容",
         "文件名或元数据",
         "日志中的 IP 地址",
@@ -495,14 +495,14 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "第三方",
-      text: "我们不会与任何人共享您的文档。有两家服务提供商代表我们处理有限的数据：Umami Cloud（无 Cookie 的统计分析，仅汇总计数，绝不涉及您的内容）和 Resend（将反馈留言投递到我们的收件箱）。PDF 生成在我们自己的无服务器基础设施（Vercel）上运行。没有外部服务会看到您的内容。"
+      text: "我们不会与任何人共享您的文档。有三家服务提供商代表我们处理有限的数据：Umami Cloud（无 Cookie 的统计分析，仅汇总计数，绝不涉及您的内容）、Resend（将反馈留言投递到我们的收件箱）和 Supabase（在美国保存您为接收新功能通知而留下的邮箱及所选功能；相关功能上线后或满 12 个月时删除，以先到者为准）。PDF 生成在我们自己的无服务器基础设施（Vercel）上运行。没有外部服务会看到您的内容。"
     },
     security: {
       title: "安全",
       items: [
         { title: "全程 HTTPS", text: "所有流量都经过加密" },
         { title: "XSS 防护", text: "用户内容在渲染前会被净化" },
-        { title: "无持久存储", text: "没有可泄露的内容" }
+        { title: "不存储文档", text: "您的文档从不存储，没有可泄露的内容" }
       ]
     },
     changes: {
@@ -521,7 +521,7 @@ const content: Partial<Record<Locale, {
     shortVersion: {
       title: "簡要版本",
       items: [
-        { title: "無需帳戶", text: "我們不收集任何個人資訊" },
+        { title: "無需帳戶", text: "我們不收集任何個人資訊（您為接收新功能通知而主動留下的電子郵件除外）" },
         { title: "無追蹤 Cookie", text: "我們不使用 Cookie，不追蹤您的內容" },
         { title: "不儲存", text: "您的檔案從不儲存在我們的伺服器上" },
         { title: "僅 HTTPS", text: "所有連線都經過加密" }
@@ -547,7 +547,7 @@ const content: Partial<Record<Locale, {
     noCollect: {
       title: "我們不收集的資料",
       items: [
-        "個人資訊（姓名、電子郵件、帳戶）",
+        "個人資訊（姓名、帳戶）",
         "文件或檔案內容",
         "檔案名稱或中繼資料",
         "日誌中的 IP 位址",
@@ -568,14 +568,14 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "第三方",
-      text: "我們不會與任何人共用您的文件。有兩家服務供應商代表我們處理有限的資料：Umami Cloud（無 Cookie 的統計分析，僅彙總計數，絕不涉及您的內容）和 Resend（將意見回饋留言投遞到我們的收件匣）。PDF 生成在我們自己的無伺服器基礎架構（Vercel）上執行。沒有外部服務會看到您的內容。"
+      text: "我們不會與任何人共用您的文件。有三家服務供應商代表我們處理有限的資料：Umami Cloud（無 Cookie 的統計分析，僅彙總計數，絕不涉及您的內容）、Resend（將意見回饋留言投遞到我們的收件匣）和 Supabase（在美國保存您為接收新功能通知而留下的電子郵件及所選功能；相關功能上線後或滿 12 個月時刪除，以先到者為準）。PDF 生成在我們自己的無伺服器基礎架構（Vercel）上執行。沒有外部服務會看到您的內容。"
     },
     security: {
       title: "安全",
       items: [
         { title: "全程 HTTPS", text: "所有流量都經過加密" },
         { title: "XSS 防護", text: "使用者內容在渲染前會被淨化" },
-        { title: "無持久儲存", text: "沒有可洩漏的內容" }
+        { title: "不儲存文件", text: "您的文件從不儲存，沒有可洩漏的內容" }
       ]
     },
     changes: {
@@ -594,7 +594,7 @@ const content: Partial<Record<Locale, {
     shortVersion: {
       title: "Versi singkat",
       items: [
-        { title: "Tanpa akun", text: "Kami tidak mengumpulkan informasi pribadi apa pun" },
+        { title: "Tanpa akun", text: "Kami tidak mengumpulkan informasi pribadi apa pun, kecuali email yang Anda pilih untuk ditinggalkan agar mendapat kabar fitur baru" },
         { title: "Tanpa cookie pelacakan", text: "Kami tidak menggunakan cookie atau melacak konten Anda" },
         { title: "Tanpa penyimpanan", text: "File Anda tidak pernah disimpan di server kami" },
         { title: "Hanya HTTPS", text: "Semua koneksi terenkripsi" }
@@ -620,7 +620,7 @@ const content: Partial<Record<Locale, {
     noCollect: {
       title: "Data yang tidak kami kumpulkan",
       items: [
-        "Informasi pribadi (nama, email, akun)",
+        "Informasi pribadi (nama, akun)",
         "Konten dokumen atau file",
         "Nama file atau metadata",
         "Alamat IP Anda dalam log",
@@ -641,14 +641,14 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Pihak ketiga",
-      text: "Kami tidak membagikan dokumen Anda kepada siapa pun. Dua penyedia layanan memproses data terbatas atas nama kami: Umami Cloud (analitik tanpa cookie — hanya hitungan agregat, tidak pernah konten Anda) dan Resend (mengirimkan pesan masukan ke kotak masuk kami). Pembuatan PDF berjalan di infrastruktur serverless kami sendiri (Vercel). Tidak ada layanan eksternal yang melihat konten Anda."
+      text: "Kami tidak membagikan dokumen Anda kepada siapa pun. Tiga penyedia layanan memproses data terbatas atas nama kami: Umami Cloud (analitik tanpa cookie — hanya hitungan agregat, tidak pernah konten Anda), Resend (mengirimkan pesan masukan ke kotak masuk kami), dan Supabase (menyimpan di Amerika Serikat email yang Anda tinggalkan untuk kabar fitur baru beserta fitur yang Anda pilih; kami menghapusnya setelah fitur tersebut dirilis atau setelah 12 bulan, mana yang lebih dulu). Pembuatan PDF berjalan di infrastruktur serverless kami sendiri (Vercel). Tidak ada layanan eksternal yang melihat konten Anda."
     },
     security: {
       title: "Keamanan",
       items: [
         { title: "HTTPS di mana-mana", text: "Semua lalu lintas terenkripsi" },
         { title: "Perlindungan XSS", text: "Konten pengguna dibersihkan sebelum dirender" },
-        { title: "Tanpa penyimpanan permanen", text: "Tidak ada yang bisa diretas" }
+        { title: "Tanpa penyimpanan dokumen", text: "Dokumen Anda tidak pernah disimpan, jadi tidak ada yang bisa diretas" }
       ]
     },
     changes: {
@@ -667,7 +667,7 @@ const content: Partial<Record<Locale, {
     shortVersion: {
       title: "Phiên bản ngắn gọn",
       items: [
-        { title: "Không cần tài khoản", text: "Chúng tôi không thu thập bất kỳ thông tin cá nhân nào" },
+        { title: "Không cần tài khoản", text: "Chúng tôi không thu thập bất kỳ thông tin cá nhân nào, trừ email bạn chủ động để lại để nhận tin về tính năng mới" },
         { title: "Không có cookie theo dõi", text: "Chúng tôi không sử dụng cookie hoặc theo dõi nội dung của bạn" },
         { title: "Không lưu trữ", text: "Tệp của bạn không bao giờ được lưu trữ trên máy chủ của chúng tôi" },
         { title: "Chỉ HTTPS", text: "Tất cả kết nối đều được mã hóa" }
@@ -693,7 +693,7 @@ const content: Partial<Record<Locale, {
     noCollect: {
       title: "Dữ liệu chúng tôi không thu thập",
       items: [
-        "Thông tin cá nhân (tên, email, tài khoản)",
+        "Thông tin cá nhân (tên, tài khoản)",
         "Nội dung tài liệu hoặc tệp",
         "Tên tệp hoặc siêu dữ liệu",
         "Địa chỉ IP của bạn trong nhật ký",
@@ -714,14 +714,14 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Bên thứ ba",
-      text: "Chúng tôi không chia sẻ tài liệu của bạn với bất kỳ ai. Hai nhà cung cấp dịch vụ xử lý dữ liệu hạn chế thay mặt chúng tôi: Umami Cloud (phân tích không dùng cookie — chỉ số liệu tổng hợp, không bao giờ là nội dung của bạn) và Resend (chuyển tin nhắn góp ý đến hộp thư của chúng tôi). Việc tạo PDF chạy trên cơ sở hạ tầng serverless của chúng tôi (Vercel). Không có dịch vụ bên ngoài nào nhìn thấy nội dung của bạn."
+      text: "Chúng tôi không chia sẻ tài liệu của bạn với bất kỳ ai. Ba nhà cung cấp dịch vụ xử lý dữ liệu hạn chế thay mặt chúng tôi: Umami Cloud (phân tích không dùng cookie — chỉ số liệu tổng hợp, không bao giờ là nội dung của bạn), Resend (chuyển tin nhắn góp ý đến hộp thư của chúng tôi) và Supabase (lưu tại Hoa Kỳ email bạn để lại để nhận tin về tính năng mới cùng các tính năng bạn chọn; chúng tôi xóa email khi các tính năng đó ra mắt hoặc sau 12 tháng, tùy điều kiện nào đến trước). Việc tạo PDF chạy trên cơ sở hạ tầng serverless của chúng tôi (Vercel). Không có dịch vụ bên ngoài nào nhìn thấy nội dung của bạn."
     },
     security: {
       title: "Bảo mật",
       items: [
         { title: "HTTPS toàn bộ", text: "Tất cả lưu lượng đều được mã hóa" },
         { title: "Bảo vệ XSS", text: "Nội dung người dùng được làm sạch trước khi hiển thị" },
-        { title: "Không lưu trữ vĩnh viễn", text: "Không có gì để rò rỉ" }
+        { title: "Không lưu trữ tài liệu", text: "Tài liệu của bạn không bao giờ được lưu, nên không có gì để rò rỉ" }
       ]
     },
     changes: {

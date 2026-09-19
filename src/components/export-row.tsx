@@ -17,6 +17,7 @@ import { getPdfPreferences } from "@/lib/export-pdf";
 import { markdownToHtml } from "@/lib/markdown";
 import { prepareMarkdown } from "@/lib/prepare-markdown";
 import { ensureKatexStylesheet, getKatexCssForHtmlExport, htmlHasMath } from "@/lib/katex-assets";
+import { recordConversion, type PostConvertPrompt } from "@/lib/feature-teaser";
 import {
   trackConvertSuccess,
   trackConvertError,
@@ -25,6 +26,7 @@ import {
   trackExportTriggerUpload,
   trackLocaleConversion,
   trackShareFile,
+  trackFeatureTeaserShown,
   type ExportFormat as AnalyticsExportFormat,
   type UploadSource,
   type SupportedLocale,
@@ -32,6 +34,7 @@ import {
 } from "@/lib/analytics";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 import { PostConvertFeedback } from "./post-convert-feedback";
+import { FeatureTeaser } from "./feature-teaser";
 import { ImageExportPanel, type ImageExportPanelHandle } from "./image-export-panel";
 import type { Locale, Dictionary } from "@/i18n";
 
@@ -98,6 +101,10 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   const [renderedHtml, setRenderedHtml] = useState<string>("");
   const [uploadHint, setUploadHint] = useState<string | null>(null);
   const [lastSuccessFormat, setLastSuccessFormat] = useState<ExportFormat | null>(null);
+  // Which prompt follows the latest success (the Phase 1.5 teaser or the thumbs
+  // prompt), and a counter that remounts it so every success gets a fresh one
+  const [postConvertPrompt, setPostConvertPrompt] = useState<PostConvertPrompt>("thumbs");
+  const [successSeq, setSuccessSeq] = useState(0);
   const [loadingShareFormat, setLoadingShareFormat] = useState<"pdf" | "docx" | null>(null);
   const [pendingShare, setPendingShare] = useState<{
     blob: Blob;
@@ -190,6 +197,27 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       has_mermaid: docFactsRef.current.hasMermaid ? "yes" : "no",
     }),
     [state.content]
+  );
+
+  // True from the moment the Phase 1.5 teaser is shown until the visitor
+  // dismisses or answers it. People often export a second format right away;
+  // the teaser must not give way to the thumbs prompt then.
+  const teaserPendingRef = useRef(false);
+
+  // Every successful conversion goes through here. It counts the conversion in
+  // this browser (localStorage, never sent) and decides whether the Phase 1.5
+  // teaser or the thumbs prompt follows it.
+  const markSuccess = useCallback(
+    (format: ExportFormat) => {
+      if (recordConversion() === "teaser") {
+        trackFeatureTeaserShown(locale);
+        teaserPendingRef.current = true;
+      }
+      setPostConvertPrompt(teaserPendingRef.current ? "teaser" : "thumbs");
+      setSuccessSeq((n) => n + 1);
+      setLastSuccessFormat(format);
+    },
+    [locale]
   );
 
   // Pre-render HTML when content changes (for HTML / image / Excel export).
@@ -348,14 +376,14 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           exportTxt(state.content.content, state.content.filename);
           trackConvertSuccess(format as AnalyticsExportFormat, source, analyticsExtras());
           trackLocaleConversion(locale as SupportedLocale, format);
-          setLastSuccessFormat(format);
+          markSuccess(format);
         } else if (format === "html") {
           const html = renderedHtml || (await renderPrepared(state.content.content));
           const extraCss = htmlHasMath(html) ? await getKatexCssForHtmlExport() : "";
           exportHtml(html, state.content.filename, { extraCss });
           trackConvertSuccess(format as AnalyticsExportFormat, source, analyticsExtras());
           trackLocaleConversion(locale as SupportedLocale, format);
-          setLastSuccessFormat(format);
+          markSuccess(format);
         } else if (format === "pdf") {
           // Create abort controller for PDF request
           abortControllerRef.current = new AbortController();
@@ -371,7 +399,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           if (result.success) {
             trackConvertSuccess(format as AnalyticsExportFormat, source, analyticsExtras());
             trackLocaleConversion(locale as SupportedLocale, format);
-            setLastSuccessFormat(format);
+            markSuccess(format);
           } else if (result.error) {
             trackConvertError(format as AnalyticsExportFormat, mapErrorCode(result.error.code));
             setError({
@@ -395,7 +423,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           if (result.success) {
             trackConvertSuccess(format as AnalyticsExportFormat, source, analyticsExtras());
             trackLocaleConversion(locale as SupportedLocale, format);
-            setLastSuccessFormat(format);
+            markSuccess(format);
           } else if (result.error) {
             trackConvertError(format as AnalyticsExportFormat, mapErrorCode(result.error.code));
             setError({
@@ -419,7 +447,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           if (result.success) {
             trackConvertSuccess(format as AnalyticsExportFormat, source, analyticsExtras());
             trackLocaleConversion(locale as SupportedLocale, format);
-            setLastSuccessFormat(format);
+            markSuccess(format);
           } else if (result.error) {
             trackConvertError(format as AnalyticsExportFormat, mapErrorCode(result.error.code));
             setError({
@@ -439,7 +467,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
               tables: String(result.tables),
             });
             trackLocaleConversion(locale as SupportedLocale, format);
-            setLastSuccessFormat(format);
+            markSuccess(format);
           } else if (result.error) {
             if (result.error.code !== "NO_TABLES") {
               trackConvertError(format as AnalyticsExportFormat, "unknown");
@@ -469,7 +497,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         abortControllerRef.current = null;
       }
     },
-    [state.content, renderedHtml, dict.errors.pdfError, dict.export.selectFileHint, dict.export.uploadOrPaste, locale, triggerFileUpload, mapErrorCode]
+    [state.content, renderedHtml, dict.errors.pdfError, dict.export.selectFileHint, dict.export.uploadOrPaste, locale, triggerFileUpload, mapErrorCode, markSuccess]
   );
 
   // Share handler: instant share from cache, or fallback to two-step flow
@@ -498,7 +526,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           await navigator.share({ files: [file] });
           trackShareFile(format as AnalyticsExportFormat, source);
           trackLocaleConversion(locale as SupportedLocale, format);
-          setLastSuccessFormat(format);
+          markSuccess(format);
           return;
         } catch (err) {
           if (err instanceof Error && err.name === "AbortError") return; // user cancelled
@@ -506,7 +534,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           downloadBlob(cached.blob, cached.filename);
           trackConvertSuccess(format as AnalyticsExportFormat, source, analyticsExtras());
           trackLocaleConversion(locale as SupportedLocale, format);
-          setLastSuccessFormat(format);
+          markSuccess(format);
           return;
         }
       }
@@ -557,7 +585,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         abortControllerRef.current = null;
       }
     },
-    [state.content, dict.errors.pdfError, dict.export.selectFileHint, dict.export.uploadOrPaste, triggerFileUpload, mapErrorCode]
+    [state.content, dict.errors.pdfError, dict.export.selectFileHint, dict.export.uploadOrPaste, triggerFileUpload, mapErrorCode, markSuccess]
   );
 
   // Step 2: User taps "Tap to share" — triggers navigator.share() with fresh activation
@@ -577,7 +605,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         await navigator.share({ files: [file] });
         trackShareFile(pendingShare.format as AnalyticsExportFormat, source);
         trackLocaleConversion(locale as SupportedLocale, pendingShare.format);
-        setLastSuccessFormat(pendingShare.format);
+        markSuccess(pendingShare.format);
       } catch (err) {
         if (err instanceof Error && err.name === "AbortError") {
           // User cancelled — do nothing
@@ -586,13 +614,13 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           downloadBlob(pendingShare.blob, pendingShare.filename);
           trackConvertSuccess(pendingShare.format as AnalyticsExportFormat, source);
           trackLocaleConversion(locale as SupportedLocale, pendingShare.format);
-          setLastSuccessFormat(pendingShare.format);
+          markSuccess(pendingShare.format);
         }
       } finally {
         setPendingShare(null);
       }
     },
-    [pendingShare, state.content, locale]
+    [pendingShare, state.content, locale, markSuccess]
   );
 
   // Clear pending share when content changes
@@ -640,8 +668,8 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   }, [handleExport]);
 
   const handleImageSuccess = useCallback((format: ImageFormat) => {
-    setLastSuccessFormat(format);
-  }, []);
+    markSuccess(format);
+  }, [markSuccess]);
 
   // Share icon SVG for mobile buttons
   const ShareIcon = () => (
@@ -1051,10 +1079,24 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         </p>
       )}
 
-      {/* Post-conversion feedback prompt */}
-      {lastSuccessFormat && dict.postConvertFeedback && (
+      {/* Post-conversion prompt: the Phase 1.5 teaser, or the thumbs feedback */}
+      {lastSuccessFormat && postConvertPrompt === "teaser" && dict.featureTeaser && (
+        <FeatureTeaser
+          key={`teaser-${successSeq}`}
+          dict={dict}
+          locale={locale}
+          onAnswered={() => {
+            teaserPendingRef.current = false;
+          }}
+          onDismiss={() => {
+            teaserPendingRef.current = false;
+            setLastSuccessFormat(null);
+          }}
+        />
+      )}
+      {lastSuccessFormat && postConvertPrompt === "thumbs" && dict.postConvertFeedback && (
         <PostConvertFeedback
-          key={lastSuccessFormat}
+          key={`${lastSuccessFormat}-${successSeq}`}
           format={lastSuccessFormat}
           dict={dict}
           onDismiss={() => setLastSuccessFormat(null)}

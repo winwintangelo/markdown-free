@@ -2410,6 +2410,11 @@ test.describe("Markdown Free - Post-Convert Feedback", () => {
     // First widget appears
     await expect(page.getByText(/How's your experience/i)).toBeVisible();
 
+    // A browser's 2nd conversion is the Phase 1.5 teaser's slot
+    // (e2e/feature-teaser.spec.ts). Mark a teaser as just shown, so the
+    // 7-day cooldown keeps the thumbs prompt here.
+    await page.evaluate(() => localStorage.setItem("mdfree:teaser-shown-at", String(Date.now())));
+
     // Do another export
     const downloadPromise2 = page.waitForEvent("download");
     await openMoreFormats(page);

@@ -66,6 +66,14 @@ const FEEDBACK_RATE_LIMIT = {
   maxRequests: STRICT_LIMITS ? 10 : 100,
 };
 
+// "Notify me" signups (Phase 1.5 teaser): a person signs up once, maybe twice.
+// An hourly budget caps list-stuffing from one address; 10 leaves room for
+// networks where many people share one IP.
+const NOTIFY_RATE_LIMIT = {
+  windowMs: 60 * 60 * 1000,
+  maxRequests: STRICT_LIMITS ? 10 : 200,
+};
+
 // Allowed origins for API requests
 const ALLOWED_ORIGINS = [
   "https://www.markdown.free",
@@ -307,6 +315,27 @@ export function middleware(request: NextRequest) {
           message: "Too many messages. Please wait a minute before trying again.",
         },
         { status: 429, headers: { "Retry-After": "60" } }
+      );
+    }
+  }
+
+  // Rate limiting for "notify me" signups
+  if (request.nextUrl.pathname === "/api/notify") {
+    if (Math.random() < 0.01) {
+      cleanupRateLimits();
+    }
+
+    const ip = getClientIp(request);
+    const { allowed } = checkRateLimit(`notify:${ip}`, NOTIFY_RATE_LIMIT);
+
+    if (!allowed) {
+      console.log(`[Security] Notify rate limit exceeded for IP: ${ip}`);
+      return NextResponse.json(
+        {
+          error: "RATE_LIMITED",
+          message: "Too many requests. Please try again later.",
+        },
+        { status: 429, headers: { "Retry-After": "3600" } }
       );
     }
   }
