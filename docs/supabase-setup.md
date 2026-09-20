@@ -49,6 +49,8 @@ The dashboard may warn that `notify_signups` has RLS enabled but no policies. Th
 Dashboard labels can shift between versions. These are the current ones.
 
 8. **Project Settings → Data API:** copy the **Project URL**, for example `https://abcdefghijklmnop.supabase.co`.
+
+   The page may show the REST endpoint instead, with `/rest/v1/` on the end. Drop that part: `SUPABASE_URL` is everything up to `.supabase.co`. The server adds the rest of the path. (It also strips a trailing `/rest/v1`, so either form works.)
 9. **Project Settings → API Keys → Secret keys:** reveal and copy a key that starts with `sb_secret_`. If the list is empty, select **Add new secret key** and name it `vercel-notify`.
 
    Older projects show only **Legacy API keys**. In that case, copy the `service_role` key (a long value that starts with `eyJ`) and use the variable name `SUPABASE_SERVICE_ROLE_KEY` in the next steps instead of `SUPABASE_SECRET_KEY`. The code accepts either.

@@ -15,7 +15,9 @@ function storeConfig(): { url: string; key: string } | null {
   // The Supabase–Vercel integration sets SUPABASE_SECRET_KEY; projects created
   // before the new key format use the legacy service-role JWT instead.
   const key = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
-  return url && key ? { url: url.replace(/\/+$/, ""), key } : null;
+  // The dashboard shows the REST endpoint (https://<ref>.supabase.co/rest/v1/)
+  // next to the project URL, so accept either and build the path here.
+  return url && key ? { url: url.replace(/\/+$/, "").replace(/\/rest\/v1$/, ""), key } : null;
 }
 
 export function notifyStoreConfigured(): boolean {
