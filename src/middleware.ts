@@ -74,6 +74,13 @@ const NOTIFY_RATE_LIMIT = {
   maxRequests: STRICT_LIMITS ? 10 : 200,
 };
 
+// Health checks: an external monitor polls every few minutes from a handful of
+// IPs. The budget stops anyone else from using the endpoint to hammer Supabase.
+const HEALTH_RATE_LIMIT = {
+  windowMs: 60 * 1000,
+  maxRequests: STRICT_LIMITS ? 10 : 100,
+};
+
 // Allowed origins for API requests
 const ALLOWED_ORIGINS = [
   "https://www.markdown.free",
@@ -336,6 +343,19 @@ export function middleware(request: NextRequest) {
           message: "Too many requests. Please try again later.",
         },
         { status: 429, headers: { "Retry-After": "3600" } }
+      );
+    }
+  }
+
+  // Rate limiting for the health check (each call reads from Supabase)
+  if (request.nextUrl.pathname === "/api/health") {
+    const ip = getClientIp(request);
+    const { allowed } = checkRateLimit(`health:${ip}`, HEALTH_RATE_LIMIT);
+
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "RATE_LIMITED", message: "Too many requests. Please wait a minute before trying again." },
+        { status: 429, headers: { "Retry-After": "60" } }
       );
     }
   }

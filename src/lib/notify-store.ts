@@ -24,18 +24,36 @@ export function notifyStoreConfigured(): boolean {
   return storeConfig() !== null;
 }
 
+function authHeaders(key: string): Record<string, string> {
+  const headers: Record<string, string> = { apikey: key, "Content-Type": "application/json" };
+  // New sb_secret_ keys are not JWTs and belong only on `apikey`. A legacy
+  // service-role key is a JWT and also travels as a Bearer token.
+  if (key.startsWith("eyJ")) headers.Authorization = `Bearer ${key}`;
+  return headers;
+}
+
+/**
+ * One cheap read that proves the store answers. /api/health calls it, and an
+ * external monitor calling /api/health also keeps a free-tier project from
+ * pausing. It reads a timestamp, never an address.
+ */
+export async function pingNotifyStore(): Promise<void> {
+  const config = storeConfig();
+  if (!config) throw new Error("notify store is not configured");
+
+  const response = await fetch(`${config.url}/rest/v1/notify_signups?select=created_at&limit=1`, {
+    headers: authHeaders(config.key),
+    signal: AbortSignal.timeout(TIMEOUT_MS),
+  });
+  if (!response.ok) throw new Error(`Supabase responded ${response.status}`);
+}
+
 /** Insert the signup, or merge the new features into the existing row. */
 export async function saveNotifySignup(email: string, features: string[], locale: string): Promise<void> {
   const config = storeConfig();
   if (!config) throw new Error("notify store is not configured");
 
-  const headers: Record<string, string> = {
-    apikey: config.key,
-    "Content-Type": "application/json",
-  };
-  // New sb_secret_ keys are not JWTs and belong only on `apikey`. A legacy
-  // service-role key is a JWT and also travels as a Bearer token.
-  if (config.key.startsWith("eyJ")) headers.Authorization = `Bearer ${config.key}`;
+  const headers = authHeaders(config.key);
 
   const response = await fetch(`${config.url}/rest/v1/rpc/notify_signup`, {
     method: "POST",

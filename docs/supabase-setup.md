@@ -146,14 +146,65 @@ Do not create the database from **Vercel → Storage → Create Database → Sup
 
     The expected result is an error that mentions `permission denied`. If it returns rows instead, stop and tell me before launch.
 
-## Part 6 — Keep the project from pausing
+## Part 6 — Keep the project awake, and watch it · ~10 min
 
-The Free plan pauses a project after 7 days without activity. A paused project rejects every signup: visitors see "Couldn't save that. Try again.", and you must restore the project by hand in the dashboard. At today's traffic, a week with no signups is likely.
+The Free plan pauses a project after about a week without activity. A paused project rejects every signup: visitors read "Couldn't save that. Try again.", and you restore the project by hand in the dashboard. At today's traffic, a week with no signups is likely.
 
-Choose one:
+One endpoint solves both halves of the problem. `GET /api/health` reads a single timestamp from the table and returns a bare status:
 
-- **Pro plan** (check the current price on the Supabase pricing page; it was $25/month per organization): the project never pauses. Nothing else to build.
-- **Stay on Free** and ask me to add a daily keep-alive: a scheduled GitHub Actions job that makes one request to the project. I would not use a Vercel cron, because `vercel.json` changes are deferred.
+```json
+{"status":"ok","store":"ok","time":"2026-09-20T16:08:33.690Z"}
+```
+
+| `store` | HTTP | Meaning |
+|---|---|---|
+| `ok` | 200 | The table answered. |
+| `unconfigured` | 503 | The deployment has no `SUPABASE_*` variables. |
+| `error` | 503 | The project is paused, unreachable, or the key is wrong. |
+| `skipped` | 200 | A server started for the e2e suite. Never in production. |
+
+An external monitor that calls it every few minutes alerts you when signups break, and its traffic is the activity that keeps the project awake. The body carries no URL, no key and no address, so it is safe to leave public.
+
+### Set up the monitor
+
+These steps use Checkly. UptimeRobot, Better Stack and cron-job.org work the same way: any service that calls a URL on a schedule and alerts on failure.
+
+22. Create an account at <https://www.checklyhq.com> and start on the free plan.
+23. Create an **API check**:
+    - **URL:** `https://www.markdown.free/api/health`, method `GET`.
+    - **Frequency:** every 5 or 10 minutes. Both keep the project awake with room to spare.
+    - **Locations:** two are enough, for example N. Virginia and Frankfurt.
+    - **Assertions:** status code equals `200`, and the JSON body at `$.store` equals `ok`. The second assertion is the one that catches a deployment that lost its environment variables, because the app itself still answers.
+    - **Retries:** retry once from the same location before alerting, so one slow request does not page you.
+24. Add an alert channel (email is enough) and save.
+25. Confirm the first run is green in Checkly, then open `https://www.markdown.free/api/health` yourself and check that it reads `"store":"ok"`.
+
+Keep the interval at a minute or more. The endpoint allows 10 requests per minute per IP address (`src/middleware.ts`).
+
+### When the alert fires
+
+- `store: "error"` → open the Supabase dashboard. If the project is paused, restore it. If it is running, check that the secret key still exists under **Project Settings → API Keys**.
+- `store: "unconfigured"` → the Vercel environment variables are missing from the current deployment. Add them again (Part 4) and redeploy.
+- The whole check times out → the site itself is down, not the store.
+
+The Pro plan (check the current price; it was $25/month per organization) removes the pausing behaviour altogether. The monitor is still worth having, because it also catches a wrong key and a missing variable.
+
+## Part 7 — Run the live tests · ~2 min
+
+The normal test suite runs against a server that never stores anything. A second suite writes to your real project, reads each row back through the REST API, and deletes what it created. Every address it uses starts with `e2e-live-`.
+
+26. Start a production server **without** `E2E_RELAXED_RATE_LIMITS`, as in Part 5.
+27. Run:
+
+    ```bash
+    npm run test:notify-store
+    ```
+
+    It checks that a signup is stored, that a second signup merges into the same row, that an address is stored lowercase, that honeypot and too-fast submissions store nothing, that a rejected signup stores nothing, that the 11th signup from one address is refused, that the database rejects bad input even if the route is bypassed, and that the health endpoint reports `ok`.
+
+28. Optional: add the **publishable** key to `.env` as `SUPABASE_PUBLISHABLE_KEY` to enable one more test, which proves that the public key can neither read the list nor run the signup function. Without it that test skips.
+
+The suite is skipped in normal runs, including the full suite, unless `NOTIFY_LIVE=1` is set.
 
 ## After launch — using the list
 

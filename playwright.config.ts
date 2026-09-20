@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./e2e",
-  testMatch: ["app.spec.ts", "i18n.spec.ts", "filename.spec.ts", "multilingual.spec.ts", "security.spec.ts", "word-pages.spec.ts", "share.spec.ts", "mobile.spec.ts", "clipboard.spec.ts", "related-tools.spec.ts", "image-export.spec.ts", "img-proxy.spec.ts", "comparison-inline.spec.ts", "feedback.spec.ts", "static-rendering.spec.ts", "fidelity.spec.ts", "intent-pages.spec.ts", "server-formats.spec.ts", "broken-input.spec.ts", "multilingual-exports.spec.ts", "feature-teaser.spec.ts"], // Local tests (use production config for production.spec.ts)
+  testMatch: ["app.spec.ts", "i18n.spec.ts", "filename.spec.ts", "multilingual.spec.ts", "security.spec.ts", "word-pages.spec.ts", "share.spec.ts", "mobile.spec.ts", "clipboard.spec.ts", "related-tools.spec.ts", "image-export.spec.ts", "img-proxy.spec.ts", "comparison-inline.spec.ts", "feedback.spec.ts", "static-rendering.spec.ts", "fidelity.spec.ts", "intent-pages.spec.ts", "server-formats.spec.ts", "broken-input.spec.ts", "multilingual-exports.spec.ts", "feature-teaser.spec.ts", "health.spec.ts", "notify-store.spec.ts"], // notify-store.spec.ts skips itself unless NOTIFY_LIVE=1 // Local tests (use production config for production.spec.ts)
   outputDir: "./tmp/test-results",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,

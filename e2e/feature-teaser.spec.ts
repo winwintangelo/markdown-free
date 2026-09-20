@@ -196,6 +196,22 @@ test.describe("Feature teaser — chips", () => {
     expect(events.filter((e) => e.name === "feature_teaser_opened")).toHaveLength(1);
   });
 
+  test("the honeypot field is hidden from people but present for bots", async ({ page }) => {
+    const teaser = await openTeaserOnSecondConversion(page);
+    await teaser.getByRole("button", { name: "Back up your work" }).click();
+
+    const honeypot = teaser.locator('input[name="mf-extra"]');
+    await expect(honeypot).toHaveCount(1);
+    await expect(honeypot).toHaveAttribute("tabindex", "-1");
+    await expect(honeypot).toHaveAttribute("aria-hidden", "true");
+    await expect(honeypot).not.toBeInViewport();
+
+    // Tab from the email field reaches the submit button, not the honeypot
+    await page.locator("#notify-email").focus();
+    await page.keyboard.press("Tab");
+    await expect(teaser.getByRole("button", { name: "Notify me" })).toBeFocused();
+  });
+
   test("voting without an email sends analytics per feature and never calls /api/notify", async ({ page }) => {
     let notifyCalls = 0;
     page.on("request", (req) => {
