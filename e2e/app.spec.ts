@@ -2410,10 +2410,14 @@ test.describe("Markdown Free - Post-Convert Feedback", () => {
     // First widget appears
     await expect(page.getByText(/How's your experience/i)).toBeVisible();
 
-    // A browser's 2nd conversion is the Phase 1.5 teaser's slot
-    // (e2e/feature-teaser.spec.ts). Mark a teaser as just shown, so the
-    // 7-day cooldown keeps the thumbs prompt here.
-    await page.evaluate(() => localStorage.setItem("mdfree:teaser-shown-at", String(Date.now())));
+    // Two rules would otherwise hide this second prompt
+    // (src/lib/feature-teaser.ts, e2e/feature-teaser.spec.ts): a browser's 2nd
+    // conversion is the teaser's slot, and prompts keep 30 minutes apart. Mark
+    // a teaser as just shown, and the last prompt as 31 minutes old.
+    await page.evaluate(() => {
+      localStorage.setItem("mdfree:teaser-shown-at", String(Date.now()));
+      localStorage.setItem("mdfree:prompt-shown-at", String(Date.now() - 31 * 60 * 1000));
+    });
 
     // Do another export
     const downloadPromise2 = page.waitForEvent("download");

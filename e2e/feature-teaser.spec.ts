@@ -22,7 +22,9 @@ import { openMoreFormats } from "./export-helpers";
 const ORIGIN_HEADERS = { Origin: "http://localhost:3000" };
 const COUNT_KEY = "mdfree:conversions";
 const SHOWN_AT_KEY = "mdfree:teaser-shown-at";
+const PROMPT_KEY = "mdfree:prompt-shown-at";
 const DAY_MS = 24 * 60 * 60 * 1000;
+const MINUTE_MS = 60 * 1000;
 
 type TrackedEvent = { name: string; data?: Record<string, string> };
 
@@ -57,26 +59,41 @@ async function exportTxt(page: Page) {
   await downloadPromise;
 }
 
-// Pretend this browser already converted once, so the next conversion is its
-// 2nd. `shownDaysAgo` places the last teaser that many days back.
-async function seedHistory(page: Page, conversions: number, shownDaysAgo?: number) {
+// Give this browser a history: how many conversions it has made, how long ago
+// it last saw the teaser, and how long ago it last saw any prompt.
+async function seedHistory(
+  page: Page,
+  history: { conversions: number; teaserDaysAgo?: number; lastPromptMinutesAgo?: number }
+) {
   await page.evaluate(
-    ({ countKey, shownKey, conversions, shownAt }) => {
+    ({ countKey, teaserKey, promptKey, conversions, teaserAt, promptAt }) => {
       localStorage.setItem(countKey, String(conversions));
-      if (shownAt !== null) localStorage.setItem(shownKey, String(shownAt));
+      if (teaserAt !== null) localStorage.setItem(teaserKey, String(teaserAt));
+      if (promptAt !== null) localStorage.setItem(promptKey, String(promptAt));
     },
     {
       countKey: COUNT_KEY,
-      shownKey: SHOWN_AT_KEY,
-      conversions,
-      shownAt: shownDaysAgo === undefined ? null : Date.now() - shownDaysAgo * DAY_MS,
+      teaserKey: SHOWN_AT_KEY,
+      promptKey: PROMPT_KEY,
+      conversions: history.conversions,
+      teaserAt: history.teaserDaysAgo === undefined ? null : Date.now() - history.teaserDaysAgo * DAY_MS,
+      promptAt:
+        history.lastPromptMinutesAgo === undefined ? null : Date.now() - history.lastPromptMinutesAgo * MINUTE_MS,
     }
+  );
+}
+
+// Move the 30-minute quiet period into the past without waiting for it.
+async function endQuietPeriod(page: Page) {
+  await page.evaluate(
+    ({ promptKey, at }) => localStorage.setItem(promptKey, String(at)),
+    { promptKey: PROMPT_KEY, at: Date.now() - 31 * 60 * 1000 }
   );
 }
 
 async function openTeaserOnSecondConversion(page: Page) {
   await page.goto("/");
-  await seedHistory(page, 1);
+  await seedHistory(page, { conversions: 1 });
   await uploadSample(page);
   await exportTxt(page);
   const teaser = page.getByTestId("feature-teaser");
@@ -96,9 +113,7 @@ async function serverIsTestTarget(request: APIRequestContext): Promise<boolean> 
 }
 
 test.describe("Feature teaser — when it shows", () => {
-  test("1st conversion keeps the thumbs prompt; 2nd shows the teaser, which stays until dismissed", async ({
-    page,
-  }) => {
+  test("one prompt per sitting: the 1st conversion asks, the next ones stay quiet", async ({ page }) => {
     await stubAnalytics(page);
     await page.goto("/");
     await uploadSample(page);
@@ -106,6 +121,22 @@ test.describe("Feature teaser — when it shows", () => {
     await exportTxt(page);
     await expect(page.getByText("How's your experience?")).toBeVisible();
     await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
+
+    // Converting more files right away counts, but nothing asks again
+    await exportTxt(page);
+    await exportTxt(page);
+    await expect(page.getByText("How's your experience?")).toHaveCount(0);
+    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
+
+    expect(await page.evaluate((key) => localStorage.getItem(key), COUNT_KEY)).toBe("3");
+    expect((await getEvents(page)).filter((e) => e.name === "feature_teaser_shown")).toHaveLength(0);
+  });
+
+  test("after the quiet period the teaser takes the slot, and stays until dismissed", async ({ page }) => {
+    await stubAnalytics(page);
+    await page.goto("/");
+    await seedHistory(page, { conversions: 1 });
+    await uploadSample(page);
 
     await exportTxt(page);
     const teaser = page.getByTestId("feature-teaser");
@@ -117,26 +148,29 @@ test.describe("Feature teaser — when it shows", () => {
     await exportTxt(page);
     await expect(teaser).toBeVisible();
 
-    // Dismissed, and within the 7-day cooldown: the thumbs prompt comes back
+    // Dismissed, and still inside the quiet period: nothing follows
     await teaser.getByRole("button", { name: "Dismiss" }).click();
     await exportTxt(page);
-    await expect(page.getByText("How's your experience?")).toBeVisible();
     await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
+    await expect(page.getByText("How's your experience?")).toHaveCount(0);
 
-    const events = await getEvents(page);
-    const shown = events.filter((e) => e.name === "feature_teaser_shown");
+    const shown = (await getEvents(page)).filter((e) => e.name === "feature_teaser_shown");
     expect(shown).toHaveLength(1);
     expect(shown[0].data).toEqual({ trigger: "post_conversion", locale: "en" });
-    expect(await page.evaluate((key) => localStorage.getItem(key), COUNT_KEY)).toBe("4");
   });
 
-  test("after a vote, the next conversion shows the thumbs prompt", async ({ page }) => {
+  test("after a vote, a later conversion gets the thumbs prompt, not the teaser", async ({ page }) => {
     const teaser = await openTeaserOnSecondConversion(page);
     await teaser.getByRole("button", { name: "Better formatting controls" }).click();
     await teaser.getByRole("button", { name: "Just count my vote, no email" }).click();
     await expect(teaser).toContainText("Thanks. Your vote is counted.");
 
-    // Export again during the thanks line
+    // Exporting during the thanks line asks nothing: the quiet period runs
+    await exportTxt(page);
+    await expect(page.getByText("How's your experience?")).toHaveCount(0);
+
+    // Half an hour later, and inside the teaser's 7 days
+    await endQuietPeriod(page);
     await exportTxt(page);
     await expect(page.getByText("How's your experience?")).toBeVisible();
     await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
@@ -144,7 +178,7 @@ test.describe("Feature teaser — when it shows", () => {
 
   test("the teaser returns once the last one is more than 7 days old", async ({ page }) => {
     await page.goto("/");
-    await seedHistory(page, 5, 8);
+    await seedHistory(page, { conversions: 5, teaserDaysAgo: 8 });
     await uploadSample(page);
     await exportTxt(page);
     await expect(page.getByTestId("feature-teaser")).toBeVisible();
@@ -152,16 +186,33 @@ test.describe("Feature teaser — when it shows", () => {
 
   test("a teaser shown 6 days ago keeps the thumbs prompt", async ({ page }) => {
     await page.goto("/");
-    await seedHistory(page, 5, 6);
+    await seedHistory(page, { conversions: 5, teaserDaysAgo: 6 });
     await uploadSample(page);
     await exportTxt(page);
     await expect(page.getByText("How's your experience?")).toBeVisible();
     await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
   });
 
+  test("a prompt shown 29 minutes ago still blocks the next one", async ({ page }) => {
+    await page.goto("/");
+    await seedHistory(page, { conversions: 5, teaserDaysAgo: 1, lastPromptMinutesAgo: 29 });
+    await uploadSample(page);
+    await exportTxt(page);
+    await expect(page.getByText("How's your experience?")).toHaveCount(0);
+    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
+  });
+
+  test("a prompt shown 31 minutes ago lets the next one through", async ({ page }) => {
+    await page.goto("/");
+    await seedHistory(page, { conversions: 5, teaserDaysAgo: 1, lastPromptMinutesAgo: 31 });
+    await uploadSample(page);
+    await exportTxt(page);
+    await expect(page.getByText("How's your experience?")).toBeVisible();
+  });
+
   test("dismissing the teaser removes it", async ({ page }) => {
     await page.goto("/");
-    await seedHistory(page, 1);
+    await seedHistory(page, { conversions: 1 });
     await uploadSample(page);
     await exportTxt(page);
     const teaser = page.getByTestId("feature-teaser");
@@ -307,7 +358,7 @@ test.describe("Feature teaser — chips", () => {
 
   test("zh-Hans shows the localized teaser and chips", async ({ page }) => {
     await page.goto("/zh-Hans");
-    await seedHistory(page, 1);
+    await seedHistory(page, { conversions: 1 });
     await uploadSample(page);
     await exportTxt(page);
 

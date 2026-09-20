@@ -103,7 +103,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   const [lastSuccessFormat, setLastSuccessFormat] = useState<ExportFormat | null>(null);
   // Which prompt follows the latest success (the Phase 1.5 teaser or the thumbs
   // prompt), and a counter that remounts it so every success gets a fresh one
-  const [postConvertPrompt, setPostConvertPrompt] = useState<PostConvertPrompt>("thumbs");
+  const [postConvertPrompt, setPostConvertPrompt] = useState<Exclude<PostConvertPrompt, "none">>("thumbs");
   const [successSeq, setSuccessSeq] = useState(0);
   const [loadingShareFormat, setLoadingShareFormat] = useState<"pdf" | "docx" | null>(null);
   const [pendingShare, setPendingShare] = useState<{
@@ -209,9 +209,16 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   // teaser or the thumbs prompt follows it.
   const markSuccess = useCallback(
     (format: ExportFormat) => {
-      if (recordConversion() === "teaser") {
+      const prompt = recordConversion();
+      if (prompt === "teaser") {
         trackFeatureTeaserShown(locale);
         teaserPendingRef.current = true;
+      }
+      // Inside the quiet period the conversion still counts, but nothing asks
+      // the visitor anything. An open teaser stays.
+      if (prompt === "none" && !teaserPendingRef.current) {
+        setLastSuccessFormat(null);
+        return;
       }
       setPostConvertPrompt(teaserPendingRef.current ? "teaser" : "thumbs");
       setSuccessSeq((n) => n + 1);
