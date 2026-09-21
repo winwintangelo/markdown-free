@@ -127,7 +127,39 @@ async function applyWithManagementApi() {
     }
     console.log(`  ${tick} ${name}`);
   }
+
+  // The Data API answers from a cached copy of the schema, so a table created
+  // a moment ago can still read as missing. Ask for a reload; the retry in
+  // verifyWithRetries() covers the rest.
+  await fetch(`https://api.supabase.com/v1/projects/${ref}/database/query`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${ACCESS_TOKEN}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ query: "notify pgrst, 'reload schema';" }),
+  }).catch(() => undefined);
+
   console.log("");
+}
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Verify, giving the Data API's schema cache time to catch up with the DDL
+ * that just ran. Without this, a fresh table reads as missing for a second or
+ * two and the script reports a failure that is not one.
+ */
+async function verifyWithRetries(attempts) {
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    const last = attempt === attempts;
+    if (last) return verify();
+
+    // Quiet probe first: only print the run that decides the outcome.
+    const votes = await readTable("feature_votes", "feature");
+    const pay = await readTable("pay_intent", "answer");
+    if (votes !== null && pay !== null) return verify();
+    if (attempt === 1) console.log("  (waiting for the Data API to pick up the new tables…)\n");
+    await sleep(1500);
+  }
+  return verify();
 }
 
 async function verify() {
@@ -224,7 +256,7 @@ async function main() {
   }
 
   console.log("Checking the schema:\n");
-  const ok = await verify();
+  const ok = CHECK_ONLY ? await verify() : await verifyWithRetries(6);
   console.log("");
   if (!ok) {
     fail(CHECK_ONLY ? "The schema is incomplete." : "The migrations ran but the schema still looks wrong.");
