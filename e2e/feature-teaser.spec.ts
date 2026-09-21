@@ -157,6 +157,18 @@ test.describe("Feature teaser — when it shows", () => {
     expect(shown[0].data).toEqual({ trigger: "post_conversion", locale: "en" });
   });
 
+  test("?probe=teaser forces it on the first conversion, for manual testing", async ({ page }) => {
+    await page.goto("/?probe=teaser");
+    // Fresh browser, and a prompt was shown seconds ago: both rules would
+    // normally suppress the teaser.
+    await seedHistory(page, { conversions: 0, lastPromptMinutesAgo: 1 });
+    await uploadSample(page);
+    await exportTxt(page);
+
+    await expect(page.getByTestId("feature-teaser")).toBeVisible();
+    await expect(page.getByText("How's your experience?")).toHaveCount(0);
+  });
+
   test("the teaser returns once the last one is more than 7 days old", async ({ page }) => {
     await page.goto("/");
     await seedHistory(page, { conversions: 5, teaserDaysAgo: 8 });

@@ -80,6 +80,24 @@ export const PROMPT_SHOWN_AT_KEY = "mdfree:prompt-shown-at";
 
 export type PostConvertPrompt = "thumbs" | "teaser" | "none";
 
+/**
+ * Manual-testing switch: `?probe=teaser` shows the teaser after the next
+ * conversion, whatever the counters say.
+ *
+ * It works on localhost only. The display rules exist to keep the probe from
+ * nagging people, and a URL that could switch them off would also let anyone
+ * skew the data on the live site.
+ */
+export function teaserForcedLocally(): boolean {
+  try {
+    const { hostname, search } = window.location;
+    const local = hostname === "localhost" || hostname === "127.0.0.1" || hostname === "[::1]";
+    return local && new URLSearchParams(search).get("probe") === "teaser";
+  } catch {
+    return false;
+  }
+}
+
 function readTime(key: string): number {
   return parseInt(localStorage.getItem(key) ?? "0", 10) || 0;
 }

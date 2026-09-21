@@ -17,7 +17,7 @@ import { getPdfPreferences } from "@/lib/export-pdf";
 import { markdownToHtml } from "@/lib/markdown";
 import { prepareMarkdown } from "@/lib/prepare-markdown";
 import { ensureKatexStylesheet, getKatexCssForHtmlExport, htmlHasMath } from "@/lib/katex-assets";
-import { recordConversion, type PostConvertPrompt } from "@/lib/feature-teaser";
+import { recordConversion, teaserForcedLocally, type PostConvertPrompt } from "@/lib/feature-teaser";
 import {
   trackConvertSuccess,
   trackConvertError,
@@ -209,7 +209,10 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   // teaser or the thumbs prompt follows it.
   const markSuccess = useCallback(
     (format: ExportFormat) => {
-      const prompt = recordConversion();
+      // The conversion always counts; ?probe=teaser only overrides which
+      // prompt follows it, and only on localhost.
+      const counted = recordConversion();
+      const prompt = teaserForcedLocally() ? "teaser" : counted;
       if (prompt === "teaser") {
         trackFeatureTeaserShown(locale);
         teaserPendingRef.current = true;
