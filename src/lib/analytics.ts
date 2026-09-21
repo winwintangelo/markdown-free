@@ -12,7 +12,7 @@
  */
 
 import { track as vercelTrack } from "@vercel/analytics";
-import type { FeatureKey } from "@/lib/feature-teaser";
+import { isPremium, type FeatureKey, type PayAnswer } from "@/lib/feature-teaser";
 
 declare global {
   interface Window {
@@ -556,15 +556,26 @@ export function trackFeatureTeaserOpened(): void {
 }
 
 /**
- * The visitor submitted picks, with or without an email. One event per picked
- * feature, because the Vercel events API counts by event name, not property.
- * The email address never reaches analytics; it goes to /api/notify only.
+ * A vote. One event per picked feature, because the Vercel events API counts
+ * by event name, not by property, plus one summary event.
  */
-export function trackFeatureInterest(features: FeatureKey[], premiumPicks: number, withEmail: boolean): void {
-  for (const key of features) trackEvent(`feature_interest_${key}`);
-  trackEvent("feature_interest_submitted", {
+export function trackFeatureVotes(features: FeatureKey[]): void {
+  for (const key of features) trackEvent(`feature_vote_${key}`);
+  trackEvent("feature_vote_submitted", {
     picks: String(features.length),
-    premium_picks: String(premiumPicks),
-    with_email: withEmail ? "yes" : "no",
+    premium_picks: String(features.filter(isPremium).length),
   });
+}
+
+/** The one question about paying, answered on the results screen. */
+export function trackPayIntent(answer: PayAnswer): void {
+  trackEvent(`pay_intent_${answer}`);
+}
+
+/**
+ * An address left on the results screen. The address itself never reaches
+ * analytics; it goes to /api/notify only.
+ */
+export function trackNotifySignup(picks: number): void {
+  trackEvent("feature_notify_submitted", { picks: String(picks) });
 }

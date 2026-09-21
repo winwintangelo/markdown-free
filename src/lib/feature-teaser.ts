@@ -1,33 +1,64 @@
 /**
- * Phase 1.5 demand probe: the coming-features teaser (build plan §5).
+ * Phase 1.5 demand probe: the coming-features teaser and the vote board
+ * (build plan §5).
  *
  * From a browser's 2nd successful conversion, and at most once per 7 days, a
- * one-line teaser replaces the post-convert thumbs prompt. It opens a list of
- * planned features shown as chips (premium and free); the visitor taps the
- * ones they would use, then leaves an email to be notified or just votes.
+ * one-line teaser replaces the post-convert thumbs prompt. Opening it shows a
+ * dialog in two states: pick the features you would use, with no counts and no
+ * bars anywhere, then — once the vote is recorded — the tallies, one optional
+ * question about paying, and an optional email.
+ *
+ * Counts stay hidden until someone has voted because showing them first biases
+ * the vote: the popular feature gets more popular and the rest look unwanted.
  *
  * This module also decides which prompt, if any, follows a conversion. A
  * prompt after every single conversion is noise, so a browser sees at most one
  * per 30 minutes, whichever kind it is.
  *
- * It holds what the browser and the server share: the feature list and its
- * tiers, the display rules, and the anti-bot timing. The conversion count and
- * the two timestamps live in localStorage and are never sent.
+ * It holds what the browser and the server share: the feature list, the
+ * display rules and the anti-bot timing. The conversion count and the
+ * timestamps live in localStorage and are never sent.
  */
 
 export const FEATURE_KEYS = ["backup", "templates", "formatting", "equations", "merge", "share"] as const;
 export type FeatureKey = (typeof FEATURE_KEYS)[number];
 
-/** Draft tiers (2026-09-19). Move a key between the lists to change the chips. */
+/**
+ * Which features we expect to charge for. The board never shows this split —
+ * a tier badge beside a feature bends the vote — but the pay answer is worth
+ * more when we know how many premium candidates someone picked.
+ */
 export const PREMIUM_FEATURES: readonly FeatureKey[] = ["backup", "templates", "formatting"];
-export const FREE_FEATURES: readonly FeatureKey[] = ["equations", "merge", "share"];
+
+export const PAY_ANSWERS = ["yes", "maybe", "no"] as const;
+export type PayAnswer = (typeof PAY_ANSWERS)[number];
 
 export function isFeatureKey(value: unknown): value is FeatureKey {
   return typeof value === "string" && (FEATURE_KEYS as readonly string[]).includes(value);
 }
 
+export function isPayAnswer(value: unknown): value is PayAnswer {
+  return typeof value === "string" && (PAY_ANSWERS as readonly string[]).includes(value);
+}
+
 export function isPremium(key: FeatureKey): boolean {
   return PREMIUM_FEATURES.includes(key);
+}
+
+/** One tally row as the board draws it. */
+export type FeatureTally = { feature: FeatureKey; votes: number };
+
+/**
+ * Fill in the features the server did not return (nothing stored yet, or a
+ * test server), so the board always draws the whole list.
+ */
+export function completeTallies(rows: FeatureTally[], picks: FeatureKey[]): FeatureTally[] {
+  const byKey = new Map(rows.map((row) => [row.feature, row.votes]));
+  return FEATURE_KEYS.map((feature) => ({
+    feature,
+    // Without a store, the only vote we know about is the one just cast here.
+    votes: byKey.get(feature) ?? (picks.includes(feature) ? 1 : 0),
+  })).sort((a, b) => b.votes - a.votes || FEATURE_KEYS.indexOf(a.feature) - FEATURE_KEYS.indexOf(b.feature));
 }
 
 /** The teaser shows from this conversion on; the 1st keeps the thumbs prompt. */

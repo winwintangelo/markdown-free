@@ -84,11 +84,20 @@
   animation: export-ready-glow 1.3s ease;
 }
 
+/* Vote board: each bar grows into its share of the votes once they are
+   revealed, one after another (the delay is set per row in the component) */
+.vote-bar {
+  transition: width 760ms cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ready-check-pop,
   .ready-bridge-in,
   .export-ready-glow {
     animation: none;
+  }
+  .vote-bar {
+    transition: none;
   }
 }
 

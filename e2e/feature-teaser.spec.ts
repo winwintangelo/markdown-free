@@ -2,21 +2,18 @@ import { test, expect, type Page, type APIRequestContext } from "@playwright/tes
 import { openMoreFormats } from "./export-helpers";
 
 /**
- * Phase 1.5 coming-features teaser (src/lib/feature-teaser.ts,
- * src/components/feature-teaser.tsx, src/app/api/notify/route.ts).
+ * Phase 1.5 vote board (src/lib/feature-teaser.ts, src/components/feature-teaser.tsx,
+ * src/app/api/votes/route.ts).
  *
  * - Display rules: the 1st conversion in a browser keeps the thumbs prompt;
- *   from the 2nd, the teaser replaces it at most once per 7 days.
- * - Chips: the email row appears after the first tap; voting sends analytics
- *   only; "Notify me" POSTs to /api/notify and the address never reaches
- *   analytics.
- * - /api/notify: validation errors are explicit; bot drops answer exactly like
- *   a stored signup.
+ *   from the 2nd the teaser replaces it, at most once per 7 days, and no
+ *   prompt at all within 30 minutes of the last one.
+ * - The dialog shows the features with NO counts until the vote is recorded.
+ *   That is the point of the design, so it has its own test.
+ * - Results: tallies, one optional pay question, one optional email.
  *
- * A server started for the suite (E2E_RELAXED_RATE_LIMITS=1) never stores a
- * signup and reports what it would have done in the x-notify-outcome header.
- * Tests that reach the store path skip themselves against any other server,
- * so a configured local .env cannot write test rows to Supabase.
+ * A server started for the suite (E2E_RELAXED_RATE_LIMITS=1) stores nothing
+ * and reports what it would have done in x-votes-outcome / x-notify-outcome.
  */
 
 const ORIGIN_HEADERS = { Origin: "http://localhost:3000" };
@@ -25,6 +22,8 @@ const SHOWN_AT_KEY = "mdfree:teaser-shown-at";
 const PROMPT_KEY = "mdfree:prompt-shown-at";
 const DAY_MS = 24 * 60 * 60 * 1000;
 const MINUTE_MS = 60 * 1000;
+/** Longer than MIN_SUBMIT_MS, so the server treats the vote as human. */
+const HUMAN_PAUSE_MS = 1700;
 
 type TrackedEvent = { name: string; data?: Record<string, string> };
 
@@ -91,25 +90,27 @@ async function endQuietPeriod(page: Page) {
   );
 }
 
-async function openTeaserOnSecondConversion(page: Page) {
+/** Convert twice so the teaser shows, then open the dialog. */
+async function openVoteDialog(page: Page) {
   await page.goto("/");
   await seedHistory(page, { conversions: 1 });
   await uploadSample(page);
   await exportTxt(page);
   const teaser = page.getByTestId("feature-teaser");
   await expect(teaser).toBeVisible();
-  await teaser.getByRole("button", { name: "See what's coming" }).click();
-  await expect(teaser.getByRole("heading", { name: "Which of these would you use?" })).toBeVisible();
-  return teaser;
+  await teaser.getByRole("button", { name: "See upcoming features" }).click();
+  const dialog = page.getByTestId("feature-vote-dialog");
+  await expect(dialog).toBeVisible();
+  return { teaser, dialog };
 }
 
-// True when the server under test is a test target that never stores signups.
+// True when the server under test is a test target that never stores.
 async function serverIsTestTarget(request: APIRequestContext): Promise<boolean> {
-  const response = await request.post("/api/notify", {
+  const response = await request.post("/api/votes", {
     headers: ORIGIN_HEADERS,
-    data: { email: "probe@example.com", features: ["backup"], locale: "en", website: "bot", elapsedMs: 5000 },
+    data: { features: ["backup"], website: "bot", elapsedMs: 5000 },
   });
-  return response.headers()["x-notify-outcome"] === "dropped-honeypot";
+  return response.headers()["x-votes-outcome"] === "dropped-honeypot";
 }
 
 test.describe("Feature teaser — when it shows", () => {
@@ -122,7 +123,6 @@ test.describe("Feature teaser — when it shows", () => {
     await expect(page.getByText("How's your experience?")).toBeVisible();
     await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
 
-    // Converting more files right away counts, but nothing asks again
     await exportTxt(page);
     await exportTxt(page);
     await expect(page.getByText("How's your experience?")).toHaveCount(0);
@@ -141,15 +141,13 @@ test.describe("Feature teaser — when it shows", () => {
     await exportTxt(page);
     const teaser = page.getByTestId("feature-teaser");
     await expect(teaser).toBeVisible();
-    await expect(teaser).toContainText("More features are coming soon");
+    await expect(teaser).toContainText("Help choose what we build next");
     await expect(page.getByText("How's your experience?")).toHaveCount(0);
 
-    // Exporting another format right away keeps the teaser (shown once)
     await exportTxt(page);
     await expect(teaser).toBeVisible();
 
-    // Dismissed, and still inside the quiet period: nothing follows
-    await teaser.getByRole("button", { name: "Dismiss" }).click();
+    await teaser.getByRole("button", { name: "Dismiss" }).first().click();
     await exportTxt(page);
     await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
     await expect(page.getByText("How's your experience?")).toHaveCount(0);
@@ -157,23 +155,6 @@ test.describe("Feature teaser — when it shows", () => {
     const shown = (await getEvents(page)).filter((e) => e.name === "feature_teaser_shown");
     expect(shown).toHaveLength(1);
     expect(shown[0].data).toEqual({ trigger: "post_conversion", locale: "en" });
-  });
-
-  test("after a vote, a later conversion gets the thumbs prompt, not the teaser", async ({ page }) => {
-    const teaser = await openTeaserOnSecondConversion(page);
-    await teaser.getByRole("button", { name: "Better formatting controls" }).click();
-    await teaser.getByRole("button", { name: "Just count my vote, no email" }).click();
-    await expect(teaser).toContainText("Thanks. Your vote is counted.");
-
-    // Exporting during the thanks line asks nothing: the quiet period runs
-    await exportTxt(page);
-    await expect(page.getByText("How's your experience?")).toHaveCount(0);
-
-    // Half an hour later, and inside the teaser's 7 days
-    await endQuietPeriod(page);
-    await exportTxt(page);
-    await expect(page.getByText("How's your experience?")).toBeVisible();
-    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
   });
 
   test("the teaser returns once the last one is more than 7 days old", async ({ page }) => {
@@ -210,112 +191,110 @@ test.describe("Feature teaser — when it shows", () => {
     await expect(page.getByText("How's your experience?")).toBeVisible();
   });
 
-  test("dismissing the teaser removes it", async ({ page }) => {
-    await page.goto("/");
-    await seedHistory(page, { conversions: 1 });
-    await uploadSample(page);
+  test("after a vote, a later conversion gets the thumbs prompt, not the teaser", async ({ page }) => {
+    const { dialog } = await openVoteDialog(page);
+    await dialog.getByRole("button", { name: "Share a document with a link" }).click();
+    await page.waitForTimeout(HUMAN_PAUSE_MS);
+    await dialog.getByRole("button", { name: "Count my vote" }).click();
+    await expect(dialog).toContainText("your vote is counted");
+    await dialog.getByRole("button", { name: "Just count my vote" }).click();
+
     await exportTxt(page);
-    const teaser = page.getByTestId("feature-teaser");
-    await teaser.getByRole("button", { name: "Dismiss" }).click();
-    await expect(teaser).toHaveCount(0);
+    await expect(page.getByText("How's your experience?")).toHaveCount(0);
+
+    await endQuietPeriod(page);
+    await exportTxt(page);
+    await expect(page.getByText("How's your experience?")).toBeVisible();
+    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
   });
 });
 
-test.describe("Feature teaser — chips", () => {
-  test("opening shows two chip rows and focuses the first chip; the email row appears after a tap", async ({
-    page,
-  }) => {
+test.describe("Vote board — the dialog", () => {
+  test("the vote screen shows no counts, no bars and no pay question", async ({ page }) => {
     await stubAnalytics(page);
-    const teaser = await openTeaserOnSecondConversion(page);
+    const { dialog } = await openVoteDialog(page);
 
-    await expect(teaser.getByText("Premium", { exact: true })).toBeVisible();
-    await expect(teaser.getByText("Free", { exact: true })).toBeVisible();
-    const backup = teaser.getByRole("button", { name: "Back up your work" });
-    await expect(backup).toBeFocused();
-    await expect(backup).toHaveAttribute("aria-pressed", "false");
+    await expect(dialog.getByRole("heading", { name: "What should we build next?" })).toBeVisible();
+    await expect(dialog.getByRole("button", { name: "Save & restore my documents" })).toBeVisible();
+    await expect(dialog.getByRole("button", { name: "Share a document with a link" })).toBeVisible();
+
+    // The whole point of the design: nothing about how others voted
+    await expect(dialog).not.toContainText("What everyone is asking for");
+    await expect(dialog).not.toContainText("+1 you");
+    await expect(dialog).not.toContainText("would you consider paying");
+    await expect(dialog.locator(".vote-bar")).toHaveCount(0);
     await expect(page.locator("#notify-email")).toHaveCount(0);
 
-    await backup.click();
-    await expect(backup).toHaveAttribute("aria-pressed", "true");
-    await expect(page.locator("#notify-email")).toBeVisible();
-
-    // Tapping again deselects
-    await backup.click();
-    await expect(backup).toHaveAttribute("aria-pressed", "false");
-
-    const events = await getEvents(page);
-    expect(events.filter((e) => e.name === "feature_teaser_opened")).toHaveLength(1);
+    expect((await getEvents(page)).filter((e) => e.name === "feature_teaser_opened")).toHaveLength(1);
   });
 
-  test("the honeypot field is hidden from people but present for bots", async ({ page }) => {
-    const teaser = await openTeaserOnSecondConversion(page);
-    await teaser.getByRole("button", { name: "Back up your work" }).click();
+  test("Count my vote is disabled until something is picked", async ({ page }) => {
+    const { dialog } = await openVoteDialog(page);
+    const submit = dialog.getByRole("button", { name: "Count my vote" });
+    await expect(submit).toBeDisabled();
 
-    const honeypot = teaser.locator('input[name="mf-extra"]');
-    await expect(honeypot).toHaveCount(1);
-    await expect(honeypot).toHaveAttribute("tabindex", "-1");
-    await expect(honeypot).toHaveAttribute("aria-hidden", "true");
-    await expect(honeypot).not.toBeInViewport();
+    const row = dialog.getByRole("button", { name: "Professional document templates" });
+    await expect(row).toHaveAttribute("aria-pressed", "false");
+    await row.click();
+    await expect(row).toHaveAttribute("aria-pressed", "true");
+    await expect(submit).toBeEnabled();
+    await expect(dialog).toContainText("1 selected");
 
-    // Tab from the email field reaches the submit button, not the honeypot
-    await page.locator("#notify-email").focus();
-    await page.keyboard.press("Tab");
-    await expect(teaser.getByRole("button", { name: "Notify me" })).toBeFocused();
+    await row.click();
+    await expect(submit).toBeDisabled();
   });
 
-  test("voting without an email sends analytics per feature and never calls /api/notify", async ({ page }) => {
-    let notifyCalls = 0;
-    page.on("request", (req) => {
-      if (req.url().includes("/api/notify")) notifyCalls += 1;
-    });
+  test("voting posts the picks and reveals the tallies", async ({ page }) => {
     await stubAnalytics(page);
-    const teaser = await openTeaserOnSecondConversion(page);
+    const { dialog } = await openVoteDialog(page);
 
-    await teaser.getByRole("button", { name: "Back up your work" }).click();
-    await teaser.getByRole("button", { name: "Share as a link" }).click();
-    await teaser.getByRole("button", { name: "Just count my vote, no email" }).click();
-    await expect(teaser).toContainText("Thanks. Your vote is counted.");
+    await dialog.getByRole("button", { name: "Save & restore my documents" }).click();
+    await dialog.getByRole("button", { name: "Editable equations in Word" }).click();
+    await page.waitForTimeout(HUMAN_PAUSE_MS);
+
+    const responsePromise = page.waitForResponse((r) => r.url().includes("/api/votes"));
+    await dialog.getByRole("button", { name: "Count my vote" }).click();
+    const response = await responsePromise;
+
+    const body = response.request().postDataJSON() as Record<string, unknown>;
+    expect(body.features).toEqual(["backup", "equations"]);
+    expect(body.website).toBe("");
+    expect(body.elapsedMs as number).toBeGreaterThanOrEqual(1500);
+    expect(response.status()).toBe(200);
+
+    await expect(dialog).toContainText("your vote is counted");
+    await expect(dialog).toContainText("What everyone is asking for");
+    await expect(dialog.getByText("+1 you")).toHaveCount(2);
+    await expect(dialog.locator(".vote-bar")).toHaveCount(6);
+    await expect(dialog).toContainText("Votes counted for 2 features");
 
     const names = (await getEvents(page)).map((e) => e.name);
-    expect(names).toContain("feature_interest_backup");
-    expect(names).toContain("feature_interest_share");
-    expect(names).not.toContain("feature_interest_templates");
-    const submitted = (await getEvents(page)).find((e) => e.name === "feature_interest_submitted");
-    expect(submitted?.data).toEqual({ picks: "2", premium_picks: "1", with_email: "no" });
-    expect(notifyCalls).toBe(0);
-
-    // The thanks line clears itself
-    await expect(teaser).toHaveCount(0, { timeout: 6000 });
+    expect(names).toContain("feature_vote_backup");
+    expect(names).toContain("feature_vote_equations");
+    expect(names).not.toContain("feature_vote_share");
+    const submitted = (await getEvents(page)).find((e) => e.name === "feature_vote_submitted");
+    expect(submitted?.data).toEqual({ picks: "2", premium_picks: "1" });
   });
 
-  test("Notify me with no email or a malformed one shows an error and sends nothing", async ({ page }) => {
-    let notifyCalls = 0;
-    page.on("request", (req) => {
-      if (req.url().includes("/api/notify")) notifyCalls += 1;
-    });
-    const teaser = await openTeaserOnSecondConversion(page);
-    await teaser.getByRole("button", { name: "Professionally designed templates" }).click();
+  test("the pay question is answered on the results page, in one tap", async ({ page }) => {
+    await stubAnalytics(page);
+    const { dialog } = await openVoteDialog(page);
+    await dialog.getByRole("button", { name: "Professional document templates" }).click();
+    await page.waitForTimeout(HUMAN_PAUSE_MS);
+    await dialog.getByRole("button", { name: "Count my vote" }).click();
+    await expect(dialog).toContainText("would you consider paying");
 
-    await teaser.getByRole("button", { name: "Notify me" }).click();
-    await expect(teaser.getByRole("alert")).toHaveText(
-      "Enter your email so we can notify you, or just count your vote."
-    );
+    const chip = dialog.getByRole("button", { name: "Maybe, depends on price" });
+    const responsePromise = page.waitForResponse((r) => r.url().includes("/api/votes"));
+    await chip.click();
+    const response = await responsePromise;
 
-    const email = page.locator("#notify-email");
-    await email.fill("someone@nowhere");
-    await teaser.getByRole("button", { name: "Notify me" }).click();
-    await expect(teaser.getByRole("alert")).toHaveText("Check the email address.");
-    await expect(email).toHaveAttribute("aria-invalid", "true");
-
-    // Typing clears the error
-    await email.fill("someone@example.com");
-    await expect(teaser.getByRole("alert")).toHaveCount(0);
-    expect(notifyCalls).toBe(0);
+    expect(response.request().postDataJSON()).toEqual({ pay: "maybe" });
+    await expect(chip).toHaveAttribute("aria-pressed", "true");
+    expect((await getEvents(page)).map((e) => e.name)).toContain("pay_intent_maybe");
   });
 
-  test("Notify me POSTs the picks and the email; analytics never sees the address", async ({ page, request }) => {
-    test.skip(!(await serverIsTestTarget(request)), "needs a server started with E2E_RELAXED_RATE_LIMITS=1");
-
+  test("the email is optional, sent to /api/notify, and never reaches analytics", async ({ page }) => {
     await stubAnalytics(page);
     const analyticsPayloads: string[] = [];
     page.on("request", (req) => {
@@ -325,112 +304,158 @@ test.describe("Feature teaser — chips", () => {
       }
     });
 
-    const teaser = await openTeaserOnSecondConversion(page);
-    await teaser.getByRole("button", { name: "Professionally designed templates" }).click();
-    await teaser.getByRole("button", { name: "Editable equations in Word" }).click();
-    const address = "E2E-Notify-Marker@Example.com";
-    await page.locator("#notify-email").fill(address);
-    // A person takes longer than the 1.5 s bot threshold
-    await page.waitForTimeout(1700);
+    const { dialog } = await openVoteDialog(page);
+    await dialog.getByRole("button", { name: "Combine multiple AI chats into one document" }).click();
+    await page.waitForTimeout(HUMAN_PAUSE_MS);
+    await dialog.getByRole("button", { name: "Count my vote" }).click();
+    await expect(dialog).toContainText("Want to know when your picks launch?");
 
+    const address = "E2E-Vote-Marker@Example.com";
+    await page.locator("#notify-email").fill(address);
     const responsePromise = page.waitForResponse((r) => r.url().includes("/api/notify"));
-    await teaser.getByRole("button", { name: "Notify me" }).click();
+    await dialog.getByRole("button", { name: "Notify me" }).click();
     const response = await responsePromise;
 
-    const body = response.request().postDataJSON() as Record<string, unknown>;
-    expect(body).toMatchObject({
+    expect(response.request().postDataJSON()).toMatchObject({
       email: address,
-      features: ["templates", "equations"],
+      features: ["merge"],
       locale: "en",
-      website: "",
     });
-    expect(body.elapsedMs as number).toBeGreaterThanOrEqual(1500);
-    expect(response.status()).toBe(200);
     expect(response.headers()["x-notify-outcome"]).toBe("test-mode");
-    await expect(teaser).toContainText("Thanks. We'll email you when your picks are ready.");
+    await expect(dialog).toContainText("One email per feature");
 
     const events = await getEvents(page);
-    const submitted = events.find((e) => e.name === "feature_interest_submitted");
-    expect(submitted?.data).toEqual({ picks: "2", premium_picks: "1", with_email: "yes" });
+    expect(events.map((e) => e.name)).toContain("feature_notify_submitted");
     const serialized = JSON.stringify(events) + analyticsPayloads.join("\n");
     expect(serialized.toLowerCase()).not.toContain(address.toLowerCase());
   });
 
-  test("zh-Hans shows the localized teaser and chips", async ({ page }) => {
+  test("a malformed email is rejected in the browser", async ({ page }) => {
+    let notifyCalls = 0;
+    page.on("request", (req) => {
+      if (req.url().includes("/api/notify")) notifyCalls += 1;
+    });
+
+    const { dialog } = await openVoteDialog(page);
+    await dialog.getByRole("button", { name: "Share a document with a link" }).click();
+    await page.waitForTimeout(HUMAN_PAUSE_MS);
+    await dialog.getByRole("button", { name: "Count my vote" }).click();
+
+    await page.locator("#notify-email").fill("someone@nowhere");
+    await dialog.getByRole("button", { name: "Notify me" }).click();
+    await expect(dialog.getByRole("alert")).toHaveText("Check the email address.");
+    expect(notifyCalls).toBe(0);
+  });
+
+  test("Escape and the backdrop close the dialog, the teaser stays", async ({ page }) => {
+    const { teaser, dialog } = await openVoteDialog(page);
+    await page.keyboard.press("Escape");
+    await expect(dialog).toHaveCount(0);
+    await expect(teaser).toBeVisible();
+
+    await teaser.getByRole("button", { name: "See upcoming features" }).click();
+    await expect(page.getByTestId("feature-vote-dialog")).toBeVisible();
+    await page.mouse.click(12, 12);
+    await expect(page.getByTestId("feature-vote-dialog")).toHaveCount(0);
+    await expect(teaser).toBeVisible();
+  });
+
+  test("the honeypot field is hidden from people but present for bots", async ({ page }) => {
+    const { dialog } = await openVoteDialog(page);
+    await dialog.getByRole("button", { name: "Share a document with a link" }).click();
+    await page.waitForTimeout(HUMAN_PAUSE_MS);
+    await dialog.getByRole("button", { name: "Count my vote" }).click();
+
+    const honeypot = dialog.locator('input[name="mf-extra"]');
+    await expect(honeypot).toHaveCount(1);
+    await expect(honeypot).toHaveAttribute("tabindex", "-1");
+    await expect(honeypot).toHaveAttribute("aria-hidden", "true");
+    await expect(honeypot).not.toBeInViewport();
+  });
+
+  test("zh-Hans shows the localized board", async ({ page }) => {
     await page.goto("/zh-Hans");
     await seedHistory(page, { conversions: 1 });
     await uploadSample(page);
     await exportTxt(page);
 
     const teaser = page.getByTestId("feature-teaser");
-    await expect(teaser).toContainText("更多功能即将推出");
-    await teaser.getByRole("button", { name: "看看有什么" }).click();
-    await expect(teaser.getByRole("heading", { name: "你会用到哪些？" })).toBeVisible();
-    await expect(teaser.getByRole("button", { name: "备份你的作品" })).toBeVisible();
-    await expect(teaser.getByText("高级版", { exact: true })).toBeVisible();
+    await expect(teaser).toContainText("帮我们决定接下来做什么");
+    await teaser.getByRole("button", { name: "查看即将推出的功能" }).click();
+
+    const dialog = page.getByTestId("feature-vote-dialog");
+    await expect(dialog.getByRole("heading", { name: "接下来我们该做什么？" })).toBeVisible();
+    await expect(dialog.getByRole("button", { name: "保存并随时打开我的文档" })).toBeVisible();
+    await expect(dialog).not.toContainText("大家都在要什么");
   });
 });
 
-test.describe("POST /api/notify", () => {
-  const valid = { email: "e2e@example.com", features: ["backup"], locale: "en", website: "", elapsedMs: 5000 };
-
-  test("rejects a malformed email", async ({ request }) => {
-    const response = await request.post("/api/notify", {
+test.describe("POST /api/votes", () => {
+  test("rejects an unknown feature", async ({ request }) => {
+    const response = await request.post("/api/votes", {
       headers: ORIGIN_HEADERS,
-      data: { ...valid, email: "not-an-email" },
+      data: { features: ["backup", "free-pizza"], elapsedMs: 5000 },
     });
     expect(response.status()).toBe(400);
-    expect((await response.json()).error).toBe("INVALID_EMAIL");
+    expect((await response.json()).error).toBe("INVALID_FEATURES");
   });
 
-  test("rejects unknown or missing features", async ({ request }) => {
-    for (const features of [["backup", "free-pizza"], [], "backup"]) {
-      const response = await request.post("/api/notify", {
-        headers: ORIGIN_HEADERS,
-        data: { ...valid, features },
-      });
-      expect(response.status(), JSON.stringify(features)).toBe(400);
-      expect((await response.json()).error).toBe("INVALID_FEATURES");
-    }
+  test("rejects an unknown pay answer", async ({ request }) => {
+    const response = await request.post("/api/votes", {
+      headers: ORIGIN_HEADERS,
+      data: { pay: "later" },
+    });
+    expect(response.status()).toBe(400);
+    expect((await response.json()).error).toBe("INVALID_PAY");
+  });
+
+  test("rejects an empty call", async ({ request }) => {
+    const response = await request.post("/api/votes", {
+      headers: ORIGIN_HEADERS,
+      data: { features: [] },
+    });
+    expect(response.status()).toBe(400);
+    expect((await response.json()).error).toBe("NOTHING_TO_RECORD");
   });
 
   test("rejects a non-JSON body and an oversized body", async ({ request }) => {
-    const notJson = await request.post("/api/notify", {
+    const notJson = await request.post("/api/votes", {
       headers: { ...ORIGIN_HEADERS, "Content-Type": "application/json" },
       data: "not json",
     });
     expect(notJson.status()).toBe(400);
     expect((await notJson.json()).error).toBe("INVALID_JSON");
 
-    const oversized = await request.post("/api/notify", {
+    const oversized = await request.post("/api/votes", {
       headers: ORIGIN_HEADERS,
-      data: { ...valid, website: "x".repeat(3000) },
+      data: { features: ["backup"], elapsedMs: 5000, website: "x".repeat(2000) },
     });
     expect(oversized.status()).toBe(413);
   });
 
   test("rejects a POST from another site", async ({ request }) => {
-    const response = await request.post("/api/notify", {
+    const response = await request.post("/api/votes", {
       headers: { Origin: "https://malicious-site.com" },
-      data: valid,
+      data: { features: ["backup"], elapsedMs: 5000 },
     });
     expect(response.status()).toBe(403);
   });
 
-  test("bot drops answer exactly like an accepted signup", async ({ request }) => {
+  test("bot drops answer exactly like an accepted vote", async ({ request }) => {
     test.skip(!(await serverIsTestTarget(request)), "needs a server started with E2E_RELAXED_RATE_LIMITS=1");
 
     const cases: Array<[string, Record<string, unknown>]> = [
-      ["dropped-honeypot", { ...valid, website: "https://spam.example" }],
-      ["dropped-fast", { ...valid, elapsedMs: 300 }],
-      ["dropped-fast", { ...valid, elapsedMs: undefined }],
-      ["test-mode", valid],
+      ["dropped-honeypot", { features: ["backup"], elapsedMs: 5000, website: "https://spam.example" }],
+      ["dropped-fast", { features: ["backup"], elapsedMs: 200 }],
+      ["dropped-fast", { features: ["backup"] }],
+      ["test-mode", { features: ["backup"], elapsedMs: 5000 }],
+      ["test-mode", { pay: "yes" }],
     ];
     for (const [outcome, data] of cases) {
-      const response = await request.post("/api/notify", { headers: ORIGIN_HEADERS, data });
+      const response = await request.post("/api/votes", { headers: ORIGIN_HEADERS, data });
       expect(response.status(), outcome).toBe(200);
-      expect(await response.json(), outcome).toEqual({ ok: true });
-      expect(response.headers()["x-notify-outcome"]).toBe(outcome);
+      expect(await response.json(), outcome).toEqual({ ok: true, tallies: [] });
+      expect(response.headers()["x-votes-outcome"]).toBe(outcome);
     }
   });
 });

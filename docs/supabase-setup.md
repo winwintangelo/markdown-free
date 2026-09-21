@@ -24,25 +24,38 @@ When you finish, `POST /api/notify` stores each signup (email, picked features, 
 
 If you already have two active free projects, Supabase asks you to pause one or upgrade.
 
-## Part 2 — Create the table and function · ~2 min
+## Part 2 — Create the tables and functions · ~3 min
+
+There are **two** migrations in `supabase/migrations/`, and both must run. If you set this project up before the vote board existed, you have run only the first: run the second now.
 
 5. In the project, open **SQL Editor → New query**.
 6. Paste the whole file `supabase/migrations/20260919000000_notify_signups.sql` and select **Run**. The editor reports success with no rows returned.
 
-   The script creates:
+   It creates:
    - table `public.notify_signups`: one row per lowercase email, with its features, locale and timestamps. Row-level security (RLS) is on, with no policies.
    - function `public.notify_signup(...)`: inserts a signup, or merges new features into an existing row. Only the secret key's role (`service_role`) may run it.
 
-   You can run the script again safely. It does not delete data.
-7. Check the result in a new query:
+7. In another new query, paste `supabase/migrations/20260921000000_feature_votes.sql` and select **Run**.
+
+   It creates the counters behind the vote board:
+   - table `public.feature_votes`: one row per feature, seeded at zero.
+   - table `public.pay_intent`: one row per answer — `yes`, `maybe`, `no`.
+   - function `public.record_probe(...)`: adds a vote, a pay answer or both, and returns the current tallies. The tallies travel back in that response only, which is how the board keeps the counts hidden until someone has voted.
+
+   Neither table stores a person: no address, no IP, no session. You can run both scripts again safely; they do not delete data.
+
+   Then check the result in a new query:
 
    ```sql
    select count(*) from public.notify_signups;                              -- 0
    select relrowsecurity from pg_class where relname = 'notify_signups';    -- true
-   select proname from pg_proc where proname = 'notify_signup';             -- 1 row
+   select feature, votes from public.feature_votes order by feature;        -- 6 rows, all 0
+   select answer, responses from public.pay_intent order by answer;         -- 3 rows, all 0
+   select proname from pg_proc
+   where proname in ('notify_signup', 'record_probe');                      -- 2 rows
    ```
 
-The dashboard may warn that `notify_signups` has RLS enabled but no policies. That is intended: with no policies, the public (publishable) key can neither read nor write the list. **Do not add a policy.**
+The dashboard may warn that these tables have RLS enabled but no policies. That is intended: with no policies, the public (publishable) key can neither read nor write them. **Do not add a policy.**
 
 ## Part 3 — Copy the URL and the secret key · ~2 min
 
@@ -117,7 +130,18 @@ Do not create the database from **Vercel → Storage → Create Database → Sup
 
     You see one row: `setup-test@example.com`, `{backup,share}`, `en`.
 
-18. To test through the page instead: open http://localhost:3000 in a private window and convert a file twice. On the teaser, select **See what's coming**, tap a feature, wait at least 2 seconds, enter an email and select **Notify me**. Signups sent less than 1.5 seconds after opening the chips count as bots and are dropped.
+    Then send one vote, which is the other half of the probe:
+
+    ```bash
+    curl -i http://localhost:3000/api/votes \
+      -H 'Origin: http://localhost:3000' \
+      -H 'Content-Type: application/json' \
+      -d '{"features":["backup","share"],"elapsedMs":5000}'
+    ```
+
+    The response carries the tallies — `{"ok":true,"tallies":[…]}` — and those two features are now one higher in `public.feature_votes`.
+
+18. To test through the page instead: open http://localhost:3000 in a private window and convert a file twice. On the teaser, select **See upcoming features**, pick a feature, wait a couple of seconds, then **Count my vote**. The results screen shows the tallies, the pay question and the optional email field. A vote sent less than 1.5 seconds after the dialog opens counts as a bot and is dropped.
 
 19. If no row appears, read the server output. Every drop or failure logs one line. A stored signup logs nothing, and no line contains the address.
 
@@ -128,6 +152,7 @@ Do not create the database from **Vercel → Storage → Create Database → Sup
     | `[notify] dropped a submission: sent too fast` | Submitted less than 1.5 s after opening the chips. | Wait longer, or send `elapsedMs` ≥ 1500 with curl. |
     | `[notify] save failed: Supabase responded 401` | The key is wrong or belongs to another project. | Copy the key again (step 9). |
     | `[notify] save failed: Supabase responded 404` | The Data API cannot find the function. | Rerun Part 2. If it still fails, run `notify pgrst, 'reload schema';` in the SQL Editor. |
+    | `[votes] save failed: Supabase responded 404` | The second migration has not run. | Run `supabase/migrations/20260921000000_feature_votes.sql` (Part 2, step 7). |
     | `[notify] save failed: Supabase responded 403` | The key's role may not run the function. | Rerun Part 2; its last line grants the permission. |
     | `[notify] save failed:` with a 5xx status or a timeout | The project is paused or unreachable. | Restore the project in the dashboard; see Part 6. |
 
@@ -221,6 +246,13 @@ Run these in the SQL Editor.
 
   ```sql
   delete from public.notify_signups where updated_at < now() - interval '12 months';
+  ```
+
+- What people are voting for, and whether they would pay:
+
+  ```sql
+  select feature, votes from public.feature_votes order by votes desc;
+  select answer, responses from public.pay_intent order by responses desc;
   ```
 
 - Someone asks to be removed:

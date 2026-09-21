@@ -1,7 +1,7 @@
 /**
- * Storage for Phase 1.5 "notify me" signups: one row per email in Supabase
- * Postgres. The table and the `notify_signup` function are defined in
- * supabase/migrations/20260919000000_notify_signups.sql.
+ * Storage for the Phase 1.5 demand probe, in Supabase Postgres:
+ *   - "notify me" signups, one row per email (20260919000000_notify_signups.sql)
+ *   - vote tallies and pay intent, counters only (20260921000000_feature_votes.sql)
  *
  * Server only. The route calls the function through Supabase's REST API with
  * the secret key. The table has row-level security on and no policies, so the
@@ -46,6 +46,33 @@ export async function pingNotifyStore(): Promise<void> {
     signal: AbortSignal.timeout(TIMEOUT_MS),
   });
   if (!response.ok) throw new Error(`Supabase responded ${response.status}`);
+}
+
+export type TallyRow = { feature: string; votes: number };
+
+/**
+ * Record a vote, a pay answer, or both, and return the current tallies. The
+ * tallies travel back in this response only: the board shows them after the
+ * vote, never before it.
+ */
+export async function recordProbe(features: string[], pay: string | null): Promise<TallyRow[]> {
+  const config = storeConfig();
+  if (!config) throw new Error("notify store is not configured");
+
+  const response = await fetch(`${config.url}/rest/v1/rpc/record_probe`, {
+    method: "POST",
+    headers: authHeaders(config.key),
+    body: JSON.stringify({ p_features: features, p_pay: pay }),
+    signal: AbortSignal.timeout(TIMEOUT_MS),
+  });
+  if (!response.ok) throw new Error(`Supabase responded ${response.status}`);
+
+  const rows: unknown = await response.json();
+  if (!Array.isArray(rows)) return [];
+  return rows.filter(
+    (row): row is TallyRow =>
+      !!row && typeof row === "object" && typeof (row as TallyRow).feature === "string" && typeof (row as TallyRow).votes === "number"
+  );
 }
 
 /** Insert the signup, or merge the new features into the existing row. */

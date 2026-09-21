@@ -116,6 +116,51 @@ function signup(
   });
 }
 
+function signupVote(
+  request: APIRequestContext,
+  fields: { features?: string[]; pay?: string; website?: string; elapsedMs?: number; ip: string }
+) {
+  const { ip: address, ...body } = fields;
+  return request.post("/api/votes", {
+    headers: { Origin: ORIGIN, "Content-Type": "application/json", "X-Forwarded-For": address },
+    data: { website: "", elapsedMs: 5000, ...body },
+  });
+}
+
+/** Current counters, keyed by the table's own key column. */
+async function countsFor(
+  request: APIRequestContext,
+  table: string,
+  keyColumn: string,
+  valueColumn: string
+): Promise<Record<string, number>> {
+  const response = await request.get(`${SUPABASE_URL}/rest/v1/${table}?select=${keyColumn},${valueColumn}`, {
+    headers: secretHeaders(),
+  });
+  expect(response.ok(), `reading ${table}`).toBeTruthy();
+  const rows = (await response.json()) as Record<string, string | number>[];
+  const counts: Record<string, number> = {};
+  for (const row of rows) counts[String(row[keyColumn])] = Number(row[valueColumn]);
+  return counts;
+}
+
+/** Put the counters back, so a test run leaves the real tallies untouched. */
+async function restoreCounts(
+  request: APIRequestContext,
+  table: string,
+  keyColumn: string,
+  valueColumn: string,
+  counts: Record<string, number>
+) {
+  for (const [key, value] of Object.entries(counts)) {
+    const response = await request.patch(
+      `${SUPABASE_URL}/rest/v1/${table}?${keyColumn}=eq.${encodeURIComponent(key)}`,
+      { headers: { ...secretHeaders(), Prefer: "return=minimal" }, data: { [valueColumn]: value } }
+    );
+    expect(response.ok(), `restoring ${table}.${key}`).toBeTruthy();
+  }
+}
+
 test.describe("Notify signups — live Supabase", () => {
   test.skip(!LIVE, "set NOTIFY_LIVE=1 (npm run test:notify-store) to run against a real project");
 
@@ -260,6 +305,54 @@ test.describe("Notify signups — live Supabase", () => {
       data: { p_email: freshEmail(), p_features: ["backup"], p_locale: "en" },
     });
     expect(write.ok(), "the public key must not be able to run notify_signup").toBeFalsy();
+  });
+
+  test("a vote increments the feature tallies, and is restored afterwards", async ({ request }) => {
+    const before = await countsFor(request, "feature_votes", "feature", "votes");
+
+    const response = await signupVote(request, { features: ["backup", "share"], ip: ip(30) });
+    expect(response.status()).toBe(200);
+    const body = (await response.json()) as { ok: boolean; tallies: { feature: string; votes: number }[] };
+    expect(body.ok).toBe(true);
+
+    // The response carries the tallies: that is the only way the board sees them
+    const returned = new Map(body.tallies.map((row) => [row.feature, row.votes]));
+    expect(returned.get("backup")).toBe((before.backup ?? 0) + 1);
+    expect(returned.get("share")).toBe((before.share ?? 0) + 1);
+    expect(returned.get("equations")).toBe(before.equations ?? 0);
+
+    const after = await countsFor(request, "feature_votes", "feature", "votes");
+    expect(after.backup).toBe((before.backup ?? 0) + 1);
+    expect(after.share).toBe((before.share ?? 0) + 1);
+
+    await restoreCounts(request, "feature_votes", "feature", "votes", before);
+    expect(await countsFor(request, "feature_votes", "feature", "votes")).toEqual(before);
+  });
+
+  test("a pay answer increments its counter and nothing else", async ({ request }) => {
+    const beforePay = await countsFor(request, "pay_intent", "answer", "responses");
+    const beforeVotes = await countsFor(request, "feature_votes", "feature", "votes");
+
+    const response = await signupVote(request, { pay: "maybe", ip: ip(31) });
+    expect(response.status()).toBe(200);
+
+    const afterPay = await countsFor(request, "pay_intent", "answer", "responses");
+    expect(afterPay.maybe).toBe((beforePay.maybe ?? 0) + 1);
+    expect(afterPay.yes).toBe(beforePay.yes ?? 0);
+    expect(await countsFor(request, "feature_votes", "feature", "votes")).toEqual(beforeVotes);
+
+    await restoreCounts(request, "pay_intent", "answer", "responses", beforePay);
+  });
+
+  test("a dropped vote changes no counter", async ({ request }) => {
+    const before = await countsFor(request, "feature_votes", "feature", "votes");
+
+    const honeypot = await signupVote(request, { features: ["backup"], website: "bot", ip: ip(32) });
+    expect(honeypot.status()).toBe(200);
+    const tooFast = await signupVote(request, { features: ["backup"], elapsedMs: 200, ip: ip(33) });
+    expect(tooFast.status()).toBe(200);
+
+    expect(await countsFor(request, "feature_votes", "feature", "votes")).toEqual(before);
   });
 
   test("the health check reports the store as ok", async ({ request }) => {
