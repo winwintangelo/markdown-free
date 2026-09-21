@@ -69,3 +69,7 @@ tmp/
 /data/drops/
 # Per-cycle HTML reports are regenerable views — commit the .md, not the .html
 /data/reports/*.html
+
+# Supabase CLI scratch (version checks, linked-project state) — the
+# migrations beside it are the only part worth committing
+/supabase/.temp/

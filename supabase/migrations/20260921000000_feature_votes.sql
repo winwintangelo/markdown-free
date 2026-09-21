@@ -51,6 +51,10 @@ language plpgsql
 security invoker
 set search_path = public
 as $$
+-- The OUT columns above are named `feature` and `votes`, which would otherwise
+-- shadow the table's own columns inside this body ("column reference is
+-- ambiguous" on the conflict target, which cannot be table-qualified).
+#variable_conflict use_column
 begin
   if p_features is not null and cardinality(p_features) > 0 then
     insert into public.feature_votes as fv (feature, votes)

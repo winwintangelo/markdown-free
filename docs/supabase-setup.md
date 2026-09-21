@@ -28,6 +28,27 @@ If you already have two active free projects, Supabase asks you to pause one or 
 
 There are **two** migrations in `supabase/migrations/`, and both must run. If you set this project up before the vote board existed, you have run only the first: run the second now.
 
+### Check what you have
+
+```bash
+npm run db:check
+```
+
+It reads the project named in `.env` and prints one line per object — the tables, their seed rows, and whether the vote function is callable. It changes nothing.
+
+### Option A — one command
+
+Add **one** of these to `.env`, then run `npm run db:migrate`. The REST secret key already in `.env` cannot create tables, which is why this needs a second credential.
+
+| Variable | Where it comes from | How it applies |
+|---|---|---|
+| `SUPABASE_DB_URL` | **Project Settings → Database → Connection string → URI** (includes the database password; percent-encode special characters) | `supabase db push`, no login needed |
+| `SUPABASE_ACCESS_TOKEN` | **Account → Access Tokens → Generate new token** (starts with `sbp_`) | Management API |
+
+The script applies every file in `supabase/migrations/`, then runs the same check as above. Both migrations are safe to run more than once: tables use `create table if not exists`, functions use `create or replace`, seed rows use `on conflict do nothing`, and nothing drops or deletes. Running it a second time reports "Remote database is up to date".
+
+### Option B — paste into the SQL editor
+
 5. In the project, open **SQL Editor → New query**.
 6. Paste the whole file `supabase/migrations/20260919000000_notify_signups.sql` and select **Run**. The editor reports success with no rows returned.
 
