@@ -163,7 +163,9 @@ Gate: ≥ 30 of 51 pages indexed by Bing and Google within 60 days; conversions/
 
 ### Phase 1.5 — Demand probe (new, gates Phase 2)
 
-**Redesigned 2026-09-19** (built on branch `phase-1.5-feature-teaser`). The owner rejected priced fake doors: a free product that suddenly shows fees reads as a bait-and-switch, and names like "Academic templates" mean nothing to most visitors. The probe now measures interest in named features, split into Premium and Free, with no prices.
+**LIVE since 2026-09-22** (`main` @ `b31957f`). Schema applied with `npm run db:migrate`; production `/api/health` answers `store: ok`; a Checkly check hits it every 10 minutes, which alerts on a broken store and keeps the free Supabase project from pausing. The four-week measurement runs 2026-09-22 → 2026-10-20; the gate below is still a proposal until the owner confirms it.
+
+**Redesigned 2026-09-19.** The owner rejected priced fake doors: a free product that suddenly shows fees reads as a bait-and-switch, and names like "Academic templates" mean nothing to most visitors. The probe now measures interest in named features, split into Premium and Free, with no prices.
 
 | Item | Scope | Effort |
 |---|---|---|

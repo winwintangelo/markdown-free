@@ -28,13 +28,15 @@ Markdown Free is a web-based Markdown viewer and converter. Users upload/paste M
 See `env.example` for required variables:
 - `NEXT_PUBLIC_UMAMI_HOST` / `NEXT_PUBLIC_UMAMI_WEBSITE_ID`: Analytics
 - `UMAMI_API_KEY` / `UMAMI_WEBSITE_ID` / `UMAMI_API_HOST`: Report generation
-- `SUPABASE_URL` / `SUPABASE_SECRET_KEY`: "Notify me" signups from the feature teaser (server-only; schema in `supabase/migrations/`)
+- `SUPABASE_URL` / `SUPABASE_SECRET_KEY`: the feature vote board and its "notify me" signups (server-only; schema in `supabase/migrations/`)
 
 ## Testing
 
 - **Local tests:** `e2e/app.spec.ts`, `e2e/i18n.spec.ts` - run against localhost:3000
 - **Production tests:** `e2e/production.spec.ts` - run against live site with `--config=playwright.production.config.ts`
 - **Live store tests:** `npm run test:notify-store` writes to the real Supabase project and cleans up; it skips unless `NOTIFY_LIVE=1`, and needs a server started WITHOUT `E2E_RELAXED_RATE_LIMITS` (see `docs/supabase-setup.md`)
+- **Supabase schema:** `npm run db:check` reports what the project in `.env` has (read-only); `npm run db:migrate` applies `supabase/migrations/` (needs `SUPABASE_ACCESS_TOKEN` or `SUPABASE_DB_URL`)
+- **Feature teaser by hand:** open `http://localhost:3000/?probe=teaser` and convert once; it works on localhost only. A server started with `E2E_RELAXED_RATE_LIMITS=1` accepts votes and signups but stores nothing
 - Test outputs go to `tmp/` directory
 
 ## Communication

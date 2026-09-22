@@ -218,14 +218,16 @@ These steps use Checkly. UptimeRobot, Better Stack and cron-job.org work the sam
 22. Create an account at <https://www.checklyhq.com> and start on the free plan.
 23. Create an **API check**:
     - **URL:** `https://www.markdown.free/api/health`, method `GET`.
-    - **Frequency:** every 5 or 10 minutes. Both keep the project awake with room to spare.
-    - **Locations:** two are enough, for example N. Virginia and Frankfurt.
-    - **Assertions:** status code equals `200`, and the JSON body at `$.store` equals `ok`. The second assertion is the one that catches a deployment that lost its environment variables, because the app itself still answers.
+    - **Frequency:** every 10 minutes. That is about 1,000 database reads a week against a 7-day pause threshold.
+    - **Locations:** one is enough; N. Virginia sits next to the functions and the database. Two locations running in parallel double the runs: every 10 minutes from two regions is about 8,640 runs a month, 86% of the free plan's 10,000. If you want two regions, set the scheduling strategy to **round-robin**, which keeps it near 4,300.
+    - **Assertions:** status code equals `200`. That alone catches every failure, because the endpoint answers 503 when the store is unreachable or the variables are missing. For a belt-and-braces check, add a JSON body assertion: `$.store` equals `ok`.
     - **Retries:** retry once from the same location before alerting, so one slow request does not page you.
-24. Add an alert channel (email is enough) and save.
+24. Add an alert channel (email is enough), **subscribe this check to it**, and save. Without a subscribed channel a failing check notifies nobody.
 25. Confirm the first run is green in Checkly, then open `https://www.markdown.free/api/health` yourself and check that it reads `"store":"ok"`.
 
-Keep the interval at a minute or more. The endpoint allows 10 requests per minute per IP address (`src/middleware.ts`).
+Every run reaches the database: the endpoint sends `Cache-Control: no-store`, and production answers with `x-vercel-cache: MISS` on each request (checked 2026-09-22). Keep the interval at a minute or more; the endpoint allows 10 requests per minute per IP address (`src/middleware.ts`).
+
+In use since 2026-09-22: a Checkly API check named "Markdown Free Health Check", every 10 minutes.
 
 ### When the alert fires
 
