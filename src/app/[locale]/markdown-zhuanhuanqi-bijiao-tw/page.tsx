@@ -149,7 +149,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
               <li><Link href="/zh-Hant/markdown-pdf-zhuanhuan-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown PDF 轉換 - 免費、無需註冊</Link></li>
               <li><Link href="/zh-Hant/readme-pdf-zhuanhuan-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">README.md PDF 轉換</Link></li>
               <li><Link href="/zh-Hant/markdown-docx-zhuanhuan" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown DOCX 轉換</Link></li>
-              <li><Link href="/zh-Hant/markdown-pdf-wuxu-zhuce" className="text-emerald-700 hover:text-emerald-800 hover:underline">無需註冊 Markdown PDF</Link></li>
+              <li><Link href="/zh-Hant/markdown-pdf-mianzhuce" className="text-emerald-700 hover:text-emerald-800 hover:underline">無需註冊 Markdown PDF</Link></li>
             </ul>
           </div>
         </article>

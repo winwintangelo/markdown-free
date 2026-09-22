@@ -54,7 +54,7 @@ export async function generateMetadata({
 const faq = [
   { q: "Làm thế nào để chuyển đổi file Markdown sang PDF?", a: "Mở Markdown Free, kéo thả file .md vào khu vực tải lên (hoặc dán văn bản Markdown), xem trước kết quả, rồi nhấn \"Sang PDF\" để tải xuống. Toàn bộ quá trình khoảng 10 giây, không cần cài đặt." },
   { q: "Công cụ chuyển đổi Markdown sang PDF này có miễn phí không?", a: "Có. Markdown Free hoàn toàn miễn phí 100%, không có gói cao cấp, không cần đăng ký, không giới hạn sử dụng và không có watermark trên PDF xuất ra." },
-  { q: "Có thể chuyển đổi Markdown sang PDF mà không cần đăng ký không?", a: "Được. Markdown Free không yêu cầu tài khoản. File được xử lý trong trình duyệt (HTML/TXT) hoặc trong bộ nhớ serverless (PDF/DOCX/EPUB) và không bao giờ được lưu trữ." },
+  { q: "Có thể chuyển đổi Markdown sang PDF mà không cần đăng ký không?", a: "Được. Markdown Free không yêu cầu tài khoản. File được xử lý trong trình duyệt (HTML/TXT/EPUB) hoặc trong bộ nhớ serverless (PDF/DOCX) và không bao giờ được lưu trữ." },
   { q: "Dấu tiếng Việt có hiển thị đúng trong PDF không?", a: "Có. Markdown Free nhúng font hỗ trợ đầy đủ Unicode trong pipeline render PDF, nên dấu tiếng Việt, ký tự Hán-Nôm, và các ngôn ngữ khác (Hàn, Nhật, Trung) đều hiển thị chính xác mà không bị □□□ hoặc thiếu dấu." },
   { q: "Có thể chuyển đổi GitHub README.md sang PDF không?", a: "Có. Mở README.md trong repository GitHub, nhấn nút \"Raw\" và lưu file, sau đó tải lên Markdown Free và xuất PDF. CHANGELOG.md, CONTRIBUTING.md và bất kỳ file .md nào cũng được hỗ trợ." },
   { q: "Giới hạn kích thước file là bao nhiêu?", a: "Hiện tại 1MB mỗi file, đủ cho hầu hết tài liệu Markdown thực tế (~150.000 từ Markdown thuần)." },

@@ -104,8 +104,8 @@ const content: Partial<Record<Locale, {
     technical: {
       title: "Technical details",
       items: [
-        { title: "Preview & HTML/TXT export:", text: "Processed entirely in your browser using modern web technologies" },
-        { title: "PDF export:", text: "Generated server-side for high fidelity, then immediately discarded" },
+        { title: "Preview, HTML, TXT, image, EPUB and Excel export:", text: "Processed entirely in your browser using modern web technologies" },
+        { title: "PDF and Word export:", text: "Generated server-side for high fidelity, then immediately discarded" },
         { title: "File size limit:", text: "Up to 1 MB per file" },
         { title: "Supported formats:", text: "GitHub Flavored Markdown (GFM) including tables, task lists, and strikethrough" }
       ]
@@ -147,8 +147,8 @@ const content: Partial<Record<Locale, {
     technical: {
       title: "Dettagli tecnici",
       items: [
-        { title: "Anteprima ed esportazione HTML/TXT:", text: "Elaborazione interamente nel tuo browser usando tecnologie web moderne" },
-        { title: "Esportazione PDF:", text: "Generata lato server per alta fedeltà, poi immediatamente eliminata" },
+        { title: "Anteprima ed esportazione HTML, TXT, immagine, EPUB ed Excel:", text: "Elaborazione interamente nel tuo browser usando tecnologie web moderne" },
+        { title: "Esportazione PDF e Word:", text: "Generata lato server per alta fedeltà, poi immediatamente eliminata" },
         { title: "Limite dimensione file:", text: "Fino a 1 MB per file" },
         { title: "Formati supportati:", text: "GitHub Flavored Markdown (GFM) incluse tabelle, liste di attività e testo barrato" }
       ]
@@ -190,8 +190,8 @@ const content: Partial<Record<Locale, {
     technical: {
       title: "Detalles técnicos",
       items: [
-        { title: "Vista previa y exportación HTML/TXT:", text: "Procesado completamente en tu navegador usando tecnologías web modernas" },
-        { title: "Exportación PDF:", text: "Generado del lado del servidor para alta fidelidad, luego eliminado inmediatamente" },
+        { title: "Vista previa y exportación HTML, TXT, imagen, EPUB y Excel:", text: "Procesado completamente en tu navegador usando tecnologías web modernas" },
+        { title: "Exportación PDF y Word:", text: "Generado del lado del servidor para alta fidelidad, luego eliminado inmediatamente" },
         { title: "Límite de tamaño:", text: "Hasta 1 MB por archivo" },
         { title: "Formatos soportados:", text: "GitHub Flavored Markdown (GFM) incluyendo tablas, listas de tareas y texto tachado" }
       ]
@@ -233,8 +233,8 @@ const content: Partial<Record<Locale, {
     technical: {
       title: "技術的な詳細",
       items: [
-        { title: "プレビュー＆HTML/TXTエクスポート:", text: "最新のウェブ技術を使用してブラウザ内で完全に処理" },
-        { title: "PDFエクスポート:", text: "高品質のためサーバーサイドで生成し、即座に削除" },
+        { title: "プレビュー＆HTML・TXT・画像・EPUB・Excelエクスポート:", text: "最新のウェブ技術を使用してブラウザ内で完全に処理" },
+        { title: "PDF・Wordエクスポート:", text: "高品質のためサーバーサイドで生成し、即座に削除" },
         { title: "ファイルサイズ制限:", text: "ファイルあたり最大1MB" },
         { title: "対応フォーマット:", text: "GitHub Flavored Markdown（GFM）：テーブル、タスクリスト、取り消し線を含む" }
       ]
@@ -276,8 +276,8 @@ const content: Partial<Record<Locale, {
     technical: {
       title: "기술 세부사항",
       items: [
-        { title: "미리보기 및 HTML/TXT 내보내기:", text: "최신 웹 기술을 사용하여 브라우저에서 완전히 처리" },
-        { title: "PDF 내보내기:", text: "고품질을 위해 서버 측에서 생성 후 즉시 삭제" },
+        { title: "미리보기 및 HTML·TXT·이미지·EPUB·Excel 내보내기:", text: "최신 웹 기술을 사용하여 브라우저에서 완전히 처리" },
+        { title: "PDF·Word 내보내기:", text: "고품질을 위해 서버 측에서 생성 후 즉시 삭제" },
         { title: "파일 크기 제한:", text: "파일당 최대 1MB" },
         { title: "지원 형식:", text: "GitHub Flavored Markdown(GFM): 표, 작업 목록, 취소선 포함" }
       ]
@@ -319,8 +319,8 @@ const content: Partial<Record<Locale, {
     technical: {
       title: "技术细节",
       items: [
-        { title: "预览和 HTML/TXT 导出:", text: "使用现代网页技术完全在浏览器中处理" },
-        { title: "PDF 导出:", text: "在服务器端生成以保证高保真度，然后立即删除" },
+        { title: "预览和 HTML、TXT、图片、EPUB、Excel 导出:", text: "使用现代网页技术完全在浏览器中处理" },
+        { title: "PDF 与 Word 导出:", text: "在服务器端生成以保证高保真度，然后立即删除" },
         { title: "文件大小限制:", text: "每个文件最大 1MB" },
         { title: "支持格式:", text: "GitHub Flavored Markdown（GFM），包括表格、任务列表和删除线" }
       ]
@@ -362,8 +362,8 @@ const content: Partial<Record<Locale, {
     technical: {
       title: "技術細節",
       items: [
-        { title: "預覽和 HTML/TXT 匯出:", text: "使用現代網頁技術完全在瀏覽器中處理" },
-        { title: "PDF 匯出:", text: "在伺服器端生成以保證高保真度，然後立即刪除" },
+        { title: "預覽和 HTML、TXT、圖片、EPUB、Excel 匯出:", text: "使用現代網頁技術完全在瀏覽器中處理" },
+        { title: "PDF 與 Word 匯出:", text: "在伺服器端生成以保證高保真度，然後立即刪除" },
         { title: "檔案大小限制:", text: "每個檔案最大 1MB" },
         { title: "支援格式:", text: "GitHub Flavored Markdown（GFM），包括表格、任務列表和刪除線" }
       ]
@@ -405,8 +405,8 @@ const content: Partial<Record<Locale, {
     technical: {
       title: "Detail teknis",
       items: [
-        { title: "Pratinjau & ekspor HTML/TXT:", text: "Diproses sepenuhnya di browser Anda menggunakan teknologi web modern" },
-        { title: "Ekspor PDF:", text: "Dibuat di sisi server untuk kualitas tinggi, lalu langsung dihapus" },
+        { title: "Pratinjau & ekspor HTML, TXT, gambar, EPUB, dan Excel:", text: "Diproses sepenuhnya di browser Anda menggunakan teknologi web modern" },
+        { title: "Ekspor PDF dan Word:", text: "Dibuat di sisi server untuk kualitas tinggi, lalu langsung dihapus" },
         { title: "Batas ukuran file:", text: "Hingga 1 MB per file" },
         { title: "Format yang didukung:", text: "GitHub Flavored Markdown (GFM) termasuk tabel, daftar tugas, dan coretan" }
       ]
@@ -448,8 +448,8 @@ const content: Partial<Record<Locale, {
     technical: {
       title: "Chi tiết kỹ thuật",
       items: [
-        { title: "Xem trước & xuất HTML/TXT:", text: "Được xử lý hoàn toàn trong trình duyệt của bạn bằng công nghệ web hiện đại" },
-        { title: "Xuất PDF:", text: "Được tạo phía máy chủ để đảm bảo chất lượng cao, sau đó xóa ngay lập tức" },
+        { title: "Xem trước & xuất HTML, TXT, hình ảnh, EPUB và Excel:", text: "Được xử lý hoàn toàn trong trình duyệt của bạn bằng công nghệ web hiện đại" },
+        { title: "Xuất PDF và Word:", text: "Được tạo phía máy chủ để đảm bảo chất lượng cao, sau đó xóa ngay lập tức" },
         { title: "Giới hạn kích thước file:", text: "Tối đa 1 MB mỗi file" },
         { title: "Định dạng được hỗ trợ:", text: "GitHub Flavored Markdown (GFM) bao gồm bảng, danh sách công việc và gạch ngang" }
       ]

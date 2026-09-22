@@ -77,8 +77,15 @@ const formats = [
     name: "EPUB",
     href: "/markdown-to-epub",
     label: "Markdown to EPUB",
-    where: "On our server (in-memory, discarded right after)",
+    where: "100% in your browser — nothing uploaded",
     bestFor: "Reading long documents on e-readers and phones",
+  },
+  {
+    name: "Excel (XLSX)",
+    href: "/markdown-table-to-excel",
+    label: "Markdown to Excel",
+    where: "100% in your browser — nothing uploaded",
+    bestFor: "Turning Markdown tables into worksheets with real numbers",
   },
   {
     name: "HTML",
@@ -110,7 +117,7 @@ const faq = [
   {
     question: "Do my files get uploaded to a server?",
     answer:
-      "HTML, TXT, and PNG/JPG conversions run entirely in your browser — nothing is uploaded at all. PDF, Word, and EPUB conversions are processed on our server in memory and immediately discarded; your content is never stored.",
+      "HTML, TXT, PNG/JPG, EPUB and Excel conversions run entirely in your browser — nothing is uploaded at all. PDF and Word conversions are processed on our server in memory and immediately discarded; your content is never stored.",
   },
   {
     question: "Can I convert other formats into Markdown?",

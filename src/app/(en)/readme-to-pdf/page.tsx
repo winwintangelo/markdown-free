@@ -39,7 +39,7 @@ const faq = [
   { q: "How do I convert a GitHub README to PDF?", a: "Open Markdown Free, drag the README.md file into the upload area (or paste its contents), preview the rendered output, then click Export PDF. No signup, no install, takes about 10 seconds." },
   { q: "How do I download a GitHub README as PDF?", a: "Open the repo's README.md on GitHub, click \"Raw\", save the page as a .md file, then upload it to Markdown Free and export to PDF. The whole flow stays in your browser." },
   { q: "Is the README to PDF converter free?", a: "Yes. Markdown Free is 100% free with no premium tier, no signup, no usage caps, and no watermark on the exported PDF." },
-  { q: "Can I convert README.md to PDF without signing up?", a: "Yes. Markdown Free does not require an account. Files are processed in your browser (HTML/TXT) or in serverless memory (PDF/DOCX/EPUB) and never stored." },
+  { q: "Can I convert README.md to PDF without signing up?", a: "Yes. Markdown Free does not require an account. Files are processed in your browser (HTML/TXT/EPUB) or in serverless memory (PDF/DOCX) and never stored." },
   { q: "Are images from my README included in the PDF?", a: "Yes for absolute URLs (https://...). Relative image paths from a repo (./images/foo.png) won't resolve outside GitHub — replace them with the raw.githubusercontent.com URL before converting." },
   { q: "Can I convert CHANGELOG.md, CONTRIBUTING.md, or other Markdown files?", a: "Yes. Any .md or .markdown file works — README.md, CHANGELOG.md, CONTRIBUTING.md, /docs files, all of them." },
   { q: "Is there a file size limit for README to PDF conversion?", a: "Yes — 1MB per file, which covers virtually every real-world README and documentation file (~150,000 words of plain Markdown)." },

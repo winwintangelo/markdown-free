@@ -82,12 +82,12 @@ export default function AboutPage() {
           <h2>Technical details</h2>
           <ul>
             <li>
-              <strong>Preview & HTML/TXT export:</strong> Processed entirely in
-              your browser using modern web technologies
+              <strong>Preview, HTML, TXT, image, EPUB and Excel export:</strong>{" "}
+              Processed entirely in your browser using modern web technologies
             </li>
             <li>
-              <strong>PDF export:</strong> Generated server-side for high fidelity,
-              then immediately discarded
+              <strong>PDF and Word export:</strong> Generated server-side for high
+              fidelity, then immediately discarded
             </li>
             <li>
               <strong>File size limit:</strong> Up to 1 MB per file

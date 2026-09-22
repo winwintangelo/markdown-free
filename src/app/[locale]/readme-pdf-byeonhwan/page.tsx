@@ -54,7 +54,7 @@ const faq = [
   { q: "GitHub README를 PDF로 어떻게 변환하나요?", a: "GitHub 저장소에서 README.md를 열어 \"Raw\" 버튼을 클릭하고 파일을 저장한 뒤, Markdown Free에 드래그 앤 드롭하고 \"PDF로 내보내기\"를 클릭하면 됩니다. 전체 과정 약 10초, 설치 불필요." },
   { q: "GitHub README를 PDF로 다운로드하는 방법은?", a: "GitHub에서 README.md를 열고 \"Raw\"를 클릭해 페이지를 .md 파일로 저장한 뒤, Markdown Free에 업로드하고 PDF로 내보내세요. 전체 흐름이 브라우저 안에서 진행됩니다." },
   { q: "이 README→PDF 변환기는 무료인가요?", a: "네. Markdown Free는 100% 무료이며, 프리미엄 등급, 회원가입, 사용량 제한, PDF 워터마크가 없습니다." },
-  { q: "회원가입 없이 README.md를 PDF로 변환할 수 있나요?", a: "네. Markdown Free는 계정이 필요 없습니다. 파일은 브라우저(HTML/TXT) 또는 서버리스 메모리(PDF/DOCX/EPUB)에서 처리되고 절대 저장되지 않습니다." },
+  { q: "회원가입 없이 README.md를 PDF로 변환할 수 있나요?", a: "네. Markdown Free는 계정이 필요 없습니다. 파일은 브라우저(HTML/TXT/EPUB) 또는 서버리스 메모리(PDF/DOCX)에서 처리되고 절대 저장되지 않습니다." },
   { q: "한글이 들어 있는 README도 깨지지 않나요?", a: "깨지지 않습니다. Markdown Free는 PDF 렌더 파이프라인에 Noto Sans CJK KR 글꼴을 임베드하므로 한글, 한자, 일본어, 중국어가 모두 □□□ 두부 글자 없이 정확하게 표시됩니다." },
   { q: "README의 이미지도 PDF에 포함되나요?", a: "절대 URL(https://...)은 포함됩니다. 저장소의 상대 경로 이미지(./images/foo.png)는 GitHub 외부에서 해석되지 않으므로, 변환 전에 raw.githubusercontent.com URL로 교체하세요." },
   { q: "CHANGELOG.md, CONTRIBUTING.md 같은 다른 Markdown 파일도 변환되나요?", a: "네. .md 또는 .markdown 파일은 모두 가능합니다 — README.md, CHANGELOG.md, CONTRIBUTING.md, /docs 문서까지 전부." },

@@ -53,7 +53,7 @@ export async function generateMetadata({
 const faq = [
   { q: "Bagaimana cara mengonversi Markdown ke PDF?", a: "Buka Markdown Free, drag-and-drop file .md Anda (atau tempel teks Markdown), pratinjau hasil, lalu klik tombol \"Ke PDF\" untuk mengunduh. Seluruh proses sekitar 10 detik, tanpa instalasi." },
   { q: "Apakah konverter Markdown ke PDF ini gratis?", a: "Ya. Markdown Free 100% gratis tanpa paket premium, tanpa pendaftaran, tanpa batasan penggunaan, dan tanpa watermark di PDF hasil." },
-  { q: "Bisa konversi Markdown ke PDF tanpa daftar?", a: "Bisa. Markdown Free tidak memerlukan akun atau pendaftaran. File diproses di browser (HTML/TXT) atau di memori serverless (PDF/DOCX/EPUB) dan tidak pernah disimpan." },
+  { q: "Bisa konversi Markdown ke PDF tanpa daftar?", a: "Bisa. Markdown Free tidak memerlukan akun atau pendaftaran. File diproses di browser (HTML/TXT/EPUB) atau di memori serverless (PDF/DOCX) dan tidak pernah disimpan." },
   { q: "Bisa konversi GitHub README.md ke PDF?", a: "Bisa. Buka README.md di repository GitHub, klik \"Raw\" dan simpan filenya, lalu unggah ke Markdown Free dan ekspor ke PDF. CHANGELOG.md, CONTRIBUTING.md dan file .md lain juga didukung." },
   { q: "Apakah file Markdown saya disimpan di server?", a: "Tidak. PDF dibuat di memori serverless dan langsung dihapus. Ekspor HTML dan TXT diproses sepenuhnya di browser dan tidak pernah meninggalkan komputer Anda." },
   { q: "Berapa ukuran file maksimum untuk konversi Markdown ke PDF?", a: "Saat ini 1MB per file, mencakup hampir semua dokumen Markdown nyata (~150.000 kata)." },

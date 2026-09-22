@@ -56,7 +56,7 @@ export async function generateMetadata({
 const faq = [
   { q: "md ファイルを PDF に変換する方法は？", a: "Markdown Free を開いて .md ファイルをドラッグ＆ドロップ（または Markdown テキストを貼り付け）、プレビューで確認後「PDF」ボタンをクリックするだけ。約 10 秒で完了、登録もインストールも不要です。" },
   { q: "Markdown PDF 変換は本当に無料ですか？", a: "はい。Markdown Free は完全無料です。プレミアムプラン、登録、利用回数制限、PDF への透かしは一切ありません。" },
-  { q: "登録なしで Markdown を PDF に変換できますか？", a: "できます。Markdown Free はアカウント不要です。HTML/TXT はブラウザ内、PDF/DOCX/EPUB はサーバーレスメモリ上で処理され、ファイルは一切保存されません。" },
+  { q: "登録なしで Markdown を PDF に変換できますか？", a: "できます。Markdown Free はアカウント不要です。HTML/TXT/EPUB はブラウザ内、PDF/DOCX はサーバーレスメモリ上で処理され、ファイルは一切保存されません。" },
   { q: "日本語の Markdown を PDF に変換すると文字化けしますか？", a: "しません。Markdown Free は PDF レンダリングパイプラインに Noto Sans CJK JP フォントを埋め込んでいるため、日本語、中国語（簡体・繁体）、韓国語のすべてが正しく表示され、□□□（豆腐）になることはありません。" },
   { q: "GitHub の README.md も PDF に変換できますか？", a: "はい。GitHub のリポジトリで README.md を開き「Raw」ボタンをクリックして .md ファイルとして保存、Markdown Free にアップロードすれば PDF として書き出せます。CHANGELOG.md や CONTRIBUTING.md も同様です。" },
   { q: "Markdown PDF 変換のファイルサイズ上限は？", a: "現在 1MB／ファイルです。Markdown 1MB は約 15 万語に相当し、ほぼすべての実際の文書をカバーします。" },

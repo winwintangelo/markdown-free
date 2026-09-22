@@ -54,7 +54,7 @@ export async function generateMetadata({
 const faq = [
   { q: "마크다운을 PDF로 어떻게 변환하나요?", a: "Markdown Free에 .md 파일을 드래그 앤 드롭하거나 Markdown 텍스트를 붙여넣고, 미리보기로 확인한 뒤 \"PDF로 내보내기\"를 클릭하면 됩니다. 약 10초, 회원가입과 설치 없이." },
   { q: "마크다운 PDF 변환은 정말 무료인가요?", a: "네. Markdown Free는 100% 무료입니다. 프리미엄 등급, 회원가입, 사용량 제한, PDF 워터마크가 없습니다." },
-  { q: "회원가입 없이 마크다운을 PDF로 변환할 수 있나요?", a: "가능합니다. Markdown Free는 계정이 필요 없습니다. 모든 파일은 브라우저(HTML/TXT) 또는 서버리스 메모리(PDF/DOCX/EPUB)에서 처리되며 절대 저장되지 않습니다." },
+  { q: "회원가입 없이 마크다운을 PDF로 변환할 수 있나요?", a: "가능합니다. Markdown Free는 계정이 필요 없습니다. 모든 파일은 브라우저(HTML/TXT/EPUB) 또는 서버리스 메모리(PDF/DOCX)에서 처리되며 절대 저장되지 않습니다." },
   { q: "한글이 들어 있는 마크다운도 PDF로 변환하면 깨지지 않나요?", a: "깨지지 않습니다. Markdown Free는 PDF 렌더 파이프라인에 Noto Sans CJK KR 글꼴을 임베드하므로 한글, 한자, 일본어, 중국어가 모두 □□□ 두부 글자 없이 정확하게 표시됩니다." },
   { q: "GitHub README.md도 PDF로 변환할 수 있나요?", a: "네. README.md, CHANGELOG.md, CONTRIBUTING.md 등 GitHub의 .md 파일을 \"Raw\" 버튼으로 저장한 뒤 Markdown Free에 업로드하면 됩니다." },
   { q: "마크다운 PDF 변환 파일 크기 제한은?", a: "현재 1MB / 파일입니다. 1MB Markdown은 약 75만 단어에 해당하며 거의 모든 실제 문서를 커버합니다." },

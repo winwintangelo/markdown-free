@@ -33,7 +33,7 @@ const NEXT_REVIEW = "2026-11-09";
 const faq = [
   { q: "为什么我的中文在 PDF 里变成 □□□（豆腐方块）？", a: "大多数 Markdown 转 PDF 流水线会回退到 Helvetica 或 Times New Roman 等纯西文字体，这些字体没有中文字形。解决办法是 (a) 在渲染管线中嵌入支持中文的字体如 Noto Sans CJK SC（Markdown Free 自动处理），或 (b) 给转换工具显式指定字体（Pandoc：--pdf-engine=xelatex -V mainfont=\"Noto Sans CJK SC\"）。" },
   { q: "有没有免费、无广告的 Markdown 转 PDF 工具？", a: "有。Markdown Free（无广告、无追踪、无注册）、Pandoc（命令行）、VS Code 的 Markdown PDF 扩展都免费且无广告。Dillinger 和 Online2PDF 这类托管型网页工具通常依赖广告。" },
-  { q: "无需安装的 Markdown 转 PDF 工具哪款最好？", a: "Markdown Free 完全在浏览器中运行，无需安装。StackEdit 和 Dillinger 也无需安装，但依赖系统字体，因此中文可能因系统而出现乱码。" },
+  { q: "无需安装的 Markdown 转 PDF 工具哪款最好？", a: "Markdown Free 打开浏览器就能用，无需安装。StackEdit 和 Dillinger 也无需安装，但依赖系统字体，因此中文可能因系统而出现乱码。" },
   { q: "把 Markdown 转 DOCX（Word）会丢失格式吗？", a: "不会。Markdown Free、Pandoc 和 Typora 都能输出保留标题、代码块、表格和任务列表的 DOCX。Pandoc 最完整；Markdown Free 是浏览器中最快的。" },
   { q: "2026 年 Pandoc 还是最佳选择吗？", a: "在脚本批处理场景，Pandoc 仍是最强的 Markdown 转换器；但对不愿安装 LaTeX（约 1.5GB）的非技术用户，Markdown Free 这类浏览器工具能在零安装成本下提供相近的 PDF 质量。" },
   { q: "处理机密文档时，哪款转换器最安全？", a: "本地运行的工具（Pandoc、Typora、VS Code 的 Markdown PDF、md-to-pdf）让文件留在本机。浏览器工具中，Markdown Free 在浏览器内完成 HTML、TXT、图片、EPUB 和 Excel 导出，PDF 与 Word 在 serverless 内存中生成后立即丢弃、不做存储；上传到服务器的工具（Online2PDF）隐私风险最高。" },
@@ -183,7 +183,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
               <li><Link href="/zh-Hans/markdown-pdf-zhuanhuan" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown PDF 转换 - 免费、无需注册</Link></li>
               <li><Link href="/zh-Hans/readme-pdf-zhuanhuan" className="text-emerald-700 hover:text-emerald-800 hover:underline">README.md PDF 转换</Link></li>
               <li><Link href="/zh-Hans/markdown-zhuanhuan-word" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown 转 Word</Link></li>
-              <li><Link href="/zh-Hans/markdown-pdf-mianzhuce" className="text-emerald-700 hover:text-emerald-800 hover:underline">免注册 Markdown PDF</Link></li>
+              <li><Link href="/zh-Hans/markdown-pdf-wuxu-zhuce" className="text-emerald-700 hover:text-emerald-800 hover:underline">免注册 Markdown PDF</Link></li>
             </ul>
           </div>
         </article>
