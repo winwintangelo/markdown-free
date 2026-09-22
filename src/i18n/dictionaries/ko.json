@@ -100,7 +100,13 @@
     "networkError": "연결이 끊어졌습니다. 인터넷 연결을 확인하고 다시 시도해 주세요.",
     "tryAgain": "다시 시도",
     "dismiss": "닫기",
-    "noTables": "이 문서에서 표를 찾을 수 없습니다. Excel 내보내기에는 Markdown 표가 하나 이상 필요합니다."
+    "noTables": "이 문서에서 표를 찾을 수 없습니다. Excel 내보내기에는 Markdown 표가 하나 이상 필요합니다.",
+    "exportFailed": "{format} 생성에 실패했습니다",
+    "timeout": "{format} 생성 시간이 초과되었습니다. 다시 시도해 주세요.",
+    "rateLimited": "짧은 시간에 변환이 너무 많습니다. 1분 뒤에 다시 시도해 주세요.",
+    "contentTooLarge": "문서가 너무 커서 변환할 수 없습니다. 더 작은 파일로 나눠 보세요.",
+    "invalidContent": "이 문서를 읽을 수 없습니다. Markdown 텍스트가 들어 있는지 확인해 주세요.",
+    "aborted": "변환이 취소되었습니다."
   },
   "header": {
     "about": "소개",

@@ -100,7 +100,13 @@
     "networkError": "Koneksi terputus. Silakan periksa internet Anda dan coba lagi.",
     "tryAgain": "Coba Lagi",
     "dismiss": "Tutup",
-    "noTables": "Tidak ada tabel dalam dokumen ini. Ekspor Excel memerlukan setidaknya satu tabel Markdown."
+    "noTables": "Tidak ada tabel dalam dokumen ini. Ekspor Excel memerlukan setidaknya satu tabel Markdown.",
+    "exportFailed": "Gagal membuat {format}",
+    "timeout": "Pembuatan {format} melebihi batas waktu. Silakan coba lagi.",
+    "rateLimited": "Terlalu banyak konversi dalam waktu singkat. Tunggu satu menit lalu coba lagi.",
+    "contentTooLarge": "Dokumen ini terlalu besar untuk dikonversi. Coba pecah menjadi beberapa file yang lebih kecil.",
+    "invalidContent": "Dokumen ini tidak dapat dibaca. Pastikan isinya teks Markdown.",
+    "aborted": "Konversi dibatalkan."
   },
   "header": {
     "about": "Tentang",

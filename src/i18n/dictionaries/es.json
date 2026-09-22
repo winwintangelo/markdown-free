@@ -100,7 +100,13 @@
     "networkError": "Conexión perdida. Revisa tu conexión a internet e inténtalo de nuevo.",
     "tryAgain": "Reintentar",
     "dismiss": "Cerrar",
-    "noTables": "No se encontraron tablas en este documento. La exportación a Excel necesita al menos una tabla Markdown."
+    "noTables": "No se encontraron tablas en este documento. La exportación a Excel necesita al menos una tabla Markdown.",
+    "exportFailed": "Falló la generación de {format}",
+    "timeout": "La generación de {format} tardó demasiado. Inténtalo de nuevo.",
+    "rateLimited": "Demasiadas conversiones en poco tiempo. Espera un minuto e inténtalo de nuevo.",
+    "contentTooLarge": "Este documento es demasiado grande para convertirlo. Prueba a dividirlo en archivos más pequeños.",
+    "invalidContent": "No se pudo leer este documento. Comprueba que contenga texto Markdown.",
+    "aborted": "Conversión cancelada."
   },
   "header": {
     "about": "Acerca de",

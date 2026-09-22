@@ -18,6 +18,7 @@ import { markdownToHtml } from "@/lib/markdown";
 import { prepareMarkdown } from "@/lib/prepare-markdown";
 import { ensureKatexStylesheet, getKatexCssForHtmlExport, htmlHasMath } from "@/lib/katex-assets";
 import { recordConversion, teaserForcedLocally, type PostConvertPrompt } from "@/lib/feature-teaser";
+import { exportErrorMessage, exportErrorTitle } from "@/lib/export-errors";
 import {
   trackConvertSuccess,
   trackConvertError,
@@ -53,6 +54,7 @@ async function renderPrepared(markdown: string): Promise<string> {
 interface ExportError {
   format: ExportFormat;
   code: string;
+  /** Raw detail from the exporter, often English; the banner shows the localized text for `code` instead. */
   message: string;
   retryable: boolean;
 }
@@ -90,7 +92,15 @@ const defaultDict = {
     pdfTimeout: "PDF generation timed out. Please try again.",
     pdfError: "Something went wrong. Please try again.",
     noTables: "No tables found in this document. Excel export needs at least one Markdown table.",
-    tryAgain: "Try Again"
+    tryAgain: "Try Again",
+    dismiss: "Dismiss",
+    networkError: "Connection lost. Please check your internet and try again.",
+    exportFailed: "{format} generation failed",
+    timeout: "{format} generation timed out. Please try again.",
+    rateLimited: "Too many conversions in a short time. Wait a minute and try again.",
+    contentTooLarge: "This document is too large to convert. Try splitting it into smaller files.",
+    invalidContent: "This document couldn't be read. Check that it contains Markdown text.",
+    aborted: "Conversion cancelled."
   }
 };
 
@@ -690,13 +700,15 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     <div className="space-y-3">
       {/* Error Banner */}
       {error && (
-        <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3">
-          <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-red-500" />
+        <div
+          role="alert"
+          data-testid="export-error"
+          className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3"
+        >
+          <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-red-500" aria-hidden="true" />
           <div className="flex-1">
-            <p className="text-sm font-medium text-red-800">
-              {error.format.toUpperCase()} generation failed
-            </p>
-            <p className="mt-1 text-xs text-red-600">{error.message}</p>
+            <p className="text-sm font-medium text-red-800">{exportErrorTitle(error.format, dict)}</p>
+            <p className="mt-1 text-xs text-red-600">{exportErrorMessage(error.code, error.format, dict)}</p>
             {error.retryable && (
               <button
                 type="button"
@@ -710,9 +722,10 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           <button
             type="button"
             onClick={clearError}
+            aria-label={dict.errors.dismiss}
             className="flex-shrink-0 rounded-full p-1 text-red-400 transition hover:bg-red-100 hover:text-red-600"
           >
-            <X className="h-4 w-4" />
+            <X className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
       )}

@@ -100,7 +100,13 @@
     "networkError": "接続が切断されました。インターネット接続を確認して、もう一度お試しください。",
     "tryAgain": "再試行",
     "dismiss": "閉じる",
-    "noTables": "この文書に表が見つかりません。Excel 書き出しには Markdown の表が1つ以上必要です。"
+    "noTables": "この文書に表が見つかりません。Excel 書き出しには Markdown の表が1つ以上必要です。",
+    "exportFailed": "{format} の生成に失敗しました",
+    "timeout": "{format} の生成がタイムアウトしました。もう一度お試しください。",
+    "rateLimited": "短時間に変換が集中しています。1分ほど待ってからもう一度お試しください。",
+    "contentTooLarge": "この文書は大きすぎて変換できません。小さなファイルに分けてお試しください。",
+    "invalidContent": "この文書を読み取れませんでした。Markdown のテキストが含まれているか確認してください。",
+    "aborted": "変換をキャンセルしました。"
   },
   "header": {
     "about": "概要",

@@ -100,7 +100,13 @@
     "networkError": "連線中斷。請檢查您的網路連線並重試。",
     "tryAgain": "重試",
     "dismiss": "關閉",
-    "noTables": "此文件中沒有表格。匯出 Excel 需要至少一個 Markdown 表格。"
+    "noTables": "此文件中沒有表格。匯出 Excel 需要至少一個 Markdown 表格。",
+    "exportFailed": "{format} 產生失敗",
+    "timeout": "{format} 產生逾時，請重試。",
+    "rateLimited": "短時間內轉換次數過多，請等一分鐘後重試。",
+    "contentTooLarge": "文件太大，無法轉換。請嘗試拆分成較小的檔案。",
+    "invalidContent": "無法讀取此文件。請確認其中包含 Markdown 文字。",
+    "aborted": "已取消轉換。"
   },
   "header": {
     "about": "關於",

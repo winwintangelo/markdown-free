@@ -100,7 +100,13 @@
     "networkError": "连接中断。请检查您的网络连接并重试。",
     "tryAgain": "重试",
     "dismiss": "关闭",
-    "noTables": "此文档中没有表格。导出 Excel 需要至少一个 Markdown 表格。"
+    "noTables": "此文档中没有表格。导出 Excel 需要至少一个 Markdown 表格。",
+    "exportFailed": "{format} 生成失败",
+    "timeout": "{format} 生成超时，请重试。",
+    "rateLimited": "短时间内转换次数过多，请等一分钟后重试。",
+    "contentTooLarge": "文档太大，无法转换。请尝试拆分成较小的文件。",
+    "invalidContent": "无法读取此文档。请确认其中包含 Markdown 文本。",
+    "aborted": "已取消转换。"
   },
   "header": {
     "about": "关于",

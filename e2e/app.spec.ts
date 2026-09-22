@@ -472,9 +472,10 @@ test.describe("Markdown Free - Export Functionality", () => {
     const pdfButton = page.getByRole("button", { name: "To PDF" });
     await pdfButton.click();
 
-    // Should show error banner with retry button
+    // Should show error banner with retry button. The message comes from the
+    // dictionary by error code, not from the server's (English) text.
     await expect(page.getByText("PDF generation failed", { exact: true })).toBeVisible();
-    await expect(page.getByText("PDF generation failed. Please try again.", { exact: true })).toBeVisible();
+    await expect(page.getByText("Something went wrong. Please try again.", { exact: true })).toBeVisible();
     await expect(page.getByRole("button", { name: "Try Again" })).toBeVisible();
   });
 

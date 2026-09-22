@@ -100,7 +100,13 @@
     "networkError": "Mất kết nối. Vui lòng kiểm tra internet của bạn và thử lại.",
     "tryAgain": "Thử lại",
     "dismiss": "Đóng",
-    "noTables": "Không tìm thấy bảng nào trong tài liệu này. Xuất Excel cần ít nhất một bảng Markdown."
+    "noTables": "Không tìm thấy bảng nào trong tài liệu này. Xuất Excel cần ít nhất một bảng Markdown.",
+    "exportFailed": "Tạo {format} thất bại",
+    "timeout": "Tạo {format} quá thời gian. Vui lòng thử lại.",
+    "rateLimited": "Quá nhiều lượt chuyển đổi trong thời gian ngắn. Hãy đợi một phút rồi thử lại.",
+    "contentTooLarge": "Tài liệu này quá lớn để chuyển đổi. Hãy thử chia thành các tệp nhỏ hơn.",
+    "invalidContent": "Không đọc được tài liệu này. Hãy kiểm tra xem nó có chứa văn bản Markdown không.",
+    "aborted": "Đã hủy chuyển đổi."
   },
   "header": {
     "about": "Giới thiệu",
