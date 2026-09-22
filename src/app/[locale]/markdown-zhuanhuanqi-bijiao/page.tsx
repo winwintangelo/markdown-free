@@ -36,7 +36,7 @@ const faq = [
   { q: "无需安装的 Markdown 转 PDF 工具哪款最好？", a: "Markdown Free 完全在浏览器中运行，无需安装。StackEdit 和 Dillinger 也无需安装，但依赖系统字体，因此中文可能因系统而出现乱码。" },
   { q: "把 Markdown 转 DOCX（Word）会丢失格式吗？", a: "不会。Markdown Free、Pandoc 和 Typora 都能输出保留标题、代码块、表格和任务列表的 DOCX。Pandoc 最完整；Markdown Free 是浏览器中最快的。" },
   { q: "2026 年 Pandoc 还是最佳选择吗？", a: "在脚本批处理场景，Pandoc 仍是最强的 Markdown 转换器；但对不愿安装 LaTeX（约 1.5GB）的非技术用户，Markdown Free 这类浏览器工具能在零安装成本下提供相近的 PDF 质量。" },
-  { q: "处理机密文档时，哪款转换器最安全？", a: "本地运行的工具（Pandoc、Typora、VS Code 的 Markdown PDF、md-to-pdf）让文件留在本机。浏览器工具中，Markdown Free 在客户端处理 HTML/TXT/DOCX，PDF 在 serverless 内存中生成后立即丢弃；上传到服务器的工具（Online2PDF）隐私风险最高。" },
+  { q: "处理机密文档时，哪款转换器最安全？", a: "本地运行的工具（Pandoc、Typora、VS Code 的 Markdown PDF、md-to-pdf）让文件留在本机。浏览器工具中，Markdown Free 在浏览器内完成 HTML、TXT、图片、EPUB 和 Excel 导出，PDF 与 Word 在 serverless 内存中生成后立即丢弃、不做存储；上传到服务器的工具（Online2PDF）隐私风险最高。" },
   { q: "Markdown Free 有文件大小限制吗？", a: "有。目前单文件 1MB。1MB 的 Markdown 大约相当于 15 万字，几乎覆盖所有真实文档。需要更大的文件时，命令行 Pandoc 没有内置大小限制。" },
 ];
 
@@ -98,7 +98,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           </div>
 
           <h2>Markdown Free</h2>
-          <p>HTML/TXT/DOCX 输出在浏览器端完成，PDF 在 serverless 内存中生成后立刻丢弃。设计原则：&quot;30 秒能完成的事，不要塞注册和广告。&quot;</p>
+          <p>HTML、TXT、图片（PNG/JPG）、EPUB 和 Excel 输出在浏览器端完成，PDF 与 Word（DOCX）在 serverless 内存中生成后立刻丢弃。设计原则：&quot;30 秒能完成的事，不要塞注册和广告。&quot;</p>
           <p><strong>中文处理：</strong>把 Noto Sans CJK SC 直接嵌入 PDF 渲染管线，无字体参数、无安装、无豆腐。</p>
           <p><strong>优点：</strong>无注册、无追踪 cookie、隐私友好的分析、UI 支持 10 种语言、AI 生成的 Markdown 转公司 Word 文档时 DOCX 输出强劲、LaTeX 公式与 Mermaid 图表在所有格式中都能渲染。<br /><strong>缺点：</strong>单文件 1MB 上限、不支持离线（需要浏览器）、没有批处理、PDF 样式不可定制、Word 中的公式暂不可编辑。<br /><strong>最适合：</strong>需要现在就在浏览器把 Markdown 转成 PDF/DOCX/EPUB 的人，特别是含中文的文档。</p>
           <p><Link href="/zh-Hans" className="text-emerald-700 hover:text-emerald-800 hover:underline">markdown.free/zh-Hans</Link>（也可直接打开 <Link href="/zh-Hans/markdown-zhuanhuan-word" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown 转 Word</Link> 或 <Link href="/zh-Hans/readme-pdf-zhuanhuan" className="text-emerald-700 hover:text-emerald-800 hover:underline">README 转 PDF</Link>）</p>

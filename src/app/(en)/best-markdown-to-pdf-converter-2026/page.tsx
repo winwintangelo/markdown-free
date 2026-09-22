@@ -63,7 +63,7 @@ const faq = [
   },
   {
     q: "Which Markdown converter is safest for sensitive documents?",
-    a: "Anything that runs locally — Pandoc, Typora, Markdown PDF (VS Code), md-to-pdf — keeps your file on your machine. Among browser tools, Markdown Free does HTML/TXT/DOCX entirely client-side and processes PDFs in serverless memory without storage. Tools that upload to a server (Online2PDF) carry the highest privacy risk.",
+    a: "Anything that runs locally — Pandoc, Typora, Markdown PDF (VS Code), md-to-pdf — keeps your file on your machine. Among browser tools, Markdown Free runs HTML, TXT, image, EPUB and Excel exports entirely in the browser, and processes PDF and Word files in serverless memory without storing them. Tools that upload to a server (Online2PDF) carry the highest privacy risk.",
   },
   {
     q: "Does Markdown Free have a file size limit?",
@@ -255,10 +255,10 @@ export default function BestMarkdownToPdfConverter2026Page() {
           {/* Tool sections */}
           <h2>Markdown Free</h2>
           <p>
-            A browser-based Markdown converter that runs entirely client-side
-            for HTML, TXT, and DOCX exports; PDF generation runs on serverless
-            infrastructure with files processed in memory and immediately
-            discarded. Built on the principle that adding signup, ads, or
+            A browser-based Markdown converter: HTML, TXT, image (PNG/JPG),
+            EPUB and Excel exports run entirely in the browser, while PDF and
+            Word (DOCX) are generated on serverless infrastructure with files
+            processed in memory and immediately discarded. Built on the principle that adding signup, ads, or
             trackers makes a 30-second task miserable.
           </p>
           <p>

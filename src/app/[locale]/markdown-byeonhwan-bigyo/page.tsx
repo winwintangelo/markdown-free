@@ -73,11 +73,11 @@ const faq = [
   },
   {
     q: "기밀 문서를 다룰 때 가장 안전한 도구는?",
-    a: "로컬에서 실행되는 도구(Pandoc, Typora, Markdown PDF for VS Code, md-to-pdf)는 파일이 자기 컴퓨터에 머무릅니다. 브라우저 도구 중에서는 Markdown Free가 HTML/TXT/DOCX를 완전히 클라이언트 사이드로 처리하고 PDF는 서버리스 메모리에서 생성 즉시 폐기합니다. 서버에 파일을 업로드하는 도구(Online2PDF)는 프라이버시 위험이 가장 높습니다.",
+    a: "로컬에서 실행되는 도구(Pandoc, Typora, Markdown PDF for VS Code, md-to-pdf)는 파일이 자기 컴퓨터에 머무릅니다. 브라우저 도구 중에서는 Markdown Free가 HTML·TXT·이미지·EPUB·Excel 출력을 완전히 브라우저 안에서 처리하고, PDF와 Word는 서버리스 메모리에서 생성해 저장하지 않고 즉시 폐기합니다. 서버에 파일을 업로드하는 도구(Online2PDF)는 프라이버시 위험이 가장 높습니다.",
   },
   {
     q: "Markdown Free에 파일 크기 제한이 있나요?",
-    a: "있습니다. 현재 한 파일당 1MB입니다. 1MB 마크다운은 약 75만 단어 분량이라 일반적인 문서는 거의 모두 커버됩니다. 더 큰 파일이 필요하면 명령줄 Pandoc은 내장 크기 제한이 없습니다.",
+    a: "있습니다. 현재 한 파일당 1MB입니다. 1MB 마크다운은 영어 기준 약 15만 단어 분량이라 일반적인 문서는 거의 모두 커버됩니다. 더 큰 파일이 필요하면 명령줄 Pandoc은 내장 크기 제한이 없습니다.",
   },
 ];
 
@@ -165,7 +165,7 @@ export default async function MarkdownByeonhwanBigyoPage({
           </div>
 
           <h2>Markdown Free</h2>
-          <p>HTML/TXT/DOCX 출력은 완전히 클라이언트 사이드에서 동작하고, PDF만 서버리스 메모리에서 생성한 후 즉시 폐기하는 브라우저 기반 변환기. &quot;30초면 끝나는 작업에 가입과 광고를 끼워 넣지 않는다&quot;는 원칙으로 만들어졌습니다.</p>
+          <p>HTML·TXT·이미지(PNG/JPG)·EPUB·Excel 출력은 완전히 브라우저 안에서 동작하고, PDF와 Word(DOCX)는 서버리스 메모리에서 생성한 후 즉시 폐기하는 브라우저 기반 변환기. &quot;30초면 끝나는 작업에 가입과 광고를 끼워 넣지 않는다&quot;는 원칙으로 만들어졌습니다.</p>
           <p><strong>한글 처리:</strong> Noto Sans CJK KR을 PDF 렌더링 파이프라인에 직접 임베드하므로 글자 깨짐이 없습니다. 폰트 플래그도 설치도 필요 없습니다.</p>
           <p><strong>강점:</strong> 가입 없음, 추적 쿠키 없음, 프라이버시 친화적 분석, UI 10개 언어 지원, AI가 만든 마크다운을 회사 워드 문서로 옮길 때 강한 DOCX 출력, LaTeX 수식과 Mermaid 다이어그램을 모든 형식에서 렌더링.<br /><strong>약점:</strong> 한 파일 1MB 제한, 오프라인 모드 없음(브라우저 필요), 일괄 처리 없음, PDF 스타일 커스터마이징 불가, Word 내 수식은 아직 편집 불가.<br /><strong>잘 맞는 사람:</strong> 지금 당장 브라우저에서 마크다운을 PDF/DOCX/EPUB로 바꿔야 하는 사람, 특히 한글 문서를 다루는 사람.</p>
           <p><Link href="/ko" className="text-emerald-700 hover:text-emerald-800 hover:underline">markdown.free/ko</Link> (바로 <Link href="/ko/markdown-word-byeonhwan" className="text-emerald-700 hover:text-emerald-800 hover:underline">마크다운→워드 변환</Link>이나 <Link href="/ko/readme-pdf-byeonhwan" className="text-emerald-700 hover:text-emerald-800 hover:underline">README→PDF 변환</Link>으로 이동 가능)</p>
