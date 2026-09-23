@@ -12,7 +12,14 @@
  */
 
 import { track as vercelTrack } from "@vercel/analytics";
-import { isPremium, type FeatureKey, type PayAnswer } from "@/lib/feature-teaser";
+import {
+  dwellBucket,
+  isPremium,
+  type FeatureKey,
+  type PayAnswer,
+  type TeaserExit,
+  type TeaserStage,
+} from "@/lib/feature-teaser";
 
 declare global {
   interface Window {
@@ -578,4 +585,49 @@ export function trackPayIntent(answer: PayAnswer): void {
  */
 export function trackNotifySignup(picks: number): void {
   trackEvent("feature_notify_submitted", { picks: String(picks) });
+}
+
+/**
+ * The dialog closed while the teaser row stays on the page, so the visitor can
+ * still come back to it. Not a terminal event — it says how many people open
+ * the board and back out of it.
+ */
+export function trackFeatureTeaserClosed(how: TeaserExit, voted: boolean): void {
+  trackEvent("feature_teaser_closed", { how, voted: voted ? "yes" : "no" });
+}
+
+/**
+ * Terminal: the visitor voted, and the board is now gone.
+ *
+ * Every teaser that is shown ends as exactly one of `feature_teaser_completed`
+ * or `feature_teaser_dismissed`, so the funnel reads shown → opened →
+ * completed / dismissed with no leak in between. Five properties, because
+ * Vercel's track() keeps only the first five.
+ */
+export function trackFeatureTeaserCompleted(outcome: {
+  picks: FeatureKey[];
+  pay: PayAnswer | null;
+  notified: boolean;
+  dwellMs: number;
+}): void {
+  trackEvent("feature_teaser_completed", {
+    picks: String(outcome.picks.length),
+    premium_picks: String(outcome.picks.filter(isPremium).length),
+    pay: outcome.pay ?? "unanswered",
+    notified: outcome.notified ? "yes" : "no",
+    dwell: dwellBucket(outcome.dwellMs),
+  });
+}
+
+/** Terminal: the board is gone and no vote was recorded. */
+export function trackFeatureTeaserDismissed(outcome: {
+  stage: TeaserStage;
+  how: TeaserExit;
+  dwellMs: number;
+}): void {
+  trackEvent("feature_teaser_dismissed", {
+    stage: outcome.stage,
+    how: outcome.how,
+    dwell: dwellBucket(outcome.dwellMs),
+  });
 }

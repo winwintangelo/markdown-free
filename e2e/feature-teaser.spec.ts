@@ -402,6 +402,107 @@ test.describe("Vote board — the dialog", () => {
   });
 });
 
+test.describe("Vote board — the funnel events", () => {
+  const DWELL = /^(0-5s|5-15s|15-60s|60s\+)$/;
+
+  test("dismissing the row without opening it records one dismissal", async ({ page }) => {
+    await stubAnalytics(page);
+    await page.goto("/");
+    await seedHistory(page, { conversions: 1 });
+    await uploadSample(page);
+    await exportTxt(page);
+
+    const teaser = page.getByTestId("feature-teaser");
+    await expect(teaser).toBeVisible();
+    await teaser.getByRole("button", { name: "Dismiss" }).click();
+    await expect(teaser).toHaveCount(0);
+
+    const events = await getEvents(page);
+    const names = events.map((e) => e.name);
+    expect(names).toContain("feature_teaser_shown");
+    expect(names).not.toContain("feature_teaser_opened");
+    expect(names).not.toContain("feature_teaser_completed");
+
+    const dismissed = events.filter((e) => e.name === "feature_teaser_dismissed");
+    expect(dismissed).toHaveLength(1);
+    expect(dismissed[0].data).toMatchObject({ stage: "teaser", how: "close" });
+    expect(dismissed[0].data?.dwell).toMatch(DWELL);
+  });
+
+  test("closing the vote screen is not the end — the teaser stays, the dismissal waits", async ({
+    page,
+  }) => {
+    await stubAnalytics(page);
+    const { teaser, dialog } = await openVoteDialog(page);
+    await page.keyboard.press("Escape");
+    await expect(dialog).toHaveCount(0);
+
+    let events = await getEvents(page);
+    const closed = events.filter((e) => e.name === "feature_teaser_closed");
+    expect(closed).toHaveLength(1);
+    expect(closed[0].data).toEqual({ how: "escape", voted: "no" });
+    expect(events.map((e) => e.name)).not.toContain("feature_teaser_dismissed");
+
+    // Now end it for good: one dismissal, and it remembers they got as far as
+    // the vote screen.
+    await teaser.getByRole("button", { name: "Dismiss" }).click();
+    events = await getEvents(page);
+    const dismissed = events.filter((e) => e.name === "feature_teaser_dismissed");
+    expect(dismissed).toHaveLength(1);
+    expect(dismissed[0].data).toMatchObject({ stage: "vote", how: "close" });
+  });
+
+  test("a vote plus a pay answer completes the funnel, once", async ({ page }) => {
+    await stubAnalytics(page);
+    const { dialog } = await openVoteDialog(page);
+    await dialog.getByRole("button", { name: "Professional document templates" }).click();
+    await page.waitForTimeout(HUMAN_PAUSE_MS);
+    await dialog.getByRole("button", { name: "Count my vote" }).click();
+    await expect(dialog).toContainText("What everyone is asking for");
+    await dialog.getByRole("button", { name: "Maybe, depends on price" }).click();
+    await dialog.getByRole("button", { name: "Just count my vote" }).click();
+    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
+
+    const events = await getEvents(page);
+    const completed = events.filter((e) => e.name === "feature_teaser_completed");
+    expect(completed).toHaveLength(1);
+    expect(completed[0].data).toMatchObject({
+      picks: "1",
+      premium_picks: "1",
+      pay: "maybe",
+      notified: "no",
+    });
+    expect(completed[0].data?.dwell).toMatch(DWELL);
+    expect(events.map((e) => e.name)).not.toContain("feature_teaser_dismissed");
+  });
+
+  test("reopening after a vote returns to the results, so one browser cannot vote twice", async ({
+    page,
+  }) => {
+    let voteCalls = 0;
+    page.on("request", (req) => {
+      if (req.url().includes("/api/votes") && req.method() === "POST") voteCalls += 1;
+    });
+
+    const { teaser, dialog } = await openVoteDialog(page);
+    await dialog.getByRole("button", { name: "Save & restore my documents" }).click();
+    await page.waitForTimeout(HUMAN_PAUSE_MS);
+    await dialog.getByRole("button", { name: "Count my vote" }).click();
+    await expect(dialog).toContainText("What everyone is asking for");
+    expect(voteCalls).toBe(1);
+
+    await page.keyboard.press("Escape");
+    await expect(dialog).toHaveCount(0);
+    await teaser.getByRole("button", { name: "See upcoming features" }).click();
+
+    const reopened = page.getByTestId("feature-vote-dialog");
+    await expect(reopened).toContainText("What everyone is asking for");
+    // exact, or it also matches "Just count my vote" on the results screen.
+    await expect(reopened.getByRole("button", { name: "Count my vote", exact: true })).toHaveCount(0);
+    expect(voteCalls).toBe(1);
+  });
+});
+
 test.describe("POST /api/votes", () => {
   test("rejects an unknown feature", async ({ request }) => {
     const response = await request.post("/api/votes", {

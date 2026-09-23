@@ -231,6 +231,11 @@ New (apex, same sinks):
 | `feature_vote_submitted` | picks, premium_picks | Vote size |
 | `pay_intent_yes` / `pay_intent_maybe` / `pay_intent_no` | — | Commercial intent |
 | `feature_notify_submitted` | picks; never the address | High-intent leads |
+| `feature_teaser_closed` | how (close/escape/backdrop), voted (yes/no) | Who opens the board and backs out of it |
+| `feature_teaser_completed` | picks, premium_picks, pay, notified, dwell bucket | How far voters get, in one row |
+| `feature_teaser_dismissed` | stage (teaser/vote), how (close/escape/backdrop/abandoned), dwell bucket | Where the people who never vote drop out |
+
+Every teaser that is shown ends as exactly one `feature_teaser_completed` or `feature_teaser_dismissed`, so the funnel reads shown → opened → vote → completed / dismissed with no gap. The one ending that gets away is closing the tab, which runs no cleanup, so those two undercount `feature_teaser_shown`. Dwell is bucketed (0-5s / 5-15s / 15-60s / 60s+) because analytics counts distinct property values and raw milliseconds would make every visit unique.
 
 New (app, PostHog via first-party proxy; nothing app-side goes to Umami/Vercel):
 

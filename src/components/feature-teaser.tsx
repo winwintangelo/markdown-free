@@ -10,8 +10,12 @@ import {
   type FeatureKey,
   type FeatureTally,
   type PayAnswer,
+  type TeaserExit,
 } from "@/lib/feature-teaser";
 import {
+  trackFeatureTeaserClosed,
+  trackFeatureTeaserCompleted,
+  trackFeatureTeaserDismissed,
   trackFeatureTeaserOpened,
   trackFeatureVotes,
   trackNotifySignup,
@@ -66,16 +70,73 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
   const firstRowRef = useRef<HTMLButtonElement>(null);
   const revealTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const closeDialog = useCallback(() => {
-    setOpen(false);
-    triggerRef.current?.focus();
+  // The funnel, measured. The teaser is shown once and ends exactly once, so
+  // the outcome is tracked in refs: state would be stale inside the unmount
+  // cleanup that catches a teaser nobody closed.
+  const shownAtRef = useRef(Date.now());
+  const openedRef = useRef(false);
+  const votedRef = useRef(false);
+  const picksRef = useRef<FeatureKey[]>([]);
+  const payRef = useRef<PayAnswer | null>(null);
+  const notifiedRef = useRef(false);
+  const endedRef = useRef(false);
+
+  /** One terminal event per teaser: completed if they voted, else dismissed. */
+  const trackEnd = useCallback((how: TeaserExit) => {
+    if (endedRef.current) return;
+    endedRef.current = true;
+    const dwellMs = Date.now() - shownAtRef.current;
+    if (votedRef.current) {
+      trackFeatureTeaserCompleted({
+        picks: picksRef.current,
+        pay: payRef.current,
+        notified: notifiedRef.current,
+        dwellMs,
+      });
+    } else {
+      trackFeatureTeaserDismissed({
+        stage: openedRef.current ? "vote" : "teaser",
+        how,
+        dwellMs,
+      });
+    }
   }, []);
+
+  /** Close the teaser for good: the row and the dialog both go. */
+  const endTeaser = useCallback(
+    (how: TeaserExit) => {
+      trackEnd(how);
+      onDismiss();
+    },
+    [trackEnd, onDismiss]
+  );
+
+  // A teaser can also go without anyone closing it — the next conversion
+  // replaces it, or the page goes. Count that as an ending too. Closing the
+  // tab is the one ending that gets away: React runs no cleanup for it, so
+  // completed + dismissed undercounts shown by those visits.
+  useEffect(() => {
+    // React's development double-invoke unmounts and remounts with the same
+    // refs. Without this the teaser would count as ended before it started.
+    endedRef.current = false;
+    return () => trackEnd("abandoned");
+  }, [trackEnd]);
+
+  const closeDialog = useCallback(
+    (how: TeaserExit) => {
+      // The row stays, so this is not the end: the visitor can reopen it.
+      trackFeatureTeaserClosed(how, votedRef.current);
+      setOpen(false);
+      triggerRef.current?.focus();
+    },
+    []
+  );
 
   // Escape closes, and the page behind does not scroll while the dialog is up
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeDialog();
+      if (event.key === "Escape") closeDialog("escape");
     };
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -98,9 +159,12 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
 
   const openDialog = useCallback(() => {
     trackFeatureTeaserOpened();
+    openedRef.current = true;
     openedAtRef.current = Date.now();
     setOpen(true);
-    setPhase("vote");
+    // Reopening after a vote returns to the results. Sending someone back to
+    // the vote screen would let one browser vote twice and inflate the counters.
+    setPhase(votedRef.current ? "results" : "vote");
   }, []);
 
   const toggle = useCallback((key: FeatureKey) => {
@@ -134,6 +198,8 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
       const data = (await response.json()) as { tallies?: FeatureTally[] };
       setTallies(completeTallies(data.tallies ?? [], picks));
       trackFeatureVotes(picks);
+      votedRef.current = true;
+      picksRef.current = picks;
       onAnswered();
       setPhase("results");
       setRevealed(false);
@@ -147,6 +213,7 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
 
   const choosePay = useCallback((answer: PayAnswer) => {
     setPay(answer);
+    payRef.current = answer;
     trackPayIntent(answer);
     // Fire and forget: the vote is already recorded, and a failed chip must
     // not interrupt someone who is reading the results.
@@ -187,6 +254,7 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
           return;
         }
         trackNotifySignup(picks.length);
+        notifiedRef.current = true;
         setEmailed(true);
       } catch {
         setError("save");
@@ -227,7 +295,7 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
 
       <button
         type="button"
-        onClick={onDismiss}
+        onClick={() => endTeaser("close")}
         aria-label={ft.dismiss}
         className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full text-slate-300 transition hover:bg-slate-100 hover:text-slate-500"
       >
@@ -241,7 +309,7 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
         createPortal(
           <div
             className="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/35 backdrop-blur-[3px] sm:items-center"
-            onClick={closeDialog}
+            onClick={() => closeDialog("backdrop")}
           >
           <div
             role="dialog"
@@ -254,7 +322,7 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
             <span className="mx-auto mb-3 block h-1 w-10 rounded-full bg-slate-200 sm:hidden" aria-hidden="true" />
             <button
               type="button"
-              onClick={closeDialog}
+              onClick={() => closeDialog("close")}
               aria-label={ft.dismiss}
               className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
             >
@@ -462,7 +530,7 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
                         </p>
                         <button
                           type="button"
-                          onClick={onDismiss}
+                          onClick={() => endTeaser("just_vote")}
                           className="h-9 text-[13px] font-semibold text-slate-500 underline decoration-slate-300 underline-offset-[3px] transition hover:text-slate-700"
                         >
                           {ft.justVote}

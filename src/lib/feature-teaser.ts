@@ -49,6 +49,29 @@ export function isPremium(key: FeatureKey): boolean {
 export type FeatureTally = { feature: FeatureKey; votes: number };
 
 /**
+ * How someone left the board. "abandoned" means nobody closed anything: the
+ * teaser went away on its own, because the next conversion replaced it or the
+ * page went.
+ */
+export const TEASER_EXITS = ["close", "escape", "backdrop", "just_vote", "abandoned"] as const;
+export type TeaserExit = (typeof TEASER_EXITS)[number];
+
+/** Where a visitor stopped when they left without voting. */
+export type TeaserStage = "teaser" | "vote";
+
+/**
+ * Dwell time as a bucket, never the raw number. Analytics counts distinct
+ * property values, so raw milliseconds would give every visit its own row and
+ * the dashboard would show nothing.
+ */
+export function dwellBucket(ms: number): string {
+  if (ms < 5_000) return "0-5s";
+  if (ms < 15_000) return "5-15s";
+  if (ms < 60_000) return "15-60s";
+  return "60s+";
+}
+
+/**
  * Fill in the features the server did not return (nothing stored yet, or a
  * test server), so the board always draws the whole list.
  */
