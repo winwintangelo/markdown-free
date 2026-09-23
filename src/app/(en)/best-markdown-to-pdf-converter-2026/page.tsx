@@ -285,7 +285,7 @@ export default function BestMarkdownToPdfConverter2026Page() {
               markdown.free
             </Link>{" "}
             (or jump straight to{" "}
-            <Link href="/markdown-to-docx" className="text-emerald-700 hover:text-emerald-800 hover:underline">
+            <Link href="/markdown-to-word" className="text-emerald-700 hover:text-emerald-800 hover:underline">
               Markdown to DOCX
             </Link>
             ,{" "}
@@ -645,7 +645,7 @@ export default function BestMarkdownToPdfConverter2026Page() {
             <h2 className="mb-4 text-lg font-semibold text-slate-700">Related</h2>
             <ul className="space-y-2">
               <li>
-                <Link href="/markdown-to-docx" className="text-emerald-700 hover:text-emerald-800 hover:underline">
+                <Link href="/markdown-to-word" className="text-emerald-700 hover:text-emerald-800 hover:underline">
                   Markdown to DOCX (Word)
                 </Link>
               </li>

@@ -219,8 +219,8 @@ export default function MarkdownToEpubPage() {
             <Link href="/" className="text-emerald-700 hover:text-emerald-800 hover:underline">
               Markdown to PDF
             </Link>
-            <Link href="/markdown-to-docx" className="text-emerald-700 hover:text-emerald-800 hover:underline">
-              Markdown to DOCX
+            <Link href="/markdown-to-word" className="text-emerald-700 hover:text-emerald-800 hover:underline">
+              Markdown to Word (DOCX)
             </Link>
             <Link href="/readme-to-pdf" className="text-emerald-700 hover:text-emerald-800 hover:underline">
               README to PDF

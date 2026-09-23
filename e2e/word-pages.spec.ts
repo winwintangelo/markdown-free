@@ -131,20 +131,25 @@ test.describe("Word Power Pages - Wave 1", () => {
     });
   });
 
-  test.describe("Existing DOCX pages - Updated titles", () => {
-    test("English /markdown-to-docx should have Word in title", async ({ page }) => {
-      await page.goto("/markdown-to-docx");
-      const title = await page.title();
-      expect(title).toContain("DOCX");
-      expect(title).toContain("Word");
-    });
+  // The three -docx- synonym pages were retired; they 301 to the -word- page in
+  // the same locale (next.config.js). Guard the redirect so the old URLs, which
+  // still hold rankings and ChatGPT referrals, never 404.
+  test.describe("Retired DOCX pages redirect to the Word page", () => {
+    const redirects = [
+      { from: "/markdown-to-docx", to: "/markdown-to-word" },
+      { from: "/ja/markdown-docx-henkan", to: "/ja/markdown-word-henkan" },
+      { from: "/zh-Hant/markdown-docx-zhuanhuan", to: "/zh-Hant/markdown-word-zhuanhuan" },
+    ];
 
-    test("Japanese /ja/markdown-docx-henkan should have Word in title", async ({ page }) => {
-      await page.goto("/ja/markdown-docx-henkan");
-      const title = await page.title();
-      expect(title).toContain("DOCX");
-      expect(title).toContain("Word");
-    });
+    for (const { from, to } of redirects) {
+      test(`${from} redirects to ${to}`, async ({ page }) => {
+        const response = await page.goto(from);
+        expect(response?.status()).toBe(200);
+        expect(new URL(page.url()).pathname).toBe(to);
+        const title = await page.title();
+        expect(title).toContain("Word");
+      });
+    }
   });
 });
 

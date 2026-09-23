@@ -7,7 +7,7 @@ import { test, expect } from "@playwright/test";
  *  1. The hub renders sibling-tool links on the homepage and intent pages.
  *  2. Localized pages link WITHIN their own locale — regression guard for the
  *     EN-leak bug where JA/KO/ID/VI/ZH epub pages linked to English routes
- *     (/markdown-to-docx, /readme-to-pdf) instead of localized ones.
+ *     (/markdown-to-word, /readme-to-pdf) instead of localized ones.
  */
 
 test.describe("Related tools cross-links", () => {
@@ -25,7 +25,7 @@ test.describe("Related tools cross-links", () => {
     ).toBeVisible(VISIBLE);
     // Home is the PDF converter, so the hub shows the OTHER tools.
     await expect(page.locator('a[href="/readme-to-pdf"]').first()).toBeVisible(VISIBLE);
-    await expect(page.locator('a[href="/markdown-to-docx"]').first()).toBeVisible(VISIBLE);
+    await expect(page.locator('a[href="/markdown-to-word"]').first()).toBeVisible(VISIBLE);
     await expect(page.locator('a[href="/markdown-to-epub"]').first()).toBeVisible(VISIBLE);
     await expect(page.locator('a[href="/markdown-to-png"]').first()).toBeVisible(VISIBLE);
   });
@@ -53,7 +53,7 @@ test.describe("Related tools cross-links", () => {
       // Localized sibling link is present...
       await expect(page.locator(`a[href="${sibling}"]`).first()).toBeVisible(VISIBLE);
       // ...and there is no cross-locale leak to English tool routes.
-      await expect(page.locator('a[href="/markdown-to-docx"]')).toHaveCount(0);
+      await expect(page.locator('a[href="/markdown-to-word"]')).toHaveCount(0);
       await expect(page.locator('a[href="/readme-to-pdf"]')).toHaveCount(0);
     });
   }

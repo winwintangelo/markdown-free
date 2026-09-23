@@ -77,7 +77,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           <p>HTML、TXT、圖片（PNG/JPG）、EPUB 與 Excel 輸出在瀏覽器端完成，PDF 與 Word（DOCX）在 serverless 記憶體中產生後立刻丟棄。設計原則：「30 秒能完成的事，不要塞註冊和廣告。」</p>
           <p><strong>中文處理：</strong>把 Noto Sans CJK TC 直接嵌入 PDF 算繪管線，無字型參數、無安裝、無豆腐。</p>
           <p><strong>優點：</strong>無註冊、無追蹤 cookie、隱私友善的分析、UI 支援 10 種語言、把 AI 生成的 Markdown 轉成公司 Word 文件時 DOCX 輸出強、LaTeX 公式與 Mermaid 圖表在所有格式中都能渲染。<br /><strong>缺點：</strong>單檔 1MB 上限、不支援離線（需瀏覽器）、沒有批次處理、PDF 樣式不可自訂、Word 中的公式暫不可編輯。<br /><strong>最適合：</strong>需要現在就在瀏覽器把 Markdown 轉成 PDF/DOCX/EPUB 的人，特別是含中文的文件。</p>
-          <p><Link href="/zh-Hant" className="text-emerald-700 hover:text-emerald-800 hover:underline">markdown.free/zh-Hant</Link>（也可直接打開 <Link href="/zh-Hant/markdown-docx-zhuanhuan" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown 轉 DOCX</Link> 或 <Link href="/zh-Hant/readme-pdf-zhuanhuan-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">README 轉 PDF</Link>）</p>
+          <p><Link href="/zh-Hant" className="text-emerald-700 hover:text-emerald-800 hover:underline">markdown.free/zh-Hant</Link>（也可直接打開 <Link href="/zh-Hant/markdown-word-zhuanhuan" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown 轉 DOCX</Link> 或 <Link href="/zh-Hant/readme-pdf-zhuanhuan-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">README 轉 PDF</Link>）</p>
 
           <h2>Pandoc</h2>
           <p>命令列通用文件轉換器，可在 30+ 種格式間互轉。腳本批次處理與流水線場景的事實標準。</p>
@@ -148,7 +148,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
             <ul className="space-y-2">
               <li><Link href="/zh-Hant/markdown-pdf-zhuanhuan-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown PDF 轉換 - 免費、無需註冊</Link></li>
               <li><Link href="/zh-Hant/readme-pdf-zhuanhuan-tw" className="text-emerald-700 hover:text-emerald-800 hover:underline">README.md PDF 轉換</Link></li>
-              <li><Link href="/zh-Hant/markdown-docx-zhuanhuan" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown DOCX 轉換</Link></li>
+              <li><Link href="/zh-Hant/markdown-word-zhuanhuan" className="text-emerald-700 hover:text-emerald-800 hover:underline">Markdown DOCX 轉換</Link></li>
               <li><Link href="/zh-Hant/markdown-pdf-mianzhuce" className="text-emerald-700 hover:text-emerald-800 hover:underline">無需註冊 Markdown PDF</Link></li>
             </ul>
           </div>

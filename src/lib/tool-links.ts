@@ -75,7 +75,7 @@ export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
   en: suite("en", {
     pdf: "/",
     readme: "/readme-to-pdf",
-    docx: "/markdown-to-docx",
+    docx: "/markdown-to-word",
     epub: "/markdown-to-epub",
     image: "/markdown-to-png",
     comparison: "/best-markdown-to-pdf-converter-2026",
@@ -99,7 +99,7 @@ export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
   ja: suite("ja", {
     pdf: "/ja/markdown-pdf-henkan",
     readme: "/ja/readme-pdf-henkan",
-    docx: "/ja/markdown-docx-henkan",
+    docx: "/ja/markdown-word-henkan",
     epub: "/ja/markdown-epub-henkan",
     image: "/ja/markdown-gazou-henkan",
     comparison: "/ja/markdown-henkan-hikaku",
@@ -123,7 +123,7 @@ export const TOOL_LINKS: Partial<Record<Locale, ToolLink[]>> = {
   "zh-Hant": suite("zh-Hant", {
     pdf: "/zh-Hant/markdown-pdf-zhuanhuan-tw",
     readme: "/zh-Hant/readme-pdf-zhuanhuan-tw",
-    docx: "/zh-Hant/markdown-docx-zhuanhuan",
+    docx: "/zh-Hant/markdown-word-zhuanhuan",
     epub: "/zh-Hant/markdown-epub-zhuanhuan-tw",
     image: "/zh-Hant/markdown-zhuan-tupian-tw",
     comparison: "/zh-Hant/markdown-zhuanhuanqi-bijiao-tw",

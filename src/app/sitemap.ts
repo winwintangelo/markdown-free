@@ -98,8 +98,7 @@ const standalone = plain([
   "/markdown-to-pdf-no-watermark", "/es/markdown-pdf-sin-registro", "/it/markdown-pdf-senza-registrazione",
   "/ja/markdown-pdf-touroku-fuyou", "/ko/markdown-pdf-hoewon-gaibeop-eobs-i", "/zh-Hans/markdown-pdf-wuxu-zhuce",
   "/zh-Hant/markdown-pdf-mianzhuce", "/id/markdown-pdf-tanpa-daftar", "/vi/markdown-pdf-khong-dang-ky",
-  // DOCX synonym pages (the word cluster uses the -word-/-a-word slugs)
-  "/markdown-to-docx", "/ja/markdown-docx-henkan", "/zh-Hant/markdown-docx-zhuanhuan",
+  // (The three -docx- synonym pages 301 to their -word- twins; see next.config.js.)
   // English-only tool/landing pages
   "/github-readme-to-pdf", "/chatgpt-to-pdf", "/claude-artifacts-to-pdf", "/notion-export-to-pdf",
   "/typora-to-pdf", "/obsidian-markdown-to-pdf", "/markdown-to-pdf-online-free",

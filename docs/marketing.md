@@ -712,13 +712,15 @@ Each page gets all alternates based on page key, not string matching.
 
 ### Handling Existing DOCX Pages
 
-| Existing Page | Action |
-|---------------|--------|
-| `/markdown-to-docx` | Keep as-is, add "Word" to title, or 301 → `/markdown-to-word` |
-| `/ja/markdown-docx-henkan` | Update title to include Word, or 301 → new page |
-| `/zh-Hant/markdown-docx-zhuanhuan` | Update title to include Word, or 301 → new page |
+**Resolved 2026-09-22: all three 301 to their `-word-` twin** (`next.config.js`). Keeping both sets split the cluster: the `-word-` pages carry the hreflang group, `RelatedTools` and `FAQPage` schema, while `TOOL_LINKS.docx` still pointed the footer at the synonyms, so the two competed for the same query.
 
-**Recommended**: Update existing pages' titles to include both terms rather than creating redirects. Simpler, preserves any existing rankings.
+| Retired page | 301 destination |
+|---------------|--------|
+| `/markdown-to-docx` | `/markdown-to-word` |
+| `/ja/markdown-docx-henkan` | `/ja/markdown-word-henkan` |
+| `/zh-Hant/markdown-docx-zhuanhuan` | `/zh-Hant/markdown-word-zhuanhuan` |
+
+A 301 rather than a delete: `/markdown-to-docx` held GSC position ~30–50 and took 65% of ChatGPT referral landings in January 2026. The redirect passes that to the page that answers the query.
 
 ### Internal Linking Strategy
 

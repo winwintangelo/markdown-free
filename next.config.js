@@ -20,6 +20,20 @@ const nextConfig = {
     };
     return config;
   },
+  // The three -docx- pages duplicated the -word- cluster's intent and split its
+  // ranking signal (the word pages carry the hreflang group, RelatedTools and
+  // FAQPage schema). 301 keeps whatever the synonyms earned and sends visitors
+  // to the page that answers the query.
+  async redirects() {
+    return [
+      // statusCode 301, not `permanent: true`: Next's `permanent` emits 308, and
+      // 301 is the code every crawler here (Google, Bing, the AI bots) reads
+      // without ambiguity.
+      { source: "/markdown-to-docx", destination: "/markdown-to-word", statusCode: 301 },
+      { source: "/ja/markdown-docx-henkan", destination: "/ja/markdown-word-henkan", statusCode: 301 },
+      { source: "/zh-Hant/markdown-docx-zhuanhuan", destination: "/zh-Hant/markdown-word-zhuanhuan", statusCode: 301 },
+    ];
+  },
   async rewrites() {
     return [
       {

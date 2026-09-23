@@ -710,7 +710,7 @@ test.describe("Markdown Free - Title & Meta Deduplication", () => {
   const intentPages = [
     { path: "/chatgpt-to-pdf",                 label: "ChatGPT to PDF" },
     { path: "/github-readme-to-pdf",           label: "GitHub README to PDF" },
-    { path: "/markdown-to-docx",               label: "Markdown to DOCX" },
+    { path: "/markdown-to-word",               label: "Markdown to Word (DOCX)" },
     { path: "/readme-to-pdf",                  label: "README to PDF" },
     { path: "/obsidian-markdown-to-pdf",       label: "Obsidian Markdown to PDF" },
     { path: "/notion-export-to-pdf",           label: "Notion Export to PDF" },

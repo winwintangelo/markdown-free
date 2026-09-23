@@ -205,7 +205,7 @@ export default function TyporaToPdfPage() {
               </li>
               <li>
                 <Link
-                  href="/markdown-to-docx"
+                  href="/markdown-to-word"
                   className="text-emerald-700 hover:text-emerald-800 hover:underline"
                 >
                   Markdown to Word (DOCX)
