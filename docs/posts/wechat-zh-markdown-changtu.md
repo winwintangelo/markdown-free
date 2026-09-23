@@ -5,7 +5,7 @@ Target intent pages: /zh-Hans/markdown-zhuan-tupian, /zh-Hans/markdown-zhuanhuan
 Tone: 干货分享, not 硬广. Add screenshots. On 小红书, shorten + add tags #Markdown #公众号排版 #效率工具.
 -->
 
-# 免费！Markdown 一键转长图，公众号/小红书排版神器（无需注册·本地处理不上传）
+# 免费！Markdown 一键转长图，公众号/小红书排版神器（无需注册·长图在本地生成不上传）
 
 ## 你是不是也遇到过
 
@@ -24,7 +24,7 @@ Tone: 干货分享, not 硬广. Add screenshots. On 小红书, shorten + add tag
 
 - ✅ **中文完美支持**，不会乱码、不会豆腐块，无需配字体。
 - ✅ **无需注册、无需安装**，打开网页拖进去就行。
-- ✅ **文件不上传** — 图片在你自己的浏览器里本地渲染，Markdown 内容不会发到服务器，公司文档也放心。
+- ✅ **不存储文件** — 长图、HTML、TXT、EPUB、Excel 全部在你自己的浏览器里生成，不上传；PDF 与 Word (DOCX) 在 serverless 内存中生成后立刻丢弃，不做存储。
 - ✅ **无水印、无广告、完全免费。**
 
 ## 重点：Markdown 转长图，专为公众号/小红书排版
