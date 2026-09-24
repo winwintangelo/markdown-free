@@ -2,8 +2,8 @@
  * Phase 1.5 demand probe: the coming-features teaser and the vote board
  * (build plan §5).
  *
- * From a browser's 2nd successful conversion, and at most once per 7 days, a
- * one-line teaser replaces the post-convert thumbs prompt. Opening it shows a
+ * At most once per 7 days per browser, a one-line teaser takes the slot the
+ * post-convert thumbs prompt would have used. Opening it shows a
  * dialog in two states: pick the features you would use, with no counts and no
  * bars anywhere, then — once the vote is recorded — the tallies, one optional
  * question about paying, and an optional email.
@@ -84,8 +84,18 @@ export function completeTallies(rows: FeatureTally[], picks: FeatureKey[]): Feat
   })).sort((a, b) => b.votes - a.votes || FEATURE_KEYS.indexOf(a.feature) - FEATURE_KEYS.indexOf(b.feature));
 }
 
-/** The teaser shows from this conversion on; the 1st keeps the thumbs prompt. */
-export const TEASER_FROM_CONVERSION = 2;
+/**
+ * The teaser shows from this conversion on.
+ *
+ * It was 2 until 2026-09-23, when production said the probe was invisible: 14
+ * teasers against 95 converting visitors in 24 hours. Waiting for a second
+ * conversion AND 30 quiet minutes cannot both happen in one sitting, because
+ * the first conversion's thumbs prompt starts the quiet period — so only
+ * visitors returning half an hour later ever saw it. The teaser now takes the
+ * first conversion's prompt slot instead of the thumbs prompt, which leaves the
+ * number of interruptions unchanged and its own 7-day cooldown in charge.
+ */
+export const TEASER_FROM_CONVERSION = 1;
 /** At most once per this many milliseconds per browser. */
 export const TEASER_COOLDOWN_MS = 7 * 24 * 60 * 60 * 1000;
 /**
@@ -138,16 +148,21 @@ export function recordConversion(now: number = Date.now()): PostConvertPrompt {
     const count = (readTime(CONVERSION_COUNT_KEY) || 0) + 1;
     localStorage.setItem(CONVERSION_COUNT_KEY, String(count));
 
-    if (now - readTime(PROMPT_SHOWN_AT_KEY) < PROMPT_QUIET_MS) return "none";
-
+    // The teaser is checked first and ignores the quiet period. Its own 7-day
+    // cooldown is the limit that matters, and it takes a slot the thumbs
+    // prompt would have used, so nobody is interrupted more often.
     const teaserDue =
       count >= TEASER_FROM_CONVERSION && now - readTime(TEASER_SHOWN_AT_KEY) >= TEASER_COOLDOWN_MS;
+    if (teaserDue) {
+      localStorage.setItem(PROMPT_SHOWN_AT_KEY, String(now));
+      localStorage.setItem(TEASER_SHOWN_AT_KEY, String(now));
+      return "teaser";
+    }
+
+    if (now - readTime(PROMPT_SHOWN_AT_KEY) < PROMPT_QUIET_MS) return "none";
 
     localStorage.setItem(PROMPT_SHOWN_AT_KEY, String(now));
-    if (!teaserDue) return "thumbs";
-
-    localStorage.setItem(TEASER_SHOWN_AT_KEY, String(now));
-    return "teaser";
+    return "thumbs";
   } catch {
     return "thumbs";
   }

@@ -114,9 +114,23 @@ async function serverIsTestTarget(request: APIRequestContext): Promise<boolean> 
 }
 
 test.describe("Feature teaser — when it shows", () => {
+  test("a fresh browser gets the teaser on its very first conversion", async ({ page }) => {
+    await stubAnalytics(page);
+    await page.goto("/");
+    await uploadSample(page);
+
+    await exportTxt(page);
+    await expect(page.getByTestId("feature-teaser")).toBeVisible();
+    await expect(page.getByText("How's your experience?")).toHaveCount(0);
+
+    expect((await getEvents(page)).filter((e) => e.name === "feature_teaser_shown")).toHaveLength(1);
+  });
+
   test("one prompt per sitting: the 1st conversion asks, the next ones stay quiet", async ({ page }) => {
     await stubAnalytics(page);
     await page.goto("/");
+    // A teaser yesterday, so this sitting is the thumbs prompt's.
+    await seedHistory(page, { conversions: 2, teaserDaysAgo: 1 });
     await uploadSample(page);
 
     await exportTxt(page);
@@ -128,11 +142,11 @@ test.describe("Feature teaser — when it shows", () => {
     await expect(page.getByText("How's your experience?")).toHaveCount(0);
     await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
 
-    expect(await page.evaluate((key) => localStorage.getItem(key), COUNT_KEY)).toBe("3");
+    expect(await page.evaluate((key) => localStorage.getItem(key), COUNT_KEY)).toBe("5");
     expect((await getEvents(page)).filter((e) => e.name === "feature_teaser_shown")).toHaveLength(0);
   });
 
-  test("after the quiet period the teaser takes the slot, and stays until dismissed", async ({ page }) => {
+  test("the teaser takes the prompt slot, and stays until dismissed", async ({ page }) => {
     await stubAnalytics(page);
     await page.goto("/");
     await seedHistory(page, { conversions: 1 });

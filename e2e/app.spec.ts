@@ -2289,6 +2289,10 @@ test.describe("Markdown Free - Post-Convert Feedback", () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
+    // The Phase 1.5 teaser takes the first conversion's prompt slot in a fresh
+    // browser (src/lib/feature-teaser.ts). These tests are about the thumbs
+    // prompt, so tell the browser it has already had its teaser.
+    await page.evaluate(() => localStorage.setItem("mdfree:teaser-shown-at", String(Date.now())));
   });
 
   test("feedback widget appears after successful TXT export", async ({ page }) => {
