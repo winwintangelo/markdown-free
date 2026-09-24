@@ -94,6 +94,11 @@ export function completeTallies(rows: FeatureTally[], picks: FeatureKey[]): Feat
  * visitors returning half an hour later ever saw it. The teaser now takes the
  * first conversion's prompt slot instead of the thumbs prompt, which leaves the
  * number of interruptions unchanged and its own 7-day cooldown in charge.
+ *
+ * The 30-minute quiet period still applies to it: the teaser stamps the same
+ * timestamp, so the rest of that sitting stays silent, and a teaser that falls
+ * due mid-sitting waits for the quiet period like anything else (owner,
+ * 2026-09-23: "I still want quiet period after the 1st conversion").
  */
 export const TEASER_FROM_CONVERSION = 1;
 /** At most once per this many milliseconds per browser. */
@@ -148,21 +153,19 @@ export function recordConversion(now: number = Date.now()): PostConvertPrompt {
     const count = (readTime(CONVERSION_COUNT_KEY) || 0) + 1;
     localStorage.setItem(CONVERSION_COUNT_KEY, String(count));
 
-    // The teaser is checked first and ignores the quiet period. Its own 7-day
-    // cooldown is the limit that matters, and it takes a slot the thumbs
-    // prompt would have used, so nobody is interrupted more often.
-    const teaserDue =
-      count >= TEASER_FROM_CONVERSION && now - readTime(TEASER_SHOWN_AT_KEY) >= TEASER_COOLDOWN_MS;
-    if (teaserDue) {
-      localStorage.setItem(PROMPT_SHOWN_AT_KEY, String(now));
-      localStorage.setItem(TEASER_SHOWN_AT_KEY, String(now));
-      return "teaser";
-    }
-
+    // The quiet period comes first and has no exceptions: one prompt per 30
+    // minutes, whichever kind. The teaser needs no exemption now that it takes
+    // the first conversion's slot, where no prompt has been shown yet.
     if (now - readTime(PROMPT_SHOWN_AT_KEY) < PROMPT_QUIET_MS) return "none";
 
+    const teaserDue =
+      count >= TEASER_FROM_CONVERSION && now - readTime(TEASER_SHOWN_AT_KEY) >= TEASER_COOLDOWN_MS;
+
     localStorage.setItem(PROMPT_SHOWN_AT_KEY, String(now));
-    return "thumbs";
+    if (!teaserDue) return "thumbs";
+
+    localStorage.setItem(TEASER_SHOWN_AT_KEY, String(now));
+    return "teaser";
   } catch {
     return "thumbs";
   }

@@ -209,6 +209,24 @@ test.describe("Feature teaser — when it shows", () => {
     await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
   });
 
+  test("a teaser that falls due mid-sitting still waits for the quiet period", async ({ page }) => {
+    await stubAnalytics(page);
+    await page.goto("/");
+    // The teaser is due (8 days), but a prompt was shown 5 minutes ago. The
+    // quiet period has no exceptions: one prompt per 30 minutes, either kind.
+    await seedHistory(page, { conversions: 3, teaserDaysAgo: 8, lastPromptMinutesAgo: 5 });
+    await uploadSample(page);
+    await exportTxt(page);
+    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
+    await expect(page.getByText("How's your experience?")).toHaveCount(0);
+
+    // Once the quiet period is over, it takes the next conversion's slot.
+    await endQuietPeriod(page);
+    await exportTxt(page);
+    await expect(page.getByTestId("feature-teaser")).toBeVisible();
+    expect((await getEvents(page)).filter((e) => e.name === "feature_teaser_shown")).toHaveLength(1);
+  });
+
   test("a prompt shown 31 minutes ago lets the next one through", async ({ page }) => {
     await page.goto("/");
     await seedHistory(page, { conversions: 5, teaserDaysAgo: 1, lastPromptMinutesAgo: 31 });
