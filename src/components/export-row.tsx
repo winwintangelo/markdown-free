@@ -115,6 +115,10 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   // prompt), and a counter that remounts it so every success gets a fresh one
   const [postConvertPrompt, setPostConvertPrompt] = useState<Exclude<PostConvertPrompt, "none">>("thumbs");
   const [successSeq, setSuccessSeq] = useState(0);
+  // The teaser keys off this instead of successSeq: it is about what we build
+  // next, not about the file just exported, so a second conversion must not
+  // remount it. A remount would also count as an ending in analytics.
+  const [teaserSeq, setTeaserSeq] = useState(0);
   const [loadingShareFormat, setLoadingShareFormat] = useState<"pdf" | "docx" | null>(null);
   const [pendingShare, setPendingShare] = useState<{
     blob: Blob;
@@ -226,6 +230,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       if (prompt === "teaser") {
         trackFeatureTeaserShown(locale);
         teaserPendingRef.current = true;
+        setTeaserSeq((n) => n + 1);
       }
       // Inside the quiet period the conversion still counts, but nothing asks
       // the visitor anything. An open teaser stays.
@@ -1105,7 +1110,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       {/* Post-conversion prompt: the Phase 1.5 teaser, or the thumbs feedback */}
       {lastSuccessFormat && postConvertPrompt === "teaser" && dict.featureTeaser && (
         <FeatureTeaser
-          key={`teaser-${successSeq}`}
+          key={`teaser-${teaserSeq}`}
           dict={dict}
           locale={locale}
           onAnswered={() => {

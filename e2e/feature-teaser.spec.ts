@@ -452,6 +452,28 @@ test.describe("Vote board — the funnel events", () => {
     expect(dismissed[0].data).toMatchObject({ stage: "vote", how: "close" });
   });
 
+  test("a second conversion under an open teaser is not an ending", async ({ page }) => {
+    await stubAnalytics(page);
+    await page.goto("/");
+    await seedHistory(page, { conversions: 1 });
+    await uploadSample(page);
+    await exportTxt(page);
+
+    const teaser = page.getByTestId("feature-teaser");
+    await expect(teaser).toBeVisible();
+
+    // People export a second format straight away. The teaser stays up, so it
+    // has not ended: a dismissal here would count someone who never left.
+    await exportTxt(page);
+    await exportTxt(page);
+    await expect(teaser).toBeVisible();
+
+    const events = await getEvents(page);
+    expect(events.filter((e) => e.name === "feature_teaser_shown")).toHaveLength(1);
+    expect(events.map((e) => e.name)).not.toContain("feature_teaser_dismissed");
+    expect(events.map((e) => e.name)).not.toContain("feature_teaser_completed");
+  });
+
   test("a vote plus a pay answer completes the funnel, once", async ({ page }) => {
     await stubAnalytics(page);
     const { dialog } = await openVoteDialog(page);
