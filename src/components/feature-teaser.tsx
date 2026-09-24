@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import {
   FEATURE_KEYS,
   completeTallies,
+  markTeaserAnswered,
   type FeatureKey,
   type FeatureTally,
   type PayAnswer,
@@ -200,6 +201,8 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
       trackFeatureVotes(picks);
       votedRef.current = true;
       picksRef.current = picks;
+      // They answered. No later conversion asks again, this week or ever.
+      markTeaserAnswered();
       onAnswered();
       setPhase("results");
       setRevealed(false);

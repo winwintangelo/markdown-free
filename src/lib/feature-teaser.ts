@@ -2,8 +2,10 @@
  * Phase 1.5 demand probe: the coming-features teaser and the vote board
  * (build plan §5).
  *
- * At most once per 7 days per browser, a one-line teaser takes the slot the
- * post-convert thumbs prompt would have used. Opening it shows a
+ * For 7 days from a browser's first conversion, the one-line teaser takes the
+ * slot the post-convert thumbs prompt would have used; after that the thumbs
+ * prompt takes it back, and a visitor who votes never sees the teaser again.
+ * Opening it shows a
  * dialog in two states: pick the features you would use, with no counts and no
  * bars anywhere, then — once the vote is recorded — the tallies, one optional
  * question about paying, and an optional email.
@@ -101,8 +103,16 @@ export function completeTallies(rows: FeatureTally[], picks: FeatureKey[]): Feat
  * 2026-09-23: "I still want quiet period after the 1st conversion").
  */
 export const TEASER_FROM_CONVERSION = 1;
-/** At most once per this many milliseconds per browser. */
-export const TEASER_COOLDOWN_MS = 7 * 24 * 60 * 60 * 1000;
+/**
+ * How long the teaser keeps the prompt slot in one browser.
+ *
+ * Owner, 2026-09-23: the teaser shows on every prompt slot for 7 days, then the
+ * thumbs prompt takes the slot back. Before this it was the other way round —
+ * one teaser per 7 days — which gave the probe a single impression per browser
+ * and left the gate out of reach. The 30-minute quiet period still limits how
+ * often a slot comes round, so 7 days of teasers is not 7 days of nagging.
+ */
+export const TEASER_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 /**
  * Quiet period after any post-convert prompt. Converting a handful of files in
  * one sitting is normal, and a prompt each time is noise, so the next prompt
@@ -113,7 +123,14 @@ export const PROMPT_QUIET_MS = 30 * 60 * 1000;
 export const MIN_SUBMIT_MS = 1500;
 
 export const CONVERSION_COUNT_KEY = "mdfree:conversions";
+/** When this browser first saw the teaser; the 7-day window runs from here. */
+export const TEASER_FIRST_AT_KEY = "mdfree:teaser-first-at";
+/** The most recent teaser. Kept for the migration below and for debugging. */
 export const TEASER_SHOWN_AT_KEY = "mdfree:teaser-shown-at";
+/** How many teasers this browser has seen, so analytics can separate the 1st. */
+export const TEASER_IMPRESSIONS_KEY = "mdfree:teaser-impressions";
+/** Set once the visitor votes. A voter is never asked again. */
+export const TEASER_ANSWERED_KEY = "mdfree:teaser-answered";
 export const PROMPT_SHOWN_AT_KEY = "mdfree:prompt-shown-at";
 
 export type PostConvertPrompt = "thumbs" | "teaser" | "none";
@@ -141,6 +158,32 @@ function readTime(key: string): number {
 }
 
 /**
+ * The visitor voted. They are done: every later conversion gets the thumbs
+ * prompt, whatever is left of the 7-day window. Showing the board again would
+ * also let one browser vote twice and inflate the counters.
+ */
+export function markTeaserAnswered(): void {
+  try {
+    localStorage.setItem(TEASER_ANSWERED_KEY, "1");
+  } catch {
+    // Storage is unavailable; the teaser could not have been shown either.
+  }
+}
+
+/**
+ * How many teasers this browser has seen, the current one included. Analytics
+ * tags the event with it so the gate can be read on first impressions, which
+ * is what the fake-door benchmark measures.
+ */
+export function teaserImpressions(): number {
+  try {
+    return readTime(TEASER_IMPRESSIONS_KEY);
+  } catch {
+    return 0;
+  }
+}
+
+/**
  * Count one successful conversion in this browser and decide which prompt
  * follows it: the teaser when it is due, otherwise the thumbs prompt, and
  * nothing at all within 30 minutes of the last prompt.
@@ -154,17 +197,21 @@ export function recordConversion(now: number = Date.now()): PostConvertPrompt {
     localStorage.setItem(CONVERSION_COUNT_KEY, String(count));
 
     // The quiet period comes first and has no exceptions: one prompt per 30
-    // minutes, whichever kind. The teaser needs no exemption now that it takes
-    // the first conversion's slot, where no prompt has been shown yet.
+    // minutes, whichever kind.
     if (now - readTime(PROMPT_SHOWN_AT_KEY) < PROMPT_QUIET_MS) return "none";
-
-    const teaserDue =
-      count >= TEASER_FROM_CONVERSION && now - readTime(TEASER_SHOWN_AT_KEY) >= TEASER_COOLDOWN_MS;
-
     localStorage.setItem(PROMPT_SHOWN_AT_KEY, String(now));
-    if (!teaserDue) return "thumbs";
 
+    // Browsers that saw a teaser under the old rule start their window from
+    // that teaser, not from today, so nobody gets a second 7-day run.
+    const firstAt = readTime(TEASER_FIRST_AT_KEY) || readTime(TEASER_SHOWN_AT_KEY);
+    const answered = localStorage.getItem(TEASER_ANSWERED_KEY) === "1";
+    const inWindow = firstAt === 0 || now - firstAt < TEASER_WINDOW_MS;
+
+    if (answered || count < TEASER_FROM_CONVERSION || !inWindow) return "thumbs";
+
+    if (firstAt === 0) localStorage.setItem(TEASER_FIRST_AT_KEY, String(now));
     localStorage.setItem(TEASER_SHOWN_AT_KEY, String(now));
+    localStorage.setItem(TEASER_IMPRESSIONS_KEY, String(readTime(TEASER_IMPRESSIONS_KEY) + 1));
     return "teaser";
   } catch {
     return "thumbs";

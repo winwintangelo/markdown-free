@@ -129,8 +129,8 @@ test.describe("Feature teaser — when it shows", () => {
   test("one prompt per sitting: the 1st conversion asks, the next ones stay quiet", async ({ page }) => {
     await stubAnalytics(page);
     await page.goto("/");
-    // A teaser yesterday, so this sitting is the thumbs prompt's.
-    await seedHistory(page, { conversions: 2, teaserDaysAgo: 1 });
+    // The 7-day teaser window closed, so this sitting is the thumbs prompt's.
+    await seedHistory(page, { conversions: 2, teaserDaysAgo: 8 });
     await uploadSample(page);
 
     await exportTxt(page);
@@ -168,7 +168,7 @@ test.describe("Feature teaser — when it shows", () => {
 
     const shown = (await getEvents(page)).filter((e) => e.name === "feature_teaser_shown");
     expect(shown).toHaveLength(1);
-    expect(shown[0].data).toEqual({ trigger: "post_conversion", locale: "en" });
+    expect(shown[0].data).toEqual({ trigger: "post_conversion", locale: "en", nth: "1" });
   });
 
   test("?probe=teaser forces it on the first conversion, for manual testing", async ({ page }) => {
@@ -183,17 +183,49 @@ test.describe("Feature teaser — when it shows", () => {
     await expect(page.getByText("How's your experience?")).toHaveCount(0);
   });
 
-  test("the teaser returns once the last one is more than 7 days old", async ({ page }) => {
+  test("after 7 days the thumbs prompt takes the slot back", async ({ page }) => {
     await page.goto("/");
     await seedHistory(page, { conversions: 5, teaserDaysAgo: 8 });
     await uploadSample(page);
     await exportTxt(page);
-    await expect(page.getByTestId("feature-teaser")).toBeVisible();
+    await expect(page.getByText("How's your experience?")).toBeVisible();
+    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
   });
 
-  test("a teaser shown 6 days ago keeps the thumbs prompt", async ({ page }) => {
+  test("a teaser 6 days ago is still inside the window, so it shows again", async ({ page }) => {
     await page.goto("/");
     await seedHistory(page, { conversions: 5, teaserDaysAgo: 6 });
+    await uploadSample(page);
+    await exportTxt(page);
+    await expect(page.getByTestId("feature-teaser")).toBeVisible();
+    await expect(page.getByText("How's your experience?")).toHaveCount(0);
+  });
+
+  test("the teaser comes back on the next prompt slot, tagged as a repeat", async ({ page }) => {
+    await stubAnalytics(page);
+    await page.goto("/");
+    await uploadSample(page);
+
+    await exportTxt(page);
+    const teaser = page.getByTestId("feature-teaser");
+    await expect(teaser).toBeVisible();
+    await teaser.getByRole("button", { name: "Dismiss" }).click();
+
+    // Same browser, next slot after the quiet period: the teaser again, not
+    // the thumbs prompt, because the 7-day window is still open.
+    await endQuietPeriod(page);
+    await exportTxt(page);
+    await expect(page.getByTestId("feature-teaser")).toBeVisible();
+    await expect(page.getByText("How's your experience?")).toHaveCount(0);
+
+    const shown = (await getEvents(page)).filter((e) => e.name === "feature_teaser_shown");
+    expect(shown.map((e) => e.data?.nth)).toEqual(["1", "2"]);
+  });
+
+  test("someone who voted gets the thumbs prompt, window or no window", async ({ page }) => {
+    await page.goto("/");
+    await seedHistory(page, { conversions: 1 });
+    await page.evaluate(() => localStorage.setItem("mdfree:teaser-answered", "1"));
     await uploadSample(page);
     await exportTxt(page);
     await expect(page.getByText("How's your experience?")).toBeVisible();
@@ -202,7 +234,7 @@ test.describe("Feature teaser — when it shows", () => {
 
   test("a prompt shown 29 minutes ago still blocks the next one", async ({ page }) => {
     await page.goto("/");
-    await seedHistory(page, { conversions: 5, teaserDaysAgo: 1, lastPromptMinutesAgo: 29 });
+    await seedHistory(page, { conversions: 5, teaserDaysAgo: 8, lastPromptMinutesAgo: 29 });
     await uploadSample(page);
     await exportTxt(page);
     await expect(page.getByText("How's your experience?")).toHaveCount(0);
@@ -212,9 +244,9 @@ test.describe("Feature teaser — when it shows", () => {
   test("a teaser that falls due mid-sitting still waits for the quiet period", async ({ page }) => {
     await stubAnalytics(page);
     await page.goto("/");
-    // The teaser is due (8 days), but a prompt was shown 5 minutes ago. The
+    // The teaser window is open, but a prompt was shown 5 minutes ago. The
     // quiet period has no exceptions: one prompt per 30 minutes, either kind.
-    await seedHistory(page, { conversions: 3, teaserDaysAgo: 8, lastPromptMinutesAgo: 5 });
+    await seedHistory(page, { conversions: 3, teaserDaysAgo: 2, lastPromptMinutesAgo: 5 });
     await uploadSample(page);
     await exportTxt(page);
     await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
@@ -229,7 +261,7 @@ test.describe("Feature teaser — when it shows", () => {
 
   test("a prompt shown 31 minutes ago lets the next one through", async ({ page }) => {
     await page.goto("/");
-    await seedHistory(page, { conversions: 5, teaserDaysAgo: 1, lastPromptMinutesAgo: 31 });
+    await seedHistory(page, { conversions: 5, teaserDaysAgo: 8, lastPromptMinutesAgo: 31 });
     await uploadSample(page);
     await exportTxt(page);
     await expect(page.getByText("How's your experience?")).toBeVisible();

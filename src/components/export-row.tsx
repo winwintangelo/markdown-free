@@ -17,7 +17,12 @@ import { getPdfPreferences } from "@/lib/export-pdf";
 import { markdownToHtml } from "@/lib/markdown";
 import { prepareMarkdown } from "@/lib/prepare-markdown";
 import { ensureKatexStylesheet, getKatexCssForHtmlExport, htmlHasMath } from "@/lib/katex-assets";
-import { recordConversion, teaserForcedLocally, type PostConvertPrompt } from "@/lib/feature-teaser";
+import {
+  recordConversion,
+  teaserForcedLocally,
+  teaserImpressions,
+  type PostConvertPrompt,
+} from "@/lib/feature-teaser";
 import { exportErrorMessage, exportErrorTitle } from "@/lib/export-errors";
 import {
   trackConvertSuccess,
@@ -228,7 +233,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       const counted = recordConversion();
       const prompt = teaserForcedLocally() ? "teaser" : counted;
       if (prompt === "teaser") {
-        trackFeatureTeaserShown(locale);
+        trackFeatureTeaserShown(locale, teaserImpressions());
         teaserPendingRef.current = true;
         setTeaserSeq((n) => n + 1);
       }

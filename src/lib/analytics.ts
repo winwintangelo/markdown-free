@@ -552,9 +552,20 @@ export function trackFeedbackSkipped(format: string): void {
 // PHASE 1.5 DEMAND PROBE: coming-features teaser (src/lib/feature-teaser.ts)
 // =============================================================================
 
-/** The teaser replaced the thumbs prompt after a conversion. */
-export function trackFeatureTeaserShown(locale: string): void {
-  trackEvent("feature_teaser_shown", { trigger: "post_conversion", locale });
+/**
+ * The teaser replaced the thumbs prompt after a conversion.
+ *
+ * `nth` is which teaser this is for the browser ("1", "2", "3+"), because the
+ * teaser now holds the slot for 7 days and repeats. The gate's engagement rate
+ * belongs on first impressions — that is what the fake-door benchmark measures,
+ * and a repeat shown to someone who already ignored it drags the ratio down.
+ */
+export function trackFeatureTeaserShown(locale: string, impressions = 1): void {
+  trackEvent("feature_teaser_shown", {
+    trigger: "post_conversion",
+    locale,
+    nth: impressions <= 1 ? "1" : impressions === 2 ? "2" : "3+",
+  });
 }
 
 /** The visitor opened the feature chips ("See what's coming"). */

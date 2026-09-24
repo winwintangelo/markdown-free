@@ -16,12 +16,12 @@ import { openMoreFormats } from "./export-helpers";
 const ORIGIN_HEADERS = { Origin: "http://localhost:3000" };
 
 /**
- * The Phase 1.5 teaser takes the first conversion's prompt slot in a fresh
- * browser (src/lib/feature-teaser.ts), so a test that wants the thumbs prompt
- * has to say the teaser was already shown. Call it after page.goto.
+ * The Phase 1.5 teaser holds the post-convert prompt slot for a browser's
+ * first 7 days (src/lib/feature-teaser.ts), so a test that wants the thumbs
+ * prompt has to say this browser already voted. Call it after page.goto.
  */
 async function keepThumbsPrompt(page: Page) {
-  await page.evaluate(() => localStorage.setItem("mdfree:teaser-shown-at", String(Date.now())));
+  await page.evaluate(() => localStorage.setItem("mdfree:teaser-answered", "1"));
 }
 
 // Helper: load a small file and export TXT (client-side, no server involved),

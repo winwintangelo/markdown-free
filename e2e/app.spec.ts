@@ -2289,10 +2289,10 @@ test.describe("Markdown Free - Post-Convert Feedback", () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    // The Phase 1.5 teaser takes the first conversion's prompt slot in a fresh
-    // browser (src/lib/feature-teaser.ts). These tests are about the thumbs
-    // prompt, so tell the browser it has already had its teaser.
-    await page.evaluate(() => localStorage.setItem("mdfree:teaser-shown-at", String(Date.now())));
+    // The Phase 1.5 teaser owns the post-convert slot for a browser's first 7
+    // days (src/lib/feature-teaser.ts). These tests are about the thumbs
+    // prompt, so tell the browser it has already voted.
+    await page.evaluate(() => localStorage.setItem("mdfree:teaser-answered", "1"));
   });
 
   test("feedback widget appears after successful TXT export", async ({ page }) => {
@@ -2416,11 +2416,11 @@ test.describe("Markdown Free - Post-Convert Feedback", () => {
     await expect(page.getByText(/How's your experience/i)).toBeVisible();
 
     // Two rules would otherwise hide this second prompt
-    // (src/lib/feature-teaser.ts, e2e/feature-teaser.spec.ts): a browser's 2nd
-    // conversion is the teaser's slot, and prompts keep 30 minutes apart. Mark
-    // a teaser as just shown, and the last prompt as 31 minutes old.
+    // (src/lib/feature-teaser.ts, e2e/feature-teaser.spec.ts): the teaser owns
+    // the slot for a browser's first 7 days, and prompts keep 30 minutes apart.
+    // Say this browser voted, and date the last prompt 31 minutes back.
     await page.evaluate(() => {
-      localStorage.setItem("mdfree:teaser-shown-at", String(Date.now()));
+      localStorage.setItem("mdfree:teaser-answered", "1");
       localStorage.setItem("mdfree:prompt-shown-at", String(Date.now() - 31 * 60 * 1000));
     });
 
