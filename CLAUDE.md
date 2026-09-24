@@ -36,7 +36,7 @@ See `env.example` for required variables:
 - **Production tests:** `e2e/production.spec.ts` - run against live site with `--config=playwright.production.config.ts`
 - **Live store tests:** `npm run test:notify-store` writes to the real Supabase project and cleans up; it skips unless `NOTIFY_LIVE=1`, and needs a server started WITHOUT `E2E_RELAXED_RATE_LIMITS` (see `docs/supabase-setup.md`)
 - **Supabase schema:** `npm run db:check` reports what the project in `.env` has (read-only); `npm run db:migrate` applies `supabase/migrations/` (needs `SUPABASE_ACCESS_TOKEN` or `SUPABASE_DB_URL`)
-- **Feature teaser by hand:** open `http://localhost:3000/?probe=teaser` and convert once; it works on localhost only. A server started with `E2E_RELAXED_RATE_LIMITS=1` accepts votes and signups but stores nothing
+- **Feature teaser by hand:** a fresh browser sees it on its first conversion and keeps it for 7 days, so usually you just convert. `http://localhost:3000/?probe=teaser` forces it when that browser already voted or its 7 days are up; it works on localhost only. A server started with `E2E_RELAXED_RATE_LIMITS=1` accepts votes and signups but stores nothing
 - Test outputs go to `tmp/` directory
 
 ## Communication
