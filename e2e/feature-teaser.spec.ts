@@ -538,6 +538,28 @@ test.describe("Vote board — the funnel events", () => {
     expect(events.map((e) => e.name)).not.toContain("feature_teaser_completed");
   });
 
+  test("a Word export under an open teaser is not an ending either", async ({ page }) => {
+    // TXT finishes inside one React batch, so the test above cannot see a
+    // teaser that unmounts while an export runs. Word waits on the server, like
+    // PDF, and most real second exports are one of the two.
+    await stubAnalytics(page);
+    await page.goto("/");
+    await uploadSample(page);
+    await exportTxt(page);
+
+    const teaser = page.getByTestId("feature-teaser");
+    await expect(teaser).toBeVisible();
+
+    const download = page.waitForEvent("download");
+    await page.getByRole("button", { name: /To Word/i }).first().click();
+    await download;
+    await expect(teaser).toBeVisible();
+
+    const events = await getEvents(page);
+    expect(events.filter((e) => e.name === "feature_teaser_shown")).toHaveLength(1);
+    expect(events.map((e) => e.name)).not.toContain("feature_teaser_dismissed");
+  });
+
   test("a vote plus a pay answer completes the funnel, once", async ({ page }) => {
     await stubAnalytics(page);
     const { dialog } = await openVoteDialog(page);

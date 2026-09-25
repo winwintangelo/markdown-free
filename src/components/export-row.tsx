@@ -232,7 +232,11 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       // prompt follows it, and only on localhost.
       const counted = recordConversion();
       const prompt = teaserForcedLocally() ? "teaser" : counted;
-      if (prompt === "teaser") {
+      // A teaser already on screen carries on. Starting another would count a
+      // second impression of the one the visitor is looking at and remount it.
+      // (The browser's impression counter still moves, so the next `nth` can
+      // skip a number — rare, and nth only has to tell 1st views from repeats.)
+      if (prompt === "teaser" && !teaserPendingRef.current) {
         trackFeatureTeaserShown(locale, teaserImpressions());
         teaserPendingRef.current = true;
         setTeaserSeq((n) => n + 1);
@@ -395,10 +399,12 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       // Determine source for analytics
       const source: UploadSource = state.content.source === "file" ? "file" : "paste";
 
-      // Clear any previous error, hint, and feedback widget
+      // Clear any previous error, hint, and feedback widget. A teaser on screen
+      // stays: it is about what we build next, not about this file, and
+      // unmounting it mid-export would log an ending that never happened.
       setError(null);
       setUploadHint(null);
-      setLastSuccessFormat(null);
+      if (!teaserPendingRef.current) setLastSuccessFormat(null);
       setLoadingFormat(format);
 
       try {
@@ -569,10 +575,11 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         }
       }
 
-      // SLOW PATH: blob not cached yet — generate and show "Tap to share"
+      // SLOW PATH: blob not cached yet — generate and show "Tap to share".
+      // An open teaser stays, as in handleExport.
       setError(null);
       setUploadHint(null);
-      setLastSuccessFormat(null);
+      if (!teaserPendingRef.current) setLastSuccessFormat(null);
       setPendingShare(null);
       setLoadingShareFormat(format);
 
