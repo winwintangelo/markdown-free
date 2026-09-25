@@ -187,9 +187,13 @@
     "thankYou": "Cảm ơn phản hồi của bạn"
   },
   "featureTeaser": {
-    "teaser": "Giúp chọn thứ chúng tôi làm tiếp theo",
-    "teaserLead": "Bình chọn cho các tính năng sắp tới của Markdown Free.",
-    "seeMore": "Xem tính năng sắp tới",
+    "variants": {
+      "v1": { "teaser": "Markdown Free nên làm gì tiếp theo?", "lead": "Lá phiếu của bạn có ý nghĩa.", "cta": "Bình chọn" },
+      "v2": { "teaser": "Bạn có 10 giây không?", "lead": "Giúp chúng tôi chọn tính năng tiếp theo cho Markdown Free.", "cta": "Chọn tính năng" },
+      "v3": { "teaser": "Tính năng mới sắp ra mắt", "lead": "Xem trước và bình chọn cho tính năng bạn muốn.", "cta": "Xem trước" },
+      "v4": { "teaser": "Bản xuất của bạn còn thiếu gì không?", "lead": "Bình chọn thứ chúng tôi thêm tiếp theo. Không cần đăng ký.", "cta": "Bình chọn ngay" },
+      "v5": { "teaser": "Xem mọi người đang muốn gì", "lead": "Bình chọn để xem kết quả.", "cta": "Xem kết quả" }
+    },
     "dismiss": "Đóng",
     "voteTitle": "Tiếp theo nên làm gì?",
     "voteLead": "Chọn những gì bạn thật sự sẽ dùng.",

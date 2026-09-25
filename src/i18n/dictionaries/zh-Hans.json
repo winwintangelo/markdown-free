@@ -187,9 +187,13 @@
     "thankYou": "感谢您的反馈"
   },
   "featureTeaser": {
-    "teaser": "帮我们决定接下来做什么",
-    "teaserLead": "为即将推出的功能投票。",
-    "seeMore": "查看即将推出的功能",
+    "variants": {
+      "v1": { "teaser": "Markdown Free 下一步该做什么？", "lead": "你的一票很重要。", "cta": "去投票" },
+      "v2": { "teaser": "有 10 秒钟吗？", "lead": "帮我们挑选 Markdown Free 的下一个功能。", "cta": "挑选功能" },
+      "v3": { "teaser": "新功能正在路上", "lead": "抢先看看，给你想要的投一票。", "cta": "抢先看看" },
+      "v4": { "teaser": "导出时还缺点什么？", "lead": "投票决定我们下一步加什么，无需注册。", "cta": "立即投票" },
+      "v5": { "teaser": "看看大家都想要什么", "lead": "投票后即可查看结果。", "cta": "查看投票" }
+    },
     "dismiss": "关闭",
     "voteTitle": "接下来我们该做什么？",
     "voteLead": "选出你真正会用的功能。",

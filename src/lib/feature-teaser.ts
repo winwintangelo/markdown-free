@@ -136,20 +136,70 @@ export const PROMPT_SHOWN_AT_KEY = "mdfree:prompt-shown-at";
 export type PostConvertPrompt = "thumbs" | "teaser" | "none";
 
 /**
- * Manual-testing switch: `?probe=teaser` shows the teaser after the next
- * conversion, whatever the counters say.
+ * Five wordings of the teaser line, tested against each other (owner,
+ * 2026-09-24: the original was "too flat" — 0 opens in its first 79 first
+ * impressions). Each tests a framing, not a feature: naming one feature in
+ * the teaser would prime votes for it and bend the ranking the board exists
+ * to measure. The copy lives in `featureTeaser.variants` in every dictionary.
  *
- * It works on localhost only. The display rules exist to keep the probe from
- * nagging people, and a URL that could switch them off would also let anyone
- * skew the data on the live site.
+ *   v1 direct question · v2 low effort · v3 curiosity · v4 unmet need ·
+ *   v5 social proof
  */
-export function teaserForcedLocally(): boolean {
+export const TEASER_VARIANTS = ["v1", "v2", "v3", "v4", "v5"] as const;
+export type TeaserVariant = (typeof TEASER_VARIANTS)[number];
+/** The wording this browser was given; picked once, then kept. */
+export const TEASER_VARIANT_KEY = "mdfree:teaser-variant";
+
+export function isTeaserVariant(value: unknown): value is TeaserVariant {
+  return typeof value === "string" && (TEASER_VARIANTS as readonly string[]).includes(value);
+}
+
+/**
+ * A query parameter, read on localhost only. The manual-testing switches below
+ * go through here: on the live site a URL that could steer the probe would let
+ * anyone skew its data.
+ */
+function localParam(name: string): string | null {
   try {
     const { hostname, search } = window.location;
     const local = hostname === "localhost" || hostname === "127.0.0.1" || hostname === "[::1]";
-    return local && new URLSearchParams(search).get("probe") === "teaser";
+    return local ? new URLSearchParams(search).get(name) : null;
   } catch {
-    return false;
+    return null;
+  }
+}
+
+/**
+ * Manual-testing switch: `?probe=teaser` shows the teaser after the next
+ * conversion, whatever the counters say. Localhost only.
+ */
+export function teaserForcedLocally(): boolean {
+  return localParam("probe") === "teaser";
+}
+
+/**
+ * The wording this browser sees. Picked at random on its first teaser and then
+ * kept, so one visitor never sees two wordings, and every repeat in their 7-day
+ * window counts for the same variant — per-variant visitor counts stay clean.
+ * `?variant=v3` pins one on localhost, for checking copy by hand.
+ */
+export function teaserVariant(random: () => number = Math.random): TeaserVariant {
+  const pick = () => TEASER_VARIANTS[Math.floor(random() * TEASER_VARIANTS.length)];
+  try {
+    const pinned = localParam("variant");
+    if (isTeaserVariant(pinned)) {
+      localStorage.setItem(TEASER_VARIANT_KEY, pinned);
+      return pinned;
+    }
+    const stored = localStorage.getItem(TEASER_VARIANT_KEY);
+    if (isTeaserVariant(stored)) return stored;
+    const picked = pick();
+    localStorage.setItem(TEASER_VARIANT_KEY, picked);
+    return picked;
+  } catch {
+    // Without storage the teaser never shows (recordConversion returns thumbs),
+    // so this only keeps the function total.
+    return pick();
   }
 }
 

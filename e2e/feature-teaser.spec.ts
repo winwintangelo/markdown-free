@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { test, expect, type Page, type APIRequestContext } from "@playwright/test";
 import { openMoreFormats } from "./export-helpers";
 
@@ -24,6 +26,18 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 const MINUTE_MS = 60 * 1000;
 /** Longer than MIN_SUBMIT_MS, so the server treats the vote as human. */
 const HUMAN_PAUSE_MS = 1700;
+
+/** The five teaser wordings, read from the dictionary so the tests track the copy. */
+type TeaserCopy = { teaser: string; lead: string; cta: string };
+const EN_VARIANTS: Record<string, TeaserCopy> = JSON.parse(
+  readFileSync(path.join(__dirname, "../src/i18n/dictionaries/en.json"), "utf8")
+).featureTeaser.variants;
+const VARIANTS = ["v1", "v2", "v3", "v4", "v5"] as const;
+
+/** Give this browser a wording, as if it had been picked on an earlier teaser. */
+async function seedVariant(page: Page, variant: string) {
+  await page.evaluate((v) => localStorage.setItem("mdfree:teaser-variant", v), variant);
+}
 
 type TrackedEvent = { name: string; data?: Record<string, string> };
 
@@ -98,7 +112,8 @@ async function openVoteDialog(page: Page) {
   await exportTxt(page);
   const teaser = page.getByTestId("feature-teaser");
   await expect(teaser).toBeVisible();
-  await teaser.getByRole("button", { name: "See upcoming features" }).click();
+  // By test id: the button's wording depends on the browser's variant.
+  await teaser.getByTestId("feature-teaser-open").click();
   const dialog = page.getByTestId("feature-vote-dialog");
   await expect(dialog).toBeVisible();
   return { teaser, dialog };
@@ -150,12 +165,13 @@ test.describe("Feature teaser — when it shows", () => {
     await stubAnalytics(page);
     await page.goto("/");
     await seedHistory(page, { conversions: 1 });
+    await seedVariant(page, "v1");
     await uploadSample(page);
 
     await exportTxt(page);
     const teaser = page.getByTestId("feature-teaser");
     await expect(teaser).toBeVisible();
-    await expect(teaser).toContainText("Help choose what we build next");
+    await expect(teaser).toContainText(EN_VARIANTS.v1.teaser);
     await expect(page.getByText("How's your experience?")).toHaveCount(0);
 
     await exportTxt(page);
@@ -168,7 +184,7 @@ test.describe("Feature teaser — when it shows", () => {
 
     const shown = (await getEvents(page)).filter((e) => e.name === "feature_teaser_shown");
     expect(shown).toHaveLength(1);
-    expect(shown[0].data).toEqual({ trigger: "post_conversion", locale: "en", nth: "1" });
+    expect(shown[0].data).toEqual({ trigger: "post_conversion", locale: "en", nth: "1", variant: "v1" });
   });
 
   test("?probe=teaser forces it on the first conversion, for manual testing", async ({ page }) => {
@@ -429,7 +445,7 @@ test.describe("Vote board — the dialog", () => {
     await expect(dialog).toHaveCount(0);
     await expect(teaser).toBeVisible();
 
-    await teaser.getByRole("button", { name: "See upcoming features" }).click();
+    await teaser.getByTestId("feature-teaser-open").click();
     await expect(page.getByTestId("feature-vote-dialog")).toBeVisible();
     await page.mouse.click(12, 12);
     await expect(page.getByTestId("feature-vote-dialog")).toHaveCount(0);
@@ -452,12 +468,13 @@ test.describe("Vote board — the dialog", () => {
   test("zh-Hans shows the localized board", async ({ page }) => {
     await page.goto("/zh-Hans");
     await seedHistory(page, { conversions: 1 });
+    await seedVariant(page, "v5");
     await uploadSample(page);
     await exportTxt(page);
 
     const teaser = page.getByTestId("feature-teaser");
-    await expect(teaser).toContainText("帮我们决定接下来做什么");
-    await teaser.getByRole("button", { name: "查看即将推出的功能" }).click();
+    await expect(teaser).toContainText("看看大家都想要什么");
+    await teaser.getByRole("button", { name: "查看投票" }).click();
 
     const dialog = page.getByTestId("feature-vote-dialog");
     await expect(dialog.getByRole("heading", { name: "接下来我们该做什么？" })).toBeVisible();
@@ -504,7 +521,8 @@ test.describe("Vote board — the funnel events", () => {
     let events = await getEvents(page);
     const closed = events.filter((e) => e.name === "feature_teaser_closed");
     expect(closed).toHaveLength(1);
-    expect(closed[0].data).toEqual({ how: "escape", voted: "no" });
+    expect(closed[0].data).toMatchObject({ how: "escape", voted: "no" });
+    expect(closed[0].data?.variant).toMatch(/^v[1-5]$/);
     expect(events.map((e) => e.name)).not.toContain("feature_teaser_dismissed");
 
     // Now end it for good: one dismissal, and it remembers they got as far as
@@ -601,13 +619,82 @@ test.describe("Vote board — the funnel events", () => {
 
     await page.keyboard.press("Escape");
     await expect(dialog).toHaveCount(0);
-    await teaser.getByRole("button", { name: "See upcoming features" }).click();
+    await teaser.getByTestId("feature-teaser-open").click();
 
     const reopened = page.getByTestId("feature-vote-dialog");
     await expect(reopened).toContainText("What everyone is asking for");
     // exact, or it also matches "Just count my vote" on the results screen.
     await expect(reopened.getByRole("button", { name: "Count my vote", exact: true })).toHaveCount(0);
     expect(voteCalls).toBe(1);
+  });
+});
+
+test.describe("Teaser wording test (five variants)", () => {
+  for (const variant of VARIANTS) {
+    test(`${variant} renders its own line and button`, async ({ page }) => {
+      await page.goto("/");
+      await seedVariant(page, variant);
+      await uploadSample(page);
+      await exportTxt(page);
+
+      const teaser = page.getByTestId("feature-teaser");
+      await expect(teaser).toHaveAttribute("data-variant", variant);
+      await expect(teaser).toContainText(EN_VARIANTS[variant].teaser);
+      await expect(teaser).toContainText(EN_VARIANTS[variant].lead);
+      await expect(teaser.getByTestId("feature-teaser-open")).toHaveText(EN_VARIANTS[variant].cta);
+    });
+  }
+
+  test("a fresh browser is given one at random, and keeps it", async ({ page }) => {
+    await page.goto("/");
+    // floor(0.61 × 5) = 3 → the 4th wording
+    await page.evaluate(() => {
+      Math.random = () => 0.61;
+    });
+    await uploadSample(page);
+    await exportTxt(page);
+
+    const teaser = page.getByTestId("feature-teaser");
+    await expect(teaser).toHaveAttribute("data-variant", "v4");
+    expect(await page.evaluate(() => localStorage.getItem("mdfree:teaser-variant"))).toBe("v4");
+
+    // A different roll next time changes nothing: the browser keeps its wording.
+    await page.evaluate(() => {
+      Math.random = () => 0.01;
+    });
+    await teaser.getByRole("button", { name: "Dismiss" }).click();
+    await endQuietPeriod(page);
+    await exportTxt(page);
+    await expect(page.getByTestId("feature-teaser")).toHaveAttribute("data-variant", "v4");
+  });
+
+  test("shown, opened and dismissed all name the variant", async ({ page }) => {
+    await stubAnalytics(page);
+    await page.goto("/");
+    await seedVariant(page, "v3");
+    await uploadSample(page);
+    await exportTxt(page);
+
+    const teaser = page.getByTestId("feature-teaser");
+    await teaser.getByTestId("feature-teaser-open").click();
+    await page.keyboard.press("Escape");
+    await teaser.getByRole("button", { name: "Dismiss" }).click();
+
+    const events = await getEvents(page);
+    const names = events.map((e) => e.name);
+    // Per-variant names, which the Umami event list counts directly...
+    expect(names).toContain("feature_teaser_shown_v3");
+    expect(names).toContain("feature_teaser_opened_v3");
+    expect(names.filter((n) => /_v[1245]$/.test(n))).toEqual([]);
+    // ...and the generic funnel events, carrying the variant as a property.
+    expect(events.find((e) => e.name === "feature_teaser_shown")?.data?.variant).toBe("v3");
+    expect(events.find((e) => e.name === "feature_teaser_opened")?.data).toEqual({ variant: "v3" });
+    expect(events.find((e) => e.name === "feature_teaser_closed")?.data?.variant).toBe("v3");
+    expect(events.find((e) => e.name === "feature_teaser_dismissed")?.data).toMatchObject({
+      stage: "vote",
+      how: "close",
+      variant: "v3",
+    });
   });
 });
 

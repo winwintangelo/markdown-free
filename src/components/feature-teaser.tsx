@@ -12,6 +12,7 @@ import {
   type FeatureTally,
   type PayAnswer,
   type TeaserExit,
+  type TeaserVariant,
 } from "@/lib/feature-teaser";
 import {
   trackFeatureTeaserClosed,
@@ -44,6 +45,8 @@ type ErrorCode = "pick" | "save" | "email" | null;
 interface FeatureTeaserProps {
   dict: Dictionary;
   locale: string;
+  /** Which of the five teaser wordings this browser was given. */
+  variant: TeaserVariant;
   /** The visitor voted (the dialog now shows results). */
   onAnswered: () => void;
   /** Close the teaser entirely. */
@@ -52,8 +55,9 @@ interface FeatureTeaserProps {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTeaserProps) {
+export function FeatureTeaser({ dict, locale, variant, onAnswered, onDismiss }: FeatureTeaserProps) {
   const ft = dict.featureTeaser;
+  const copy = ft.variants[variant];
   const [open, setOpen] = useState(false);
   const [phase, setPhase] = useState<Phase>("vote");
   const [picks, setPicks] = useState<FeatureKey[]>([]);
@@ -81,6 +85,8 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
   const payRef = useRef<PayAnswer | null>(null);
   const notifiedRef = useRef(false);
   const endedRef = useRef(false);
+  // A browser keeps its wording, so the variant is fixed for this teaser.
+  const variantRef = useRef(variant);
 
   /** One terminal event per teaser: completed if they voted, else dismissed. */
   const trackEnd = useCallback((how: TeaserExit) => {
@@ -93,12 +99,14 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
         pay: payRef.current,
         notified: notifiedRef.current,
         dwellMs,
+        variant: variantRef.current,
       });
     } else {
       trackFeatureTeaserDismissed({
         stage: openedRef.current ? "vote" : "teaser",
         how,
         dwellMs,
+        variant: variantRef.current,
       });
     }
   }, []);
@@ -126,7 +134,7 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
   const closeDialog = useCallback(
     (how: TeaserExit) => {
       // The row stays, so this is not the end: the visitor can reopen it.
-      trackFeatureTeaserClosed(how, votedRef.current);
+      trackFeatureTeaserClosed(how, votedRef.current, variantRef.current);
       setOpen(false);
       triggerRef.current?.focus();
     },
@@ -159,7 +167,7 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
   }, []);
 
   const openDialog = useCallback(() => {
-    trackFeatureTeaserOpened();
+    trackFeatureTeaserOpened(variantRef.current);
     openedRef.current = true;
     openedAtRef.current = Date.now();
     setOpen(true);
@@ -275,23 +283,27 @@ export function FeatureTeaser({ dict, locale, onAnswered, onDismiss }: FeatureTe
   return (
     <div
       data-testid="feature-teaser"
+      data-variant={variant}
       className="pop-in relative overflow-hidden rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm"
     >
       <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <p className="flex items-start gap-2.5 pr-6 text-sm leading-relaxed text-slate-600">
           <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" aria-hidden="true" />
           <span>
-            <span className="font-semibold text-slate-700">{ft.teaser}</span>{" "}
-            <span className="text-slate-400">{ft.teaserLead}</span>
+            <span className="font-semibold text-slate-700">{copy.teaser}</span>{" "}
+            <span className="text-slate-400">{copy.lead}</span>
           </span>
         </p>
         <button
           ref={triggerRef}
           type="button"
           onClick={openDialog}
-          className="inline-flex h-11 shrink-0 items-center gap-1.5 self-start rounded-full px-1 text-[13.5px] font-semibold text-emerald-700 transition hover:text-emerald-800 sm:h-9 sm:px-3"
+          data-testid="feature-teaser-open"
+          // sm:mr-5 keeps the button clear of the dismiss ×, which is absolutely
+          // positioned in the top-right corner of the row on desktop.
+          className="inline-flex h-11 shrink-0 items-center gap-1.5 self-start rounded-full px-1 text-[13.5px] font-semibold text-emerald-700 transition hover:text-emerald-800 sm:mr-5 sm:h-9 sm:px-3"
         >
-          {ft.seeMore}
+          {copy.cta}
           <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
         </button>
       </div>

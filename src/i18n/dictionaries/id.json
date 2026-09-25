@@ -187,9 +187,13 @@
     "thankYou": "Terima kasih atas masukan Anda"
   },
   "featureTeaser": {
-    "teaser": "Bantu pilih yang kami buat berikutnya",
-    "teaserLead": "Beri suara untuk fitur Markdown Free berikutnya.",
-    "seeMore": "Lihat fitur mendatang",
+    "variants": {
+      "v1": { "teaser": "Apa langkah Markdown Free berikutnya?", "lead": "Suara Anda berarti.", "cta": "Beri suara" },
+      "v2": { "teaser": "Punya 10 detik?", "lead": "Bantu kami memilih fitur Markdown Free berikutnya.", "cta": "Pilih fitur" },
+      "v3": { "teaser": "Fitur baru segera hadir", "lead": "Intip lebih dulu dan pilih yang Anda mau.", "cta": "Intip sekarang" },
+      "v4": { "teaser": "Ada yang kurang dari hasil ekspor Anda?", "lead": "Pilih apa yang kami tambahkan berikutnya. Tanpa daftar.", "cta": "Pilih sekarang" },
+      "v5": { "teaser": "Lihat apa yang diminta orang lain", "lead": "Beri suara untuk melihat hasilnya.", "cta": "Lihat hasil suara" }
+    },
     "dismiss": "Tutup",
     "voteTitle": "Apa yang sebaiknya kami buat berikutnya?",
     "voteLead": "Pilih yang benar-benar akan Anda pakai.",

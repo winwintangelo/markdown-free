@@ -191,9 +191,13 @@
     "thankYou": "Gracias por tu opinión"
   },
   "featureTeaser": {
-    "teaser": "Ayúdanos a elegir qué construir",
-    "teaserLead": "Vota las próximas funciones de Markdown Free.",
-    "seeMore": "Ver próximas funciones",
+    "variants": {
+      "v1": { "teaser": "¿Qué debería hacer Markdown Free ahora?", "lead": "Tu voto cuenta.", "cta": "Votar" },
+      "v2": { "teaser": "¿Tienes 10 segundos?", "lead": "Ayúdanos a elegir la próxima función de Markdown Free.", "cta": "Elegir funciones" },
+      "v3": { "teaser": "Vienen funciones nuevas", "lead": "Échales un vistazo y vota las tuyas.", "cta": "Echar un vistazo" },
+      "v4": { "teaser": "¿Te falta algo en tus exportaciones?", "lead": "Vota qué añadimos después. Sin registro.", "cta": "Votar ahora" },
+      "v5": { "teaser": "Mira lo que piden los demás", "lead": "Vota para ver los resultados.", "cta": "Ver los votos" }
+    },
     "dismiss": "Cerrar",
     "voteTitle": "¿Qué deberíamos construir ahora?",
     "voteLead": "Elige lo que de verdad usarías.",

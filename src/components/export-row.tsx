@@ -21,7 +21,9 @@ import {
   recordConversion,
   teaserForcedLocally,
   teaserImpressions,
+  teaserVariant,
   type PostConvertPrompt,
+  type TeaserVariant,
 } from "@/lib/feature-teaser";
 import { exportErrorMessage, exportErrorTitle } from "@/lib/export-errors";
 import {
@@ -124,6 +126,10 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   // next, not about the file just exported, so a second conversion must not
   // remount it. A remount would also count as an ending in analytics.
   const [teaserSeq, setTeaserSeq] = useState(0);
+  // Which of the five teaser wordings this browser sees (sticky, see
+  // teaserVariant). Set when a teaser starts so the shown event and the
+  // rendered copy always agree.
+  const [teaserCopy, setTeaserCopy] = useState<TeaserVariant>("v1");
   const [loadingShareFormat, setLoadingShareFormat] = useState<"pdf" | "docx" | null>(null);
   const [pendingShare, setPendingShare] = useState<{
     blob: Blob;
@@ -237,8 +243,10 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       // (The browser's impression counter still moves, so the next `nth` can
       // skip a number — rare, and nth only has to tell 1st views from repeats.)
       if (prompt === "teaser" && !teaserPendingRef.current) {
-        trackFeatureTeaserShown(locale, teaserImpressions());
+        const variant = teaserVariant();
+        trackFeatureTeaserShown(locale, teaserImpressions(), variant);
         teaserPendingRef.current = true;
+        setTeaserCopy(variant);
         setTeaserSeq((n) => n + 1);
       }
       // Inside the quiet period the conversion still counts, but nothing asks
@@ -1125,6 +1133,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           key={`teaser-${teaserSeq}`}
           dict={dict}
           locale={locale}
+          variant={teaserCopy}
           onAnswered={() => {
             teaserPendingRef.current = false;
           }}

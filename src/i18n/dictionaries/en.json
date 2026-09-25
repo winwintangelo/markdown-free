@@ -187,9 +187,13 @@
     "thankYou": "Thanks for your feedback"
   },
   "featureTeaser": {
-    "teaser": "Help choose what we build next",
-    "teaserLead": "Vote on upcoming Markdown Free features.",
-    "seeMore": "See upcoming features",
+    "variants": {
+      "v1": { "teaser": "What should Markdown Free do next?", "lead": "Your vote counts.", "cta": "Vote" },
+      "v2": { "teaser": "Got 10 seconds?", "lead": "Help pick the next Markdown Free feature.", "cta": "Pick features" },
+      "v3": { "teaser": "New features are on the way", "lead": "Take a sneak peek and vote for yours.", "cta": "Take a peek" },
+      "v4": { "teaser": "Missing something in your exports?", "lead": "Vote for what we add next. No signup.", "cta": "Vote now" },
+      "v5": { "teaser": "See what others are asking for", "lead": "Add your vote to reveal the results.", "cta": "See the votes" }
+    },
     "dismiss": "Dismiss",
     "voteTitle": "What should we build next?",
     "voteLead": "Pick anything you'd actually use.",

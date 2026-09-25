@@ -19,6 +19,7 @@ import {
   type PayAnswer,
   type TeaserExit,
   type TeaserStage,
+  type TeaserVariant,
 } from "@/lib/feature-teaser";
 
 declare global {
@@ -559,18 +560,32 @@ export function trackFeedbackSkipped(format: string): void {
  * teaser now holds the slot for 7 days and repeats. The gate's engagement rate
  * belongs on first impressions — that is what the fake-door benchmark measures,
  * and a repeat shown to someone who already ignored it drags the ratio down.
+ *
+ * Shown and opened each fire twice: the generic event with `variant` as a
+ * property, for the funnel, and `feature_teaser_shown_v1` … `_v5`, for the
+ * wording test. The per-variant names are what the Umami events list and the
+ * Vercel events API actually count, so the test reads straight off them:
+ * opened_vN visitors ÷ shown_vN visitors. A browser keeps one wording, so the
+ * visitor columns never mix variants.
  */
-export function trackFeatureTeaserShown(locale: string, impressions = 1): void {
+export function trackFeatureTeaserShown(
+  locale: string,
+  impressions: number,
+  variant: TeaserVariant
+): void {
   trackEvent("feature_teaser_shown", {
     trigger: "post_conversion",
     locale,
     nth: impressions <= 1 ? "1" : impressions === 2 ? "2" : "3+",
+    variant,
   });
+  trackEvent(`feature_teaser_shown_${variant}`);
 }
 
-/** The visitor opened the feature chips ("See what's coming"). */
-export function trackFeatureTeaserOpened(): void {
-  trackEvent("feature_teaser_opened");
+/** The visitor opened the vote board from the teaser line. */
+export function trackFeatureTeaserOpened(variant: TeaserVariant): void {
+  trackEvent("feature_teaser_opened", { variant });
+  trackEvent(`feature_teaser_opened_${variant}`);
 }
 
 /**
@@ -603,8 +618,8 @@ export function trackNotifySignup(picks: number): void {
  * still come back to it. Not a terminal event — it says how many people open
  * the board and back out of it.
  */
-export function trackFeatureTeaserClosed(how: TeaserExit, voted: boolean): void {
-  trackEvent("feature_teaser_closed", { how, voted: voted ? "yes" : "no" });
+export function trackFeatureTeaserClosed(how: TeaserExit, voted: boolean, variant: TeaserVariant): void {
+  trackEvent("feature_teaser_closed", { how, voted: voted ? "yes" : "no", variant });
 }
 
 /**
@@ -612,14 +627,16 @@ export function trackFeatureTeaserClosed(how: TeaserExit, voted: boolean): void 
  *
  * Every teaser that is shown ends as exactly one of `feature_teaser_completed`
  * or `feature_teaser_dismissed`, so the funnel reads shown → opened →
- * completed / dismissed with no leak in between. Five properties, because
- * Vercel's track() keeps only the first five.
+ * completed / dismissed with no leak in between. Vercel's track() keeps only
+ * the first five properties, so `variant` rides sixth: it reaches Umami, where
+ * this is read, and only Vercel drops it.
  */
 export function trackFeatureTeaserCompleted(outcome: {
   picks: FeatureKey[];
   pay: PayAnswer | null;
   notified: boolean;
   dwellMs: number;
+  variant: TeaserVariant;
 }): void {
   trackEvent("feature_teaser_completed", {
     picks: String(outcome.picks.length),
@@ -627,6 +644,7 @@ export function trackFeatureTeaserCompleted(outcome: {
     pay: outcome.pay ?? "unanswered",
     notified: outcome.notified ? "yes" : "no",
     dwell: dwellBucket(outcome.dwellMs),
+    variant: outcome.variant,
   });
 }
 
@@ -635,10 +653,12 @@ export function trackFeatureTeaserDismissed(outcome: {
   stage: TeaserStage;
   how: TeaserExit;
   dwellMs: number;
+  variant: TeaserVariant;
 }): void {
   trackEvent("feature_teaser_dismissed", {
     stage: outcome.stage,
     how: outcome.how,
     dwell: dwellBucket(outcome.dwellMs),
+    variant: outcome.variant,
   });
 }
