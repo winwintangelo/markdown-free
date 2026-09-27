@@ -1,18 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
-import { FEATURE_KEYS, MIN_SUBMIT_MS, isFeatureKey, isPayAnswer } from "@/lib/feature-teaser";
+import {
+  FEATURE_KEYS,
+  MIN_SUBMIT_MS,
+  isChoiceKey,
+  isFeatureKey,
+  isLegacyFeatureKey,
+  isPayAnswer,
+} from "@/lib/feature-teaser";
 import { notifyStoreConfigured, recordProbe } from "@/lib/notify-store";
 
 /**
- * Votes for the Phase 1.5 board, and the one question about paying.
+ * Votes for the feature board.
  *
- * Both are counters: this route stores no address, no IP and no session, and
- * a person is never a row. The response carries the tallies, which is the only
- * way the browser ever sees them — the board hides counts until a vote is in,
- * so that the numbers cannot steer the vote.
+ * A counter per choice: this route stores no address, no IP and no session,
+ * and a person is never a row. The response carries the tallies, which is the
+ * only way the browser ever sees them — the board hides counts until a vote is
+ * in, so that the numbers cannot steer the vote.
  *
- * Two shapes of call:
- *   { features: [...], elapsedMs }   the vote, from the first screen
- *   { pay: "yes" | "maybe" | "no" }  the chip on the results screen
+ * The call:
+ *   { choice: "formatting" | … | "other" | "nothing", elapsedMs }   one choice
+ *
+ * A page loaded before the one-choice board may still send the old shapes for
+ * a while, and they still count:
+ *   { features: [...], elapsedMs }   several picks, possibly "backup"
+ *   { pay: "yes" | "maybe" | "no" }  the old results-page chip
  *
  * Silent anti-bot checks match /api/notify: a honeypot field and a minimum
  * time on the dialog drop a submission while answering exactly like a stored
@@ -48,37 +59,46 @@ export async function POST(request: NextRequest) {
     return errorResponse("INVALID_JSON", "Request body must be a JSON object.", 400);
   }
 
-  const picked: unknown[] = Array.isArray(fields.features) ? fields.features : [];
-  if (picked.length > FEATURE_KEYS.length || !picked.every(isFeatureKey)) {
-    return errorResponse("INVALID_FEATURES", "Choose one or more of the listed features.", 400);
+  let choices: string[];
+  if (fields.choice !== undefined) {
+    if (!isChoiceKey(fields.choice)) {
+      return errorResponse("INVALID_CHOICE", "Choose one of the listed options.", 400);
+    }
+    choices = [fields.choice];
+  } else {
+    // The multi-pick board, from a page loaded before the change.
+    const picked: unknown[] = Array.isArray(fields.features) ? fields.features : [];
+    const known = (value: unknown) => isFeatureKey(value) || isLegacyFeatureKey(value);
+    if (picked.length > FEATURE_KEYS.length + 1 || !picked.every(known)) {
+      return errorResponse("INVALID_FEATURES", "Choose one of the listed options.", 400);
+    }
+    choices = [...new Set(picked as string[])];
   }
-  // Deduplicated, in the canonical order
-  const features = FEATURE_KEYS.filter((key) => picked.includes(key));
 
   const pay = typeof fields.pay === "string" && fields.pay ? fields.pay : null;
   if (pay !== null && !isPayAnswer(pay)) {
     return errorResponse("INVALID_PAY", "That answer isn't one of the options.", 400);
   }
 
-  if (features.length === 0 && pay === null) {
-    return errorResponse("NOTHING_TO_RECORD", "Send a vote, an answer, or both.", 400);
+  if (choices.length === 0 && pay === null) {
+    return errorResponse("NOTHING_TO_RECORD", "Send a vote.", 400);
   }
 
-  // Silent bot checks on the vote itself: answer "ok", store nothing. The pay
-  // chip arrives later in the session, so it skips the timing check.
+  // Silent bot checks on the vote itself: answer "ok", store nothing. The old
+  // pay chip arrives later in the session, so it skips the timing check.
   const honeypot = typeof fields.website === "string" ? fields.website : "";
   const elapsedMs = typeof fields.elapsedMs === "number" ? fields.elapsedMs : 0;
   if (honeypot) {
     console.log("[votes] dropped a submission: honeypot filled");
     return accepted("dropped-honeypot", []);
   }
-  if (features.length > 0 && !(elapsedMs >= MIN_SUBMIT_MS)) {
+  if (choices.length > 0 && !(elapsedMs >= MIN_SUBMIT_MS)) {
     console.log("[votes] dropped a submission: sent too fast");
     return accepted("dropped-fast", []);
   }
 
   if (testMode) {
-    console.log(`[votes] test mode — not storing ${features.length} vote(s)`);
+    console.log(`[votes] test mode — not storing ${choices.length} vote(s)`);
     return accepted("test-mode", []);
   }
 
@@ -88,7 +108,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const tallies = await recordProbe(features, pay);
+    const tallies = await recordProbe(choices, pay);
     return accepted("stored", tallies);
   } catch (error) {
     console.error("[votes] save failed:", error instanceof Error ? error.message : String(error));

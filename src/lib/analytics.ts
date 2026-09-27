@@ -8,6 +8,7 @@
  * Event Categories:
  * - Conversion events: upload_start, upload_error, convert_success, convert_error
  * - Usage signals: usage_profile, doc_profile (ranges only, see src/lib/usage-signals.ts)
+ * - Feedback v2: invite_*, vote_*, limit_*, paid_*, suggest_*, idea_sent (catalog below)
  * - Engagement events: section_visible, scroll_depth, time_on_page, upload_hover, paste_toggle_click, export_hover
  * - Navigation events: nav_click, feedback_click
  */
@@ -15,12 +16,15 @@
 import { track as vercelTrack } from "@vercel/analytics";
 import {
   dwellBucket,
-  isPremium,
+  type ChoiceKey,
   type FeatureKey,
-  type PayAnswer,
+  type IdeaKind,
+  type InviteArm,
+  type LimitSize,
+  type PaidAnswer,
+  type PaidNeed,
   type TeaserExit,
   type TeaserStage,
-  type TeaserVariant,
 } from "@/lib/feature-teaser";
 import { currentUses, sizeBucket, type DocProfile, type UsageProfile } from "@/lib/usage-signals";
 
@@ -579,119 +583,176 @@ export function trackFeedbackSkipped(format: string): void {
 }
 
 // =============================================================================
-// PHASE 1.5 DEMAND PROBE: coming-features teaser (src/lib/feature-teaser.ts)
+// FEEDBACK V2: vote invitation, vote board, paid interest, suggestions
+// (src/lib/feature-teaser.ts). Event catalog, one funnel per path:
+//
+//   Invitation (two-arm test, arm = control | card):
+//     invite_assigned → invite_rendered → invite_viewed → invite_opened
+//       → vote_saved | invite_dismissed
+//   Vote board:  vote_saved · vote_choice_<choice> · vote_board_closed ·
+//                vote_results_viewed · updates_signup · idea_sent
+//   File over 1 MB:  limit_prompt_shown → limit_size_<size> → updates_signup
+//   Paid interest (trigger = vote | limit | repeat):
+//     paid_prompt_shown → paid_prompt_viewed → paid_prompt_opened
+//       → paid_need_<need> · paid_interest_<answer> → updates_signup
+//       · paid_prompt_dismissed
+//   Suggest link:  suggest_opened → idea_sent (kind = suggestion)
+//
+// Key steps also fire under a name that carries the arm, trigger or answer
+// (invite_viewed_card, paid_interest_maybe, …): the Vercel dashboard counts
+// events by name and cannot break a property down, so a per-name count is
+// what it can show. The properties stay filterable through the Vercel API
+// (`eventData/<prop>`). Vercel keeps at most 5 properties per event.
+// Typed text and email addresses never reach analytics.
 // =============================================================================
 
+function nthBucket(impressions: number): string {
+  return impressions <= 1 ? "1" : impressions === 2 ? "2" : "3+";
+}
+
+/** A browser joined the invitation test. Once per browser. The denominator of the primary metric. */
+export function trackInviteAssigned(arm: InviteArm): void {
+  trackEvent("invite_assigned", { arm });
+  trackEvent(`invite_assigned_${arm}`);
+}
+
 /**
- * The teaser replaced the thumbs prompt after a conversion.
- *
- * `nth` is which teaser this is for the browser ("1", "2", "3+"), because the
- * teaser now holds the slot for 7 days and repeats. The gate's engagement rate
- * belongs on first impressions — that is what the fake-door benchmark measures,
- * and a repeat shown to someone who already ignored it drags the ratio down.
- *
- * Shown and opened each fire twice: the generic event with `variant` as a
- * property, for the funnel, and `feature_teaser_shown_v1` … `_v5`, for the
- * wording test. The per-variant names are what the Umami events list and the
- * Vercel events API actually count, so the test reads straight off them:
- * opened_vN visitors ÷ shown_vN visitors. A browser keeps one wording, so the
- * visitor columns never mix variants.
+ * The invitation was put on the page after a conversion. Rendering is not
+ * seeing: the tab may be hidden or the card below the fold, so exposure is
+ * invite_viewed.
  */
-export function trackFeatureTeaserShown(
-  locale: string,
-  impressions: number,
-  variant: TeaserVariant
+export function trackInviteRendered(arm: InviteArm, format: string, locale: string, impressions: number): void {
+  trackEvent("invite_rendered", { arm, format, locale, nth: nthBucket(impressions) });
+  trackEvent(`invite_rendered_${arm}`);
+}
+
+/** At least half of the invitation stayed on screen for a second in a visible tab. */
+export function trackInviteViewed(arm: InviteArm, format: string, impressions: number): void {
+  trackEvent("invite_viewed", { arm, format, nth: nthBucket(impressions) });
+  trackEvent(`invite_viewed_${arm}`);
+}
+
+/** The visitor opened the vote board from the invitation. */
+export function trackInviteOpened(arm: InviteArm, format: string): void {
+  trackEvent("invite_opened", { arm, format });
+  trackEvent(`invite_opened_${arm}`);
+}
+
+/**
+ * Terminal, without a vote: the invitation is gone. `how` is close (the ×),
+ * done (closed the board without voting) or abandoned (the page went).
+ * An invitation ends as exactly one of vote_saved or invite_dismissed; closing
+ * the tab runs no cleanup, so the two together undercount invite_rendered.
+ */
+export function trackInviteDismissed(
+  arm: InviteArm,
+  outcome: { how: TeaserExit; stage: TeaserStage; dwellMs: number }
 ): void {
-  trackEvent("feature_teaser_shown", {
-    trigger: "post_conversion",
-    locale,
-    nth: impressions <= 1 ? "1" : impressions === 2 ? "2" : "3+",
-    variant,
-  });
-  trackEvent(`feature_teaser_shown_${variant}`);
-}
-
-/** The visitor opened the vote board from the teaser line. */
-export function trackFeatureTeaserOpened(variant: TeaserVariant): void {
-  trackEvent("feature_teaser_opened", { variant });
-  trackEvent(`feature_teaser_opened_${variant}`);
-}
-
-/**
- * A vote. One event per picked feature, because the Vercel events API counts
- * by event name, not by property, plus one summary event. Each carries the
- * voter's `uses` range, so the same board ranks features for everyone and for
- * heavy users (filter with `eventData/uses`).
- */
-export function trackFeatureVotes(features: FeatureKey[]): void {
-  const uses = currentUses();
-  for (const key of features) trackEvent(`feature_vote_${key}`, { uses });
-  trackEvent("feature_vote_submitted", {
-    picks: String(features.length),
-    premium_picks: String(features.filter(isPremium).length),
-    uses,
-  });
-}
-
-/** The one question about paying, answered on the results screen. */
-export function trackPayIntent(answer: PayAnswer): void {
-  trackEvent(`pay_intent_${answer}`, { uses: currentUses() });
-}
-
-/**
- * An address left on the results screen. The address itself never reaches
- * analytics; it goes to /api/notify only.
- */
-export function trackNotifySignup(picks: number): void {
-  trackEvent("feature_notify_submitted", { picks: String(picks) });
-}
-
-/**
- * The dialog closed while the teaser row stays on the page, so the visitor can
- * still come back to it. Not a terminal event — it says how many people open
- * the board and back out of it.
- */
-export function trackFeatureTeaserClosed(how: TeaserExit, voted: boolean, variant: TeaserVariant): void {
-  trackEvent("feature_teaser_closed", { how, voted: voted ? "yes" : "no", variant });
-}
-
-/**
- * Terminal: the visitor voted, and the board is now gone.
- *
- * Every teaser that is shown ends as exactly one of `feature_teaser_completed`
- * or `feature_teaser_dismissed`, so the funnel reads shown → opened →
- * completed / dismissed with no leak in between. Vercel's track() keeps only
- * the first five properties, so `variant` rides sixth: it reaches Umami, where
- * this is read, and only Vercel drops it.
- */
-export function trackFeatureTeaserCompleted(outcome: {
-  picks: FeatureKey[];
-  pay: PayAnswer | null;
-  notified: boolean;
-  dwellMs: number;
-  variant: TeaserVariant;
-}): void {
-  trackEvent("feature_teaser_completed", {
-    picks: String(outcome.picks.length),
-    premium_picks: String(outcome.picks.filter(isPremium).length),
-    pay: outcome.pay ?? "unanswered",
-    notified: outcome.notified ? "yes" : "no",
-    dwell: dwellBucket(outcome.dwellMs),
-    variant: outcome.variant,
-  });
-}
-
-/** Terminal: the board is gone and no vote was recorded. */
-export function trackFeatureTeaserDismissed(outcome: {
-  stage: TeaserStage;
-  how: TeaserExit;
-  dwellMs: number;
-  variant: TeaserVariant;
-}): void {
-  trackEvent("feature_teaser_dismissed", {
-    stage: outcome.stage,
+  trackEvent("invite_dismissed", {
+    arm,
     how: outcome.how,
+    stage: outcome.stage,
     dwell: dwellBucket(outcome.dwellMs),
-    variant: outcome.variant,
   });
+  trackEvent(`invite_dismissed_${arm}`, { how: outcome.how });
+}
+
+/** The board closed. Not terminal on the vote screen: the invitation stays and can be reopened. */
+export function trackVoteBoardClosed(arm: InviteArm, how: TeaserExit, voted: boolean): void {
+  trackEvent("vote_board_closed", { arm, how, voted: voted ? "yes" : "no" });
+}
+
+/**
+ * A vote. `vote_saved_<arm>` is the primary metric's numerator (÷
+ * invite_assigned_<arm>); `vote_choice_<choice>` ranks the choices by name.
+ * `uses` (30-day conversions in this browser) splits the ranking into
+ * everyone and heavy users.
+ */
+export function trackVoteSaved(arm: InviteArm, choice: ChoiceKey, format: string): void {
+  const uses = currentUses();
+  trackEvent("vote_saved", { arm, choice, format, uses });
+  trackEvent(`vote_saved_${arm}`);
+  trackEvent(`vote_choice_${choice}`, { arm, uses });
+}
+
+/** The visitor expanded "See all results" after voting. */
+export function trackVoteResultsViewed(arm: InviteArm): void {
+  trackEvent("vote_results_viewed", { arm });
+}
+
+/**
+ * An email left for updates about a feature. The address goes to /api/notify
+ * only. `source` says where: vote, limit, or paid_vote / paid_limit /
+ * paid_layout on the paid path.
+ */
+export function trackUpdatesSignup(source: string, feature: string): void {
+  trackEvent("updates_signup", { source, feature, uses: currentUses() });
+  trackEvent(`updates_signup_${source}`, { feature });
+}
+
+/**
+ * Typed text was stored (/api/ideas). Only the kind and the feature it is
+ * about reach analytics, never the text.
+ */
+export function trackIdeaSent(kind: IdeaKind, feature: string | null): void {
+  trackEvent("idea_sent", { kind, feature: feature ?? "none" });
+  trackEvent(`idea_sent_${kind}`);
+}
+
+/** The size question appeared under the "file too large" error. */
+export function trackLimitPromptShown(detectedBytes: number | null, paid: boolean, where: string): void {
+  trackEvent("limit_prompt_shown", {
+    detected: detectedBytes === null ? "unknown" : sizeBucket(detectedBytes),
+    paid: paid ? "yes" : "no",
+    where,
+    uses: currentUses(),
+  });
+}
+
+/** The visitor picked the file size they need. */
+export function trackLimitSizeChosen(needed: LimitSize, detectedBytes: number | null, paid: boolean): void {
+  const detected = detectedBytes === null ? "unknown" : sizeBucket(detectedBytes);
+  trackEvent("limit_size_chosen", { needed, detected, paid: paid ? "yes" : "no" });
+  trackEvent(`limit_size_${needed}`, { detected });
+}
+
+/** A paid-interest question appeared. `trigger`: vote, limit or repeat. */
+export function trackPaidPromptShown(trigger: string, feature: FeatureKey): void {
+  trackEvent("paid_prompt_shown", { trigger, feature, uses: currentUses() });
+  trackEvent(`paid_prompt_shown_${trigger}`, { feature });
+}
+
+/** The repeat-visitor card stayed half on screen for a second in a visible tab. */
+export function trackPaidPromptViewed(trigger: string, feature: FeatureKey): void {
+  trackEvent("paid_prompt_viewed", { trigger, feature });
+}
+
+/** The visitor expanded a collapsed paid-interest question ("Tell us what you need"). */
+export function trackPaidPromptOpened(trigger: string, feature: FeatureKey): void {
+  trackEvent("paid_prompt_opened", { trigger, feature });
+}
+
+/** On the page-layout question: what the visitor would change first. */
+export function trackPaidNeed(trigger: string, need: PaidNeed): void {
+  trackEvent("paid_need", { trigger, need });
+  trackEvent(`paid_need_${need}`, { trigger });
+}
+
+/**
+ * The answer to "Would you consider a paid option for this?" A segment, not a
+ * willingness-to-pay figure (marketing review): "paid-aware interest".
+ */
+export function trackPaidInterest(trigger: string, feature: FeatureKey, answer: PaidAnswer): void {
+  trackEvent("paid_interest", { trigger, feature, answer, uses: currentUses() });
+  trackEvent(`paid_interest_${answer}`, { trigger, feature });
+}
+
+/** The visitor closed a paid-interest question with ×. */
+export function trackPaidPromptDismissed(trigger: string, feature: FeatureKey): void {
+  trackEvent("paid_prompt_dismissed", { trigger, feature });
+}
+
+/** The "Suggest an improvement" box was opened. */
+export function trackSuggestOpened(where: string): void {
+  trackEvent("suggest_opened", { where });
 }

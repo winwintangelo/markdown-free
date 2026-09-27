@@ -122,10 +122,12 @@ export default function PrivacyPage() {
             <strong>Vercel Web Analytics</strong> (cookieless analytics —
             aggregate counts and ranges only, never your content),{" "}
             <strong>Resend</strong> (delivers feedback messages to our inbox)
-            and <strong>Supabase</strong> (stores the email address you leave
-            to hear about upcoming features, with the features you picked, in
-            the United States; we delete it once those features have shipped
-            or after 12 months, whichever comes first). The PDF
+            and <strong>Supabase</strong> (stores, in the United States, the
+            email address you leave to hear about upcoming features, with the
+            features you picked, and any suggestion or answer you type into a
+            feedback box; we delete an email address once its features have
+            shipped or after 12 months, whichever comes first, and a suggestion
+            after 12 months). The PDF
             generation runs on our own serverless infrastructure (Vercel). No
             external service sees your content.
           </p>

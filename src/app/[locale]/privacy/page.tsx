@@ -133,7 +133,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Third parties",
-      text: "We do not share your documents with anyone. Four service providers process limited data on our behalf: Umami Cloud and Vercel Web Analytics (cookieless analytics — aggregate counts and ranges only, never your content), Resend (delivers feedback messages to our inbox) and Supabase (stores the email address you leave to hear about upcoming features, with the features you picked, in the United States; we delete it once those features have shipped or after 12 months, whichever comes first). The PDF generation runs on our own serverless infrastructure (Vercel). No external service sees your content."
+      text: "We do not share your documents with anyone. Four service providers process limited data on our behalf: Umami Cloud and Vercel Web Analytics (cookieless analytics — aggregate counts and ranges only, never your content), Resend (delivers feedback messages to our inbox) and Supabase (stores, in the United States, the email address you leave to hear about upcoming features, with the features you picked, and any suggestion or answer you type into a feedback box; we delete an email address once its features have shipped or after 12 months, whichever comes first, and a suggestion after 12 months). The PDF generation runs on our own serverless infrastructure (Vercel). No external service sees your content."
     },
     security: {
       title: "Security",
@@ -209,7 +209,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Terze parti",
-      text: "Non condividiamo i tuoi documenti con nessuno. Quattro fornitori trattano dati limitati per nostro conto: Umami Cloud e Vercel Web Analytics (analytics senza cookie — solo conteggi aggregati e fasce, mai i tuoi contenuti), Resend (recapita i messaggi di feedback alla nostra casella) e Supabase (conserva negli Stati Uniti l'email che lasci per sapere delle nuove funzioni, insieme alle funzioni scelte; la cancelliamo quando quelle funzioni sono disponibili o dopo 12 mesi, se prima). La generazione PDF avviene sulla nostra infrastruttura serverless (Vercel). Nessun servizio esterno vede i tuoi contenuti."
+      text: "Non condividiamo i tuoi documenti con nessuno. Quattro fornitori trattano dati limitati per nostro conto: Umami Cloud e Vercel Web Analytics (analytics senza cookie — solo conteggi aggregati e fasce, mai i tuoi contenuti), Resend (recapita i messaggi di feedback alla nostra casella) e Supabase (conserva negli Stati Uniti l'email che lasci per sapere delle nuove funzioni, insieme alle funzioni scelte, e ogni suggerimento o risposta che scrivi in un riquadro di feedback; cancelliamo l'email quando quelle funzioni sono disponibili o dopo 12 mesi, se prima, e un suggerimento dopo 12 mesi). La generazione PDF avviene sulla nostra infrastruttura serverless (Vercel). Nessun servizio esterno vede i tuoi contenuti."
     },
     security: {
       title: "Sicurezza",
@@ -285,7 +285,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Terceros",
-      text: "No compartimos tus documentos con nadie. Cuatro proveedores tratan datos limitados en nuestro nombre: Umami Cloud y Vercel Web Analytics (analítica sin cookies — solo recuentos agregados y rangos, nunca tu contenido), Resend (entrega los mensajes de comentarios a nuestra bandeja de entrada) y Supabase (guarda en Estados Unidos el email que dejas para saber de nuevas funciones, junto con las funciones elegidas; lo borramos cuando esas funciones estén disponibles o a los 12 meses, lo que ocurra primero). La generación de PDF se ejecuta en nuestra propia infraestructura serverless (Vercel). Ningún servicio externo ve tu contenido."
+      text: "No compartimos tus documentos con nadie. Cuatro proveedores tratan datos limitados en nuestro nombre: Umami Cloud y Vercel Web Analytics (analítica sin cookies — solo recuentos agregados y rangos, nunca tu contenido), Resend (entrega los mensajes de comentarios a nuestra bandeja de entrada) y Supabase (guarda en Estados Unidos el email que dejas para saber de nuevas funciones, junto con las funciones elegidas, y cualquier sugerencia o respuesta que escribas en un cuadro de comentarios; borramos el email cuando esas funciones estén disponibles o a los 12 meses, lo que ocurra primero, y una sugerencia a los 12 meses). La generación de PDF se ejecuta en nuestra propia infraestructura serverless (Vercel). Ningún servicio externo ve tu contenido."
     },
     security: {
       title: "Seguridad",
@@ -361,7 +361,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "第三者",
-      text: "お客様のドキュメントを第三者と共有することはありません。当社に代わって限定的なデータを処理するサービスが4つあります。Umami CloudとVercel Web Analytics（Cookie不使用のアクセス解析。集計された件数と範囲のみで、コンテンツは含まれません）、Resend（フィードバックのメッセージを当社の受信箱に届けます）、Supabase（新機能のお知らせ用に入力されたメールアドレスと選んだ機能を米国で保管します。該当機能のリリース後、または12か月後のいずれか早い時点で削除します）です。PDF生成は自社のサーバーレスインフラ（Vercel）で実行されます。外部サービスがコンテンツを見ることはありません。"
+      text: "お客様のドキュメントを第三者と共有することはありません。当社に代わって限定的なデータを処理するサービスが4つあります。Umami CloudとVercel Web Analytics（Cookie不使用のアクセス解析。集計された件数と範囲のみで、コンテンツは含まれません）、Resend（フィードバックのメッセージを当社の受信箱に届けます）、Supabase（新機能のお知らせ用に入力されたメールアドレスと選んだ機能、およびフィードバック欄に入力された提案や回答を米国で保管します。メールアドレスは該当機能のリリース後、または12か月後のいずれか早い時点で、提案は12か月後に削除します）です。PDF生成は自社のサーバーレスインフラ（Vercel）で実行されます。外部サービスがコンテンツを見ることはありません。"
     },
     security: {
       title: "セキュリティ",
@@ -437,7 +437,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "제3자",
-      text: "귀하의 문서를 누구와도 공유하지 않습니다. 네 서비스 제공업체가 당사를 대신해 제한된 데이터를 처리합니다. Umami Cloud와 Vercel Web Analytics(쿠키 없는 분석 — 집계된 수치와 범위만, 콘텐츠는 절대 포함되지 않음), Resend(피드백 메시지를 당사 받은편지함으로 전달), Supabase(새 기능 알림을 위해 남긴 이메일과 선택한 기능을 미국에 보관하며, 해당 기능 출시 후 또는 12개월 후 중 먼저 오는 시점에 삭제)입니다. PDF 생성은 자체 서버리스 인프라(Vercel)에서 실행됩니다. 외부 서비스가 콘텐츠를 볼 수 없습니다."
+      text: "귀하의 문서를 누구와도 공유하지 않습니다. 네 서비스 제공업체가 당사를 대신해 제한된 데이터를 처리합니다. Umami Cloud와 Vercel Web Analytics(쿠키 없는 분석 — 집계된 수치와 범위만, 콘텐츠는 절대 포함되지 않음), Resend(피드백 메시지를 당사 받은편지함으로 전달), Supabase(새 기능 알림을 위해 남긴 이메일과 선택한 기능, 그리고 피드백 입력란에 작성한 제안이나 답변을 미국에 보관하며, 이메일은 해당 기능 출시 후 또는 12개월 후 중 먼저 오는 시점에, 제안은 12개월 후에 삭제)입니다. PDF 생성은 자체 서버리스 인프라(Vercel)에서 실행됩니다. 외부 서비스가 콘텐츠를 볼 수 없습니다."
     },
     security: {
       title: "보안",
@@ -513,7 +513,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "第三方",
-      text: "我们不会与任何人共享您的文档。有四家服务提供商代表我们处理有限的数据：Umami Cloud 和 Vercel Web Analytics（无 Cookie 的统计分析，仅汇总计数和区间，绝不涉及您的内容）、Resend（将反馈留言投递到我们的收件箱）和 Supabase（在美国保存您为接收新功能通知而留下的邮箱及所选功能；相关功能上线后或满 12 个月时删除，以先到者为准）。PDF 生成在我们自己的无服务器基础设施（Vercel）上运行。没有外部服务会看到您的内容。"
+      text: "我们不会与任何人共享您的文档。有四家服务提供商代表我们处理有限的数据：Umami Cloud 和 Vercel Web Analytics（无 Cookie 的统计分析，仅汇总计数和区间，绝不涉及您的内容）、Resend（将反馈留言投递到我们的收件箱）和 Supabase（在美国保存您为接收新功能通知而留下的邮箱及所选功能，以及您在反馈框中填写的建议或回答；邮箱在相关功能上线后或满 12 个月时删除，以先到者为准，建议满 12 个月时删除）。PDF 生成在我们自己的无服务器基础设施（Vercel）上运行。没有外部服务会看到您的内容。"
     },
     security: {
       title: "安全",
@@ -589,7 +589,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "第三方",
-      text: "我們不會與任何人共用您的文件。有四家服務供應商代表我們處理有限的資料：Umami Cloud 和 Vercel Web Analytics（無 Cookie 的統計分析，僅彙總計數和區間，絕不涉及您的內容）、Resend（將意見回饋留言投遞到我們的收件匣）和 Supabase（在美國保存您為接收新功能通知而留下的電子郵件及所選功能；相關功能上線後或滿 12 個月時刪除，以先到者為準）。PDF 生成在我們自己的無伺服器基礎架構（Vercel）上執行。沒有外部服務會看到您的內容。"
+      text: "我們不會與任何人共用您的文件。有四家服務供應商代表我們處理有限的資料：Umami Cloud 和 Vercel Web Analytics（無 Cookie 的統計分析，僅彙總計數和區間，絕不涉及您的內容）、Resend（將意見回饋留言投遞到我們的收件匣）和 Supabase（在美國保存您為接收新功能通知而留下的電子郵件及所選功能，以及您在意見回饋框中填寫的建議或回答；電子郵件在相關功能上線後或滿 12 個月時刪除，以先到者為準，建議滿 12 個月時刪除）。PDF 生成在我們自己的無伺服器基礎架構（Vercel）上執行。沒有外部服務會看到您的內容。"
     },
     security: {
       title: "安全",
@@ -665,7 +665,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Pihak ketiga",
-      text: "Kami tidak membagikan dokumen Anda kepada siapa pun. Empat penyedia layanan memproses data terbatas atas nama kami: Umami Cloud dan Vercel Web Analytics (analitik tanpa cookie — hanya hitungan agregat dan rentang, tidak pernah konten Anda), Resend (mengirimkan pesan masukan ke kotak masuk kami), dan Supabase (menyimpan di Amerika Serikat email yang Anda tinggalkan untuk kabar fitur baru beserta fitur yang Anda pilih; kami menghapusnya setelah fitur tersebut dirilis atau setelah 12 bulan, mana yang lebih dulu). Pembuatan PDF berjalan di infrastruktur serverless kami sendiri (Vercel). Tidak ada layanan eksternal yang melihat konten Anda."
+      text: "Kami tidak membagikan dokumen Anda kepada siapa pun. Empat penyedia layanan memproses data terbatas atas nama kami: Umami Cloud dan Vercel Web Analytics (analitik tanpa cookie — hanya hitungan agregat dan rentang, tidak pernah konten Anda), Resend (mengirimkan pesan masukan ke kotak masuk kami), dan Supabase (menyimpan di Amerika Serikat email yang Anda tinggalkan untuk kabar fitur baru beserta fitur yang Anda pilih, serta saran atau jawaban yang Anda tulis di kotak masukan; kami menghapus email setelah fitur tersebut dirilis atau setelah 12 bulan, mana yang lebih dulu, dan saran setelah 12 bulan). Pembuatan PDF berjalan di infrastruktur serverless kami sendiri (Vercel). Tidak ada layanan eksternal yang melihat konten Anda."
     },
     security: {
       title: "Keamanan",
@@ -741,7 +741,7 @@ const content: Partial<Record<Locale, {
     },
     thirdParties: {
       title: "Bên thứ ba",
-      text: "Chúng tôi không chia sẻ tài liệu của bạn với bất kỳ ai. Bốn nhà cung cấp dịch vụ xử lý dữ liệu hạn chế thay mặt chúng tôi: Umami Cloud và Vercel Web Analytics (phân tích không dùng cookie — chỉ số liệu tổng hợp và các khoảng, không bao giờ là nội dung của bạn), Resend (chuyển tin nhắn góp ý đến hộp thư của chúng tôi) và Supabase (lưu tại Hoa Kỳ email bạn để lại để nhận tin về tính năng mới cùng các tính năng bạn chọn; chúng tôi xóa email khi các tính năng đó ra mắt hoặc sau 12 tháng, tùy điều kiện nào đến trước). Việc tạo PDF chạy trên cơ sở hạ tầng serverless của chúng tôi (Vercel). Không có dịch vụ bên ngoài nào nhìn thấy nội dung của bạn."
+      text: "Chúng tôi không chia sẻ tài liệu của bạn với bất kỳ ai. Bốn nhà cung cấp dịch vụ xử lý dữ liệu hạn chế thay mặt chúng tôi: Umami Cloud và Vercel Web Analytics (phân tích không dùng cookie — chỉ số liệu tổng hợp và các khoảng, không bao giờ là nội dung của bạn), Resend (chuyển tin nhắn góp ý đến hộp thư của chúng tôi) và Supabase (lưu tại Hoa Kỳ email bạn để lại để nhận tin về tính năng mới cùng các tính năng bạn chọn, và mọi góp ý hoặc câu trả lời bạn nhập vào ô góp ý; chúng tôi xóa email khi các tính năng đó ra mắt hoặc sau 12 tháng, tùy điều kiện nào đến trước, và xóa góp ý sau 12 tháng). Việc tạo PDF chạy trên cơ sở hạ tầng serverless của chúng tôi (Vercel). Không có dịch vụ bên ngoài nào nhìn thấy nội dung của bạn."
     },
     security: {
       title: "Bảo mật",

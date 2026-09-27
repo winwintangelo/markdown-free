@@ -8,6 +8,7 @@ import { trackUploadStart, trackSampleClick, trackUploadStart as trackUploadStar
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 import { MAX_FILE_SIZE } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { LimitPrompt } from "./limit-prompt";
 import { cleanPastedMarkdown, CHATBOT_LABELS } from "@/lib/paste-cleanup";
 import type { ChatbotSource } from "@/types";
 import type { Locale, Dictionary } from "@/i18n";
@@ -337,8 +338,24 @@ export function PasteArea({ locale: _locale, dict = defaultDict as unknown as Di
   // ==================== MOBILE LAYOUT ====================
   const pageCount = localValue ? estimatePages(localValue) : 0;
 
+  // A file picked with "choose file" is validated by the upload card, which
+  // phones hide, so its error (a file over 1 MB, a wrong type) shows here.
+  const uploadError = state.error && state.error.code !== "SAMPLE_ERROR" ? state.error : null;
+
   return (
     <div ref={sectionRef}>
+      {uploadError && mobileState !== "editing" && (
+        <div className="mb-2 flex flex-col gap-2" data-testid="mobile-upload-error">
+          <div role="alert" className="flex items-center gap-2 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+            <AlertCircle className="h-4 w-4 flex-shrink-0 text-amber-500" />
+            {uploadError.message}
+          </div>
+          {uploadError.code === "FILE_TOO_LARGE" && dict.limitPrompt && (
+            <LimitPrompt dict={dict} locale={_locale ?? "en"} detectedBytes={uploadError.size ?? null} where="mobile" />
+          )}
+        </div>
+      )}
+
       {/* Error messages */}
       {clipboardError && mobileState !== "editing" && (
         <div

@@ -82,6 +82,14 @@ const VOTES_RATE_LIMIT = {
   maxRequests: STRICT_LIMITS ? 20 : 200,
 };
 
+// Typed feedback (the "Something else" text, the "What do you do today"
+// answer, suggestions): a person writes one or two. Each stored message is a
+// row someone reads, so a loop would bury the real ones.
+const IDEAS_RATE_LIMIT = {
+  windowMs: 60 * 60 * 1000,
+  maxRequests: STRICT_LIMITS ? 10 : 200,
+};
+
 // Health checks: an external monitor polls every few minutes from a handful of
 // IPs. The budget stops anyone else from using the endpoint to hammer Supabase.
 const HEALTH_RATE_LIMIT = {
@@ -366,6 +374,23 @@ export function middleware(request: NextRequest) {
 
     if (!allowed) {
       console.log(`[Security] Votes rate limit exceeded for IP: ${ip}`);
+      return NextResponse.json(
+        {
+          error: "RATE_LIMITED",
+          message: "Too many requests. Please try again later.",
+        },
+        { status: 429, headers: { "Retry-After": "3600" } }
+      );
+    }
+  }
+
+  // Rate limiting for typed feedback (each accepted call is a stored row)
+  if (request.nextUrl.pathname === "/api/ideas") {
+    const ip = getClientIp(request);
+    const { allowed } = checkRateLimit(`ideas:${ip}`, IDEAS_RATE_LIMIT);
+
+    if (!allowed) {
+      console.log(`[Security] Ideas rate limit exceeded for IP: ${ip}`);
       return NextResponse.json(
         {
           error: "RATE_LIMITED",

@@ -6,6 +6,8 @@ import { cn, formatFileSize, isValidFileType, isValidFileSize } from "@/lib/util
 import { useConverter } from "@/hooks/use-converter";
 import { trackUploadStart, trackUploadError, trackUploadHover, trackPasteToggleClick, trackSampleClick } from "@/lib/analytics";
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { LimitPrompt } from "./limit-prompt";
 import type { Locale, Dictionary } from "@/i18n";
 
 interface UploadCardProps {
@@ -35,6 +37,9 @@ const defaultDict = {
 
 export function UploadCard({ locale: _locale, dict = defaultDict as unknown as Dictionary }: UploadCardProps) {
   const { state, dispatch, fileInputRef } = useConverter();
+  // Phones hide this card with CSS but still mount it; the paste area shows
+  // their upload errors instead, so the size question renders on desktop only.
+  const isMobile = useIsMobile();
   const [isDragOver, setIsDragOver] = useState(false);
   const hasTrackedHoverRef = useRef(false);
   const sectionRef = useSectionVisibility("upload");
@@ -78,6 +83,7 @@ export function UploadCard({ locale: _locale, dict = defaultDict as unknown as D
           error: {
             code: "FILE_TOO_LARGE",
             message: dict.errors.tooLarge,
+            size: file.size,
           },
         });
         return;
@@ -290,6 +296,13 @@ export function UploadCard({ locale: _locale, dict = defaultDict as unknown as D
           </span>
         )}
       </div>
+
+      {/* A file over the limit: which size the visitor needs */}
+      {state.error?.code === "FILE_TOO_LARGE" && dict.limitPrompt && !isMobile && (
+        <div className="mt-3 flex w-full justify-center">
+          <LimitPrompt dict={dict} locale={_locale ?? "en"} detectedBytes={state.error.size ?? null} where="desktop" />
+        </div>
+      )}
 
       {/* Action links */}
       <div className="mt-5 flex items-center gap-3 text-xs">

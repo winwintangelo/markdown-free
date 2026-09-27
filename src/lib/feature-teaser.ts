@@ -1,61 +1,111 @@
 /**
- * Phase 1.5 demand probe: the coming-features teaser and the vote board
- * (build plan §5).
+ * Feedback prompts after a conversion: the invitation to the vote board, the
+ * board itself, and the paid-interest questions (feedback v2, 2026-09-27,
+ * after a marketing review).
  *
- * For 7 days from a browser's first conversion, the one-line teaser takes the
- * slot the post-convert thumbs prompt would have used; after that the thumbs
- * prompt takes it back, and a visitor who votes never sees the teaser again.
- * Opening it shows a
- * dialog in two states: pick the features you would use, with no counts and no
- * bars anywhere, then — once the vote is recorded — the tallies, one optional
- * question about paying, and an optional email.
+ * Two separate paths:
+ *   - "What should we improve?" — a neutral, one-choice vote open to everyone.
+ *     It never asks about buying.
+ *   - "Who would pay?" — a short, feature-specific question shown only where a
+ *     visitor meets a real need (a file over 1 MB, a vote for a candidate paid
+ *     feature, repeat use). It says plainly that the option may be paid. It is
+ *     off until the public "no premium tier" copy is fixed; see
+ *     paidInterestEnabled().
  *
- * Counts stay hidden until someone has voted because showing them first biases
- * the vote: the popular feature gets more popular and the rest look unwanted.
+ * The invitation runs as a two-arm test, fixed per browser: today's teaser line
+ * (control) against a format-specific card (card).
  *
  * This module also decides which prompt, if any, follows a conversion. A
- * prompt after every single conversion is noise, so a browser sees at most one
- * per 30 minutes, whichever kind it is.
+ * browser sees at most one per 30 minutes, whichever kind it is.
  *
- * It holds what the browser and the server share: the feature list, the
- * display rules and the anti-bot timing. The conversion count and the
- * timestamps live in localStorage and are never sent.
+ * It holds what the browser and the server share: the choice lists, the display
+ * rules and the anti-bot timing. The counters and timestamps live in
+ * localStorage and are never sent.
  */
 
-export const FEATURE_KEYS = ["backup", "templates", "formatting", "equations", "merge", "share"] as const;
+/** The features on the board, in canonical order (the board shuffles them). */
+export const FEATURE_KEYS = [
+  "formatting",
+  "equations",
+  "templates",
+  "large",
+  "recover",
+  "account",
+  "merge",
+  "share",
+] as const;
 export type FeatureKey = (typeof FEATURE_KEYS)[number];
 
-/**
- * Which features we expect to charge for. The board never shows this split —
- * a tier badge beside a feature bends the vote — but the pay answer is worth
- * more when we know how many premium candidates someone picked.
- */
-export const PREMIUM_FEATURES: readonly FeatureKey[] = ["backup", "templates", "formatting"];
+/** Every answer the board accepts: a feature, "something else", or "nothing missing". */
+export const CHOICE_KEYS = [...FEATURE_KEYS, "other", "nothing"] as const;
+export type ChoiceKey = (typeof CHOICE_KEYS)[number];
 
+/**
+ * Choices an older page may still send during a rollout: "backup" was split
+ * into "recover" (in this browser) and "account" (stored online).
+ */
+export const LEGACY_FEATURE_KEYS = ["backup"] as const;
+
+/**
+ * Features a visitor may be asked about paying for, once the paid path is on.
+ * The board never marks them — a tier badge beside a feature bends the vote.
+ */
+export const PAID_INTEREST_FEATURES: readonly FeatureKey[] = ["formatting", "equations", "templates", "large", "account"];
+
+/** Answers to "Would you consider a paid option for this?" Analytics only. */
+export const PAID_ANSWERS = ["maybe", "free", "unsure"] as const;
+export type PaidAnswer = (typeof PAID_ANSWERS)[number];
+
+/** The old results-page pay chips. /api/votes still accepts them from an older page. */
 export const PAY_ANSWERS = ["yes", "maybe", "no"] as const;
 export type PayAnswer = (typeof PAY_ANSWERS)[number];
 
+/** File sizes offered under the 1 MB error. */
+export const LIMIT_SIZES = ["1-2mb", "2-5mb", "5-10mb", "10mb+"] as const;
+export type LimitSize = (typeof LIMIT_SIZES)[number];
+
+/** What a repeat visitor would change first, on the page-layout question. */
+export const PAID_NEEDS = ["fonts", "margins", "pageSize", "headers", "other"] as const;
+export type PaidNeed = (typeof PAID_NEEDS)[number];
+
+/** The three kinds of typed text, stored privately by /api/ideas. */
+export const IDEA_KINDS = ["other", "workaround", "suggestion"] as const;
+export type IdeaKind = (typeof IDEA_KINDS)[number];
+/** Longest typed text we store. */
+export const IDEA_MAX_CHARS = 200;
+
 export function isFeatureKey(value: unknown): value is FeatureKey {
   return typeof value === "string" && (FEATURE_KEYS as readonly string[]).includes(value);
+}
+
+export function isChoiceKey(value: unknown): value is ChoiceKey {
+  return typeof value === "string" && (CHOICE_KEYS as readonly string[]).includes(value);
+}
+
+export function isLegacyFeatureKey(value: unknown): boolean {
+  return typeof value === "string" && (LEGACY_FEATURE_KEYS as readonly string[]).includes(value);
 }
 
 export function isPayAnswer(value: unknown): value is PayAnswer {
   return typeof value === "string" && (PAY_ANSWERS as readonly string[]).includes(value);
 }
 
-export function isPremium(key: FeatureKey): boolean {
-  return PREMIUM_FEATURES.includes(key);
+export function isIdeaKind(value: unknown): value is IdeaKind {
+  return typeof value === "string" && (IDEA_KINDS as readonly string[]).includes(value);
+}
+
+export function isPaidInterestFeature(key: string): key is FeatureKey {
+  return (PAID_INTEREST_FEATURES as readonly string[]).includes(key);
 }
 
 /** One tally row as the board draws it. */
 export type FeatureTally = { feature: FeatureKey; votes: number };
 
 /**
- * How someone left the board. "abandoned" means nobody closed anything: the
- * teaser went away on its own, because the next conversion replaced it or the
- * page went.
+ * How someone left the invitation. "abandoned" means nobody closed anything:
+ * the invitation went away on its own, because the page went.
  */
-export const TEASER_EXITS = ["close", "escape", "backdrop", "just_vote", "abandoned"] as const;
+export const TEASER_EXITS = ["close", "escape", "backdrop", "done", "abandoned"] as const;
 export type TeaserExit = (typeof TEASER_EXITS)[number];
 
 /** Where a visitor stopped when they left without voting. */
@@ -75,83 +125,72 @@ export function dwellBucket(ms: number): string {
 
 /**
  * Fill in the features the server did not return (nothing stored yet, or a
- * test server), so the board always draws the whole list.
+ * test server), so the results always list every feature. "other", "nothing"
+ * and the retired "backup" are counted but not drawn.
  */
-export function completeTallies(rows: FeatureTally[], picks: FeatureKey[]): FeatureTally[] {
+export function completeTallies(rows: { feature: string; votes: number }[], choice: ChoiceKey | null): FeatureTally[] {
   const byKey = new Map(rows.map((row) => [row.feature, row.votes]));
   return FEATURE_KEYS.map((feature) => ({
     feature,
     // Without a store, the only vote we know about is the one just cast here.
-    votes: byKey.get(feature) ?? (picks.includes(feature) ? 1 : 0),
+    votes: byKey.get(feature) ?? (choice === feature ? 1 : 0),
   })).sort((a, b) => b.votes - a.votes || FEATURE_KEYS.indexOf(a.feature) - FEATURE_KEYS.indexOf(b.feature));
 }
 
 /**
- * The teaser shows from this conversion on.
- *
- * It was 2 until 2026-09-23, when production said the probe was invisible: 14
- * teasers against 95 converting visitors in 24 hours. Waiting for a second
- * conversion AND 30 quiet minutes cannot both happen in one sitting, because
- * the first conversion's thumbs prompt starts the quiet period — so only
- * visitors returning half an hour later ever saw it. The teaser now takes the
- * first conversion's prompt slot instead of the thumbs prompt, which leaves the
- * number of interruptions unchanged and its own 7-day cooldown in charge.
- *
- * The 30-minute quiet period still applies to it: the teaser stamps the same
- * timestamp, so the rest of that sitting stays silent, and a teaser that falls
- * due mid-sitting waits for the quiet period like anything else (owner,
- * 2026-09-23: "I still want quiet period after the 1st conversion").
+ * The invitation shows from this conversion on: it takes the first
+ * conversion's prompt slot instead of the thumbs prompt (2026-09-23: waiting
+ * for a second conversion AND 30 quiet minutes left the probe invisible).
  */
 export const TEASER_FROM_CONVERSION = 1;
 /**
- * How long the teaser keeps the prompt slot in one browser.
- *
- * Owner, 2026-09-23: the teaser shows on every prompt slot for 7 days, then the
- * thumbs prompt takes the slot back. Before this it was the other way round —
- * one teaser per 7 days — which gave the probe a single impression per browser
- * and left the gate out of reach. The 30-minute quiet period still limits how
- * often a slot comes round, so 7 days of teasers is not 7 days of nagging.
+ * How long the invitation keeps the prompt slot in one browser: every slot for
+ * 7 days from its first showing (owner, 2026-09-23), then the thumbs prompt
+ * takes the slot back. A vote ends it sooner.
  */
 export const TEASER_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 /**
  * Quiet period after any post-convert prompt. Converting a handful of files in
  * one sitting is normal, and a prompt each time is noise, so the next prompt
- * waits 30 minutes — the thumbs prompt and the teaser share the budget.
+ * waits 30 minutes — every kind shares the budget.
  */
 export const PROMPT_QUIET_MS = 30 * 60 * 1000;
-/** A person needs longer than this between opening the chips and submitting. */
+/** A person needs longer than this between opening a form and submitting it. */
 export const MIN_SUBMIT_MS = 1500;
 
 export const CONVERSION_COUNT_KEY = "mdfree:conversions";
-/** When this browser first saw the teaser; the 7-day window runs from here. */
+/** When this browser first saw the invitation; the 7-day window runs from here. */
 export const TEASER_FIRST_AT_KEY = "mdfree:teaser-first-at";
-/** The most recent teaser. Kept for the migration below and for debugging. */
+/** The most recent invitation. Kept for the migration below and for debugging. */
 export const TEASER_SHOWN_AT_KEY = "mdfree:teaser-shown-at";
-/** How many teasers this browser has seen, so analytics can separate the 1st. */
+/** How many invitations this browser has seen, so analytics can separate the 1st. */
 export const TEASER_IMPRESSIONS_KEY = "mdfree:teaser-impressions";
 /** Set once the visitor votes. A voter is never asked again. */
 export const TEASER_ANSWERED_KEY = "mdfree:teaser-answered";
 export const PROMPT_SHOWN_AT_KEY = "mdfree:prompt-shown-at";
+/** sessionStorage: an invitation showed in this tab, so no paid question here. */
+export const INVITE_SESSION_KEY = "mdfree:invite-session";
+/** The page-layout question for repeat visitors shows once per browser. */
+export const PAID_LAYOUT_SHOWN_KEY = "mdfree:paid-layout-shown";
+/** This browser's shuffled feature order, kept so the board never reshuffles. */
+export const BOARD_ORDER_KEY = "mdfree:board-order";
 
-export type PostConvertPrompt = "thumbs" | "teaser" | "none";
+export type PostConvertPrompt = "thumbs" | "teaser" | "paid" | "none";
 
 /**
- * Five wordings of the teaser line, tested against each other (owner,
- * 2026-09-24: the original was "too flat" — 0 opens in its first 79 first
- * impressions). Each tests a framing, not a feature: naming one feature in
- * the teaser would prime votes for it and bend the ranking the board exists
- * to measure. The copy lives in `featureTeaser.variants` in every dictionary.
- *
- *   v1 direct question · v2 low effort · v3 curiosity · v4 unmet need ·
- *   v5 social proof
+ * The two invitations under test, fixed per browser (marketing review: one
+ * control, one meaningful treatment, instead of five wordings on a trickle of
+ * traffic):
+ *   control  today's one-line teaser with the "Missing something in your
+ *            exports?" wording (the old v4)
+ *   card     a compact card that asks about the format just exported
  */
-export const TEASER_VARIANTS = ["v1", "v2", "v3", "v4", "v5"] as const;
-export type TeaserVariant = (typeof TEASER_VARIANTS)[number];
-/** The wording this browser was given; picked once, then kept. */
-export const TEASER_VARIANT_KEY = "mdfree:teaser-variant";
+export const INVITE_ARMS = ["control", "card"] as const;
+export type InviteArm = (typeof INVITE_ARMS)[number];
+export const INVITE_ARM_KEY = "mdfree:invite-arm";
 
-export function isTeaserVariant(value: unknown): value is TeaserVariant {
-  return typeof value === "string" && (TEASER_VARIANTS as readonly string[]).includes(value);
+export function isInviteArm(value: unknown): value is InviteArm {
+  return typeof value === "string" && (INVITE_ARMS as readonly string[]).includes(value);
 }
 
 /**
@@ -170,7 +209,7 @@ function localParam(name: string): string | null {
 }
 
 /**
- * Manual-testing switch: `?probe=teaser` shows the teaser after the next
+ * Manual-testing switch: `?probe=teaser` shows the invitation after the next
  * conversion, whatever the counters say. Localhost only.
  */
 export function teaserForcedLocally(): boolean {
@@ -178,29 +217,70 @@ export function teaserForcedLocally(): boolean {
 }
 
 /**
- * The wording this browser sees. Picked at random on its first teaser and then
- * kept, so one visitor never sees two wordings, and every repeat in their 7-day
- * window counts for the same variant — per-variant visitor counts stay clean.
- * `?variant=v3` pins one on localhost, for checking copy by hand.
+ * Whether the paid-interest questions may show. Off until the public copy that
+ * promises "no premium tier" is corrected (marketing review, priority 0): set
+ * NEXT_PUBLIC_PAID_INTEREST=1 at build time to turn them on. `?paid=1` turns
+ * them on for a manual check on localhost.
  */
-export function teaserVariant(random: () => number = Math.random): TeaserVariant {
-  const pick = () => TEASER_VARIANTS[Math.floor(random() * TEASER_VARIANTS.length)];
+export function paidInterestEnabled(): boolean {
+  return process.env.NEXT_PUBLIC_PAID_INTEREST === "1" || localParam("paid") === "1";
+}
+
+/**
+ * The invitation this browser is in. Picked at random the first time and then
+ * kept, so one visitor never sees both and every repeat counts for the same
+ * arm. `isNew` tells the caller to record the assignment. `?arm=card` pins one
+ * on localhost, for checking copy by hand.
+ */
+export function inviteArm(random: () => number = Math.random): { arm: InviteArm; isNew: boolean } {
+  const pick = () => INVITE_ARMS[Math.floor(random() * INVITE_ARMS.length)];
   try {
-    const pinned = localParam("variant");
-    if (isTeaserVariant(pinned)) {
-      localStorage.setItem(TEASER_VARIANT_KEY, pinned);
-      return pinned;
+    const pinned = localParam("arm");
+    if (isInviteArm(pinned)) {
+      localStorage.setItem(INVITE_ARM_KEY, pinned);
+      return { arm: pinned, isNew: false };
     }
-    const stored = localStorage.getItem(TEASER_VARIANT_KEY);
-    if (isTeaserVariant(stored)) return stored;
+    const stored = localStorage.getItem(INVITE_ARM_KEY);
+    if (isInviteArm(stored)) return { arm: stored, isNew: false };
     const picked = pick();
-    localStorage.setItem(TEASER_VARIANT_KEY, picked);
-    return picked;
+    localStorage.setItem(INVITE_ARM_KEY, picked);
+    return { arm: picked, isNew: true };
   } catch {
-    // Without storage the teaser never shows (recordConversion returns thumbs),
+    // Without storage no invitation shows (recordConversion returns thumbs),
     // so this only keeps the function total.
-    return pick();
+    return { arm: pick(), isNew: false };
   }
+}
+
+/**
+ * The board's feature order for this browser: shuffled once, then kept, so
+ * no feature gains from always sitting first and a visitor who reopens the
+ * board finds it unchanged.
+ */
+export function boardOrder(random: () => number = Math.random): FeatureKey[] {
+  try {
+    const stored = JSON.parse(localStorage.getItem(BOARD_ORDER_KEY) ?? "null");
+    if (
+      Array.isArray(stored) &&
+      stored.length === FEATURE_KEYS.length &&
+      FEATURE_KEYS.every((key) => stored.includes(key))
+    ) {
+      return stored as FeatureKey[];
+    }
+  } catch {
+    // Fall through to a fresh shuffle.
+  }
+  const order = [...FEATURE_KEYS];
+  for (let i = order.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  try {
+    localStorage.setItem(BOARD_ORDER_KEY, JSON.stringify(order));
+  } catch {
+    // The order just won't persist.
+  }
+  return order;
 }
 
 function readTime(key: string): number {
@@ -216,14 +296,22 @@ export function markTeaserAnswered(): void {
   try {
     localStorage.setItem(TEASER_ANSWERED_KEY, "1");
   } catch {
-    // Storage is unavailable; the teaser could not have been shown either.
+    // Storage is unavailable; the invitation could not have been shown either.
+  }
+}
+
+/** The page-layout question showed; it never shows again in this browser. */
+export function markPaidLayoutShown(): void {
+  try {
+    localStorage.setItem(PAID_LAYOUT_SHOWN_KEY, "1");
+  } catch {
+    // Without storage the question could not have been scheduled.
   }
 }
 
 /**
- * How many teasers this browser has seen, the current one included. Analytics
- * tags the event with it so the gate can be read on first impressions, which
- * is what the fake-door benchmark measures.
+ * How many invitations this browser has seen, the current one included.
+ * Analytics tags the event with it so first impressions can be read apart.
  */
 export function teaserImpressions(): number {
   try {
@@ -233,15 +321,37 @@ export function teaserImpressions(): number {
   }
 }
 
+function inviteShownThisSession(): boolean {
+  try {
+    return sessionStorage.getItem(INVITE_SESSION_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function markInviteSession(): void {
+  try {
+    sessionStorage.setItem(INVITE_SESSION_KEY, "1");
+  } catch {
+    // Without sessionStorage the paid question simply waits for another day.
+  }
+}
+
 /**
  * Count one successful conversion in this browser and decide which prompt
- * follows it: the teaser when it is due, otherwise the thumbs prompt, and
- * nothing at all within 30 minutes of the last prompt.
+ * follows it, in this order:
+ *   1. nothing within 30 minutes of the last prompt, whatever kind;
+ *   2. the vote invitation, for 7 days from its first showing, unless the
+ *      visitor voted;
+ *   3. the page-layout paid question, once, for a heavy user (`heavy`, see
+ *      isHeavyUser in usage-signals.ts), when the paid path is on and no
+ *      invitation showed in this tab;
+ *   4. the thumbs prompt.
  *
  * Without working storage neither cooldown can be honored, so only the thumbs
  * prompt shows.
  */
-export function recordConversion(now: number = Date.now()): PostConvertPrompt {
+export function recordConversion(now: number = Date.now(), options: { heavy?: boolean } = {}): PostConvertPrompt {
   try {
     const count = (readTime(CONVERSION_COUNT_KEY) || 0) + 1;
     localStorage.setItem(CONVERSION_COUNT_KEY, String(count));
@@ -254,15 +364,28 @@ export function recordConversion(now: number = Date.now()): PostConvertPrompt {
     // Browsers that saw a teaser under the old rule start their window from
     // that teaser, not from today, so nobody gets a second 7-day run.
     const firstAt = readTime(TEASER_FIRST_AT_KEY) || readTime(TEASER_SHOWN_AT_KEY);
-    const answered = localStorage.getItem(TEASER_ANSWERED_KEY) === "1";
+    // A dismissal does not end the window (owner: on hold since 2026-09-27),
+    // though the marketing review recommends it.
+    const finished = localStorage.getItem(TEASER_ANSWERED_KEY) === "1";
     const inWindow = firstAt === 0 || now - firstAt < TEASER_WINDOW_MS;
 
-    if (answered || count < TEASER_FROM_CONVERSION || !inWindow) return "thumbs";
+    if (!finished && count >= TEASER_FROM_CONVERSION && inWindow) {
+      if (firstAt === 0) localStorage.setItem(TEASER_FIRST_AT_KEY, String(now));
+      localStorage.setItem(TEASER_SHOWN_AT_KEY, String(now));
+      localStorage.setItem(TEASER_IMPRESSIONS_KEY, String(readTime(TEASER_IMPRESSIONS_KEY) + 1));
+      markInviteSession();
+      return "teaser";
+    }
 
-    if (firstAt === 0) localStorage.setItem(TEASER_FIRST_AT_KEY, String(now));
-    localStorage.setItem(TEASER_SHOWN_AT_KEY, String(now));
-    localStorage.setItem(TEASER_IMPRESSIONS_KEY, String(readTime(TEASER_IMPRESSIONS_KEY) + 1));
-    return "teaser";
+    if (
+      options.heavy &&
+      paidInterestEnabled() &&
+      localStorage.getItem(PAID_LAYOUT_SHOWN_KEY) !== "1" &&
+      !inviteShownThisSession()
+    ) {
+      return "paid";
+    }
+    return "thumbs";
   } catch {
     return "thumbs";
   }

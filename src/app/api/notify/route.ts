@@ -4,7 +4,8 @@ import { FEATURE_KEYS, MIN_SUBMIT_MS, isFeatureKey } from "@/lib/feature-teaser"
 import { notifyStoreConfigured, saveNotifySignup } from "@/lib/notify-store";
 
 /**
- * "Notify me" signups from the coming-features teaser (Phase 1.5).
+ * "Get updates" signups: an email left after a vote, under the 1 MB error, or
+ * on a paid-interest question, with the feature it asked about.
  *
  * Stores an email with the features it asked about, and sends nothing. Mail
  * goes out only when a feature ships, so this form cannot be used to send

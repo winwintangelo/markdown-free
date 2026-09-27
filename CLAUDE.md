@@ -36,7 +36,7 @@ See `env.example` for required variables:
 - **Production tests:** `e2e/production.spec.ts` - run against live site with `--config=playwright.production.config.ts`
 - **Live store tests:** `npm run test:notify-store` writes to the real Supabase project and cleans up; it skips unless `NOTIFY_LIVE=1`, and needs a server started WITHOUT `E2E_RELAXED_RATE_LIMITS` (see `docs/supabase-setup.md`)
 - **Supabase schema:** `npm run db:check` reports what the project in `.env` has (read-only); `npm run db:migrate` applies `supabase/migrations/` (needs `SUPABASE_ACCESS_TOKEN` or `SUPABASE_DB_URL`)
-- **Feature teaser by hand:** a fresh browser sees it on its first conversion and keeps it for 7 days, so usually you just convert. `http://localhost:3000/?probe=teaser` forces it when that browser already voted or its 7 days are up, and `?variant=v1`…`v5` pins one of the five wordings; both work on localhost only. A server started with `E2E_RELAXED_RATE_LIMITS=1` accepts votes and signups but stores nothing
+- **Vote invitation and paid path by hand:** a fresh browser sees the invitation on its first conversion and keeps it for 7 days, so usually you just convert. On localhost only: `?probe=teaser` forces it when that browser already voted or its 7 days are up, `?arm=control` or `?arm=card` pins one of the two invitations, and `?paid=1` turns on the paid-interest questions (in production they stay off until the build sets `NEXT_PUBLIC_PAID_INTEREST=1`). A server started with `E2E_RELAXED_RATE_LIMITS=1` accepts votes, typed feedback and signups but stores nothing. The event catalog is in `src/lib/analytics.ts` ("FEEDBACK V2")
 - Test outputs go to `tmp/` directory
 
 ## Communication

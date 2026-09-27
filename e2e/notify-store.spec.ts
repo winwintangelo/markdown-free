@@ -107,7 +107,7 @@ function signup(
   return request.post("/api/notify", {
     headers: { Origin: ORIGIN, "Content-Type": "application/json", "X-Forwarded-For": ip },
     data: {
-      features: ["backup"],
+      features: ["recover"],
       locale: "en",
       website: "",
       elapsedMs: 5000,
@@ -186,13 +186,13 @@ test.describe("Notify signups — live Supabase", () => {
   test("stores a signup, then merges a second one into the same row", async ({ request }) => {
     const email = freshEmail();
 
-    const first = await signup(request, { email, features: ["backup", "share"], locale: "en", ip: ip(11) });
+    const first = await signup(request, { email, features: ["recover", "share"], locale: "en", ip: ip(11) });
     expect(first.status()).toBe(200);
     expect(await first.json()).toEqual({ ok: true });
 
     const [stored] = await rowsFor(request, email);
     expect(stored).toBeTruthy();
-    expect(stored.features).toEqual(["backup", "share"]);
+    expect(stored.features).toEqual(["recover", "share"]);
     expect(stored.locale).toBe("en");
     expect(stored.unsubscribed_at).toBeNull();
 
@@ -202,7 +202,7 @@ test.describe("Notify signups — live Supabase", () => {
     const rows = await rowsFor(request, email);
     expect(rows, "a second signup must not create a second row").toHaveLength(1);
     // The function merges and sorts the features, and takes the newer locale
-    expect(rows[0].features).toEqual(["backup", "share", "templates"]);
+    expect(rows[0].features).toEqual(["recover", "share", "templates"]);
     expect(rows[0].locale).toBe("ja");
     expect(rows[0].created_at).toBe(stored.created_at);
     expect(new Date(rows[0].updated_at).getTime()).toBeGreaterThanOrEqual(new Date(stored.updated_at).getTime());
@@ -240,7 +240,7 @@ test.describe("Notify signups — live Supabase", () => {
   test("a rejected signup stores nothing", async ({ request }) => {
     const email = freshEmail();
 
-    const badFeature = await signup(request, { email, features: ["backup", "free-pizza"], ip: ip(15) });
+    const badFeature = await signup(request, { email, features: ["recover", "free-pizza"], ip: ip(15) });
     expect(badFeature.status()).toBe(400);
     expect((await badFeature.json()).error).toBe("INVALID_FEATURES");
 

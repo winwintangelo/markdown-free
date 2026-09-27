@@ -18,14 +18,14 @@ import { markdownToHtml } from "@/lib/markdown";
 import { prepareMarkdown } from "@/lib/prepare-markdown";
 import { ensureKatexStylesheet, getKatexCssForHtmlExport, htmlHasMath } from "@/lib/katex-assets";
 import {
+  inviteArm,
   recordConversion,
   teaserForcedLocally,
   teaserImpressions,
-  teaserVariant,
+  type InviteArm,
   type PostConvertPrompt,
-  type TeaserVariant,
 } from "@/lib/feature-teaser";
-import { recordUsage } from "@/lib/usage-signals";
+import { isHeavyUser, recordUsage } from "@/lib/usage-signals";
 import { exportErrorMessage, exportErrorTitle } from "@/lib/export-errors";
 import {
   trackConvertSuccess,
@@ -35,7 +35,8 @@ import {
   trackExportTriggerUpload,
   trackLocaleConversion,
   trackShareFile,
-  trackFeatureTeaserShown,
+  trackInviteAssigned,
+  trackInviteRendered,
   trackUsageProfile,
   trackDocProfile,
   type ExportFormat as AnalyticsExportFormat,
@@ -46,6 +47,8 @@ import {
 import { useSectionVisibility } from "@/hooks/use-engagement-tracking";
 import { PostConvertFeedback } from "./post-convert-feedback";
 import { FeatureTeaser } from "./feature-teaser";
+import { PaidLayoutPrompt } from "./paid-layout-prompt";
+import { SuggestLink } from "./suggest-link";
 import { ImageExportPanel, type ImageExportPanelHandle } from "./image-export-panel";
 import type { Locale, Dictionary } from "@/i18n";
 
@@ -121,18 +124,22 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   const [renderedHtml, setRenderedHtml] = useState<string>("");
   const [uploadHint, setUploadHint] = useState<string | null>(null);
   const [lastSuccessFormat, setLastSuccessFormat] = useState<ExportFormat | null>(null);
-  // Which prompt follows the latest success (the Phase 1.5 teaser or the thumbs
-  // prompt), and a counter that remounts it so every success gets a fresh one
+  // Which prompt follows the latest success (the vote invitation, the
+  // page-layout paid question or the thumbs prompt), and a counter that
+  // remounts it so every success gets a fresh one
   const [postConvertPrompt, setPostConvertPrompt] = useState<Exclude<PostConvertPrompt, "none">>("thumbs");
   const [successSeq, setSuccessSeq] = useState(0);
-  // The teaser keys off this instead of successSeq: it is about what we build
-  // next, not about the file just exported, so a second conversion must not
-  // remount it. A remount would also count as an ending in analytics.
+  // The invitation keys off this instead of successSeq: it is about what we
+  // build next, not about the file just exported, so a second conversion must
+  // not remount it. A remount would also count as an ending in analytics.
   const [teaserSeq, setTeaserSeq] = useState(0);
-  // Which of the five teaser wordings this browser sees (sticky, see
-  // teaserVariant). Set when a teaser starts so the shown event and the
-  // rendered copy always agree.
-  const [teaserCopy, setTeaserCopy] = useState<TeaserVariant>("v1");
+  // The invitation's arm, the format that brought it and its impression
+  // number, fixed when it starts so the events and the rendered copy agree.
+  const [teaserInfo, setTeaserInfo] = useState<{ arm: InviteArm; format: string; impressions: number }>({
+    arm: "control",
+    format: "pdf",
+    impressions: 1,
+  });
   const [loadingShareFormat, setLoadingShareFormat] = useState<"pdf" | "docx" | null>(null);
   const [pendingShare, setPendingShare] = useState<{
     blob: Blob;
@@ -255,26 +262,28 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
 
       // The conversion always counts; ?probe=teaser only overrides which
       // prompt follows it, and only on localhost.
-      const counted = recordConversion();
+      const counted = recordConversion(Date.now(), { heavy: isHeavyUser() });
       const prompt = teaserForcedLocally() ? "teaser" : counted;
-      // A teaser already on screen carries on. Starting another would count a
-      // second impression of the one the visitor is looking at and remount it.
-      // (The browser's impression counter still moves, so the next `nth` can
-      // skip a number — rare, and nth only has to tell 1st views from repeats.)
+      // An invitation already on screen carries on. Starting another would
+      // count a second impression of the one the visitor is looking at and
+      // remount it. (The browser's impression counter still moves, so the next
+      // `nth` can skip a number — rare, and nth only separates 1st views.)
       if (prompt === "teaser" && !teaserPendingRef.current) {
-        const variant = teaserVariant();
-        trackFeatureTeaserShown(locale, teaserImpressions(), variant);
+        const { arm, isNew } = inviteArm();
+        if (isNew) trackInviteAssigned(arm);
+        const impressions = teaserImpressions();
+        trackInviteRendered(arm, format, locale, impressions);
         teaserPendingRef.current = true;
-        setTeaserCopy(variant);
+        setTeaserInfo({ arm, format, impressions });
         setTeaserSeq((n) => n + 1);
       }
       // Inside the quiet period the conversion still counts, but nothing asks
-      // the visitor anything. An open teaser stays.
+      // the visitor anything. An open invitation stays.
       if (prompt === "none" && !teaserPendingRef.current) {
         setLastSuccessFormat(null);
         return;
       }
-      setPostConvertPrompt(teaserPendingRef.current ? "teaser" : "thumbs");
+      setPostConvertPrompt(teaserPendingRef.current ? "teaser" : prompt === "paid" ? "paid" : "thumbs");
       setSuccessSeq((n) => n + 1);
       setLastSuccessFormat(format);
     },
@@ -968,6 +977,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
                 </div>
               )}
             </div>
+            {dict.suggest && <SuggestLink dict={dict} locale={locale} where="mobile" />}
           </div>
         ) : (
           /* ===== DESKTOP / FALLBACK LAYOUT (unchanged) ===== */
@@ -1099,10 +1109,17 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
               </div>
             </div>
 
-            {/* Privacy notice */}
-            <p className="text-[11px] text-slate-500">
-              {dict.export.privacy}
-            </p>
+            {/* Privacy notice, and the always-available suggestion link */}
+            {dict.suggest ? (
+              <SuggestLink
+                dict={dict}
+                locale={locale}
+                where="desktop"
+                leading={<p className="text-[11px] text-slate-500">{dict.export.privacy}</p>}
+              />
+            ) : (
+              <p className="text-[11px] text-slate-500">{dict.export.privacy}</p>
+            )}
           </>
         )}
       </div>
@@ -1146,13 +1163,16 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         </p>
       )}
 
-      {/* Post-conversion prompt: the Phase 1.5 teaser, or the thumbs feedback */}
+      {/* Post-conversion prompt: the vote invitation, the page-layout paid
+          question for a heavy user, or the thumbs feedback */}
       {lastSuccessFormat && postConvertPrompt === "teaser" && dict.featureTeaser && (
         <FeatureTeaser
           key={`teaser-${teaserSeq}`}
           dict={dict}
           locale={locale}
-          variant={teaserCopy}
+          arm={teaserInfo.arm}
+          format={teaserInfo.format}
+          impressions={teaserInfo.impressions}
           onAnswered={() => {
             teaserPendingRef.current = false;
           }}
@@ -1160,6 +1180,14 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
             teaserPendingRef.current = false;
             setLastSuccessFormat(null);
           }}
+        />
+      )}
+      {lastSuccessFormat && postConvertPrompt === "paid" && dict.paidInterest && (
+        <PaidLayoutPrompt
+          key={`paid-${successSeq}`}
+          dict={dict}
+          locale={locale}
+          onDismiss={() => setLastSuccessFormat(null)}
         />
       )}
       {lastSuccessFormat && postConvertPrompt === "thumbs" && dict.postConvertFeedback && (

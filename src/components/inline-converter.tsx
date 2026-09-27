@@ -10,6 +10,7 @@ import {
   trackComparisonCta,
 } from "@/lib/analytics";
 import type { Locale, Dictionary } from "@/i18n";
+import { LimitPrompt } from "./limit-prompt";
 
 /**
  * Inline mini-converter for comparison/intent pages (experiment
@@ -45,10 +46,13 @@ export function InlineConverter({
   const { state, dispatch, fileInputRef } = useConverter();
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Size of a file rejected as too large; shows the size question under the error.
+  const [rejectedSize, setRejectedSize] = useState<number | null>(null);
 
   const handleFile = useCallback(
     (file: File) => {
       setError(null);
+      setRejectedSize(null);
       trackUploadStart("file");
 
       if (!isValidFileType(file.name)) {
@@ -58,6 +62,7 @@ export function InlineConverter({
       }
       if (!isValidFileSize(file.size)) {
         trackUploadError("file", "too_large", file.size);
+        setRejectedSize(file.size);
         setError(dict.errors.tooLarge);
         return;
       }
@@ -123,6 +128,11 @@ export function InlineConverter({
           <p className="mt-2 text-sm font-medium text-red-600" role="alert">
             {error}
           </p>
+        )}
+        {rejectedSize !== null && dict.limitPrompt && (
+          <div className="mt-3 flex justify-center">
+            <LimitPrompt dict={dict} locale={locale} detectedBytes={rejectedSize} where="inline" />
+          </div>
         )}
         <input
           ref={fileInputRef}

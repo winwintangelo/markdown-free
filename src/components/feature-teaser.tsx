@@ -2,116 +2,114 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { ArrowRight, Check, Plus, Sparkles, X } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Info, MessageSquare, Sparkles, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
-  FEATURE_KEYS,
+  IDEA_MAX_CHARS,
+  boardOrder,
   completeTallies,
+  isFeatureKey,
+  isPaidInterestFeature,
   markTeaserAnswered,
+  paidInterestEnabled,
+  type ChoiceKey,
   type FeatureKey,
   type FeatureTally,
-  type PayAnswer,
+  type InviteArm,
   type TeaserExit,
-  type TeaserVariant,
 } from "@/lib/feature-teaser";
 import {
-  trackFeatureTeaserClosed,
-  trackFeatureTeaserCompleted,
-  trackFeatureTeaserDismissed,
-  trackFeatureTeaserOpened,
-  trackFeatureVotes,
-  trackNotifySignup,
-  trackPayIntent,
+  trackIdeaSent,
+  trackInviteDismissed,
+  trackInviteOpened,
+  trackInviteViewed,
+  trackPaidPromptShown,
+  trackVoteBoardClosed,
+  trackVoteResultsViewed,
+  trackVoteSaved,
 } from "@/lib/analytics";
+import { postIdea } from "@/lib/probe-client";
+import { useSeenOnce } from "@/hooks/use-seen-once";
+import { EmailUpdatesForm, Honeypot, PaidInterestQuestions, TextFeedbackForm } from "./probe-forms";
 import type { Dictionary } from "@/i18n";
 
 /**
- * Phase 1.5 vote board (see src/lib/feature-teaser.ts for the display rules).
+ * The vote invitation and the vote board (display rules: src/lib/feature-teaser.ts).
  *
- * A one-line teaser sits in the post-convert slot. Opening it shows a dialog —
- * a modal on desktop, a sheet on a phone — in two states:
+ * The invitation sits in the post-convert slot, in one of two arms fixed per
+ * browser: the one-line teaser (control) or a card that asks about the format
+ * just exported (card). Opening it shows the board — a modal on desktop, a
+ * sheet on a phone — in two states:
  *
- *   1. vote     the six features as plain rows, no counts and no bars
- *   2. results  the tallies, one optional question about paying, one optional
- *               email
- *
- * The counts arrive in the response to the vote, so nobody sees them before
- * voting: a visible leaderboard bends the vote towards whatever is winning.
+ *   1. vote  one choice among the features (in this browser's shuffled order),
+ *            "Something else" with a private text box, or "Nothing missing".
+ *            No counts anywhere: a visible leaderboard bends the vote.
+ *   2. done  the confirmation, then optional follow-ups: an email for updates
+ *            (or, with the paid path on, the paid-interest questions), "What
+ *            do you do today when you need this?", and the results behind
+ *            "See all results".
  */
 
-type Phase = "vote" | "results";
-type ErrorCode = "pick" | "save" | "email" | null;
+type Phase = "vote" | "done";
 
 interface FeatureTeaserProps {
   dict: Dictionary;
   locale: string;
-  /** Which of the five teaser wordings this browser was given. */
-  variant: TeaserVariant;
-  /** The visitor voted (the dialog now shows results). */
+  arm: InviteArm;
+  /** The format just exported; the card asks about Word exports by name. */
+  format: string;
+  /** Which invitation this is for the browser (1st, 2nd…), for analytics. */
+  impressions: number;
+  /** The visitor voted. */
   onAnswered: () => void;
-  /** Close the teaser entirely. */
+  /** Take the invitation off the page. */
   onDismiss: () => void;
 }
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-export function FeatureTeaser({ dict, locale, variant, onAnswered, onDismiss }: FeatureTeaserProps) {
+export function FeatureTeaser({ dict, locale, arm, format, impressions, onAnswered, onDismiss }: FeatureTeaserProps) {
   const ft = dict.featureTeaser;
-  const copy = ft.variants[variant];
   const [open, setOpen] = useState(false);
   const [phase, setPhase] = useState<Phase>("vote");
-  const [picks, setPicks] = useState<FeatureKey[]>([]);
+  const [order] = useState<FeatureKey[]>(() => boardOrder());
+  const [choice, setChoice] = useState<ChoiceKey | null>(null);
+  const [otherText, setOtherText] = useState("");
   const [tallies, setTallies] = useState<FeatureTally[]>([]);
+  const [showResults, setShowResults] = useState(false);
   const [revealed, setRevealed] = useState(false);
-  const [pay, setPay] = useState<PayAnswer | null>(null);
-  const [email, setEmail] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [sending, setSending] = useState(false);
-  const [emailed, setEmailed] = useState(false);
-  const [error, setError] = useState<ErrorCode>(null);
+  const [saveFailed, setSaveFailed] = useState(false);
 
-  const openedAtRef = useRef(0);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const firstRowRef = useRef<HTMLButtonElement>(null);
   const revealTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // The funnel, measured. The teaser is shown once and ends exactly once, so
-  // the outcome is tracked in refs: state would be stale inside the unmount
-  // cleanup that catches a teaser nobody closed.
+  // The funnel lives in refs: state would be stale inside the unmount cleanup
+  // that catches an invitation nobody closed.
   const shownAtRef = useRef(Date.now());
+  const openedAtRef = useRef(0);
   const openedRef = useRef(false);
   const votedRef = useRef(false);
-  const picksRef = useRef<FeatureKey[]>([]);
-  const payRef = useRef<PayAnswer | null>(null);
-  const notifiedRef = useRef(false);
   const endedRef = useRef(false);
-  // A browser keeps its wording, so the variant is fixed for this teaser.
-  const variantRef = useRef(variant);
+  const resultsTrackedRef = useRef(false);
 
-  /** One terminal event per teaser: completed if they voted, else dismissed. */
-  const trackEnd = useCallback((how: TeaserExit) => {
-    if (endedRef.current) return;
-    endedRef.current = true;
-    const dwellMs = Date.now() - shownAtRef.current;
-    if (votedRef.current) {
-      trackFeatureTeaserCompleted({
-        picks: picksRef.current,
-        pay: payRef.current,
-        notified: notifiedRef.current,
-        dwellMs,
-        variant: variantRef.current,
-      });
-    } else {
-      trackFeatureTeaserDismissed({
-        stage: openedRef.current ? "vote" : "teaser",
+  const seenRef = useSeenOnce<HTMLDivElement>(() => trackInviteViewed(arm, format, impressions));
+
+  /** One terminal event per invitation: vote_saved (sent on the vote) or invite_dismissed. */
+  const trackEnd = useCallback(
+    (how: TeaserExit) => {
+      if (endedRef.current) return;
+      endedRef.current = true;
+      if (votedRef.current) return;
+      trackInviteDismissed(arm, {
         how,
-        dwellMs,
-        variant: variantRef.current,
+        stage: openedRef.current ? "vote" : "teaser",
+        dwellMs: Date.now() - shownAtRef.current,
       });
-    }
-  }, []);
+    },
+    [arm]
+  );
 
-  /** Close the teaser for good: the row and the dialog both go. */
   const endTeaser = useCallback(
     (how: TeaserExit) => {
       trackEnd(how);
@@ -120,28 +118,36 @@ export function FeatureTeaser({ dict, locale, variant, onAnswered, onDismiss }: 
     [trackEnd, onDismiss]
   );
 
-  // A teaser can also go without anyone closing it — the next conversion
-  // replaces it, or the page goes. Count that as an ending too. Closing the
-  // tab is the one ending that gets away: React runs no cleanup for it, so
-  // completed + dismissed undercounts shown by those visits.
+  // The page can take the invitation away without anyone closing it. React's
+  // development double-invoke unmounts and remounts with the same refs, hence
+  // the reset.
   useEffect(() => {
-    // React's development double-invoke unmounts and remounts with the same
-    // refs. Without this the teaser would count as ended before it started.
     endedRef.current = false;
     return () => trackEnd("abandoned");
   }, [trackEnd]);
 
+  useEffect(() => {
+    return () => {
+      if (revealTimerRef.current) clearTimeout(revealTimerRef.current);
+    };
+  }, []);
+
   const closeDialog = useCallback(
     (how: TeaserExit) => {
-      // The row stays, so this is not the end: the visitor can reopen it.
-      trackFeatureTeaserClosed(how, votedRef.current, variantRef.current);
+      trackVoteBoardClosed(arm, how, votedRef.current);
       setOpen(false);
-      triggerRef.current?.focus();
+      if (votedRef.current) {
+        // Done: the invitation has served its purpose.
+        endTeaser("done");
+      } else {
+        // The invitation stays, so the visitor can come back to it.
+        triggerRef.current?.focus();
+      }
     },
-    []
+    [arm, endTeaser]
   );
 
-  // Escape closes, and the page behind does not scroll while the dialog is up
+  // Escape closes, and the page behind does not scroll while the board is up.
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (event: KeyboardEvent) => {
@@ -160,165 +166,160 @@ export function FeatureTeaser({ dict, locale, variant, onAnswered, onDismiss }: 
     if (open && phase === "vote") firstRowRef.current?.focus();
   }, [open, phase]);
 
-  useEffect(() => {
-    return () => {
-      if (revealTimerRef.current) clearTimeout(revealTimerRef.current);
-    };
-  }, []);
-
   const openDialog = useCallback(() => {
-    trackFeatureTeaserOpened(variantRef.current);
+    trackInviteOpened(arm, format);
     openedRef.current = true;
     openedAtRef.current = Date.now();
     setOpen(true);
-    // Reopening after a vote returns to the results. Sending someone back to
-    // the vote screen would let one browser vote twice and inflate the counters.
-    setPhase(votedRef.current ? "results" : "vote");
-  }, []);
+    // Reopening after a vote returns to the confirmation: one browser, one vote.
+    setPhase(votedRef.current ? "done" : "vote");
+  }, [arm, format]);
 
-  const toggle = useCallback((key: FeatureKey) => {
-    setPicks((current) => (current.includes(key) ? current.filter((k) => k !== key) : [...current, key]));
-    setError((current) => (current === "pick" ? null : current));
-  }, []);
+  const canSave = choice !== null && (choice !== "other" || otherText.trim().length > 0) && !sending;
 
   const submitVote = useCallback(async () => {
-    if (sending) return;
-    if (picks.length === 0) {
-      setError("pick");
-      return;
-    }
-
+    if (!choice || sending) return;
+    if (choice === "other" && !otherText.trim()) return;
     setSending(true);
-    setError(null);
+    setSaveFailed(false);
+    const elapsedMs = Date.now() - openedAtRef.current;
     try {
       const response = await fetch("/api/votes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          features: picks,
-          website: honeypot,
-          elapsedMs: Date.now() - openedAtRef.current,
-        }),
+        body: JSON.stringify({ choice, website: honeypot, elapsedMs }),
       });
       if (!response.ok) {
-        setError("save");
+        setSaveFailed(true);
         return;
       }
-      const data = (await response.json()) as { tallies?: FeatureTally[] };
-      setTallies(completeTallies(data.tallies ?? [], picks));
-      trackFeatureVotes(picks);
+      const data = (await response.json()) as { tallies?: { feature: string; votes: number }[] };
+      setTallies(completeTallies(data.tallies ?? [], choice));
+      trackVoteSaved(arm, choice, format);
+      if (choice === "other") {
+        // The typed text goes to its own private store; the vote above counts either way.
+        const text = otherText.trim();
+        void postIdea({
+          kind: "other",
+          feature: null,
+          text,
+          locale,
+          website: honeypot,
+          elapsedMs,
+        }).then((ok) => {
+          if (ok) trackIdeaSent("other", null);
+        });
+      }
       votedRef.current = true;
-      picksRef.current = picks;
-      // They answered. No later conversion asks again, this week or ever.
+      // They answered. No later conversion invites them again, this week or ever.
       markTeaserAnswered();
       onAnswered();
-      setPhase("results");
-      setRevealed(false);
-      revealTimerRef.current = setTimeout(() => setRevealed(true), 80);
+      setPhase("done");
     } catch {
-      setError("save");
+      setSaveFailed(true);
     } finally {
       setSending(false);
     }
-  }, [sending, picks, honeypot, onAnswered]);
+  }, [choice, sending, otherText, honeypot, arm, format, locale, onAnswered]);
 
-  const choosePay = useCallback((answer: PayAnswer) => {
-    setPay(answer);
-    payRef.current = answer;
-    trackPayIntent(answer);
-    // Fire and forget: the vote is already recorded, and a failed chip must
-    // not interrupt someone who is reading the results.
-    void fetch("/api/votes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ pay: answer }),
-    }).catch(() => undefined);
-  }, []);
-
-  const submitEmail = useCallback(
-    async (event: React.FormEvent) => {
-      event.preventDefault();
-      if (sending) return;
-      const address = email.trim();
-      if (!EMAIL_RE.test(address)) {
-        setError("email");
-        return;
-      }
-
-      setSending(true);
-      setError(null);
-      try {
-        const response = await fetch("/api/notify", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: address,
-            features: picks,
-            locale,
-            website: honeypot,
-            elapsedMs: Date.now() - openedAtRef.current,
-          }),
-        });
-        if (!response.ok) {
-          const data = (await response.json().catch(() => ({}))) as { error?: string };
-          setError(data.error === "INVALID_EMAIL" ? "email" : "save");
-          return;
+  const toggleResults = useCallback(() => {
+    setShowResults((current) => {
+      const next = !current;
+      if (next) {
+        if (!resultsTrackedRef.current) {
+          resultsTrackedRef.current = true;
+          trackVoteResultsViewed(arm);
         }
-        trackNotifySignup(picks.length);
-        notifiedRef.current = true;
-        setEmailed(true);
-      } catch {
-        setError("save");
-      } finally {
-        setSending(false);
+        setRevealed(false);
+        revealTimerRef.current = setTimeout(() => setRevealed(true), 60);
       }
-    },
-    [sending, email, picks, locale, honeypot]
-  );
+      return next;
+    });
+  }, [arm]);
 
-  const errorText = error === "pick" ? ft.errPick : error === "email" ? ft.errBad : error === "save" ? ft.errSave : "";
+  const choiceLabel = (key: ChoiceKey) =>
+    key === "other" ? ft.other : key === "nothing" ? ft.nothing : ft.features[key];
   const topVotes = tallies.length > 0 ? Math.max(...tallies.map((row) => row.votes), 1) : 1;
-  const status = (picks.length === 1 ? ft.statusOne : ft.statusMany).replace("{n}", String(picks.length));
+  const showPaidLine = paidInterestEnabled();
 
-  return (
-    <div
-      data-testid="feature-teaser"
-      data-variant={variant}
-      className="pop-in relative overflow-hidden rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm"
-    >
-      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-        <p className="flex items-start gap-2.5 pr-6 text-sm leading-relaxed text-slate-600">
-          <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" aria-hidden="true" />
-          <span>
-            <span className="font-semibold text-slate-700">{copy.teaser}</span>{" "}
-            <span className="text-slate-400">{copy.lead}</span>
+  const invitation =
+    arm === "card" ? (
+      <div
+        ref={seenRef}
+        data-testid="feature-teaser"
+        data-arm="card"
+        className="pop-in relative flex flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 sm:flex-row sm:items-center sm:gap-4"
+      >
+        <div className="flex items-start gap-3 pr-8 sm:flex-1 sm:items-center">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-emerald-700">
+            <MessageSquare className="h-4 w-4" aria-hidden="true" />
           </span>
-        </p>
+          <p className="pt-1 text-sm font-semibold leading-snug text-slate-800 sm:pt-0">
+            {format === "docx" ? ft.card.word : ft.card.other}
+          </p>
+        </div>
         <button
           ref={triggerRef}
           type="button"
           onClick={openDialog}
           data-testid="feature-teaser-open"
-          // sm:mr-5 keeps the button clear of the dismiss ×, which is absolutely
-          // positioned in the top-right corner of the row on desktop.
-          className="inline-flex h-11 shrink-0 items-center gap-1.5 self-start rounded-full px-1 text-[13.5px] font-semibold text-emerald-700 transition hover:text-emerald-800 sm:mr-5 sm:h-9 sm:px-3"
+          className="ml-11 inline-flex h-11 shrink-0 items-center justify-center rounded-full border border-emerald-700 bg-white px-4 text-[13.5px] font-semibold text-emerald-700 transition hover:bg-emerald-100 sm:ml-0 sm:mr-8 sm:h-9"
         >
-          {copy.cta}
-          <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+          {ft.card.cta}
+        </button>
+        <button
+          type="button"
+          onClick={() => endTeaser("close")}
+          aria-label={ft.dismiss}
+          className="absolute right-2 top-2 flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-emerald-100 hover:text-slate-700 sm:top-1/2 sm:-translate-y-1/2"
+        >
+          <X className="h-4 w-4" />
         </button>
       </div>
-
-      <button
-        type="button"
-        onClick={() => endTeaser("close")}
-        aria-label={ft.dismiss}
-        className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full text-slate-300 transition hover:bg-slate-100 hover:text-slate-500"
+    ) : (
+      <div
+        ref={seenRef}
+        data-testid="feature-teaser"
+        data-arm="control"
+        className="pop-in relative overflow-hidden rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm"
       >
-        <X className="h-3.5 w-3.5" />
-      </button>
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+          <p className="flex items-start gap-2.5 pr-6 text-sm leading-relaxed text-slate-600">
+            <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" aria-hidden="true" />
+            <span>
+              <span className="font-semibold text-slate-700">{ft.control.teaser}</span>{" "}
+              <span className="text-slate-500">{ft.control.lead}</span>
+            </span>
+          </p>
+          <button
+            ref={triggerRef}
+            type="button"
+            onClick={openDialog}
+            data-testid="feature-teaser-open"
+            // sm:mr-5 keeps the button clear of the dismiss ×.
+            className="inline-flex h-11 shrink-0 items-center gap-1.5 self-start rounded-full px-1 text-[13.5px] font-semibold text-emerald-700 transition hover:text-emerald-800 sm:mr-5 sm:h-9 sm:px-3"
+          >
+            {ft.control.cta}
+            <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+          </button>
+        </div>
+        <button
+          type="button"
+          onClick={() => endTeaser("close")}
+          aria-label={ft.dismiss}
+          className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
+        >
+          <X className="h-3.5 w-3.5" />
+        </button>
+      </div>
+    );
 
-      {/* The card animates in (a transform), which would trap a fixed overlay
-          inside it, so the dialog is portalled onto the body. */}
+  return (
+    <>
+      {invitation}
+
+      {/* The invitation animates in (a transform), which would trap a fixed
+          overlay inside it, so the board is portalled onto the body. */}
       {open &&
         typeof document !== "undefined" &&
         createPortal(
@@ -326,240 +327,277 @@ export function FeatureTeaser({ dict, locale, variant, onAnswered, onDismiss }: 
             className="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/35 backdrop-blur-[3px] sm:items-center"
             onClick={() => closeDialog("backdrop")}
           >
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label={ft.voteTitle}
-            data-testid="feature-vote-dialog"
-            onClick={(event) => event.stopPropagation()}
-            className="relative max-h-[92vh] w-full max-w-[640px] overflow-y-auto rounded-t-3xl bg-white px-5 pb-6 pt-5 shadow-2xl sm:rounded-2xl sm:px-7 sm:pb-6 sm:pt-6"
-          >
-            <span className="mx-auto mb-3 block h-1 w-10 rounded-full bg-slate-200 sm:hidden" aria-hidden="true" />
-            <button
-              type="button"
-              onClick={() => closeDialog("close")}
-              aria-label={ft.dismiss}
-              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="vote-board-title"
+              data-testid="feature-vote-dialog"
+              data-phase={phase}
+              onClick={(event) => event.stopPropagation()}
+              className="relative max-h-[92vh] w-full max-w-[640px] overflow-y-auto rounded-t-3xl bg-white px-5 pb-6 pt-5 shadow-2xl sm:rounded-2xl sm:px-7 sm:pb-6 sm:pt-6"
             >
-              <X className="h-4 w-4" />
-            </button>
+              <span className="mx-auto mb-3 block h-1 w-10 rounded-full bg-slate-200 sm:hidden" aria-hidden="true" />
+              <button
+                type="button"
+                onClick={() => closeDialog("close")}
+                aria-label={ft.dismiss}
+                className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 sm:right-4 sm:top-4 sm:h-8 sm:w-8"
+              >
+                <X className="h-4 w-4" />
+              </button>
 
-            {phase === "vote" ? (
-              <div>
-                <h3 className="pr-9 text-[20px] font-bold text-slate-900">{ft.voteTitle}</h3>
-                <p className="mt-1.5 text-sm text-slate-500">{ft.voteLead}</p>
+              {phase === "vote" ? (
+                <div>
+                  <h3 id="vote-board-title" className="pr-10 text-[20px] font-bold text-slate-900">
+                    {ft.voteTitle}
+                  </h3>
+                  <p className="mt-1.5 text-sm text-slate-500">{ft.voteLead}</p>
+                  {showPaidLine && (
+                    <p
+                      className="mt-3 flex items-start gap-2 rounded-xl bg-slate-50 px-3 py-2 text-[12.5px] text-slate-600"
+                      data-testid="vote-paid-line"
+                    >
+                      <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-slate-500" aria-hidden="true" />
+                      {ft.paidLine}
+                    </p>
+                  )}
 
-                <div className="mt-4 flex flex-col gap-2" role="group" aria-label={ft.voteTitle}>
-                  {FEATURE_KEYS.map((key, index) => {
-                    const on = picks.includes(key);
-                    return (
-                      <button
+                  <div role="radiogroup" aria-labelledby="vote-board-title" className="mt-4 flex flex-col gap-1.5">
+                    {order.map((key, index) => (
+                      <ChoiceRow
                         key={key}
-                        ref={index === 0 ? firstRowRef : undefined}
-                        type="button"
-                        aria-pressed={on}
-                        onClick={() => toggle(key)}
-                        className={cn(
-                          "flex min-h-[52px] items-center gap-3 rounded-xl border px-4 py-2.5 text-left text-sm transition",
-                          on
-                            ? "border-emerald-700 bg-emerald-50 font-semibold text-emerald-900"
-                            : "border-slate-200 bg-white font-medium text-slate-700 hover:border-slate-300 hover:bg-slate-50"
-                        )}
-                      >
-                        <span className="flex-1 leading-snug">{ft.features[key]}</span>
-                        <span
-                          aria-hidden="true"
-                          className={cn(
-                            "flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full",
-                            on ? "bg-emerald-700 text-white" : "border border-slate-300 bg-white text-slate-400"
-                          )}
-                        >
-                          {on ? <Check className="h-3 w-3" strokeWidth={3.4} /> : <Plus className="h-3 w-3" strokeWidth={2.6} />}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {errorText && (
-                  <p role="alert" className="mt-3 text-[12.5px] text-red-700">
-                    {errorText}
-                  </p>
-                )}
-
-                <div className="mt-4 flex items-center justify-between gap-4">
-                  <span className="text-xs text-slate-400">
-                    {picks.length === 0 ? ft.noAccount : ft.selected.replace("{n}", String(picks.length))}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={submitVote}
-                    disabled={picks.length === 0 || sending}
-                    className="h-11 rounded-full bg-emerald-700 px-5 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
-                  >
-                    {sending ? ft.sending : ft.countVote}
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div>
-                <div className="flex items-center gap-2.5 pr-9">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-50">
-                    <Check className="h-3.5 w-3.5 text-emerald-700" strokeWidth={3} aria-hidden="true" />
-                  </span>
-                  <h3 className="text-[19px] font-bold text-slate-900">{ft.resultsTitle}</h3>
-                </div>
-
-                <div className="mt-4 rounded-2xl bg-slate-50 px-4 py-3">
-                  <p className="text-[13.5px] leading-snug text-slate-600">{ft.payQuestion}</p>
-                  <div className="mt-2.5 flex flex-wrap gap-2">
-                    {(
-                      [
-                        ["yes", ft.payYes],
-                        ["maybe", ft.payMaybe],
-                        ["no", ft.payNo],
-                      ] as [PayAnswer, string][]
-                    ).map(([answer, label]) => (
-                      <button
-                        key={answer}
-                        type="button"
-                        aria-pressed={pay === answer}
-                        onClick={() => choosePay(answer)}
-                        className={cn(
-                          "h-9 rounded-full border px-3.5 text-[13px] font-semibold transition",
-                          pay === answer
-                            ? "border-emerald-700 bg-emerald-700 text-white"
-                            : "border-slate-300 bg-white text-slate-600 hover:border-slate-400"
-                        )}
-                      >
-                        {label}
-                      </button>
+                        buttonRef={index === 0 ? firstRowRef : undefined}
+                        label={ft.features[key]}
+                        value={key}
+                        selected={choice === key}
+                        onSelect={() => setChoice(key)}
+                      />
                     ))}
                   </div>
-                </div>
+                  <div className="mt-2.5 flex flex-col gap-1.5 border-t border-slate-100 pt-2.5 sm:flex-row" role="radiogroup" aria-label={ft.other}>
+                    {(["other", "nothing"] as const).map((key) => (
+                      <ChoiceRow
+                        key={key}
+                        label={key === "other" ? ft.other : ft.nothing}
+                        value={key}
+                        selected={choice === key}
+                        onSelect={() => setChoice(key)}
+                        compact
+                      />
+                    ))}
+                  </div>
 
-                <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.08em] text-slate-400">{ft.resultsLabel}</p>
-                <div className="mt-3 flex flex-col gap-2.5">
-                  {tallies.map((row, index) => {
-                    const mine = picks.includes(row.feature);
-                    return (
-                      <div key={row.feature}>
-                        <div className="flex items-baseline gap-2">
-                          <span
-                            className={cn(
-                              "text-[13.5px] leading-snug",
-                              mine ? "font-semibold text-emerald-900" : "font-medium text-slate-600"
-                            )}
-                          >
-                            {ft.features[row.feature]}
-                          </span>
-                          {mine && (
-                            <span className="shrink-0 rounded-full bg-emerald-50 px-1.5 py-px text-[11px] font-bold text-emerald-700">
-                              {ft.youBadge}
-                            </span>
-                          )}
-                          <span className="flex-1" />
-                          <span
-                            className={cn(
-                              "shrink-0 text-xs font-bold tabular-nums",
-                              mine ? "text-emerald-700" : "text-slate-400"
-                            )}
-                          >
-                            {row.votes}
-                          </span>
-                        </div>
-                        <span className="mt-1.5 block h-2 overflow-hidden rounded-full bg-slate-100">
-                          <span
-                            className={cn("vote-bar block h-full rounded-full", mine ? "bg-emerald-700" : "bg-slate-300")}
-                            style={{
-                              width: revealed ? `${Math.max(4, Math.round((row.votes / topVotes) * 100))}%` : "0%",
-                              transitionDelay: `${index * 70}ms`,
-                            }}
-                          />
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="mt-5 border-t border-slate-100 pt-4">
-                  {emailed ? (
-                    <div className="flex items-center gap-2.5 rounded-xl bg-emerald-50 px-4 py-3">
-                      <Check className="h-4 w-4 shrink-0 text-emerald-700" strokeWidth={2.6} aria-hidden="true" />
-                      <span className="text-[13.5px] font-semibold text-emerald-800">{ft.thanksMail}</span>
+                  {choice === "other" && (
+                    <div className="mt-3 flex flex-col gap-1.5">
+                      <label htmlFor="vote-other-text" className="text-[13px] font-semibold text-slate-700">
+                        {ft.otherLabel}
+                      </label>
+                      <textarea
+                        id="vote-other-text"
+                        rows={2}
+                        maxLength={IDEA_MAX_CHARS}
+                        value={otherText}
+                        onChange={(event) => setOtherText(event.target.value)}
+                        placeholder={ft.otherPlaceholder}
+                        className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-base text-slate-800 outline-none placeholder:text-slate-400 focus:border-emerald-500 focus:bg-white focus:ring-1 focus:ring-emerald-500/50 sm:text-sm"
+                      />
+                      <span className="text-xs text-slate-500">
+                        {ft.privateHint} · {otherText.length}/{IDEA_MAX_CHARS}
+                      </span>
                     </div>
-                  ) : (
-                    <div>
-                      <p className="text-sm font-semibold text-slate-700">{ft.notifyLead}</p>
-                      <form onSubmit={submitEmail} noValidate className="mt-2.5 flex flex-wrap gap-2">
-                        <label htmlFor="notify-email" className="sr-only">
-                          {ft.emailPlaceholder}
-                        </label>
-                        <input
-                          id="notify-email"
-                          type="email"
-                          inputMode="email"
-                          autoComplete="email"
-                          value={email}
-                          onChange={(event) => {
-                            setEmail(event.target.value);
-                            setError((current) => (current === "email" ? null : current));
-                          }}
-                          placeholder={ft.emailPlaceholder}
-                          aria-invalid={error === "email" || undefined}
-                          aria-describedby={errorText ? "vote-error" : undefined}
-                          className={cn(
-                            "min-w-0 flex-[1_1_14rem] rounded-xl border bg-slate-50 px-3.5 py-2.5 text-sm text-slate-800 outline-none transition-colors",
-                            "placeholder:text-slate-400 focus:border-emerald-500 focus:bg-white focus:ring-1 focus:ring-emerald-500/50",
-                            error === "email" ? "border-red-600" : "border-slate-200"
-                          )}
+                  )}
+
+                  <Honeypot value={honeypot} onChange={setHoneypot} />
+
+                  {saveFailed && (
+                    <p role="alert" className="mt-3 text-[12.5px] text-red-700">
+                      {ft.errSave}
+                    </p>
+                  )}
+
+                  <div className="mt-4 flex items-center justify-between gap-4">
+                    <span className="text-xs text-slate-500">{ft.noAccount}</span>
+                    <button
+                      type="button"
+                      onClick={submitVote}
+                      disabled={!canSave}
+                      data-testid="vote-save"
+                      className="h-11 rounded-full bg-emerald-700 px-5 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500"
+                    >
+                      {sending ? ft.sending : ft.save}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="flex items-center gap-2.5 pr-10">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-50">
+                      <Check className="h-3.5 w-3.5 text-emerald-700" strokeWidth={3} aria-hidden="true" />
+                    </span>
+                    <h3 id="vote-board-title" className="text-[19px] font-bold text-slate-900">
+                      {ft.savedTitle}
+                    </h3>
+                  </div>
+                  {choice && (
+                    <p className="ml-[38px] mt-1 text-[13px] text-slate-500">
+                      {ft.yourChoice.replace("{choice}", choiceLabel(choice))}
+                    </p>
+                  )}
+
+                  {choice && isFeatureKey(choice) && (
+                    <div className="mt-4 flex flex-col gap-3">
+                      <div className="rounded-2xl border border-slate-200 px-4 py-3.5">
+                        {showPaidLine && isPaidInterestFeature(choice) ? (
+                          <PaidVoteFollowUp dict={dict} locale={locale} feature={choice} />
+                        ) : (
+                          <EmailUpdatesForm
+                            dict={dict}
+                            locale={locale}
+                            feature={choice}
+                            source="vote"
+                            label={
+                              <>
+                                {ft.updatesLabel.replace("{feature}", ft.features[choice])}{" "}
+                                <span className="font-normal text-slate-500">{ft.emailOptional}</span>
+                              </>
+                            }
+                            placeholder={ft.emailPlaceholder}
+                            doneText={ft.updatesDone.replace("{feature}", ft.features[choice])}
+                            testId="vote-updates"
+                          />
+                        )}
+                      </div>
+                      <div className="rounded-2xl border border-slate-200 px-4 py-3.5">
+                        <TextFeedbackForm
+                          dict={dict}
+                          locale={locale}
+                          kind="workaround"
+                          feature={choice}
+                          label={
+                            <>
+                              {ft.todayLabel} <span className="font-normal text-slate-500">{ft.optional}</span>
+                            </>
+                          }
+                          placeholder={ft.todayPlaceholder}
+                          doneText={ft.todayDone}
+                          testId="vote-workaround"
                         />
-                        {/* Honeypot: off-screen, skipped by keyboard and screen
-                            readers. People never fill it; form-filling bots do. */}
-                        <input
-                          type="text"
-                          name="mf-extra"
-                          tabIndex={-1}
-                          autoComplete="off"
-                          aria-hidden="true"
-                          value={honeypot}
-                          onChange={(event) => setHoneypot(event.target.value)}
-                          className="absolute -left-[9999px] h-px w-px opacity-0"
-                        />
-                        <button
-                          type="submit"
-                          disabled={sending}
-                          className="h-11 rounded-full bg-emerald-700 px-5 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:opacity-60"
-                        >
-                          {sending ? ft.sending : ft.notify}
-                        </button>
-                      </form>
-                      {errorText && (
-                        <p id="vote-error" role="alert" className="mt-2 text-[12.5px] text-red-700">
-                          {errorText}
-                        </p>
-                      )}
-                      <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-                        <p aria-live="polite" className="text-xs text-slate-400">
-                          {status}
-                        </p>
-                        <button
-                          type="button"
-                          onClick={() => endTeaser("just_vote")}
-                          className="h-9 text-[13px] font-semibold text-slate-500 underline decoration-slate-300 underline-offset-[3px] transition hover:text-slate-700"
-                        >
-                          {ft.justVote}
-                        </button>
                       </div>
                     </div>
                   )}
+                  {choice === "other" && (
+                    <p className="mt-4 flex items-center gap-2 rounded-xl bg-slate-50 px-4 py-3 text-[13.5px] font-semibold text-slate-700">
+                      <Check className="h-4 w-4 shrink-0 text-emerald-700" strokeWidth={2.6} aria-hidden="true" />
+                      {ft.otherDone}
+                    </p>
+                  )}
+
+                  <div className="mt-4 flex items-center justify-between gap-4">
+                    <button
+                      type="button"
+                      onClick={toggleResults}
+                      aria-expanded={showResults}
+                      data-testid="vote-results-toggle"
+                      className="inline-flex h-11 items-center gap-1.5 text-[13px] font-semibold text-slate-600 transition hover:text-slate-800 sm:h-9"
+                    >
+                      {showResults ? ft.hideResults : ft.seeResults}
+                      <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", showResults && "rotate-180")} aria-hidden="true" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => closeDialog("done")}
+                      className="h-11 rounded-full bg-emerald-700 px-5 text-sm font-semibold text-white transition hover:bg-emerald-800 sm:h-10"
+                    >
+                      {ft.done}
+                    </button>
+                  </div>
+                  {showResults && (
+                    <div className="mt-2 flex flex-col gap-2" data-testid="vote-results">
+                      {tallies.map((row, index) => {
+                        const mine = choice === row.feature;
+                        return (
+                          <div key={row.feature} className="grid grid-cols-[minmax(0,1fr)_2rem] items-center gap-x-3 gap-y-1 sm:grid-cols-[18rem_minmax(0,1fr)_2rem]">
+                            <span className={cn("text-[12.5px] leading-snug", mine ? "font-semibold text-emerald-900" : "font-medium text-slate-600")}>
+                              {ft.features[row.feature]}
+                            </span>
+                            <span className="order-3 col-span-2 block h-1.5 overflow-hidden rounded-full bg-slate-100 sm:order-none sm:col-span-1">
+                              <span
+                                className={cn("vote-bar block h-full rounded-full", mine ? "bg-emerald-700" : "bg-slate-300")}
+                                style={{
+                                  width: revealed ? `${Math.max(3, Math.round((row.votes / topVotes) * 100))}%` : "0%",
+                                  transitionDelay: `${index * 60}ms`,
+                                }}
+                              />
+                            </span>
+                            <span className="text-right text-xs font-bold tabular-nums text-slate-500">{row.votes}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
-              </div>
-            )}
-          </div>
-        </div>,
+              )}
+            </div>
+          </div>,
           document.body
         )}
+    </>
+  );
+}
+
+function ChoiceRow({
+  label,
+  value,
+  selected,
+  onSelect,
+  buttonRef,
+  compact = false,
+}: {
+  label: string;
+  value: string;
+  selected: boolean;
+  onSelect: () => void;
+  buttonRef?: React.Ref<HTMLButtonElement>;
+  compact?: boolean;
+}) {
+  return (
+    <button
+      ref={buttonRef}
+      type="button"
+      role="radio"
+      aria-checked={selected}
+      data-choice={value}
+      onClick={onSelect}
+      className={cn(
+        "flex min-h-[46px] items-center gap-3 rounded-xl border px-4 py-2 text-left text-sm transition",
+        compact && "sm:flex-1",
+        selected
+          ? "border-emerald-700 bg-emerald-50 font-semibold text-emerald-900"
+          : "border-slate-200 bg-white font-medium text-slate-700 hover:border-slate-300 hover:bg-slate-50"
+      )}
+    >
+      <span className="flex-1 leading-snug">{label}</span>
+      <span
+        aria-hidden="true"
+        className={cn(
+          "h-[18px] w-[18px] shrink-0 rounded-full bg-white",
+          selected ? "border-[5px] border-emerald-700" : "border-[1.5px] border-slate-300"
+        )}
+      />
+    </button>
+  );
+}
+
+/** After a vote for a candidate paid feature, with the paid path on. */
+function PaidVoteFollowUp({ dict, locale, feature }: { dict: Dictionary; locale: string; feature: FeatureKey }) {
+  const label = dict.featureTeaser.features[feature];
+  useEffect(() => {
+    trackPaidPromptShown("vote", feature);
+  }, [feature]);
+  return (
+    <div className="flex flex-col gap-3">
+      <p className="text-sm font-semibold text-slate-800">{dict.paidInterest.vote.replace("{feature}", label)}</p>
+      <PaidInterestQuestions dict={dict} locale={locale} trigger="vote" feature={feature} featureLabel={label} />
     </div>
   );
 }

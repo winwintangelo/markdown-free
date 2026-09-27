@@ -104,8 +104,9 @@ test.describe("Intent pages — structure and SEO", () => {
       await expect(page.locator("nav[aria-label]").first()).toBeVisible();
       await expect(page.locator("footer")).toBeVisible();
 
-      // No stale file-size claim (the cap is 1 MB)
-      expect(html).not.toMatch(/\b5\s?MB\b/);
+      // No stale file-size claim (the cap is 1 MB). The size question under the
+      // "file too large" error offers the range "2–5 MB", which is not a claim.
+      expect(html).not.toMatch(/(?<![–-])\b5\s?MB\b/);
     });
   }
 });

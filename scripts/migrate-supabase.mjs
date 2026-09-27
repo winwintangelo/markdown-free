@@ -164,7 +164,11 @@ async function verifyWithRetries(attempts) {
 
 async function verify() {
   const expected = {
-    feature_votes: ["backup", "templates", "formatting", "equations", "merge", "share"],
+    // "backup" is the retired pre-split choice; its row keeps the old votes.
+    feature_votes: [
+      "backup", "templates", "formatting", "equations", "merge", "share",
+      "large", "recover", "account", "other", "nothing",
+    ],
     pay_intent: ["yes", "maybe", "no"],
   };
   let ok = true;
@@ -186,11 +190,19 @@ async function verify() {
     const missing = expected.feature_votes.filter((key) => !keys.includes(key));
     const total = votes.reduce((sum, row) => sum + Number(row.votes), 0);
     if (missing.length) {
-      console.log(`  ${cross} feature_votes — missing rows: ${missing.join(", ")}`);
+      console.log(`  ${cross} feature_votes — missing rows: ${missing.join(", ")} (run 20260927000000_feedback_v2.sql)`);
       ok = false;
     } else {
-      console.log(`  ${tick} feature_votes — 6 features, ${total} vote(s) so far`);
+      console.log(`  ${tick} feature_votes — ${keys.length} choices, ${total} vote(s) so far`);
     }
+  }
+
+  const ideas = await readTable("feature_ideas", "id");
+  if (ideas === null) {
+    console.log(`  ${cross} feature_ideas — missing (run 20260927000000_feedback_v2.sql)`);
+    ok = false;
+  } else {
+    console.log(`  ${tick} feature_ideas — ${ideas.length} typed suggestion(s)`);
   }
 
   const pay = await readTable("pay_intent", "answer,responses");

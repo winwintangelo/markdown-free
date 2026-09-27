@@ -1,43 +1,44 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { test, expect, type Page, type APIRequestContext } from "@playwright/test";
+import { test, expect, devices, type Page, type APIRequestContext } from "@playwright/test";
 import { openMoreFormats } from "./export-helpers";
 
 /**
- * Phase 1.5 vote board (src/lib/feature-teaser.ts, src/components/feature-teaser.tsx,
- * src/app/api/votes/route.ts).
+ * Feedback v2 (src/lib/feature-teaser.ts, src/components/feature-teaser.tsx,
+ * limit-prompt.tsx, paid-layout-prompt.tsx, suggest-link.tsx, and the routes
+ * /api/votes, /api/ideas, /api/notify).
  *
- * - Display rules: the 1st conversion in a browser keeps the thumbs prompt;
- *   from the 2nd the teaser replaces it, at most once per 7 days, and no
- *   prompt at all within 30 minutes of the last one.
- * - The dialog shows the features with NO counts until the vote is recorded.
- *   That is the point of the design, so it has its own test.
- * - Results: tallies, one optional pay question, one optional email.
+ * - When a prompt shows: the invitation takes every prompt slot for 7 days,
+ *   one prompt per 30 minutes, a voter is never asked again.
+ * - The invitation test: two arms fixed per browser, control and card.
+ * - The board: one choice, no counts before the vote, optional follow-ups.
+ * - The 1 MB size question, on desktop and on a phone.
+ * - The paid path, off by default and on with `?paid=1` (localhost only).
+ * - The suggestion link.
+ * - Every path's analytics events, and that typed text and addresses never
+ *   reach analytics.
  *
  * A server started for the suite (E2E_RELAXED_RATE_LIMITS=1) stores nothing
- * and reports what it would have done in x-votes-outcome / x-notify-outcome.
+ * and reports what it would have done in x-votes-outcome / x-ideas-outcome /
+ * x-notify-outcome.
  */
 
 const ORIGIN_HEADERS = { Origin: "http://localhost:3000" };
 const COUNT_KEY = "mdfree:conversions";
 const SHOWN_AT_KEY = "mdfree:teaser-shown-at";
 const PROMPT_KEY = "mdfree:prompt-shown-at";
+const ANSWERED_KEY = "mdfree:teaser-answered";
+const ARM_KEY = "mdfree:invite-arm";
 const DAY_MS = 24 * 60 * 60 * 1000;
 const MINUTE_MS = 60 * 1000;
-/** Longer than MIN_SUBMIT_MS, so the server treats the vote as human. */
+/** Longer than MIN_SUBMIT_MS, so the server treats a submission as human. */
 const HUMAN_PAUSE_MS = 1700;
 
-/** The five teaser wordings, read from the dictionary so the tests track the copy. */
-type TeaserCopy = { teaser: string; lead: string; cta: string };
-const EN_VARIANTS: Record<string, TeaserCopy> = JSON.parse(
-  readFileSync(path.join(__dirname, "../src/i18n/dictionaries/en.json"), "utf8")
-).featureTeaser.variants;
-const VARIANTS = ["v1", "v2", "v3", "v4", "v5"] as const;
-
-/** Give this browser a wording, as if it had been picked on an earlier teaser. */
-async function seedVariant(page: Page, variant: string) {
-  await page.evaluate((v) => localStorage.setItem("mdfree:teaser-variant", v), variant);
-}
+const EN = JSON.parse(readFileSync(path.join(__dirname, "../src/i18n/dictionaries/en.json"), "utf8"));
+const FT = EN.featureTeaser;
+const FEATURE_LABELS: Record<string, string> = FT.features;
+/** The thumbs prompt, which takes the slot when no other prompt is due. */
+const THUMBS_QUESTION: string = EN.postConvertFeedback.question;
 
 type TrackedEvent = { name: string; data?: Record<string, string> };
 
@@ -53,6 +54,14 @@ function stubAnalytics(page: Page) {
 
 function getEvents(page: Page): Promise<TrackedEvent[]> {
   return page.evaluate(() => (window as unknown as { __events: TrackedEvent[] }).__events);
+}
+
+async function eventNames(page: Page): Promise<string[]> {
+  return (await getEvents(page)).map((e) => e.name);
+}
+
+async function eventsNamed(page: Page, name: string): Promise<TrackedEvent[]> {
+  return (await getEvents(page)).filter((e) => e.name === name);
 }
 
 async function uploadSample(page: Page) {
@@ -72,26 +81,32 @@ async function exportTxt(page: Page) {
   await downloadPromise;
 }
 
+async function exportWord(page: Page) {
+  const download = page.waitForEvent("download");
+  await page.getByRole("button", { name: /To Word/i }).first().click();
+  await download;
+}
+
 // Give this browser a history: how many conversions it has made, how long ago
-// it last saw the teaser, and how long ago it last saw any prompt.
+// it last saw the invitation, and how long ago it last saw any prompt.
 async function seedHistory(
   page: Page,
-  history: { conversions: number; teaserDaysAgo?: number; lastPromptMinutesAgo?: number }
+  history: { conversions: number; teaserDaysAgo?: number; lastPromptMinutesAgo?: number; answered?: boolean }
 ) {
   await page.evaluate(
-    ({ countKey, teaserKey, promptKey, conversions, teaserAt, promptAt }) => {
-      localStorage.setItem(countKey, String(conversions));
-      if (teaserAt !== null) localStorage.setItem(teaserKey, String(teaserAt));
-      if (promptAt !== null) localStorage.setItem(promptKey, String(promptAt));
+    ({ keys, conversions, teaserAt, promptAt, answered }) => {
+      localStorage.setItem(keys.count, String(conversions));
+      if (teaserAt !== null) localStorage.setItem(keys.teaser, String(teaserAt));
+      if (promptAt !== null) localStorage.setItem(keys.prompt, String(promptAt));
+      if (answered) localStorage.setItem(keys.answered, "1");
     },
     {
-      countKey: COUNT_KEY,
-      teaserKey: SHOWN_AT_KEY,
-      promptKey: PROMPT_KEY,
+      keys: { count: COUNT_KEY, teaser: SHOWN_AT_KEY, prompt: PROMPT_KEY, answered: ANSWERED_KEY },
       conversions: history.conversions,
       teaserAt: history.teaserDaysAgo === undefined ? null : Date.now() - history.teaserDaysAgo * DAY_MS,
       promptAt:
         history.lastPromptMinutesAgo === undefined ? null : Date.now() - history.lastPromptMinutesAgo * MINUTE_MS,
+      answered: history.answered ?? false,
     }
   );
 }
@@ -104,363 +119,415 @@ async function endQuietPeriod(page: Page) {
   );
 }
 
-/** Convert twice so the teaser shows, then open the dialog. */
-async function openVoteDialog(page: Page) {
-  await page.goto("/");
-  await seedHistory(page, { conversions: 1 });
+// A heavy user: 2 conversions yesterday; the next one makes 3 on 2 days.
+async function seedHeavyUse(page: Page) {
+  await page.evaluate((dayMs) => {
+    const now = Date.now();
+    localStorage.setItem(
+      "mdfree:usage-log",
+      JSON.stringify([
+        [now - dayMs, "pdf"],
+        [now - dayMs + 60_000, "docx"],
+      ])
+    );
+  }, DAY_MS);
+}
+
+/** Convert once so the invitation shows, then open the board. */
+async function openVoteDialog(page: Page, url = "/") {
+  await page.goto(url);
   await uploadSample(page);
   await exportTxt(page);
   const teaser = page.getByTestId("feature-teaser");
   await expect(teaser).toBeVisible();
-  // By test id: the button's wording depends on the browser's variant.
   await teaser.getByTestId("feature-teaser-open").click();
   const dialog = page.getByTestId("feature-vote-dialog");
   await expect(dialog).toBeVisible();
   return { teaser, dialog };
 }
 
+async function vote(page: Page, choice: string, otherText?: string) {
+  const dialog = page.getByTestId("feature-vote-dialog");
+  await dialog.locator(`[data-choice="${choice}"]`).click();
+  if (otherText !== undefined) await dialog.locator("#vote-other-text").fill(otherText);
+  await page.waitForTimeout(HUMAN_PAUSE_MS);
+  const request = page.waitForRequest((r) => r.url().endsWith("/api/votes") && r.method() === "POST");
+  const response = page.waitForResponse((r) => r.url().endsWith("/api/votes"));
+  await dialog.getByTestId("vote-save").click();
+  return { request: await request, response: await response, dialog };
+}
+
 // True when the server under test is a test target that never stores.
 async function serverIsTestTarget(request: APIRequestContext): Promise<boolean> {
   const response = await request.post("/api/votes", {
     headers: ORIGIN_HEADERS,
-    data: { features: ["backup"], website: "bot", elapsedMs: 5000 },
+    data: { choice: "share", website: "", elapsedMs: 5000 },
   });
-  return response.headers()["x-votes-outcome"] === "dropped-honeypot";
+  return response.headers()["x-votes-outcome"] === "test-mode";
 }
 
-test.describe("Feature teaser — when it shows", () => {
-  test("a fresh browser gets the teaser on its very first conversion", async ({ page }) => {
-    await stubAnalytics(page);
+test.beforeEach(async ({ page }) => {
+  await stubAnalytics(page);
+});
+
+test.describe("When a prompt shows", () => {
+  test("a fresh browser gets the invitation on its first conversion, assigned to one arm", async ({ page }) => {
     await page.goto("/");
     await uploadSample(page);
-
     await exportTxt(page);
-    await expect(page.getByTestId("feature-teaser")).toBeVisible();
-    await expect(page.getByText("How's your experience?")).toHaveCount(0);
 
-    expect((await getEvents(page)).filter((e) => e.name === "feature_teaser_shown")).toHaveLength(1);
-  });
-
-  test("one prompt per sitting: the 1st conversion asks, the next ones stay quiet", async ({ page }) => {
-    await stubAnalytics(page);
-    await page.goto("/");
-    // The 7-day teaser window closed, so this sitting is the thumbs prompt's.
-    await seedHistory(page, { conversions: 2, teaserDaysAgo: 8 });
-    await uploadSample(page);
-
-    await exportTxt(page);
-    await expect(page.getByText("How's your experience?")).toBeVisible();
-    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
-
-    await exportTxt(page);
-    await exportTxt(page);
-    await expect(page.getByText("How's your experience?")).toHaveCount(0);
-    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
-
-    expect(await page.evaluate((key) => localStorage.getItem(key), COUNT_KEY)).toBe("5");
-    expect((await getEvents(page)).filter((e) => e.name === "feature_teaser_shown")).toHaveLength(0);
-  });
-
-  test("the teaser takes the prompt slot, and stays until dismissed", async ({ page }) => {
-    await stubAnalytics(page);
-    await page.goto("/");
-    await seedHistory(page, { conversions: 1 });
-    await seedVariant(page, "v1");
-    await uploadSample(page);
-
-    await exportTxt(page);
     const teaser = page.getByTestId("feature-teaser");
     await expect(teaser).toBeVisible();
-    await expect(teaser).toContainText(EN_VARIANTS.v1.teaser);
-    await expect(page.getByText("How's your experience?")).toHaveCount(0);
+    await expect(page.getByText(THUMBS_QUESTION)).toHaveCount(0);
 
-    await exportTxt(page);
-    await expect(teaser).toBeVisible();
+    const arm = await page.evaluate((key) => localStorage.getItem(key), ARM_KEY);
+    expect(["control", "card"]).toContain(arm);
+    await expect(teaser).toHaveAttribute("data-arm", arm!);
 
-    await teaser.getByRole("button", { name: "Dismiss" }).first().click();
-    await exportTxt(page);
-    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
-    await expect(page.getByText("How's your experience?")).toHaveCount(0);
-
-    const shown = (await getEvents(page)).filter((e) => e.name === "feature_teaser_shown");
-    expect(shown).toHaveLength(1);
-    expect(shown[0].data).toEqual({ trigger: "post_conversion", locale: "en", nth: "1", variant: "v1" });
+    const names = await eventNames(page);
+    expect(names).toContain("invite_assigned");
+    expect(names).toContain(`invite_assigned_${arm}`);
+    const [rendered] = await eventsNamed(page, "invite_rendered");
+    expect(rendered.data).toEqual({ arm, format: "txt", locale: "en", nth: "1" });
+    expect(names).toContain(`invite_rendered_${arm}`);
   });
 
-  test("?probe=teaser forces it on the first conversion, for manual testing", async ({ page }) => {
-    await page.goto("/?probe=teaser");
-    // Fresh browser, and a prompt was shown seconds ago: both rules would
-    // normally suppress the teaser.
-    await seedHistory(page, { conversions: 0, lastPromptMinutesAgo: 1 });
+  test("one prompt per sitting: the next conversions stay quiet, the invitation stays", async ({ page }) => {
+    await page.goto("/");
     await uploadSample(page);
     await exportTxt(page);
+    await exportTxt(page);
+    await exportTxt(page);
 
+    await expect(page.getByTestId("feature-teaser")).toHaveCount(1);
+    expect(await eventsNamed(page, "invite_rendered")).toHaveLength(1);
+    expect(await eventNames(page)).not.toContain("invite_dismissed");
+    // The arm is assigned once per browser, not per conversion.
+    expect(await eventsNamed(page, "invite_assigned")).toHaveLength(1);
+  });
+
+  test("the invitation returns on the next slot after ×, tagged as a repeat", async ({ page }) => {
+    await page.goto("/?arm=control");
+    await uploadSample(page);
+    await exportTxt(page);
+    await page.getByTestId("feature-teaser").getByRole("button", { name: FT.dismiss }).click();
+    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
+
+    const [dismissed] = await eventsNamed(page, "invite_dismissed");
+    expect(dismissed.data).toMatchObject({ arm: "control", how: "close", stage: "teaser" });
+    expect(await eventNames(page)).toContain("invite_dismissed_control");
+
+    await endQuietPeriod(page);
+    await exportTxt(page);
     await expect(page.getByTestId("feature-teaser")).toBeVisible();
-    await expect(page.getByText("How's your experience?")).toHaveCount(0);
+    const rendered = await eventsNamed(page, "invite_rendered");
+    expect(rendered.map((e) => e.data?.nth)).toEqual(["1", "2"]);
+  });
+
+  test("?probe=teaser forces it, for manual testing", async ({ page }) => {
+    await page.goto("/?probe=teaser");
+    await seedHistory(page, { conversions: 3, lastPromptMinutesAgo: 1, answered: true });
+    await uploadSample(page);
+    await exportTxt(page);
+    await expect(page.getByTestId("feature-teaser")).toBeVisible();
   });
 
   test("after 7 days the thumbs prompt takes the slot back", async ({ page }) => {
     await page.goto("/");
-    await seedHistory(page, { conversions: 5, teaserDaysAgo: 8 });
+    await seedHistory(page, { conversions: 3, teaserDaysAgo: 8 });
     await uploadSample(page);
     await exportTxt(page);
-    await expect(page.getByText("How's your experience?")).toBeVisible();
-    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
-  });
-
-  test("a teaser 6 days ago is still inside the window, so it shows again", async ({ page }) => {
-    await page.goto("/");
-    await seedHistory(page, { conversions: 5, teaserDaysAgo: 6 });
-    await uploadSample(page);
-    await exportTxt(page);
-    await expect(page.getByTestId("feature-teaser")).toBeVisible();
-    await expect(page.getByText("How's your experience?")).toHaveCount(0);
-  });
-
-  test("the teaser comes back on the next prompt slot, tagged as a repeat", async ({ page }) => {
-    await stubAnalytics(page);
-    await page.goto("/");
-    await uploadSample(page);
-
-    await exportTxt(page);
-    const teaser = page.getByTestId("feature-teaser");
-    await expect(teaser).toBeVisible();
-    await teaser.getByRole("button", { name: "Dismiss" }).click();
-
-    // Same browser, next slot after the quiet period: the teaser again, not
-    // the thumbs prompt, because the 7-day window is still open.
-    await endQuietPeriod(page);
-    await exportTxt(page);
-    await expect(page.getByTestId("feature-teaser")).toBeVisible();
-    await expect(page.getByText("How's your experience?")).toHaveCount(0);
-
-    const shown = (await getEvents(page)).filter((e) => e.name === "feature_teaser_shown");
-    expect(shown.map((e) => e.data?.nth)).toEqual(["1", "2"]);
-  });
-
-  test("someone who voted gets the thumbs prompt, window or no window", async ({ page }) => {
-    await page.goto("/");
-    await seedHistory(page, { conversions: 1 });
-    await page.evaluate(() => localStorage.setItem("mdfree:teaser-answered", "1"));
-    await uploadSample(page);
-    await exportTxt(page);
-    await expect(page.getByText("How's your experience?")).toBeVisible();
+    await expect(page.getByText(THUMBS_QUESTION)).toBeVisible();
     await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
   });
 
   test("a prompt shown 29 minutes ago still blocks the next one", async ({ page }) => {
     await page.goto("/");
-    await seedHistory(page, { conversions: 5, teaserDaysAgo: 8, lastPromptMinutesAgo: 29 });
+    await seedHistory(page, { conversions: 2, teaserDaysAgo: 1, lastPromptMinutesAgo: 29 });
     await uploadSample(page);
     await exportTxt(page);
-    await expect(page.getByText("How's your experience?")).toHaveCount(0);
     await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
+    await expect(page.getByText(THUMBS_QUESTION)).toHaveCount(0);
   });
 
-  test("a teaser that falls due mid-sitting still waits for the quiet period", async ({ page }) => {
-    await stubAnalytics(page);
+  test("a voter gets the thumbs prompt, window or no window", async ({ page }) => {
     await page.goto("/");
-    // The teaser window is open, but a prompt was shown 5 minutes ago. The
-    // quiet period has no exceptions: one prompt per 30 minutes, either kind.
-    await seedHistory(page, { conversions: 3, teaserDaysAgo: 2, lastPromptMinutesAgo: 5 });
+    await seedHistory(page, { conversions: 2, teaserDaysAgo: 1, answered: true });
     await uploadSample(page);
     await exportTxt(page);
+    await expect(page.getByText(THUMBS_QUESTION)).toBeVisible();
     await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
-    await expect(page.getByText("How's your experience?")).toHaveCount(0);
-
-    // Once the quiet period is over, it takes the next conversion's slot.
-    await endQuietPeriod(page);
-    await exportTxt(page);
-    await expect(page.getByTestId("feature-teaser")).toBeVisible();
-    expect((await getEvents(page)).filter((e) => e.name === "feature_teaser_shown")).toHaveLength(1);
   });
 
-  test("a prompt shown 31 minutes ago lets the next one through", async ({ page }) => {
+  test("a Word export under an open invitation is not an ending", async ({ page }) => {
     await page.goto("/");
-    await seedHistory(page, { conversions: 5, teaserDaysAgo: 8, lastPromptMinutesAgo: 31 });
     await uploadSample(page);
     await exportTxt(page);
-    await expect(page.getByText("How's your experience?")).toBeVisible();
-  });
-
-  test("after a vote, a later conversion gets the thumbs prompt, not the teaser", async ({ page }) => {
-    const { dialog } = await openVoteDialog(page);
-    await dialog.getByRole("button", { name: "Share a document with a link" }).click();
-    await page.waitForTimeout(HUMAN_PAUSE_MS);
-    await dialog.getByRole("button", { name: "Count my vote" }).click();
-    await expect(dialog).toContainText("your vote is counted");
-    await dialog.getByRole("button", { name: "Just count my vote" }).click();
-
-    await exportTxt(page);
-    await expect(page.getByText("How's your experience?")).toHaveCount(0);
-
-    await endQuietPeriod(page);
-    await exportTxt(page);
-    await expect(page.getByText("How's your experience?")).toBeVisible();
-    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
+    const teaser = page.getByTestId("feature-teaser");
+    await expect(teaser).toBeVisible();
+    await exportWord(page);
+    await expect(teaser).toBeVisible();
+    expect(await eventsNamed(page, "invite_rendered")).toHaveLength(1);
+    expect(await eventNames(page)).not.toContain("invite_dismissed");
   });
 });
 
-test.describe("Vote board — the dialog", () => {
-  test("the vote screen shows no counts, no bars and no pay question", async ({ page }) => {
-    await stubAnalytics(page);
-    const { dialog } = await openVoteDialog(page);
+test.describe("The invitation test (control vs card)", () => {
+  test("control shows the one-line teaser", async ({ page }) => {
+    await page.goto("/?arm=control");
+    await uploadSample(page);
+    await exportTxt(page);
+    const teaser = page.getByTestId("feature-teaser");
+    await expect(teaser).toHaveAttribute("data-arm", "control");
+    await expect(teaser).toContainText(FT.control.teaser);
+    await expect(teaser.getByTestId("feature-teaser-open")).toHaveText(FT.control.cta);
+  });
 
-    await expect(dialog.getByRole("heading", { name: "What should we build next?" })).toBeVisible();
-    await expect(dialog.getByRole("button", { name: "Save & restore my documents" })).toBeVisible();
-    await expect(dialog.getByRole("button", { name: "Share a document with a link" })).toBeVisible();
+  test("card asks about Word after a Word export, and in general otherwise", async ({ page }) => {
+    await page.goto("/?arm=card");
+    await uploadSample(page);
+    await exportWord(page);
+    const teaser = page.getByTestId("feature-teaser");
+    await expect(teaser).toHaveAttribute("data-arm", "card");
+    await expect(teaser).toContainText(FT.card.word);
+    await expect(teaser.getByTestId("feature-teaser-open")).toHaveText(FT.card.cta);
+    const [rendered] = await eventsNamed(page, "invite_rendered");
+    expect(rendered.data).toMatchObject({ arm: "card", format: "docx" });
 
-    // The whole point of the design: nothing about how others voted
-    await expect(dialog).not.toContainText("What everyone is asking for");
-    await expect(dialog).not.toContainText("+1 you");
-    await expect(dialog).not.toContainText("would you consider paying");
+    await teaser.getByRole("button", { name: FT.dismiss }).click();
+    await endQuietPeriod(page);
+    await exportTxt(page);
+    await expect(page.getByTestId("feature-teaser")).toContainText(FT.card.other);
+  });
+
+  test("a browser keeps its arm", async ({ page }) => {
+    await page.goto("/");
+    await page.evaluate((key) => localStorage.setItem(key, "card"), ARM_KEY);
+    await uploadSample(page);
+    await exportTxt(page);
+    await expect(page.getByTestId("feature-teaser")).toHaveAttribute("data-arm", "card");
+    // Already assigned, so no second assignment event.
+    expect(await eventNames(page)).not.toContain("invite_assigned");
+  });
+
+  test("a view counts only once the invitation is on screen for a second", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 420 });
+    await page.goto("/?arm=card");
+    await uploadSample(page);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await exportTxt(page);
+    const teaser = page.getByTestId("feature-teaser");
+    await expect(teaser).toBeAttached();
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect(teaser).not.toBeInViewport({ ratio: 0.5 });
+    await page.waitForTimeout(1500);
+    expect(await eventNames(page)).not.toContain("invite_viewed");
+
+    await teaser.scrollIntoViewIfNeeded();
+    await expect.poll(() => eventNames(page), { timeout: 5000 }).toContain("invite_viewed");
+    const viewed = await eventsNamed(page, "invite_viewed");
+    expect(viewed).toHaveLength(1);
+    expect(viewed[0].data).toEqual({ arm: "card", format: "txt", nth: "1" });
+    expect(await eventNames(page)).toContain("invite_viewed_card");
+  });
+});
+
+test.describe("The vote board", () => {
+  test("one choice, no counts, and nothing to save until a choice", async ({ page }) => {
+    const { dialog } = await openVoteDialog(page, "/?arm=card");
+    await expect(dialog.getByRole("heading", { name: FT.voteTitle })).toBeVisible();
+    await expect(dialog.locator("[role=radio]")).toHaveCount(10);
     await expect(dialog.locator(".vote-bar")).toHaveCount(0);
-    await expect(page.locator("#notify-email")).toHaveCount(0);
+    await expect(dialog.getByText(/^\d+$/)).toHaveCount(0);
+    await expect(dialog.getByTestId("vote-paid-line")).toHaveCount(0);
 
-    expect((await getEvents(page)).filter((e) => e.name === "feature_teaser_opened")).toHaveLength(1);
+    const save = dialog.getByTestId("vote-save");
+    await expect(save).toBeDisabled();
+    await dialog.locator('[data-choice="formatting"]').click();
+    await dialog.locator('[data-choice="share"]').click();
+    await expect(dialog.locator('[aria-checked="true"]')).toHaveCount(1);
+    await expect(dialog.locator('[data-choice="share"]')).toHaveAttribute("aria-checked", "true");
+    await expect(save).toBeEnabled();
+
+    // "Something else" needs a few words first.
+    await dialog.locator('[data-choice="other"]').click();
+    await expect(save).toBeDisabled();
+    await dialog.locator("#vote-other-text").fill("Batch convert");
+    await expect(save).toBeEnabled();
+
+    expect(await eventsNamed(page, "invite_opened")).toHaveLength(1);
+    expect(await eventNames(page)).toContain("invite_opened_card");
   });
 
-  test("Count my vote is disabled until something is picked", async ({ page }) => {
+  test("the features keep their shuffled order in this browser", async ({ page }) => {
     const { dialog } = await openVoteDialog(page);
-    const submit = dialog.getByRole("button", { name: "Count my vote" });
-    await expect(submit).toBeDisabled();
+    const first = await dialog.locator("[data-choice]").evaluateAll((els) => els.map((el) => el.getAttribute("data-choice")));
+    const stored = await page.evaluate(() => JSON.parse(localStorage.getItem("mdfree:board-order") ?? "[]"));
+    expect(first.slice(0, 8)).toEqual(stored);
+    expect(first.slice(8)).toEqual(["other", "nothing"]);
+    expect([...stored].sort()).toEqual(Object.keys(FEATURE_LABELS).sort());
 
-    const row = dialog.getByRole("button", { name: "Professional document templates" });
-    await expect(row).toHaveAttribute("aria-pressed", "false");
-    await row.click();
-    await expect(row).toHaveAttribute("aria-pressed", "true");
-    await expect(submit).toBeEnabled();
-    await expect(dialog).toContainText("1 selected");
-
-    await row.click();
-    await expect(submit).toBeDisabled();
+    await dialog.getByRole("button", { name: FT.dismiss }).click();
+    await page.getByTestId("feature-teaser-open").click();
+    const again = await dialog.locator("[data-choice]").evaluateAll((els) => els.map((el) => el.getAttribute("data-choice")));
+    expect(again).toEqual(first);
   });
 
-  test("voting posts the picks and reveals the tallies", async ({ page }) => {
-    await stubAnalytics(page);
-    const { dialog } = await openVoteDialog(page);
+  test("a vote posts one choice, confirms, and records the funnel", async ({ page }) => {
+    await openVoteDialog(page, "/?arm=control");
+    const { request, response, dialog } = await vote(page, "templates");
+    expect(request.postDataJSON()).toMatchObject({ choice: "templates", website: "" });
+    expect(response.headers()["x-votes-outcome"]).toBe("test-mode");
 
-    await dialog.getByRole("button", { name: "Save & restore my documents" }).click();
-    await dialog.getByRole("button", { name: "Editable equations in Word" }).click();
-    await page.waitForTimeout(HUMAN_PAUSE_MS);
+    await expect(dialog).toHaveAttribute("data-phase", "done");
+    await expect(dialog.getByRole("heading", { name: FT.savedTitle })).toBeVisible();
+    await expect(dialog).toContainText(FEATURE_LABELS.templates);
 
-    const responsePromise = page.waitForResponse((r) => r.url().includes("/api/votes"));
-    await dialog.getByRole("button", { name: "Count my vote" }).click();
-    const response = await responsePromise;
-
-    const body = response.request().postDataJSON() as Record<string, unknown>;
-    expect(body.features).toEqual(["backup", "equations"]);
-    expect(body.website).toBe("");
-    expect(body.elapsedMs as number).toBeGreaterThanOrEqual(1500);
-    expect(response.status()).toBe(200);
-
-    await expect(dialog).toContainText("your vote is counted");
-    await expect(dialog).toContainText("What everyone is asking for");
-    await expect(dialog.getByText("+1 you")).toHaveCount(2);
-    await expect(dialog.locator(".vote-bar")).toHaveCount(6);
-    await expect(dialog).toContainText("Votes counted for 2 features");
-
-    const names = (await getEvents(page)).map((e) => e.name);
-    expect(names).toContain("feature_vote_backup");
-    expect(names).toContain("feature_vote_equations");
-    expect(names).not.toContain("feature_vote_share");
-    const submitted = (await getEvents(page)).find((e) => e.name === "feature_vote_submitted");
-    // One conversion in this browser's 30-day log, so the voter's range is "1".
-    expect(submitted?.data).toEqual({ picks: "2", premium_picks: "1", uses: "1" });
-    const backupVote = (await getEvents(page)).find((e) => e.name === "feature_vote_backup");
-    expect(backupVote?.data).toEqual({ uses: "1" });
+    const [saved] = await eventsNamed(page, "vote_saved");
+    expect(saved.data).toEqual({ arm: "control", choice: "templates", format: "txt", uses: "1" });
+    const names = await eventNames(page);
+    expect(names).toContain("vote_saved_control");
+    const [choice] = await eventsNamed(page, "vote_choice_templates");
+    expect(choice.data).toEqual({ arm: "control", uses: "1" });
+    expect(await page.evaluate((key) => localStorage.getItem(key), ANSWERED_KEY)).toBe("1");
   });
 
-  test("the pay question is answered on the results page, in one tap", async ({ page }) => {
-    await stubAnalytics(page);
-    const { dialog } = await openVoteDialog(page);
-    await dialog.getByRole("button", { name: "Professional document templates" }).click();
-    await page.waitForTimeout(HUMAN_PAUSE_MS);
-    await dialog.getByRole("button", { name: "Count my vote" }).click();
-    await expect(dialog).toContainText("would you consider paying");
+  test("closing after a vote ends the invitation without a dismissal", async ({ page }) => {
+    await openVoteDialog(page);
+    const { dialog } = await vote(page, "share");
+    await dialog.getByRole("button", { name: FT.done }).click();
+    await expect(dialog).toHaveCount(0);
+    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
 
-    const chip = dialog.getByRole("button", { name: "Maybe, depends on price" });
-    const responsePromise = page.waitForResponse((r) => r.url().includes("/api/votes"));
-    await chip.click();
-    const response = await responsePromise;
-
-    expect(response.request().postDataJSON()).toEqual({ pay: "maybe" });
-    await expect(chip).toHaveAttribute("aria-pressed", "true");
-    expect((await getEvents(page)).map((e) => e.name)).toContain("pay_intent_maybe");
+    const [closed] = await eventsNamed(page, "vote_board_closed");
+    expect(closed.data).toMatchObject({ how: "done", voted: "yes" });
+    expect(await eventNames(page)).not.toContain("invite_dismissed");
   });
 
-  test("the email is optional, sent to /api/notify, and never reaches analytics", async ({ page }) => {
-    await stubAnalytics(page);
-    const analyticsPayloads: string[] = [];
-    page.on("request", (req) => {
-      const url = req.url();
-      if (url.includes("/ingest/api/send") || url.includes("/_vercel/insights")) {
-        analyticsPayloads.push(req.postData() || "");
-      }
-    });
-
-    const { dialog } = await openVoteDialog(page);
-    await dialog.getByRole("button", { name: "Combine multiple AI chats into one document" }).click();
-    await page.waitForTimeout(HUMAN_PAUSE_MS);
-    await dialog.getByRole("button", { name: "Count my vote" }).click();
-    await expect(dialog).toContainText("Want to know when your picks launch?");
-
-    const address = "E2E-Vote-Marker@Example.com";
-    await page.locator("#notify-email").fill(address);
-    const responsePromise = page.waitForResponse((r) => r.url().includes("/api/notify"));
-    await dialog.getByRole("button", { name: "Notify me" }).click();
-    const response = await responsePromise;
-
-    expect(response.request().postDataJSON()).toMatchObject({
-      email: address,
-      features: ["merge"],
-      locale: "en",
-    });
-    expect(response.headers()["x-notify-outcome"]).toBe("test-mode");
-    await expect(dialog).toContainText("One email per feature");
-
-    const events = await getEvents(page);
-    expect(events.map((e) => e.name)).toContain("feature_notify_submitted");
-    const serialized = JSON.stringify(events) + analyticsPayloads.join("\n");
-    expect(serialized.toLowerCase()).not.toContain(address.toLowerCase());
-  });
-
-  test("a malformed email is rejected in the browser", async ({ page }) => {
-    let notifyCalls = 0;
-    page.on("request", (req) => {
-      if (req.url().includes("/api/notify")) notifyCalls += 1;
-    });
-
-    const { dialog } = await openVoteDialog(page);
-    await dialog.getByRole("button", { name: "Share a document with a link" }).click();
-    await page.waitForTimeout(HUMAN_PAUSE_MS);
-    await dialog.getByRole("button", { name: "Count my vote" }).click();
-
-    await page.locator("#notify-email").fill("someone@nowhere");
-    await dialog.getByRole("button", { name: "Notify me" }).click();
-    await expect(dialog.getByRole("alert")).toHaveText("Check the email address.");
-    expect(notifyCalls).toBe(0);
-  });
-
-  test("Escape and the backdrop close the dialog, the teaser stays", async ({ page }) => {
+  test("closing before a vote keeps the invitation; × then ends it at the vote stage", async ({ page }) => {
     const { teaser, dialog } = await openVoteDialog(page);
     await page.keyboard.press("Escape");
     await expect(dialog).toHaveCount(0);
     await expect(teaser).toBeVisible();
+    const [closed] = await eventsNamed(page, "vote_board_closed");
+    expect(closed.data).toMatchObject({ how: "escape", voted: "no" });
+    expect(await eventNames(page)).not.toContain("invite_dismissed");
 
-    await teaser.getByTestId("feature-teaser-open").click();
-    await expect(page.getByTestId("feature-vote-dialog")).toBeVisible();
-    await page.mouse.click(12, 12);
-    await expect(page.getByTestId("feature-vote-dialog")).toHaveCount(0);
-    await expect(teaser).toBeVisible();
+    await teaser.getByRole("button", { name: FT.dismiss }).click();
+    const [dismissed] = await eventsNamed(page, "invite_dismissed");
+    expect(dismissed.data).toMatchObject({ how: "close", stage: "vote" });
+    expect(dismissed.data?.dwell).toMatch(/^(0-5s|5-15s|15-60s|60s\+)$/);
+  });
+
+  test("after a vote the invitation is gone, so one browser votes once", async ({ page }) => {
+    await openVoteDialog(page);
+    const { dialog } = await vote(page, "merge");
+    await page.keyboard.press("Escape");
+    await expect(dialog).toHaveCount(0);
+    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
+    expect(await eventsNamed(page, "vote_saved")).toHaveLength(1);
+  });
+
+  test("Something else stores the text privately, never in analytics", async ({ page }) => {
+    await openVoteDialog(page);
+    const ideaRequest = page.waitForRequest((r) => r.url().endsWith("/api/ideas"));
+    const ideaResponse = page.waitForResponse((r) => r.url().endsWith("/api/ideas"));
+    const { request, dialog } = await vote(page, "other", "Convert a whole folder at once");
+    expect(request.postDataJSON()).toMatchObject({ choice: "other" });
+    expect((await ideaRequest).postDataJSON()).toMatchObject({
+      kind: "other",
+      feature: null,
+      text: "Convert a whole folder at once",
+      locale: "en",
+    });
+    expect((await ideaResponse).headers()["x-ideas-outcome"]).toBe("test-mode");
+    await expect(dialog).toContainText(FT.otherDone);
+
+    await expect.poll(() => eventNames(page)).toContain("idea_sent_other");
+    expect(await eventNames(page)).toContain("vote_choice_other");
+    expect(JSON.stringify(await getEvents(page))).not.toContain("whole folder");
+    // No follow-up forms for "Something else".
+    await expect(dialog.getByTestId("vote-updates")).toHaveCount(0);
+    await expect(dialog.getByTestId("vote-workaround")).toHaveCount(0);
+  });
+
+  test("Nothing missing counts, and asks nothing more", async ({ page }) => {
+    await openVoteDialog(page);
+    const { dialog } = await vote(page, "nothing");
+    await expect(dialog).toHaveAttribute("data-phase", "done");
+    expect(await eventNames(page)).toContain("vote_choice_nothing");
+    await expect(dialog.getByTestId("vote-updates")).toHaveCount(0);
+    await expect(dialog.getByTestId("vote-workaround")).toHaveCount(0);
+  });
+
+  test("the updates email goes to /api/notify with the chosen feature, never to analytics", async ({ page }) => {
+    await openVoteDialog(page);
+    const { dialog } = await vote(page, "equations");
+    const form = dialog.getByTestId("vote-updates");
+    await expect(form).toContainText(FEATURE_LABELS.equations);
+    await form.locator("#vote-updates-email").fill("reader@example.com");
+    await page.waitForTimeout(HUMAN_PAUSE_MS);
+    const request = page.waitForRequest((r) => r.url().endsWith("/api/notify"));
+    const response = page.waitForResponse((r) => r.url().endsWith("/api/notify"));
+    await form.getByRole("button", { name: FT.getUpdates }).click();
+    expect((await request).postDataJSON()).toMatchObject({
+      email: "reader@example.com",
+      features: ["equations"],
+      locale: "en",
+    });
+    expect((await response).headers()["x-notify-outcome"]).toBe("test-mode");
+    await expect(dialog).toContainText(FT.updatesDone.replace("{feature}", FEATURE_LABELS.equations));
+
+    const [signup] = await eventsNamed(page, "updates_signup");
+    expect(signup.data).toMatchObject({ source: "vote", feature: "equations" });
+    expect(await eventNames(page)).toContain("updates_signup_vote");
+    expect(JSON.stringify(await getEvents(page))).not.toContain("reader@example.com");
+  });
+
+  test("a malformed email is rejected in the browser", async ({ page }) => {
+    await openVoteDialog(page);
+    const { dialog } = await vote(page, "share");
+    const form = dialog.getByTestId("vote-updates");
+    await form.locator("#vote-updates-email").fill("not-an-email");
+    await form.getByRole("button", { name: FT.getUpdates }).click();
+    await expect(form.getByRole("alert")).toHaveText(FT.errBad);
+    expect(await eventNames(page)).not.toContain("updates_signup");
+  });
+
+  test("the workaround answer goes to /api/ideas with the feature, never to analytics", async ({ page }) => {
+    await openVoteDialog(page);
+    const { dialog } = await vote(page, "formatting");
+    const form = dialog.getByTestId("vote-workaround");
+    await form.locator("#vote-workaround-text").fill("I fix margins by hand in Word");
+    await page.waitForTimeout(HUMAN_PAUSE_MS);
+    const request = page.waitForRequest((r) => r.url().endsWith("/api/ideas"));
+    await form.getByRole("button", { name: FT.send }).click();
+    expect((await request).postDataJSON()).toMatchObject({
+      kind: "workaround",
+      feature: "formatting",
+      text: "I fix margins by hand in Word",
+    });
+    await expect(dialog).toContainText(FT.todayDone);
+
+    const [sent] = await eventsNamed(page, "idea_sent");
+    expect(sent.data).toEqual({ kind: "workaround", feature: "formatting" });
+    expect(await eventNames(page)).toContain("idea_sent_workaround");
+    expect(JSON.stringify(await getEvents(page))).not.toContain("margins by hand");
+  });
+
+  test("results stay folded until asked for", async ({ page }) => {
+    await openVoteDialog(page);
+    const { dialog } = await vote(page, "share");
+    await expect(dialog.getByTestId("vote-results")).toHaveCount(0);
+    await dialog.getByTestId("vote-results-toggle").click();
+    await expect(dialog.getByTestId("vote-results").locator(".vote-bar")).toHaveCount(8);
+    await dialog.getByTestId("vote-results-toggle").click();
+    await dialog.getByTestId("vote-results-toggle").click();
+    expect(await eventsNamed(page, "vote_results_viewed")).toHaveLength(1);
   });
 
   test("the honeypot field is hidden from people but present for bots", async ({ page }) => {
     const { dialog } = await openVoteDialog(page);
-    await dialog.getByRole("button", { name: "Share a document with a link" }).click();
-    await page.waitForTimeout(HUMAN_PAUSE_MS);
-    await dialog.getByRole("button", { name: "Count my vote" }).click();
-
     const honeypot = dialog.locator('input[name="mf-extra"]');
     await expect(honeypot).toHaveCount(1);
     await expect(honeypot).toHaveAttribute("tabindex", "-1");
@@ -468,305 +535,334 @@ test.describe("Vote board — the dialog", () => {
     await expect(honeypot).not.toBeInViewport();
   });
 
-  test("zh-Hans shows the localized board", async ({ page }) => {
-    await page.goto("/zh-Hans");
-    await seedHistory(page, { conversions: 1 });
-    await seedVariant(page, "v5");
+  test("zh-Hans shows the localized invitation and board", async ({ page }) => {
+    await page.goto("/zh-Hans?arm=card");
     await uploadSample(page);
     await exportTxt(page);
-
     const teaser = page.getByTestId("feature-teaser");
-    await expect(teaser).toContainText("看看大家都想要什么");
-    await teaser.getByRole("button", { name: "查看投票" }).click();
-
+    await expect(teaser).toContainText("哪项功能能让你下次导出更方便？");
+    await teaser.getByRole("button", { name: "选择功能" }).click();
     const dialog = page.getByTestId("feature-vote-dialog");
-    await expect(dialog.getByRole("heading", { name: "接下来我们该做什么？" })).toBeVisible();
-    await expect(dialog.getByRole("button", { name: "保存并随时打开我的文档" })).toBeVisible();
-    await expect(dialog).not.toContainText("大家都在要什么");
+    await expect(dialog.getByRole("heading", { name: "你最需要哪项改进？" })).toBeVisible();
+    await expect(dialog.getByRole("radio", { name: "在此浏览器中恢复最近的文档" })).toBeVisible();
+    const [rendered] = await eventsNamed(page, "invite_rendered");
+    expect(rendered.data?.locale).toBe("zh-Hans");
   });
 });
 
-test.describe("Vote board — the funnel events", () => {
-  const DWELL = /^(0-5s|5-15s|15-60s|60s\+)$/;
+test.describe("A file over 1 MB", () => {
+  const bigFile = {
+    name: "big.md",
+    mimeType: "text/markdown",
+    buffer: Buffer.alloc(Math.round(1.5 * 1024 * 1024), "a"),
+  };
 
-  test("dismissing the row without opening it records one dismissal", async ({ page }) => {
-    await stubAnalytics(page);
+  test("desktop: the size question sits under the error, and clicks stay inside it", async ({ page }) => {
     await page.goto("/");
-    await seedHistory(page, { conversions: 1 });
-    await uploadSample(page);
-    await exportTxt(page);
+    await page.locator('input[type="file"]').setInputFiles(bigFile);
+    const prompt = page.getByTestId("limit-prompt");
+    await expect(prompt).toBeVisible();
+    await expect(prompt).toHaveAttribute("data-paid", "no");
+    await expect(prompt).toContainText(EN.limitPrompt.question);
+    await expect(prompt).not.toContainText("paid");
 
-    const teaser = page.getByTestId("feature-teaser");
-    await expect(teaser).toBeVisible();
-    await teaser.getByRole("button", { name: "Dismiss" }).click();
-    await expect(teaser).toHaveCount(0);
+    const [shown] = await eventsNamed(page, "limit_prompt_shown");
+    expect(shown.data).toEqual({ detected: "1-2mb", paid: "no", where: "desktop", uses: "0" });
 
-    const events = await getEvents(page);
-    const names = events.map((e) => e.name);
-    expect(names).toContain("feature_teaser_shown");
-    expect(names).not.toContain("feature_teaser_opened");
-    expect(names).not.toContain("feature_teaser_completed");
-
-    const dismissed = events.filter((e) => e.name === "feature_teaser_dismissed");
-    expect(dismissed).toHaveLength(1);
-    expect(dismissed[0].data).toMatchObject({ stage: "teaser", how: "close" });
-    expect(dismissed[0].data?.dwell).toMatch(DWELL);
-  });
-
-  test("closing the vote screen is not the end — the teaser stays, the dismissal waits", async ({
-    page,
-  }) => {
-    await stubAnalytics(page);
-    const { teaser, dialog } = await openVoteDialog(page);
-    await page.keyboard.press("Escape");
-    await expect(dialog).toHaveCount(0);
-
-    let events = await getEvents(page);
-    const closed = events.filter((e) => e.name === "feature_teaser_closed");
-    expect(closed).toHaveLength(1);
-    expect(closed[0].data).toMatchObject({ how: "escape", voted: "no" });
-    expect(closed[0].data?.variant).toMatch(/^v[1-5]$/);
-    expect(events.map((e) => e.name)).not.toContain("feature_teaser_dismissed");
-
-    // Now end it for good: one dismissal, and it remembers they got as far as
-    // the vote screen.
-    await teaser.getByRole("button", { name: "Dismiss" }).click();
-    events = await getEvents(page);
-    const dismissed = events.filter((e) => e.name === "feature_teaser_dismissed");
-    expect(dismissed).toHaveLength(1);
-    expect(dismissed[0].data).toMatchObject({ stage: "vote", how: "close" });
-  });
-
-  test("a second conversion under an open teaser is not an ending", async ({ page }) => {
-    await stubAnalytics(page);
-    await page.goto("/");
-    await seedHistory(page, { conversions: 1 });
-    await uploadSample(page);
-    await exportTxt(page);
-
-    const teaser = page.getByTestId("feature-teaser");
-    await expect(teaser).toBeVisible();
-
-    // People export a second format straight away. The teaser stays up, so it
-    // has not ended: a dismissal here would count someone who never left.
-    await exportTxt(page);
-    await exportTxt(page);
-    await expect(teaser).toBeVisible();
-
-    const events = await getEvents(page);
-    expect(events.filter((e) => e.name === "feature_teaser_shown")).toHaveLength(1);
-    expect(events.map((e) => e.name)).not.toContain("feature_teaser_dismissed");
-    expect(events.map((e) => e.name)).not.toContain("feature_teaser_completed");
-  });
-
-  test("a Word export under an open teaser is not an ending either", async ({ page }) => {
-    // TXT finishes inside one React batch, so the test above cannot see a
-    // teaser that unmounts while an export runs. Word waits on the server, like
-    // PDF, and most real second exports are one of the two.
-    await stubAnalytics(page);
-    await page.goto("/");
-    await uploadSample(page);
-    await exportTxt(page);
-
-    const teaser = page.getByTestId("feature-teaser");
-    await expect(teaser).toBeVisible();
-
-    const download = page.waitForEvent("download");
-    await page.getByRole("button", { name: /To Word/i }).first().click();
-    await download;
-    await expect(teaser).toBeVisible();
-
-    const events = await getEvents(page);
-    expect(events.filter((e) => e.name === "feature_teaser_shown")).toHaveLength(1);
-    expect(events.map((e) => e.name)).not.toContain("feature_teaser_dismissed");
-  });
-
-  test("a vote plus a pay answer completes the funnel, once", async ({ page }) => {
-    await stubAnalytics(page);
-    const { dialog } = await openVoteDialog(page);
-    await dialog.getByRole("button", { name: "Professional document templates" }).click();
-    await page.waitForTimeout(HUMAN_PAUSE_MS);
-    await dialog.getByRole("button", { name: "Count my vote" }).click();
-    await expect(dialog).toContainText("What everyone is asking for");
-    await dialog.getByRole("button", { name: "Maybe, depends on price" }).click();
-    await dialog.getByRole("button", { name: "Just count my vote" }).click();
-    await expect(page.getByTestId("feature-teaser")).toHaveCount(0);
-
-    const events = await getEvents(page);
-    const completed = events.filter((e) => e.name === "feature_teaser_completed");
-    expect(completed).toHaveLength(1);
-    expect(completed[0].data).toMatchObject({
-      picks: "1",
-      premium_picks: "1",
-      pay: "maybe",
-      notified: "no",
+    // A click inside the prompt must not bubble to the upload card and open the picker.
+    let pickerOpened = false;
+    page.on("filechooser", () => {
+      pickerOpened = true;
     });
-    expect(completed[0].data?.dwell).toMatch(DWELL);
-    expect(events.map((e) => e.name)).not.toContain("feature_teaser_dismissed");
+    await prompt.getByTestId("limit-sizes").locator('[data-value="2-5mb"]').click();
+    await page.waitForTimeout(300);
+    expect(pickerOpened).toBe(false);
+
+    const [chosen] = await eventsNamed(page, "limit_size_chosen");
+    expect(chosen.data).toEqual({ needed: "2-5mb", detected: "1-2mb", paid: "no" });
+    expect(await eventNames(page)).toContain("limit_size_2-5mb");
+
+    const form = prompt.getByTestId("limit-updates");
+    await form.locator("#limit-updates-email").fill("big@example.com");
+    await page.waitForTimeout(HUMAN_PAUSE_MS);
+    const request = page.waitForRequest((r) => r.url().endsWith("/api/notify"));
+    await form.getByRole("button", { name: FT.getUpdates }).click();
+    expect((await request).postDataJSON()).toMatchObject({ email: "big@example.com", features: ["large"] });
+    await expect(prompt).toContainText(EN.limitPrompt.done);
+    expect(await eventNames(page)).toContain("updates_signup_limit");
+    expect(pickerOpened).toBe(false);
   });
 
-  test("reopening after a vote returns to the results, so one browser cannot vote twice", async ({
-    page,
-  }) => {
-    let voteCalls = 0;
-    page.on("request", (req) => {
-      if (req.url().includes("/api/votes") && req.method() === "POST") voteCalls += 1;
-    });
+  test("with the paid path on, it says the higher limit may be paid", async ({ page }) => {
+    await page.goto("/?paid=1");
+    await page.locator('input[type="file"]').setInputFiles(bigFile);
+    const prompt = page.getByTestId("limit-prompt");
+    await expect(prompt).toHaveAttribute("data-paid", "yes");
+    await expect(prompt).toContainText(EN.paidInterest.limitBody);
+    expect(await eventNames(page)).toContain("paid_prompt_shown_limit");
 
-    const { teaser, dialog } = await openVoteDialog(page);
-    await dialog.getByRole("button", { name: "Save & restore my documents" }).click();
-    await page.waitForTimeout(HUMAN_PAUSE_MS);
-    await dialog.getByRole("button", { name: "Count my vote" }).click();
-    await expect(dialog).toContainText("What everyone is asking for");
-    expect(voteCalls).toBe(1);
+    await prompt.getByRole("button", { name: EN.paidInterest.limitCta }).click();
+    expect(await eventNames(page)).toContain("paid_prompt_opened");
+    await prompt.getByTestId("limit-sizes").locator('[data-value="5-10mb"]').click();
+    await prompt.getByTestId("paid-answers-limit").locator('[data-value="maybe"]').click();
+    await expect(prompt).toContainText(EN.paidInterest.reassurance);
 
-    await page.keyboard.press("Escape");
-    await expect(dialog).toHaveCount(0);
-    await teaser.getByTestId("feature-teaser-open").click();
-
-    const reopened = page.getByTestId("feature-vote-dialog");
-    await expect(reopened).toContainText("What everyone is asking for");
-    // exact, or it also matches "Just count my vote" on the results screen.
-    await expect(reopened.getByRole("button", { name: "Count my vote", exact: true })).toHaveCount(0);
-    expect(voteCalls).toBe(1);
+    const [interest] = await eventsNamed(page, "paid_interest");
+    expect(interest.data).toMatchObject({ trigger: "limit", feature: "large", answer: "maybe" });
+    expect(await eventNames(page)).toContain("paid_interest_maybe");
+    const [chosen] = await eventsNamed(page, "limit_size_chosen");
+    expect(chosen.data).toMatchObject({ needed: "5-10mb", paid: "yes" });
   });
 });
 
-test.describe("Teaser wording test (five variants)", () => {
-  for (const variant of VARIANTS) {
-    test(`${variant} renders its own line and button`, async ({ page }) => {
-      await page.goto("/");
-      await seedVariant(page, variant);
-      await uploadSample(page);
-      await exportTxt(page);
+test.describe("A file over 1 MB on a phone", () => {
+  // defaultBrowserType would force a new worker; the rest of the device is enough.
+  const { defaultBrowserType: _browser, ...pixel } = devices["Pixel 7"];
+  void _browser;
+  test.use(pixel);
 
-      const teaser = page.getByTestId("feature-teaser");
-      await expect(teaser).toHaveAttribute("data-variant", variant);
-      await expect(teaser).toContainText(EN_VARIANTS[variant].teaser);
-      await expect(teaser).toContainText(EN_VARIANTS[variant].lead);
-      await expect(teaser.getByTestId("feature-teaser-open")).toHaveText(EN_VARIANTS[variant].cta);
-    });
-  }
-
-  test("a fresh browser is given one at random, and keeps it", async ({ page }) => {
+  test("the error shows (it used to fail silently), with the size question", async ({ page }) => {
     await page.goto("/");
-    // floor(0.61 × 5) = 3 → the 4th wording
-    await page.evaluate(() => {
-      Math.random = () => 0.61;
+    await page.locator('input[type="file"]').setInputFiles({
+      name: "big.md",
+      mimeType: "text/markdown",
+      buffer: Buffer.alloc(Math.round(2.5 * 1024 * 1024), "a"),
     });
+    const box = page.getByTestId("mobile-upload-error");
+    await expect(box).toBeVisible();
+    await expect(box.getByRole("alert")).toHaveText(EN.errors.tooLarge);
+    await expect(box.getByTestId("limit-prompt")).toBeVisible();
+    // Exactly one: the desktop card is hidden on a phone and must not count too.
+    const shown = await eventsNamed(page, "limit_prompt_shown");
+    expect(shown).toHaveLength(1);
+    expect(shown[0].data).toMatchObject({ detected: "2-5mb", where: "mobile" });
+  });
+});
+
+test.describe("The paid path", () => {
+  test("is off by default: no paid line, plain updates after a vote for a candidate feature", async ({ page }) => {
+    await openVoteDialog(page);
+    await expect(page.getByTestId("vote-paid-line")).toHaveCount(0);
+    const { dialog } = await vote(page, "equations");
+    await expect(dialog.getByTestId("vote-updates")).toBeVisible();
+    await expect(dialog.getByTestId("paid-questions-vote")).toHaveCount(0);
+    expect(await eventNames(page)).not.toContain("paid_prompt_shown");
+  });
+
+  test("on: the board shows the paid line, and a vote for equations asks about paying", async ({ page }) => {
+    await openVoteDialog(page, "/?paid=1");
+    await expect(page.getByTestId("vote-paid-line")).toHaveText(FT.paidLine);
+    const { dialog } = await vote(page, "equations");
+    const questions = dialog.getByTestId("paid-questions-vote");
+    await expect(questions).toBeVisible();
+    await expect(dialog).toContainText(EN.paidInterest.vote.replace("{feature}", FEATURE_LABELS.equations));
+    await expect(dialog.getByTestId("vote-updates")).toHaveCount(0);
+    expect(await eventNames(page)).toContain("paid_prompt_shown_vote");
+
+    await questions.getByTestId("paid-answers-vote").locator('[data-value="free"]').click();
+    expect(await eventNames(page)).toContain("paid_interest_free");
+  });
+
+  test("on: a vote for a feature outside the paid list still gets plain updates", async ({ page }) => {
+    await openVoteDialog(page, "/?paid=1");
+    const { dialog } = await vote(page, "share");
+    await expect(dialog.getByTestId("vote-updates")).toBeVisible();
+    await expect(dialog.getByTestId("paid-questions-vote")).toHaveCount(0);
+  });
+
+  test("on: a heavy user gets the page-layout question once", async ({ page }) => {
+    await page.goto("/?paid=1");
+    await seedHistory(page, { conversions: 2, teaserDaysAgo: 2, answered: true });
+    await seedHeavyUse(page);
     await uploadSample(page);
     await exportTxt(page);
 
-    const teaser = page.getByTestId("feature-teaser");
-    await expect(teaser).toHaveAttribute("data-variant", "v4");
-    expect(await page.evaluate(() => localStorage.getItem("mdfree:teaser-variant"))).toBe("v4");
+    const prompt = page.getByTestId("paid-layout-prompt");
+    await expect(prompt).toBeVisible();
+    await expect(prompt).toContainText(EN.paidInterest.layoutLead);
+    await expect(page.getByText(THUMBS_QUESTION)).toHaveCount(0);
+    expect(await eventNames(page)).toContain("paid_prompt_shown_repeat");
 
-    // A different roll next time changes nothing: the browser keeps its wording.
-    await page.evaluate(() => {
-      Math.random = () => 0.01;
-    });
-    await teaser.getByRole("button", { name: "Dismiss" }).click();
+    await prompt.getByRole("button", { name: EN.paidInterest.layoutCta }).click();
+    await prompt.getByTestId("paid-needs").locator('[data-value="margins"]').click();
+    await prompt.getByTestId("paid-answers-repeat").locator('[data-value="unsure"]').click();
+    let names = await eventNames(page);
+    expect(names).toContain("paid_prompt_opened");
+    expect(names).toContain("paid_need_margins");
+    expect(names).toContain("paid_interest_unsure");
+
+    await prompt.getByRole("button", { name: FT.dismiss }).click();
+    await expect(prompt).toHaveCount(0);
+    names = await eventNames(page);
+    expect(names).toContain("paid_prompt_dismissed");
+
     await endQuietPeriod(page);
     await exportTxt(page);
-    await expect(page.getByTestId("feature-teaser")).toHaveAttribute("data-variant", "v4");
+    await expect(page.getByText(THUMBS_QUESTION)).toBeVisible();
+    await expect(page.getByTestId("paid-layout-prompt")).toHaveCount(0);
   });
 
-  test("shown, opened and dismissed all name the variant", async ({ page }) => {
-    await stubAnalytics(page);
+  test("off: a heavy user gets the thumbs prompt", async ({ page }) => {
     await page.goto("/");
-    await seedVariant(page, "v3");
+    await seedHistory(page, { conversions: 2, teaserDaysAgo: 2, answered: true });
+    await seedHeavyUse(page);
     await uploadSample(page);
     await exportTxt(page);
+    await expect(page.getByText(THUMBS_QUESTION)).toBeVisible();
+    await expect(page.getByTestId("paid-layout-prompt")).toHaveCount(0);
+  });
 
-    const teaser = page.getByTestId("feature-teaser");
-    await teaser.getByTestId("feature-teaser-open").click();
+  test("on: never in the same tab as a vote invitation", async ({ page }) => {
+    await page.goto("/?paid=1");
+    await seedHeavyUse(page);
+    await uploadSample(page);
+    await exportTxt(page);
+    await expect(page.getByTestId("feature-teaser")).toBeVisible();
+    // The visitor votes, so the invitation is finished; the next slot comes in the same tab.
+    await page.getByTestId("feature-teaser-open").click();
+    await vote(page, "share");
     await page.keyboard.press("Escape");
-    await teaser.getByRole("button", { name: "Dismiss" }).click();
+    await endQuietPeriod(page);
+    await exportTxt(page);
+    await expect(page.getByText(THUMBS_QUESTION)).toBeVisible();
+    await expect(page.getByTestId("paid-layout-prompt")).toHaveCount(0);
+  });
+});
 
-    const events = await getEvents(page);
-    const names = events.map((e) => e.name);
-    // Per-variant names, which the Umami event list counts directly...
-    expect(names).toContain("feature_teaser_shown_v3");
-    expect(names).toContain("feature_teaser_opened_v3");
-    expect(names.filter((n) => /_v[1245]$/.test(n))).toEqual([]);
-    // ...and the generic funnel events, carrying the variant as a property.
-    expect(events.find((e) => e.name === "feature_teaser_shown")?.data?.variant).toBe("v3");
-    expect(events.find((e) => e.name === "feature_teaser_opened")?.data).toEqual({ variant: "v3" });
-    expect(events.find((e) => e.name === "feature_teaser_closed")?.data?.variant).toBe("v3");
-    expect(events.find((e) => e.name === "feature_teaser_dismissed")?.data).toMatchObject({
-      stage: "vote",
-      how: "close",
-      variant: "v3",
+test.describe("Suggest an improvement", () => {
+  test("the link opens a private box; the text never reaches analytics", async ({ page }) => {
+    await page.goto("/");
+    await uploadSample(page);
+    await page.getByTestId("suggest-link").click();
+    expect(await eventsNamed(page, "suggest_opened")).toEqual([{ name: "suggest_opened", data: { where: "desktop" } }]);
+
+    const form = page.getByTestId("suggest-form");
+    await form.locator("#suggest-form-text").fill("Dark mode for the preview");
+    await page.waitForTimeout(HUMAN_PAUSE_MS);
+    const request = page.waitForRequest((r) => r.url().endsWith("/api/ideas"));
+    await form.getByRole("button", { name: FT.send }).click();
+    expect((await request).postDataJSON()).toMatchObject({
+      kind: "suggestion",
+      feature: null,
+      text: "Dark mode for the preview",
     });
+    await expect(page.getByText(EN.suggest.done)).toBeVisible();
+    expect(await eventNames(page)).toContain("idea_sent_suggestion");
+    expect(JSON.stringify(await getEvents(page))).not.toContain("Dark mode");
   });
 });
 
 test.describe("POST /api/votes", () => {
-  test("rejects an unknown feature", async ({ request }) => {
-    const response = await request.post("/api/votes", {
-      headers: ORIGIN_HEADERS,
-      data: { features: ["backup", "free-pizza"], elapsedMs: 5000 },
-    });
-    expect(response.status()).toBe(400);
-    expect((await response.json()).error).toBe("INVALID_FEATURES");
+  test("accepts each choice", async ({ request }) => {
+    test.skip(!(await serverIsTestTarget(request)), "needs a test server that stores nothing");
+    for (const choice of [...Object.keys(FEATURE_LABELS), "other", "nothing"]) {
+      const response = await request.post("/api/votes", {
+        headers: ORIGIN_HEADERS,
+        data: { choice, website: "", elapsedMs: 5000 },
+      });
+      expect(response.status(), choice).toBe(200);
+      expect(response.headers()["x-votes-outcome"]).toBe("test-mode");
+    }
   });
 
-  test("rejects an unknown pay answer", async ({ request }) => {
+  test("still accepts the old multi-pick call during a rollout", async ({ request }) => {
+    test.skip(!(await serverIsTestTarget(request)), "needs a test server that stores nothing");
     const response = await request.post("/api/votes", {
       headers: ORIGIN_HEADERS,
-      data: { pay: "later" },
+      data: { features: ["backup", "share"], website: "", elapsedMs: 5000 },
     });
-    expect(response.status()).toBe(400);
-    expect((await response.json()).error).toBe("INVALID_PAY");
+    expect(response.status()).toBe(200);
   });
 
-  test("rejects an empty call", async ({ request }) => {
-    const response = await request.post("/api/votes", {
-      headers: ORIGIN_HEADERS,
-      data: { features: [] },
-    });
-    expect(response.status()).toBe(400);
-    expect((await response.json()).error).toBe("NOTHING_TO_RECORD");
-  });
-
-  test("rejects a non-JSON body and an oversized body", async ({ request }) => {
+  test("rejects an unknown choice, an empty call and bad JSON", async ({ request }) => {
+    const unknown = await request.post("/api/votes", { headers: ORIGIN_HEADERS, data: { choice: "free-pizza" } });
+    expect(unknown.status()).toBe(400);
+    expect((await unknown.json()).error).toBe("INVALID_CHOICE");
+    const empty = await request.post("/api/votes", { headers: ORIGIN_HEADERS, data: {} });
+    expect(empty.status()).toBe(400);
     const notJson = await request.post("/api/votes", {
       headers: { ...ORIGIN_HEADERS, "Content-Type": "application/json" },
       data: "not json",
     });
     expect(notJson.status()).toBe(400);
-    expect((await notJson.json()).error).toBe("INVALID_JSON");
-
-    const oversized = await request.post("/api/votes", {
-      headers: ORIGIN_HEADERS,
-      data: { features: ["backup"], elapsedMs: 5000, website: "x".repeat(2000) },
-    });
-    expect(oversized.status()).toBe(413);
   });
 
   test("rejects a POST from another site", async ({ request }) => {
     const response = await request.post("/api/votes", {
-      headers: { Origin: "https://malicious-site.com" },
-      data: { features: ["backup"], elapsedMs: 5000 },
+      headers: { Origin: "https://evil.example" },
+      data: { choice: "share", elapsedMs: 5000 },
     });
     expect(response.status()).toBe(403);
   });
 
   test("bot drops answer exactly like an accepted vote", async ({ request }) => {
-    test.skip(!(await serverIsTestTarget(request)), "needs a server started with E2E_RELAXED_RATE_LIMITS=1");
+    const honeypot = await request.post("/api/votes", {
+      headers: ORIGIN_HEADERS,
+      data: { choice: "share", website: "http://spam.example", elapsedMs: 5000 },
+    });
+    expect(honeypot.status()).toBe(200);
+    expect((await honeypot.json()).ok).toBe(true);
+    const fast = await request.post("/api/votes", {
+      headers: ORIGIN_HEADERS,
+      data: { choice: "share", website: "", elapsedMs: 100 },
+    });
+    expect(fast.status()).toBe(200);
+    expect((await fast.json()).ok).toBe(true);
+  });
+});
 
-    const cases: Array<[string, Record<string, unknown>]> = [
-      ["dropped-honeypot", { features: ["backup"], elapsedMs: 5000, website: "https://spam.example" }],
-      ["dropped-fast", { features: ["backup"], elapsedMs: 200 }],
-      ["dropped-fast", { features: ["backup"] }],
-      ["test-mode", { features: ["backup"], elapsedMs: 5000 }],
-      ["test-mode", { pay: "yes" }],
+test.describe("POST /api/ideas", () => {
+  const good = { kind: "suggestion", text: "Dark mode", locale: "en", website: "", elapsedMs: 5000 };
+
+  test("accepts a suggestion and a workaround with its feature", async ({ request }) => {
+    test.skip(!(await serverIsTestTarget(request)), "needs a test server that stores nothing");
+    const suggestion = await request.post("/api/ideas", { headers: ORIGIN_HEADERS, data: good });
+    expect(suggestion.status()).toBe(200);
+    expect(suggestion.headers()["x-ideas-outcome"]).toBe("test-mode");
+    const workaround = await request.post("/api/ideas", {
+      headers: ORIGIN_HEADERS,
+      data: { ...good, kind: "workaround", feature: "equations" },
+    });
+    expect(workaround.status()).toBe(200);
+  });
+
+  test("rejects bad input", async ({ request }) => {
+    const cases: [Record<string, unknown>, string][] = [
+      [{ ...good, kind: "spam" }, "INVALID_KIND"],
+      [{ ...good, text: "   " }, "EMPTY_TEXT"],
+      [{ ...good, text: "x".repeat(201) }, "TEXT_TOO_LONG"],
+      [{ ...good, kind: "workaround", feature: "free-pizza" }, "INVALID_FEATURE"],
     ];
-    for (const [outcome, data] of cases) {
-      const response = await request.post("/api/votes", { headers: ORIGIN_HEADERS, data });
-      expect(response.status(), outcome).toBe(200);
-      expect(await response.json(), outcome).toEqual({ ok: true, tallies: [] });
-      expect(response.headers()["x-votes-outcome"]).toBe(outcome);
+    for (const [data, error] of cases) {
+      const response = await request.post("/api/ideas", { headers: ORIGIN_HEADERS, data });
+      expect(response.status(), error).toBe(400);
+      expect((await response.json()).error).toBe(error);
     }
+    const tooBig = await request.post("/api/ideas", {
+      headers: { ...ORIGIN_HEADERS, "Content-Type": "application/json" },
+      data: JSON.stringify({ ...good, text: "x".repeat(3000) }),
+    });
+    expect(tooBig.status()).toBe(413);
+  });
+
+  test("drops bots silently and blocks other sites", async ({ request }) => {
+    const honeypot = await request.post("/api/ideas", { headers: ORIGIN_HEADERS, data: { ...good, website: "x" } });
+    expect(honeypot.status()).toBe(200);
+    const fast = await request.post("/api/ideas", { headers: ORIGIN_HEADERS, data: { ...good, elapsedMs: 50 } });
+    expect(fast.status()).toBe(200);
+    const foreign = await request.post("/api/ideas", { headers: { Origin: "https://evil.example" }, data: good });
+    expect(foreign.status()).toBe(403);
+  });
+});
+
+test.describe("POST /api/notify", () => {
+  test("accepts the new features and refuses the non-features", async ({ request }) => {
+    const base = { email: "x@example.com", locale: "en", website: "", elapsedMs: 5000 };
+    const large = await request.post("/api/notify", { headers: ORIGIN_HEADERS, data: { ...base, features: ["large"] } });
+    expect(large.status()).toBe(200);
+    const other = await request.post("/api/notify", { headers: ORIGIN_HEADERS, data: { ...base, features: ["other"] } });
+    expect(other.status()).toBe(400);
+    const retired = await request.post("/api/notify", { headers: ORIGIN_HEADERS, data: { ...base, features: ["backup"] } });
+    expect(retired.status()).toBe(400);
   });
 });

@@ -75,6 +75,23 @@ export async function recordProbe(features: string[], pay: string | null): Promi
   );
 }
 
+/**
+ * Store one piece of typed feedback (20260927000000_feedback_v2.sql): the text
+ * for "Something else", an answer to "What do you do today…", or a suggestion.
+ */
+export async function saveIdea(kind: string, feature: string | null, body: string, locale: string): Promise<void> {
+  const config = storeConfig();
+  if (!config) throw new Error("notify store is not configured");
+
+  const response = await fetch(`${config.url}/rest/v1/rpc/save_idea`, {
+    method: "POST",
+    headers: authHeaders(config.key),
+    body: JSON.stringify({ p_kind: kind, p_feature: feature ?? "", p_body: body, p_locale: locale }),
+    signal: AbortSignal.timeout(TIMEOUT_MS),
+  });
+  if (!response.ok) throw new Error(`Supabase responded ${response.status}`);
+}
+
 /** Insert the signup, or merge the new features into the existing row. */
 export async function saveNotifySignup(email: string, features: string[], locale: string): Promise<void> {
   const config = storeConfig();

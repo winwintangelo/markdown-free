@@ -31,6 +31,8 @@ export interface LoadedContent {
 export interface AppError {
   code: string;
   message: string;
+  /** Size in bytes of a file rejected as too large (FILE_TOO_LARGE). */
+  size?: number;
 }
 
 // App state
