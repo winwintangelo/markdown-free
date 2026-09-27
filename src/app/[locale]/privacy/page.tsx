@@ -111,26 +111,29 @@ const content: Partial<Record<Locale, {
       items: [
         "Personal information (names, accounts)",
         "Document content or file contents",
-        "File names or metadata",
+        "File names",
         "Your IP address in logs",
         "Cookies for tracking"
       ]
     },
     analytics: {
       title: "Analytics",
-      text1: "We use Umami Cloud, a privacy-focused, cookieless analytics platform. It helps us understand how many people use Markdown Free and which features are most useful.",
-      text2: "Umami does not use cookies and does not collect personal information such as names, email addresses, or IP addresses. We only see aggregated data like:",
+      text1: "We use Umami Cloud and Vercel Web Analytics, two privacy-focused, cookieless analytics services. They help us understand how many people use Markdown Free and which features are most useful.",
+      text2: "Neither uses cookies or collects personal information such as names, email addresses, or IP addresses. We only see aggregated data like:",
       items: [
         "Page views and visitor counts",
         "Referrer information (where visitors come from)",
         "Counts of successful conversions (PDF, DOCX, PNG, EPUB, HTML, TXT)",
-        "General device/browser information"
+        "General device/browser information",
+        "How often a browser converts, in broad ranges: conversions and active days in the last 30 days, the number of formats, time since its first conversion, and whether it happened during weekday working hours, outside them, or at the weekend",
+        "Facts about a converted document, in broad ranges: its size, the number of images, whether it has formulas or diagrams, and whether it was converted before",
+        "The size range of a file that was too large to upload"
       ],
-      notice: "We do not send your Markdown content, file names, or any text you paste to our analytics provider. Analytics respects your browser's Do Not Track setting."
+      notice: "We do not send your Markdown content, file names, or any text you paste to our analytics providers. Your browser works out the ranges above itself. To recognise a document you convert again, it keeps a one-way fingerprint of recent file names (or pasted text) for 30 days; the fingerprint never leaves your device. Analytics respects your browser's Do Not Track setting."
     },
     thirdParties: {
       title: "Third parties",
-      text: "We do not share your documents with anyone. Three service providers process limited data on our behalf: Umami Cloud (cookieless analytics — aggregate counts only, never your content), Resend (delivers feedback messages to our inbox) and Supabase (stores the email address you leave to hear about upcoming features, with the features you picked, in the United States; we delete it once those features have shipped or after 12 months, whichever comes first). The PDF generation runs on our own serverless infrastructure (Vercel). No external service sees your content."
+      text: "We do not share your documents with anyone. Four service providers process limited data on our behalf: Umami Cloud and Vercel Web Analytics (cookieless analytics — aggregate counts and ranges only, never your content), Resend (delivers feedback messages to our inbox) and Supabase (stores the email address you leave to hear about upcoming features, with the features you picked, in the United States; we delete it once those features have shipped or after 12 months, whichever comes first). The PDF generation runs on our own serverless infrastructure (Vercel). No external service sees your content."
     },
     security: {
       title: "Security",
@@ -184,26 +187,29 @@ const content: Partial<Record<Locale, {
       items: [
         "Informazioni personali (nomi, account)",
         "Contenuto dei documenti o dei file",
-        "Nomi dei file o metadati",
+        "Nomi dei file",
         "Il tuo indirizzo IP nei log",
         "Cookie per il tracciamento"
       ]
     },
     analytics: {
       title: "Analytics",
-      text1: "Utilizziamo Umami Cloud, una piattaforma di analytics rispettosa della privacy e senza cookie. Ci aiuta a capire quante persone usano Markdown Free e quali funzionalità sono più utili.",
-      text2: "Umami non utilizza cookie e non raccoglie informazioni personali come nomi, indirizzi email o IP. Vediamo solo dati aggregati come:",
+      text1: "Utilizziamo Umami Cloud e Vercel Web Analytics, due servizi di analytics rispettosi della privacy e senza cookie. Ci aiutano a capire quante persone usano Markdown Free e quali funzionalità sono più utili.",
+      text2: "Nessuno dei due utilizza cookie o raccoglie informazioni personali come nomi, indirizzi email o IP. Vediamo solo dati aggregati come:",
       items: [
         "Visualizzazioni di pagina e conteggio visitatori",
         "Informazioni sui referrer (da dove arrivano i visitatori)",
         "Conteggio delle conversioni riuscite (PDF, DOCX, PNG, EPUB, HTML, TXT)",
-        "Informazioni generali su dispositivo/browser"
+        "Informazioni generali su dispositivo/browser",
+        "Con quale frequenza un browser converte, per fasce: conversioni e giorni di utilizzo negli ultimi 30 giorni, numero di formati, tempo trascorso dalla prima conversione e se avviene in orario lavorativo nei giorni feriali, fuori orario o nel fine settimana",
+        "Dati su un documento convertito, per fasce: dimensione, numero di immagini, presenza di formule o diagrammi e se era già stato convertito",
+        "La fascia di dimensione di un file troppo grande da caricare"
       ],
-      notice: "Non inviamo il contenuto Markdown, i nomi dei file o qualsiasi testo che incolli al nostro provider di analytics. Le analytics rispettano l'impostazione Do Not Track del tuo browser."
+      notice: "Non inviamo il contenuto Markdown, i nomi dei file o qualsiasi testo che incolli ai nostri provider di analytics. Le fasce qui sopra vengono calcolate dal tuo browser. Per riconoscere un documento che converti di nuovo, il browser conserva per 30 giorni un'impronta non reversibile dei nomi dei file recenti (o del testo incollato); l'impronta non lascia mai il tuo dispositivo. Le analytics rispettano l'impostazione Do Not Track del tuo browser."
     },
     thirdParties: {
       title: "Terze parti",
-      text: "Non condividiamo i tuoi documenti con nessuno. Tre fornitori trattano dati limitati per nostro conto: Umami Cloud (analytics senza cookie — solo conteggi aggregati, mai i tuoi contenuti), Resend (recapita i messaggi di feedback alla nostra casella) e Supabase (conserva negli Stati Uniti l'email che lasci per sapere delle nuove funzioni, insieme alle funzioni scelte; la cancelliamo quando quelle funzioni sono disponibili o dopo 12 mesi, se prima). La generazione PDF avviene sulla nostra infrastruttura serverless (Vercel). Nessun servizio esterno vede i tuoi contenuti."
+      text: "Non condividiamo i tuoi documenti con nessuno. Quattro fornitori trattano dati limitati per nostro conto: Umami Cloud e Vercel Web Analytics (analytics senza cookie — solo conteggi aggregati e fasce, mai i tuoi contenuti), Resend (recapita i messaggi di feedback alla nostra casella) e Supabase (conserva negli Stati Uniti l'email che lasci per sapere delle nuove funzioni, insieme alle funzioni scelte; la cancelliamo quando quelle funzioni sono disponibili o dopo 12 mesi, se prima). La generazione PDF avviene sulla nostra infrastruttura serverless (Vercel). Nessun servizio esterno vede i tuoi contenuti."
     },
     security: {
       title: "Sicurezza",
@@ -257,26 +263,29 @@ const content: Partial<Record<Locale, {
       items: [
         "Información personal (nombres, cuentas)",
         "Contenido de documentos o archivos",
-        "Nombres de archivos o metadatos",
+        "Nombres de archivos",
         "Tu dirección IP en registros",
         "Cookies para rastreo"
       ]
     },
     analytics: {
       title: "Analytics",
-      text1: "Usamos Umami Cloud, una plataforma de análisis enfocada en privacidad y sin cookies. Nos ayuda a entender cuántas personas usan Markdown Free y qué funciones son más útiles.",
-      text2: "Umami no usa cookies y no recopila información personal como nombres, direcciones de email o IPs. Solo vemos datos agregados como:",
+      text1: "Usamos Umami Cloud y Vercel Web Analytics, dos servicios de análisis enfocados en la privacidad y sin cookies. Nos ayudan a entender cuántas personas usan Markdown Free y qué funciones son más útiles.",
+      text2: "Ninguno usa cookies ni recopila información personal como nombres, direcciones de email o IPs. Solo vemos datos agregados como:",
       items: [
         "Vistas de página y conteo de visitantes",
         "Información de referencia (de dónde vienen los visitantes)",
         "Conteo de conversiones exitosas (PDF, DOCX, PNG, EPUB, HTML, TXT)",
-        "Información general de dispositivo/navegador"
+        "Información general de dispositivo/navegador",
+        "Con qué frecuencia convierte un navegador, en rangos amplios: conversiones y días de uso en los últimos 30 días, número de formatos, tiempo desde su primera conversión y si ocurre en horario laboral entre semana, fuera de él o en fin de semana",
+        "Datos de un documento convertido, en rangos amplios: su tamaño, el número de imágenes, si contiene fórmulas o diagramas y si ya se había convertido antes",
+        "El rango de tamaño de un archivo demasiado grande para subirlo"
       ],
-      notice: "No enviamos tu contenido Markdown, nombres de archivos o cualquier texto que pegues a nuestro proveedor de analytics. Las analytics respetan la configuración Do Not Track de tu navegador."
+      notice: "No enviamos tu contenido Markdown, nombres de archivos ni ningún texto que pegues a nuestros proveedores de analytics. Tu navegador calcula por sí mismo los rangos anteriores. Para reconocer un documento que vuelves a convertir, guarda durante 30 días una huella irreversible de los nombres de archivo recientes (o del texto pegado); esa huella nunca sale de tu dispositivo. Las analytics respetan la configuración Do Not Track de tu navegador."
     },
     thirdParties: {
       title: "Terceros",
-      text: "No compartimos tus documentos con nadie. Tres proveedores tratan datos limitados en nuestro nombre: Umami Cloud (analítica sin cookies — solo recuentos agregados, nunca tu contenido), Resend (entrega los mensajes de comentarios a nuestra bandeja de entrada) y Supabase (guarda en Estados Unidos el email que dejas para saber de nuevas funciones, junto con las funciones elegidas; lo borramos cuando esas funciones estén disponibles o a los 12 meses, lo que ocurra primero). La generación de PDF se ejecuta en nuestra propia infraestructura serverless (Vercel). Ningún servicio externo ve tu contenido."
+      text: "No compartimos tus documentos con nadie. Cuatro proveedores tratan datos limitados en nuestro nombre: Umami Cloud y Vercel Web Analytics (analítica sin cookies — solo recuentos agregados y rangos, nunca tu contenido), Resend (entrega los mensajes de comentarios a nuestra bandeja de entrada) y Supabase (guarda en Estados Unidos el email que dejas para saber de nuevas funciones, junto con las funciones elegidas; lo borramos cuando esas funciones estén disponibles o a los 12 meses, lo que ocurra primero). La generación de PDF se ejecuta en nuestra propia infraestructura serverless (Vercel). Ningún servicio externo ve tu contenido."
     },
     security: {
       title: "Seguridad",
@@ -330,26 +339,29 @@ const content: Partial<Record<Locale, {
       items: [
         "個人情報（名前、アカウント）",
         "ドキュメントやファイルの内容",
-        "ファイル名やメタデータ",
+        "ファイル名",
         "ログ内のIPアドレス",
         "トラッキング用Cookie"
       ]
     },
     analytics: {
       title: "アナリティクス",
-      text1: "プライバシー重視でCookieを使用しないアナリティクスプラットフォーム「Umami Cloud」を使用しています。Markdown Freeの利用者数や人気機能の把握に役立てています。",
-      text2: "Umamiは、Cookieを使用せず、名前、メールアドレス、IPアドレスなどの個人情報を収集しません。集計データのみ確認できます：",
+      text1: "プライバシー重視でCookieを使用しないアナリティクスサービス「Umami Cloud」と「Vercel Web Analytics」を使用しています。Markdown Freeの利用者数や人気機能の把握に役立てています。",
+      text2: "どちらもCookieを使用せず、名前、メールアドレス、IPアドレスなどの個人情報を収集しません。集計データのみ確認できます：",
       items: [
         "ページビューと訪問者数",
         "リファラー情報（訪問元）",
         "変換成功数（PDF、DOCX、PNG、EPUB、HTML、TXT）",
-        "一般的なデバイス/ブラウザ情報"
+        "一般的なデバイス/ブラウザ情報",
+        "ブラウザごとの利用頻度（大まかな範囲）：過去30日間の変換回数と利用日数、使った形式の数、初回変換からの期間、平日の勤務時間帯・時間外・週末のいずれか",
+        "変換したドキュメントの特徴（大まかな範囲）：サイズ、画像の数、数式や図を含むかどうか、以前に変換したことがあるかどうか",
+        "大きすぎてアップロードできなかったファイルのサイズの範囲"
       ],
-      notice: "Markdownコンテンツ、ファイル名、貼り付けたテキストはアナリティクスプロバイダーに送信されません。アナリティクスはブラウザのDo Not Track設定を尊重します。"
+      notice: "Markdownコンテンツ、ファイル名、貼り付けたテキストはアナリティクスプロバイダーに送信されません。上記の範囲はブラウザ内で算出されます。同じドキュメントの再変換を判別するため、ブラウザは最近のファイル名（または貼り付けたテキスト）から作った元に戻せない識別子を30日間保存しますが、この識別子が端末の外に出ることはありません。アナリティクスはブラウザのDo Not Track設定を尊重します。"
     },
     thirdParties: {
       title: "第三者",
-      text: "お客様のドキュメントを第三者と共有することはありません。当社に代わって限定的なデータを処理するサービスが3つあります。Umami Cloud（Cookie不使用のアクセス解析。集計された件数のみで、コンテンツは含まれません）、Resend（フィードバックのメッセージを当社の受信箱に届けます）、Supabase（新機能のお知らせ用に入力されたメールアドレスと選んだ機能を米国で保管します。該当機能のリリース後、または12か月後のいずれか早い時点で削除します）です。PDF生成は自社のサーバーレスインフラ（Vercel）で実行されます。外部サービスがコンテンツを見ることはありません。"
+      text: "お客様のドキュメントを第三者と共有することはありません。当社に代わって限定的なデータを処理するサービスが4つあります。Umami CloudとVercel Web Analytics（Cookie不使用のアクセス解析。集計された件数と範囲のみで、コンテンツは含まれません）、Resend（フィードバックのメッセージを当社の受信箱に届けます）、Supabase（新機能のお知らせ用に入力されたメールアドレスと選んだ機能を米国で保管します。該当機能のリリース後、または12か月後のいずれか早い時点で削除します）です。PDF生成は自社のサーバーレスインフラ（Vercel）で実行されます。外部サービスがコンテンツを見ることはありません。"
     },
     security: {
       title: "セキュリティ",
@@ -403,26 +415,29 @@ const content: Partial<Record<Locale, {
       items: [
         "개인정보 (이름, 계정)",
         "문서 또는 파일 내용",
-        "파일명 또는 메타데이터",
+        "파일명",
         "로그의 IP 주소",
         "추적용 쿠키"
       ]
     },
     analytics: {
       title: "분석",
-      text1: "개인정보 보호에 중점을 둔 쿠키리스 분석 플랫폼인 Umami Cloud를 사용합니다. Markdown Free 사용자 수와 가장 유용한 기능을 파악하는 데 도움이 됩니다.",
-      text2: "Umami는 쿠키를 사용하지 않으며 이름, 이메일 주소, IP 주소 같은 개인정보를 수집하지 않습니다. 다음과 같은 집계 데이터만 볼 수 있습니다:",
+      text1: "개인정보 보호에 중점을 둔 쿠키리스 분석 서비스인 Umami Cloud와 Vercel Web Analytics를 사용합니다. Markdown Free 사용자 수와 가장 유용한 기능을 파악하는 데 도움이 됩니다.",
+      text2: "두 서비스 모두 쿠키를 사용하지 않으며 이름, 이메일 주소, IP 주소 같은 개인정보를 수집하지 않습니다. 다음과 같은 집계 데이터만 볼 수 있습니다:",
       items: [
         "페이지 조회수 및 방문자 수",
         "리퍼러 정보 (방문자 유입 경로)",
         "성공적인 변환 횟수 (PDF, DOCX, PNG, EPUB, HTML, TXT)",
-        "일반적인 기기/브라우저 정보"
+        "일반적인 기기/브라우저 정보",
+        "브라우저의 사용 빈도(대략적인 범위): 최근 30일간 변환 횟수와 사용 일수, 사용한 형식 수, 첫 변환 이후 기간, 평일 근무 시간·그 외 시간·주말 중 언제인지",
+        "변환한 문서의 특징(대략적인 범위): 크기, 이미지 수, 수식이나 다이어그램 포함 여부, 이전에 변환한 적이 있는지 여부",
+        "너무 커서 업로드할 수 없었던 파일의 크기 범위"
       ],
-      notice: "Markdown 콘텐츠, 파일명, 붙여넣은 텍스트는 분석 제공업체에 전송되지 않습니다. 분석은 브라우저의 Do Not Track 설정을 존중합니다."
+      notice: "Markdown 콘텐츠, 파일명, 붙여넣은 텍스트는 분석 제공업체에 전송되지 않습니다. 위의 범위는 브라우저에서 직접 계산됩니다. 같은 문서를 다시 변환하는지 알아보기 위해 브라우저는 최근 파일명(또는 붙여넣은 텍스트)으로 만든 되돌릴 수 없는 식별값을 30일 동안 보관하며, 이 식별값은 기기 밖으로 나가지 않습니다. 분석은 브라우저의 Do Not Track 설정을 존중합니다."
     },
     thirdParties: {
       title: "제3자",
-      text: "귀하의 문서를 누구와도 공유하지 않습니다. 세 서비스 제공업체가 당사를 대신해 제한된 데이터를 처리합니다. Umami Cloud(쿠키 없는 분석 — 집계된 수치만, 콘텐츠는 절대 포함되지 않음), Resend(피드백 메시지를 당사 받은편지함으로 전달), Supabase(새 기능 알림을 위해 남긴 이메일과 선택한 기능을 미국에 보관하며, 해당 기능 출시 후 또는 12개월 후 중 먼저 오는 시점에 삭제)입니다. PDF 생성은 자체 서버리스 인프라(Vercel)에서 실행됩니다. 외부 서비스가 콘텐츠를 볼 수 없습니다."
+      text: "귀하의 문서를 누구와도 공유하지 않습니다. 네 서비스 제공업체가 당사를 대신해 제한된 데이터를 처리합니다. Umami Cloud와 Vercel Web Analytics(쿠키 없는 분석 — 집계된 수치와 범위만, 콘텐츠는 절대 포함되지 않음), Resend(피드백 메시지를 당사 받은편지함으로 전달), Supabase(새 기능 알림을 위해 남긴 이메일과 선택한 기능을 미국에 보관하며, 해당 기능 출시 후 또는 12개월 후 중 먼저 오는 시점에 삭제)입니다. PDF 생성은 자체 서버리스 인프라(Vercel)에서 실행됩니다. 외부 서비스가 콘텐츠를 볼 수 없습니다."
     },
     security: {
       title: "보안",
@@ -476,26 +491,29 @@ const content: Partial<Record<Locale, {
       items: [
         "个人信息（姓名、账户）",
         "文档或文件内容",
-        "文件名或元数据",
+        "文件名",
         "日志中的 IP 地址",
         "用于跟踪的 Cookie"
       ]
     },
     analytics: {
       title: "分析",
-      text1: "我们使用 Umami Cloud，这是一个注重隐私、不使用 Cookie 的分析平台。它帮助我们了解有多少人使用 Markdown Free 以及哪些功能最有用。",
-      text2: "Umami 不使用 Cookie，不收集姓名、邮箱地址或 IP 地址等个人信息。我们只能看到汇总数据，例如：",
+      text1: "我们使用 Umami Cloud 和 Vercel Web Analytics，这两项分析服务都注重隐私、不使用 Cookie。它们帮助我们了解有多少人使用 Markdown Free 以及哪些功能最有用。",
+      text2: "两者都不使用 Cookie，也不收集姓名、邮箱地址或 IP 地址等个人信息。我们只能看到汇总数据，例如：",
       items: [
         "页面浏览量和访客数量",
         "来源信息（访客从哪里来）",
         "成功转换次数（PDF、DOCX、PNG、EPUB、HTML、TXT）",
-        "一般设备/浏览器信息"
+        "一般设备/浏览器信息",
+        "浏览器的使用频率（粗略区间）：过去 30 天的转换次数和使用天数、使用的格式数量、距首次转换的时间，以及是在工作日工作时间、工作时间以外还是周末",
+        "所转换文档的特征（粗略区间）：大小、图片数量、是否包含公式或图表，以及是否曾经转换过",
+        "因过大而无法上传的文件的大小区间"
       ],
-      notice: "我们不会将您的 Markdown 内容、文件名或任何粘贴的文本发送给分析服务提供商。分析会尊重您浏览器的「请勿跟踪」设置。"
+      notice: "我们不会将您的 Markdown 内容、文件名或任何粘贴的文本发送给分析服务提供商。上述区间由您的浏览器自行计算。为了识别您再次转换的文档，浏览器会将近期文件名（或粘贴文本）生成的不可逆标识保存 30 天，该标识不会离开您的设备。分析会尊重您浏览器的「请勿跟踪」设置。"
     },
     thirdParties: {
       title: "第三方",
-      text: "我们不会与任何人共享您的文档。有三家服务提供商代表我们处理有限的数据：Umami Cloud（无 Cookie 的统计分析，仅汇总计数，绝不涉及您的内容）、Resend（将反馈留言投递到我们的收件箱）和 Supabase（在美国保存您为接收新功能通知而留下的邮箱及所选功能；相关功能上线后或满 12 个月时删除，以先到者为准）。PDF 生成在我们自己的无服务器基础设施（Vercel）上运行。没有外部服务会看到您的内容。"
+      text: "我们不会与任何人共享您的文档。有四家服务提供商代表我们处理有限的数据：Umami Cloud 和 Vercel Web Analytics（无 Cookie 的统计分析，仅汇总计数和区间，绝不涉及您的内容）、Resend（将反馈留言投递到我们的收件箱）和 Supabase（在美国保存您为接收新功能通知而留下的邮箱及所选功能；相关功能上线后或满 12 个月时删除，以先到者为准）。PDF 生成在我们自己的无服务器基础设施（Vercel）上运行。没有外部服务会看到您的内容。"
     },
     security: {
       title: "安全",
@@ -549,26 +567,29 @@ const content: Partial<Record<Locale, {
       items: [
         "個人資訊（姓名、帳戶）",
         "文件或檔案內容",
-        "檔案名稱或中繼資料",
+        "檔案名稱",
         "日誌中的 IP 位址",
         "用於追蹤的 Cookie"
       ]
     },
     analytics: {
       title: "分析",
-      text1: "我們使用 Umami Cloud，這是一個注重隱私、不使用 Cookie 的分析平台。它幫助我們了解有多少人使用 Markdown Free 以及哪些功能最有用。",
-      text2: "Umami 不使用 Cookie，不收集姓名、電子郵件地址或 IP 位址等個人資訊。我們只能看到匯總資料，例如：",
+      text1: "我們使用 Umami Cloud 和 Vercel Web Analytics，這兩項分析服務都注重隱私、不使用 Cookie。它們幫助我們了解有多少人使用 Markdown Free 以及哪些功能最有用。",
+      text2: "兩者都不使用 Cookie，也不收集姓名、電子郵件地址或 IP 位址等個人資訊。我們只能看到匯總資料，例如：",
       items: [
         "頁面瀏覽量和訪客數量",
         "來源資訊（訪客從哪裡來）",
         "成功轉換次數（PDF、DOCX、PNG、EPUB、HTML、TXT）",
-        "一般裝置/瀏覽器資訊"
+        "一般裝置/瀏覽器資訊",
+        "瀏覽器的使用頻率（粗略區間）：過去 30 天的轉換次數和使用天數、使用的格式數量、距首次轉換的時間，以及是在平日上班時間、上班時間以外還是週末",
+        "所轉換文件的特徵（粗略區間）：大小、圖片數量、是否包含公式或圖表，以及是否曾經轉換過",
+        "因過大而無法上傳的檔案的大小區間"
       ],
-      notice: "我們不會將您的 Markdown 內容、檔案名稱或任何貼上的文字傳送給分析服務提供商。分析會尊重您瀏覽器的「請勿追蹤」設定。"
+      notice: "我們不會將您的 Markdown 內容、檔案名稱或任何貼上的文字傳送給分析服務提供商。上述區間由您的瀏覽器自行計算。為了辨識您再次轉換的文件，瀏覽器會將近期檔案名稱（或貼上文字）產生的不可逆識別碼保存 30 天，該識別碼不會離開您的裝置。分析會尊重您瀏覽器的「請勿追蹤」設定。"
     },
     thirdParties: {
       title: "第三方",
-      text: "我們不會與任何人共用您的文件。有三家服務供應商代表我們處理有限的資料：Umami Cloud（無 Cookie 的統計分析，僅彙總計數，絕不涉及您的內容）、Resend（將意見回饋留言投遞到我們的收件匣）和 Supabase（在美國保存您為接收新功能通知而留下的電子郵件及所選功能；相關功能上線後或滿 12 個月時刪除，以先到者為準）。PDF 生成在我們自己的無伺服器基礎架構（Vercel）上執行。沒有外部服務會看到您的內容。"
+      text: "我們不會與任何人共用您的文件。有四家服務供應商代表我們處理有限的資料：Umami Cloud 和 Vercel Web Analytics（無 Cookie 的統計分析，僅彙總計數和區間，絕不涉及您的內容）、Resend（將意見回饋留言投遞到我們的收件匣）和 Supabase（在美國保存您為接收新功能通知而留下的電子郵件及所選功能；相關功能上線後或滿 12 個月時刪除，以先到者為準）。PDF 生成在我們自己的無伺服器基礎架構（Vercel）上執行。沒有外部服務會看到您的內容。"
     },
     security: {
       title: "安全",
@@ -622,26 +643,29 @@ const content: Partial<Record<Locale, {
       items: [
         "Informasi pribadi (nama, akun)",
         "Konten dokumen atau file",
-        "Nama file atau metadata",
+        "Nama file",
         "Alamat IP Anda dalam log",
         "Cookie untuk pelacakan"
       ]
     },
     analytics: {
       title: "Analitik",
-      text1: "Kami menggunakan Umami Cloud, platform analitik yang berfokus pada privasi dan tanpa cookie. Ini membantu kami memahami berapa banyak orang yang menggunakan Markdown Free dan fitur mana yang paling berguna.",
-      text2: "Umami tidak menggunakan cookie dan tidak mengumpulkan informasi pribadi seperti nama, alamat email, atau alamat IP. Kami hanya melihat data agregat seperti:",
+      text1: "Kami menggunakan Umami Cloud dan Vercel Web Analytics, dua layanan analitik yang berfokus pada privasi dan tanpa cookie. Keduanya membantu kami memahami berapa banyak orang yang menggunakan Markdown Free dan fitur mana yang paling berguna.",
+      text2: "Keduanya tidak menggunakan cookie dan tidak mengumpulkan informasi pribadi seperti nama, alamat email, atau alamat IP. Kami hanya melihat data agregat seperti:",
       items: [
         "Tampilan halaman dan jumlah pengunjung",
         "Informasi perujuk (dari mana pengunjung berasal)",
         "Jumlah konversi yang berhasil (PDF, DOCX, PNG, EPUB, HTML, TXT)",
-        "Informasi perangkat/browser umum"
+        "Informasi perangkat/browser umum",
+        "Seberapa sering sebuah browser mengonversi, dalam rentang kasar: jumlah konversi dan hari aktif dalam 30 hari terakhir, jumlah format, lama sejak konversi pertama, dan apakah terjadi pada jam kerja hari kerja, di luar jam kerja, atau akhir pekan",
+        "Fakta tentang dokumen yang dikonversi, dalam rentang kasar: ukurannya, jumlah gambar, apakah berisi rumus atau diagram, dan apakah pernah dikonversi sebelumnya",
+        "Rentang ukuran file yang terlalu besar untuk diunggah"
       ],
-      notice: "Kami tidak mengirim konten Markdown, nama file, atau teks apa pun yang Anda tempel ke penyedia analitik kami. Analitik menghormati pengaturan Do Not Track browser Anda."
+      notice: "Kami tidak mengirim konten Markdown, nama file, atau teks apa pun yang Anda tempel ke penyedia analitik kami. Rentang di atas dihitung sendiri oleh browser Anda. Untuk mengenali dokumen yang Anda konversi lagi, browser menyimpan sidik jari satu arah dari nama file terbaru (atau teks yang ditempel) selama 30 hari; sidik jari itu tidak pernah meninggalkan perangkat Anda. Analitik menghormati pengaturan Do Not Track browser Anda."
     },
     thirdParties: {
       title: "Pihak ketiga",
-      text: "Kami tidak membagikan dokumen Anda kepada siapa pun. Tiga penyedia layanan memproses data terbatas atas nama kami: Umami Cloud (analitik tanpa cookie — hanya hitungan agregat, tidak pernah konten Anda), Resend (mengirimkan pesan masukan ke kotak masuk kami), dan Supabase (menyimpan di Amerika Serikat email yang Anda tinggalkan untuk kabar fitur baru beserta fitur yang Anda pilih; kami menghapusnya setelah fitur tersebut dirilis atau setelah 12 bulan, mana yang lebih dulu). Pembuatan PDF berjalan di infrastruktur serverless kami sendiri (Vercel). Tidak ada layanan eksternal yang melihat konten Anda."
+      text: "Kami tidak membagikan dokumen Anda kepada siapa pun. Empat penyedia layanan memproses data terbatas atas nama kami: Umami Cloud dan Vercel Web Analytics (analitik tanpa cookie — hanya hitungan agregat dan rentang, tidak pernah konten Anda), Resend (mengirimkan pesan masukan ke kotak masuk kami), dan Supabase (menyimpan di Amerika Serikat email yang Anda tinggalkan untuk kabar fitur baru beserta fitur yang Anda pilih; kami menghapusnya setelah fitur tersebut dirilis atau setelah 12 bulan, mana yang lebih dulu). Pembuatan PDF berjalan di infrastruktur serverless kami sendiri (Vercel). Tidak ada layanan eksternal yang melihat konten Anda."
     },
     security: {
       title: "Keamanan",
@@ -695,26 +719,29 @@ const content: Partial<Record<Locale, {
       items: [
         "Thông tin cá nhân (tên, tài khoản)",
         "Nội dung tài liệu hoặc tệp",
-        "Tên tệp hoặc siêu dữ liệu",
+        "Tên tệp",
         "Địa chỉ IP của bạn trong nhật ký",
         "Cookie để theo dõi"
       ]
     },
     analytics: {
       title: "Phân tích",
-      text1: "Chúng tôi sử dụng Umami Cloud, một nền tảng phân tích tập trung vào quyền riêng tư, không sử dụng cookie. Nó giúp chúng tôi hiểu có bao nhiêu người sử dụng Markdown Free và tính năng nào hữu ích nhất.",
-      text2: "Umami không sử dụng cookie và không thu thập thông tin cá nhân như tên, địa chỉ email hoặc địa chỉ IP. Chúng tôi chỉ thấy dữ liệu tổng hợp như:",
+      text1: "Chúng tôi sử dụng Umami Cloud và Vercel Web Analytics, hai dịch vụ phân tích tập trung vào quyền riêng tư, không sử dụng cookie. Chúng giúp chúng tôi hiểu có bao nhiêu người sử dụng Markdown Free và tính năng nào hữu ích nhất.",
+      text2: "Cả hai đều không sử dụng cookie và không thu thập thông tin cá nhân như tên, địa chỉ email hoặc địa chỉ IP. Chúng tôi chỉ thấy dữ liệu tổng hợp như:",
       items: [
         "Lượt xem trang và số lượng khách truy cập",
         "Thông tin nguồn giới thiệu (khách truy cập đến từ đâu)",
         "Số lần chuyển đổi thành công (PDF, DOCX, PNG, EPUB, HTML, TXT)",
-        "Thông tin thiết bị/trình duyệt chung"
+        "Thông tin thiết bị/trình duyệt chung",
+        "Tần suất một trình duyệt chuyển đổi, theo khoảng ước lượng: số lần chuyển đổi và số ngày sử dụng trong 30 ngày qua, số định dạng, thời gian kể từ lần chuyển đổi đầu tiên, và thời điểm là giờ làm việc ngày thường, ngoài giờ hay cuối tuần",
+        "Đặc điểm của tài liệu đã chuyển đổi, theo khoảng ước lượng: kích thước, số lượng hình ảnh, có chứa công thức hoặc sơ đồ hay không, và đã từng được chuyển đổi trước đó hay chưa",
+        "Khoảng kích thước của tệp quá lớn không thể tải lên"
       ],
-      notice: "Chúng tôi không gửi nội dung Markdown, tên tệp hoặc bất kỳ văn bản nào bạn dán cho nhà cung cấp phân tích của chúng tôi. Phân tích tôn trọng cài đặt Không Theo dõi của trình duyệt của bạn."
+      notice: "Chúng tôi không gửi nội dung Markdown, tên tệp hoặc bất kỳ văn bản nào bạn dán cho các nhà cung cấp phân tích của chúng tôi. Các khoảng ở trên do chính trình duyệt của bạn tính toán. Để nhận ra tài liệu bạn chuyển đổi lại, trình duyệt lưu một dấu vân tay một chiều của các tên tệp gần đây (hoặc văn bản đã dán) trong 30 ngày; dấu vân tay này không bao giờ rời khỏi thiết bị của bạn. Phân tích tôn trọng cài đặt Không Theo dõi của trình duyệt của bạn."
     },
     thirdParties: {
       title: "Bên thứ ba",
-      text: "Chúng tôi không chia sẻ tài liệu của bạn với bất kỳ ai. Ba nhà cung cấp dịch vụ xử lý dữ liệu hạn chế thay mặt chúng tôi: Umami Cloud (phân tích không dùng cookie — chỉ số liệu tổng hợp, không bao giờ là nội dung của bạn), Resend (chuyển tin nhắn góp ý đến hộp thư của chúng tôi) và Supabase (lưu tại Hoa Kỳ email bạn để lại để nhận tin về tính năng mới cùng các tính năng bạn chọn; chúng tôi xóa email khi các tính năng đó ra mắt hoặc sau 12 tháng, tùy điều kiện nào đến trước). Việc tạo PDF chạy trên cơ sở hạ tầng serverless của chúng tôi (Vercel). Không có dịch vụ bên ngoài nào nhìn thấy nội dung của bạn."
+      text: "Chúng tôi không chia sẻ tài liệu của bạn với bất kỳ ai. Bốn nhà cung cấp dịch vụ xử lý dữ liệu hạn chế thay mặt chúng tôi: Umami Cloud và Vercel Web Analytics (phân tích không dùng cookie — chỉ số liệu tổng hợp và các khoảng, không bao giờ là nội dung của bạn), Resend (chuyển tin nhắn góp ý đến hộp thư của chúng tôi) và Supabase (lưu tại Hoa Kỳ email bạn để lại để nhận tin về tính năng mới cùng các tính năng bạn chọn; chúng tôi xóa email khi các tính năng đó ra mắt hoặc sau 12 tháng, tùy điều kiện nào đến trước). Việc tạo PDF chạy trên cơ sở hạ tầng serverless của chúng tôi (Vercel). Không có dịch vụ bên ngoài nào nhìn thấy nội dung của bạn."
     },
     security: {
       title: "Bảo mật",

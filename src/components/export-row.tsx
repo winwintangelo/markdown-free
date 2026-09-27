@@ -25,6 +25,7 @@ import {
   type PostConvertPrompt,
   type TeaserVariant,
 } from "@/lib/feature-teaser";
+import { recordUsage } from "@/lib/usage-signals";
 import { exportErrorMessage, exportErrorTitle } from "@/lib/export-errors";
 import {
   trackConvertSuccess,
@@ -35,6 +36,8 @@ import {
   trackLocaleConversion,
   trackShareFile,
   trackFeatureTeaserShown,
+  trackUsageProfile,
+  trackDocProfile,
   type ExportFormat as AnalyticsExportFormat,
   type UploadSource,
   type SupportedLocale,
@@ -229,11 +232,27 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
   // the teaser must not give way to the thumbs prompt then.
   const teaserPendingRef = useRef(false);
 
+  // The document on screen, for the usage signals recorded on each success.
+  const contentRef = useRef(state.content);
+  useEffect(() => {
+    contentRef.current = state.content;
+  }, [state.content]);
+
   // Every successful conversion goes through here. It counts the conversion in
   // this browser (localStorage, never sent) and decides whether the Phase 1.5
   // teaser or the thumbs prompt follows it.
   const markSuccess = useCallback(
     (format: ExportFormat) => {
+      // How heavily this browser converts, reported in ranges once a day, and
+      // the facts of each new document (src/lib/usage-signals.ts).
+      const doc = contentRef.current;
+      const usage = recordUsage(
+        format,
+        doc ? { source: doc.source, filename: doc.filename, content: doc.content, size: doc.size } : null
+      );
+      if (usage.profile) trackUsageProfile(usage.profile);
+      if (usage.doc) trackDocProfile(usage.doc);
+
       // The conversion always counts; ?probe=teaser only overrides which
       // prompt follows it, and only on localhost.
       const counted = recordConversion();

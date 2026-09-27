@@ -7,6 +7,7 @@
  *
  * Event Categories:
  * - Conversion events: upload_start, upload_error, convert_success, convert_error
+ * - Usage signals: usage_profile, doc_profile (ranges only, see src/lib/usage-signals.ts)
  * - Engagement events: section_visible, scroll_depth, time_on_page, upload_hover, paste_toggle_click, export_hover
  * - Navigation events: nav_click, feedback_click
  */
@@ -21,6 +22,7 @@ import {
   type TeaserStage,
   type TeaserVariant,
 } from "@/lib/feature-teaser";
+import { currentUses, sizeBucket, type DocProfile, type UsageProfile } from "@/lib/usage-signals";
 
 declare global {
   interface Window {
@@ -119,14 +121,23 @@ export function trackUploadStart(source: UploadSource): void {
 }
 
 /**
- * Track upload errors with category (User Error vs System Error)
+ * Track upload errors with category (User Error vs System Error).
+ * `uses` says whether the visitor who hit the error converts often; a file
+ * rejected as too large also carries its size range (`fileSize` in bytes).
  */
 export function trackUploadError(
   source: UploadSource,
-  reason: UploadErrorReason
+  reason: UploadErrorReason,
+  fileSize?: number
 ): void {
   const category = UPLOAD_ERROR_CATEGORY[reason];
-  trackEvent("upload_error", { source, reason, category });
+  trackEvent("upload_error", {
+    source,
+    reason,
+    category,
+    uses: currentUses(),
+    ...(reason === "too_large" && fileSize !== undefined ? { size: sizeBucket(fileSize) } : {}),
+  });
 }
 
 /**
@@ -160,7 +171,25 @@ export function trackConvertError(
   errorCode: ConvertErrorCode
 ): void {
   const category = CONVERT_ERROR_CATEGORY[errorCode];
-  trackEvent("convert_error", { format, error_code: errorCode, category });
+  trackEvent("convert_error", { format, error_code: errorCode, category, uses: currentUses() });
+}
+
+/**
+ * Once per browser per day, at its first conversion that day: how heavily this
+ * browser uses the site, in ranges (src/lib/usage-signals.ts). The profile
+ * describes the browser as of that conversion.
+ */
+export function trackUsageProfile(profile: UsageProfile): void {
+  trackEvent("usage_profile", { ...profile });
+}
+
+/**
+ * Once per document per tab, at its first successful conversion: its size and
+ * image ranges, whether it was converted on an earlier day, and how many
+ * documents this tab has converted. Never the content or the name.
+ */
+export function trackDocProfile(doc: DocProfile): void {
+  trackEvent("doc_profile", { ...doc });
 }
 
 /**
@@ -590,19 +619,23 @@ export function trackFeatureTeaserOpened(variant: TeaserVariant): void {
 
 /**
  * A vote. One event per picked feature, because the Vercel events API counts
- * by event name, not by property, plus one summary event.
+ * by event name, not by property, plus one summary event. Each carries the
+ * voter's `uses` range, so the same board ranks features for everyone and for
+ * heavy users (filter with `eventData/uses`).
  */
 export function trackFeatureVotes(features: FeatureKey[]): void {
-  for (const key of features) trackEvent(`feature_vote_${key}`);
+  const uses = currentUses();
+  for (const key of features) trackEvent(`feature_vote_${key}`, { uses });
   trackEvent("feature_vote_submitted", {
     picks: String(features.length),
     premium_picks: String(features.filter(isPremium).length),
+    uses,
   });
 }
 
 /** The one question about paying, answered on the results screen. */
 export function trackPayIntent(answer: PayAnswer): void {
-  trackEvent(`pay_intent_${answer}`);
+  trackEvent(`pay_intent_${answer}`, { uses: currentUses() });
 }
 
 /**

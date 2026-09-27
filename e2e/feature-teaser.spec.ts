@@ -365,7 +365,10 @@ test.describe("Vote board — the dialog", () => {
     expect(names).toContain("feature_vote_equations");
     expect(names).not.toContain("feature_vote_share");
     const submitted = (await getEvents(page)).find((e) => e.name === "feature_vote_submitted");
-    expect(submitted?.data).toEqual({ picks: "2", premium_picks: "1" });
+    // One conversion in this browser's 30-day log, so the voter's range is "1".
+    expect(submitted?.data).toEqual({ picks: "2", premium_picks: "1", uses: "1" });
+    const backupVote = (await getEvents(page)).find((e) => e.name === "feature_vote_backup");
+    expect(backupVote?.data).toEqual({ uses: "1" });
   });
 
   test("the pay question is answered on the results page, in one tap", async ({ page }) => {

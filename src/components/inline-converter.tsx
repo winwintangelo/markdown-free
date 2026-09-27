@@ -57,7 +57,7 @@ export function InlineConverter({
         return;
       }
       if (!isValidFileSize(file.size)) {
-        trackUploadError("file", "too_large");
+        trackUploadError("file", "too_large", file.size);
         setError(dict.errors.tooLarge);
         return;
       }

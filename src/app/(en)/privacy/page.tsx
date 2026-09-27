@@ -75,35 +75,52 @@ export default function PrivacyPage() {
           <ul>
             <li>Personal information (names, accounts)</li>
             <li>Document content or file contents</li>
-            <li>File names or metadata</li>
+            <li>File names</li>
             <li>Your IP address in logs</li>
             <li>Cookies for tracking</li>
           </ul>
 
           <h2>Analytics</h2>
           <p>
-            We use <strong>Umami Cloud</strong>, a privacy-focused, cookieless
-            analytics platform. It helps us understand how many people use
-            Markdown Free and which features are most useful.
+            We use <strong>Umami Cloud</strong> and <strong>Vercel Web
+            Analytics</strong>, two privacy-focused, cookieless analytics
+            services. They help us understand how many people use Markdown
+            Free and which features are most useful.
           </p>
-          <p>Umami does not use cookies and does not collect personal information such as names, email addresses, or IP addresses. We only see aggregated data like:</p>
+          <p>Neither uses cookies or collects personal information such as names, email addresses, or IP addresses. We only see aggregated data like:</p>
           <ul>
             <li>Page views and visitor counts</li>
             <li>Referrer information (where visitors come from)</li>
             <li>Counts of successful conversions (PDF, DOCX, PNG, EPUB, HTML, TXT)</li>
             <li>General device/browser information</li>
+            <li>
+              How often a browser converts, in broad ranges: conversions and
+              active days in the last 30 days, the number of formats, time since
+              its first conversion, and whether it happened during weekday
+              working hours, outside them, or at the weekend
+            </li>
+            <li>
+              Facts about a converted document, in broad ranges: its size, the
+              number of images, whether it has formulas or diagrams, and whether
+              it was converted before
+            </li>
+            <li>The size range of a file that was too large to upload</li>
           </ul>
           <p>
             <strong>We do not send your Markdown content, file names, or any text
-            you paste to our analytics provider.</strong> Analytics respects your
-            browser&apos;s Do Not Track setting.
+            you paste to our analytics providers.</strong> Your browser works out
+            the ranges above itself. To recognise a document you convert again,
+            it keeps a one-way fingerprint of recent file names (or pasted text)
+            for 30 days; the fingerprint never leaves your device. Analytics
+            respects your browser&apos;s Do Not Track setting.
           </p>
 
           <h2>Third parties</h2>
           <p>
-            We do not share your documents with anyone. Three service providers
-            process limited data on our behalf: <strong>Umami Cloud</strong>{" "}
-            (cookieless analytics — aggregate counts only, never your content),{" "}
+            We do not share your documents with anyone. Four service providers
+            process limited data on our behalf: <strong>Umami Cloud</strong> and{" "}
+            <strong>Vercel Web Analytics</strong> (cookieless analytics —
+            aggregate counts and ranges only, never your content),{" "}
             <strong>Resend</strong> (delivers feedback messages to our inbox)
             and <strong>Supabase</strong> (stores the email address you leave
             to hear about upcoming features, with the features you picked, in
