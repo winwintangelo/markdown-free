@@ -167,6 +167,26 @@ Gate: ≥ 30 of 51 pages indexed by Bing and Google within 60 days; conversions/
 
 **The first 24 hours rewrote the display rules (2026-09-23).** Umami: 95 converting visitors, but only 14 teasers and no opens. Two causes, both fixed and live on `main` @ `4ccc4fa`. (1) A remount bug: the teaser keyed off a counter that moved on every conversion, so later exports logged phantom dismissals — 12 of them from 4 visitors. (2) Reach: waiting for a browser's 2nd conversion *and* for 30 quiet minutes cannot both happen in one sitting, since conversion #1 starts the quiet period, so only visitors returning half an hour later ever saw the probe. At ~98 impressions a week the gate was arithmetically out of reach. The teaser now owns the slot for 7 days (row below). **The measurement window therefore restarts from 2026-09-23 and ends ~2026-10-21**; the 09-22 data is a discarded warm-up.
 
+**Feedback v2 replaced the teaser on 2026-09-27** (`main` @ `b806695`): a two-arm invitation (control = the one-line teaser, card = a larger card that asks about Word after a Word export), a single-choice board, typed suggestions, a 1 MB size question, and a paid-interest path that stays off until the build sets `NEXT_PUBLIC_PAID_INTEREST=1`. Every `feature_teaser_*`, `feature_vote_*` and `pay_intent_*` event in the tables below is retired; only tabs still on the old bundle fire them. Read `invite_*` and `vote_*` instead (catalog: "FEEDBACK V2" in `src/lib/analytics.ts`). Primary metric: `vote_saved_<arm>` ÷ `invite_assigned_<arm>`.
+
+**First read of feedback v2, 2026-09-30** (09-27 23:20 UTC → 09-30, about 3 days; Vercel dashboard and API agree):
+
+| | Control | Card |
+|---|---|---|
+| Assigned | 93 | 103 |
+| Viewed (≥ 50% on screen for 1 s) | 91 | 102 |
+| Opened | 0 | 6 (5.9%, 95% CI ≈ 3–12%) |
+| Voted | 0 | 2 |
+| Closed with × | 4 (4.4%) | 7 (6.9%) |
+| Left the page | 3 | 5 |
+
+- The card gets opened; the one-line teaser does not. If both arms were equally clickable, all 6 opens would land on the card about 2% of the time. The card also draws more × clicks: people notice it, they don't reject it.
+- The card opens on both wordings: 3 of 53 views after a Word export, 3 of 34 after other formats.
+- The board leaks: of 6 openers, 2 voted and 3 closed it without a pick. Too few to diagnose.
+- Votes: editable equations in Word 1, "nothing missing for me" 1. Also 2 typed suggestions, 2 size answers (both 1–2 MB), 0 email signups. Supabase: 4 votes in total (2 from the old board), 2 suggestions, 0 signups.
+- The primary metric can't be decided on 2 votes. At about 65 views a day the card yields about 4–5 votes a week, so the board alone can't find likely payers; the gated paid-interest path can, once the "no premium tier" copy is fixed. Next read around 2026-10-07. Probe scripts: `tmp/probe-v2-read.mjs`, `tmp/probe-v2-dismiss.mjs`.
+- Vercel API gotcha: `/events/count` includes the `until` day, `/events/aggregate` excludes it. Set `until` to tomorrow when comparing the two.
+
 **Redesigned 2026-09-19.** The owner rejected priced fake doors: a free product that suddenly shows fees reads as a bait-and-switch, and names like "Academic templates" mean nothing to most visitors. The probe now measures interest in named features, split into Premium and Free, with no prices.
 
 | Item | Scope | Effort |
