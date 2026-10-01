@@ -85,6 +85,54 @@ const processor = unified()
   .use(rehypeStringify);
 
 /**
+ * Most formulas a server render accepts. KaTeX output runs to about 100× the
+ * source: 300 KB of `$x^2$` became 38 MB of HTML and a 1.4 GB heap, before the
+ * PDF route's 10 MB rendered-size check could run. A document under that check
+ * holds a few thousand formulas at most, so legitimate files stay well inside.
+ */
+export const MAX_SERVER_FORMULAS = 5000;
+
+/** Thrown by a server render when a document has more than MAX_SERVER_FORMULAS formulas. */
+export class TooManyFormulasError extends Error {
+  constructor(readonly count: number) {
+    super(`Document has more than ${MAX_SERVER_FORMULAS} formulas`);
+    this.name = "TooManyFormulasError";
+  }
+}
+
+/** Counts formulas before KaTeX expands them, and stops the render past the limit. */
+function limitFormulas() {
+  return (tree: Root) => {
+    let count = 0;
+    const walk = (node: Root | Element) => {
+      for (const child of node.children) {
+        if (child.type !== "element") continue;
+        if (child.tagName === "code" && String(child.properties?.className ?? "").includes("language-math")) {
+          count++;
+          if (count > MAX_SERVER_FORMULAS) {
+            throw new TooManyFormulasError(count);
+          }
+        }
+        walk(child);
+      }
+    };
+    walk(tree);
+  };
+}
+
+/** The main pipeline with the formula limit, for renders that run on the server. */
+const serverProcessor = unified()
+  .use(remarkParse)
+  .use(remarkMath)
+  .use(remarkGfm)
+  .use(remarkRehype, { allowDangerousHtml: false })
+  .use(rehypeSanitize, schema)
+  .use(limitFormulas)
+  .use(rehypeKatex, katexOptions)
+  .use(restrictDataImages)
+  .use(rehypeStringify);
+
+/**
  * Same pipeline without KaTeX: math stays as
  * <code class="language-math math-inline|math-display">LaTeX source</code>.
  * Used by the DOCX route (html-to-docx would otherwise dump KaTeX's HTML +
@@ -103,6 +151,8 @@ const sourceMathProcessor = unified()
 export interface MarkdownRenderOptions {
   /** Render formulas with KaTeX (default true); false keeps the LaTeX source in <code> */
   renderMath?: boolean;
+  /** Server renders: throw TooManyFormulasError past MAX_SERVER_FORMULAS formulas */
+  limitFormulas?: boolean;
 }
 
 /**
@@ -112,7 +162,8 @@ export async function markdownToHtml(
   markdown: string,
   options: MarkdownRenderOptions = {}
 ): Promise<string> {
-  const engine = options.renderMath === false ? sourceMathProcessor : processor;
+  const engine =
+    options.renderMath === false ? sourceMathProcessor : options.limitFormulas ? serverProcessor : processor;
   const result = await engine.process(preprocessMarkdown(markdown));
   return String(result);
 }

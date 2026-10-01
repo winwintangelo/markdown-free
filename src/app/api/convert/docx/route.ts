@@ -51,6 +51,39 @@ function errorResponse(
   return NextResponse.json({ error: code, message }, { status });
 }
 
+const DATA_IMAGE_PREFIX = /^data:image\/(png|jpeg|gif|webp|svg\+xml);base64,/i;
+
+/**
+ * Whether a data URI's bytes start the way its declared type requires.
+ * html-to-docx sizes every image with a bundled copy of image-size, which
+ * picks a parser from the bytes, not the declared type, and its ICNS parser
+ * never advances past a zero-length entry: a 59-byte "PNG" ran the instance
+ * out of memory. npm can't patch a bundled copy, so only images whose bytes
+ * match their type reach it.
+ */
+function dataImageMatchesType(src: string): boolean {
+  const prefix = DATA_IMAGE_PREFIX.exec(src);
+  if (!prefix) {
+    return false;
+  }
+  // 24 base64 characters decode to the first 18 bytes, enough for every check.
+  const head = Buffer.from(src.slice(prefix[0].length, prefix[0].length + 24), "base64");
+  const ascii = (start: number, end: number) => head.toString("latin1", start, end);
+  switch (prefix[1].toLowerCase()) {
+    case "png":
+      return head.subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]));
+    case "jpeg":
+      return head[0] === 0xff && head[1] === 0xd8 && head[2] === 0xff;
+    case "gif":
+      return ascii(0, 6) === "GIF87a" || ascii(0, 6) === "GIF89a";
+    case "webp":
+      return ascii(0, 4) === "RIFF" && ascii(8, 12) === "WEBP";
+    default:
+      // svg+xml: markup, after an optional byte-order mark and whitespace
+      return head.toString("utf8").replace(/^﻿/, "").trimStart().startsWith("<");
+  }
+}
+
 /**
  * Replace ALL image tags except those with valid data:image/ URIs.
  * This handles:
@@ -61,9 +94,13 @@ function errorResponse(
 function replaceNonEmbeddedImages(html: string): string {
   // First, replace img tags WITH src attributes (but not data URIs)
   let result = html.replace(/<img\s+[^>]*src=["']([^"']+)["'][^>]*\/?>/gi, (match, src) => {
-    // Keep data URIs (already embedded)
+    // Keep data URIs (already embedded) whose bytes match their type
     if (src.startsWith("data:image/")) {
-      return match;
+      if (dataImageMatchesType(src)) {
+        return match;
+      }
+      console.log("[DOCX] Dropping a data image whose bytes don't match its type");
+      return "<em>[Image not available]</em>";
     }
     // Replace with placeholder text
     console.log(`[DOCX] Replacing external image: ${src.substring(0, 100)}`);
@@ -121,13 +158,13 @@ function sanitizeHtmlForDocx(html: string): string {
 
   // html-to-docx renders only the FIRST paragraph of a list item and silently
   // drops the rest (text and images). Join a list item's leading paragraphs
-  // into one, separated by line breaks.
-  const joinParagraphs = /(<li(?:\s[^>]*)?>\s*<p(?:\s[^>]*)?>(?:(?!<\/p>)[\s\S])*)<\/p>\s*<p(?:\s[^>]*)?>/gi;
-  let joined: string;
-  do {
-    joined = result;
-    result = result.replace(joinParagraphs, "$1<br>");
-  } while (result !== joined);
+  // into one, separated by line breaks. One pass: re-running a one-join-per-
+  // item replace until nothing changed was quadratic in the paragraph count,
+  // minutes of CPU for a 1 MB list.
+  result = result.replace(
+    /(<li(?:\s[^>]*)?>\s*)((?:<p(?:\s[^>]*)?>(?:(?!<\/p>)[\s\S])*<\/p>\s*)+)/gi,
+    (_item, open: string, paragraphs: string) => open + paragraphs.replace(/<\/p>\s*<p(?:\s[^>]*)?>/gi, "<br>")
+  );
 
   // Normalize multiple whitespace/newlines
   result = result.replace(/\n\s*\n/g, "\n");

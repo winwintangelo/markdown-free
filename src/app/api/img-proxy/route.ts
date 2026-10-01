@@ -17,13 +17,25 @@ import { fetchValidatedImage } from "@/lib/image-proxy";
  * markdown; the markdown itself never leaves the browser.
  *
  * No Access-Control-Allow-Origin header is set on purpose: the proxy is
- * consumed same-origin only, and omitting it keeps other sites from using
- * this endpoint as a free image proxy from their own frontends.
+ * consumed same-origin only, so other sites can't read its responses with
+ * fetch(). That alone doesn't stop an <img src> on another site, which needs
+ * no CORS; the Sec-Fetch-Site check below does. Browsers too old to send the
+ * header, and non-browser clients, get through and meet the rate limit.
  */
 
 export const runtime = "nodejs";
 
+const ALLOWED_FETCH_SITES = new Set(["same-origin", "none"]);
+
 export async function GET(request: NextRequest) {
+  const fetchSite = request.headers.get("sec-fetch-site");
+  if (fetchSite && !ALLOWED_FETCH_SITES.has(fetchSite)) {
+    return NextResponse.json(
+      { error: "CROSS_SITE", message: "This endpoint serves markdown.free pages only." },
+      { status: 403 }
+    );
+  }
+
   const url = request.nextUrl.searchParams.get("url");
 
   if (!url) {

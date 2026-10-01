@@ -19,12 +19,15 @@
  * - Maximum pixel dimensions (prevent decompression bombs)
  * - Limits image size (2MB max per image)
  * - Limits total embedded bytes (8MB max total)
- * - Timeout protection (5s per image)
+ * - Timeout protection (5s for the headers, 5s more for the body)
+ * - Body read capped by bytes as it streams, so a compressed body can't inflate
+ *   past the limit
  * - SVG blocked (can contain scripts)
  */
 
 import { lookup as dnsLookup } from "node:dns";
 import type { LookupAddress } from "node:dns";
+import { BlockList, isIP } from "node:net";
 import { Agent, fetch as undiciFetch, type Response as UndiciResponse } from "undici";
 
 // Maximum image size in bytes (2MB per image)
@@ -55,34 +58,46 @@ const IMAGE_MAGIC_NUMBERS: { [key: string]: { bytes: number[]; mask?: number[] }
   "image/webp": { bytes: [0x52, 0x49, 0x46, 0x46] }, // RIFF header (need to also check WEBP at offset 8)
 };
 
-// Blocked IPv4 ranges for SSRF protection
-const BLOCKED_IPV4_PATTERNS = [
-  /^127\./, // Loopback
-  /^0\./, // Current network
-  /^10\./, // Private Class A
-  /^172\.(1[6-9]|2[0-9]|3[0-1])\./, // Private Class B
-  /^192\.168\./, // Private Class C
-  /^169\.254\./, // Link-local
-  /^100\.(6[4-9]|[7-9][0-9]|1[0-1][0-9]|12[0-7])\./, // Carrier-grade NAT
-  /^192\.0\.0\./, // IETF Protocol assignments
-  /^192\.0\.2\./, // TEST-NET-1
-  /^198\.51\.100\./, // TEST-NET-2
-  /^203\.0\.113\./, // TEST-NET-3
-  /^224\./, // Multicast
-  /^240\./, // Reserved
-  /^255\.255\.255\.255$/, // Broadcast
-];
-
-// Blocked IPv6 patterns
-const BLOCKED_IPV6_PATTERNS = [
-  /^::1$/, // Loopback
-  /^::$/, // Unspecified
-  /^fe80:/i, // Link-local
-  /^fc00:/i, // Unique local (private)
-  /^fd[0-9a-f]{2}:/i, // Unique local (private)
-  /^ff[0-9a-f]{2}:/i, // Multicast
-  /^::ffff:(127\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|192\.168\.|169\.254\.)/i, // IPv4-mapped private
-];
+// Every address range that is not public unicast (IANA special-purpose
+// registries). Subnet matching, not string patterns: prefixes like fc00::/7 or
+// fe80::/10 span many spellings that a regex misses. BlockList checks an
+// IPv4-mapped address (::ffff:a.b.c.d, either spelling) against the IPv4
+// ranges, so public mapped addresses stay allowed and private ones don't.
+const BLOCKED_RANGES = new BlockList();
+for (const [network, prefix] of [
+  ["0.0.0.0", 8], // "This network"; 0.0.0.0 connects to the local host on Linux
+  ["10.0.0.0", 8], // Private
+  ["100.64.0.0", 10], // Carrier-grade NAT
+  ["127.0.0.0", 8], // Loopback
+  ["169.254.0.0", 16], // Link-local, cloud metadata
+  ["172.16.0.0", 12], // Private
+  ["192.0.0.0", 24], // IETF protocol assignments
+  ["192.0.2.0", 24], // TEST-NET-1
+  ["192.88.99.0", 24], // 6to4 relay anycast
+  ["192.168.0.0", 16], // Private
+  ["198.18.0.0", 15], // Benchmarking
+  ["198.51.100.0", 24], // TEST-NET-2
+  ["203.0.113.0", 24], // TEST-NET-3
+  ["224.0.0.0", 4], // Multicast
+  ["240.0.0.0", 4], // Reserved, broadcast
+] as const) {
+  BLOCKED_RANGES.addSubnet(network, prefix, "ipv4");
+}
+for (const [network, prefix] of [
+  ["::", 96], // Unspecified, loopback, IPv4-compatible (::a.b.c.d)
+  ["64:ff9b::", 96], // NAT64, embeds an IPv4 address
+  ["64:ff9b:1::", 48], // NAT64, local use
+  ["100::", 64], // Discard
+  ["2001::", 23], // IETF protocol assignments (Teredo, benchmarking, ORCHID)
+  ["2001:db8::", 32], // Documentation
+  ["2002::", 16], // 6to4, embeds an IPv4 address
+  ["fc00::", 7], // Unique local
+  ["fe80::", 10], // Link-local
+  ["fec0::", 10], // Site-local (deprecated)
+  ["ff00::", 8], // Multicast
+] as const) {
+  BLOCKED_RANGES.addSubnet(network, prefix, "ipv6");
+}
 
 // Blocked hostnames (expanded list)
 const BLOCKED_HOSTNAMES = new Set([
@@ -127,35 +142,19 @@ const ALLOWED_MIME_TYPES = [
 ];
 
 /**
- * Check if an IP address is in a blocked range
+ * Check if an IP address is in a blocked range. Anything that doesn't parse
+ * as an IP address counts as blocked.
  */
 export function isBlockedIP(ip: string): boolean {
-  // IPv4-mapped IPv6 in hex form (the URL parser normalizes
-  // [::ffff:127.0.0.1] to ::ffff:7f00:1) — decode to dotted form and
-  // re-check against the IPv4 ranges
-  const mappedHex = ip.toLowerCase().match(/^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/);
-  if (mappedHex) {
-    const hi = parseInt(mappedHex[1], 16);
-    const lo = parseInt(mappedHex[2], 16);
-    const dotted = `${hi >>> 8}.${hi & 0xff}.${lo >>> 8}.${lo & 0xff}`;
-    if (isBlockedIP(dotted)) {
+  const bare = ip.startsWith("[") && ip.endsWith("]") ? ip.slice(1, -1) : ip;
+  switch (isIP(bare)) {
+    case 4:
+      return BLOCKED_RANGES.check(bare, "ipv4");
+    case 6:
+      return BLOCKED_RANGES.check(bare, "ipv6");
+    default:
       return true;
-    }
   }
-
-  for (const pattern of BLOCKED_IPV4_PATTERNS) {
-    if (pattern.test(ip)) {
-      return true;
-    }
-  }
-
-  for (const pattern of BLOCKED_IPV6_PATTERNS) {
-    if (pattern.test(ip)) {
-      return true;
-    }
-  }
-
-  return false;
 }
 
 /**
@@ -438,6 +437,9 @@ export async function fetchWithRedirectValidation(
       headers: {
         "User-Agent": "MarkdownFree-ImageProxy/1.0",
         Accept: "image/*",
+        // Images are already compressed. A compressed body would be inflated
+        // by fetch before the size cap sees it, so ask for none.
+        "Accept-Encoding": "identity",
       },
     });
 
@@ -466,6 +468,63 @@ export async function fetchWithRedirectValidation(
     }
     return null;
   }
+}
+
+/**
+ * Read a response body, giving up past MAX_IMAGE_SIZE bytes or
+ * IMAGE_FETCH_TIMEOUT ms. Content-Length can't bound the read: it can be
+ * missing or false, and for a compressed body it counts the bytes before fetch
+ * inflates them (a 300 KB gzip body can inflate to 300 MB). The fetch timeout
+ * ends when the headers arrive, so a server that drips the body needs its own
+ * timer.
+ */
+async function readCappedBody(response: UndiciResponse): Promise<ArrayBuffer | null> {
+  if (!response.body) {
+    return new ArrayBuffer(0);
+  }
+  const reader = response.body.getReader();
+  let timedOut = false;
+  const timer = setTimeout(() => {
+    timedOut = true;
+    reader.cancel().catch(() => {});
+  }, IMAGE_FETCH_TIMEOUT);
+
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done || timedOut) {
+        break;
+      }
+      total += value.byteLength;
+      if (total > MAX_IMAGE_SIZE) {
+        console.log(`[ImageProxy] Image too large: over ${MAX_IMAGE_SIZE} bytes`);
+        await reader.cancel().catch(() => {});
+        return null;
+      }
+      chunks.push(value);
+    }
+  } catch (error) {
+    console.log(`[ImageProxy] Error reading image body: ${error}`);
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+  // A cancelled read resolves as `done`, so check the flag, not the loop exit.
+  if (timedOut) {
+    console.log(`[ImageProxy] Timeout reading image body`);
+    return null;
+  }
+
+  const buffer = new ArrayBuffer(total);
+  const view = new Uint8Array(buffer);
+  let offset = 0;
+  for (const chunk of chunks) {
+    view.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return buffer;
 }
 
 /**
@@ -501,12 +560,8 @@ export async function fetchValidatedImage(
     return null;
   }
 
-  // Read the response as array buffer
-  const buffer = await response.arrayBuffer();
-
-  // Check actual size
-  if (buffer.byteLength > MAX_IMAGE_SIZE) {
-    console.log(`[ImageProxy] Image too large after download: ${buffer.byteLength} bytes`);
+  const buffer = await readCappedBody(response);
+  if (!buffer) {
     return null;
   }
 

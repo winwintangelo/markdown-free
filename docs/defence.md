@@ -2,7 +2,7 @@
 
 This document captures all security hardening measures implemented for Markdown Free, a web-based Markdown viewer and converter.
 
-**Last Updated:** January 2026
+**Last Updated:** September 2026 (see [section 8](#8-september-2026-review) for the latest review)
 
 ---
 
@@ -15,6 +15,7 @@ This document captures all security hardening measures implemented for Markdown 
 5. [XSS Prevention](#5-xss-prevention)
 6. [Rate Limiting](#6-rate-limiting)
 7. [Future Enhancements](#7-future-enhancements)
+8. [September 2026 Review](#8-september-2026-review)
 
 ---
 
@@ -308,6 +309,46 @@ Consider Vercel's WAF or Cloudflare for:
 Once security measures mature:
 - Establish responsible disclosure policy
 - Consider bug bounty platform integration
+
+---
+
+## 8. September 2026 Review
+
+A code review of every API route, the Supabase schema and the client pipeline (2026-09-30, branch `security-2026-09`). Each fix below has a regression test: the "Hardening" groups in `e2e/security.spec.ts` and the new cases in `e2e/img-proxy.spec.ts`.
+
+### Fixed
+
+| Finding | Severity | Fix |
+|---|---|---|
+| A 59-byte Markdown file crashed the DOCX route. html-to-docx sizes images with a bundled copy of `image-size`, which picks its parser from the bytes; its ICNS parser loops forever on a zero-length entry, so `![x](data:image/png;base64,<ICNS bytes>)` blocked the event loop until the heap ran out. npm can't patch a bundled copy. | High | `dataImageMatchesType` in the DOCX route: a data image reaches html-to-docx only when its bytes match its declared type (PNG, JPEG, GIF, WebP signatures; SVG must start with markup). |
+| The image proxy read bodies without a byte cap or timeout. Content-Length counts compressed bytes, so a 300 KB gzip body inflated to 300 MB (1 GB peak memory); a server that dripped its body held the request past the 5 s timeout. | High | `readCappedBody`: streams the body, stops at 2 MB of decompressed bytes and after 5 s. The proxy also sends `Accept-Encoding: identity`. A real 299 KB bomb now costs 6 MB. |
+| The DOCX list-paragraph join re-ran a regex until nothing changed: quadratic in the paragraphs of one list item (40,000 paragraphs: 9.8 s of blocked CPU; a 1 MB file: minutes). | Medium | One pass, same output (2 ms on the same input). |
+| KaTeX output is ~100× its source. 300 KB of `$x^2$` became 38 MB of HTML and a 1.4 GB heap before the PDF route's 10 MB rendered-size check ran. | Medium | Server renders count formulas before KaTeX runs and stop past 5,000 (`MAX_SERVER_FORMULAS`, `serverProcessor` in `src/lib/markdown.ts`): 413 `CONTENT_TOO_LARGE`. The browser pipeline has no limit. |
+| `/api/img-proxy` worked as an image proxy for any site through a plain `<img src>`, which needs no CORS. | Low–medium | The route answers 403 `CROSS_SITE` when `Sec-Fetch-Site` is present and not `same-origin` or `none`. |
+| The SSRF blocklist used string patterns and missed `::ffff:0.0.0.0`, `fc12::1`, `fe90::1`, NAT64, 6to4, `198.18.0.0/15` and `[::127.0.0.1]`. | Low | `node:net` `BlockList` with subnet ranges from the IANA special-purpose registries; anything that doesn't parse as an IP is blocked. |
+| A Chromium launch that finished after the launch timeout was never closed. | Low | The late browser is closed. |
+| The rate limiter keyed IPv6 clients by full address; a client rotating through its /64 got a fresh budget each time. | Low | IPv6 addresses count per /64. |
+| The Referer fallback in the origin check used a prefix match (`https://markdown.free.evil.com` passed). | Low | Whole-origin comparison. |
+| `/api/feedback` parsed any body size and put the user-supplied `format` into the mail subject with CR/LF intact. | Low (inert while Resend is unconfigured) | 32 KB body cap; control characters stripped from single-line fields. |
+| `vercel.json` is gitignored (the Vercel settings live in the dashboard), so its `Cross-Origin-Opener-Policy` never reached production. | Hardening | COOP moved into `next.config.js`. |
+| `script-src` needs `'unsafe-inline'` for Next's inline scripts. | Hardening | `script-src-attr 'none'` blocks `on*="…"` attributes, the usual XSS payload; no page uses them. |
+| `.gitignore` listed five env files; `.env.production` and `.env.development` were not covered. | Hardening | `.env*`. |
+| Dependencies: next 15.5.23 (critical advisory: RCE in image optimization with AVIF), sharp, undici, dompurify, ip-address. | Critical → patched | next 15.5.27, sharp 0.35.5, undici 7.30.0, dompurify 3.4.16, ip-address 10.7.2. |
+
+### Checked and fine
+
+- Supabase: RLS on every table, no table grants to `anon`/`authenticated`, RPCs `security invoker` with a pinned `search_path`, EXECUTE for `service_role` only, SQL length and enum checks. The publishable key reads nothing.
+- No server secret is `NEXT_PUBLIC_*`; the client bundle holds no Supabase URL or key; error bodies are fixed strings.
+- XSS: no raw HTML, GitHub sanitize schema, KaTeX `trust: false`, Mermaid `securityLevel: "strict"` rendered into `<img>` only, every `innerHTML` sink takes sanitized output.
+- PDF page: JavaScript off, request interception allows data URIs and Google Fonts only, offline before printing.
+- Encoded or alternate API paths (`/api/vote%73`) return 404, so they can't reach a handler around its rate limit.
+
+### Open
+
+- **Rate limits are per instance.** Votes, ideas and signups can still be stuffed by a script that spreads requests across IPs or instances, and `elapsedMs` is client-reported. Options: a Vercel Firewall rate-limit rule, Upstash (7.1), or an HMAC-signed issue time. Meanwhile, compare `npm run db:check` totals with the `vote_saved` analytics count: scripted votes don't fire analytics.
+- **A repeat signup clears `unsubscribed_at`** (`notify_signup` RPC), and anyone can sign up any address. Fix before the first launch email: never clear it from the public path, and confirm addresses (double opt-in).
+- **Defence in depth for html-to-docx:** run it in a `worker_thread` with `resourceLimits` and terminate on timeout, so an unknown parser bug can't take the instance down.
+- **Puppeteer major upgrade** clears the `extract-zip` advisory (used only when Puppeteer downloads a browser, which production never does).
 
 ---
 

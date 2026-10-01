@@ -26,6 +26,9 @@ const MAX_EMAIL_CHARS = 254;
 const MAX_SHORT_CHARS = 200;
 const MAX_CATEGORIES = 10;
 const RESEND_TIMEOUT_MS = 8000;
+// The largest legitimate body, a 2,000-character message with every field
+// filled, is under 4,000 characters.
+const MAX_BODY_BYTES = 32 * 1024;
 
 const SOURCES = new Set(["modal", "post_convert"]);
 // Deliberately loose: this only prevents obviously broken reply addresses.
@@ -35,14 +38,22 @@ function errorResponse(code: string, message: string, status: number): NextRespo
   return NextResponse.json({ ok: false, error: code, message }, { status });
 }
 
+/** A single-line value: control characters (CR/LF included) become spaces, so none can reach the mail subject or header lines. */
 function shortString(value: unknown): string {
-  return typeof value === "string" ? value.trim().slice(0, MAX_SHORT_CHARS) : "";
+  return typeof value === "string"
+    ? value.replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, MAX_SHORT_CHARS)
+    : "";
 }
 
 export async function POST(request: NextRequest) {
+  const raw = await request.text();
+  if (raw.length > MAX_BODY_BYTES) {
+    return errorResponse("BODY_TOO_LARGE", "Request body is too large.", 413);
+  }
+
   let body: unknown;
   try {
-    body = await request.json();
+    body = JSON.parse(raw);
   } catch {
     return errorResponse("INVALID_JSON", "Request body must be JSON.", 400);
   }

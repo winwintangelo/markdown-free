@@ -12,12 +12,10 @@ dist/
 # Testing
 coverage/
 
-# Environment files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Environment files: every .env variant, so a new one (.env.production,
+# .env.development) can't be committed by accident. The template is
+# env.example, which this doesn't match.
+.env*
 
 # IDE
 .idea/

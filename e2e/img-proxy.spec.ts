@@ -90,12 +90,21 @@ test.describe("image-proxy lib — unit validation", () => {
       "::ffff:169.254.169.254",
       "::ffff:7f00:1", // hex form of ::ffff:127.0.0.1 (URL parser normalization)
       "::ffff:a9fe:a9fe", // hex form of ::ffff:169.254.169.254
+      // Missed by the old string patterns (2026-09 review)
+      "::ffff:0.0.0.0", // connects to the local host on Linux
+      "::7f00:1", // IPv4-compatible form of 127.0.0.1
+      "fc12::1", // unique local outside fc00::/16
+      "fe90::1", // link-local outside fe80::/16
+      "64:ff9b::a9fe:a9fe", // NAT64 form of 169.254.169.254
+      "198.18.0.1", // benchmarking
+      "2002:7f00:1::1", // 6to4 form of 127.0.0.1
+      "not-an-ip",
     ];
     for (const ip of blocked) {
       expect(isBlockedIP(ip), `${ip} should be blocked`).toBe(true);
     }
 
-    const allowed = ["93.184.216.34", "140.82.112.3", "2606:2800:220:1:248:1893:25c8:1946"];
+    const allowed = ["93.184.216.34", "140.82.112.3", "2606:2800:220:1:248:1893:25c8:1946", "::ffff:93.184.216.34"];
     for (const ip of allowed) {
       expect(isBlockedIP(ip), `${ip} should be allowed`).toBe(false);
     }
@@ -115,6 +124,8 @@ test.describe("image-proxy lib — unit validation", () => {
     expect(isUrlSafe("https://[::1]/a.png")).toBe(false);
     expect(isUrlSafe("https://[::ffff:127.0.0.1]/a.png")).toBe(false);
     expect(isUrlSafe("https://169.254.169.254/latest/meta-data/")).toBe(false);
+    expect(isUrlSafe("https://[::127.0.0.1]/a.png")).toBe(false);
+    expect(isUrlSafe("https://[fc12::1]/a.png")).toBe(false);
     expect(isUrlSafe("https://foo.internal/a.png")).toBe(false);
     expect(isUrlSafe("not a url")).toBe(false);
   });
@@ -185,6 +196,46 @@ test.describe("image-proxy lib — unit validation", () => {
 
     const result = await fetchValidatedImage("https://example.com/fake.png");
     expect(result).toBeNull();
+  });
+
+  test("stops reading a body past 2 MB, whatever Content-Length says", async () => {
+    // A compressed body passes a Content-Length check and inflates inside
+    // fetch; the cap has to count the bytes as they arrive.
+    let produced = 0;
+    __setFetchImplForTests((async () =>
+      new Response(
+        new ReadableStream<Uint8Array>({
+          pull(controller) {
+            const chunk = new Uint8Array(64 * 1024);
+            if (produced === 0) chunk.set(new Uint8Array(pngFixture()));
+            produced += chunk.byteLength;
+            controller.enqueue(chunk);
+          },
+        }),
+        { status: 200, headers: { "content-type": "image/png", "content-length": "1000" } }
+      )) as never);
+
+    const result = await fetchValidatedImage("https://example.com/bomb.png");
+    expect(result).toBeNull();
+    expect(produced).toBeLessThan(4 * 1024 * 1024);
+  });
+
+  test("gives up on a body that never finishes", async () => {
+    __setFetchImplForTests((async () =>
+      new Response(
+        new ReadableStream<Uint8Array>({
+          start(controller) {
+            controller.enqueue(new Uint8Array(pngFixture()));
+            // …and never closes
+          },
+        }),
+        { status: 200, headers: { "content-type": "image/png" } }
+      )) as never);
+
+    const started = Date.now();
+    const result = await fetchValidatedImage("https://example.com/drip.png");
+    expect(result).toBeNull();
+    expect(Date.now() - started).toBeLessThan(8000);
   });
 });
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
-import { markdownToHtml } from "@/lib/markdown";
+import { markdownToHtml, MAX_SERVER_FORMULAS, TooManyFormulasError } from "@/lib/markdown";
 import { proxyImagesInHtml } from "@/lib/image-proxy";
 import { buildContentDisposition, deriveOutputFilename } from "@/lib/safe-output";
 import { getKatexInlineCss, htmlHasMath } from "@/lib/katex-server";
@@ -408,7 +408,20 @@ export async function POST(request: NextRequest) {
     // Convert markdown to HTML
     debugLog("Markdown", `[${requestId}] Converting markdown to HTML...`);
     const markdownStart = Date.now();
-    let renderedHtml = await markdownToHtml(markdown);
+    let renderedHtml: string;
+    try {
+      renderedHtml = await markdownToHtml(markdown, { limitFormulas: true });
+    } catch (error) {
+      if (error instanceof TooManyFormulasError) {
+        debugLog("Security", `[${requestId}] Too many formulas: over ${MAX_SERVER_FORMULAS}`);
+        return errorResponse(
+          "CONTENT_TOO_LARGE",
+          `The document has more than ${MAX_SERVER_FORMULAS} formulas. Split it into smaller files.`,
+          413
+        );
+      }
+      throw error;
+    }
 
     // SECURITY: URL sanitization pass for href and src attributes
     // Remove any remaining dangerous URL schemes that might have slipped through
@@ -466,11 +479,28 @@ export async function POST(request: NextRequest) {
     const launchPromise = getBrowser();
 
     // Set timeout for browser launch
+    let launchTimedOut = false;
+    let launchTimer: ReturnType<typeof setTimeout> | undefined;
     const timeoutPromise = new Promise<never>((_, reject) => {
-      setTimeout(() => reject(new Error("Browser launch timeout")), PDF_TIMEOUT);
+      launchTimer = setTimeout(() => {
+        launchTimedOut = true;
+        reject(new Error("Browser launch timeout"));
+      }, PDF_TIMEOUT);
     });
+    // A launch that finishes after the timeout would leave Chromium running in
+    // the instance, with nothing left to close it.
+    launchPromise.then(
+      (late) => {
+        if (launchTimedOut) late.close().catch(() => {});
+      },
+      () => {}
+    );
 
-    browser = await Promise.race([launchPromise, timeoutPromise]);
+    try {
+      browser = await Promise.race([launchPromise, timeoutPromise]);
+    } finally {
+      clearTimeout(launchTimer);
+    }
     debugLog("Browser", `[${requestId}] Browser obtained`, {
       durationMs: Date.now() - browserStart,
     });

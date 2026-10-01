@@ -152,14 +152,36 @@ function checkRateLimit(
 }
 
 /**
- * Get client IP from request headers
+ * Get the client's rate-limit key from request headers. An IPv6 client
+ * usually holds a whole /64 and can rotate addresses inside it, so IPv6
+ * addresses count per /64.
  */
 function getClientIp(request: NextRequest): string {
-  return (
+  const ip =
     request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     request.headers.get("x-real-ip") ||
-    "unknown"
-  );
+    "unknown";
+  return ip.includes(":") ? ipv6Prefix64(ip) : ip;
+}
+
+/** "2001:db8:a:b:1:2:3:4" → "2001:db8:a:b::/64". Anything it can't read comes back unchanged. */
+function ipv6Prefix64(ip: string): string {
+  const bare = ip.replace(/^\[|\]$/g, "").split("%")[0].toLowerCase();
+  if (bare.includes(".")) {
+    return ip; // embedded IPv4 (::ffff:a.b.c.d): keep the whole address
+  }
+  const halves = bare.split("::");
+  if (halves.length > 2) {
+    return ip;
+  }
+  const head = halves[0] ? halves[0].split(":") : [];
+  const tail = halves.length === 2 && halves[1] ? halves[1].split(":") : [];
+  const zeros = halves.length === 2 ? 8 - head.length - tail.length : 0;
+  const groups = [...head, ...Array<string>(Math.max(zeros, 0)).fill("0"), ...tail];
+  if (groups.length !== 8 || !groups.every((g) => /^[0-9a-f]{1,4}$/.test(g))) {
+    return ip;
+  }
+  return `${groups.slice(0, 4).map((g) => parseInt(g, 16).toString(16)).join(":")}::/64`;
 }
 
 /**
@@ -173,7 +195,12 @@ function validateOrigin(request: NextRequest): boolean {
   if (!origin) {
     // Check referer as backup for same-origin validation
     if (referer) {
-      return ALLOWED_ORIGINS.some((allowed) => referer.startsWith(allowed));
+      // Compare whole origins: a prefix test lets https://markdown.free.evil.com through
+      try {
+        return ALLOWED_ORIGINS.includes(new URL(referer).origin);
+      } catch {
+        return false;
+      }
     }
     // Allow requests without origin/referer (curl, direct API calls in dev)
     // In production, you may want to be stricter

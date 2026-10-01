@@ -67,6 +67,13 @@ const nextConfig = {
         key: "Permissions-Policy",
         value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
       },
+      // vercel.json also lists this, but vercel.json is gitignored (the
+      // project's Vercel settings live in the dashboard), so production
+      // never got it. The site opens no popups and reads no window.opener.
+      {
+        key: "Cross-Origin-Opener-Policy",
+        value: "same-origin",
+      },
     ];
 
     // Add HSTS and CSP only in production (avoid issues with HMR in dev)
@@ -90,6 +97,10 @@ const nextConfig = {
           value: [
             "default-src 'self'",
             "script-src 'self' 'unsafe-inline' https://*.vercel-scripts.com",
+            // Next's inline <script> blocks need 'unsafe-inline' (a nonce would
+            // make every static page dynamic), but no page uses on*="…"
+            // attributes, so block those: they are the usual XSS payload.
+            "script-src-attr 'none'",
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src 'self' https://fonts.gstatic.com",
             "img-src 'self' data: blob:",

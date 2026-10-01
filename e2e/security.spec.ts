@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import path from "path";
 import fs from "fs";
+import JSZip from "jszip";
 
 /**
  * Security Tests for PDF Export
@@ -676,4 +677,142 @@ test.describe("API Security - DOCX rate limiting", () => {
     expect(response.headers()["x-ratelimit-remaining"]).toBeTruthy();
   });
 
+});
+
+// ==========================================================================
+// HARDENING 2026-09: findings from the September security review
+// ==========================================================================
+const JSON_FROM_LOCALHOST = { "Content-Type": "application/json", Origin: "http://localhost:3000" };
+// The list-join request takes ~3 s (html-to-docx itself); the old loop added
+// ~10 s of joining on top. 10 s leaves room for a loaded machine.
+const LIST_JOIN_BUDGET_MS = 10000;
+
+/** Files html-to-docx embedded, from a DOCX response body. */
+async function docxMedia(body: Buffer): Promise<string[]> {
+  const zip = await JSZip.loadAsync(body);
+  return Object.keys(zip.files).filter((name) => name.startsWith("word/media/") && !zip.files[name].dir);
+}
+
+test.describe("Hardening - DOCX data images", () => {
+  // html-to-docx's bundled image-size loops forever on this ICNS header
+  // (entry length 0) and ran the process out of memory: a 59-byte request.
+  const ICNS_AS_PNG = "data:image/png;base64,aWNucwAAA+hJQ09OAAAAAA==";
+  const REAL_PNG =
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==";
+
+  test("drops a data image whose bytes don't match its declared type", async ({ request }) => {
+    const response = await request.post("/api/convert/docx", {
+      headers: JSON_FROM_LOCALHOST,
+      data: { markdown: `# Mislabelled\n\n![x](${ICNS_AS_PNG})\n`, filename: "icns.md" },
+      timeout: 20000,
+    });
+    expect(response.status()).toBe(200);
+    expect(await docxMedia(await response.body())).toEqual([]);
+  });
+
+  test("still embeds a data image whose bytes match its type", async ({ request }) => {
+    const response = await request.post("/api/convert/docx", {
+      headers: JSON_FROM_LOCALHOST,
+      data: { markdown: `# Real\n\n![x](${REAL_PNG})\n`, filename: "png.md" },
+    });
+    expect(response.status()).toBe(200);
+    expect(await docxMedia(await response.body())).toHaveLength(1);
+  });
+
+  // 2×2 images made with sharp; the SVG is plain markup. Each must pass the
+  // byte check, or a user's own embedded images would silently disappear.
+  const REAL_IMAGES: Array<[string, string]> = [
+    [
+      "jpeg",
+      "data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAACAAIDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAABgf/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCAAHlhf//Z",
+    ],
+    ["gif", "data:image/gif;base64,R0lGODlhAgACAIAAAExpccgeHiH5BAUAAAAALAAAAAACAAIAAAICjFMAOw=="],
+    ["webp", "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoCAAIAAUAmJaACdLoABDAAAP7x3I/4DdfFtMv/vYL/3YL/3YL/WwAA"],
+    [
+      "svg",
+      "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyIiBoZWlnaHQ9IjIiPjxyZWN0IHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9InJlZCIvPjwvc3ZnPg==",
+    ],
+  ];
+  for (const [type, uri] of REAL_IMAGES) {
+    test(`keeps a real ${type} data image`, async ({ request }) => {
+      const response = await request.post("/api/convert/docx", {
+        headers: JSON_FROM_LOCALHOST,
+        data: { markdown: `# Real ${type}\n\n![x](${uri})\n`, filename: `${type}.md` },
+      });
+      expect(response.status()).toBe(200);
+      const zip = await JSZip.loadAsync(await response.body());
+      const xml = await zip.file("word/document.xml")!.async("string");
+      expect(xml).not.toContain("Image not available");
+    });
+  }
+
+  test("joins a list item's paragraphs in one pass", async ({ request }) => {
+    // One item with 40,000 paragraphs. The old loop joined one paragraph per
+    // round and rescanned the whole document each round: quadratic, ~10 s of
+    // blocked CPU here and minutes for a 1 MB file.
+    const markdown = "- first\n\n" + "  more\n\n".repeat(40000);
+    const started = Date.now();
+    const response = await request.post("/api/convert/docx", {
+      headers: JSON_FROM_LOCALHOST,
+      data: { markdown, filename: "list.md" },
+      timeout: 60000,
+    });
+    expect(response.status()).toBe(200);
+    const zip = await JSZip.loadAsync(await response.body());
+    const xml = await zip.file("word/document.xml")!.async("string");
+    // Every paragraph survives (html-to-docx keeps only a list item's first one)
+    expect(xml.split("more").length - 1).toBe(40000);
+    expect(Date.now() - started).toBeLessThan(LIST_JOIN_BUDGET_MS);
+  });
+});
+
+test.describe("Hardening - PDF formula limit", () => {
+  test("rejects more than 5,000 formulas before KaTeX expands them", async ({ request }) => {
+    const response = await request.post("/api/convert/pdf", {
+      headers: JSON_FROM_LOCALHOST,
+      data: { markdown: "# Formulas\n\n" + "$x^2$ ".repeat(5001), filename: "math.md" },
+    });
+    expect(response.status()).toBe(413);
+    expect((await response.json()).error).toBe("CONTENT_TOO_LARGE");
+  });
+});
+
+test.describe("Hardening - origin and request checks", () => {
+  test("a Referer on a look-alike host is not accepted as same-origin", async ({ request }) => {
+    const response = await request.post("/api/votes", {
+      headers: { "Content-Type": "application/json", Referer: "https://markdown.free.evil.com/page" },
+      data: { choice: "equations", elapsedMs: 5000 },
+    });
+    expect(response.status()).toBe(403);
+  });
+
+  test("the image proxy refuses requests from other sites", async ({ request }) => {
+    const crossSite = await request.get(`/api/img-proxy?url=${encodeURIComponent("https://example.com/x.png")}`, {
+      headers: { "Sec-Fetch-Site": "cross-site" },
+    });
+    expect(crossSite.status()).toBe(403);
+    expect((await crossSite.json()).error).toBe("CROSS_SITE");
+
+    // Same-origin passes the check and reaches the parameter validation
+    const sameOrigin = await request.get("/api/img-proxy", { headers: { "Sec-Fetch-Site": "same-origin" } });
+    expect(sameOrigin.status()).toBe(400);
+  });
+
+  test("feedback rejects an oversized body before parsing it", async ({ request }) => {
+    const response = await request.post("/api/feedback", {
+      headers: JSON_FROM_LOCALHOST,
+      data: { message: "x".repeat(40 * 1024) },
+    });
+    expect(response.status()).toBe(413);
+    expect((await response.json()).error).toBe("BODY_TOO_LARGE");
+  });
+
+  test("pages send COOP and block inline event-handler attributes", async ({ page }) => {
+    const response = await page.goto("/");
+    const headers = response?.headers() ?? {};
+    expect(headers["cross-origin-opener-policy"]).toBe("same-origin");
+    // CSP is production-only (next.config.js); the suite normally runs on a production build
+    test.skip(!headers["content-security-policy"], "CSP is only sent by a production build");
+    expect(headers["content-security-policy"]).toContain("script-src-attr 'none'");
+  });
 });
