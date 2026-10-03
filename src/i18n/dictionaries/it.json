@@ -257,16 +257,17 @@
       "pageSize": "Formato pagina",
       "headers": "Intestazioni e piè di pagina",
       "other": "Altro"
-    },
-    "limitLead": "Ti servono file oltre 1 MB?",
-    "limitBody": "Stiamo valutando un limite più alto come funzione facoltativa a pagamento.",
-    "limitCta": "Dicci la dimensione che ti serve"
+    }
   },
   "limitPrompt": {
-    "question": "Ti servono file oltre 1 MB? Dicci la dimensione che ti serve.",
-    "sizes": { "1-2mb": "1–2 MB", "2-5mb": "2–5 MB", "5-10mb": "5–10 MB", "10mb+": "Oltre 10 MB" },
-    "thanks": "Grazie. Vuoi un aggiornamento se alziamo il limite?",
-    "done": "Grazie. Ti scriveremo una sola volta se il limite cambia."
+    "lead": "Devi convertire file più grandi?",
+    "body": "Stiamo lavorando al supporto per file fino a 10 MB, 10 volte il limite attuale, come upgrade facoltativo a pagamento.",
+    "question": "Lo pagheresti?",
+    "answers": { "yes": "Sì", "maybe": "Forse", "no": "No, grazie" },
+    "reassurance": "Tutto quello che puoi fare oggi resta gratuito.",
+    "emailAsk": "Grazie! Vuoi un'email quando sarà pronto?",
+    "thanksNo": "Grazie per avercelo detto.",
+    "done": "Grazie. Ti scriveremo una sola volta, quando i file più grandi saranno disponibili."
   },
   "suggest": {
     "link": "Suggerisci un miglioramento",

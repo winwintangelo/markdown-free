@@ -80,7 +80,7 @@ export function ChipGroup<T extends string>({
   );
 }
 
-function DoneLine({ children }: { children: ReactNode }) {
+export function DoneLine({ children }: { children: ReactNode }) {
   return (
     <p className="flex items-center gap-2 text-[13.5px] font-semibold text-emerald-800">
       <Check className="h-4 w-4 shrink-0 text-emerald-700" strokeWidth={2.6} aria-hidden="true" />

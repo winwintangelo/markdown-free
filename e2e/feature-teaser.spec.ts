@@ -557,32 +557,36 @@ test.describe("A file over 1 MB", () => {
     buffer: Buffer.alloc(Math.round(1.5 * 1024 * 1024), "a"),
   };
 
-  test("desktop: the size question sits under the error, and clicks stay inside it", async ({ page }) => {
+  test("desktop: the large-file card asks about paying, under the error, and clicks stay inside it", async ({ page }) => {
+    // No ?paid=1: this card shows in production as built
     await page.goto("/");
     await page.locator('input[type="file"]').setInputFiles(bigFile);
     const prompt = page.getByTestId("limit-prompt");
     await expect(prompt).toBeVisible();
-    await expect(prompt).toHaveAttribute("data-paid", "no");
+    await expect(prompt).toContainText(EN.limitPrompt.lead);
+    await expect(prompt).toContainText(EN.limitPrompt.body);
     await expect(prompt).toContainText(EN.limitPrompt.question);
-    await expect(prompt).not.toContainText("paid");
+    await expect(prompt).toContainText(EN.limitPrompt.reassurance);
+    await expect(prompt.getByTestId("limit-updates"), "email waits for an answer").toHaveCount(0);
 
     const [shown] = await eventsNamed(page, "limit_prompt_shown");
-    expect(shown.data).toEqual({ detected: "1-2mb", paid: "no", where: "desktop", uses: "0" });
+    expect(shown.data).toEqual({ detected: "1-2mb", where: "desktop", uses: "0" });
 
-    // A click inside the prompt must not bubble to the upload card and open the picker.
+    // A click inside the card must not bubble to the upload card and open the picker.
     let pickerOpened = false;
     page.on("filechooser", () => {
       pickerOpened = true;
     });
-    await prompt.getByTestId("limit-sizes").locator('[data-value="2-5mb"]').click();
+    await prompt.getByTestId("limit-pay").getByRole("radio", { name: EN.limitPrompt.answers.yes }).click();
     await page.waitForTimeout(300);
     expect(pickerOpened).toBe(false);
 
-    const [chosen] = await eventsNamed(page, "limit_size_chosen");
-    expect(chosen.data).toEqual({ needed: "2-5mb", detected: "1-2mb", paid: "no" });
-    expect(await eventNames(page)).toContain("limit_size_2-5mb");
+    const [answered] = await eventsNamed(page, "limit_pay");
+    expect(answered.data).toEqual({ answer: "yes", detected: "1-2mb", where: "desktop", uses: "0" });
+    expect(await eventNames(page)).toContain("limit_pay_yes");
 
     const form = prompt.getByTestId("limit-updates");
+    await expect(form).toContainText(EN.limitPrompt.emailAsk);
     await form.locator("#limit-updates-email").fill("big@example.com");
     await page.waitForTimeout(HUMAN_PAUSE_MS);
     const request = page.waitForRequest((r) => r.url().endsWith("/api/notify"));
@@ -593,25 +597,33 @@ test.describe("A file over 1 MB", () => {
     expect(pickerOpened).toBe(false);
   });
 
-  test("with the paid path on, it says the higher limit may be paid", async ({ page }) => {
-    await page.goto("/?paid=1");
+  test("a no gets a thank-you and no email form; changing to maybe offers it", async ({ page }) => {
+    await page.goto("/");
     await page.locator('input[type="file"]').setInputFiles(bigFile);
     const prompt = page.getByTestId("limit-prompt");
-    await expect(prompt).toHaveAttribute("data-paid", "yes");
-    await expect(prompt).toContainText(EN.paidInterest.limitBody);
-    expect(await eventNames(page)).toContain("paid_prompt_shown_limit");
+    const answers = prompt.getByTestId("limit-pay");
 
-    await prompt.getByRole("button", { name: EN.paidInterest.limitCta }).click();
-    expect(await eventNames(page)).toContain("paid_prompt_opened");
-    await prompt.getByTestId("limit-sizes").locator('[data-value="5-10mb"]').click();
-    await prompt.getByTestId("paid-answers-limit").locator('[data-value="maybe"]').click();
-    await expect(prompt).toContainText(EN.paidInterest.reassurance);
+    await answers.getByRole("radio", { name: EN.limitPrompt.answers.no }).click();
+    await expect(prompt).toContainText(EN.limitPrompt.thanksNo);
+    await expect(prompt.getByTestId("limit-updates")).toHaveCount(0);
 
-    const [interest] = await eventsNamed(page, "paid_interest");
-    expect(interest.data).toMatchObject({ trigger: "limit", feature: "large", answer: "maybe" });
-    expect(await eventNames(page)).toContain("paid_interest_maybe");
-    const [chosen] = await eventsNamed(page, "limit_size_chosen");
-    expect(chosen.data).toMatchObject({ needed: "5-10mb", paid: "yes" });
+    await answers.getByRole("radio", { name: EN.limitPrompt.answers.maybe }).click();
+    await expect(prompt.getByTestId("limit-updates")).toBeVisible();
+    await expect(prompt).not.toContainText(EN.limitPrompt.thanksNo);
+
+    const names = await eventNames(page);
+    expect(names).toContain("limit_pay_no");
+    expect(names).toContain("limit_pay_maybe");
+    // The other paid prompts stay behind NEXT_PUBLIC_PAID_INTEREST
+    expect(names).not.toContain("paid_prompt_shown");
+  });
+
+  test("the card speaks the page's language", async ({ page }) => {
+    await page.goto("/zh-Hans");
+    await page.locator('input[type="file"]').setInputFiles(bigFile);
+    const prompt = page.getByTestId("limit-prompt");
+    await expect(prompt).toContainText("需要转换更大的文件？");
+    await expect(prompt.getByRole("radio", { name: "愿意" })).toBeVisible();
   });
 });
 

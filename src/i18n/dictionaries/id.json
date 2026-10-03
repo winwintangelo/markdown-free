@@ -253,16 +253,17 @@
       "pageSize": "Ukuran halaman",
       "headers": "Header dan footer",
       "other": "Lainnya"
-    },
-    "limitLead": "Perlu file lebih dari 1 MB?",
-    "limitBody": "Kami sedang menjajaki batas yang lebih tinggi sebagai fitur berbayar opsional.",
-    "limitCta": "Beri tahu ukuran yang Anda perlukan"
+    }
   },
   "limitPrompt": {
-    "question": "Perlu file lebih dari 1 MB? Beri tahu ukuran yang Anda perlukan.",
-    "sizes": { "1-2mb": "1–2 MB", "2-5mb": "2–5 MB", "5-10mb": "5–10 MB", "10mb+": "Lebih dari 10 MB" },
-    "thanks": "Terima kasih. Ingin kabar jika kami menaikkan batasnya?",
-    "done": "Terima kasih. Kami akan mengirim email sekali jika batasnya berubah."
+    "lead": "Perlu mengonversi file yang lebih besar?",
+    "body": "Kami sedang menyiapkan dukungan untuk file hingga 10 MB, 10 kali batas saat ini, sebagai peningkatan berbayar opsional.",
+    "question": "Apakah Anda mau membayar untuk itu?",
+    "answers": { "yes": "Ya", "maybe": "Mungkin", "no": "Tidak, terima kasih" },
+    "reassurance": "Semua yang bisa Anda lakukan hari ini tetap gratis.",
+    "emailAsk": "Terima kasih! Ingin dikabari lewat email saat sudah siap?",
+    "thanksNo": "Terima kasih sudah memberi tahu kami.",
+    "done": "Terima kasih. Kami akan mengirim email sekali, saat file yang lebih besar sudah didukung."
   },
   "suggest": {
     "link": "Usulkan perbaikan",

@@ -20,7 +20,7 @@ import {
   type FeatureKey,
   type IdeaKind,
   type InviteArm,
-  type LimitSize,
+  type LimitPayAnswer,
   type PaidAnswer,
   type PaidNeed,
   type TeaserExit,
@@ -591,8 +591,9 @@ export function trackFeedbackSkipped(format: string): void {
 //       → vote_saved | invite_dismissed
 //   Vote board:  vote_saved · vote_choice_<choice> · vote_board_closed ·
 //                vote_results_viewed · updates_signup · idea_sent
-//   File over 1 MB:  limit_prompt_shown → limit_size_<size> → updates_signup
-//   Paid interest (trigger = vote | limit | repeat):
+//   File over 1 MB (always asks):  limit_prompt_shown → limit_pay_<answer>
+//     → updates_signup (yes / maybe only)
+//   Paid interest (trigger = vote | repeat; behind NEXT_PUBLIC_PAID_INTEREST):
 //     paid_prompt_shown → paid_prompt_viewed → paid_prompt_opened
 //       → paid_need_<need> · paid_interest_<answer> → updates_signup
 //       · paid_prompt_dismissed
@@ -699,21 +700,26 @@ export function trackIdeaSent(kind: IdeaKind, feature: string | null): void {
   trackEvent(`idea_sent_${kind}`);
 }
 
-/** The size question appeared under the "file too large" error. */
-export function trackLimitPromptShown(detectedBytes: number | null, paid: boolean, where: string): void {
+/**
+ * The large-file card appeared under the "file too large" error. `detected` is
+ * the rejected file's size range: what the visitor needs, without asking.
+ */
+export function trackLimitPromptShown(detectedBytes: number | null, where: string): void {
   trackEvent("limit_prompt_shown", {
     detected: detectedBytes === null ? "unknown" : sizeBucket(detectedBytes),
-    paid: paid ? "yes" : "no",
     where,
     uses: currentUses(),
   });
 }
 
-/** The visitor picked the file size they need. */
-export function trackLimitSizeChosen(needed: LimitSize, detectedBytes: number | null, paid: boolean): void {
+/**
+ * The answer to "Would you consider paying for it?" (files up to 10 MB). A
+ * stated intent from someone who just hit the limit, not a purchase.
+ */
+export function trackLimitPayAnswer(answer: LimitPayAnswer, detectedBytes: number | null, where: string): void {
   const detected = detectedBytes === null ? "unknown" : sizeBucket(detectedBytes);
-  trackEvent("limit_size_chosen", { needed, detected, paid: paid ? "yes" : "no" });
-  trackEvent(`limit_size_${needed}`, { detected });
+  trackEvent("limit_pay", { answer, detected, where, uses: currentUses() });
+  trackEvent(`limit_pay_${answer}`, { detected });
 }
 
 /** A paid-interest question appeared. `trigger`: vote, limit or repeat. */
