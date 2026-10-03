@@ -344,7 +344,8 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
     }
 
     if (canShareDocx) {
-      // Word also needs its formulas as images (html-to-docx has no equation support)
+      // Word gets its formulas as images carrying their LaTeX; the route turns them
+      // into editable equations and keeps a picture only when that fails
       prepareMarkdown(state.content.content, { raster: true, mathImages: true })
         .then((p) => generateDocxBlob(p.markdown, filename, controller.signal))
         .then((result) => {

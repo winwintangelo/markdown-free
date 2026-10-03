@@ -3,6 +3,9 @@ import fs from "fs";
 import path from "path";
 import JSZip from "jszip";
 import { openMoreFormats } from "./export-helpers";
+import { finalizeMathImagesInDocx, prepareMathImagesForDocx } from "../src/lib/docx-math";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const HTMLtoDOCX = require("html-to-docx");
 
 /**
  * PDF and Word (DOCX) THROUGH THE UI — the two server formats on the Phase 0a
@@ -151,7 +154,7 @@ test.describe("PDF through the UI", () => {
 test.describe("Word (DOCX) through the UI", () => {
   test.slow();
 
-  test("formulas arrive as sized images, with the LaTeX as Word alt text", async ({ page }) => {
+  test("formulas arrive as images and become editable Word equations", async ({ page }) => {
     await page.goto("/");
     const posted = captureConvert(page, "docx");
     await loadFixture(page, "02-math-in-table-and-list.md");
@@ -171,30 +174,24 @@ test.describe("Word (DOCX) through the UI", () => {
 
     const zip = await JSZip.loadAsync(buffer);
     const document = await zip.file("word/document.xml")!.async("string");
-    expect(mediaParts(zip), "one picture per formula").toHaveLength(11);
+    // Every formula is a Word equation; its picture is gone from the file
+    expect(document.match(/<m:oMath>/g) ?? [], "one equation per formula").toHaveLength(11);
+    expect(document.match(/<m:oMathPara>/g) ?? [], "the display formula").toHaveLength(1);
+    expect(mediaParts(zip), "no formula pictures left").toHaveLength(0);
+    expect(document).not.toContain("<w:drawing>");
+    expect(/<w:document\b[^>]*\sxmlns:m="http:\/\/schemas\.openxmlformats\.org\/officeDocument\/2006\/math"/.test(document)).toBe(true);
 
-    // The source is no longer body text; it survives as each picture's alt text
+    // The source is not body text, and no KaTeX markup leaks in
     const text = [...document.matchAll(/<w:t[^>]*>([^<]*)<\/w:t>/g)].map((m) => m[1]).join("");
     expect(text).not.toContain("\\frac");
     expect(document, "no KaTeX markup dumped into the document").not.toContain("katex");
-    expect(document).toContain('descr="\\mu = \\frac{1}{n}\\sum x_i"');
-
-    // Sized to the 11pt text, not left at 3× raster resolution
-    const heights = [...document.matchAll(/<wp:extent cx="\d+" cy="(\d+)"/g)].map((m) => Number(m[1]) / 9525);
-    expect(heights).toHaveLength(11);
-    expect(Math.max(...heights)).toBeLessThan(60);
-
-    // Inline formulas are lowered onto the baseline; a display one is not.
-    // (This display formula is a list item's second paragraph, which the route
-    // joins onto the first so html-to-docx keeps it; centring is covered below.)
-    expect(document).toMatch(/<w:position w:val="-\d+"\/>/);
-    const displayPara = document.split("<w:p>").find((p) => p.includes('descr="\\hat{H}\\psi = E\\psi"'));
-    expect(displayPara, "display formula paragraph").toBeDefined();
-    expect(displayPara).not.toContain("<w:position");
+    // \mu = \frac{1}{n}\sum x_i: a fraction and a sum with its body inside the operator
+    expect(document).toContain("<m:f>");
+    expect(document).toMatch(/<m:nary><m:naryPr><m:chr m:val="∑"\/>[\s\S]*?<m:e>(?:(?!<\/m:nary>)[\s\S])*x/);
 
     // Structure still converts properly, formulas included inside table cells
     const table = document.slice(document.indexOf("<w:tbl>"), document.indexOf("</w:tbl>"));
-    expect(table).toContain("<w:drawing>");
+    expect(table).toContain("<m:oMath>");
   });
 
   test("a formula KaTeX cannot parse stays as LaTeX source", async ({ page }) => {
@@ -218,7 +215,8 @@ test.describe("Word (DOCX) through the UI", () => {
     const zip = await JSZip.loadAsync(buffer);
     const document = await zip.file("word/document.xml")!.async("string");
     expect(document, "the bad formula is kept as text").toContain("\\notacommand{z}");
-    expect(mediaParts(zip)).toHaveLength(1);
+    expect(document.match(/<m:oMath>/g) ?? [], "the good one is an equation").toHaveLength(1);
+    expect(mediaParts(zip)).toHaveLength(0);
   });
 
   test("later paragraphs of a list item and images in quotes survive", async ({ page }) => {
@@ -243,9 +241,9 @@ test.describe("Word (DOCX) through the UI", () => {
     const text = [...document.matchAll(/<w:t[^>]*>([^<]*)<\/w:t>/g)].map((m) => m[1]).join("|");
     expect(text).toContain("Second paragraph text");
     expect(text).toContain("Next item");
-    expect(mediaParts(zip), "display formula in the list item + formula in the quote").toHaveLength(2);
+    expect(document.match(/<m:oMath>/g) ?? [], "display formula in the list item + formula in the quote").toHaveLength(2);
     const quote = document.split("<w:p>").find((p) => p.includes("Quote with math"));
-    expect(quote).toContain("<w:drawing>");
+    expect(quote).toContain("<m:oMath>");
     expect(quote).toContain('<w:ind w:left="284"/>');
   });
 
@@ -272,20 +270,21 @@ test.describe("Word (DOCX) through the UI", () => {
     expect(bytes).toBeGreaterThan(900 * 1024);
     expect(bytes).toBeLessThan(4 * 1024 * 1024);
 
-    // Every formula in the fixture (36, per the remark-math parse) became an image
+    // Every formula in the fixture (36, per the remark-math parse) became an image…
     expect(posted[0].markdown.match(/"mdfree-math:/g) ?? []).toHaveLength(36);
     const zip = await JSZip.loadAsync(buffer);
     const document = await zip.file("word/document.xml")!.async("string");
-    // CJK inside \text{} and formulas glued to CJK text all became pictures
-    expect(document).toContain('descr="P(\\text{雨} \\mid \\text{云})');
-    expect(document).toContain('descr="E=mc^2"');
-    // A top-level display formula gets a centred paragraph of its own
+    // …and then an equation; only the 5 diagrams remain as pictures
+    expect(document.match(/<m:oMath>/g) ?? []).toHaveLength(36);
+    expect(mediaParts(zip)).toHaveLength(5);
+    // CJK inside \text{} stays text inside the equation
+    expect(document).toMatch(/<m:t xml:space="preserve">雨<\/m:t>/);
+    // A top-level display formula is an equation paragraph, centred
     const gaussian = document
       .split("<w:p>")
-      .find((p) => p.includes('descr="\\int_{-\\infty}^{\\infty} e^{-x^2}\\,dx = \\sqrt{\\pi}"'));
+      .find((p) => p.includes("<m:oMathPara>") && p.includes('<m:chr m:val="∫"/>'));
     expect(gaussian, "display formula paragraph").toBeDefined();
     expect(gaussian).toContain('<w:jc w:val="center"/>');
-    expect(gaussian).not.toContain("<w:position");
   });
 
   test("Mermaid diagram arrives as an embedded image", async ({ page }) => {
@@ -337,7 +336,7 @@ test.describe("Diagram failures", () => {
 });
 
 test.describe("DOCX formula pictures", () => {
-  test("identical images keep their own alt text and inline/display treatment", async ({ page }) => {
+  test("identical images each become their own inline or display equation", async ({ page }) => {
     // `E=mc^2` and `E = mc^2` can rasterize to the same bytes; the route must
     // still pair each picture with its own occurrence (matched by hash + order)
     await page.goto("/");
@@ -362,11 +361,54 @@ test.describe("DOCX formula pictures", () => {
     const zip = await JSZip.loadAsync(Buffer.from(docx.bytes));
     const document = await zip.file("word/document.xml")!.async("string");
     const inline = document.split("<w:p>").find((p) => p.includes("Inline"));
+    const display = document.split("<w:p>").find((p) => p.includes("<m:oMathPara>"));
+    expect(inline).toContain("<m:oMath>");
+    expect(inline).not.toContain("<m:oMathPara>");
+    expect(display, "display equation paragraph").toBeDefined();
+    expect(display).toContain('<w:jc w:val="center"/>');
+    expect(mediaParts(zip)).toHaveLength(0);
+  });
+
+  // The fallback, driven straight through the library with a converter that
+  // refuses: what Word got before equations existed, and still gets for a
+  // formula the converter can't render faithfully.
+  async function convertWith(toOmml: (latex: string, display: boolean) => string | null) {
+    const png =
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==";
+    const html =
+      `<p>Inline <img src="${png}" alt="E=mc^2" title="mdfree-math:i:40:12:3"> in text.</p>` +
+      `<p><img src="${png}" alt="E = mc^2" title="mdfree-math:d:40:12:0"></p>`;
+    const prepared = prepareMathImagesForDocx(html);
+    const docx: Buffer = await HTMLtoDOCX(`<html><body>${prepared.html}</body></html>`, null, {});
+    const zip = await JSZip.loadAsync(await finalizeMathImagesInDocx(docx, prepared.index, toOmml));
+    return { zip, document: await zip.file("word/document.xml")!.async("string") };
+  }
+
+  test("a formula the converter refuses keeps its picture, alt text and baseline", async () => {
+    const { zip, document } = await convertWith(() => null);
+    const inline = document.split("<w:p>").find((p) => p.includes("Inline"));
     const display = document.split("<w:p>").find((p) => p.includes('descr="E = mc^2"'));
     expect(inline).toContain('descr="E=mc^2"');
     expect(inline, "3px deep → lowered 4.5 half-points, rounded").toContain('<w:position w:val="-5"/>');
     expect(display).toContain('<w:jc w:val="center"/>');
     expect(display).not.toContain("<w:position");
+    expect(document).not.toContain("<m:oMath");
+    expect(mediaParts(zip).length).toBeGreaterThan(0);
+  });
+
+  test("one formula converts, its twin doesn't: the twin's picture survives", async () => {
+    const { zip, document } = await convertWith((latex, display) =>
+      display ? null : '<m:oMath><m:r><m:t xml:space="preserve">E=mc²</m:t></m:r></m:oMath>'
+    );
+    expect(document.match(/<m:oMath>/g) ?? []).toHaveLength(1);
+    expect(document).toContain('descr="E = mc^2"');
+    // Every picture the document still points at is still in the package
+    const rels = await zip.file("word/_rels/document.xml.rels")!.async("string");
+    for (const [, id] of document.matchAll(/r:embed="([^"]+)"/g)) {
+      const target = new RegExp(`Id="${id}"[^>]*Target="([^"]+)"`).exec(rels)?.[1];
+      expect(target, `relationship ${id}`).toBeDefined();
+      expect(zip.file(`word/${target}`), `media for ${id}`).not.toBeNull();
+    }
   });
 });
 

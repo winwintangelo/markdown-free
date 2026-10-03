@@ -116,7 +116,7 @@ test.describe("How each failure degrades", () => {
     await expectNoDiagramResidue(page);
   });
 
-  test("a broken formula keeps its source in Word; a valid one becomes a picture", async ({ page }) => {
+  test("a broken formula keeps its source in Word; a valid one becomes an equation", async ({ page }) => {
     await page.goto("/");
     await loadFixture(page, "02-invalid-latex.md");
     await expect(preview(page).locator(".katex").first()).toBeVisible({ timeout: 15000 });
@@ -129,8 +129,10 @@ test.describe("How each failure degrades", () => {
     const text = [...document.matchAll(/<w:t[^>]*>([^<]*)<\/w:t>/g)].map((m) => m[1]).join("");
     // KaTeX cannot parse these, so they travel as source…
     expect(text).toContain("\\notacommand");
-    // …while the formula it can parse arrives as a picture with its alt text
-    expect(document).toContain('descr="e^{i\\pi} + 1 = 0"');
+    // …while the formula it can parse becomes an editable equation (e^{iπ} + 1 = 0)
+    const equations = document.match(/<m:oMath>[\s\S]*?<\/m:oMath>/g) ?? [];
+    expect(equations.some((omml) => omml.includes("<m:sSup>") && omml.includes("iπ"))).toBe(true);
+    expect(document).not.toContain("<w:drawing>");
   });
 
   test("malformed tables still produce a document, valid tables still become tables", async ({ page }) => {

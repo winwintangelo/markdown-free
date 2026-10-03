@@ -1,17 +1,22 @@
 import { createHash } from "crypto";
 import JSZip from "jszip";
 import { parseMathImageTitle } from "./math-image-marker";
+import { latexToOmml } from "./omml";
 
 /**
- * Server half of formulas-as-images in Word (the browser half is math-images.ts).
+ * Server half of formulas in Word (the browser half is math-images.ts).
  *
+ * The browser sends every formula as a picture that carries its LaTeX.
  * html-to-docx sizes an <img> only from inline CSS, drops its alt text and has
  * no notion of a baseline. So around the conversion:
  *  - before: every math image (title marker, see math-image-marker.ts) gets an
  *    explicit CSS size, a display formula alone in its paragraph is centred,
  *    and the marker is removed;
- *  - after: each math picture gets its LaTeX as Word alt text, and inline ones
- *    are lowered by their depth (w:position) so they sit on the text line.
+ *  - after: each math picture becomes an editable Word equation built from its
+ *    LaTeX (omml.ts); a display formula becomes its own equation paragraph.
+ *    A formula the converter can't render faithfully keeps its picture, with
+ *    the LaTeX as alt text and inline ones lowered by their depth (w:position)
+ *    so they sit on the text line. Pictures no equation needs are deleted.
  * Pictures are matched back to formulas by content hash, never by order.
  */
 
@@ -103,8 +108,18 @@ function withPosition(rPrBody: string, halfPoints: number): string {
   return at === -1 ? rPrBody + position : rPrBody.slice(0, at) + position + rPrBody.slice(at);
 }
 
-/** Add alt text and baseline offsets to the math pictures in a generated DOCX. */
-export async function finalizeMathImagesInDocx(docx: Buffer, index: MathImageIndex): Promise<Buffer> {
+const MATH_NAMESPACE = "http://schemas.openxmlformats.org/officeDocument/2006/math";
+
+/**
+ * Turn the math pictures in a generated DOCX into editable equations, or, for
+ * a formula that can't convert, give its picture alt text and a baseline
+ * offset. `toOmml` is the converter (a seam for tests).
+ */
+export async function finalizeMathImagesInDocx(
+  docx: Buffer,
+  index: MathImageIndex,
+  toOmml: (latex: string, display: boolean) => string | null = latexToOmml
+): Promise<Buffer> {
   if (index.size === 0) return docx;
 
   const zip = await JSZip.loadAsync(docx);
@@ -113,27 +128,41 @@ export async function finalizeMathImagesInDocx(docx: Buffer, index: MathImageInd
   if (!documentFile || !relsFile) return docx;
 
   const hashByRel = new Map<string, string>();
-  const rels = await relsFile.async("string");
+  const targetByRel = new Map<string, string>();
+  let rels = await relsFile.async("string");
   for (const [rel] of rels.matchAll(/<Relationship\b[^>]*>/g)) {
     const id = /\bId="([^"]+)"/.exec(rel)?.[1];
     const target = /\bTarget="(media\/[^"]+)"/.exec(rel)?.[1];
     const media = id && target ? zip.file(`word/${target}`) : null;
-    if (!id || !media) continue;
+    if (!id || !target || !media) continue;
     const hash = sha1(await media.async("nodebuffer"));
-    if (index.has(hash)) hashByRel.set(id, hash);
+    if (index.has(hash)) {
+      hashByRel.set(id, hash);
+      targetByRel.set(id, target);
+    }
   }
   if (hashByRel.size === 0) return docx;
 
+  let equations = 0;
+  let pictures = 0;
   // Pictures are visited in document order, so shifting each hash's queue
   // pairs identical images with their own occurrence
-  const xml = (await documentFile.async("string")).replace(
-    /<w:r>(\s*)(?:<w:rPr\/>|<w:rPr>((?:(?!<\/w:rPr>)[\s\S])*)<\/w:rPr>)(\s*)<w:drawing>([\s\S]*?)<\/w:drawing>/g,
-    (run, lead: string, rPrBody: string | undefined, gap: string, drawing: string) => {
+  let xml = (await documentFile.async("string")).replace(
+    /<w:r>(\s*)(?:<w:rPr\/>|<w:rPr>((?:(?!<\/w:rPr>)[\s\S])*)<\/w:rPr>)(\s*)<w:drawing>([\s\S]*?)<\/w:drawing>(\s*<\/w:r>)?/g,
+    (run, lead: string, rPrBody: string | undefined, gap: string, drawing: string, close: string | undefined) => {
       const rel = /r:embed="([^"]+)"/.exec(drawing)?.[1];
       const queue = rel ? index.get(hashByRel.get(rel) ?? "") : undefined;
       const info = queue && (queue.length > 1 ? queue.shift() : queue[0]);
       if (!info) return run;
 
+      // An equation replaces the whole run, so the run's end must be in hand
+      const omml = info.latex && close ? toOmml(info.latex, info.display) : null;
+      if (omml) {
+        equations++;
+        return info.display ? `<m:oMathPara>${omml}</m:oMathPara>` : omml;
+      }
+
+      pictures++;
       const described = info.latex
         ? drawing.replace(/<wp:docPr\b((?:[^>"]|"[^"]*")*?)(\/?)>/, (tag, attrs: string, slash: string) =>
             /\sdescr=/.test(attrs) ? tag : `<wp:docPr${attrs} descr="${xmlEscape(info.latex)}"${slash}>`
@@ -143,9 +172,22 @@ export async function finalizeMathImagesInDocx(docx: Buffer, index: MathImageInd
       const lower = info.display ? 0 : Math.round(info.depthPx * 1.5);
       const body = rPrBody ?? "";
       const rPr = lower > 0 ? `<w:rPr>${withPosition(body, lower)}</w:rPr>` : body ? `<w:rPr>${body}</w:rPr>` : "<w:rPr/>";
-      return `<w:r>${lead}${rPr}${gap}<w:drawing>${described}</w:drawing>`;
+      return `<w:r>${lead}${rPr}${gap}<w:drawing>${described}</w:drawing>${close ?? ""}`;
     }
   );
+
+  if (equations > 0) {
+    // html-to-docx declares many namespaces on the root, but not math
+    xml = xml.replace(/<w:document\b(?![^>]*\sxmlns:m=)/, `<w:document xmlns:m="${MATH_NAMESPACE}"`);
+    // A picture every occurrence of which became an equation is dead weight
+    for (const [rel, target] of targetByRel) {
+      if (xml.includes(`r:embed="${rel}"`)) continue;
+      rels = rels.replace(new RegExp(`<Relationship\\b[^>]*\\bId="${rel}"[^>]*>`), "");
+      zip.remove(`word/${target}`);
+    }
+    zip.file("word/_rels/document.xml.rels", rels);
+  }
+  console.log(`[DOCX] formulas: ${equations} editable equations, ${pictures} pictures`);
 
   zip.file("word/document.xml", xml);
   return zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });

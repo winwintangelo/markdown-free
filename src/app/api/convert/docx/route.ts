@@ -249,8 +249,8 @@ async function markdownToDocx(markdown: string, title?: string): Promise<Buffer>
 </html>
 `;
 
-  // Step 7: Convert HTML to DOCX, then give the formula pictures their alt
-  // text (the LaTeX) and sit inline ones on the text baseline
+  // Step 7: Convert HTML to DOCX, then turn the formula pictures into
+  // editable equations (pictures stay for formulas that can't convert)
   const docxBuffer = await HTMLtoDOCX(fullHtml, null, {
     table: { row: { cantSplit: true } },
     footer: false,
