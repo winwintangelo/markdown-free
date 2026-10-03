@@ -139,6 +139,8 @@ Gate: ≥ 90% of the corpus renders with zero manual fixes in PDF, HTML, PNG and
 
 ### Phase 0b — DOCX fidelity (deferred; starts on a DOCX demand signal)
 
+**Editable equations built 2026-10-03, ahead of the engine decision** (owner, after the feedback v2 read: 2 votes plus a typed complaint that Word formulas are images). The cheaper of the two spike options: keep `html-to-docx` and post-process the ZIP. The browser still sends each formula as a PNG carrying its LaTeX; after generation the route converts the LaTeX to OMML (`src/lib/omml.ts`: KaTeX MathML → `mathml2omml` 0.5, LGPL-3.0, server-only) and swaps the picture for the equation, a display formula becoming its own `m:oMathPara`. The converter's output needed repairs (an `m:sty` of "undefined", repeated `m:argPr`, `w:rPr` before `m:rPr`, operator bodies left empty, limit-less operators written as plain characters), and its big-operator test misfires on a base like `{A \cup B}`, so every result is checked and a formula that fails keeps its picture. Benchmark corpus + hard cases: 119 of 119 unique formulas convert. Visual check in Word: `tmp/omml/spike3.docx`. The engine swap, merged cells and a client-side DOCX stay open below.
+
 | Item | Scope | Effort |
 |---|---|---|
 | Trigger | Start 0b when any of: `conv_docx` ≥ 25% of conversions for a month; DOCX-related negative feedback (`tables_code`, `formatting` on docx) ≥ 20% of all negative feedback; or Bing 转word impressions double. Reviewed at each loop cycle. | — |
@@ -186,6 +188,24 @@ Gate: ≥ 30 of 51 pages indexed by Bing and Google within 60 days; conversions/
 - Votes: editable equations in Word 1, "nothing missing for me" 1. Also 2 typed suggestions, 2 size answers (both 1–2 MB), 0 email signups. Supabase: 4 votes in total (2 from the old board), 2 suggestions, 0 signups.
 - The primary metric can't be decided on 2 votes. At about 65 views a day the card yields about 4–5 votes a week, so the board alone can't find likely payers; the gated paid-interest path can, once the "no premium tier" copy is fixed. Next read around 2026-10-07. Probe scripts: `tmp/probe-v2-read.mjs`, `tmp/probe-v2-dismiss.mjs`.
 - Vercel API gotcha: `/events/count` includes the `until` day, `/events/aggregate` excludes it. Set `until` to tomorrow when comparing the two.
+
+**Second read, 2026-10-03** (09-27 → 10-03, 7 days):
+
+| | Control | Card |
+|---|---|---|
+| Assigned | 134 | 146 |
+| Viewed | 136 | 150 |
+| Opened | 1 (0.7%) | 13 (8.7%) |
+| Voted | 0 | 4 (2.7% of assigned) |
+| Closed with × | 6 | 8 |
+
+- The card wins on opens: 13 of 14 (≈ 0.3% by chance). Votes, the primary metric, are suggestive only: 4 vs 0 (≈ 7% by chance).
+- The board leaks: 9 of 13 openers closed it without a pick.
+- Votes since v2: editable equations in Word 2, "something else" 1, "nothing missing" 1. Supabase, old board included: formatting 2, equations 2, nothing 1, other 1; pay intent "no" 1; 0 email signups.
+- Typed suggestions: "转出后的数学公式怎么是图片的形式？" (why are formulas images after export, zh-Hans); an "exam paper / print" theme on A4 that exports a printable test PDF (zh-Hans); "Manually set title and author" (en, the "something else" vote).
+- Size question: 5 visitors over 1 MB answered: 1–2 MB (3), 2–5 MB, 5–10 MB, over 10 MB.
+- Conversions dipped from 10-01: China's National Day holiday. Chinese visitors fell ~45% and their conversions fell equally across Word, PDF and PNG; other countries converted at the usual rate and errors didn't rise.
+- **Decided 2026-10-03:** build editable equations in Word (Phase 0b; the demand signal it waited for) and ask visitors who hit the 1 MB limit whether they'd pay for larger files. Next read around 2026-10-10, after the holiday. Probe scripts: `tmp/probe-v2-read2.mjs`, `tmp/probe-feedback-store.mjs`.
 
 **Redesigned 2026-09-19.** The owner rejected priced fake doors: a free product that suddenly shows fees reads as a bait-and-switch, and names like "Academic templates" mean nothing to most visitors. The probe now measures interest in named features, split into Premium and Free, with no prices.
 
