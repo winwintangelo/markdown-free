@@ -253,16 +253,17 @@
       "pageSize": "Page size",
       "headers": "Headers and footers",
       "other": "Something else"
-    },
-    "limitLead": "Need files over 1 MB?",
-    "limitBody": "We're exploring a higher limit as an optional paid feature.",
-    "limitCta": "Tell us the size you need"
+    }
   },
   "limitPrompt": {
-    "question": "Need files over 1 MB? Tell us what size you need.",
-    "sizes": { "1-2mb": "1–2 MB", "2-5mb": "2–5 MB", "5-10mb": "5–10 MB", "10mb+": "Over 10 MB" },
-    "thanks": "Thanks. Want an update if we raise the limit?",
-    "done": "Thanks. We'll email you once if the limit changes."
+    "lead": "Need to convert bigger files?",
+    "body": "We're working on support for files up to 10 MB, 10× today's limit, as an optional paid upgrade.",
+    "question": "Would you consider paying for it?",
+    "answers": { "yes": "Yes", "maybe": "Maybe", "no": "No thanks" },
+    "reassurance": "Everything you can do today stays free.",
+    "emailAsk": "Thanks! Want an email when it's ready?",
+    "thanksNo": "Thanks for letting us know.",
+    "done": "Thanks. We'll email you once, when bigger files are ready."
   },
   "suggest": {
     "link": "Suggest an improvement",

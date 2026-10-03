@@ -253,16 +253,17 @@
       "pageSize": "Khổ giấy",
       "headers": "Đầu trang và chân trang",
       "other": "Khác"
-    },
-    "limitLead": "Cần tệp lớn hơn 1 MB?",
-    "limitBody": "Chúng tôi đang tìm hiểu việc nâng giới hạn như một tính năng trả phí tùy chọn.",
-    "limitCta": "Cho biết dung lượng bạn cần"
+    }
   },
   "limitPrompt": {
-    "question": "Cần tệp lớn hơn 1 MB? Cho chúng tôi biết dung lượng bạn cần.",
-    "sizes": { "1-2mb": "1–2 MB", "2-5mb": "2–5 MB", "5-10mb": "5–10 MB", "10mb+": "Trên 10 MB" },
-    "thanks": "Cảm ơn. Bạn muốn nhận tin nếu chúng tôi nâng giới hạn?",
-    "done": "Cảm ơn. Chúng tôi sẽ gửi email một lần nếu giới hạn thay đổi."
+    "lead": "Bạn cần chuyển đổi tệp lớn hơn?",
+    "body": "Chúng tôi đang phát triển hỗ trợ tệp đến 10 MB, gấp 10 lần giới hạn hiện tại, dưới dạng gói nâng cấp trả phí tùy chọn.",
+    "question": "Bạn có sẵn lòng trả phí cho tính năng này không?",
+    "answers": { "yes": "Có", "maybe": "Có thể", "no": "Không, cảm ơn" },
+    "reassurance": "Mọi thứ bạn làm được hôm nay vẫn miễn phí.",
+    "emailAsk": "Cảm ơn! Bạn có muốn nhận email khi tính năng sẵn sàng không?",
+    "thanksNo": "Cảm ơn bạn đã cho chúng tôi biết.",
+    "done": "Cảm ơn. Chúng tôi sẽ gửi bạn một email khi hỗ trợ tệp lớn hơn sẵn sàng."
   },
   "suggest": {
     "link": "Đề xuất cải tiến",

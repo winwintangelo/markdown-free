@@ -60,9 +60,9 @@ export type PaidAnswer = (typeof PAID_ANSWERS)[number];
 export const PAY_ANSWERS = ["yes", "maybe", "no"] as const;
 export type PayAnswer = (typeof PAY_ANSWERS)[number];
 
-/** File sizes offered under the 1 MB error. */
-export const LIMIT_SIZES = ["1-2mb", "2-5mb", "5-10mb", "10mb+"] as const;
-export type LimitSize = (typeof LIMIT_SIZES)[number];
+/** Answers to the large-file card under the 1 MB error ("Would you consider paying for it?"). Analytics only. */
+export const LIMIT_PAY_ANSWERS = ["yes", "maybe", "no"] as const;
+export type LimitPayAnswer = (typeof LIMIT_PAY_ANSWERS)[number];
 
 /** What a repeat visitor would change first, on the page-layout question. */
 export const PAID_NEEDS = ["fonts", "margins", "pageSize", "headers", "other"] as const;
