@@ -169,7 +169,7 @@ Gate: ≥ 30 of 51 pages indexed by Bing and Google within 60 days; conversions/
 
 **The first 24 hours rewrote the display rules (2026-09-23).** Umami: 95 converting visitors, but only 14 teasers and no opens. Two causes, both fixed and live on `main` @ `4ccc4fa`. (1) A remount bug: the teaser keyed off a counter that moved on every conversion, so later exports logged phantom dismissals — 12 of them from 4 visitors. (2) Reach: waiting for a browser's 2nd conversion *and* for 30 quiet minutes cannot both happen in one sitting, since conversion #1 starts the quiet period, so only visitors returning half an hour later ever saw the probe. At ~98 impressions a week the gate was arithmetically out of reach. The teaser now owns the slot for 7 days (row below). **The measurement window therefore restarts from 2026-09-23 and ends ~2026-10-21**; the 09-22 data is a discarded warm-up.
 
-**Feedback v2 replaced the teaser on 2026-09-27** (`main` @ `b806695`): a two-arm invitation (control = the one-line teaser, card = a larger card that asks about Word after a Word export), a single-choice board, typed suggestions, a 1 MB size question, and a paid-interest path that stays off until the build sets `NEXT_PUBLIC_PAID_INTEREST=1`. Every `feature_teaser_*`, `feature_vote_*` and `pay_intent_*` event in the tables below is retired; only tabs still on the old bundle fire them. Read `invite_*` and `vote_*` instead (catalog: "FEEDBACK V2" in `src/lib/analytics.ts`). Primary metric: `vote_saved_<arm>` ÷ `invite_assigned_<arm>`.
+**Feedback v2 replaced the teaser on 2026-09-27** (`main` @ `b806695`): a two-arm invitation (control = the one-line teaser, card = a larger card that asks about Word after a Word export), a single-choice board, typed suggestions, a 1 MB size question, and a paid-interest path that stays off until the build sets `NEXT_PUBLIC_PAID_INTEREST=1`. Two paid questions now ask without it: the large-file card (since 2026-10-03) and the page-layout question for heavy users (since 2026-10-08). Every `feature_teaser_*`, `feature_vote_*` and `pay_intent_*` event in the tables below is retired; only tabs still on the old bundle fire them. Read `invite_*` and `vote_*` instead (catalog: "FEEDBACK V2" in `src/lib/analytics.ts`). Primary metric: `vote_saved_<arm>` ÷ `invite_assigned_<arm>`.
 
 **First read of feedback v2, 2026-09-30** (09-27 23:20 UTC → 09-30, about 3 days; Vercel dashboard and API agree):
 
@@ -206,6 +206,26 @@ Gate: ≥ 30 of 51 pages indexed by Bing and Google within 60 days; conversions/
 - Size question: 5 visitors over 1 MB answered: 1–2 MB (3), 2–5 MB, 5–10 MB, over 10 MB.
 - Conversions dipped from 10-01: China's National Day holiday. Chinese visitors fell ~45% and their conversions fell equally across Word, PDF and PNG; other countries converted at the usual rate and errors didn't rise.
 - **Decided 2026-10-03:** build editable equations in Word (Phase 0b; the demand signal it waited for) and ask visitors who hit the 1 MB limit whether they'd pay for larger files. Next read around 2026-10-10, after the holiday. Probe scripts: `tmp/probe-v2-read2.mjs`, `tmp/probe-feedback-store.mjs`.
+
+**Third read, 2026-10-08** (09-27 → 10-08, 12 full UTC days; 10-04 → 10-08 are new):
+
+| | Control | Card |
+|---|---|---|
+| Assigned | 211 | 244 |
+| Viewed | 216 | 252 |
+| Opened | 4 (1.9%) | 19 (7.8%) |
+| Voted | 2 (0.9% of assigned) | 6 (2.5% of assigned) |
+| Closed with × | 8 | 16 |
+
+- The card still wins on opens (Fisher p ≈ 0.005). The vote gap shrank: the control arm got its first 2 votes, and 6 vs 2 is now p ≈ 0.30 (it was 0.07). Taken alone, 10-04 → 10-08 looks the same in both arms (opens 6.3% vs 4.1%, votes 2.1% vs 2.7%). The test runs to 2026-10-21 as planned; showing the card to everyone would add about one vote a week.
+- The board leaks: 15 of 23 openers left without a pick. 8 votes in 12 days, about 5 a week.
+- New votes: equations, formatting, merging AI chats, "nothing missing". Supabase, old board included: formatting 3, equations 3, nothing 2, other 1, merge 1; 0 email signups. No typed suggestions since 10-01; the "Suggest an improvement" link was opened 5 times by 3 visitors with nothing sent.
+- One vote went to editable equations in Word, which had shipped on 10-03.
+- Large-file card, first read (10-03 → 10-08): 3 visitors hit the limit (7 tries), and all 3 saw the card. A 5 MB+ file on desktop: the card showed twice, and the visitor clicked Maybe once and No thanks twice. A 1–2 MB file on a phone: No thanks. A 2–5 MB file on desktop: no answer. No yes, no email. All three had no earlier conversion in that browser (`uses=0`). At about 4 a week, read the card monthly.
+- Editable equations in Word: 102 visitors exported Word files 10-04 → 10-08, 40 of them with math. Word errors: 4 (network 2, cancelled 1, unknown 1), the same mix as the 6 days before launch. Analytics can't see how many formulas fall back to a picture.
+- The holiday is over: converting visitors were 22–27 a day 10-04 → 10-06, 49 on 10-07 and 68 on 10-08 (Chinese visitors 7–14 → 29 → 43).
+- Heavy users (3+ conversions on 2+ days, from `usage_profile`): 3 browser-days 09-24 → 09-30, 17 on 10-02 → 10-08, 4 of them with 10+ conversions. The 30-day history began on 09-27, so the count is still growing.
+- **Decided 2026-10-08:** take editable equations off the board (an older page may still send an equations vote, and `/api/votes` still accepts it), and ask heavy users the page-layout question without waiting for `NEXT_PUBLIC_PAID_INTEREST`. The board's paid line and the question after a vote stay off, so the invitation test is unchanged. Next read around 2026-10-15. Probe scripts: `tmp/probe-v2-read3.mjs`, `tmp/probe-v2-read3b.mjs`, `tmp/probe-heavy.mjs`, `tmp/probe-feedback-store.mjs`.
 
 **Redesigned 2026-09-19.** The owner rejected priced fake doors: a free product that suddenly shows fees reads as a bait-and-switch, and names like "Academic templates" mean nothing to most visitors. The probe now measures interest in named features, split into Premium and Free, with no prices.
 
