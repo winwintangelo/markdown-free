@@ -13,7 +13,8 @@ import { openMoreFormats } from "./export-helpers";
  * - The invitation test: two arms fixed per browser, control and card.
  * - The board: one choice, no counts before the vote, optional follow-ups.
  * - The 1 MB size question, on desktop and on a phone.
- * - The paid path, off by default and on with `?paid=1` (localhost only).
+ * - The paid path: the heavy-user question always; the board's paid line and
+ *   the question after a vote only with `?paid=1` (localhost only).
  * - The suggestion link.
  * - Every path's analytics events, and that typed text and addresses never
  *   reach analytics.
@@ -37,6 +38,7 @@ const HUMAN_PAUSE_MS = 1700;
 const EN = JSON.parse(readFileSync(path.join(__dirname, "../src/i18n/dictionaries/en.json"), "utf8"));
 const FT = EN.featureTeaser;
 const FEATURE_LABELS: Record<string, string> = FT.features;
+const FEATURE_COUNT = Object.keys(FEATURE_LABELS).length;
 /** The thumbs prompt, which takes the slot when no other prompt is due. */
 const THUMBS_QUESTION: string = EN.postConvertFeedback.question;
 
@@ -336,7 +338,9 @@ test.describe("The vote board", () => {
   test("one choice, no counts, and nothing to save until a choice", async ({ page }) => {
     const { dialog } = await openVoteDialog(page, "/?arm=card");
     await expect(dialog.getByRole("heading", { name: FT.voteTitle })).toBeVisible();
-    await expect(dialog.locator("[role=radio]")).toHaveCount(10);
+    // The features plus "Something else" and "Nothing missing"
+    await expect(dialog.locator("[role=radio]")).toHaveCount(FEATURE_COUNT + 2);
+    await expect(dialog.locator('[data-choice="equations"]'), "shipped 2026-10-03").toHaveCount(0);
     await expect(dialog.locator(".vote-bar")).toHaveCount(0);
     await expect(dialog.getByText(/^\d+$/)).toHaveCount(0);
     await expect(dialog.getByTestId("vote-paid-line")).toHaveCount(0);
@@ -363,14 +367,26 @@ test.describe("The vote board", () => {
     const { dialog } = await openVoteDialog(page);
     const first = await dialog.locator("[data-choice]").evaluateAll((els) => els.map((el) => el.getAttribute("data-choice")));
     const stored = await page.evaluate(() => JSON.parse(localStorage.getItem("mdfree:board-order") ?? "[]"));
-    expect(first.slice(0, 8)).toEqual(stored);
-    expect(first.slice(8)).toEqual(["other", "nothing"]);
+    expect(first.slice(0, FEATURE_COUNT)).toEqual(stored);
+    expect(first.slice(FEATURE_COUNT)).toEqual(["other", "nothing"]);
     expect([...stored].sort()).toEqual(Object.keys(FEATURE_LABELS).sort());
 
     await dialog.getByRole("button", { name: FT.dismiss }).click();
     await page.getByTestId("feature-teaser-open").click();
     const again = await dialog.locator("[data-choice]").evaluateAll((els) => els.map((el) => el.getAttribute("data-choice")));
     expect(again).toEqual(first);
+  });
+
+  test("a feature that left the board drops out of a stored order; the rest keep their places", async ({ page }) => {
+    const order = ["share", "equations", "merge", "large", "formatting", "account", "templates", "recover"];
+    await page.goto("/");
+    await page.evaluate((stored) => localStorage.setItem("mdfree:board-order", JSON.stringify(stored)), order);
+    await uploadSample(page);
+    await exportTxt(page);
+    await page.getByTestId("feature-teaser-open").click();
+    const dialog = page.getByTestId("feature-vote-dialog");
+    const shown = await dialog.locator("[data-choice]").evaluateAll((els) => els.map((el) => el.getAttribute("data-choice")));
+    expect(shown).toEqual([...order.filter((key) => key !== "equations"), "other", "nothing"]);
   });
 
   test("a vote posts one choice, confirms, and records the funnel", async ({ page }) => {
@@ -462,9 +478,9 @@ test.describe("The vote board", () => {
 
   test("the updates email goes to /api/notify with the chosen feature, never to analytics", async ({ page }) => {
     await openVoteDialog(page);
-    const { dialog } = await vote(page, "equations");
+    const { dialog } = await vote(page, "templates");
     const form = dialog.getByTestId("vote-updates");
-    await expect(form).toContainText(FEATURE_LABELS.equations);
+    await expect(form).toContainText(FEATURE_LABELS.templates);
     await form.locator("#vote-updates-email").fill("reader@example.com");
     await page.waitForTimeout(HUMAN_PAUSE_MS);
     const request = page.waitForRequest((r) => r.url().endsWith("/api/notify"));
@@ -472,14 +488,14 @@ test.describe("The vote board", () => {
     await form.getByRole("button", { name: FT.getUpdates }).click();
     expect((await request).postDataJSON()).toMatchObject({
       email: "reader@example.com",
-      features: ["equations"],
+      features: ["templates"],
       locale: "en",
     });
     expect((await response).headers()["x-notify-outcome"]).toBe("test-mode");
-    await expect(dialog).toContainText(FT.updatesDone.replace("{feature}", FEATURE_LABELS.equations));
+    await expect(dialog).toContainText(FT.updatesDone.replace("{feature}", FEATURE_LABELS.templates));
 
     const [signup] = await eventsNamed(page, "updates_signup");
-    expect(signup.data).toMatchObject({ source: "vote", feature: "equations" });
+    expect(signup.data).toMatchObject({ source: "vote", feature: "templates" });
     expect(await eventNames(page)).toContain("updates_signup_vote");
     expect(JSON.stringify(await getEvents(page))).not.toContain("reader@example.com");
   });
@@ -520,7 +536,7 @@ test.describe("The vote board", () => {
     const { dialog } = await vote(page, "share");
     await expect(dialog.getByTestId("vote-results")).toHaveCount(0);
     await dialog.getByTestId("vote-results-toggle").click();
-    await expect(dialog.getByTestId("vote-results").locator(".vote-bar")).toHaveCount(8);
+    await expect(dialog.getByTestId("vote-results").locator(".vote-bar")).toHaveCount(FEATURE_COUNT);
     await dialog.getByTestId("vote-results-toggle").click();
     await dialog.getByTestId("vote-results-toggle").click();
     expect(await eventsNamed(page, "vote_results_viewed")).toHaveLength(1);
@@ -614,7 +630,7 @@ test.describe("A file over 1 MB", () => {
     const names = await eventNames(page);
     expect(names).toContain("limit_pay_no");
     expect(names).toContain("limit_pay_maybe");
-    // The other paid prompts stay behind NEXT_PUBLIC_PAID_INTEREST
+    // No other paid question for a visitor who isn't a heavy user
     expect(names).not.toContain("paid_prompt_shown");
   });
 
@@ -652,22 +668,22 @@ test.describe("A file over 1 MB on a phone", () => {
 });
 
 test.describe("The paid path", () => {
-  test("is off by default: no paid line, plain updates after a vote for a candidate feature", async ({ page }) => {
+  test("is off on the board by default: no paid line, plain updates after a vote for a candidate feature", async ({ page }) => {
     await openVoteDialog(page);
     await expect(page.getByTestId("vote-paid-line")).toHaveCount(0);
-    const { dialog } = await vote(page, "equations");
+    const { dialog } = await vote(page, "templates");
     await expect(dialog.getByTestId("vote-updates")).toBeVisible();
     await expect(dialog.getByTestId("paid-questions-vote")).toHaveCount(0);
     expect(await eventNames(page)).not.toContain("paid_prompt_shown");
   });
 
-  test("on: the board shows the paid line, and a vote for equations asks about paying", async ({ page }) => {
+  test("on: the board shows the paid line, and a vote for templates asks about paying", async ({ page }) => {
     await openVoteDialog(page, "/?paid=1");
     await expect(page.getByTestId("vote-paid-line")).toHaveText(FT.paidLine);
-    const { dialog } = await vote(page, "equations");
+    const { dialog } = await vote(page, "templates");
     const questions = dialog.getByTestId("paid-questions-vote");
     await expect(questions).toBeVisible();
-    await expect(dialog).toContainText(EN.paidInterest.vote.replace("{feature}", FEATURE_LABELS.equations));
+    await expect(dialog).toContainText(EN.paidInterest.vote.replace("{feature}", FEATURE_LABELS.templates));
     await expect(dialog.getByTestId("vote-updates")).toHaveCount(0);
     expect(await eventNames(page)).toContain("paid_prompt_shown_vote");
 
@@ -682,8 +698,8 @@ test.describe("The paid path", () => {
     await expect(dialog.getByTestId("paid-questions-vote")).toHaveCount(0);
   });
 
-  test("on: a heavy user gets the page-layout question once", async ({ page }) => {
-    await page.goto("/?paid=1");
+  test("a heavy user gets the page-layout question once, without ?paid=1", async ({ page }) => {
+    await page.goto("/");
     await seedHistory(page, { conversions: 2, teaserDaysAgo: 2, answered: true });
     await seedHeavyUse(page);
     await uploadSample(page);
@@ -714,18 +730,17 @@ test.describe("The paid path", () => {
     await expect(page.getByTestId("paid-layout-prompt")).toHaveCount(0);
   });
 
-  test("off: a heavy user gets the thumbs prompt", async ({ page }) => {
+  test("a visitor who isn't a heavy user gets the thumbs prompt", async ({ page }) => {
     await page.goto("/");
     await seedHistory(page, { conversions: 2, teaserDaysAgo: 2, answered: true });
-    await seedHeavyUse(page);
     await uploadSample(page);
     await exportTxt(page);
     await expect(page.getByText(THUMBS_QUESTION)).toBeVisible();
     await expect(page.getByTestId("paid-layout-prompt")).toHaveCount(0);
   });
 
-  test("on: never in the same tab as a vote invitation", async ({ page }) => {
-    await page.goto("/?paid=1");
+  test("a heavy user in the invitation's 7 days gets the invitation, and never both in one tab", async ({ page }) => {
+    await page.goto("/");
     await seedHeavyUse(page);
     await uploadSample(page);
     await exportTxt(page);
@@ -786,6 +801,16 @@ test.describe("POST /api/votes", () => {
     expect(response.status()).toBe(200);
   });
 
+  test("still accepts a retired choice from a page loaded before it left the board", async ({ request }) => {
+    test.skip(!(await serverIsTestTarget(request)), "needs a test server that stores nothing");
+    const response = await request.post("/api/votes", {
+      headers: ORIGIN_HEADERS,
+      data: { choice: "equations", website: "", elapsedMs: 5000 },
+    });
+    expect(response.status()).toBe(200);
+    expect(response.headers()["x-votes-outcome"]).toBe("test-mode");
+  });
+
   test("rejects an unknown choice, an empty call and bad JSON", async ({ request }) => {
     const unknown = await request.post("/api/votes", { headers: ORIGIN_HEADERS, data: { choice: "free-pizza" } });
     expect(unknown.status()).toBe(400);
@@ -833,7 +858,7 @@ test.describe("POST /api/ideas", () => {
     expect(suggestion.headers()["x-ideas-outcome"]).toBe("test-mode");
     const workaround = await request.post("/api/ideas", {
       headers: ORIGIN_HEADERS,
-      data: { ...good, kind: "workaround", feature: "equations" },
+      data: { ...good, kind: "workaround", feature: "formatting" },
     });
     expect(workaround.status()).toBe(200);
   });

@@ -593,7 +593,8 @@ export function trackFeedbackSkipped(format: string): void {
 //                vote_results_viewed · updates_signup · idea_sent
 //   File over 1 MB (always asks):  limit_prompt_shown → limit_pay_<answer>
 //     → updates_signup (yes / maybe only)
-//   Paid interest (trigger = vote | repeat; behind NEXT_PUBLIC_PAID_INTEREST):
+//   Paid interest (trigger = vote, behind NEXT_PUBLIC_PAID_INTEREST; or
+//   repeat, the heavy-user question, always on):
 //     paid_prompt_shown → paid_prompt_viewed → paid_prompt_opened
 //       → paid_need_<need> · paid_interest_<answer> → updates_signup
 //       · paid_prompt_dismissed

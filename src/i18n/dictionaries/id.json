@@ -199,7 +199,6 @@
     "paidLine": "Beberapa fitur lanjutan baru mungkin berbayar. Fitur yang ada sekarang tetap gratis.",
     "features": {
       "formatting": "Atur font, margin, dan tata letak halaman",
-      "equations": "Persamaan yang bisa diedit di Word",
       "templates": "Template yang bisa dipakai ulang untuk laporan dan dokumen",
       "large": "File lebih dari 1 MB",
       "recover": "Pulihkan dokumen terbaru di browser ini",

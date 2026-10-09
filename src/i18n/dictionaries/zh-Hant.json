@@ -199,7 +199,6 @@
     "paidLine": "部分新的進階功能可能需要付費。現有功能會繼續免費。",
     "features": {
       "formatting": "自訂字型、邊界和頁面排版",
-      "equations": "Word 中可編輯的公式",
       "templates": "可重複使用的報告和文件範本",
       "large": "超過 1 MB 的檔案",
       "recover": "在這個瀏覽器中復原最近的文件",

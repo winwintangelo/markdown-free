@@ -199,7 +199,6 @@
     "paidLine": "Some new advanced features may be paid. Current features stay free.",
     "features": {
       "formatting": "Customize fonts, margins & page layout",
-      "equations": "Editable equations in Word",
       "templates": "Reusable templates for reports and documents",
       "large": "Files larger than 1 MB",
       "recover": "Recover recent documents in this browser",

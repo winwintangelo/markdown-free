@@ -61,10 +61,11 @@ export async function POST(request: NextRequest) {
 
   let choices: string[];
   if (fields.choice !== undefined) {
-    if (!isChoiceKey(fields.choice)) {
+    // A retired choice still counts when a page loaded before the change sends it.
+    if (!isChoiceKey(fields.choice) && !isLegacyFeatureKey(fields.choice)) {
       return errorResponse("INVALID_CHOICE", "Choose one of the listed options.", 400);
     }
-    choices = [fields.choice];
+    choices = [fields.choice as string];
   } else {
     // The multi-pick board, from a page loaded before the change.
     const picked: unknown[] = Array.isArray(fields.features) ? fields.features : [];

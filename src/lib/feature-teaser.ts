@@ -8,9 +8,10 @@
  *     It never asks about buying.
  *   - "Who would pay?" — a short, feature-specific question shown only where a
  *     visitor meets a real need (a file over 1 MB, a vote for a candidate paid
- *     feature, repeat use). It says plainly that the option may be paid. It is
- *     off until the public "no premium tier" copy is fixed; see
- *     paidInterestEnabled().
+ *     feature, repeat use). It says plainly that the option may be paid. The
+ *     large-file card and the question for heavy users always ask; the
+ *     question after a vote, and the board's paid line, stay off until the
+ *     public "no premium tier" copy is fixed; see paidInterestEnabled().
  *
  * The invitation runs as a two-arm test, fixed per browser: today's teaser line
  * (control) against a format-specific card (card).
@@ -26,7 +27,6 @@
 /** The features on the board, in canonical order (the board shuffles them). */
 export const FEATURE_KEYS = [
   "formatting",
-  "equations",
   "templates",
   "large",
   "recover",
@@ -42,15 +42,17 @@ export type ChoiceKey = (typeof CHOICE_KEYS)[number];
 
 /**
  * Choices an older page may still send during a rollout: "backup" was split
- * into "recover" (in this browser) and "account" (stored online).
+ * into "recover" (in this browser) and "account" (stored online), and
+ * "equations" left the board when editable equations in Word shipped
+ * (2026-10-03).
  */
-export const LEGACY_FEATURE_KEYS = ["backup"] as const;
+export const LEGACY_FEATURE_KEYS = ["backup", "equations"] as const;
 
 /**
  * Features a visitor may be asked about paying for, once the paid path is on.
  * The board never marks them — a tier badge beside a feature bends the vote.
  */
-export const PAID_INTEREST_FEATURES: readonly FeatureKey[] = ["formatting", "equations", "templates", "large", "account"];
+export const PAID_INTEREST_FEATURES: readonly FeatureKey[] = ["formatting", "templates", "large", "account"];
 
 /** Answers to "Would you consider a paid option for this?" Analytics only. */
 export const PAID_ANSWERS = ["maybe", "free", "unsure"] as const;
@@ -126,7 +128,7 @@ export function dwellBucket(ms: number): string {
 /**
  * Fill in the features the server did not return (nothing stored yet, or a
  * test server), so the results always list every feature. "other", "nothing"
- * and the retired "backup" are counted but not drawn.
+ * and retired features are counted but not drawn.
  */
 export function completeTallies(rows: { feature: string; votes: number }[], choice: ChoiceKey | null): FeatureTally[] {
   const byKey = new Map(rows.map((row) => [row.feature, row.votes]));
@@ -217,10 +219,12 @@ export function teaserForcedLocally(): boolean {
 }
 
 /**
- * Whether the paid-interest questions may show. Off until the public copy that
- * promises "no premium tier" is corrected (marketing review, priority 0): set
- * NEXT_PUBLIC_PAID_INTEREST=1 at build time to turn them on. `?paid=1` turns
- * them on for a manual check on localhost.
+ * Whether the board's paid line and the paid question after a vote may show.
+ * Off until the public copy that promises "no premium tier" is corrected
+ * (marketing review, priority 0): set NEXT_PUBLIC_PAID_INTEREST=1 at build
+ * time to turn them on. `?paid=1` turns them on for a manual check on
+ * localhost. The large-file card and the heavy-user question ask without it
+ * (owner, 2026-10-03 and 2026-10-08).
  */
 export function paidInterestEnabled(): boolean {
   return process.env.NEXT_PUBLIC_PAID_INTEREST === "1" || localParam("paid") === "1";
@@ -259,13 +263,11 @@ export function inviteArm(random: () => number = Math.random): { arm: InviteArm;
  */
 export function boardOrder(random: () => number = Math.random): FeatureKey[] {
   try {
-    const stored = JSON.parse(localStorage.getItem(BOARD_ORDER_KEY) ?? "null");
-    if (
-      Array.isArray(stored) &&
-      stored.length === FEATURE_KEYS.length &&
-      FEATURE_KEYS.every((key) => stored.includes(key))
-    ) {
-      return stored as FeatureKey[];
+    const stored: unknown = JSON.parse(localStorage.getItem(BOARD_ORDER_KEY) ?? "null");
+    // A retired feature drops out of a stored order; the rest keep their places.
+    const kept = Array.isArray(stored) ? stored.filter(isFeatureKey) : [];
+    if (kept.length === FEATURE_KEYS.length && FEATURE_KEYS.every((key) => kept.includes(key))) {
+      return kept;
     }
   } catch {
     // Fall through to a fresh shuffle.
@@ -344,8 +346,8 @@ function markInviteSession(): void {
  *   2. the vote invitation, for 7 days from its first showing, unless the
  *      visitor voted;
  *   3. the page-layout paid question, once, for a heavy user (`heavy`, see
- *      isHeavyUser in usage-signals.ts), when the paid path is on and no
- *      invitation showed in this tab;
+ *      isHeavyUser in usage-signals.ts), when no invitation showed in this
+ *      tab;
  *   4. the thumbs prompt.
  *
  * Without working storage neither cooldown can be honored, so only the thumbs
@@ -377,12 +379,7 @@ export function recordConversion(now: number = Date.now(), options: { heavy?: bo
       return "teaser";
     }
 
-    if (
-      options.heavy &&
-      paidInterestEnabled() &&
-      localStorage.getItem(PAID_LAYOUT_SHOWN_KEY) !== "1" &&
-      !inviteShownThisSession()
-    ) {
+    if (options.heavy && localStorage.getItem(PAID_LAYOUT_SHOWN_KEY) !== "1" && !inviteShownThisSession()) {
       return "paid";
     }
     return "thumbs";
