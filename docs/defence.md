@@ -348,7 +348,40 @@ A code review of every API route, the Supabase schema and the client pipeline (2
 - **Rate limits are per instance.** Votes, ideas and signups can still be stuffed by a script that spreads requests across IPs or instances, and `elapsedMs` is client-reported. Options: a Vercel Firewall rate-limit rule, Upstash (7.1), or an HMAC-signed issue time. Meanwhile, compare `npm run db:check` totals with the `vote_saved` analytics count: scripted votes don't fire analytics.
 - **A repeat signup clears `unsubscribed_at`** (`notify_signup` RPC), and anyone can sign up any address. Fix before the first launch email: never clear it from the public path, and confirm addresses (double opt-in).
 - **Defence in depth for html-to-docx:** run it in a `worker_thread` with `resourceLimits` and terminate on timeout, so an unknown parser bug can't take the instance down.
-- **Puppeteer major upgrade** clears the `extract-zip` advisory (used only when Puppeteer downloads a browser, which production never does).
+- ~~**Puppeteer major upgrade**~~ Done in October, with Chromium 141 → 153 (§9).
+
+---
+
+## 9. October 2026 Patches
+
+Advisories published 2026-10-20 → 22, patched 2026-10-23 (branches `security-2026-10`, then `chromium-upgrade` on top). `npm audit`: 28 → 10, critical 2 → 0, high 16 → 1.
+
+### Patched
+
+| Advisory | Severity | Reachable here? | Fix |
+|---|---|---|---|
+| Next.js GHSA-2464-fhr4-w9xw: RCE in the image optimizer through `sharp` on glibc Linux | Critical | No: no `next/image`, and `sharp` was already 0.35.5 | next 15.5.28 |
+| Next.js GHSA-p3m5-59mp-jv5r: CPU exhaustion through Server Actions | High | No: the app has no Server Actions | next 15.5.28 |
+| DOMPurify GHSA-cg2g-xh64-v4q7, GHSA-mrv2-3pqr-j5jr: `SAFE_FOR_TEMPLATES` and `IN_PLACE` hook bypasses | Critical, high | No: Mermaid runs in `strict` mode and renders into `<img>` | dompurify 3.4.17 |
+| follow-redirects GHSA-q3jh-wrc6-jgq8: credential headers survive a cross-host redirect | High | No: the Chromium download sends no credentials | follow-redirects 1.16.1 |
+| undici GHSA-4qv8-2p9j-2685, GHSA-f72v-6w45-q472: EventSource memory, SRI bypass | Moderate | No: the image proxy uses `fetch` only | undici 7.30.1 |
+| Puppeteer 23 chain: `extract-zip`, `chromium-bidi`, `zod`, `basic-ftp`, proxy agents | High | No: browser downloads and WebDriver BiDi; the route uses neither (CDP, Sparticuz's binary) | puppeteer-core 25.16 |
+| Chromium 141 in the PDF route | Hardening | Yes, in principle: it runs `--no-sandbox --single-process` with the function's environment, and user images reach its decoders as data URIs (JavaScript is off while the page parses, and the network allows Google Fonts only) | Chromium 153 (`@sparticuz/chromium-min` 153, `headless: "shell"`) |
+
+Removing secrets from Chromium's environment would not replace the upgrade: a process running as the same user can read its parent's `/proc/<pid>/environ`.
+
+### How the upgrade was checked
+
+- Full e2e suite on a production build (local PDFs use full Puppeteer 25 and Chrome 156).
+- The Sparticuz pack in the AWS Lambda Node 24 image (Amazon Linux 2023, like Vercel's Node 24 runtime), from only the files Next traces for the PDF route: Chromium 153 launches, the PDF's producer reads `Skia/PDF m153`, external images stay blocked, and an inline handler doesn't run. Both pack sources work: the local pack and the GitHub release URL.
+- Previews now download the GitHub release that matches `@sparticuz/chromium-min`; before, they took production's pack from `www.markdown.free`, so a preview could never test a new Chromium. `e2e/security.spec.ts` fails if the release URL and the installed version drift apart.
+- After a deploy, a real PDF's `Producer` field names the Chromium that rendered it.
+
+### Left
+
+- **image-size** (high): the copy npm flags is never loaded; html-to-docx runs its own bundled copy, which has no HEIF or JXL parser (its ICNS loop is gated, §8).
+- **KaTeX GHSA-238p-pmpm-9mq7** (low): needs an existing prototype pollution; the fix (0.18.2) is outside the range `rehype-katex` and Mermaid accept.
+- **Tailwind 3's `postcss-selector-parser`** (moderate): build time only, on our own CSS.
 
 ---
 

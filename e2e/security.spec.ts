@@ -816,3 +816,18 @@ test.describe("Hardening - origin and request checks", () => {
     expect(headers["content-security-policy"]).toContain("script-src-attr 'none'");
   });
 });
+
+test.describe("Hardening - Chromium version", () => {
+  // Production unpacks the pack built from @sparticuz/chromium, previews the
+  // GitHub release named in the route; both must be the Chromium that
+  // @sparticuz/chromium-min expects, or the renderer silently stays old.
+  test("the PDF route's Chromium packs match the installed chromium-min", () => {
+    const lock = JSON.parse(fs.readFileSync("package-lock.json", "utf8"));
+    const min = lock.packages["node_modules/@sparticuz/chromium-min"].version;
+    const full = lock.packages["node_modules/@sparticuz/chromium"].version;
+    expect(full).toBe(min);
+
+    const route = fs.readFileSync("src/app/api/convert/pdf/route.ts", "utf8");
+    expect(route).toContain(`/releases/download/v${min}/chromium-v${min}-pack.x64.tar`);
+  });
+});

@@ -20,12 +20,15 @@ export const maxDuration = 25; // seconds
 // PDF generation timeout (15 seconds)
 const PDF_TIMEOUT = 15000;
 
-// URL to the Chromium binary package hosted in /public
-// Built during postinstall from @sparticuz/chromium (devDep)
+// URL to the Chromium binary package. Production serves the copy in /public,
+// built during postinstall from @sparticuz/chromium (devDep). Previews take the
+// GitHub release instead: www.markdown.free serves production's pack, which can
+// be an older Chromium than the preview's chromium-min expects. The release
+// version must match @sparticuz/chromium-min (e2e/security.spec.ts checks it).
 // See: https://github.com/gabenunez/puppeteer-on-vercel
-const CHROMIUM_PACK_URL = process.env.VERCEL_ENV
+const CHROMIUM_PACK_URL = process.env.VERCEL_ENV === "production"
   ? "https://www.markdown.free/chromium-pack.tar"
-  : "https://github.com/Sparticuz/chromium/releases/download/v141.0.0/chromium-v141.0.0-pack.tar";
+  : "https://github.com/Sparticuz/chromium/releases/download/v153.0.0/chromium-v153.0.0-pack.x64.tar";
 
 // Cache the Chromium executable path to avoid re-downloading on subsequent requests
 let cachedExecutablePath: string | null = null;
@@ -313,10 +316,13 @@ async function getBrowser() {
     
     const executablePath = await getChromiumPath();
     
+    // Sparticuz ships the headless shell and passes --headless='shell';
+    // Puppeteer 25 would turn `headless: true` into a conflicting --headless=new.
     launchOptions = {
       ...launchOptions,
       args: chromium.args,
       executablePath,
+      headless: "shell",
     };
     debugLog("Browser", "Launch options configured", {
       headless: launchOptions.headless,
