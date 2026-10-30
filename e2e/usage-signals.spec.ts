@@ -128,7 +128,7 @@ test.describe("Usage signals", () => {
 
   test("a browser that converted before the counter existed keeps its start date", async ({ page }) => {
     await page.goto("/");
-    // The teaser window started at this browser's first conversion, 12 days ago.
+    // The old vote invitation dated this browser's first conversion, 12 days ago.
     await page.evaluate((dayMs) => {
       localStorage.setItem("mdfree:teaser-first-at", String(Date.now() - 12 * dayMs));
     }, DAY_MS);

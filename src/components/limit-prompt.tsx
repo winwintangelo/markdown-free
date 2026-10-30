@@ -13,9 +13,7 @@ import type { Dictionary } from "@/i18n";
  * upgrade, so this card asks them, and only them, one question: files up to
  * 10 MB are coming as an optional paid upgrade; would you consider paying?
  * Yes, Maybe or No. A yes or maybe can leave an email for when it's ready.
- * The card says everything free today stays free. It always shows, whatever
- * NEXT_PUBLIC_PAID_INTEREST says (that still gates the paid prompts on the
- * vote board).
+ * The card says everything free today stays free.
  * The rejected file's size range reaches analytics with the answer, so the
  * card doesn't ask for it.
  *

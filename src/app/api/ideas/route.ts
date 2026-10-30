@@ -5,9 +5,10 @@ import { notifyStoreConfigured, saveIdea } from "@/lib/notify-store";
 
 /**
  * Typed feedback, stored privately and never shown on the site:
- *   { kind: "other", text }                 "Something else" on the vote board
- *   { kind: "workaround", feature, text }   "What do you do today when you need this?"
+ *   { kind: "other", text }                 "Something else" on the vote board (retired)
+ *   { kind: "workaround", feature, text }   "What do you do today…?" after a vote (retired)
  *   { kind: "suggestion", text }            the "Suggest an improvement" link
+ * The retired kinds still arrive from a page loaded before 2026-10-29.
  *
  * One row per message, with no email, IP or session (privacy page: kept 12
  * months). The same silent anti-bot checks as /api/notify: a honeypot field and

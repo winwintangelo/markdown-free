@@ -15,15 +15,6 @@ import { openMoreFormats } from "./export-helpers";
 
 const ORIGIN_HEADERS = { Origin: "http://localhost:3000" };
 
-/**
- * The Phase 1.5 teaser holds the post-convert prompt slot for a browser's
- * first 7 days (src/lib/feature-teaser.ts), so a test that wants the thumbs
- * prompt has to say this browser already voted. Call it after page.goto.
- */
-async function keepThumbsPrompt(page: Page) {
-  await page.evaluate(() => localStorage.setItem("mdfree:teaser-answered", "1"));
-}
-
 // Helper: load a small file and export TXT (client-side, no server involved),
 // which surfaces the post-convert feedback prompt.
 async function uploadAndExportTxt(page: Page) {
@@ -118,7 +109,6 @@ test.describe("Post-convert comment routing", () => {
     });
 
     await page.goto("/");
-    await keepThumbsPrompt(page);
     await uploadAndExportTxt(page);
 
     await page.getByRole("button", { name: /Bad/i }).click();
@@ -151,7 +141,6 @@ test.describe("Post-convert comment routing", () => {
     });
 
     await page.goto("/");
-    await keepThumbsPrompt(page);
     await uploadAndExportTxt(page);
     await page.getByRole("button", { name: /Bad/i }).click();
     await page.getByRole("button", { name: /Send/i }).click();

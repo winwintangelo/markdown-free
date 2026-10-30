@@ -1,6 +1,6 @@
 /**
- * Browser-side calls for the vote board's follow-up forms: "Get updates"
- * emails (/api/notify) and typed feedback (/api/ideas). Every form carries the
+ * Browser-side calls for the feedback forms: "Get updates" emails
+ * (/api/notify) and typed feedback (/api/ideas). Every form carries the
  * same two anti-bot fields: a honeypot the person never sees, and the time
  * since the form appeared. Neither the address nor the text reaches analytics.
  */

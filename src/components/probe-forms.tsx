@@ -15,8 +15,8 @@ import { trackIdeaSent, trackPaidInterest, trackUpdatesSignup } from "@/lib/anal
 import type { Dictionary } from "@/i18n";
 
 /**
- * Building blocks shared by the vote board, the 1 MB size question, the
- * paid-interest questions and the suggestion box. Each form is optional, keeps
+ * Building blocks shared by the 1 MB size question, the paid-interest
+ * questions and the suggestion box. Each form is optional, keeps
  * its own state, and reports to analytics without the typed text or address.
  */
 
@@ -91,7 +91,7 @@ export function DoneLine({ children }: { children: ReactNode }) {
 
 /**
  * "Get updates": an optional email for news about one feature, stored by
- * /api/notify. `source` names the place in analytics (vote, limit, paid_*).
+ * /api/notify. `source` names the place in analytics (limit, paid_*).
  */
 export function EmailUpdatesForm({
   dict,
@@ -199,8 +199,8 @@ export function EmailUpdatesForm({
 }
 
 /**
- * A short private text box (/api/ideas). Used for "What do you do today when
- * you need this?" and the "Suggest an improvement" link.
+ * A short private text box (/api/ideas). Used by the "Suggest an improvement"
+ * link.
  */
 export function TextFeedbackForm({
   dict,

@@ -16,8 +16,8 @@ import type { Dictionary } from "@/i18n";
 
 /**
  * The page-layout question for a heavy user (3+ conversions on 2+ days in 30
- * days), shown once per browser in the post-convert slot. It asks whatever
- * NEXT_PUBLIC_PAID_INTEREST says (owner, 2026-10-08). The marketing review:
+ * days), shown once per browser in the post-convert slot (owner, 2026-10-08).
+ * The marketing review:
  * repeat use alone is a reason to ask about a need, not to push an upgrade —
  * so it asks what they would change and says plainly that the option may be
  * paid.

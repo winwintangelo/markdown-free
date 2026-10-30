@@ -165,7 +165,7 @@ Gate: ≥ 30 of 51 pages indexed by Bing and Google within 60 days; conversions/
 
 ### Phase 1.5 — Demand probe (new, gates Phase 2)
 
-**LIVE since 2026-09-22** (`main` @ `b31957f`). Schema applied with `npm run db:migrate`; production `/api/health` answers `store: ok`; a Checkly check hits it every 10 minutes, which alerts on a broken store and keeps the free Supabase project from pausing. The gate below is still a proposal until the owner confirms it.
+**The vote invitation was retired on 2026-10-29** (final result and last read below). **LIVE since 2026-09-22** (`main` @ `b31957f`). Schema applied with `npm run db:migrate`; production `/api/health` answers `store: ok`; a Checkly check hits it every 10 minutes, which alerts on a broken store and keeps the free Supabase project from pausing. The gate below is still a proposal until the owner confirms it.
 
 **The first 24 hours rewrote the display rules (2026-09-23).** Umami: 95 converting visitors, but only 14 teasers and no opens. Two causes, both fixed and live on `main` @ `4ccc4fa`. (1) A remount bug: the teaser keyed off a counter that moved on every conversion, so later exports logged phantom dismissals — 12 of them from 4 visitors. (2) Reach: waiting for a browser's 2nd conversion *and* for 30 quiet minutes cannot both happen in one sitting, since conversion #1 starts the quiet period, so only visitors returning half an hour later ever saw the probe. At ~98 impressions a week the gate was arithmetically out of reach. The teaser now owns the slot for 7 days (row below). **The measurement window therefore restarts from 2026-09-23 and ends ~2026-10-21**; the 09-22 data is a discarded warm-up.
 
@@ -226,6 +226,29 @@ Gate: ≥ 30 of 51 pages indexed by Bing and Google within 60 days; conversions/
 - The holiday is over: converting visitors were 22–27 a day 10-04 → 10-06, 49 on 10-07 and 68 on 10-08 (Chinese visitors 7–14 → 29 → 43).
 - Heavy users (3+ conversions on 2+ days, from `usage_profile`): 3 browser-days 09-24 → 09-30, 17 on 10-02 → 10-08, 4 of them with 10+ conversions. The 30-day history began on 09-27, so the count is still growing.
 - **Decided 2026-10-08:** take editable equations off the board (an older page may still send an equations vote, and `/api/votes` still accepts it), and ask heavy users the page-layout question without waiting for `NEXT_PUBLIC_PAID_INTEREST`. The board's paid line and the question after a vote stay off, so the invitation test is unchanged. Next read around 2026-10-15. Probe scripts: `tmp/probe-v2-read3.mjs`, `tmp/probe-v2-read3b.mjs`, `tmp/probe-heavy.mjs`, `tmp/probe-feedback-store.mjs`.
+
+**Final A/B result (09-27 → 10-21), read 2026-10-23:**
+
+| | Control | Card |
+|---|---|---|
+| Assigned | 433 | 480 |
+| Opened | 10 (2.3%) | 32 (6.7%) |
+| Voted | 6 (1.4% of assigned) | 10 (2.1% of assigned) |
+
+- The card wins on opens (Fisher p = 0.002). Votes, the primary metric, show no winner (p = 0.46): telling 1.4% from 2.1% needs about 5,500 browsers per arm, roughly 48 weeks.
+- 16 votes in 25 days, 14 of them from a browser's first conversion. No email signups from the board.
+
+**Retired 2026-10-29 (owner).** The vote invitation and its board are gone, and the thumbs prompt takes the post-convert slot back. The large-file card, the heavy-user page-layout question and the "Suggest an improvement" link stay. `/api/votes` still accepts a vote from a page loaded earlier, and the stored votes stay. With the board gone, nothing reads `NEXT_PUBLIC_PAID_INTEREST`.
+
+**Last read, 2026-10-29** (10-22 → 10-28, the week after the A/B; the invitation was still live):
+- Invitation: control 127 assigned / 4 opened / 2 voted; card 118 / 12 / 2. The same pattern as during the test. Votes: "nothing missing" 2, templates 1, larger files 1, all from a browser's first conversion. Supabase totals: nothing 8, formatting 5, equations 3, other 2; templates, merge, share and larger files 1 each.
+- Heavy-user question: 12 shown, 10 viewed, 1 opened this week; 35 / 31 / 1 since 10-09. The one opener (zh-Hans) picked margins and page size, answered "Only if free", and left the first email signup ever (feature: formatting, 10-25).
+- Large-file card: 4 visitors hit the limit this week (yes 1, no 2). Since 10-03: 10 visitors; yes 2, maybe 3, no 7 (a visitor can change the answer); no emails.
+- Suggest link: opened 3 times this week, nothing sent. No typed suggestion since 10-21.
+- Heavy browsers per week (3+ conversions on 2+ days): 3, 18, 31, 35, 50 for the weeks from 09-24; 10 of this week's had 10+ conversions.
+- Converting visitors: 298 this week (600 conversions), up from 252 (412); 64% from China.
+- PDF errors after the Chromium 153 deploy (10-24): 12.3% of tries, against 11.9% over the 30 days before (p = 0.89), so no regression. Weekly rates range from 5% to 19%.
+- Probe scripts: `tmp/probe-v2-read7.mjs`, `tmp/probe-read7b.mjs`, `tmp/probe-feedback-store.mjs`.
 
 **Redesigned 2026-09-19.** The owner rejected priced fake doors: a free product that suddenly shows fees reads as a bait-and-switch, and names like "Academic templates" mean nothing to most visitors. The probe now measures interest in named features, split into Premium and Free, with no prices.
 
