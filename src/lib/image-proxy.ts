@@ -19,7 +19,8 @@
  * - Maximum pixel dimensions (prevent decompression bombs)
  * - Limits image size (2MB max per image)
  * - Limits total embedded bytes (8MB max total)
- * - Timeout protection (5s for the headers, 5s more for the body)
+ * - Timeout protection (5s for the headers, 5s more for the body), plus an
+ *   optional deadline for the whole document (proxyImagesInHtml)
  * - Body read capped by bytes as it streams, so a compressed body can't inflate
  *   past the limit
  * - SVG blocked (can contain scripts)
@@ -46,6 +47,9 @@ const IMAGE_FETCH_TIMEOUT = 5000;
 
 // Maximum number of images to process per document
 const MAX_IMAGES_PER_DOC = 20;
+
+// Images fetched at the same time for one document
+const IMAGE_FETCH_CONCURRENCY = 8;
 
 // Maximum redirect hops to follow
 const MAX_REDIRECTS = 3;
@@ -412,12 +416,18 @@ export function __setFetchImplForTests(impl: FetchImpl | null): void {
 }
 
 /**
- * Fetch an image with manual redirect handling to prevent SSRF via redirects
+ * Fetch an image with manual redirect handling to prevent SSRF via redirects.
+ * `stop` ends the fetch early, whatever is left of its own timeout.
  */
 export async function fetchWithRedirectValidation(
   url: string,
-  redirectCount: number = 0
+  redirectCount: number = 0,
+  stop?: AbortSignal
 ): Promise<UndiciResponse | null> {
+  if (stop?.aborted) {
+    return null;
+  }
+
   if (redirectCount > MAX_REDIRECTS) {
     console.log(`[ImageProxy] Too many redirects for ${url.substring(0, 100)}`);
     return null;
@@ -432,7 +442,7 @@ export async function fetchWithRedirectValidation(
 
   try {
     const response = await fetchImpl(url, {
-      signal: controller.signal,
+      signal: stop ? AbortSignal.any([controller.signal, stop]) : controller.signal,
       redirect: "manual",
       headers: {
         "User-Agent": "MarkdownFree-ImageProxy/1.0",
@@ -455,13 +465,15 @@ export async function fetchWithRedirectValidation(
       const redirectUrl = new URL(location, url).toString();
       console.log(`[ImageProxy] Following redirect to: ${redirectUrl.substring(0, 100)}`);
 
-      return fetchWithRedirectValidation(redirectUrl, redirectCount + 1);
+      return fetchWithRedirectValidation(redirectUrl, redirectCount + 1, stop);
     }
 
     return response;
   } catch (error) {
     clearTimeout(timeout);
-    if (error instanceof Error && error.name === "AbortError") {
+    if (stop?.aborted) {
+      console.log(`[ImageProxy] Stopped at the document deadline: ${url.substring(0, 100)}`);
+    } else if (error instanceof Error && error.name === "AbortError") {
       console.log(`[ImageProxy] Timeout fetching ${url.substring(0, 100)}`);
     } else {
       console.log(`[ImageProxy] Error fetching ${url}: ${error}`);
@@ -476,18 +488,21 @@ export async function fetchWithRedirectValidation(
  * missing or false, and for a compressed body it counts the bytes before fetch
  * inflates them (a 300 KB gzip body can inflate to 300 MB). The fetch timeout
  * ends when the headers arrive, so a server that drips the body needs its own
- * timer.
+ * timer. `stop` ends the read early too.
  */
-async function readCappedBody(response: UndiciResponse): Promise<ArrayBuffer | null> {
+async function readCappedBody(response: UndiciResponse, stop?: AbortSignal): Promise<ArrayBuffer | null> {
   if (!response.body) {
     return new ArrayBuffer(0);
   }
   const reader = response.body.getReader();
   let timedOut = false;
-  const timer = setTimeout(() => {
+  const giveUp = () => {
     timedOut = true;
     reader.cancel().catch(() => {});
-  }, IMAGE_FETCH_TIMEOUT);
+  };
+  const timer = setTimeout(giveUp, IMAGE_FETCH_TIMEOUT);
+  if (stop?.aborted) giveUp();
+  stop?.addEventListener("abort", giveUp, { once: true });
 
   const chunks: Uint8Array[] = [];
   let total = 0;
@@ -510,6 +525,7 @@ async function readCappedBody(response: UndiciResponse): Promise<ArrayBuffer | n
     return null;
   } finally {
     clearTimeout(timer);
+    stop?.removeEventListener("abort", giveUp);
   }
   // A cancelled read resolves as `done`, so check the flag, not the loop exit.
   if (timedOut) {
@@ -531,10 +547,11 @@ async function readCappedBody(response: UndiciResponse): Promise<ArrayBuffer | n
  * Fetch a remote image with full validation (SSRF checks, redirects, size,
  * magic numbers, dimensions) and return its raw bytes + detected MIME type.
  * Shared by the Base64 embedding path (PDF/DOCX/EPUB) and the /api/img-proxy
- * route (client-side image export).
+ * route (client-side image export). `stop` abandons the fetch early.
  */
 export async function fetchValidatedImage(
-  url: string
+  url: string,
+  stop?: AbortSignal
 ): Promise<{ buffer: ArrayBuffer; mimeType: string } | null> {
   // Block SVG files by URL extension
   const urlLower = url.toLowerCase();
@@ -543,7 +560,7 @@ export async function fetchValidatedImage(
     return null;
   }
 
-  const response = await fetchWithRedirectValidation(url);
+  const response = await fetchWithRedirectValidation(url, 0, stop);
   if (!response) {
     return null;
   }
@@ -560,7 +577,7 @@ export async function fetchValidatedImage(
     return null;
   }
 
-  const buffer = await readCappedBody(response);
+  const buffer = await readCappedBody(response, stop);
   if (!buffer) {
     return null;
   }
@@ -597,8 +614,11 @@ export async function fetchValidatedImage(
 /**
  * Fetch an image and convert to Base64 data URI
  */
-async function fetchImageAsBase64(url: string): Promise<{ data: string; size: number } | null> {
-  const result = await fetchValidatedImage(url);
+async function fetchImageAsBase64(
+  url: string,
+  stop?: AbortSignal
+): Promise<{ data: string; size: number } | null> {
+  const result = await fetchValidatedImage(url, stop);
   if (!result) {
     return null;
   }
@@ -611,10 +631,32 @@ async function fetchImageAsBase64(url: string): Promise<{ data: string; size: nu
   };
 }
 
+const NAMED_ENTITIES: Record<string, string> = { amp: "&", quot: '"', apos: "'", lt: "<", gt: ">" };
+
 /**
- * Process HTML and replace external image URLs with Base64 data URIs
+ * The URL an `src` attribute value stands for. The HTML serializer writes `&`
+ * as `&#x26;`; fetched as written, everything after the `#` would become a
+ * fragment, and `?w=800&h=600` would arrive as `?w=800`.
  */
-export async function proxyImagesInHtml(html: string): Promise<string> {
+function decodeAttributeValue(value: string): string {
+  return value.replace(/&(#x[0-9a-f]+|#[0-9]+|amp|quot|apos|lt|gt);/gi, (entity, body: string) => {
+    const name = body.toLowerCase();
+    if (!name.startsWith("#")) return NAMED_ENTITIES[name] ?? entity;
+    const code = name.startsWith("#x") ? parseInt(name.slice(2), 16) : parseInt(name.slice(1), 10);
+    return code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : entity;
+  });
+}
+
+/**
+ * Process HTML and replace external image URLs with Base64 data URIs.
+ *
+ * `deadline` (epoch ms) caps the time spent on images for the whole document:
+ * when it passes, fetches still running are dropped and those images keep
+ * their original URL, which the renderer blocks. Without it, each image only
+ * has its own timeouts — up to 20 slow images could hold a request for most of
+ * a minute.
+ */
+export async function proxyImagesInHtml(html: string, options: { deadline?: number } = {}): Promise<string> {
   const imgRegex = /<img\s+[^>]*src=["']([^"']+)["'][^>]*>/gi;
   const matches: RegExpExecArray[] = [];
   let match: RegExpExecArray | null;
@@ -648,28 +690,48 @@ export async function proxyImagesInHtml(html: string): Promise<string> {
 
   console.log(`[ImageProxy] Processing ${externalUrls.length} external images`);
 
-  let totalBytes = 0;
-  const CONCURRENCY = 5;
-
-  for (let i = 0; i < externalUrls.length; i += CONCURRENCY) {
-    const batch = externalUrls.slice(i, i + CONCURRENCY);
-    const results = await Promise.all(batch.map((url) => fetchImageAsBase64(url)));
-
-    for (let j = 0; j < batch.length; j++) {
-      const result = results[j];
-      if (result) {
-        if (totalBytes + result.size > MAX_TOTAL_IMAGE_BYTES) {
-          console.log(`[ImageProxy] Skipping image - would exceed total byte limit`);
-          urlMap.set(batch[j], null);
-        } else {
-          totalBytes += result.size;
-          urlMap.set(batch[j], result);
-        }
-      } else {
-        urlMap.set(batch[j], null);
-      }
+  // A pool, not fixed batches: one slow image doesn't hold up the next start.
+  const stop = new AbortController();
+  const deadlineTimer =
+    options.deadline === undefined
+      ? undefined
+      : setTimeout(() => stop.abort(), Math.max(0, options.deadline - Date.now()));
+  const results: ({ data: string; size: number } | null)[] = new Array(externalUrls.length).fill(null);
+  let next = 0;
+  const worker = async () => {
+    while (next < externalUrls.length && !stop.signal.aborted) {
+      const index = next++;
+      // Fetch the decoded URL; the HTML keeps the encoded one, which is what
+      // the replacement below matches.
+      results[index] = await fetchImageAsBase64(decodeAttributeValue(externalUrls[index]), stop.signal);
     }
+  };
+  try {
+    await Promise.all(
+      Array.from({ length: Math.min(IMAGE_FETCH_CONCURRENCY, externalUrls.length) }, worker)
+    );
+  } finally {
+    clearTimeout(deadlineTimer);
   }
+  if (stop.signal.aborted) {
+    console.log(`[ImageProxy] Deadline reached: ${results.filter((r) => !r).length} of ${externalUrls.length} images left out`);
+  }
+
+  // The byte cap applies in document order, so the result doesn't depend on
+  // which fetch finished first.
+  let totalBytes = 0;
+  externalUrls.forEach((url, index) => {
+    const result = results[index];
+    if (result && totalBytes + result.size > MAX_TOTAL_IMAGE_BYTES) {
+      console.log(`[ImageProxy] Skipping image - would exceed total byte limit`);
+      urlMap.set(url, null);
+    } else if (result) {
+      totalBytes += result.size;
+      urlMap.set(url, result);
+    } else {
+      urlMap.set(url, null);
+    }
+  });
 
   console.log(`[ImageProxy] Total embedded image bytes: ${totalBytes}`);
 

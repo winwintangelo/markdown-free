@@ -23,6 +23,7 @@ import { exportErrorMessage, exportErrorTitle } from "@/lib/export-errors";
 import {
   trackConvertSuccess,
   trackConvertError,
+  trackConvertRetry,
   trackConvertAbandoned,
   trackExportHover,
   trackExportTriggerUpload,
@@ -354,14 +355,37 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
       case "GENERATION_FAILED":
       case "SERVER_ERROR":
         return "pdf_server_error";
+      case "GATEWAY_TIMEOUT":
+        return "gateway_timeout";
+      case "GATEWAY_ERROR":
+        return "gateway_error";
       case "NETWORK_ERROR":
         return "network_error";
+      case "CONTENT_TOO_LARGE":
+        return "too_large";
+      case "RATE_LIMITED":
+        return "rate_limited";
+      case "FORBIDDEN":
+        return "forbidden";
+      case "INVALID_CONTENT":
+        return "invalid_content";
       case "ABORTED":
         return "aborted";
       default:
         return "unknown";
     }
   }, []);
+
+  // A PDF request that was retried: record why the first one failed and
+  // whether the retry saved the conversion
+  const trackPdfRetry = useCallback(
+    (result: { success: boolean; attempts: number; firstErrorCode?: string }) => {
+      if (result.attempts > 1 && result.firstErrorCode) {
+        trackConvertRetry("pdf", mapErrorCode(result.firstErrorCode), result.success);
+      }
+    },
+    [mapErrorCode]
+  );
 
   const handleExport = useCallback(
     async (format: ExportFormat) => {
@@ -424,6 +448,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
             abortControllerRef.current.signal,
             getPdfPreferences(locale)
           );
+          trackPdfRetry(result);
 
           if (result.success) {
             trackConvertSuccess(format as AnalyticsExportFormat, source, analyticsExtras());
@@ -513,8 +538,10 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           }
         }
       } catch (err) {
+        // The exporters report request failures as results, so whatever lands
+        // here was thrown in the browser (preparing diagrams, building a file)
         console.error(`Export error (${format}):`, err);
-        trackConvertError(format as AnalyticsExportFormat, "unknown");
+        trackConvertError(format as AnalyticsExportFormat, "client_error");
         setError({
           format,
           code: "UNKNOWN_ERROR",
@@ -526,7 +553,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         abortControllerRef.current = null;
       }
     },
-    [state.content, renderedHtml, dict.errors.pdfError, dict.export.selectFileHint, dict.export.uploadOrPaste, locale, triggerFileUpload, mapErrorCode, markSuccess]
+    [state.content, renderedHtml, dict.errors.pdfError, dict.export.selectFileHint, dict.export.uploadOrPaste, locale, triggerFileUpload, mapErrorCode, markSuccess, trackPdfRetry]
   );
 
   // Share handler: instant share from cache, or fallback to two-step flow
@@ -582,9 +609,13 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
           raster: true,
           mathImages: format === "docx",
         });
-        const result = format === "pdf"
-          ? await generatePdfBlob(prepared.markdown, state.content.filename, abortControllerRef.current.signal, getPdfPreferences(locale))
-          : await generateDocxBlob(prepared.markdown, state.content.filename, abortControllerRef.current.signal);
+        let result;
+        if (format === "pdf") {
+          result = await generatePdfBlob(prepared.markdown, state.content.filename, abortControllerRef.current.signal, getPdfPreferences(locale));
+          trackPdfRetry(result);
+        } else {
+          result = await generateDocxBlob(prepared.markdown, state.content.filename, abortControllerRef.current.signal);
+        }
 
         if (result.success && result.blob && result.filename) {
           // Cache for next time
@@ -602,7 +633,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         }
       } catch (err) {
         console.error(`Share error (${format}):`, err);
-        trackConvertError(format as AnalyticsExportFormat, "unknown");
+        trackConvertError(format as AnalyticsExportFormat, "client_error");
         setError({
           format,
           code: "UNKNOWN_ERROR",
@@ -614,7 +645,7 @@ export function ExportRow({ locale = "en", dict = defaultDict as unknown as Dict
         abortControllerRef.current = null;
       }
     },
-    [state.content, dict.errors.pdfError, dict.export.selectFileHint, dict.export.uploadOrPaste, triggerFileUpload, mapErrorCode, markSuccess]
+    [state.content, dict.errors.pdfError, dict.export.selectFileHint, dict.export.uploadOrPaste, triggerFileUpload, mapErrorCode, markSuccess, trackPdfRetry]
   );
 
   // Step 2: User taps "Tap to share" — triggers navigator.share() with fresh activation

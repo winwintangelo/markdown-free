@@ -13,11 +13,20 @@ const MAX_CONTENT_SIZE = 1 * 1024 * 1024;
 // Base64 encoding increases size by ~33%, plus HTML tags add overhead
 const MAX_HTML_SIZE = 10 * 1024 * 1024;
 
-// Vercel serverless function config
-// This ensures the function times out before Vercel's hard limit
-export const maxDuration = 25; // seconds
+// Vercel stops the function after this many seconds and answers with a
+// plain-text 504 (FUNCTION_INVOCATION_TIMEOUT) the client can't read. Matches
+// vercel.json. While this said 25, production stopped the function at 25 s.
+export const maxDuration = 30; // seconds
 
-// PDF generation timeout (15 seconds)
+// The route answers by this point, with the PDF or a JSON timeout, so Vercel
+// never has to cut it off. The rest of maxDuration covers sending the PDF.
+const REQUEST_BUDGET_MS = 26_000;
+
+// Share of the budget for fetching external images. Images still loading then
+// are left out of the PDF rather than failing it.
+const IMAGE_BUDGET_MS = 10_000;
+
+// Ceiling for one step (browser launch, page.pdf); the budget can cut it shorter
 const PDF_TIMEOUT = 15000;
 
 // URL to the Chromium binary package. Production serves the copy in /public,
@@ -361,6 +370,15 @@ async function getBrowser() {
 export async function POST(request: NextRequest) {
   const requestId = Math.random().toString(36).substring(7);
   const requestStart = Date.now();
+  const deadline = requestStart + REQUEST_BUDGET_MS;
+  // Time for one step: at most `ceiling`, keeping `reserve` ms of the budget
+  // for the steps after it. Once the budget is spent it throws, and the catch
+  // answers GENERATION_TIMEOUT.
+  const stepTimeout = (ceiling: number, reserve: number): number => {
+    const left = deadline - Date.now() - reserve;
+    if (left <= 0) throw new Error("Request budget exhausted (timeout)");
+    return Math.min(ceiling, left);
+  };
   let browser: any = null;
   let page: any = null;
 
@@ -454,7 +472,7 @@ export async function POST(request: NextRequest) {
     // This fetches images via Node.js, validates URLs, and converts to Base64
     debugLog("Security", `[${requestId}] Proxying external images...`);
     const imageProxyStart = Date.now();
-    renderedHtml = await proxyImagesInHtml(renderedHtml);
+    renderedHtml = await proxyImagesInHtml(renderedHtml, { deadline: requestStart + IMAGE_BUDGET_MS });
     debugLog("Security", `[${requestId}] Image proxy complete`, {
       durationMs: Date.now() - imageProxyStart,
     });
@@ -479,8 +497,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Launch browser with timeout
-    debugLog("Browser", `[${requestId}] Starting browser launch with ${PDF_TIMEOUT}ms timeout...`);
+    // Launch browser with timeout. A cold start downloads and unpacks Chromium
+    // first (about 6.5 s in production), so leave the page steps 5 s after it.
+    const launchTimeout = stepTimeout(PDF_TIMEOUT, 5000);
+    debugLog("Browser", `[${requestId}] Starting browser launch with ${launchTimeout}ms timeout...`);
     const browserStart = Date.now();
     const launchPromise = getBrowser();
 
@@ -491,7 +511,7 @@ export async function POST(request: NextRequest) {
       launchTimer = setTimeout(() => {
         launchTimedOut = true;
         reject(new Error("Browser launch timeout"));
-      }, PDF_TIMEOUT);
+      }, launchTimeout);
     });
     // A launch that finishes after the timeout would leave Chromium running in
     // the instance, with nothing left to close it.
@@ -582,13 +602,15 @@ export async function POST(request: NextRequest) {
       deviceScaleFactor: 2, // Higher quality
     });
 
-    // Set content with timeout (increased for Google Fonts/CJK loading)
+    // Set content with timeout (increased for Google Fonts/CJK loading), keeping
+    // 3 s of the budget for the font check and page.pdf
     // Note: JS is disabled at this point, which is fine for font loading via CSS
-    debugLog("Page", `[${requestId}] Setting page content (networkidle0, 10000ms timeout)...`);
+    const contentTimeout = stepTimeout(12000, 3000);
+    debugLog("Page", `[${requestId}] Setting page content (networkidle0, ${contentTimeout}ms timeout)...`);
     const contentStart = Date.now();
     await page.setContent(fullHtml, {
       waitUntil: "networkidle0",
-      timeout: 10000,
+      timeout: contentTimeout,
     });
     debugLog("Page", `[${requestId}] Page content set`, {
       durationMs: Date.now() - contentStart,
@@ -599,8 +621,9 @@ export async function POST(request: NextRequest) {
     debugLog("Security", `[${requestId}] Waiting for fonts to load...`);
     await page.setJavaScriptEnabled(true);
     try {
-      // Set a tight timeout for fonts.ready to prevent hanging
-      const fontTimeout = 3000; // 3 seconds max for fonts
+      // Set a tight timeout for fonts.ready to prevent hanging: 3 s at most,
+      // less when the budget is nearly spent
+      const fontTimeout = Math.max(0, Math.min(3000, deadline - Date.now() - 2500));
       await Promise.race([
         page.evaluate(() => document.fonts.ready),
         new Promise((_, reject) =>
@@ -633,7 +656,7 @@ export async function POST(request: NextRequest) {
         left: "20mm",
       },
       printBackground: true,
-      timeout: PDF_TIMEOUT,
+      timeout: stepTimeout(PDF_TIMEOUT, 0),
     });
     debugLog("PDF", `[${requestId}] PDF generated`, {
       durationMs: Date.now() - pdfStart,

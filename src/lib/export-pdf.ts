@@ -7,6 +7,10 @@ export interface PdfExportResult {
     message: string;
     retryable: boolean;
   };
+  /** Requests made: 2 when the first failed and was retried. */
+  attempts: number;
+  /** Why the first request failed, when it was retried. */
+  firstErrorCode?: string;
 }
 
 export interface PdfGenerateResult {
@@ -18,7 +22,36 @@ export interface PdfGenerateResult {
     message: string;
     retryable: boolean;
   };
+  /** Requests made: 2 when the first failed and was retried. */
+  attempts: number;
+  /** Why the first request failed, when it was retried. */
+  firstErrorCode?: string;
 }
+
+/**
+ * Failures that a second request can fix: a dropped connection, a cold
+ * instance that ran out of time, or the platform answering for a function that
+ * crashed. GATEWAY_* are the platform's own non-JSON 5xx responses.
+ */
+const TRANSIENT_CODES = new Set([
+  "NETWORK_ERROR",
+  "GENERATION_TIMEOUT",
+  "GENERATION_FAILED",
+  "GATEWAY_TIMEOUT",
+  "GATEWAY_ERROR",
+]);
+
+/**
+ * A timeout that took this long most likely comes from the document itself
+ * (a heavy one), and a second request would keep the visitor waiting as long
+ * again for the same result. Shorter ones point at a cold start.
+ */
+const SLOW_TIMEOUT_MS = 20_000;
+
+/** Pause before the retry, so a struggling instance or network can recover. */
+const RETRY_DELAY_MS = 1500;
+
+type Attempt = Omit<PdfGenerateResult, "attempts" | "firstErrorCode">;
 
 export type PdfPageSize = "A4" | "Letter";
 export type PdfFontStyle = "sans" | "serif";
@@ -56,7 +89,8 @@ export function getPdfPreferences(locale: string): Required<PdfOptions> {
 }
 
 /**
- * Generate PDF blob without downloading
+ * Generate PDF blob without downloading. A transient failure is retried once,
+ * unless the visitor cancelled.
  */
 export async function generatePdfBlob(
   markdown: string,
@@ -64,6 +98,41 @@ export async function generatePdfBlob(
   signal?: AbortSignal,
   options: PdfOptions = {}
 ): Promise<PdfGenerateResult> {
+  const started = Date.now();
+  const first = await requestPdf(markdown, originalFilename, signal, options);
+  const code = first.error?.code;
+  const retry =
+    !first.success &&
+    code !== undefined &&
+    TRANSIENT_CODES.has(code) &&
+    !(code === "GENERATION_TIMEOUT" && Date.now() - started >= SLOW_TIMEOUT_MS) &&
+    !signal?.aborted;
+  if (!retry) return { ...first, attempts: 1 };
+
+  const paused = await new Promise<boolean>((resolve) => {
+    const timer = setTimeout(() => resolve(true), RETRY_DELAY_MS);
+    signal?.addEventListener(
+      "abort",
+      () => {
+        clearTimeout(timer);
+        resolve(false);
+      },
+      { once: true }
+    );
+  });
+  if (!paused) return { ...first, attempts: 1 };
+
+  const second = await requestPdf(markdown, originalFilename, signal, options);
+  return { ...second, attempts: 2, firstErrorCode: code };
+}
+
+/** One request to the PDF route; never throws. */
+async function requestPdf(
+  markdown: string,
+  originalFilename: string | null,
+  signal?: AbortSignal,
+  options: PdfOptions = {}
+): Promise<Attempt> {
   try {
     const response = await fetch("/api/convert/pdf", {
       method: "POST",
@@ -79,24 +148,27 @@ export async function generatePdfBlob(
       signal,
     });
 
-    // Handle error responses
+    // Handle error responses. The route and the middleware answer in JSON; a
+    // body that isn't JSON comes from the platform (a 504
+    // FUNCTION_INVOCATION_TIMEOUT, for one).
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
+      const errorData = await response.json().catch(() => null);
 
-      const errorCode = errorData.error || "UNKNOWN_ERROR";
-      const errorMessage = errorData.message || "Something went wrong. Please try again.";
-
-      const retryable = [
-        "GENERATION_TIMEOUT",
-        "GENERATION_FAILED",
-      ].includes(errorCode);
+      const errorCode =
+        errorData?.error ||
+        (response.status === 504
+          ? "GATEWAY_TIMEOUT"
+          : response.status >= 500
+            ? "GATEWAY_ERROR"
+            : "UNKNOWN_ERROR");
+      const errorMessage = errorData?.message || `Request failed with status ${response.status}.`;
 
       return {
         success: false,
         error: {
           code: errorCode,
           message: errorMessage,
-          retryable,
+          retryable: TRANSIENT_CODES.has(errorCode),
         },
       };
     }
@@ -128,35 +200,25 @@ export async function generatePdfBlob(
 
     return { success: true, blob: pdfBlob, filename };
   } catch (error) {
-    if (error instanceof Error) {
-      if (error.name === "AbortError") {
-        return {
-          success: false,
-          error: {
-            code: "ABORTED",
-            message: "PDF generation was cancelled.",
-            retryable: false,
-          },
-        };
-      }
-
-      if (error.message.includes("fetch") || error.message.includes("network")) {
-        return {
-          success: false,
-          error: {
-            code: "NETWORK_ERROR",
-            message: "Connection lost. Please check your internet and try again.",
-            retryable: true,
-          },
-        };
-      }
+    if (signal?.aborted || (error instanceof Error && error.name === "AbortError")) {
+      return {
+        success: false,
+        error: {
+          code: "ABORTED",
+          message: "PDF generation was cancelled.",
+          retryable: false,
+        },
+      };
     }
 
+    // fetch() and reading the body reject with a TypeError when the connection
+    // fails, worded per browser: "Failed to fetch" (Chrome), "NetworkError when
+    // attempting to fetch resource." (Firefox), "Load failed" (Safari).
     return {
       success: false,
       error: {
-        code: "UNKNOWN_ERROR",
-        message: "Something went wrong. Please try again.",
+        code: "NETWORK_ERROR",
+        message: "Connection lost. Please check your internet and try again.",
         retryable: true,
       },
     };
@@ -185,6 +247,11 @@ export async function exportPdf(
     URL.revokeObjectURL(url);
   }
 
-  return { success: result.success, error: result.error };
+  return {
+    success: result.success,
+    error: result.error,
+    attempts: result.attempts,
+    firstErrorCode: result.firstErrorCode,
+  };
 }
 

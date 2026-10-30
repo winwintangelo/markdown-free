@@ -20,6 +20,7 @@ export function exportErrorMessage(code: string, format: string, dict: Dictionar
   const e = dict.errors;
   switch (code) {
     case "GENERATION_TIMEOUT":
+    case "GATEWAY_TIMEOUT":
       return e.timeout.replace("{format}", format.toUpperCase());
     case "NETWORK_ERROR":
       return e.networkError;
@@ -33,7 +34,7 @@ export function exportErrorMessage(code: string, format: string, dict: Dictionar
       return e.noTables;
     case "ABORTED":
       return e.aborted;
-    // GENERATION_FAILED, UNKNOWN_ERROR, FORBIDDEN and anything new
+    // GENERATION_FAILED, GATEWAY_ERROR, UNKNOWN_ERROR, FORBIDDEN and anything new
     default:
       return e.pdfError;
   }

@@ -96,16 +96,30 @@ export const UPLOAD_ERROR_CATEGORY: Record<UploadErrorReason, ErrorCategory> = {
 export type ConvertErrorCode =
   | "pdf_timeout"
   | "pdf_server_error"
+  | "gateway_timeout"
+  | "gateway_error"
   | "network_error"
+  | "too_large"
+  | "rate_limited"
+  | "forbidden"
+  | "invalid_content"
+  | "client_error"
   | "aborted"
   | "img_too_large"
   | "img_render_failed"
   | "unknown";
 
 export const CONVERT_ERROR_CATEGORY: Record<ConvertErrorCode, ErrorCategory> = {
-  pdf_timeout: "system_error",      // Server took too long
-  pdf_server_error: "system_error", // 500 error from server
+  pdf_timeout: "system_error",      // The route ran out of time (JSON GENERATION_TIMEOUT)
+  pdf_server_error: "system_error", // The route failed (JSON GENERATION_FAILED)
+  gateway_timeout: "system_error",  // The platform stopped the function (non-JSON 504)
+  gateway_error: "system_error",    // Any other non-JSON 5xx from the platform
   network_error: "system_error",    // Network connectivity issue
+  too_large: "user_error",          // The document is over a size limit (413)
+  rate_limited: "user_error",       // Too many conversions from one address (429)
+  forbidden: "system_error",        // The request came from an origin we don't serve (403)
+  invalid_content: "user_error",    // The route couldn't read the document (400)
+  client_error: "system_error",     // An exception in the browser, outside the request
   aborted: "user_error",            // User cancelled the request
   img_too_large: "user_error",      // Document exceeds canvas limits even degraded
   img_render_failed: "system_error", // Browser canvas/rasterization failure
@@ -171,6 +185,16 @@ export function trackConvertError(
 ): void {
   const category = CONVERT_ERROR_CATEGORY[errorCode];
   trackEvent("convert_error", { format, error_code: errorCode, category, uses: currentUses() });
+}
+
+/**
+ * A conversion request failed and was retried once (src/lib/export-pdf.ts).
+ * `error_code` is the first failure; `outcome` says whether the retry
+ * produced the file ("recovered") or failed too ("failed", which also logs a
+ * convert_error with the second failure).
+ */
+export function trackConvertRetry(format: ExportFormat, firstError: ConvertErrorCode, recovered: boolean): void {
+  trackEvent("convert_retry", { format, error_code: firstError, outcome: recovered ? "recovered" : "failed" });
 }
 
 /**

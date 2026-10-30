@@ -4,6 +4,7 @@ import {
   isUrlSafe,
   fetchWithRedirectValidation,
   fetchValidatedImage,
+  proxyImagesInHtml,
   __setFetchImplForTests,
 } from "../src/lib/image-proxy";
 
@@ -236,6 +237,68 @@ test.describe("image-proxy lib — unit validation", () => {
     const result = await fetchValidatedImage("https://example.com/drip.png");
     expect(result).toBeNull();
     expect(Date.now() - started).toBeLessThan(8000);
+  });
+});
+
+test.describe("image-proxy lib — the document deadline (PDF route)", () => {
+  test.afterEach(() => {
+    __setFetchImplForTests(null);
+  });
+
+  // A host that never answers until the fetch is aborted, and one that answers at once
+  function mockHosts() {
+    __setFetchImplForTests((async (url: string, init: { signal?: AbortSignal }) => {
+      if (url.includes("/slow-")) {
+        return new Promise((_, reject) => {
+          init.signal?.addEventListener("abort", () => reject(new DOMException("aborted", "AbortError")), {
+            once: true,
+          });
+        });
+      }
+      return new Response(pngFixture(), { status: 200, headers: { "content-type": "image/png" } });
+    }) as never);
+  }
+
+  test("slow images keep their URL at the deadline; the fast one is embedded", async () => {
+    mockHosts();
+    const html = [
+      '<img src="https://example.com/fast.png">',
+      '<img src="https://example.com/slow-1.png">',
+      '<img src="https://example.com/slow-2.png">',
+      '<img src="https://example.com/slow-3.png">',
+    ].join("\n");
+
+    const started = Date.now();
+    const out = await proxyImagesInHtml(html, { deadline: Date.now() + 300 });
+    // Each slow fetch alone could take 5 s; the deadline ends all of them together.
+    expect(Date.now() - started).toBeLessThan(2000);
+    expect(out).toContain('src="data:image/png;base64,');
+    expect(out).not.toContain("https://example.com/fast.png");
+    for (const n of [1, 2, 3]) expect(out).toContain(`https://example.com/slow-${n}.png`);
+  });
+
+  test("a URL with several query parameters is fetched whole, not cut at the encoded &", async () => {
+    const requested: string[] = [];
+    __setFetchImplForTests((async (url: string) => {
+      requested.push(url);
+      return new Response(pngFixture(), { status: 200, headers: { "content-type": "image/png" } });
+    }) as never);
+    // What the HTML serializer writes for ![x](https://example.com/a.png?w=800&h=600)
+    const html = [
+      '<img src="https://example.com/a.png?w=800&#x26;h=600">',
+      '<img src="https://example.com/b.png?x=1&amp;y=2">',
+    ].join("\n");
+
+    const out = await proxyImagesInHtml(html);
+    expect(requested.sort()).toEqual(["https://example.com/a.png?w=800&h=600", "https://example.com/b.png?x=1&y=2"]);
+    expect(out.match(/data:image\/png;base64,/g)).toHaveLength(2);
+  });
+
+  test("without a deadline, every image in a long document is fetched", async () => {
+    mockHosts();
+    const html = Array.from({ length: 12 }, (_, i) => `<img src="https://example.com/fast-${i}.png">`).join("\n");
+    const out = await proxyImagesInHtml(html);
+    expect(out.match(/data:image\/png;base64,/g)).toHaveLength(12);
   });
 });
 
