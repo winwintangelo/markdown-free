@@ -127,7 +127,8 @@ const content: Partial<Record<Locale, {
         "General device/browser information",
         "How often a browser converts, in broad ranges: conversions and active days in the last 30 days, the number of formats, time since its first conversion, and whether it happened during weekday working hours, outside them, or at the weekend",
         "Facts about a converted document, in broad ranges: its size, the number of images, whether it has formulas or diagrams, and whether it was converted before",
-        "The size range of a file that was too large to upload"
+        "The size range of a file that was too large to upload",
+        "The general kind of a file we can't open, such as a Word document, PDF or image (never its name)"
       ],
       notice: "We do not send your Markdown content, file names, or any text you paste to our analytics providers. Your browser works out the ranges above itself. To recognise a document you convert again, it keeps a one-way fingerprint of recent file names (or pasted text) for 30 days; the fingerprint never leaves your device. Analytics respects your browser's Do Not Track setting."
     },
@@ -146,7 +147,7 @@ const content: Partial<Record<Locale, {
     changes: {
       title: "Changes to this policy",
       text: "If we make changes to this privacy policy, we'll update the date below. Significant changes will be noted on the homepage.",
-      date: "Last updated: September 2026"
+      date: "Last updated: November 2026"
     },
     contact: {
       title: "Contact",
@@ -203,7 +204,8 @@ const content: Partial<Record<Locale, {
         "Informazioni generali su dispositivo/browser",
         "Con quale frequenza un browser converte, per fasce: conversioni e giorni di utilizzo negli ultimi 30 giorni, numero di formati, tempo trascorso dalla prima conversione e se avviene in orario lavorativo nei giorni feriali, fuori orario o nel fine settimana",
         "Dati su un documento convertito, per fasce: dimensione, numero di immagini, presenza di formule o diagrammi e se era già stato convertito",
-        "La fascia di dimensione di un file troppo grande da caricare"
+        "La fascia di dimensione di un file troppo grande da caricare",
+        "Il tipo generico di un file che non possiamo aprire, come un documento Word, un PDF o un'immagine (mai il suo nome)"
       ],
       notice: "Non inviamo il contenuto Markdown, i nomi dei file o qualsiasi testo che incolli ai nostri provider di analytics. Le fasce qui sopra vengono calcolate dal tuo browser. Per riconoscere un documento che converti di nuovo, il browser conserva per 30 giorni un'impronta non reversibile dei nomi dei file recenti (o del testo incollato); l'impronta non lascia mai il tuo dispositivo. Le analytics rispettano l'impostazione Do Not Track del tuo browser."
     },
@@ -222,7 +224,7 @@ const content: Partial<Record<Locale, {
     changes: {
       title: "Modifiche a questa policy",
       text: "Se apportiamo modifiche a questa informativa sulla privacy, aggiorneremo la data qui sotto. Le modifiche significative saranno indicate sulla homepage.",
-      date: "Ultimo aggiornamento: Settembre 2026"
+      date: "Ultimo aggiornamento: Novembre 2026"
     },
     contact: {
       title: "Contatti",
@@ -279,7 +281,8 @@ const content: Partial<Record<Locale, {
         "Información general de dispositivo/navegador",
         "Con qué frecuencia convierte un navegador, en rangos amplios: conversiones y días de uso en los últimos 30 días, número de formatos, tiempo desde su primera conversión y si ocurre en horario laboral entre semana, fuera de él o en fin de semana",
         "Datos de un documento convertido, en rangos amplios: su tamaño, el número de imágenes, si contiene fórmulas o diagramas y si ya se había convertido antes",
-        "El rango de tamaño de un archivo demasiado grande para subirlo"
+        "El rango de tamaño de un archivo demasiado grande para subirlo",
+        "El tipo general de un archivo que no podemos abrir, como un documento de Word, un PDF o una imagen (nunca su nombre)"
       ],
       notice: "No enviamos tu contenido Markdown, nombres de archivos ni ningún texto que pegues a nuestros proveedores de analytics. Tu navegador calcula por sí mismo los rangos anteriores. Para reconocer un documento que vuelves a convertir, guarda durante 30 días una huella irreversible de los nombres de archivo recientes (o del texto pegado); esa huella nunca sale de tu dispositivo. Las analytics respetan la configuración Do Not Track de tu navegador."
     },
@@ -298,7 +301,7 @@ const content: Partial<Record<Locale, {
     changes: {
       title: "Cambios a esta política",
       text: "Si hacemos cambios a esta política de privacidad, actualizaremos la fecha abajo. Los cambios significativos se notarán en la página principal.",
-      date: "Última actualización: Septiembre 2026"
+      date: "Última actualización: Noviembre 2026"
     },
     contact: {
       title: "Contacto",
@@ -355,7 +358,8 @@ const content: Partial<Record<Locale, {
         "一般的なデバイス/ブラウザ情報",
         "ブラウザごとの利用頻度（大まかな範囲）：過去30日間の変換回数と利用日数、使った形式の数、初回変換からの期間、平日の勤務時間帯・時間外・週末のいずれか",
         "変換したドキュメントの特徴（大まかな範囲）：サイズ、画像の数、数式や図を含むかどうか、以前に変換したことがあるかどうか",
-        "大きすぎてアップロードできなかったファイルのサイズの範囲"
+        "大きすぎてアップロードできなかったファイルのサイズの範囲",
+        "開けなかったファイルのおおまかな種類（Word 文書、PDF、画像など。ファイル名は含みません）"
       ],
       notice: "Markdownコンテンツ、ファイル名、貼り付けたテキストはアナリティクスプロバイダーに送信されません。上記の範囲はブラウザ内で算出されます。同じドキュメントの再変換を判別するため、ブラウザは最近のファイル名（または貼り付けたテキスト）から作った元に戻せない識別子を30日間保存しますが、この識別子が端末の外に出ることはありません。アナリティクスはブラウザのDo Not Track設定を尊重します。"
     },
@@ -374,7 +378,7 @@ const content: Partial<Record<Locale, {
     changes: {
       title: "ポリシーの変更",
       text: "このプライバシーポリシーに変更を加える場合、下記の日付を更新します。重要な変更はホームページでお知らせします。",
-      date: "最終更新日: 2026年9月"
+      date: "最終更新日: 2026年11月"
     },
     contact: {
       title: "お問い合わせ",
@@ -431,7 +435,8 @@ const content: Partial<Record<Locale, {
         "일반적인 기기/브라우저 정보",
         "브라우저의 사용 빈도(대략적인 범위): 최근 30일간 변환 횟수와 사용 일수, 사용한 형식 수, 첫 변환 이후 기간, 평일 근무 시간·그 외 시간·주말 중 언제인지",
         "변환한 문서의 특징(대략적인 범위): 크기, 이미지 수, 수식이나 다이어그램 포함 여부, 이전에 변환한 적이 있는지 여부",
-        "너무 커서 업로드할 수 없었던 파일의 크기 범위"
+        "너무 커서 업로드할 수 없었던 파일의 크기 범위",
+        "열 수 없었던 파일의 대략적인 종류(Word 문서, PDF, 이미지 등 — 파일명은 포함하지 않음)"
       ],
       notice: "Markdown 콘텐츠, 파일명, 붙여넣은 텍스트는 분석 제공업체에 전송되지 않습니다. 위의 범위는 브라우저에서 직접 계산됩니다. 같은 문서를 다시 변환하는지 알아보기 위해 브라우저는 최근 파일명(또는 붙여넣은 텍스트)으로 만든 되돌릴 수 없는 식별값을 30일 동안 보관하며, 이 식별값은 기기 밖으로 나가지 않습니다. 분석은 브라우저의 Do Not Track 설정을 존중합니다."
     },
@@ -450,7 +455,7 @@ const content: Partial<Record<Locale, {
     changes: {
       title: "정책 변경",
       text: "이 개인정보 처리방침에 변경 사항이 있으면 아래 날짜를 업데이트합니다. 중요한 변경 사항은 홈페이지에서 공지합니다.",
-      date: "최종 업데이트: 2026년 9월"
+      date: "최종 업데이트: 2026년 11월"
     },
     contact: {
       title: "문의",
@@ -507,7 +512,8 @@ const content: Partial<Record<Locale, {
         "一般设备/浏览器信息",
         "浏览器的使用频率（粗略区间）：过去 30 天的转换次数和使用天数、使用的格式数量、距首次转换的时间，以及是在工作日工作时间、工作时间以外还是周末",
         "所转换文档的特征（粗略区间）：大小、图片数量、是否包含公式或图表，以及是否曾经转换过",
-        "因过大而无法上传的文件的大小区间"
+        "因过大而无法上传的文件的大小区间",
+        "无法打开的文件的大致类型（如 Word 文档、PDF 或图片，不含文件名）"
       ],
       notice: "我们不会将您的 Markdown 内容、文件名或任何粘贴的文本发送给分析服务提供商。上述区间由您的浏览器自行计算。为了识别您再次转换的文档，浏览器会将近期文件名（或粘贴文本）生成的不可逆标识保存 30 天，该标识不会离开您的设备。分析会尊重您浏览器的「请勿跟踪」设置。"
     },
@@ -526,7 +532,7 @@ const content: Partial<Record<Locale, {
     changes: {
       title: "政策变更",
       text: "如果我们对此隐私政策进行更改，我们将更新下方的日期。重大变更将在首页公告。",
-      date: "最后更新：2026年9月"
+      date: "最后更新：2026年11月"
     },
     contact: {
       title: "联系方式",
@@ -583,7 +589,8 @@ const content: Partial<Record<Locale, {
         "一般裝置/瀏覽器資訊",
         "瀏覽器的使用頻率（粗略區間）：過去 30 天的轉換次數和使用天數、使用的格式數量、距首次轉換的時間，以及是在平日上班時間、上班時間以外還是週末",
         "所轉換文件的特徵（粗略區間）：大小、圖片數量、是否包含公式或圖表，以及是否曾經轉換過",
-        "因過大而無法上傳的檔案的大小區間"
+        "因過大而無法上傳的檔案的大小區間",
+        "無法開啟的檔案的大致類型（如 Word 文件、PDF 或圖片，不含檔名）"
       ],
       notice: "我們不會將您的 Markdown 內容、檔案名稱或任何貼上的文字傳送給分析服務提供商。上述區間由您的瀏覽器自行計算。為了辨識您再次轉換的文件，瀏覽器會將近期檔案名稱（或貼上文字）產生的不可逆識別碼保存 30 天，該識別碼不會離開您的裝置。分析會尊重您瀏覽器的「請勿追蹤」設定。"
     },
@@ -602,7 +609,7 @@ const content: Partial<Record<Locale, {
     changes: {
       title: "政策變更",
       text: "如果我們對此隱私政策進行更改，我們將更新下方的日期。重大變更將在首頁公告。",
-      date: "最後更新：2026年9月"
+      date: "最後更新：2026年11月"
     },
     contact: {
       title: "聯絡方式",
@@ -659,7 +666,8 @@ const content: Partial<Record<Locale, {
         "Informasi perangkat/browser umum",
         "Seberapa sering sebuah browser mengonversi, dalam rentang kasar: jumlah konversi dan hari aktif dalam 30 hari terakhir, jumlah format, lama sejak konversi pertama, dan apakah terjadi pada jam kerja hari kerja, di luar jam kerja, atau akhir pekan",
         "Fakta tentang dokumen yang dikonversi, dalam rentang kasar: ukurannya, jumlah gambar, apakah berisi rumus atau diagram, dan apakah pernah dikonversi sebelumnya",
-        "Rentang ukuran file yang terlalu besar untuk diunggah"
+        "Rentang ukuran file yang terlalu besar untuk diunggah",
+        "Jenis umum file yang tidak dapat kami buka, seperti dokumen Word, PDF, atau gambar (tanpa nama filenya)"
       ],
       notice: "Kami tidak mengirim konten Markdown, nama file, atau teks apa pun yang Anda tempel ke penyedia analitik kami. Rentang di atas dihitung sendiri oleh browser Anda. Untuk mengenali dokumen yang Anda konversi lagi, browser menyimpan sidik jari satu arah dari nama file terbaru (atau teks yang ditempel) selama 30 hari; sidik jari itu tidak pernah meninggalkan perangkat Anda. Analitik menghormati pengaturan Do Not Track browser Anda."
     },
@@ -678,7 +686,7 @@ const content: Partial<Record<Locale, {
     changes: {
       title: "Perubahan kebijakan ini",
       text: "Jika kami membuat perubahan pada kebijakan privasi ini, kami akan memperbarui tanggal di bawah. Perubahan signifikan akan dicatat di halaman utama.",
-      date: "Terakhir diperbarui: September 2026"
+      date: "Terakhir diperbarui: November 2026"
     },
     contact: {
       title: "Kontak",
@@ -735,7 +743,8 @@ const content: Partial<Record<Locale, {
         "Thông tin thiết bị/trình duyệt chung",
         "Tần suất một trình duyệt chuyển đổi, theo khoảng ước lượng: số lần chuyển đổi và số ngày sử dụng trong 30 ngày qua, số định dạng, thời gian kể từ lần chuyển đổi đầu tiên, và thời điểm là giờ làm việc ngày thường, ngoài giờ hay cuối tuần",
         "Đặc điểm của tài liệu đã chuyển đổi, theo khoảng ước lượng: kích thước, số lượng hình ảnh, có chứa công thức hoặc sơ đồ hay không, và đã từng được chuyển đổi trước đó hay chưa",
-        "Khoảng kích thước của tệp quá lớn không thể tải lên"
+        "Khoảng kích thước của tệp quá lớn không thể tải lên",
+        "Loại chung của tệp mà chúng tôi không mở được, chẳng hạn tài liệu Word, PDF hoặc hình ảnh (không bao giờ kèm tên tệp)"
       ],
       notice: "Chúng tôi không gửi nội dung Markdown, tên tệp hoặc bất kỳ văn bản nào bạn dán cho các nhà cung cấp phân tích của chúng tôi. Các khoảng ở trên do chính trình duyệt của bạn tính toán. Để nhận ra tài liệu bạn chuyển đổi lại, trình duyệt lưu một dấu vân tay một chiều của các tên tệp gần đây (hoặc văn bản đã dán) trong 30 ngày; dấu vân tay này không bao giờ rời khỏi thiết bị của bạn. Phân tích tôn trọng cài đặt Không Theo dõi của trình duyệt của bạn."
     },
@@ -754,7 +763,7 @@ const content: Partial<Record<Locale, {
     changes: {
       title: "Thay đổi chính sách này",
       text: "Nếu chúng tôi thay đổi chính sách bảo mật này, chúng tôi sẽ cập nhật ngày bên dưới. Những thay đổi quan trọng sẽ được ghi nhận trên trang chủ.",
-      date: "Cập nhật lần cuối: Tháng 9 năm 2026"
+      date: "Cập nhật lần cuối: Tháng 11 năm 2026"
     },
     contact: {
       title: "Liên hệ",

@@ -56,12 +56,12 @@ export function InlineConverter({
       trackUploadStart("file");
 
       if (!isValidFileType(file.name)) {
-        trackUploadError("file", "invalid_type");
+        trackUploadError("file", "invalid_type", file);
         setError(dict.errors.invalidType);
         return;
       }
       if (!isValidFileSize(file.size)) {
-        trackUploadError("file", "too_large", file.size);
+        trackUploadError("file", "too_large", file);
         setRejectedSize(file.size);
         setError(dict.errors.tooLarge);
         return;

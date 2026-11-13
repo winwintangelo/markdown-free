@@ -141,7 +141,7 @@ export function trackUploadStart(source: UploadSource): void {
 export function trackUploadError(
   source: UploadSource,
   reason: UploadErrorReason,
-  fileSize?: number
+  file?: { name: string; size: number }
 ): void {
   const category = UPLOAD_ERROR_CATEGORY[reason];
   trackEvent("upload_error", {
@@ -149,8 +149,36 @@ export function trackUploadError(
     reason,
     category,
     uses: currentUses(),
-    ...(reason === "too_large" && fileSize !== undefined ? { size: sizeBucket(fileSize) } : {}),
+    ...(reason === "too_large" && file ? { size: sizeBucket(file.size) } : {}),
+    ...(reason === "invalid_type" && file ? { kind: fileKind(file.name) } : {}),
   });
+}
+
+/**
+ * File types we turn away, grouped so a rejected upload tells us what people
+ * hoped to convert (Word or PDF to Markdown, say). Only the group name reaches
+ * analytics, never the file name.
+ */
+const FILE_KINDS: [kind: string, extensions: string[]][] = [
+  ["md_variant", ["mdx", "mdown", "mkd", "mkdn", "mdwn", "rmd", "qmd"]],
+  ["word", ["docx", "doc", "rtf", "odt", "pages", "wps"]],
+  ["pdf", ["pdf"]],
+  ["html", ["html", "htm", "mhtml", "xhtml"]],
+  ["image", ["png", "jpg", "jpeg", "gif", "webp", "heic", "bmp", "svg"]],
+  ["sheet", ["xlsx", "xls", "csv", "ods", "numbers"]],
+  ["slides", ["pptx", "ppt", "key", "odp"]],
+  ["latex", ["tex"]],
+  ["notebook", ["ipynb"]],
+  ["data", ["json", "yaml", "yml", "xml"]],
+  ["archive", ["zip", "rar", "7z"]],
+];
+
+/** "Report.DOCX" → "word"; no extension → "none"; anything unlisted → "other". */
+export function fileKind(fileName: string): string {
+  const dot = fileName.lastIndexOf(".");
+  if (dot <= 0 || dot === fileName.length - 1) return "none";
+  const extension = fileName.slice(dot + 1).toLowerCase();
+  return FILE_KINDS.find(([, extensions]) => extensions.includes(extension))?.[0] ?? "other";
 }
 
 /**
@@ -398,13 +426,13 @@ export function trackLocaleConversion(
 // =============================================================================
 
 /**
- * Known AI referrer domains for segmentation
+ * Known AI referrer domains for segmentation. A domain matches itself and its
+ * subdomains only, so bing.com search and youtube.com stay out.
  */
 const AI_REFERRERS: Record<string, string> = {
   "chat.openai.com": "chatgpt",
   "chatgpt.com": "chatgpt",
   "copilot.microsoft.com": "copilot",
-  "bing.com/chat": "copilot",
   "perplexity.ai": "perplexity",
   "claude.ai": "claude",
   "anthropic.com": "claude",
@@ -414,29 +442,36 @@ const AI_REFERRERS: Record<string, string> = {
   "poe.com": "poe",
   "phind.com": "phind",
   "kagi.com": "kagi",
+  "doubao.com": "doubao",
+  "yuanbao.tencent.com": "yuanbao",
+  "chat.deepseek.com": "deepseek",
+  "kimi.com": "kimi",
+  "kimi.moonshot.cn": "kimi",
 };
 
 /**
- * Detect if the referrer is from an AI assistant
+ * Classify a referrer URL. Copilot inside Bing shares the search engine's
+ * host, so it counts only when the referrer keeps its /chat path; browsers
+ * usually send the origin alone, and then the visit counts as Bing search.
  */
-export function detectAIReferrer(): { isAI: boolean; source: string } {
-  if (typeof window === "undefined" || !document.referrer) {
+export function classifyReferrer(referrer: string): { isAI: boolean; source: string } {
+  if (!referrer) {
     return { isAI: false, source: "direct" };
   }
 
   try {
-    const referrerUrl = new URL(document.referrer);
+    const referrerUrl = new URL(referrer);
     const hostname = referrerUrl.hostname.toLowerCase();
 
-    // Check exact matches and partial matches
     for (const [domain, source] of Object.entries(AI_REFERRERS)) {
       if (hostname === domain || hostname.endsWith(`.${domain}`)) {
         return { isAI: true, source };
       }
-      // Check if domain is part of hostname (e.g., chat.openai.com)
-      if (hostname.includes(domain.split(".")[0]) && domain.includes(".")) {
-        return { isAI: true, source };
-      }
+    }
+
+    const isBing = hostname === "bing.com" || hostname.endsWith(".bing.com");
+    if (isBing && /^\/chat(\/|$)/.test(referrerUrl.pathname)) {
+      return { isAI: true, source: "copilot" };
     }
 
     // Return non-AI referrer
@@ -444,6 +479,16 @@ export function detectAIReferrer(): { isAI: boolean; source: string } {
   } catch {
     return { isAI: false, source: "unknown" };
   }
+}
+
+/**
+ * Detect if the referrer is from an AI assistant
+ */
+export function detectAIReferrer(): { isAI: boolean; source: string } {
+  if (typeof window === "undefined") {
+    return { isAI: false, source: "direct" };
+  }
+  return classifyReferrer(document.referrer);
 }
 
 /**

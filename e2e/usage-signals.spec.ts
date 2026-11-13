@@ -7,7 +7,8 @@ import { openMoreFormats } from "./export-helpers";
  *
  * - `usage_profile` once per browser per day, at its first conversion.
  * - `doc_profile` once per document per tab, at its first conversion.
- * - `upload_error` for a too-large file carries its size range.
+ * - `upload_error` for a too-large file carries its size range, and for a
+ *   file we can't open, its kind (word, pdf, image…), never its name.
  */
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -201,5 +202,20 @@ test.describe("Usage signals", () => {
     await expect
       .poll(async () => (await eventsNamed(page, "upload_error"))[0]?.data)
       .toEqual({ source: "file", reason: "too_large", category: "user_error", uses: "0", size: "1-2mb" });
+  });
+
+  test("a file we can't open reports its kind, never its name", async ({ page }) => {
+    await page.goto("/");
+    await page.locator('input[type="file"]').setInputFiles({
+      name: "Quarterly Report.docx",
+      mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      buffer: Buffer.from("PK"),
+    });
+
+    await expect
+      .poll(async () => (await eventsNamed(page, "upload_error"))[0]?.data)
+      .toEqual({ source: "file", reason: "invalid_type", category: "user_error", uses: "0", kind: "word" });
+    const sent = JSON.stringify(await eventsNamed(page, "upload_error"));
+    expect(sent).not.toContain("Quarterly");
   });
 });

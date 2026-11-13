@@ -64,7 +64,7 @@ export function UploadCard({ locale: _locale, dict = defaultDict as unknown as D
 
       // Validate file type
       if (!isValidFileType(file.name)) {
-        trackUploadError("file", "invalid_type");
+        trackUploadError("file", "invalid_type", file);
         dispatch({
           type: "SET_ERROR",
           error: {
@@ -77,7 +77,7 @@ export function UploadCard({ locale: _locale, dict = defaultDict as unknown as D
 
       // Validate file size
       if (!isValidFileSize(file.size)) {
-        trackUploadError("file", "too_large", file.size);
+        trackUploadError("file", "too_large", file);
         dispatch({
           type: "SET_ERROR",
           error: {

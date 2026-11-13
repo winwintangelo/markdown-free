@@ -105,6 +105,10 @@ export default function PrivacyPage() {
               it was converted before
             </li>
             <li>The size range of a file that was too large to upload</li>
+            <li>
+              The general kind of a file we can&apos;t open, such as a Word
+              document, PDF or image (never its name)
+            </li>
           </ul>
           <p>
             <strong>We do not send your Markdown content, file names, or any text
@@ -152,7 +156,7 @@ export default function PrivacyPage() {
             If we make changes to this privacy policy, we&apos;ll update the date
             below. Significant changes will be noted on the homepage.
           </p>
-          <p className="text-sm text-slate-500">Last updated: September 2026</p>
+          <p className="text-sm text-slate-500">Last updated: November 2026</p>
 
           <h2>Contact</h2>
           <p>
