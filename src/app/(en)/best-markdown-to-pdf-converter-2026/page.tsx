@@ -270,11 +270,12 @@ export default function BestMarkdownToPdfConverter2026Page() {
             <strong>Strengths:</strong> no signup, no tracking cookies,
             privacy-friendly analytics, 10 supported UI languages, strong DOCX
             output for converting AI-generated markdown into corporate Word
-            documents, LaTeX math and Mermaid diagrams rendered in every format.
+            documents, LaTeX math and Mermaid diagrams rendered in every format,
+            editable equations in Word.
             <br />
             <strong>Weaknesses:</strong> 1MB input file size cap, no offline
             mode (requires browser), no batch processing (one file at a time),
-            no customizable PDF styling, no editable equations in Word yet.
+            no customizable PDF styling.
             <br />
             <strong>Best for:</strong> anyone who needs to convert Markdown to
             PDF, DOCX, or EPUB right now without installing anything,
